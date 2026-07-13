@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Badge, Table, Input, Modal, Toast } from '../components/UI';
-import { FileText, Upload, Clock, CheckCircle, Send, Plus, ChevronLeft, Building2, UploadCloud, Download } from 'lucide-react';
+import { FileText, Upload, Clock, CheckCircle, Send, Plus, ChevronLeft, Building2, UploadCloud, Download, AlertCircle } from 'lucide-react';
 
 const DEPARTMENTS = [
   'Khối Kỹ thuật', 'Khối Khai thác', 'Khối Dịch vụ', 'Ban ATCL', 'Đoàn bay', 'Đoàn tiếp viên', 'Ban Nhân sự', 'Trung tâm BSV'
