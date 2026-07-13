@@ -54,19 +54,7 @@ import { Card } from './components/UI';
 import { Server, Database, Workflow } from 'lucide-react';
 
 const App: React.FC = () => {
-  React.useEffect(() => {
-    const saved = localStorage.getItem('vna_esg_indicators');
-    if (saved) {
-      try {
-        const indicators = JSON.parse(saved);
-        const gri418 = indicators.find((ind: any) => ind.code === 'GRI 418-1');
-        if (gri418 && gri418.sourceForm !== 'ops-digital') {
-          localStorage.removeItem('vna_esg_indicators');
-          window.location.reload();
-        }
-      } catch (e) {}
-    }
-  }, []);
+  // (cache-busting logic removed — was causing infinite reload loop)
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => new URLSearchParams(window.location.search).get('demo') === '1'

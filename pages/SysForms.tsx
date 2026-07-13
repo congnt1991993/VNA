@@ -69,10 +69,32 @@ export const SysFormsPage: React.FC = () => {
   const { i18n } = useTranslation();
   const isEn = i18n.language === 'en';
   
-  const [forms, setForms] = useState<SystemForm[]>(MOCK_FORMS);
+  const [forms, setForms] = useState<SystemForm[]>([]);
   const [searchText, setSearchText] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingForm, setEditingForm] = useState<SystemForm | null>(null);
+
+  // Load forms on mount and sync to localStorage
+  React.useEffect(() => {
+    const saved = localStorage.getItem('vna_esg_forms');
+    if (saved) {
+      try {
+        setForms(JSON.parse(saved));
+      } catch (e) {
+        setForms(MOCK_FORMS);
+        localStorage.setItem('vna_esg_forms', JSON.stringify(MOCK_FORMS));
+      }
+    } else {
+      setForms(MOCK_FORMS);
+      localStorage.setItem('vna_esg_forms', JSON.stringify(MOCK_FORMS));
+    }
+  }, []);
+
+  const updateFormsAndSync = (newForms: SystemForm[]) => {
+    setForms(newForms);
+    localStorage.setItem('vna_esg_forms', JSON.stringify(newForms));
+    window.dispatchEvent(new Event('vna_forms_updated'));
+  };
   
   // Form Info State
   const [formName, setFormName] = useState('');
@@ -200,7 +222,7 @@ export const SysFormsPage: React.FC = () => {
         }
         return f;
       });
-      setForms(updated);
+      updateFormsAndSync(updated);
       showToast(isEn ? 'Form template with custom fields saved successfully!' : 'Đã cập nhật biểu mẫu kèm các trường động thành công!', 'success');
     } else {
       // Add Mode
@@ -216,7 +238,7 @@ export const SysFormsPage: React.FC = () => {
         description: formDesc.trim(),
         fields: dynamicFields
       };
-      setForms([newForm, ...forms]);
+      updateFormsAndSync([newForm, ...forms]);
       showToast(isEn ? 'New dynamic form template created successfully!' : 'Đã tạo mới biểu mẫu động thành công!', 'success');
     }
 
@@ -229,7 +251,7 @@ export const SysFormsPage: React.FC = () => {
       : `Bạn có chắc chắn muốn xóa biểu mẫu "${name}"?`;
       
     if (window.confirm(confirmMsg)) {
-      setForms(forms.filter(f => f.id !== id));
+      updateFormsAndSync(forms.filter(f => f.id !== id));
       showToast(isEn ? 'Form template deleted successfully!' : 'Đã xóa biểu mẫu thành công!', 'error');
     }
   };

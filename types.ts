@@ -89,6 +89,7 @@ export interface EsgIndicator {
   status: Status;
   program: string[]; // CORSIA, EU ETS, etc.
   department: string;
+  assignedForms?: string[]; // Danh sách các ID biểu mẫu được gán cho chỉ tiêu này (chọn nhiều)
 }
 
 export interface SimulationParameter {

@@ -126,6 +126,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
   const [formIndicator, setFormIndicator] = useState<Indicator | null>(null);
   
   const [formulas, setFormulas] = useState<any[]>([]);
+  const [searchFormQuery, setSearchFormQuery] = useState('');
+  const [isOpenFormDropdown, setIsOpenFormDropdown] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('vna_esg_formulas');
@@ -160,7 +162,55 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
   const [importLoading, setImportLoading] = useState(false);
 
   // Load state from localStorage on mount
+  const [allForms, setAllForms] = useState<any[]>([]);
+
   useEffect(() => {
+    // Load forms
+    const loadForms = () => {
+      const savedForms = localStorage.getItem('vna_esg_forms');
+      if (savedForms) {
+        try {
+          setAllForms(JSON.parse(savedForms));
+        } catch (e) {}
+      } else {
+        // Fallback default mock forms
+        const defaults = [
+          {
+            id: 'FORM-001',
+            name: 'Biểu mẫu kê khai nhiên liệu bay Jet A1',
+            indicatorId: 'GRI 302-1',
+            indicatorName: 'GRI 302-1: Năng lượng tiêu thụ của tổ chức (E)',
+            createdAt: '12/05/2026',
+            createdBy: 'Trần Văn Hoàng',
+            fields: [
+              { id: '1', name: 'Đội bay', dataType: 'String', inputType: 'Combobox' },
+              { id: '2', name: 'Sản lượng tiêu thụ (Tấn)', dataType: 'Number', inputType: 'NumberInput' }
+            ]
+          },
+          {
+            id: 'FORM-002',
+            name: 'Biểu mẫu thống kê phát thải khí nhà kính trực tiếp',
+            indicatorId: 'GRI 305-1',
+            indicatorName: 'GRI 305-1: Phát thải khí nhà kính trực tiếp (E)',
+            createdAt: '18/05/2026',
+            createdBy: 'Nguyễn Thị Minh',
+            fields: [
+              { id: '1', name: 'Nguồn phát thải', dataType: 'String', inputType: 'Text' }
+            ]
+          }
+        ];
+        setAllForms(defaults);
+        localStorage.setItem('vna_esg_forms', JSON.stringify(defaults));
+      }
+    };
+
+    loadForms();
+
+    const handleFormsSync = () => {
+      loadForms();
+    };
+    window.addEventListener('vna_forms_updated', handleFormsSync);
+
     const saved = localStorage.getItem('vna_esg_indicators');
     if (saved) {
       try {
@@ -203,7 +253,10 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
       }
     };
     window.addEventListener('vna_indicators_updated', handleSync);
-    return () => window.removeEventListener('vna_indicators_updated', handleSync);
+    return () => {
+      window.removeEventListener('vna_indicators_updated', handleSync);
+      window.removeEventListener('vna_forms_updated', handleFormsSync);
+    };
   }, []);
 
   // Filtered list
@@ -618,57 +671,183 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
             {/* TRÁCH NHIỆM & NHÃN CHƯƠNG TRÌNH */}
             <div className="flex flex-col gap-6">
-              <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs flex flex-col justify-between">
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-2 uppercase tracking-wider">Phân vai & Trách nhiệm</h3>
+              <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs">
+                <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-2 uppercase tracking-wider">Phân vai & Trách nhiệm</h3>
 
-                  <Select
-                    label="Biểu mẫu nhập liệu (Đơn vị chủ trì)"
-                    value={formIndicator.sourceForm || 'tech-ops'}
-                    onChange={(val) => {
-                      const formDef = FORM_DEFINITIONS.find(fd => fd.id === val);
-                      setFormIndicator({
-                        ...formIndicator,
-                        sourceForm: val,
-                        department: formDef ? formDef.department : formIndicator.department
-                      });
-                    }}
-                    options={FORM_DEFINITIONS.map(fd => ({ label: `${fd.code} - ${fd.name} (${fd.department})`, value: fd.id }))}
-                  />
+                {/* Chọn Tổ ban phụ trách */}
+                <Select
+                  label="Tổ ban phụ trách chỉ tiêu"
+                  value={formIndicator.department || ''}
+                  onChange={(val) => setFormIndicator({ ...formIndicator, department: val })}
+                  options={[
+                    { label: 'Ban Kỹ thuật (KT)', value: 'Ban Kỹ thuật' },
+                    { label: 'Ban Khai thác bay (KTB)', value: 'Ban Khai thác bay' },
+                    { label: 'Ban An toàn chất lượng (ATCL)', value: 'Ban An toàn chất lượng' },
+                    { label: 'Ban Dịch vụ hành khách (DVHK)', value: 'Ban Dịch vụ hành khách' },
+                    { label: 'Ban Tổ chức nhân lực (TCNL)', value: 'Ban Tổ chức nhân lực' },
+                    { label: 'Ban Công nghệ thông tin (CNTT)', value: 'Ban Công nghệ thông tin' },
+                    { label: 'Ban Kế hoạch phát triển (KHPT)', value: 'Ban Kế hoạch phát triển' },
+                    { label: 'Ban Truyền thông (TT)', value: 'Ban Truyền thông' }
+                  ]}
+                />
 
-                  {/* <div className="grid grid-cols-3 gap-3 text-left">
-                    <Input label="Đơn vị nhập liệu" value={formIndicator.inputDept || ''} onChange={(e) => setFormIndicator({ ...formIndicator, inputDept: e.target.value })} placeholder="VD: Tổ nhập liệu" />
-                    <Input label="Đơn vị phê duyệt" value={formIndicator.approveDept || ''} onChange={(e) => setFormIndicator({ ...formIndicator, approveDept: e.target.value })} placeholder="VD: Trưởng ban" />
-                    <Input label="Đơn vị giám sát" value={formIndicator.monitorDept || ''} onChange={(e) => setFormIndicator({ ...formIndicator, monitorDept: e.target.value })} placeholder="VD: Tổ chỉ đạo" />
-                  </div> */}
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhãn chương trình áp dụng</label>
-                    <div className="flex gap-6 p-3 bg-white border border-gray-300 rounded-lg">
-                      {['CORSIA', 'EU ETS', 'UK ETS'].map(prog => {
-                        const isChecked = formIndicator.programs?.includes(prog) || false;
-                        return (
-                          <label key={prog} className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={() => {
-                                let newProgs = [...(formIndicator.programs || [])];
-                                if (isChecked) {
-                                  newProgs = newProgs.filter(p => p !== prog);
-                                } else {
-                                  newProgs.push(prog);
-                                }
-                                setFormIndicator({ ...formIndicator, programs: newProgs });
-                              }}
-                              className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
-                            />
-                            {prog}
-                          </label>
-                        );
-                      })}
-                    </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhãn chương trình áp dụng</label>
+                  <div className="flex gap-6 p-3 bg-white border border-gray-300 rounded-lg">
+                    {['CORSIA', 'EU ETS', 'UK ETS'].map(prog => {
+                      const isChecked = formIndicator.programs?.includes(prog) || false;
+                      return (
+                        <label key={prog} className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => {
+                              let newProgs = [...(formIndicator.programs || [])];
+                              if (isChecked) {
+                                newProgs = newProgs.filter(p => p !== prog);
+                              } else {
+                                newProgs.push(prog);
+                              }
+                              setFormIndicator({ ...formIndicator, programs: newProgs });
+                            }}
+                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                          />
+                          {prog}
+                        </label>
+                      );
+                    })}
                   </div>
+                </div>
+              </div>
+
+              {/* BLOCK GÁN BIỂU MẪU DỮ LIỆU ĐẦU VÀO (COMBOBOX MULTIPLE SELECT KÈM SEARCH) */}
+              <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs text-left relative">
+                <div className="flex justify-between items-center border-b border-gray-200 pb-2">
+                  <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Liên kết gán Biểu mẫu dữ liệu đầu vào</h3>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase">
+                    {(formIndicator.assignedForms || []).length} được gán
+                  </span>
+                </div>
+
+                <div className="relative">
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn biểu mẫu thu thập số liệu</label>
+                  
+                  {/* Combobox Input Trigger */}
+                  <div 
+                    onClick={() => setIsOpenFormDropdown(!isOpenFormDropdown)}
+                    className="min-h-[42px] p-2 bg-white border border-gray-300 rounded-lg flex flex-wrap gap-1.5 items-center cursor-pointer hover:border-gray-400 transition-colors focus-within:border-vna-blue focus-within:ring-1 focus-within:ring-vna-blue/30"
+                  >
+                    {(formIndicator.assignedForms || []).length === 0 ? (
+                      <span className="text-sm text-gray-400 pl-1.5">Click để chọn các biểu mẫu...</span>
+                    ) : (
+                      (formIndicator.assignedForms || []).map(formId => {
+                        const formObj = allForms.find(f => f.id === formId);
+                        return (
+                          <div 
+                            key={formId} 
+                            className="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 text-vna-blue px-2.5 py-0.5 rounded-md text-xs font-bold"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <span>{formObj ? formObj.name : formId}</span>
+                            <button
+                              onClick={() => {
+                                const newAssigned = (formIndicator.assignedForms || []).filter(id => id !== formId);
+                                setFormIndicator({ ...formIndicator, assignedForms: newAssigned });
+                              }}
+                              className="text-blue-500 hover:text-blue-750 font-bold ml-1 rounded-full w-3.5 h-3.5 flex items-center justify-center hover:bg-blue-100"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        );
+                      })
+                    )}
+                    <span className="ml-auto text-gray-400 mr-1.5">▼</span>
+                  </div>
+
+                  {/* Dropdown Menu */}
+                  {isOpenFormDropdown && (
+                    <div className="absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-250 rounded-lg shadow-lg overflow-hidden flex flex-col animate-in fade-in slide-in-from-top-1 duration-150">
+                      {/* Search Bar inside Combobox */}
+                      <div className="p-2 border-b border-gray-150 bg-gray-50 flex items-center gap-2">
+                        <Search size={14} className="text-gray-400 ml-1.5" />
+                        <input
+                          type="text"
+                          value={searchFormQuery}
+                          onChange={(e) => setSearchFormQuery(e.target.value)}
+                          placeholder="Tìm kiếm biểu mẫu nhanh..."
+                          className="flex-1 bg-transparent text-sm border-none focus:outline-none focus:ring-0 p-1"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        {searchFormQuery && (
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); setSearchFormQuery(''); }}
+                            className="text-gray-400 hover:text-gray-655 text-xs font-bold"
+                          >
+                            Xóa
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Options List */}
+                      <div className="max-h-60 overflow-y-auto divide-y divide-gray-100">
+                        {(() => {
+                          const filtered = allForms.filter(f => 
+                            f.name.toLowerCase().includes(searchFormQuery.toLowerCase()) || 
+                            f.id.toLowerCase().includes(searchFormQuery.toLowerCase())
+                          );
+
+                          if (filtered.length === 0) {
+                            return <div className="p-3 text-center text-xs text-gray-400">Không tìm thấy biểu mẫu nào</div>;
+                          }
+
+                          return filtered.map(form => {
+                            const isChecked = (formIndicator.assignedForms || []).includes(form.id);
+                            return (
+                              <div
+                                key={form.id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const currentAssigned = [...(formIndicator.assignedForms || [])];
+                                  let newAssigned;
+                                  if (isChecked) {
+                                    newAssigned = currentAssigned.filter(id => id !== form.id);
+                                  } else {
+                                    newAssigned = [...currentAssigned, form.id];
+                                  }
+                                  setFormIndicator({ ...formIndicator, assignedForms: newAssigned });
+                                }}
+                                className={`p-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between text-xs transition-colors ${
+                                  isChecked ? 'bg-blue-50/20 font-bold' : ''
+                                }`}
+                              >
+                                <div className="text-left flex-1 pr-4">
+                                  <div className="text-gray-800 font-semibold">{form.name}</div>
+                                  <div className="text-[10px] text-gray-400 font-mono mt-0.5">{form.id} • {form.fields?.length || 0} trường động</div>
+                                </div>
+                                <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                                  isChecked ? 'border-vna-blue bg-vna-blue text-white' : 'border-gray-300'
+                                }`}>
+                                  {isChecked && <span className="text-[9px] font-black">✓</span>}
+                                </div>
+                              </div>
+                            );
+                          });
+                        })()}
+                      </div>
+
+                      {/* Dropdown Footer Action */}
+                      <div className="p-2 bg-gray-50 border-t border-gray-150 flex justify-between items-center text-[10px]">
+                        <span className="text-gray-500 font-semibold">Bấm bên ngoài để đóng bảng chọn</span>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); setIsOpenFormDropdown(false); }}
+                          className="px-2.5 py-1 bg-vna-blue hover:bg-vna-blue/90 text-white rounded font-bold cursor-pointer transition-colors"
+                        >
+                          Xác nhận
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -720,6 +899,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               placeholder="Nhập giới thiệu, phương pháp tính toán của chỉ tiêu ở đây..."
             />
           </div>
+
+
         </div>
       </div>
     );
