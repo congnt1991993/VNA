@@ -14,6 +14,12 @@ export const EsgReportPage: React.FC = () => {
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
 
+  // States for new campaign form
+  const [newYear, setNewYear] = useState('2026');
+  const [newTitle, setNewTitle] = useState('Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026');
+  const [newContent, setNewContent] = useState('Đề nghị các cơ quan, đơn vị khẩn trương tổng hợp và nộp báo cáo số liệu ESG năm 2026 phục vụ công tác lập Báo cáo Phát triển Bền vững của TCT.');
+  const [newDeadline, setNewDeadline] = useState('2026-03-01');
+
   // MOCK DATA
   const [campaigns, setCampaigns] = useState([
     {
@@ -22,6 +28,7 @@ export const EsgReportPage: React.FC = () => {
       title: 'Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026',
       content: 'Đề nghị các cơ quan, đơn vị khẩn trương tổng hợp và nộp báo cáo số liệu ESG năm 2026 phục vụ công tác lập Báo cáo Phát triển Bền vững của TCT.',
       status: 'IN_PROGRESS',
+      deadline: '2026-03-01', // Định dạng YYYY-MM-DD
       progress: 6,
       total: 8,
       createdAt: '15/01/2026',
@@ -51,6 +58,7 @@ export const EsgReportPage: React.FC = () => {
       title: 'Thu thập số liệu Báo cáo ESG 2025',
       content: 'Yêu cầu nộp số liệu năm 2025',
       status: 'COMPLETED',
+      deadline: '2025-02-15',
       progress: 8,
       total: 8,
       createdAt: '10/01/2025',
@@ -77,7 +85,26 @@ export const EsgReportPage: React.FC = () => {
   ]);
 
   const handleCreateRequest = () => {
-    setToast({ message: 'Đã tạo và gửi Yêu cầu thành công đến tất cả các Tổ/Ban!', type: 'success' });
+    const newCamp = {
+      id: `REQ-${Date.now()}`,
+      year: newYear,
+      title: newTitle,
+      content: newContent,
+      status: 'IN_PROGRESS',
+      deadline: newDeadline,
+      progress: 0,
+      total: DEPARTMENTS.length,
+      createdAt: new Date().toLocaleDateString('vi-VN'),
+      departments: DEPARTMENTS.map(d => ({
+        name: d,
+        status: 'PENDING',
+        submittedAt: null,
+        submittedUser: null,
+        file: null
+      }))
+    };
+    setCampaigns([newCamp, ...campaigns]);
+    setToast({ message: 'Đã tạo và gửi Yêu cầu thành công đến tất cả các Tổ/Ban với hạn nộp quy định!', type: 'success' });
     setIsCreateModalOpen(false);
   };
 
@@ -118,42 +145,56 @@ export const EsgReportPage: React.FC = () => {
                   <th className="px-4 py-3">Tên Yêu cầu / Đợt thu thập</th>
                   <th className="px-4 py-3 text-center">Năm BC</th>
                   <th className="px-4 py-3">Ngày tạo</th>
+                  <th className="px-4 py-3">Hạn nộp</th>
                   <th className="px-4 py-3">Tiến độ nộp</th>
                   <th className="px-4 py-3">Trạng thái</th>
                   <th className="px-4 py-3 text-right">Thao tác</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {campaigns.map(camp => (
-                  <tr key={camp.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => { setSelectedCampaign(camp); setView('DETAIL'); }}>
-                    <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg ${camp.status === 'COMPLETED' ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-vna-blue'}`}>
-                          <FileText size={20} />
+                {campaigns.map(camp => {
+                  const isOverdue = camp.status === 'IN_PROGRESS' && new Date() > new Date(camp.deadline);
+                  return (
+                    <tr key={camp.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => { setSelectedCampaign(camp); setView('DETAIL'); }}>
+                      <td className="px-4 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg ${camp.status === 'COMPLETED' ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-vna-blue'}`}>
+                            <FileText size={20} />
+                          </div>
+                          <div className="font-medium text-gray-900">{camp.title}</div>
                         </div>
-                        <div className="font-medium text-gray-900">{camp.title}</div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 text-center font-bold text-gray-600">{camp.year}</td>
-                    <td className="px-4 py-4 text-gray-600">{camp.createdAt}</td>
-                    <td className="px-4 py-4">
-                      <div className="w-full bg-gray-200 rounded-full h-2 mb-1 max-w-[150px]">
-                        <div className={`h-2 rounded-full ${camp.progress === camp.total ? 'bg-green-500' : 'bg-vna-blue'}`} style={{ width: `${(camp.progress / camp.total) * 100}%` }}></div>
-                      </div>
-                      <span className="text-xs text-gray-500">{camp.progress} / {camp.total} Ban đã nộp</span>
-                    </td>
-                    <td className="px-4 py-4">
-                      {camp.status === 'COMPLETED' ? (
-                        <Badge variant="success"><CheckCircle size={12} className="mr-1 inline" /> Đã kết thúc</Badge>
-                      ) : (
-                        <Badge variant="warning"><Clock size={12} className="mr-1 inline" /> Đang thu thập</Badge>
-                      )}
-                    </td>
-                    <td className="px-4 py-4 text-right">
-                      <Button variant="ghost" size="sm" className="text-vna-blue">Chi tiết</Button>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="px-4 py-4 text-center font-bold text-gray-600">{camp.year}</td>
+                      <td className="px-4 py-4 text-gray-600">{camp.createdAt}</td>
+                      <td className="px-4 py-4 font-semibold text-gray-700">
+                        {new Date(camp.deadline).toLocaleDateString('vi-VN')}
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="w-full bg-gray-200 rounded-full h-2 mb-1 max-w-[150px]">
+                          <div className={`h-2 rounded-full ${camp.progress === camp.total ? 'bg-green-500' : 'bg-vna-blue'}`} style={{ width: `${(camp.progress / camp.total) * 100}%` }}></div>
+                        </div>
+                        <span className="text-xs text-gray-500">{camp.progress} / {camp.total} Ban đã nộp</span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="flex flex-col gap-1 items-start">
+                          {camp.status === 'COMPLETED' ? (
+                            <Badge variant="success"><CheckCircle size={12} className="mr-1 inline" /> Đã kết thúc</Badge>
+                          ) : (
+                            <Badge variant="warning"><Clock size={12} className="mr-1 inline" /> Đang thu thập</Badge>
+                          )}
+                          {isOverdue && (
+                            <span className="text-[10px] font-black text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded animate-pulse">
+                              QUÁ HẠN NỘP
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-right">
+                        <Button variant="ghost" size="sm" className="text-vna-blue">Chi tiết</Button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </Card>
@@ -187,6 +228,17 @@ export const EsgReportPage: React.FC = () => {
               <div>
                 <p className="text-xs text-gray-500 mb-1">Nội dung đôn đốc:</p>
                 <p className="text-sm font-medium bg-gray-50 p-3 rounded-lg border border-gray-100">{selectedCampaign.content}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-500">Hạn nộp báo cáo:</p>
+                <p className="text-sm font-bold text-gray-800">
+                  {new Date(selectedCampaign.deadline).toLocaleDateString('vi-VN')}
+                  {selectedCampaign.status === 'IN_PROGRESS' && new Date() > new Date(selectedCampaign.deadline) && (
+                    <span className="text-[10px] ml-2 font-black text-red-600 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded block w-max mt-1">
+                      QUÁ HẠN
+                    </span>
+                  )}
+                </p>
               </div>
               <div className="flex justify-between items-center pt-2">
                 <span className="text-sm text-gray-500">Tiến độ tổng:</span>
@@ -260,6 +312,8 @@ export const EsgReportPage: React.FC = () => {
                       input.click();
                     };
 
+                    const isDeptOverdue = dept.status === 'PENDING' && new Date() > new Date(selectedCampaign.deadline);
+
                     return (
                       <tr key={idx} className="hover:bg-gray-50">
                         <td className="px-4 py-3 font-medium">
@@ -269,11 +323,18 @@ export const EsgReportPage: React.FC = () => {
                           </div>
                         </td>
                         <td className="px-4 py-3">
-                          {dept.status === 'SUBMITTED' ? (
-                            <Badge variant="success">Đã gửi báo cáo</Badge>
-                          ) : (
-                            <Badge variant="danger">Chưa gửi</Badge>
-                          )}
+                          <div className="flex flex-col gap-1 items-start">
+                            {dept.status === 'SUBMITTED' ? (
+                              <Badge variant="success">Đã gửi báo cáo</Badge>
+                            ) : (
+                              <Badge variant="danger">Chưa gửi</Badge>
+                            )}
+                            {isDeptOverdue && (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-black text-red-600 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded animate-pulse">
+                                <AlertCircle size={10} /> TRỄ HẠN
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-4 py-3 text-sm text-gray-750 font-semibold">{dept.submittedUser || '-'}</td>
                         <td className="px-4 py-3 text-sm text-gray-600 font-semibold font-mono">{dept.submittedAt || '-'}</td>
@@ -333,11 +394,17 @@ export const EsgReportPage: React.FC = () => {
         }
       >
         <div className="space-y-4">
-          <Input label="Năm báo cáo" type="number" defaultValue="2026" />
-          <Input label="Tiêu đề yêu cầu" defaultValue="Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026" />
+          <Input label="Năm báo cáo" type="number" value={newYear} onChange={(e) => setNewYear(e.target.value)} />
+          <Input label="Tiêu đề yêu cầu" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+          <Input label="Hạn nộp báo cáo" type="date" value={newDeadline} onChange={(e) => setNewDeadline(e.target.value)} />
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700 mb-1">Nội dung chi tiết</label>
-            <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue" rows={4} defaultValue="Đề nghị các cơ quan, đơn vị khẩn trương tổng hợp và nộp báo cáo số liệu ESG năm 2026 phục vụ công tác lập Báo cáo Phát triển Bền vững của TCT."></textarea>
+            <textarea 
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm" 
+              rows={4} 
+              value={newContent}
+              onChange={(e) => setNewContent(e.target.value)}
+            ></textarea>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Đơn vị nhận yêu cầu (Mặc định chọn tất cả)</label>
