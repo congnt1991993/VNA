@@ -1,0 +1,508 @@
+{
+  "GRI 302-1": [
+    {
+      "name": "Tổng nhiên liệu tiêu thụ",
+      "chartType": "Card"
+    },
+    {
+      "name": "Nhiên liệu tiêu thụ Jet A-1",
+      "chartType": "Card"
+    },
+    {
+      "name": "Nhiên liệu tiêu thụ SAF",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tiêu thụ SAF theo tỷ lệ pha trộn SAF",
+      "chartType": "Donut"
+    },
+    {
+      "name": "Tỷ lệ các loại nhiên liệu",
+      "chartType": "Donut"
+    },
+    {
+      "name": "Tiêu thụ nhiên liệu theo năm so với mục tiêu (Lít)",
+      "chartType": "Combo chart"
+    },
+    {
+      "name": "Tiêu thụ nhiên liệu theo tháng trong năm hiện tại (Lít)",
+      "chartType": "Stacked column"
+    },
+    {
+      "name": "Tiêu thụ nhiên liệu theo tháng qua các năm (Lít)",
+      "chartType": "Stacked column"
+    }
+  ],
+  "GRI 302-4": [
+    {
+      "name": "Tổng năng lượng tiết kiệm (Lít)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng tiết kiệm nhiên liệu (kg)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng giảm phát thải khí nhà kính (Tấn)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Năng lượng tiết kiệm theo năm so với mục tiêu (Lít)",
+      "chartType": "Combo chart"
+    },
+    {
+      "name": "Kết quả tiết kiệm nhiên liệu theo năm so với mục tiêu (kg)",
+      "chartType": "Stacked column"
+    },
+    {
+      "name": "Năng lượng tiết kiệm theo tháng trong năm hiện tại (Lít)",
+      "chartType": "Stacked column"
+    },
+    {
+      "name": "Năng lượng tiết kiệm theo tháng trong năm (Lít)",
+      "chartType": "Stacked column"
+    }
+  ],
+  "Chưa có mã": [
+    {
+      "name": "Tab 1: Overview",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng số các chuyến bay thương mại từ châu Âu",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng số giờ bay",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng SAF yêu cầu nạp (tấn)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng SAF nạp thực tế (tấn)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng SAF tra nạp theo tháng",
+      "chartType": "Stacked Column Chart"
+    },
+    {
+      "name": "Lượng mua và chi phí SAF theo từng năm",
+      "chartType": "Combo Chart"
+    },
+    {
+      "name": "Tab 2: Detailed Analytics",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tỷ lệ neat SAF theo sân bay",
+      "chartType": "Stacked Bar Chart"
+    },
+    {
+      "name": "Lượng mua SAF theo loại SAF & nhà cung cấp",
+      "chartType": "Stacked Bar Chart"
+    },
+    {
+      "name": "Lượng SAF tra nạp theo vị trí địa lý",
+      "chartType": "Stacked Bar Chart"
+    },
+    {
+      "name": "Tab 4: Fuel &  SAF Purchase Reporting (ReFuelEU Aviation Template)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Bảng chi tiết chi phí SAF",
+      "chartType": "Table"
+    },
+    {
+      "name": "Bảng chi tiết nhiên liệu tra nạp tại các sân bay",
+      "chartType": "Table"
+    },
+    {
+      "name": "Tab 3: CARBURE",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng phát thải khí nhà kính",
+      "chartType": "Card"
+    },
+    {
+      "name": "Phát thải khí CO2",
+      "chartType": "Card"
+    },
+    {
+      "name": "Phát thải khí CH4",
+      "chartType": "Card"
+    },
+    {
+      "name": "Phát thải khí N2O",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng lượng nhiên liệu tiêu thụ",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng phát thải khí nhà kính theo năm",
+      "chartType": "Bar"
+    },
+    {
+      "name": "Tổng phát thải khí nhà kính theo tháng",
+      "chartType": "Bar"
+    }
+  ],
+  "Airline E-1": [
+    {
+      "name": "Tổng tàu bay hoạt động",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số tàu bay đạt Chapter 14 (C14)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số tàu bay đạt Chapter 4 (C4)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số tàu bay đạt Chapter 3 (C3)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Cơ cấu chứng chỉ tiếng ồn",
+      "chartType": "Doughnut Chart"
+    },
+    {
+      "name": "Chứng nhận tiếng ồn máy bay theo năm",
+      "chartType": "Line Chart"
+    },
+    {
+      "name": "Chứng chỉ tiếng ồn theo loại máy bay",
+      "chartType": "Combo Chart"
+    }
+  ],
+  "GRI 403-2": [
+    {
+      "name": "Số chuyến bay",
+      "chartType": "Card"
+    }
+  ],
+  "Airline D-1": [
+    {
+      "name": "Số ngày công mất do đình công",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số vụ đình công",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số ngày công mất trung bình mỗi vụ đình công",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng số người tham gia đình công",
+      "chartType": "Card"
+    }
+  ],
+  "Airline F-2": [
+    {
+      "name": "Mức độ hài lòng chung",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức độ hài lòng về đặc điểm công việc",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức độ hài lòng về điều kiện làm việc",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức độ hài lòng về đào tạo và thăng tiến",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức độ hài lòng về phúc lợi cho người lao động",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức độ hài lòng chung qua các năm",
+      "chartType": "Line Chart"
+    },
+    {
+      "name": "So sánh mức độ hài lòng",
+      "chartType": "Column"
+    }
+  ],
+  "GRI 202-1": [
+    {
+      "name": "Mức lương khởi điểm trung bình",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức lương tối thiểu vùng 1",
+      "chartType": "Card"
+    },
+    {
+      "name": "Mức lương khởi điểm trung bình và lương tối thiểu vùng 1 qua các năm",
+      "chartType": "Line Chart"
+    }
+  ],
+  "GRI 401-1": [
+    {
+      "name": "Tab 1: Tuyển mới",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-9": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-10": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-11": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-12": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-13": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-15": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-23": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-26": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 2-29": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 3-3": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 201-4": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 205-2": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 205-3": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 206-1": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "GRI 415-1": [
+    {
+      "name": "Text only",
+      "chartType": "Card"
+    }
+  ],
+  "Airline F-1": [
+    {
+      "name": "Tổng số giờ tình nguyện",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng số nhân viên tham gia hoạt động tình nguyện trong giờ làm việc",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số giờ tình nguyện trung bình mỗi nhân viên",
+      "chartType": "Card"
+    },
+    {
+      "name": "Tổng số giờ tình nguyện theo phòng ban",
+      "chartType": "Column"
+    },
+    {
+      "name": "Tổng số nhân viên tham gia tình nguyện theo phòng ban",
+      "chartType": "Column"
+    },
+    {
+      "name": "Số giờ tình nguyện trung bình theo phòng ban",
+      "chartType": "Column"
+    }
+  ],
+  "GRI 417-3": [
+    {
+      "name": "Tổng số vụ việc",
+      "chartType": "Card"
+    },
+    {
+      "name": "Các vụ việc xử phạt hành chính",
+      "chartType": "Card"
+    },
+    {
+      "name": "Các vụ việc bị cảnh cáo",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số sự cố không tuân thủ các bộ quy tắc tự nguyện",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số sự cố theo hình thức xử lý",
+      "chartType": "Bar Chart"
+    },
+    {
+      "name": "Xu hướng theo thời gian",
+      "chartType": "Line Chart"
+    }
+  ],
+  "GRI 303-3": [
+    {
+      "name": "Tổng lượng nước cấp lên",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng nước cấp lên theo đơn vị cung cấp",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng nước cấp lên theo nước ngầm",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng nước cấp lên theo nước biển",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng nước cấp lên theo nước mặt",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng nước cấp lên theo loại tuyến bay",
+      "chartType": "Donut"
+    },
+    {
+      "name": "Lượng nước lên theo loại tàu bay",
+      "chartType": "Bar"
+    },
+    {
+      "name": "Tổng lượng nước cấp lên theo năm vs. Mục tiêu",
+      "chartType": "Combo"
+    },
+    {
+      "name": "Tổng lượng nước cấp lên theo tháng vs. Mục tiêu",
+      "chartType": "Combo"
+    }
+  ],
+  "GRI 303-5": [
+    {
+      "name": "Tổng lượng nước tiêu thụ",
+      "chartType": "Card"
+    },
+    {
+      "name": "Lượng nước tiêu thụ theo loại chuyến bay",
+      "chartType": "Donut"
+    },
+    {
+      "name": "Lượng nước tiêu thụ theo loại tuyến bay",
+      "chartType": "Bar"
+    },
+    {
+      "name": "Lượng nước tiêu thụ theo năm vs. Mục tiêu",
+      "chartType": "Combo"
+    },
+    {
+      "name": "Lượng nước tiêu thụ theo tháng vs. Mục tiêu",
+      "chartType": "Combo"
+    }
+  ],
+  "Airline B-1": [
+    {
+      "name": "NPS trung bình",
+      "chartType": "Card"
+    }
+  ],
+  "Airline B-2": [
+    {
+      "name": "Tổng số hội viên Bông Sen Vàng",
+      "chartType": "Card"
+    },
+    {
+      "name": "Xu hướng tăng trưởng hội viên",
+      "chartType": "Area chart"
+    },
+    {
+      "name": "Xu hướng hội viên theo Quý trong năm",
+      "chartType": "Column chart"
+    },
+    {
+      "name": "Xu hướng hội viên theo Tháng trong năm",
+      "chartType": "Column chart"
+    }
+  ],
+  "GRI 418-1": [
+    {
+      "name": "Tổng số khiếu nại đã xác minh liên quan đến dữ liệu cá nhân",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số vụ vi phạm quyền riêng tư (Privacy Breach)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số vụ mất dữ liệu (Data Loss Incidents)",
+      "chartType": "Card"
+    },
+    {
+      "name": "Số vi phạm quyền riêng tư và mất dữ liệu theo tháng",
+      "chartType": "Line Chart"
+    },
+    {
+      "name": "Cơ cấu rủi ro vi phạm quyền riêng tư và mất dữ liệu",
+      "chartType": "Donut Chart"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vna-blue: #006885;
+  --vna-navy: #12355b;
+  --vna-gold: #dba410;
+  --vna-gold-soft: #f4e7bd;
+  --esg-environment: #2e8b57;
+  --esg-social: #0f4c81;
+  --esg-governance: #c9a227;
+  --surface-page: #f5f7fa;
+  --surface-card: #ffffff;
+  --border-default: #dfe5ec;
+  --text-primary: #1a2a3a;
+  --text-muted: #667085;
+  --success: #2e8b57;
+  --warning: #d99100;
+  --danger: #c94f4f;
+  --radius-card: 12px;
+  --shadow-card: 0 3px 14px rgba(18, 53, 91, 0.06);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(0, 104, 133, 0.3);
+  outline-offset: 2px;
+}
+
+.border-b-3 {
+  border-bottom-width: 3px;
+}
+
+/* Shared spreadsheet treatment for all legacy operational forms. */
+.legacy-form-shell {
+  min-width: 0;
+}
+
+.legacy-form-shell > div {
+  animation: none !important;
+}
+
+.legacy-form-shell table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.legacy-form-shell table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #eef3f7 !important;
+  color: var(--vna-navy);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-right: 1px solid #dfe5ec;
+  border-bottom: 1px solid #cbd5df;
+}
+
+.legacy-form-shell .legacy-business-heading-hidden {
+  display: none;
+}
+
+.legacy-form-shell table thead .legacy-column-filter-row th {
+  top: 38px;
+  z-index: 6;
+  padding: 6px 8px !important;
+  background: #f8fafc !important;
+}
+
+.legacy-form-shell .legacy-column-filter-input {
+  width: 100%;
+  min-width: 72px;
+  height: 30px;
+  border: 1px solid #cbd5df;
+  border-radius: 6px;
+  padding: 0 9px;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 400;
+  outline: none;
+}
+
+.legacy-form-shell .legacy-column-filter-input::placeholder {
+  color: #98a2b3;
+}
+
+.legacy-form-shell .legacy-filter-empty {
+  display: block;
+  color: #98a2b3;
+  text-align: center;
+}
+
+.legacy-form-shell table tbody td {
+  background: #fff;
+  border-right: 1px solid #edf0f3;
+  border-bottom: 1px solid #e5eaf0;
+  vertical-align: middle;
+}
+
+.legacy-form-shell table tbody tr:nth-child(even) td {
+  background: #fbfcfd;
+}
+
+.legacy-form-shell table tbody tr:hover td {
+  background: #f0f7fa !important;
+}
+
+.legacy-form-shell input:not([type='checkbox']):not([type='radio']),
+.legacy-form-shell textarea,
+.legacy-form-shell select {
+  border-color: #cbd5df !important;
+  background-color: #fff;
+}
+
+.legacy-form-shell input:not([type='checkbox']):not([type='radio']):focus,
+.legacy-form-shell textarea:focus,
+.legacy-form-shell select:focus {
+  border-color: var(--vna-blue) !important;
+  box-shadow: 0 0 0 2px rgba(0, 104, 133, 0.12);
+}
+
+.legacy-form-shell.manual-update-mode {
+  border: 2px solid rgba(217, 145, 0, 0.35);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(255, 248, 230, 0.65);
+}
+
+.legacy-form-shell.manual-update-mode input:not([type='checkbox']):not([type='radio']),
+.legacy-form-shell.manual-update-mode textarea,
+.legacy-form-shell.manual-update-mode select {
+  background-color: #fffdf5;
+  border-color: #e4bd62 !important;
+}
+
+.legacy-form-shell .rounded-xl,
+.legacy-form-shell .rounded-lg {
+  border-radius: 10px;
+}
+
+.legacy-form-shell .shadow-md,
+.legacy-form-shell .shadow-sm {
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 1024px) {
+  .legacy-form-shell table {
+    min-width: 760px;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

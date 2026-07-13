@@ -1,0 +1,395 @@
+{
+  "tech": [
+    {
+      "id": "Chưa có mã",
+      "code": "Chưa có mã",
+      "name": "Báo cáo sử dụng SAF",
+      "department": "Tổ Kỹ thuật",
+      "category": "Kỹ thuật"
+    },
+    {
+      "id": "Chưa có mã",
+      "code": "Chưa có mã",
+      "name": "Báo cáo sử dụng SAF tại Pháp",
+      "department": "Tổ Kỹ thuật",
+      "category": "Kỹ thuật"
+    },
+    {
+      "id": "Chưa có mã",
+      "code": "Chưa có mã",
+      "name": "Báo cáo CO2 phát thải vượt mức",
+      "department": "Tổ Kỹ thuật",
+      "category": "Kỹ thuật"
+    }
+  ],
+  "flight": [
+    {
+      "id": "GRI 302-1",
+      "code": "GRI 302-1",
+      "name": "Năng lượng tiêu thụ trong tổ chức",
+      "department": "Tổ Khai thác",
+      "category": "Khai thác"
+    },
+    {
+      "id": "GRI 302-4",
+      "code": "GRI 302-4",
+      "name": "Giảm tiêu thụ năng lượng",
+      "department": "Tổ Khai thác",
+      "category": "Khai thác"
+    },
+    {
+      "id": "GRI 305-1",
+      "code": "GRI 305-1",
+      "name": "Phát thải khí nhà kính trực tiếp (Phạm vi 1)",
+      "department": "Tổ Khai thác",
+      "category": "Khai thác"
+    },
+    {
+      "id": "GRI 305-4",
+      "code": "GRI 305-4",
+      "name": "Cường độ phát thải khí nhà kính",
+      "department": "Tổ Khai thác",
+      "category": "Khai thác"
+    },
+    {
+      "id": "GRI 305-5",
+      "code": "GRI 305-5",
+      "name": "Giảm phát thải khí nhà kính",
+      "department": "Tổ Khai thác",
+      "category": "Khai thác"
+    },
+    {
+      "id": "GRI 305-7",
+      "code": "GRI 305-7",
+      "name": "Nitrogen oxides (NOX), sulfur oxides (SOX), and other significant air emissions",
+      "department": "Tổ Khai thác",
+      "category": "Khai thác"
+    }
+  ],
+  "service": [
+    {
+      "id": "GRI 303-3",
+      "code": "GRI 303-3",
+      "name": "Lượng nước khai thác",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "GRI 303-5",
+      "code": "GRI 303-5",
+      "name": "Lượng nước tiêu thụ",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "Airline B-1",
+      "code": "Airline B-1",
+      "name": "Customer satisfaction (NPS Net Promotor Score)/ Mức độ hài lòng của khách hàng (NPS)",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "GRI 204-1",
+      "code": "GRI 204-1",
+      "name": "Proportion of spending on local suppliers / Tỷ lệ chi tiêu cho NCC địa phương",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "GRI 406-1",
+      "code": "GRI 406-1",
+      "name": "Incidents of discrimination and corrective actions taken / Sự cố phân biệt đối xử và biện pháp xử lý",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "GRI 416-1",
+      "code": "GRI 416-1",
+      "name": "Assessment of the health and safety impacts of product and service categories/Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "GRI 416-2",
+      "code": "GRI 416-2",
+      "name": "Incidents of noncompliance concerning the health and safety impacts of products and services/Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    },
+    {
+      "id": "GRI 417-2",
+      "code": "GRI 417-2",
+      "name": "Incidents of noncompliance concerning product and service information and labeling/ Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ",
+      "department": "Tổ Dịch vụ",
+      "category": "Dịch vụ"
+    }
+  ],
+  "general": [
+    {
+      "id": "Airline E-1",
+      "code": "Airline E-1",
+      "name": "Tiếng ồn",
+      "department": "Ban ATCL",
+      "category": "ATCL"
+    },
+    {
+      "id": "Chưa có mã",
+      "code": "Chưa có mã",
+      "name": "Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa",
+      "department": "Ban ATCL",
+      "category": "ATCL"
+    },
+    {
+      "id": "GRI 403-2",
+      "code": "GRI 403-2",
+      "name": "Hazard identification, risk assessment, and incident investigation",
+      "department": "Ban ATCL",
+      "category": "ATCL"
+    },
+    {
+      "id": "Airline D-1",
+      "code": "Airline D-1",
+      "name": "Working days lost to strikes/Ngày công mất do đình công",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "Airline F-2",
+      "code": "Airline F-2",
+      "name": "Employee satisfaction/ Mức độ hài lòng nhân viên",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 202-1",
+      "code": "GRI 202-1",
+      "name": "Ratios of standard entrylevel wage by gender compared to local minimum wage/ Tỷ lệ lương khởi điểm theo giới tính",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 401-1",
+      "code": "GRI 401-1",
+      "name": "New employee hires and employee turnover/ Tuyển dụng và nghỉ việc",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 401-2",
+      "code": "GRI 401-2",
+      "name": "Benefits provided to fulltime employees that are not provided to temporary or parttime employees/Phúc lợi cho nhân viên toàn thời gian",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 403-4",
+      "code": "GRI 403-4",
+      "name": "Worker participation, consultation, and communication on occupational health and safety",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 403-9",
+      "code": "GRI 403-9",
+      "name": "Workrelated injuries/Thương tật do lao động",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 403-10",
+      "code": "GRI 403-10",
+      "name": "Workrelated illhealth/ Bệnh liên quan đến nghề nghiệp",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 405-1",
+      "code": "GRI 405-1",
+      "name": "Diversity of governance bodies and employees/Đa dạng trong cơ quan quản trị",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 406-1",
+      "code": "GRI 406-1",
+      "name": "Incidents of discrimination and corrective actions taken / Sự cố phân biệt đối xử và biện pháp xử lý",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 2-7",
+      "code": "GRI 2-7",
+      "name": "Scale of the organization /Quy mô tổ chức",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 2-30",
+      "code": "GRI 2-30",
+      "name": "Collective bargaining agreements /Thỏa ước lao động tập thể",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 404-2",
+      "code": "GRI 404-2",
+      "name": "Programs for upgrading employee skills and transition assistance programs Chương trình nâng cao kỹ năng",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 404-3",
+      "code": "GRI 404-3",
+      "name": "Percentage of employees receiving regular performance and career development reviews/ Phát triển nghề nghiệp",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 201-3",
+      "code": "GRI 201-3",
+      "name": "Defined benefit plan obligations and other retirement plans/ Cam kết chi trả lương hưu và phúc lợi",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 202-2",
+      "code": "GRI 202-2",
+      "name": "Proportion of senior management hired from the local community/ Tỷ lệ lãnh đạo cấp cao là người bản địa",
+      "department": "Ban TCNL",
+      "category": "TCNL"
+    },
+    {
+      "id": "GRI 2-9",
+      "code": "GRI 2-9",
+      "name": "Governance structure and composition/Cơ cấu và thành phần quản trị",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-10",
+      "code": "GRI 2-10",
+      "name": "Nomination and selection of the highest governance body /Quy trình đề cử, lựa chọn lãnh đạo cấp cao",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-11",
+      "code": "GRI 2-11",
+      "name": "Chair of the highest governance body/ Lãnh đạo cấp cao",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-12",
+      "code": "GRI 2-12",
+      "name": "Role of the highest governance body in overseeing the management of impacts/Vai trò của cơ quan quản trị cao nhất trong giám sát quản lý tác động",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-13",
+      "code": "GRI 2-13",
+      "name": "Delegating authority/Phân quyền",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-15",
+      "code": "GRI 2-15",
+      "name": "Conflicts of interest/Xung đột lợi ích",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-23",
+      "code": "GRI 2-23",
+      "name": "Policy commitments /Các cam kết về chính sách",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-26",
+      "code": "GRI 2-26",
+      "name": "Mechanisms for seeking advice and raising concerns about ethics/Cơ chế tham vấn, phản ánh các vấn đề đạo đức",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 2-29",
+      "code": "GRI 2-29",
+      "name": "Approach to stakeholder engagement/Tiếp cận đối thoại các bên liên quan",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 3-3",
+      "code": "GRI 3-3",
+      "name": "Management of material topics /Quản lý các chủ đề trọng yếu",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 201-4",
+      "code": "GRI 201-4",
+      "name": "Financial assistance received from government /Trợ cấp/tài trợ nhận từ chính phủ",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 205-2",
+      "code": "GRI 205-2",
+      "name": "Communication and training about anti-corruption policies and procedures/Truyền thông, đào tạo về chống tham nhũng",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 205-3",
+      "code": "GRI 205-3",
+      "name": "Confirmed incidents of corruption and actions taken /Sự cố tham nhũng xác nhận và biện pháp xử lý",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 206-1",
+      "code": "GRI 206-1",
+      "name": "Legal actions for anti-competitive behavior, anti-trust, and monopoly practices/Vụ kiện về cạnh tranh không lành mạnh, độc quyền",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "GRI 415-1",
+      "code": "GRI 415-1",
+      "name": "Political contributions /Đóng góp cho các hoạt động chính trị",
+      "department": "Tổ Thư ký",
+      "category": "Thư ký"
+    },
+    {
+      "id": "Airline F-1",
+      "code": "Airline F-1",
+      "name": "Volunteering during working hours/Tham gia hoạt động tình nguyện",
+      "department": "Ban TT",
+      "category": "TT"
+    },
+    {
+      "id": "GRI 417-3",
+      "code": "GRI 417-3",
+      "name": "Incidents of non-compliance concerning marketing communications",
+      "department": "Ban TT",
+      "category": "TT"
+    },
+    {
+      "id": "Airline B-2",
+      "code": "Airline B-2",
+      "name": "Customer engagement/ Tương tác khách hàng",
+      "department": "TTBSV",
+      "category": "TTBSV"
+    },
+    {
+      "id": "GRI 418-1",
+      "code": "GRI 418-1",
+      "name": "Substantiated complaints concerning breaches of customer privacy and losses of customer data",
+      "department": "Ban CĐSCN",
+      "category": "CĐS"
+    }
+  ]
+}
