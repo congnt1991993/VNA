@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Eye, EyeOff } from 'lucide-react';
 
 export const LoginPage: React.FC<{ onLogin: () => void; onBack?: () => void }> = ({ onLogin, onBack }) => {
-  const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,196 +24,190 @@ export const LoginPage: React.FC<{ onLogin: () => void; onBack?: () => void }> =
     }, 1000);
   };
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem('vna_esg_lang', lng);
-    window.dispatchEvent(new Event('vna_language_changed'));
-  };
-
   return (
-    <div className="h-screen w-screen relative flex flex-col items-center justify-between font-sans bg-[#006070] overflow-hidden select-none">
+    <div className="h-screen w-screen flex flex-col md:flex-row font-sans bg-white overflow-hidden select-none">
 
-      {/* Top Gold Wave Pattern Header */}
-      <div className="absolute top-0 left-0 w-full h-[30%] sm:h-[35%] bg-[#dfb226] z-0" style={{ clipPath: 'ellipse(70% 60% at 50% 0%)' }}>
-        <div className="w-full h-full opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      {/* CỘT BÊN TRÁI: Hình ảnh máy bay VNA bay qua rừng núi xanh & Slogan */}
+      <div className="hidden md:flex md:w-1/2 relative h-full bg-slate-900 overflow-hidden items-end p-12">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/vna-images/vna_plane_forest.png" 
+            alt="Vietnam Airlines Green Slogan Background" 
+            className="w-full h-full object-cover object-center brightness-95 opacity-90"
+            onError={(e) => {
+              // Fallback nếu ảnh không tồn tại
+              e.currentTarget.src = "/vna-images/plane_footer.png";
+            }}
+          />
+          {/* Blue-Green Overlay to enhance readability of white text */}
+          <div className="absolute inset-0 bg-gradient-to-t from-teal-950/80 via-transparent to-transparent"></div>
+        </div>
+
+        {/* Slogan Text Block */}
+        <div className="relative z-10 text-left max-w-lg space-y-4">
+          <h1 className="text-4xl font-extrabold text-white tracking-wide drop-shadow-md">
+            Vì một Việt Nam Xanh
+          </h1>
+          <p className="text-sm text-gray-200/90 leading-relaxed font-medium drop-shadow-sm">
+            Hệ thống báo cáo ESG - Vietnam Airlines cam kết phát triển bền vững và giảm thiểu tác động đến môi trường.
+          </p>
+        </div>
       </div>
 
-      {/* Back to Home Button */}
-      {onBack && (
-        <button
-          onClick={onBack}
-          className="absolute top-4 left-4 z-30 flex items-center gap-1.5 text-xs font-bold text-white bg-black/20 hover:bg-black/40 px-3 py-1.5 rounded-full transition-all backdrop-blur-sm"
-        >
-          <span>←</span> {isEn ? 'Back to Home' : 'Quay lại Trang chủ'}
-        </button>
-      )}
+      {/* CỘT BÊN PHẢI: Form Đăng nhập */}
+      <div className="w-full md:w-1/2 h-full flex flex-col justify-between bg-white relative p-6 sm:p-12 overflow-y-auto">
 
-      {/* Central Login Container */}
-      <div className="w-full flex-grow flex items-center justify-center px-4 z-10 pt-12 pb-4">
-        <div className="w-full max-w-[440px] bg-white rounded-xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-6 duration-500">
+        {/* Nút Quay lại Trang chủ */}
+        <div className="text-left w-full">
+          {onBack && (
+            <button
+              onClick={onBack}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#006070] hover:underline cursor-pointer"
+            >
+              <span>←</span> Quay lại Trang chủ
+            </button>
+          )}
+        </div>
 
-          {/* Header Panel of Login Form (Teal patterned background with Lotus & Logo) */}
-          <div className="bg-gradient-to-r from-[#005566] to-[#007085] p-5 text-center relative border-b-4 border-[#dfb226]">
-            {/* VNA Traditional Pattern overlay */}
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px]"></div>
+        {/* Khu vực giữa: Form Login */}
+        <div className="max-w-[400px] w-full mx-auto my-auto py-8 flex flex-col items-center">
 
-            {/* Plane Icon atop the header */}
-            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-20">
-              <svg className="w-8 h-8 text-[#00a3e0]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16z" />
-              </svg>
-            </div>
-
-            {/* Lotus Emblem + VNA Logo */}
-            <div className="relative z-10 flex items-center justify-center gap-2 text-white">
-              {/* Golden Lotus SVG icon */}
-              <svg className="w-8 h-8 text-[#e9c13b] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12,2A10,10,0,0,0,2,12a9.89,9.89,0,0,0,1.8,5.62l.1.15A10,10,0,0,0,12,22a10,10,0,0,0,8.1-4.23l.1-.15A9.89,9.89,0,0,0,22,12,10,10,0,0,0,12,2Zm0,17.9A7.9,7.9,0,1,1,19.9,12,7.91,7.91,0,0,1,12,19.9Z" opacity="0.15" />
-                <path d="M12,5.5S9.5,9.5,9.5,12.5s2.5,4,2.5,4,2.5-1,2.5-4S12,5.5,12,5.5Z" />
-                <path d="M12,8.5s-4,1.5-4,4.5,4,2.5,4,2.5S8.5,14,8.5,12.5,12,8.5,12,8.5Z" />
-                <path d="M12,8.5s4,1.5,4,4.5-4,2.5-4,2.5S15.5,14,15.5,12.5,12,8.5,12,8.5Z" />
-              </svg>
-              <div className="flex flex-col items-start leading-tight">
-                <span className="font-bold tracking-widest text-lg">Vietnam Airlines</span>
-                <span className="text-[8px] tracking-[0.25em] text-[#e9c13b] uppercase font-bold">Alliance Member</span>
-              </div>
-            </div>
+          {/* LOGO VIETNAM AIRLINES CHÍNH THỨC VECTOR SVG */}
+          <div className="mb-8 select-none flex justify-center text-[#006070]">
+            <svg viewBox="0 0 1351 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-12 w-auto">
+              <path d="M1328.45 64.4C1338.85 75 1345.75 89.2 1346.85 105.2C1349.35 140.5 1322.75 171.1 1287.45 173.5C1270.85 174.7 1255.35 169.4 1243.25 159.8L1243.15 159.9C1255.65 171.6 1272.85 178.2 1291.25 176.9C1326.55 174.4 1353.15 143.8 1350.65 108.6C1349.45 90.8 1340.95 75.2 1328.45 64.4Z" fill="currentColor"></path>
+              <path d="M1214.95 137.2C1212.95 138.3 1212.45 140 1213.45 142.7C1214.45 145.1 1215.95 146.2 1217.55 145.5C1218.85 145 1219.05 143.9 1218.55 141L1218.35 139.9C1217.85 137.1 1217.75 135.8 1218.05 134.6C1218.35 133.2 1219.15 132.3 1220.35 131.8C1223.25 130.7 1225.95 132.5 1227.65 136.5C1229.45 140.9 1228.45 144.2 1225.05 145.6L1224.15 143.4C1226.55 142.4 1227.15 140.2 1225.85 136.9C1224.85 134.3 1223.15 133.1 1225.85 136.9C1224.85 134.3 1223.15 133.1 1221.45 133.9C1220.05 134.4 1219.75 135.8 1220.25 138.7L1220.45 139.9L1220.65 141C1221.05 143.2 1221.05 144 1220.85 144.9C1220.55 146.1 1219.85 146.9 1218.65 147.4C1215.95 148.5 1213.25 146.9 1211.85 143.2C1210.25 139.2 1211.15 136.3 1214.15 134.9L1214.95 137.2Z" fill="currentColor"></path>
+              <path d="M1213.15 114.1L1222.85 105.9L1222.95 109L1214.65 115.8L1217.35 118.7L1223.15 118.6L1223.25 121L1206.75 121.3L1206.65 119L1213.15 118.8H1214.85L1214.35 118.2L1213.75 117.6L1206.45 109.8L1206.35 106.6L1213.15 114.1Z" fill="currentColor"></path>
+              <path d="M1220.45 88.5L1226.85 90.7L1226.05 92.9L1219.65 90.7L1208.25 94.1L1209.25 91.4L1216.35 89.4L1217.25 89.2C1217.65 89.1 1217.85 89.1 1218.45 88.9C1217.95 88.2 1217.75 88.1 1217.15 87.3L1212.75 81.4L1213.65 78.8L1220.45 88.5Z" fill="currentColor"></path>
+              <path d="M1231.65 58.2L1228.15 62.5L1238.55 71L1236.05 74L1225.65 65.5L1222.15 69.8L1219.85 67.8L1229.25 56.2L1231.65 58.2Z" fill="currentColor"></path>
+              <path d="M1253.95 42.5L1245.55 47.4L1247.35 50.5L1255.05 46L1256.45 48.4L1248.85 52.9L1250.85 56.4L1259.35 51.4L1260.85 54.1L1248.95 61L1240.65 46.8L1252.35 39.9L1253.95 42.5Z" fill="currentColor"></path>
+              <path d="M1276.45 40.5C1275.55 39 1275.15 38.3 1274.65 37.1C1274.45 38.3 1274.35 39.2 1273.95 40.9L1273.25 44.1L1278.05 43.3L1276.45 40.5ZM1285.85 48.9L1281.55 49.2L1279.45 45.6L1272.85 46.7L1271.95 50.8L1267.85 51.8L1272.15 33.8L1276.25 33.2L1285.85 48.9Z" fill="currentColor"></path>
+              <path d="M1312.35 54.2L1308.85 52.9L1310.15 48C1310.25 47.5 1310.55 46.7 1310.85 45.6C1311.15 44.6 1311.35 43.8 1311.55 43.2C1311.75 42.5 1311.95 41.9 1312.25 41.1L1312.65 39.9C1311.65 41.6 1311.25 42.2 1310.35 43.5C1309.95 44.1 1309.65 44.6 1309.35 45L1304.65 51.6L1301.65 50.8L1300.75 42.9C1300.65 42.5 1300.65 41.9 1300.65 41.2C1300.55 40.2 1300.55 39.4 1300.55 38.8C1300.55 38.4 1300.55 37.7 1300.55 36.8L1300.15 38.8C1299.65 41 1299.45 41.9 1298.75 44.5L1297.35 49.8L1293.65 49.2L1297.75 33.1L1303.25 34.2L1304.05 41.9C1304.25 43.7 1304.25 45.2 1304.25 47.3C1304.85 46.1 1305.05 45.7 1305.85 44.6C1306.35 43.8 1306.75 43.2 1307.15 42.6L1311.45 36.4L1316.75 38.2L1312.35 54.2Z" fill="currentColor"></path>
+              <path d="M1312.05 107.6C1316.85 104.4 1320.75 102.6 1323.25 102.7C1324.75 102.7 1326.45 103.2 1326.45 105C1326.45 106.8 1324.65 108.4 1321.25 109.6C1318.25 110.7 1313.55 111 1308.55 110.4C1309.85 109.2 1311.05 108.2 1312.05 107.6ZM1245.05 113.4C1242.05 113.2 1240.65 112 1240.65 109.7C1240.65 109.4 1240.85 102.2 1257.35 101.3C1259.25 101.2 1261.35 101.1 1264.55 101.5C1264.45 101.5 1262.65 103.1 1262.65 103.1L1261.65 104.1C1257.65 107.8 1250.95 113.8 1245.05 113.4ZM1280.85 86.1C1278.85 87.9 1274.85 91.7 1271.05 95.4L1266.65 99.6C1263.15 98.9 1259.65 98.6 1256.05 98.6C1248.05 98.6 1240.65 100.8 1237.25 104.3C1235.95 105.6 1235.35 107 1235.35 108.5C1235.45 112.4 1239.85 114.4 1241.25 114.9C1248.45 117.6 1254.35 116.8 1260.65 112.4C1264.15 110 1268.35 106.1 1271.55 102.9C1274.15 103.5 1276.95 104.2 1280.05 105.2L1282.95 106C1279.25 109.7 1275.45 113.5 1271.95 116.6L1271.65 116.8C1266.75 121.1 1263.25 124.3 1258.05 125.4C1254.45 126.2 1251.85 125.4 1251.05 124.9C1250.95 124.9 1250.85 125.1 1250.85 125.1C1253.85 127.5 1256.65 128.9 1261.45 128.5C1266.05 128.1 1271.35 125.2 1276.75 120.1L1284.05 112.9L1289.15 107.8L1299.55 110.8C1299.65 110.8 1299.75 110.9 1299.75 110.9C1299.65 110.9 1293.35 117.1 1293.35 117.1L1287.85 122.6C1282.15 128.1 1279.15 130.9 1275.85 133.3C1270.35 137.2 1265.65 139.2 1261.55 139.5C1259.45 139.6 1256.35 139.5 1253.75 138C1253.65 138 1253.45 138.1 1253.45 138.1C1256.25 140.5 1259.65 143.4 1265.55 143.2C1272.15 143 1278.15 139.8 1287.35 131.4C1291.55 127.5 1295.75 123.3 1299.35 119.4L1306.15 112.5C1310.65 113.5 1314.65 113.9 1319.05 113.8C1325.55 113.6 1331.05 110.6 1331.15 107C1331.25 104.4 1329.05 103 1327.75 102.1C1326.65 101.4 1323.85 99.8 1319.85 99.8C1315.05 99.8 1309.95 102 1304.85 106.2L1301.45 109.2L1300.15 108.9L1290.65 106.2C1293.45 103.6 1295.85 101.4 1297.95 99.4C1303.15 94.8 1308.85 92.9 1312.25 92.6C1314.75 92.4 1318.95 92.7 1320.75 93.9C1320.85 93.9 1320.95 93.7 1320.95 93.7C1316.25 89.7 1312.25 89.2 1308.85 89.2C1305.55 89.2 1300.25 90.2 1293.85 95.2C1291.25 97.2 1287.85 100.7 1284.25 104.3L1279.45 102.8L1278.25 102.4L1273.15 100.9C1273.25 100.9 1276.05 98.2 1276.05 98.2C1279.45 94.9 1282.65 91.7 1285.15 89.6C1294.25 82 1300.05 80.9 1303.95 80.9C1308.35 80.9 1311.75 81.8 1314.25 83.6C1314.35 83.6 1314.45 83.4 1314.45 83.4C1309.35 78.8 1305.65 77.3 1299.35 77.2C1294.05 77.2 1287.35 80.3 1280.85 86.1Z" fill="currentColor"></path>
+              <path d="M1321.75 41.8C1322.05 42 1322.55 42.3 1322.85 41.9C1322.95 41.6 1322.65 41.4 1322.35 41.2L1321.65 40.8L1321.25 41.5L1321.75 41.8ZM1322.05 44L1321.65 43.8L1321.55 42.2L1321.15 42L1320.45 43.2L1320.05 43L1321.45 40.4L1322.55 41C1323.05 41.3 1323.45 41.6 1323.05 42.2C1322.75 42.7 1322.35 42.7 1321.85 42.5L1322.05 44ZM1323.65 43.2C1324.25 42.1 1323.85 40.7 1322.75 40.1C1321.65 39.5 1320.25 39.9 1319.65 41C1319.05 42.1 1319.45 43.5 1320.55 44.1C1321.65 44.7 1323.05 44.4 1323.65 43.2ZM1319.15 41C1319.75 39.6 1321.35 39 1322.75 39.6C1324.15 40.2 1324.75 41.8 1324.15 43.2C1323.55 44.6 1321.95 45.2 1320.55 44.6C1319.15 44 1318.55 42.4 1319.15 41Z" fill="currentColor"></path>
+              <path d="M119.746 130.6C117.646 131.8 102.746 144.5 72.9456 144.5C47.9456 144.5 21.1456 131.7 12.7456 131.9C9.74563 131.8 7.44563 132.4 5.54563 133.2C2.04563 134.7 -1.35437 132.5 0.545625 128.9C7.14563 116.4 18.3456 108.8 28.9456 105.6C36.6456 103.3 43.7456 102.5 47.3456 106.5C55.4456 115.4 69.9456 126.5 84.0456 127.9C85.1456 128 90.3456 128.4 90.3456 127C90.4456 126.1 88.6456 125.5 86.8456 125.4C72.4456 124.4 46.3456 108.9 32.0456 79C26.6456 67.8 22.4456 56.9 13.0456 52.1C10.9456 51.1 10.9456 47.3 15.2456 46.2C18.2456 45.5 37.4456 43.6 59.4456 55.2C69.5456 60.5 70.9456 65.3 70.9456 69.4C70.8456 100.8 86.7456 113.2 92.8456 116.9C96.2456 118.9 99.4456 119.8 99.8456 118.7C100.146 117.8 99.2456 117.2 98.4456 116.7C79.4456 105.2 74.4456 87.4 74.2456 69.3C74.1456 51.4 80.7456 35.9 85.4456 23.2C86.1456 21.4 88.3456 13.8 86.4456 6.8C85.0456 1.6 86.1456 0.0999908 88.9456 0.0999908C91.9456 0.0999908 95.9456 4.99999 97.3456 6.59999C98.4456 7.89999 101.946 12.1 107.246 22.6C117.746 43.3 117.846 65 117.846 67.6C117.846 82.5 114.046 84.2 107.746 87.3C101.546 90.4 98.5456 94.4 98.5456 99C98.5456 103.7 101.846 108.7 107.746 110.4C112.346 111.7 115.246 111.2 115.046 110C114.846 109.1 112.846 108.8 112.246 108.7C106.046 107 101.846 103.8 101.846 99C101.846 93 109.246 88.6 119.646 88.6C130.046 88.6 137.446 93 137.446 99C137.446 103.8 133.346 107 127.046 108.7C126.446 108.9 124.446 109.1 124.246 110C124.046 111.2 126.946 111.7 131.546 110.4C137.446 108.7 140.746 103.7 140.746 99C140.746 94.4 137.746 90.4 131.546 87.3C125.246 84.2 121.446 82.5 121.446 67.6C121.446 65 121.546 43.3 132.046 22.6C137.346 12.1 140.846 7.89999 141.946 6.59999C143.346 4.89999 147.346 0 150.346 0C153.046 0 154.246 1.5 152.846 6.7C150.946 13.7 153.146 21.3 153.846 23.1C158.546 35.8 165.146 51.3 165.046 69.2C164.946 87.3 159.846 105.1 140.846 116.6C140.046 117.1 139.146 117.7 139.446 118.6C139.746 119.7 142.946 118.8 146.346 116.8C152.446 113.1 168.346 100.7 168.246 69.3C168.246 65.1 169.646 60.4 179.746 55.1C201.746 43.5 220.946 45.4 223.946 46.1C228.346 47.1 228.246 51 226.146 52C216.746 56.7 212.546 67.6 207.146 78.9C192.846 108.8 166.846 124.3 152.346 125.3C150.546 125.4 148.846 126 148.846 126.9C148.946 128.3 154.046 127.9 155.146 127.8C169.246 126.4 183.846 115.3 191.846 106.4C195.546 102.3 202.546 103.1 210.246 105.5C220.846 108.7 232.046 116.4 238.646 128.8C240.546 132.4 237.146 134.5 233.646 133.1C231.746 132.3 229.446 131.7 226.446 131.8C218.046 131.6 191.346 144.4 166.246 144.4C136.746 144.4 121.846 131.8 119.746 130.6Z" fill="#DBA410"></path>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M880.646 84.5C880.646 79.4 886.146 76.7 892.146 76.7C902.446 76.7 901.246 84.9 908.646 84.9C911.946 84.9 914.046 83 914.046 79.7C914.046 74 906.546 70.3 894.846 69.9C883.646 69.5 877.846 71.5 873.846 73.1C869.346 74.9 867.346 77.4 867.346 81.4V136.9C867.346 139.8 868.746 139.8 874.046 139.8C879.346 139.8 880.746 139.8 880.746 136.9V84.5H880.646ZM543.046 94.3C543.046 73.2 524.746 69.9 511.346 69.9C500.546 69.9 490.946 72.6 486.446 74.6C481.946 76.6 481.546 79.1 481.546 83.2V137C481.546 139.9 482.946 139.9 488.246 139.9C493.446 139.9 494.946 139.9 494.946 137V87.4C494.946 83 496.546 77 511.746 77C526.146 77 529.746 85.5 529.746 94.5V137.1C529.746 140 531.146 140 536.446 140C541.746 140 543.146 140 543.146 137.1V94.3H543.046ZM841.146 136.9C841.146 139.8 842.546 139.8 847.746 139.8C852.946 139.8 854.446 139.8 854.446 136.9L854.546 73.6C854.646 68.9 848.246 70.1 844.946 72.2C841.246 74.6 841.146 75.8 841.146 80.4V136.9ZM770.546 99.5C772.546 94.5 785.146 61.3 785.846 59.5C786.046 59 786.546 59 786.846 59.5C787.746 61.8 800.546 94.4 802.446 99.4C802.846 100.5 803.046 101.4 801.546 101.4H771.646C769.846 101.4 770.246 100.3 770.546 99.5ZM807.446 111.7C811.946 122.5 818.246 137.5 818.246 137.5C819.046 139.4 818.346 139.9 826.246 139.9C834.646 139.9 835.146 139.6 833.446 135.9C833.046 134.9 799.846 55.2 797.946 50.9C796.146 46.5 795.346 46.2 788.446 46.2C781.646 46.2 780.746 46.4 778.846 50.9C776.946 55.5 743.646 135.5 743.246 136.5C741.846 139.9 743.046 139.9 748.746 139.9C754.046 139.9 754.646 139.7 755.646 137.5L765.946 111.8C766.546 110.2 766.746 109.6 768.546 109.6C775.546 109.6 795.646 109.6 804.846 109.6C806.546 109.6 806.746 110.1 807.446 111.7ZM855.546 51C854.846 47.5 850.946 45.4 846.446 46.3C841.946 47.2 839.346 50.7 840.046 54.2C840.746 57.7 844.646 59.8 849.146 58.9C853.646 57.9 856.346 54.4 855.546 51ZM918.346 136.9C918.346 139.8 919.746 139.8 924.946 139.8C930.146 139.8 931.646 139.8 931.646 136.9L931.746 46.2C931.846 41.5 925.346 42.7 922.146 44.9C918.546 47.3 918.346 48.5 918.346 53.1V136.9ZM961.046 51C960.346 47.5 956.446 45.4 951.946 46.3C947.446 47.2 944.846 50.7 945.546 54.2C946.246 57.7 950.146 59.8 954.646 58.9C959.146 58 961.746 54.5 961.046 51ZM946.646 136.9C946.646 139.8 948.046 139.8 953.246 139.8C958.446 139.8 959.946 139.8 959.946 136.9L960.046 73.6C960.146 68.9 953.746 70.1 950.446 72.3C946.846 74.7 946.646 75.9 946.646 80.5V136.9ZM1035.95 94.4C1035.95 73.3 1017.65 70 1004.25 70C993.446 70 983.846 72.7 979.346 74.7C974.846 76.7 974.446 79.2 974.446 83.3V137.1C974.446 140 975.846 140 981.146 140C986.346 140 987.846 140 987.846 137.1V87.5C987.846 83.1 989.346 77.1 1004.65 77.1C1019.05 77.1 1022.65 85.6 1022.65 94.6V137.2C1022.65 140.1 1024.05 140.1 1029.25 140.1C1034.45 140.1 1035.95 140.1 1035.95 137.2V94.4ZM1176.55 121.2C1176.05 97.8 1132.45 102.1 1132.35 85.8C1132.35 79.4 1138.85 76.5 1145.95 76.5C1156.15 76.5 1159.55 79.9 1161.65 84.9C1162.65 87.2 1164.65 89.3 1168.55 89.3C1171.45 89.3 1173.95 87.4 1173.95 84C1173.95 78.8 1166.75 69.7 1147.15 69.6C1130.85 69.5 1119.85 75.7 1119.85 88.5C1119.85 112.5 1163.45 107.4 1163.45 124.1C1163.45 131 1157.05 134.2 1147.65 134.3C1138.35 134.4 1133.35 130.6 1130.65 124.1C1129.35 121.5 1127.65 119.1 1123.55 119.1C1119.95 119.2 1117.75 121.5 1117.75 125.1C1117.75 130 1126.25 141.4 1146.95 141.4C1164.25 141.5 1176.85 134.6 1176.55 121.2ZM337.146 136.9C337.146 139.8 338.546 139.8 343.746 139.8C348.946 139.8 350.446 139.8 350.446 136.9L350.546 73.6C350.646 68.9 344.246 70.1 340.946 72.3C337.246 74.7 337.146 75.9 337.146 80.5V136.9ZM584.046 141.4C595.146 141.5 600.846 139.5 607.446 136.4C612.446 134 612.446 131.4 612.446 128.3V90.2C612.446 75.7 600.346 69.6 586.546 69.6C563.946 69.7 554.946 79.3 554.546 85.6C554.346 88.9 556.346 91.4 560.246 91.5C564.046 91.6 566.246 89.1 567.146 87C569.946 80.5 574.746 76.5 584.546 76.5C592.246 76.5 599.146 80 599.146 89.2V93.3C599.146 94.5 599.146 94.8 598.046 94.9C577.646 98.2 551.246 104.6 551.246 123.3C551.446 135 565.446 141.4 584.046 141.4ZM599.346 125.2C599.346 132.3 590.146 134.1 583.346 134.1C571.346 134.1 565.446 129 565.446 122.2C565.446 109.9 581.346 105.4 597.946 102C598.846 101.8 599.346 101.7 599.346 103V125.2ZM351.546 51C350.846 47.5 346.946 45.4 342.446 46.3C337.946 47.2 335.346 50.7 336.046 54.2C336.746 57.7 340.646 59.8 345.146 58.9C349.646 58 352.246 54.5 351.546 51ZM711.546 137C711.546 139.9 712.946 139.9 718.246 139.9C723.446 139.9 724.946 139.9 724.946 137V91.8C724.946 73.8 708.046 70.1 698.046 70.1C686.346 70.1 679.746 73.4 675.146 78.5C670.346 73.2 663.846 70.1 652.446 70.1C644.646 70.1 636.946 72 630.146 75C625.246 77.2 625.246 80.1 625.246 82.9V137C625.246 139.9 626.746 139.9 631.946 139.9C637.146 139.9 638.646 139.9 638.646 137V86.6C638.646 79.1 644.646 77 652.646 77C662.546 77 668.546 81.6 668.546 93.3V137.1C668.546 140 669.946 140 675.246 140C680.446 140 681.846 140 681.846 137.1V92.5C681.846 83.7 686.446 77.1 697.046 77.1C707.646 77.1 711.746 83.8 711.746 92.7L711.546 137ZM376.046 94.2C377.246 85.9 383.546 76.7 396.146 76.6C406.646 76.5 415.846 82.9 416.346 92.3C416.446 95 415.746 95.3 412.546 95.3H377.046C376.046 95.4 375.946 94.9 376.046 94.2ZM429.646 119.3C429.646 118.1 428.746 116.9 427.046 116.9C425.546 116.9 424.746 117.4 423.846 119C420.346 125 411.646 132 400.146 132.1C384.546 132.2 375.546 121 375.946 103.7C375.946 103.1 376.146 102.6 377.046 102.6C377.946 102.6 401.446 102.6 425.146 102.6C429.646 102.6 429.746 99.6 429.746 97.1C429.746 82.8 416.446 69.5 397.246 69.5C378.046 69.5 362.146 80.3 362.146 105.3C362.146 131.8 381.946 141.2 398.846 141.2C419.246 141.4 429.646 125.6 429.646 119.3ZM1058.65 94.2C1059.85 85.9 1066.15 76.7 1078.75 76.6C1089.25 76.5 1098.45 82.9 1098.95 92.3C1099.05 95 1098.35 95.3 1095.15 95.3H1059.65C1058.65 95.4 1058.55 94.9 1058.65 94.2ZM1112.25 119.3C1112.25 118.1 1111.35 116.9 1109.65 116.9C1108.15 116.9 1107.35 117.4 1106.45 119C1102.95 125 1094.25 132 1082.75 132.1C1067.15 132.2 1058.15 121 1058.55 103.7C1058.55 103.1 1058.75 102.6 1059.65 102.6C1060.55 102.6 1084.05 102.6 1107.75 102.6C1112.25 102.6 1112.35 99.6 1112.35 97.1C1112.35 82.8 1099.05 69.5 1079.85 69.5C1060.65 69.5 1044.75 80.3 1044.75 105.3C1044.75 131.8 1064.55 141.2 1081.45 141.2C1101.85 141.4 1112.25 125.6 1112.25 119.3ZM279.546 135.2C281.346 139.6 281.846 139.9 288.746 139.9C295.646 139.9 295.546 139.6 297.546 135.2C299.446 130.7 324.946 66.9 331.646 50.2C333.146 46.5 332.446 46.2 326.546 46.2C321.346 46.2 320.846 46.5 319.846 48.8C319.846 48.8 291.346 121.6 290.746 123.3C290.546 123.8 289.946 123.8 289.746 123.2C288.846 121.1 259.946 48.6 259.946 48.6C259.246 46.7 259.046 46.1 251.246 46.1C242.746 46.1 243.346 46.9 244.946 51.1C245.346 52 277.746 130.9 279.546 135.2ZM442.546 70.9C439.446 71 435.146 70.9 435.146 70.9C433.046 70.9 433.046 72.1 433.046 74.4C433.046 76.7 433.046 77.9 435.146 77.9H442.546C444.046 77.9 444.146 78.1 444.146 79.6C444.146 82.9 444.146 123.2 444.146 123.2C444.146 139.1 452.646 141 461.046 141.1C469.346 141.2 474.746 138.8 474.646 135.8C474.546 134.1 473.446 133.3 471.546 133.6C470.146 133.8 469.246 134.2 467.446 134.2C463.046 134.2 457.546 133 457.546 123.4V79.7C457.546 78 457.546 77.8 459.246 77.8H471.246C473.346 77.8 473.446 76.6 473.446 74.3C473.446 72 473.346 70.8 471.246 70.8H459.146C457.546 70.8 457.546 70.6 457.546 69.2V54.7C457.546 52.4 455.746 51.5 454.346 51.7C453.246 51.8 452.046 52.5 449.046 54.4C445.146 56.9 444.146 58.5 444.146 63.2V69.3C44.046 70.9 44.046 70.9 442.546 70.9Z" fill="currentColor"></path>
+            </svg>
           </div>
 
-          {/* Form Fields & Action Area */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          {/* FORM LOG IN */}
+          <form onSubmit={handleSubmit} className="w-full space-y-5 text-left">
 
-            {/* Username Input Field with @vietnamairlines.com suffix indicator */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <label className="sm:w-24 text-xs font-bold text-gray-700 whitespace-nowrap">
-                {isEn ? 'Username' : 'Tài khoản'}
+            {/* Tên đăng nhập */}
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
+                Tên đăng nhập
               </label>
-              <div className="flex-grow flex items-center border border-gray-300 rounded-md bg-white focus-within:ring-1 focus-within:ring-[#006070] focus-within:border-[#006070] overflow-hidden pr-3">
+              <div className="flex items-center border border-gray-200 rounded-lg bg-gray-50 focus-within:bg-white focus-within:ring-1 focus-within:ring-[#006070] focus-within:border-[#006070] overflow-hidden pr-3 transition-all">
                 <input
                   type="text"
                   value={username}
                   onChange={e => setUsername(e.target.value)}
                   required
-                  placeholder={isEn ? 'Enter username' : 'Nhập tài khoản'}
-                  className="w-full px-3 py-2 text-xs focus:outline-none bg-white text-gray-900 border-none"
+                  placeholder="Nhập tên đăng nhập"
+                  className="w-full px-3.5 py-3 text-xs focus:outline-none bg-transparent text-gray-900 border-none"
                 />
                 {!username.includes('@') && (
-                  <span className="text-[10px] text-gray-400 font-medium select-none pointer-events-none whitespace-nowrap">
+                  <span className="text-[10px] text-gray-400 font-bold select-none pointer-events-none whitespace-nowrap">
                     @vietnamairlines.com
                   </span>
                 )}
               </div>
             </div>
 
-            {/* Password Input Field with show/hide toggle */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <label className="sm:w-24 text-xs font-bold text-gray-700 whitespace-nowrap">
-                {isEn ? 'Password' : 'Mật khẩu'}
+            {/* Mật khẩu */}
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
+                Mật khẩu
               </label>
-              <div className="flex-grow relative">
+              <div className="relative border border-gray-200 rounded-lg bg-gray-50 focus-within:bg-white focus-within:ring-1 focus-within:ring-[#006070] focus-within:border-[#006070] overflow-hidden transition-all">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="w-full px-3 py-2 pr-8 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-1 focus:ring-[#006070] focus:border-[#006070] transition-all bg-white text-gray-900"
+                  className="w-full px-3.5 py-3 text-xs focus:outline-none bg-transparent text-gray-900 border-none"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-2.5 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  className="absolute right-3.5 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer"
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                 </button>
               </div>
             </div>
 
-            {/* Submit Button & Forgot Password link */}
-            <div className="flex items-center justify-between pt-1">
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-[#004e5a] hover:bg-[#003c46] text-white px-6 py-2 rounded text-xs font-bold transition-all shadow-md active:scale-95 disabled:opacity-50"
-              >
-                {loading ? (isEn ? 'Verifying...' : 'Đang xác thực...') : (isEn ? 'Login' : 'Đăng nhập')}
-              </button>
+            {/* Ghi nhớ đăng nhập & Quên mật khẩu */}
+            <div className="flex items-center justify-between text-xs pt-1">
+              <label className="flex items-center gap-2 cursor-pointer text-gray-600 font-semibold">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                />
+                Ghi nhớ đăng nhập
+              </label>
 
-              {/* <a 
-                href="#forgot" 
-                onClick={(e) => { e.preventDefault(); alert(isEn ? 'Please contact system administrator to reset password.' : 'Vui lòng liên hệ quản trị viên hệ thống để khôi phục mật khẩu.'); }}
-                className="text-xs text-gray-800 hover:text-[#006070] font-bold hover:underline transition-all"
+              {/* <a
+                href="#forgot"
+                onClick={(e) => { e.preventDefault(); alert('Vui lòng liên hệ quản trị viên hệ thống để khôi phục mật khẩu.'); }}
+                className="text-xs text-[#006070] font-bold hover:underline transition-all"
               >
-                {isEn ? 'Forgot password?' : 'Quên mật khẩu?'}
+                Quên mật khẩu?
               </a> */}
             </div>
 
-            {/* Divider line */}
-            <div className="border-t border-gray-100 my-4"></div>
+            {/* Nút Đăng nhập chính */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#c28f15] hover:bg-[#a67a12] text-white py-3 rounded-lg text-xs font-bold transition-all shadow-md active:scale-98 disabled:opacity-50 cursor-pointer"
+              >
+                {loading ? 'Đang xác thực...' : 'Đăng nhập'}
+              </button>
+            </div>
 
-            {/* SSO Microsoft Login Button */}
-            <div className="pt-0.5">
+            {/* Phân cách HOẶC */}
+            {/* <div className="relative flex py-2 items-center">
+              <div className="flex-grow border-t border-gray-150"></div>
+              <span className="flex-shrink mx-4 text-[10px] text-gray-400 font-black tracking-widest uppercase">Hoặc</span>
+              <div className="flex-grow border-t border-gray-150"></div>
+            </div> */}
+
+            {/* Đăng nhập SSO Microsoft */}
+            {/* <div>
               <button
                 type="button"
                 onClick={(e) => { e.preventDefault(); handleSubmit(e); }}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2.5 bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-bold py-2 px-4 rounded-md text-xs shadow-sm hover:shadow transition-all active:scale-98 disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2.5 bg-white border border-gray-200 hover:bg-slate-50 text-gray-700 font-bold py-3 px-4 rounded-lg text-xs shadow-sm hover:shadow transition-all active:scale-98 disabled:opacity-50 cursor-pointer"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 21 21">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 21 21" className="shrink-0">
                   <path fill="#f25022" d="M1 1h9v9H1z" />
                   <path fill="#00a4ef" d="M1 11h9v9H1z" />
                   <path fill="#7fba00" d="M11 1h9v9h-9z" />
                   <path fill="#ffb900" d="M11 11h9v9h-9z" />
                 </svg>
-                {isEn ? 'Sign in with Microsoft' : 'Đăng nhập với tài khoản Microsoft'}
+                <span>Đăng nhập với tài khoản Microsoft</span>
               </button>
-            </div>
+            </div> */}
 
           </form>
         </div>
-      </div>
 
-      {/* Slogan Statement & Runway Plane Backdrop */}
-      <div className="w-full flex flex-col items-center justify-end text-center z-10 pb-0 mt-auto">
-
-        {/* Core Slogan Text */}
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#f1c40f] tracking-wide uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] mb-4 select-none font-sans">
-          {isEn ? 'UNITY - RESILIENCE - RISE - BREAKTHROUGH' : 'ĐOÀN KẾT - TỰ CƯỜNG - VƯƠN MÌNH - BỨT PHÁ'}
-        </h2>
-
-        {/* Combined City Skyline + Dual Airplane Runway (Using user's provided original image - object-cover and height increased to scale up and span side-to-side) */}
-        <div className="w-full h-[120px] sm:h-[160px] md:h-[200px] lg:h-[240px] relative z-20 overflow-hidden flex items-end justify-center mb-1">
-          <img
-            src="/vna-images/plane_footer.png"
-            alt="Vietnam Airlines Runway City Skyline"
-            className="w-full h-full object-cover object-bottom pointer-events-none select-none"
-          />
-        </div>
-
-        {/* Footer info: Copyright and Language Switcher */}
-        <div className="w-full bg-[#004e5a]/80 backdrop-blur-xs border-t border-white/10 py-3 flex flex-col sm:flex-row items-center justify-between px-6 text-[10px] sm:text-xs text-white/70 relative z-30">
-          <p className="mb-2 sm:mb-0">
-            &copy; 2026 Vietnam Airlines. {isEn ? 'All rights reserved.' : 'Bảo lưu mọi quyền.'}
+        {/* Chân trang thông tin bản quyền */}
+        <div className="w-full flex flex-col items-center gap-2 text-center text-[10px] text-gray-400 font-medium">
+          <p>
+            © 2026 Vietnam Airlines. All rights reserved.
           </p>
-
-          {/* Language / Country Selector at bottom right */}
-          <div className="flex items-center gap-3">
-            <span className="uppercase tracking-widest text-[9px] font-bold text-white/40">{isEn ? 'Language:' : 'Ngôn ngữ:'}</span>
-            <div className="flex gap-1.5">
-              <button
-                onClick={() => changeLanguage('vi')}
-                className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] border transition-all ${!isEn ? 'border-[#e9c13b] text-[#e9c13b] bg-white/5 font-bold' : 'border-white/10 text-white/60 hover:text-white'}`}
-              >
-                <span>🇻🇳</span> VI
-              </button>
-              <button
-                onClick={() => changeLanguage('en')}
-                className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] border transition-all ${isEn ? 'border-[#e9c13b] text-[#e9c13b] bg-white/5 font-bold' : 'border-white/10 text-white/60 hover:text-white'}`}
-              >
-                <span>🇺🇸</span> EN
-              </button>
-            </div>
-          </div>
+          <span className="px-2 py-0.5 rounded border border-gray-200 bg-gray-50 text-[9px] font-bold text-gray-500 uppercase tracking-widest">
+            Internal Use Only
+          </span>
         </div>
 
       </div>
