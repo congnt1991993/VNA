@@ -472,11 +472,11 @@ export const TechOpsPage: React.FC<{ onImportExcel?: () => void }> = ({ onImport
           <p className="text-sm text-gray-500 mt-1">Quản lý nhập liệu, theo dõi tiêu hao năng lượng và chứng từ ReFuelEU</p>
         </div>
         <div className="flex gap-2">
-          {onImportExcel && (
+          {/* {onImportExcel && (
             <Button variant="outline" onClick={onImportExcel} className="cursor-pointer flex items-center gap-1.5 border-vna-blue text-vna-blue hover:bg-blue-50/50">
               <UploadCloud size={16} /> Import Excel
             </Button>
-          )}
+          )} */}
           <Button variant="primary" onClick={handleAddNew} className="shadow-md hover:shadow-lg transition-all">
             <Plus size={16} className="mr-2" /> Tạo kỳ báo cáo mới
           </Button>

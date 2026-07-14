@@ -640,33 +640,18 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <Input label="Chủ đề (Topic)" value={formIndicator.topic || ''} onChange={(e) => setFormIndicator({ ...formIndicator, topic: e.target.value })} placeholder="VD: Khí nhà kính, Nhiên liệu SAF" />
               </div>
 
-              {/* <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <Input label="Đơn vị tính" value={formIndicator.unit || ''} onChange={(e) => setFormIndicator({ ...formIndicator, unit: e.target.value })} placeholder="VD: %, Tấn, Vụ" />
                 <Select
-                  label="Tần suất báo cáo"
-                  value={formIndicator.frequency || 'Hàng tháng'}
-                  onChange={(val) => setFormIndicator({ ...formIndicator, frequency: val })}
-                  options={[
-                    { label: 'Hàng tháng', value: 'Hàng tháng' },
-                    { label: 'Hàng quý', value: 'Hàng quý' },
-                    { label: '6 tháng', value: '6 tháng' },
-                    { label: 'Hàng năm', value: 'Hàng năm' }
-                  ]}
-                />
-              </div> */}
-
-              {/* <div className="grid grid-cols-2 gap-4">
-                <Input label="Trọng số KPI (%)" type="number" min="0" max="100" value={String(formIndicator.weight || 10)} onChange={(e) => setFormIndicator({ ...formIndicator, weight: Number(e.target.value) })} />
-                <Select
-                  label="Trạng thái hiệu lực"
+                  label="Trạng thái chỉ tiêu"
                   value={formIndicator.isActive ? 'active' : 'inactive'}
                   onChange={(val) => setFormIndicator({ ...formIndicator, isActive: val === 'active' })}
                   options={[
-                    { label: 'Hiệu lực (Đang áp dụng)', value: 'active' },
-                    { label: 'Ngưng áp dụng (Giữ lịch sử)', value: 'inactive' }
+                    { label: 'Hoạt động', value: 'active' },
+                    { label: 'Ngừng hoạt động', value: 'inactive' }
                   ]}
                 />
-              </div> */}
+              </div>
             </div>
 
             {/* TRÁCH NHIỆM & NHÃN CHƯƠNG TRÌNH */}

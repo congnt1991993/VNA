@@ -1,0 +1,322 @@
+{
+  "Airline E-1": {
+    "hasKpi": "Yes",
+    "kpiSource": ""
+  },
+  "GRI 403-2": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 418-1": {
+    "hasKpi": "Yes",
+    "kpiSource": ""
+  },
+  "GRI 2-7": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 2-30": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 201-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 202-1": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 202-2": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 401-1": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 401-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "Airline D-1": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 403-4": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 403-9": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 403-10": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 405-1": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 406-1": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 404-2": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 404-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "Airline F-2": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 416-1": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 416-2": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 417-2": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "Airline B-1": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 303-3": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 303-5": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 204-1": {
+    "hasKpi": "No",
+    "kpiSource": ""
+  },
+  "GRI 302-1": {
+    "hasKpi": "Yes",
+    "kpiSource": "PMS"
+  },
+  "GRI 302-4": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 305-1": {
+    "hasKpi": "Yes",
+    "kpiSource": "PMS"
+  },
+  "GRI 305-4": {
+    "hasKpi": "Yes",
+    "kpiSource": "RPS\r\nPMS"
+  },
+  "GRI 305-5": {
+    "hasKpi": "Yes",
+    "kpiSource": "Nhập thủ công"
+  },
+  "GRI 3-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-23": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-26": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-9": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-13": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-12": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-11": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-10": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-15": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-29": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 201-4": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 205-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 205-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 206-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 415-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 417-3": {
+    "hasKpi": "Yes",
+    "kpiSource": ""
+  },
+  "Airline F-1": {
+    "hasKpi": "Yes",
+    "kpiSource": ""
+  },
+  "Airline B-2": {
+    "hasKpi": "Yes",
+    "kpiSource": "Không cung cấp do số liệu nhạy cảm"
+  },
+  "GRI 305-7": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 305-6": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "Airlines C-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 413-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-21": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 2-6": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 401-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 402-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 405-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 407-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 408-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 409-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 412-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 414-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 414-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 403 (all)": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 417-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 303-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 303-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 303-4": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 305-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 308-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 301-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 301-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 301-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 306-1": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 306-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 306-4": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 306-5": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 302-2": {
+    "hasKpi": "",
+    "kpiSource": ""
+  },
+  "GRI 305-3": {
+    "hasKpi": "",
+    "kpiSource": ""
+  }
+}

@@ -118,7 +118,7 @@ export const OpsDigitalPage: React.FC<{ onImportExcel?: () => void }> = ({ onImp
     if (!formRecord) return;
     const now = new Date();
     const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    
+
     const recordToSave: OpsDigitalRecord = {
       ...formRecord,
       creator: formRecord.creator || 'Nguyễn Văn A',
@@ -180,11 +180,11 @@ export const OpsDigitalPage: React.FC<{ onImportExcel?: () => void }> = ({ onImp
         </div>
         {mainTab === 'INFO' && viewMode === 'LIST' && (
           <div className="flex gap-2">
-            {onImportExcel && (
+            {/* {onImportExcel && (
               <Button variant="outline" onClick={onImportExcel} className="cursor-pointer flex items-center gap-1.5 border-vna-blue text-vna-blue hover:bg-blue-50/50">
                 <UploadCloud size={16} /> Import Excel
               </Button>
-            )}
+            )} */}
             <Button variant="primary" onClick={handleAddNew} className="shadow-md hover:shadow-lg transition-all">
               <Plus size={16} className="mr-2" /> Tạo kỳ báo cáo mới
             </Button>

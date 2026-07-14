@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './UI';
 import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search } from 'lucide-react';
 
+import kpiRules from './NetzeroGRI_KPI_Rules.json';
+
 interface UnifiedDataEntryFormProps {
   department: string;
   effectivePeriod: string;
@@ -19,9 +21,11 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
 }) => {
   const [activeSec, setActiveSec] = useState<string>('');
   const [activeSubTab, setActiveSubTab] = useState<string>('TAB_1');
+  const [activeMainTab, setActiveMainTab] = useState<'DATA' | 'PLAN'>('DATA');
 
   useEffect(() => {
     setActiveSubTab('TAB_1');
+    setActiveMainTab('DATA'); // Reset main tab khi chuyển chỉ tiêu
   }, [activeSec]);
 
   // Get indicators for this department from localStorage
@@ -440,8 +444,43 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                 </div>
               </div>
 
-              {/* Sub-tabs / Sheets Selectors if any - only display if indicator has more than 1 form/sheet */}
-              {ind.code === 'GRI 302-1' && (
+              {/* TAB SELECTOR LỚN (Chỉ hiển thị nếu thỏa mãn điều kiện kpiRules: hasKpi = Yes và nguồn = Nhập thủ công/trống) */}
+              {(() => {
+                const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
+                const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
+                
+                if (!showPlanTab) return null;
+                
+                return (
+                  <div className="flex border-b border-gray-200 mb-5 gap-2 animate-in fade-in duration-200">
+                    <button
+                      type="button"
+                      onClick={() => setActiveMainTab('DATA')}
+                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
+                        activeMainTab === 'DATA'
+                          ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                          : 'border-transparent text-gray-400 hover:text-gray-600'
+                      }`}
+                    >
+                      Số liệu thực hiện
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveMainTab('PLAN')}
+                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
+                        activeMainTab === 'PLAN'
+                          ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                          : 'border-transparent text-gray-400 hover:text-gray-600'
+                      }`}
+                    >
+                      Kế hoạch thực hiện
+                    </button>
+                  </div>
+                );
+              })()}
+
+              {/* Sub-tabs / Sheets Selectors if any - only display if indicator has more than 1 form/sheet AND we are in DATA tab */}
+              {activeMainTab === 'DATA' && ind.code === 'GRI 302-1' && (
                 <div className="flex border-b border-gray-200 mb-5 gap-1 animate-in fade-in duration-200">
                   <button
                     onClick={() => setActiveSubTab('TAB_1')}
@@ -466,7 +505,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                 </div>
               )}
 
-              {ind.code === 'GRI 204-1' && (
+              {activeMainTab === 'DATA' && ind.code === 'GRI 204-1' && (
                 <div className="flex border-b border-gray-200 mb-5 gap-1 animate-in fade-in duration-200">
                   <button
                     onClick={() => setActiveSubTab('TAB_1')}
@@ -491,8 +530,64 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                 </div>
               )}
 
-              {/* Table rendering or Text Multiple Line rendering */}
-              <div className="overflow-x-auto rounded-lg border border-gray-200 flex-1">
+              {/* FORM KẾ HOẠCH THỰC HIỆN (Render dưới dạng bảng Excel đồng nhất) */}
+              {(() => {
+                const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
+                const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
+                if (showPlanTab && activeMainTab === 'PLAN') {
+                  return (
+                    <div className="overflow-x-auto rounded-lg border border-gray-200 flex-1 animate-in fade-in duration-200">
+                      <table className="w-full text-left border-collapse text-xs min-w-[800px]">
+                        <thead>
+                          <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-650 font-bold">
+                            <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
+                            <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-left">Chỉ tiêu kế hoạch / mục tiêu</th>
+                            <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-center w-64">Giá trị Kế hoạch (Target)</th>
+                            <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-center w-64">Giá trị Mục tiêu (Goal)</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          <tr className="hover:bg-blue-50/20 transition-colors">
+                            <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
+                              Dòng 1
+                            </td>
+                            <td className="p-3 border border-gray-200 font-semibold text-gray-800">
+                              Kế hoạch và Mục tiêu (KPI) cần đạt của chỉ tiêu
+                            </td>
+                            <td className="p-2 border border-gray-200 text-center">
+                              <input
+                                type="number"
+                                placeholder="Nhập KH..."
+                                value={formData[`${ind.code}_PLAN_TARGET`] || ''}
+                                onChange={(e) => setFormData(prev => ({ ...prev, [`${ind.code}_PLAN_TARGET`]: e.target.value }))}
+                                className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 text-center"
+                              />
+                            </td>
+                            <td className="p-2 border border-gray-200 text-center">
+                              <input
+                                type="number"
+                                placeholder="Nhập mục tiêu..."
+                                value={formData[`${ind.code}_PLAN_GOAL`] || ''}
+                                onChange={(e) => setFormData(prev => ({ ...prev, [`${ind.code}_PLAN_GOAL`]: e.target.value }))}
+                                className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 text-center"
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
+
+              {/* Table rendering or Text Multiple Line rendering (Ẩn nếu đang ở tab PLAN) */}
+              {(() => {
+                const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
+                const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
+                const isHidden = showPlanTab && activeMainTab === 'PLAN';
+                return (
+                  <div className={`overflow-x-auto rounded-lg border border-gray-200 flex-1 ${isHidden ? 'hidden' : ''}`}>
                 {!Array.isArray(rows) || rows.length === 0 ? (
                   <div className="p-5 flex flex-col gap-2">
                     <label className="block text-xs font-bold text-gray-500 uppercase">Nội dung báo cáo định tính (Text Multiple Line)</label>
@@ -715,7 +810,9 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                   </table>
                 )}
               </div>
-            </div>
+            );
+          })()}
+        </div>
           );
         })}
       </div>
