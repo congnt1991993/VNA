@@ -9,7 +9,7 @@ const DEPARTMENTS = [
 export const EsgReportPage: React.FC = () => {
   const [view, setView] = useState<'LIST' | 'DETAIL'>('LIST');
   const [selectedCampaign, setSelectedCampaign] = useState<any>(null);
-  
+
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
@@ -17,9 +17,23 @@ export const EsgReportPage: React.FC = () => {
   // States for new campaign form
   const [newYear, setNewYear] = useState('2026');
   const [newPeriodType, setNewPeriodType] = useState('Cả năm');
-  const [newTitle, setNewTitle] = useState('Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026');
+  const [newCampaignId, setNewCampaignId] = useState('REQ-2026-FY');
+  const [newTitle, setNewTitle] = useState('Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026 - Cả năm');
   const [newContent, setNewContent] = useState('Đề nghị các cơ quan, đơn vị khẩn trương tổng hợp và nộp báo cáo số liệu ESG năm 2026 phục vụ công tác lập Báo cáo Phát triển Bền vững của TCT.');
   const [newDeadline, setNewDeadline] = useState('2026-03-01');
+
+  // Hàm tự động sinh mã đợt báo cáo gợi ý
+  const generateCampaignId = (year: string, period: string) => {
+    let suffix = 'FY';
+    if (period === 'Quý 1') suffix = 'Q1';
+    else if (period === 'Quý 2') suffix = 'Q2';
+    else if (period === 'Quý 3') suffix = 'Q3';
+    else if (period === 'Quý 4') suffix = 'Q4';
+    else if (period === '6 tháng đầu năm (Bán niên)') suffix = 'HY';
+    else if (period === 'Đợt 1') suffix = 'P1';
+    else if (period === 'Đợt 2') suffix = 'P2';
+    return `REQ-${year}-${suffix}`;
+  };
 
   // MOCK DATA
   const [campaigns, setCampaigns] = useState([
@@ -89,7 +103,7 @@ export const EsgReportPage: React.FC = () => {
 
   const handleCreateRequest = () => {
     const newCamp = {
-      id: `REQ-${Date.now()}`,
+      id: newCampaignId,
       year: newYear,
       period: newPeriodType,
       title: newTitle,
@@ -115,7 +129,7 @@ export const EsgReportPage: React.FC = () => {
   const handleFinishAndPublish = () => {
     setToast({ message: 'Đã hoàn thành Đợt thu thập! File Báo cáo cuối cùng đã được lưu và tự động đẩy sang Kho lưu trữ CMS Website ESG.', type: 'success' });
     setIsFinishModalOpen(false);
-    
+
     // Cập nhật trạng thái
     if (selectedCampaign) {
       const updated = campaigns.map(c => c.id === selectedCampaign.id ? { ...c, status: 'COMPLETED' } : c);
@@ -127,7 +141,7 @@ export const EsgReportPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      
+
       {/* MÀN HÌNH DANH SÁCH YÊU CẦU */}
       {view === 'LIST' && (
         <>
@@ -146,6 +160,7 @@ export const EsgReportPage: React.FC = () => {
             <Table>
               <thead>
                 <tr>
+                  <th className="px-4 py-3">Mã đợt báo cáo</th>
                   <th className="px-4 py-3">Tên Yêu cầu / Đợt thu thập</th>
                   <th className="px-4 py-3 text-center">Năm BC</th>
                   <th className="px-4 py-3">Đợt báo cáo</th>
@@ -161,6 +176,7 @@ export const EsgReportPage: React.FC = () => {
                   const isOverdue = camp.status === 'IN_PROGRESS' && new Date() > new Date(camp.deadline);
                   return (
                     <tr key={camp.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => { setSelectedCampaign(camp); setView('DETAIL'); }}>
+                      <td className="px-4 py-4 font-mono font-bold text-gray-800 text-xs">{camp.id}</td>
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-lg ${camp.status === 'COMPLETED' ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-vna-blue'}`}>
@@ -350,8 +366,8 @@ export const EsgReportPage: React.FC = () => {
                         <td className="px-4 py-3 text-sm text-gray-600 font-semibold font-mono">{dept.submittedAt || '-'}</td>
                         <td className="px-4 py-3 text-sm text-center">
                           {dept.file ? (
-                            <a 
-                              href="#" 
+                            <a
+                              href="#"
                               onClick={(e) => handleDownload(dept.file, e)}
                               className="text-vna-blue hover:underline inline-flex items-center gap-1 font-semibold"
                             >
@@ -363,7 +379,7 @@ export const EsgReportPage: React.FC = () => {
                         </td>
                         <td className="px-4 py-3 text-center">
                           <div className="flex justify-center items-center gap-1">
-                            <button 
+                            <button
                               onClick={() => handleUploadPlaceholder(dept.name)}
                               className="p-1.5 rounded text-vna-blue hover:bg-vna-blue hover:text-white transition-colors cursor-pointer inline-flex items-center justify-center border border-vna-blue/20"
                               title="Upload tệp báo cáo"
@@ -371,7 +387,7 @@ export const EsgReportPage: React.FC = () => {
                               <Upload size={14} />
                             </button>
                             {dept.file && (
-                              <button 
+                              <button
                                 onClick={(e) => handleDownload(dept.file, e)}
                                 className="p-1.5 rounded text-emerald-600 hover:bg-emerald-600 hover:text-white transition-colors cursor-pointer inline-flex items-center justify-center border border-emerald-200"
                                 title="Tải xuống tệp tin"
@@ -392,9 +408,9 @@ export const EsgReportPage: React.FC = () => {
       )}
 
       {/* MODAL TẠO YÊU CẦU */}
-      <Modal 
-        isOpen={isCreateModalOpen} 
-        onClose={() => setIsCreateModalOpen(false)} 
+      <Modal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
         title="Tạo Yêu cầu nộp Báo cáo ESG"
         footer={
           <>
@@ -404,18 +420,25 @@ export const EsgReportPage: React.FC = () => {
         }
       >
         <div className="space-y-4 text-left">
+          <Input
+            label="Mã đợt báo cáo"
+            value={newCampaignId}
+            onChange={(e) => setNewCampaignId(e.target.value)}
+            placeholder="Nhập mã đợt báo cáo (Ví dụ: REQ-2026-FY)..."
+          />
           <div className="grid grid-cols-2 gap-4">
-            <Input 
-              label="Năm báo cáo" 
-              type="number" 
-              value={newYear} 
+            <Input
+              label="Năm báo cáo"
+              type="number"
+              value={newYear}
               onChange={(e) => {
                 const yr = e.target.value;
                 setNewYear(yr);
                 setNewTitle(`Yêu cầu nộp số liệu Báo cáo Thường niên PTBV ${yr} - ${newPeriodType}`);
-              }} 
+                setNewCampaignId(generateCampaignId(yr, newPeriodType));
+              }}
             />
-            
+
             <div className="w-full">
               <label className="block text-sm font-semibold text-gray-700 mb-1">Đợt báo cáo</label>
               <select
@@ -424,6 +447,7 @@ export const EsgReportPage: React.FC = () => {
                   const p = e.target.value;
                   setNewPeriodType(p);
                   setNewTitle(`Yêu cầu nộp số liệu Báo cáo Thường niên PTBV ${newYear} - ${p}`);
+                  setNewCampaignId(generateCampaignId(newYear, p));
                 }}
                 className="w-full px-3 py-2 border border-gray-350 hover:border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm font-semibold bg-white text-gray-800"
               >
@@ -439,13 +463,14 @@ export const EsgReportPage: React.FC = () => {
             </div>
           </div>
 
+
           <Input label="Tiêu đề yêu cầu" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
           <Input label="Hạn nộp báo cáo" type="date" value={newDeadline} onChange={(e) => setNewDeadline(e.target.value)} />
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700 mb-1">Nội dung chi tiết</label>
-            <textarea 
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm" 
-              rows={4} 
+            <textarea
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm"
+              rows={4}
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
             ></textarea>
@@ -465,9 +490,9 @@ export const EsgReportPage: React.FC = () => {
       </Modal>
 
       {/* MODAL HOÀN THÀNH & UPLOAD CMS */}
-      <Modal 
-        isOpen={isFinishModalOpen} 
-        onClose={() => setIsFinishModalOpen(false)} 
+      <Modal
+        isOpen={isFinishModalOpen}
+        onClose={() => setIsFinishModalOpen(false)}
         title="Kết thúc đợt & Xuất bản"
         footer={
           <>
@@ -481,7 +506,7 @@ export const EsgReportPage: React.FC = () => {
             <CheckCircle size={18} className="mt-0.5 shrink-0" />
             <p>Thao tác này sẽ khóa Đợt thu thập (các Ban không thể nộp thêm). Bạn hãy tải lên File Báo cáo ESG hoàn chỉnh cuối cùng để hệ thống tự động đẩy sang Kho lưu trữ CMS Website.</p>
           </div>
-          
+
           <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
             <UploadCloud size={40} className="text-gray-400 mb-3" />
             <p className="text-sm font-medium text-gray-700">Kéo thả file Báo cáo Thường niên (PDF) vào đây</p>
