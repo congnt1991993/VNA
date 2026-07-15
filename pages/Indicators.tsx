@@ -124,7 +124,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
   const [viewMode, setViewMode] = useState<'LIST' | 'DETAIL' | 'DASHBOARD'>('LIST');
   const [indicators, setIndicators] = useState<Indicator[]>([]);
   const [formIndicator, setFormIndicator] = useState<Indicator | null>(null);
-  
+
   const [formulas, setFormulas] = useState<any[]>([]);
   const [searchFormQuery, setSearchFormQuery] = useState('');
   const [isOpenFormDropdown, setIsOpenFormDropdown] = useState(false);
@@ -171,7 +171,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
       if (savedForms) {
         try {
           setAllForms(JSON.parse(savedForms));
-        } catch (e) {}
+        } catch (e) { }
       } else {
         // Fallback default mock forms
         const defaults = [
@@ -456,10 +456,10 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             <Button variant="ghost" onClick={handleBack} className="p-2 cursor-pointer border border-gray-200 hover:bg-gray-100 flex items-center gap-1 text-xs bg-white">
               <ArrowLeft size={16} /> Quay lại danh sách chỉ tiêu
             </Button>
-            <a 
-              href={formIndicator.metabaseLink} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={formIndicator.metabaseLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
             >
               Xem chi tiết trên Metabase ↗
@@ -652,6 +652,9 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                   ]}
                 />
               </div>
+              <Input label="Link Báo cáo" value={formIndicator.code} onChange={(e) => setFormIndicator({ ...formIndicator, code: e.target.value })} placeholder="Nhập link embed báo cáo" />
+              <Input label="Link Metabase" value={formIndicator.name} onChange={(e) => setFormIndicator({ ...formIndicator, name: e.target.value })} placeholder="Nhập link truy cập metabase" />
+
             </div>
 
             {/* TRÁCH NHIỆM & NHÃN CHƯƠNG TRÌNH */}
@@ -716,9 +719,9 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
                 <div className="relative">
                   <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn biểu mẫu thu thập số liệu</label>
-                  
+
                   {/* Combobox Input Trigger */}
-                  <div 
+                  <div
                     onClick={() => setIsOpenFormDropdown(!isOpenFormDropdown)}
                     className="min-h-[42px] p-2 bg-white border border-gray-300 rounded-lg flex flex-wrap gap-1.5 items-center cursor-pointer hover:border-gray-400 transition-colors focus-within:border-vna-blue focus-within:ring-1 focus-within:ring-vna-blue/30"
                   >
@@ -728,8 +731,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                       (formIndicator.assignedForms || []).map(formId => {
                         const formObj = allForms.find(f => f.id === formId);
                         return (
-                          <div 
-                            key={formId} 
+                          <div
+                            key={formId}
                             className="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 text-vna-blue px-2.5 py-0.5 rounded-md text-xs font-bold"
                             onClick={(e) => e.stopPropagation()}
                           >
@@ -765,7 +768,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                           onClick={(e) => e.stopPropagation()}
                         />
                         {searchFormQuery && (
-                          <button 
+                          <button
                             onClick={(e) => { e.stopPropagation(); setSearchFormQuery(''); }}
                             className="text-gray-400 hover:text-gray-655 text-xs font-bold"
                           >
@@ -777,8 +780,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                       {/* Options List */}
                       <div className="max-h-60 overflow-y-auto divide-y divide-gray-100">
                         {(() => {
-                          const filtered = allForms.filter(f => 
-                            f.name.toLowerCase().includes(searchFormQuery.toLowerCase()) || 
+                          const filtered = allForms.filter(f =>
+                            f.name.toLowerCase().includes(searchFormQuery.toLowerCase()) ||
                             f.id.toLowerCase().includes(searchFormQuery.toLowerCase())
                           );
 
@@ -802,17 +805,15 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                                   }
                                   setFormIndicator({ ...formIndicator, assignedForms: newAssigned });
                                 }}
-                                className={`p-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between text-xs transition-colors ${
-                                  isChecked ? 'bg-blue-50/20 font-bold' : ''
-                                }`}
+                                className={`p-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between text-xs transition-colors ${isChecked ? 'bg-blue-50/20 font-bold' : ''
+                                  }`}
                               >
                                 <div className="text-left flex-1 pr-4">
                                   <div className="text-gray-800 font-semibold">{form.name}</div>
                                   <div className="text-[10px] text-gray-400 font-mono mt-0.5">{form.id} • {form.fields?.length || 0} trường động</div>
                                 </div>
-                                <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
-                                  isChecked ? 'border-vna-blue bg-vna-blue text-white' : 'border-gray-300'
-                                }`}>
+                                <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isChecked ? 'border-vna-blue bg-vna-blue text-white' : 'border-gray-300'
+                                  }`}>
                                   {isChecked && <span className="text-[9px] font-black">✓</span>}
                                 </div>
                               </div>
@@ -824,7 +825,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                       {/* Dropdown Footer Action */}
                       <div className="p-2 bg-gray-50 border-t border-gray-150 flex justify-between items-center text-[10px]">
                         <span className="text-gray-500 font-semibold">Bấm bên ngoài để đóng bảng chọn</span>
-                        <button 
+                        <button
                           onClick={(e) => { e.stopPropagation(); setIsOpenFormDropdown(false); }}
                           className="px-2.5 py-1 bg-vna-blue hover:bg-vna-blue/90 text-white rounded font-bold cursor-pointer transition-colors"
                         >
