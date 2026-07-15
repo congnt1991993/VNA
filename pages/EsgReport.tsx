@@ -16,6 +16,7 @@ export const EsgReportPage: React.FC = () => {
 
   // States for new campaign form
   const [newYear, setNewYear] = useState('2026');
+  const [newPeriodType, setNewPeriodType] = useState('Cả năm');
   const [newTitle, setNewTitle] = useState('Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026');
   const [newContent, setNewContent] = useState('Đề nghị các cơ quan, đơn vị khẩn trương tổng hợp và nộp báo cáo số liệu ESG năm 2026 phục vụ công tác lập Báo cáo Phát triển Bền vững của TCT.');
   const [newDeadline, setNewDeadline] = useState('2026-03-01');
@@ -25,6 +26,7 @@ export const EsgReportPage: React.FC = () => {
     {
       id: 'REQ-2026',
       year: '2026',
+      period: 'Cả năm',
       title: 'Yêu cầu nộp số liệu Báo cáo Thường niên PTBV 2026',
       content: 'Đề nghị các cơ quan, đơn vị khẩn trương tổng hợp và nộp báo cáo số liệu ESG năm 2026 phục vụ công tác lập Báo cáo Phát triển Bền vững của TCT.',
       status: 'IN_PROGRESS',
@@ -55,6 +57,7 @@ export const EsgReportPage: React.FC = () => {
     {
       id: 'REQ-2025',
       year: '2025',
+      period: 'Cả năm',
       title: 'Thu thập số liệu Báo cáo ESG 2025',
       content: 'Yêu cầu nộp số liệu năm 2025',
       status: 'COMPLETED',
@@ -88,6 +91,7 @@ export const EsgReportPage: React.FC = () => {
     const newCamp = {
       id: `REQ-${Date.now()}`,
       year: newYear,
+      period: newPeriodType,
       title: newTitle,
       content: newContent,
       status: 'IN_PROGRESS',
@@ -144,6 +148,7 @@ export const EsgReportPage: React.FC = () => {
                 <tr>
                   <th className="px-4 py-3">Tên Yêu cầu / Đợt thu thập</th>
                   <th className="px-4 py-3 text-center">Năm BC</th>
+                  <th className="px-4 py-3">Đợt báo cáo</th>
                   <th className="px-4 py-3">Ngày tạo</th>
                   <th className="px-4 py-3">Hạn nộp</th>
                   <th className="px-4 py-3">Tiến độ nộp</th>
@@ -165,6 +170,11 @@ export const EsgReportPage: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-4 py-4 text-center font-bold text-gray-600">{camp.year}</td>
+                      <td className="px-4 py-4">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                          {camp.period || 'Cả năm'}
+                        </span>
+                      </td>
                       <td className="px-4 py-4 text-gray-600">{camp.createdAt}</td>
                       <td className="px-4 py-4 font-semibold text-gray-700">
                         {new Date(camp.deadline).toLocaleDateString('vi-VN')}
@@ -393,8 +403,42 @@ export const EsgReportPage: React.FC = () => {
           </>
         }
       >
-        <div className="space-y-4">
-          <Input label="Năm báo cáo" type="number" value={newYear} onChange={(e) => setNewYear(e.target.value)} />
+        <div className="space-y-4 text-left">
+          <div className="grid grid-cols-2 gap-4">
+            <Input 
+              label="Năm báo cáo" 
+              type="number" 
+              value={newYear} 
+              onChange={(e) => {
+                const yr = e.target.value;
+                setNewYear(yr);
+                setNewTitle(`Yêu cầu nộp số liệu Báo cáo Thường niên PTBV ${yr} - ${newPeriodType}`);
+              }} 
+            />
+            
+            <div className="w-full">
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Đợt báo cáo</label>
+              <select
+                value={newPeriodType}
+                onChange={(e) => {
+                  const p = e.target.value;
+                  setNewPeriodType(p);
+                  setNewTitle(`Yêu cầu nộp số liệu Báo cáo Thường niên PTBV ${newYear} - ${p}`);
+                }}
+                className="w-full px-3 py-2 border border-gray-350 hover:border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm font-semibold bg-white text-gray-800"
+              >
+                <option value="Quý 1">Quý 1</option>
+                <option value="Quý 2">Quý 2</option>
+                <option value="Quý 3">Quý 3</option>
+                <option value="Quý 4">Quý 4</option>
+                <option value="6 tháng đầu năm (Bán niên)">6 tháng đầu năm (Bán niên)</option>
+                <option value="Cả năm">Cả năm</option>
+                <option value="Đợt 1">Đợt 1</option>
+                <option value="Đợt 2">Đợt 2</option>
+              </select>
+            </div>
+          </div>
+
           <Input label="Tiêu đề yêu cầu" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
           <Input label="Hạn nộp báo cáo" type="date" value={newDeadline} onChange={(e) => setNewDeadline(e.target.value)} />
           <div className="w-full">
