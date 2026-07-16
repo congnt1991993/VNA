@@ -161,46 +161,51 @@ export const OpsATCLPage: React.FC<{ onImportExcel?: () => void }> = ({ onImport
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-in slide-in-from-bottom-4 duration-500">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Mã kỳ báo cáo</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Năm báo cáo</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Tiếng ồn (dB)</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Phát thải GHG (Tấn CO2)</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Người lập</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Người chỉnh sửa</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Thời gian chỉnh sửa</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700 text-center">Thao tác</th>
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-200 text-sm">
+                <th className="py-3 px-4 font-semibold text-gray-700 w-12 text-center rounded-tl-lg">STT</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Mã kỳ báo cáo</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Năm báo cáo</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Người lập</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Người chỉnh sửa</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Thời gian chỉnh sửa</th>
+                <th className="py-3 px-4 font-semibold text-gray-700 w-40 text-center rounded-tr-lg">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 text-sm">
+              {records.map((record, index) => (
+                <tr key={record.id} className="hover:bg-blue-50/50 transition-colors group cursor-pointer" onClick={() => handleEdit(record)}>
+                  <td className="py-3 px-4 text-sm text-black/45 text-center">{index + 1}</td>
+                  <td className="py-3 px-4 text-sm text-vna-blue font-mono font-bold">{record.id}</td>
+                  <td className="py-3 px-4 text-sm text-gray-800 font-semibold">{record.year || record.effectivePeriod?.split('/').pop() || '—'}</td>
+                  <td className="py-3 px-4 text-gray-600">{record.creator || '—'}</td>
+                  <td className="py-3 px-4 text-gray-600">{record.editor || '—'}</td>
+                  <td className="py-3 px-4 text-gray-600 font-mono">{record.editTime || '—'}</td>
+                  <td className="py-3 px-4 text-center whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex justify-center items-center gap-2">
+                      <Button variant="outline" className="px-2.5 py-1.5 h-8 text-xs font-semibold whitespace-nowrap" onClick={() => handleEdit(record)}>
+                        <Edit2 size={14} className="mr-1" /> Chi tiết
+                      </Button>
+                      <QuickApprovalActions
+                        status={record.status}
+                        recordId={record.id}
+                        onApprove={openApprove}
+                        onReject={openReject}
+                        onSubmit={submitForApproval}
+                      />
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 text-sm">
-                {records.map(record => (
-                  <tr key={record.id} className="hover:bg-blue-50/50 transition-colors group">
-                    <td className="py-3 px-4 font-bold text-vna-blue">{record.id}</td>
-                    <td className="py-3 px-4">{record.year}</td>
-                    <td className="py-3 px-4 font-semibold font-mono">{record.noiseLevel || '-'} dB</td>
-                    <td className="py-3 px-4 font-semibold font-mono">{Number(record.ghgEmissions || 0).toLocaleString()} tCO2</td>
-                    <td className="py-3 px-4 text-gray-600">{record.creator || '—'}</td>
-                    <td className="py-3 px-4 text-gray-600">{record.editor || '—'}</td>
-                    <td className="py-3 px-4 text-gray-600 font-mono">{record.editTime || '—'}</td>
-                    <td className="py-3 px-4 text-center">
-                      <div className="flex items-center justify-center gap-2">
-                        <Button variant="outline" className="px-2.5 py-1.5 h-8 text-xs font-semibold" onClick={() => handleEdit(record)}>
-                          <Edit2 size={14} className="mr-1" /> Chi tiết
-                        </Button>
-                        <QuickApprovalActions
-                          status={record.status}
-                          recordId={record.id}
-                          onApprove={openApprove}
-                          onReject={openReject}
-                          onSubmit={submitForApproval}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+              {records.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-gray-400">
+                    Chưa ghi nhận kỳ nhập liệu nào.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
           </div>
         </div>
       )}

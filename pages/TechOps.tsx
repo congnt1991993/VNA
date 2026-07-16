@@ -506,10 +506,8 @@ export const TechOpsPage: React.FC<{ onImportExcel?: () => void }> = ({ onImport
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200 text-sm">
                 <th className="py-3 px-4 font-semibold text-gray-700 w-12 text-center rounded-tl-lg">STT</th>
-                <th className="py-3 px-4 font-semibold text-gray-700">Thời gian áp dụng</th>
-                <th className="py-3 px-4 font-semibold text-gray-700 w-44">Tỷ lệ SAF kế hoạch</th>
-                <th className="py-3 px-4 font-semibold text-gray-700 w-44">SAF thực tế (Tấn)</th>
-                <th className="py-3 px-4 font-semibold text-gray-700 w-44">Hạn ngạch EU/UK ETS</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Mã kỳ báo cáo</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Năm báo cáo</th>
                 <th className="py-3 px-4 font-semibold text-gray-700">Người lập</th>
                 <th className="py-3 px-4 font-semibold text-gray-700">Người chỉnh sửa</th>
                 <th className="py-3 px-4 font-semibold text-gray-700">Thời gian chỉnh sửa</th>
@@ -518,18 +516,10 @@ export const TechOpsPage: React.FC<{ onImportExcel?: () => void }> = ({ onImport
             </thead>
             <tbody className="divide-y divide-gray-100 text-sm">
               {records.map((item, index) => (
-                <tr key={item.id} className="hover:bg-blue-50 group transition-colors cursor-pointer" onClick={() => handleEdit(item)}>
+                <tr key={item.id} className="hover:bg-blue-50/50 transition-colors group cursor-pointer" onClick={() => handleEdit(item)}>
                   <td className="py-3 px-4 text-sm text-black/45 text-center">{index + 1}</td>
-                  <td className="py-3 px-4 text-sm text-black/85 font-bold">{item.effectivePeriod}</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 font-semibold font-mono">{item.safPlannedRatio}%</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 font-bold font-mono">
-                    {item.actualSaf > 0 ? (
-                      <span className="text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">{item.actualSaf} t</span>
-                    ) : (
-                      <span className="text-gray-400 font-normal italic">Chưa nạp</span>
-                    )}
-                  </td>
-                  <td className="py-3 px-4 text-sm text-gray-600 font-semibold font-mono">{item.quotaEts.toLocaleString()} tCO2</td>
+                  <td className="py-3 px-4 text-sm text-vna-blue font-mono font-bold">{item.id}</td>
+                  <td className="py-3 px-4 text-sm text-gray-800 font-semibold">{item.year || item.effectivePeriod?.split('/').pop() || '—'}</td>
                   <td className="py-3 px-4 text-gray-600">{item.creator || '—'}</td>
                   <td className="py-3 px-4 text-gray-600">{item.editor || '—'}</td>
                   <td className="py-3 px-4 text-gray-600 font-mono">{item.editTime || '—'}</td>
@@ -552,7 +542,7 @@ export const TechOpsPage: React.FC<{ onImportExcel?: () => void }> = ({ onImport
               {records.length === 0 && (
                 <tr>
                   <td colSpan={7} className="py-12 text-center text-gray-400">
-                    Chưa ghi nhận kỳ nhập liệu nào từ tổ kỹ thuật.
+                    Chưa ghi nhận kỳ nhập liệu nào.
                   </td>
                 </tr>
               )}

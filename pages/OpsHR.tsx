@@ -365,62 +365,51 @@ export const OpsHRPage: React.FC<{ onImportExcel?: () => void }> = ({ onImportEx
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-in slide-in-from-bottom-4 duration-500">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Mã kỳ báo cáo</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Năm báo cáo</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Hài lòng chung</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Có đình công</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Chứng từ tai nạn</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Người lập</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Người chỉnh sửa</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700">Thời gian chỉnh sửa</th>
-                  <th className="py-3 px-4 font-semibold text-sm text-gray-700 text-center">Thao tác</th>
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-200 text-sm">
+                <th className="py-3 px-4 font-semibold text-gray-700 w-12 text-center rounded-tl-lg">STT</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Mã kỳ báo cáo</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Năm báo cáo</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Người lập</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Người chỉnh sửa</th>
+                <th className="py-3 px-4 font-semibold text-gray-700">Thời gian chỉnh sửa</th>
+                <th className="py-3 px-4 font-semibold text-gray-700 w-40 text-center rounded-tr-lg">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 text-sm">
+              {records.map((record, index) => (
+                <tr key={record.id} className="hover:bg-blue-50/50 transition-colors group cursor-pointer" onClick={() => handleEdit(record)}>
+                  <td className="py-3 px-4 text-sm text-black/45 text-center">{index + 1}</td>
+                  <td className="py-3 px-4 text-sm text-vna-blue font-mono font-bold">{record.id}</td>
+                  <td className="py-3 px-4 text-sm text-gray-800 font-semibold">{record.year || record.effectivePeriod?.split('/').pop() || '—'}</td>
+                  <td className="py-3 px-4 text-gray-600">{record.creator || '—'}</td>
+                  <td className="py-3 px-4 text-gray-600">{record.editor || '—'}</td>
+                  <td className="py-3 px-4 text-gray-600 font-mono">{record.editTime || '—'}</td>
+                  <td className="py-3 px-4 text-center whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex justify-center items-center gap-2">
+                      <Button variant="outline" className="px-2.5 py-1.5 h-8 text-xs font-semibold whitespace-nowrap" onClick={() => handleEdit(record)}>
+                        <Edit2 size={14} className="mr-1" /> Chi tiết
+                      </Button>
+                      <QuickApprovalActions
+                        status={record.status}
+                        recordId={record.id}
+                        onApprove={openApprove}
+                        onReject={openReject}
+                        onSubmit={submitForApproval}
+                      />
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 text-sm">
-                {records.map(record => {
-                  const overallScore = record.matrixScores.find(m => m.isOverall)?.scores.overall || '-';
-                  return (
-                    <tr key={record.id} className="hover:bg-blue-50/50 transition-colors group">
-                      <td className="py-3 px-4 font-bold text-vna-blue">{record.id}</td>
-                      <td className="py-3 px-4">Năm {record.year}</td>
-                      <td className="py-3 px-4 font-semibold font-mono">{overallScore} / 5.0</td>
-                      <td className="py-3 px-4">
-                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${record.hasStrike ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-gray-50 text-gray-650'}`}>
-                          {record.hasStrike ? 'Có' : 'Không'}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4">
-                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${record.accidentFileUploaded ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-orange-50 text-orange-700 border border-orange-200'}`}>
-                          {record.accidentFileUploaded ? 'Đã tải lên' : 'Chưa tải lên'}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4 text-gray-600">{record.creator || '—'}</td>
-                      <td className="py-3 px-4 text-gray-600">{record.editor || '—'}</td>
-                      <td className="py-3 px-4 text-gray-600 font-mono">{record.editTime || '—'}</td>
-                      <td className="py-3 px-4 text-center">
-                        <div className="flex items-center justify-center gap-2">
-                          <Button variant="outline" className="px-2.5 py-1.5 h-8 text-xs font-semibold" onClick={() => handleEdit(record)}>
-                            <Edit2 size={14} className="mr-1" /> Chi tiết
-                          </Button>
-                          <QuickApprovalActions
-                            status={record.status}
-                            recordId={record.id}
-                            onApprove={openApprove}
-                            onReject={openReject}
-                            onSubmit={submitForApproval}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-                {records.length === 0 && (
-                  <tr><td colSpan={9} className="py-8 text-center text-gray-500">Chưa có dữ liệu.</td></tr>
-                )}
-              </tbody>
-            </table>
+              ))}
+              {records.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-gray-400">
+                    Chưa ghi nhận kỳ nhập liệu nào.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
           </div>
         </div>
       )}

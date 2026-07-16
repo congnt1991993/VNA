@@ -27,6 +27,7 @@ interface Indicator extends Partial<EsgIndicator> {
   monitorDept?: string; // Đơn vị giám sát
   introduction?: string; // Mô tả & định nghĩa chi tiết
   metabaseLink?: string;
+  reportLink?: string;
   reportText?: any;
   formula?: string;
 }
@@ -652,8 +653,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                   ]}
                 />
               </div>
-              <Input label="Link Báo cáo" value={formIndicator.code} onChange={(e) => setFormIndicator({ ...formIndicator, code: e.target.value })} placeholder="Nhập link embed báo cáo" />
-              <Input label="Link Metabase" value={formIndicator.name} onChange={(e) => setFormIndicator({ ...formIndicator, name: e.target.value })} placeholder="Nhập link truy cập metabase" />
+              <Input label="Link Báo cáo" value={formIndicator.reportLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, reportLink: e.target.value })} placeholder="Nhập link embed báo cáo" />
+              <Input label="Link Metabase" value={formIndicator.metabaseLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, metabaseLink: e.target.value })} placeholder="Nhập link truy cập metabase" />
 
             </div>
 
