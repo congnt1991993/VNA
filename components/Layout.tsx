@@ -87,7 +87,7 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <TrendingUp size={20} />,
     children: [
       { id: 'netzero', label: 'Mô phỏng kịch bản Net Zero', target: 'netzero-simulation' },
-      // { id: 'kpi-manage', label: 'Quản lý KPI', target: 'kpi-manage' },
+      { id: 'kpi-manage', label: 'Quản lý KPI chỉ tiêu', target: 'kpi-manage' },
     ]
   },
   // 6. CÀI ĐẶT HỆ THỐNG
@@ -96,13 +96,7 @@ const MENU_ITEMS: MenuItem[] = [
     label: 'CÀI ĐẶT HỆ THỐNG',
     icon: <Settings size={20} />,
     children: [
-      // { id: 'aircrafts', label: 'Danh mục máy bay', target: 'aircrafts' },
-      // { id: 'fuels', label: 'Danh mục nhiên liệu', target: 'fuels' },
-      // { id: 'carbon-credits', label: 'Danh mục tín chỉ carbon', target: 'carbon-credits' },
-      // { id: 'suppliers', label: 'Danh mục nhà cung cấp', target: 'suppliers' },
-      // { id: 'divider-system', label: 'QUẢN TRỊ HỆ THỐNG', isDivider: true },
       { id: 'data-sources', label: 'Nguồn dữ liệu & Kết nối', target: 'data-sources' },
-      // { id: 'sys-forms', label: 'Quản lý biểu mẫu', target: 'sys-forms' },
       { id: 'sys-org', label: 'Quản lý Người dùng', target: 'sys-org' },
       { id: 'sys-departments', label: 'Quản lý Ban / Đơn vị', target: 'sys-departments' },
       { id: 'sys-roles', label: 'Phân quyền & Vai trò', target: 'sys-roles' },
@@ -110,7 +104,8 @@ const MENU_ITEMS: MenuItem[] = [
       { id: 'settings', label: 'Cài đặt chung', target: 'settings' },
     ]
   }
-];;
+];
+
 const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'home': { vi: 'TỔNG QUAN ĐIỀU HÀNH', en: 'EXECUTIVE DASHBOARD' },
   'data-collection': { vi: 'NHẬP LIỆU', en: 'DATA COLLECTION' },
@@ -121,16 +116,12 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'cms-manage': { vi: 'CMS Website ESG', en: 'CMS ESG Website' },
   'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },
   'netzero': { vi: 'Mô phỏng kịch bản Net Zero', en: 'Net Zero Simulation' },
-  // 'kpi-manage': { vi: 'Quản lý KPI', en: 'KPI Management' },
+  'kpi-manage': { vi: 'QUẢN LÝ KPI CHỈ TIÊU', en: 'KPI TARGET MANAGEMENT' },
+  'kpi-manage-sub': { vi: 'Quản lý KPI chỉ tiêu', en: 'KPI Target Management' },
   'system-settings': { vi: 'CÀI ĐẶT HỆ THỐNG', en: 'SYSTEM SETTINGS' },
   'indicators': { vi: 'QUẢN LÝ CHỈ TIÊU', en: 'Indicators Manage' },
-  // 'aircrafts': { vi: 'Danh mục máy bay', en: 'Fleet Registry' },
-  // 'fuels': { vi: 'Danh mục nhiên liệu', en: 'Fuel Registry' },
-  // 'carbon-credits': { vi: 'Danh mục tín chỉ carbon', en: 'Carbon Credits Registry' },
   'suppliers': { vi: 'Danh mục nhà cung cấp', en: 'Suppliers Registry' },
-  // 'divider-system': { vi: 'QUẢN TRỊ HỆ THỐNG', en: 'SYSTEM ADMINISTRATION' },
   'data-sources': { vi: 'Nguồn dữ liệu & Kết nối', en: 'Data Sources & Integrations' },
-  // 'sys-forms': { vi: 'Quản lý biểu mẫu', en: 'Form Template Management' },
   'sys-org': { vi: 'Quản lý Người dùng', en: 'User Management' },
   'sys-departments': { vi: 'Quản lý Ban / Đơn vị', en: 'Department Management' },
   'sys-roles': { vi: 'Phân quyền & Vai trò', en: 'Roles & Permissions' },

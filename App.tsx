@@ -56,12 +56,8 @@ import { Server, Database, Workflow } from 'lucide-react';
 const App: React.FC = () => {
   // (cache-busting logic removed — was causing infinite reload loop)
 
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    () => new URLSearchParams(window.location.search).get('demo') === '1'
-  );
-  const [currentPage, setCurrentPage] = useState<PageName>(
-    () => (new URLSearchParams(window.location.search).get('page') as PageName) || 'dashboard'
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [currentPage, setCurrentPage] = useState<PageName>('dashboard');
   const [showLogin, setShowLogin] = useState(false);
 
   const handleLogout = () => {
