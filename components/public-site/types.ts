@@ -20,6 +20,7 @@ export interface HighlightMetric {
   unit: string;
   trend?: number; // percentage growth/decline
   description: string;
+  type?: 'metric' | 'chart';
 }
 
 export interface PillarContent {
