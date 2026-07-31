@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MainLayout } from './components/Layout';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { DataEntryWorkspace } from './components/DataEntryWorkspace';
 import { ExecutiveDashboard } from './pages/ExecutiveDashboard';
 import { EsgReportPage } from './pages/EsgReport';
@@ -209,7 +210,9 @@ const App: React.FC = () => {
       onNavigate={setCurrentPage}
       onLogout={handleLogout}
     >
-      {renderContent()}
+      <ErrorBoundary>
+        {renderContent()}
+      </ErrorBoundary>
     </MainLayout>
   );
 };

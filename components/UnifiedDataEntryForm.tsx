@@ -291,15 +291,17 @@ interface UnifiedDataEntryFormProps {
 
 export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
   department,
-  effectivePeriod,
+  effectivePeriod: rawEffectivePeriod,
   onBack,
   onSave,
   isNewPeriod,
 }) => {
+  const effectivePeriod = rawEffectivePeriod || `Năm ${new Date().getFullYear()}`;
   const [activeSec, setActiveSec] = useState<string>('');
   const [activeSubTab, setActiveSubTab] = useState<string>('TAB_1');
   const [activeMainTab, setActiveMainTab] = useState<'DATA' | 'PLAN'>('DATA');
   const [inputLang, setInputLang] = useState<'VI' | 'EN'>('VI');
+  const [formData, setFormData] = useState<Record<string, any>>({});
 
   useEffect(() => {
     setActiveSubTab('TAB_1');
@@ -312,9 +314,11 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     if (savedDeptsStr) {
       try {
         const depts = JSON.parse(savedDeptsStr);
-        const matched = depts.find((d: any) => d.name.toLowerCase().trim() === department.toLowerCase().trim());
-        if (matched && matched.indicatorIds) {
-          return matched.indicatorIds;
+        if (Array.isArray(depts)) {
+          const matched = depts.find((d: any) => d && d.name && d.name.toLowerCase().trim() === department.toLowerCase().trim());
+          if (matched && matched.indicatorIds) {
+            return matched.indicatorIds;
+          }
         }
       } catch (e) {
         console.error(e);
@@ -341,11 +345,14 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     let allIndicators: any[] = [];
     if (savedInds) {
       try {
-        allIndicators = JSON.parse(savedInds);
+        const parsed = JSON.parse(savedInds);
+        if (Array.isArray(parsed)) {
+          allIndicators = parsed;
+        }
       } catch (e) { }
     }
-    return indicators.map(id => {
-      const found = allIndicators.find(ind => ind.code === id || ind.id === id);
+    return (indicators || []).map(id => {
+      const found = allIndicators.find(ind => ind && (ind.code === id || ind.id === id));
       return {
         code: id,
         displayCode: found ? (found.code === 'Chưa có mã' ? found.name : found.code) : id,
@@ -388,16 +395,50 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
       window.dispatchEvent(event);
     };
   }, [isNewPeriod]);
-
   useEffect(() => {
     const handleSaveEvent = () => {
+      try {
+        const saved = localStorage.getItem('vna_all_submissions');
+        let submissions = saved ? JSON.parse(saved) : [];
+        const submissionId = `${department.replace(/\s+/g, '')}-${effectivePeriod}`;
+        const index = submissions.findIndex((s: any) => s.id === submissionId || (s.period === effectivePeriod && s.unit === department));
+
+        const updatedData = { ...formData };
+
+        if (index >= 0) {
+          submissions[index] = {
+            ...submissions[index],
+            lastUpdated: new Date().toLocaleString(),
+            updatedBy: 'Nguyễn Văn A',
+            data: {
+              ...submissions[index].data,
+              ...updatedData
+            }
+          };
+        } else {
+          submissions.push({
+            id: submissionId,
+            formId: 'ops-planning', // fallback or derived
+            unit: department,
+            period: effectivePeriod,
+            status: 'Active',
+            lastUpdated: new Date().toLocaleString(),
+            updatedBy: 'Nguyễn Văn A',
+            logs: [],
+            data: updatedData
+          });
+        }
+        localStorage.setItem('vna_all_submissions', JSON.stringify(submissions));
+      } catch (e) {
+        console.error("Error saving form data in UnifiedDataEntryForm", e);
+      }
       onSave();
     };
     window.addEventListener('vna-save-new-period', handleSaveEvent);
     return () => {
       window.removeEventListener('vna-save-new-period', handleSaveEvent);
     };
-  }, [onSave]);
+  }, [onSave, formData, department, effectivePeriod]);
 
   // Scroll to element function
   const scrollToSection = (code: string) => {
@@ -407,9 +448,6 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-
-  // State to hold editable cell values
-  const [formData, setFormData] = useState<Record<string, any>>({});
 
   // Initialize form mock rows
   useEffect(() => {
@@ -596,8 +634,23 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
       { name: "Sai sót thông tin quảng cáo vé Tết", date: "2026-03-05", fined: "Không", warned: "Không", ruleViolated: "Không", details: "Không phát sinh vi phạm" },
     ];
 
+    try {
+      const savedSubmissions = localStorage.getItem('vna_all_submissions');
+      if (savedSubmissions) {
+        const subs = JSON.parse(savedSubmissions);
+        if (Array.isArray(subs)) {
+          const match = subs.find((s: any) => s.period === effectivePeriod && s.unit === department);
+          if (match && match.data) {
+            Object.assign(initial, match.data);
+          }
+        }
+      }
+    } catch (e) {
+      console.error("Error loading saved submission", e);
+    }
+
     setFormData(initial);
-  }, []);
+  }, [department, effectivePeriod]);
 
   const handleCellChange = (indicator: string, rowIdx: number, field: string, value: string) => {
     const hasTabs = indicator === 'GRI 302-1' || indicator === 'GRI 204-1';
@@ -722,11 +775,9 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                 </div>
               </div>
 
-              {/* TAB SELECTOR LỚN (Chỉ hiển thị nếu thỏa mãn điều kiện kpiRules: hasKpi = Yes và nguồn = Nhập thủ công/trống) */}
+              {/* TAB SELECTOR LỚN (Đã ẩn tab kế hoạch vì KPI được quản lý tập trung tại mục Quản lý KPI) */}
               {(() => {
-                const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
-                const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
-                
+                const showPlanTab = false;
                 if (!showPlanTab) return null;
                 
                 return (
@@ -862,7 +913,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
               {/* Table rendering or Text Multiple Line rendering (Ẩn nếu đang ở tab PLAN) */}
               {(() => {
                 const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
-                const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
+                const showPlanTab = !!(rule && rule.hasKpi && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource !== undefined && rule.kpiSource !== null && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '')));
                 const isHidden = showPlanTab && activeMainTab === 'PLAN';
                 return (
                   <div className={`overflow-x-auto rounded-lg border border-gray-200 flex-1 ${isHidden ? 'hidden' : ''}`}>
@@ -1024,7 +1075,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                     <thead>
                       <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-655 font-bold">
                         <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
-                        {Object.keys(rows[0]).map(key => {
+                        {rows[0] && typeof rows[0] === 'object' && Object.keys(rows[0]).map(key => {
                           let colLabel = key;
                           if (key === 'name') {
                             colLabel = (ind.code === 'GRI 204-1') ? 'Tên nhà cung cấp' : 'Tên chỉ tiêu / Đối tượng';
@@ -1141,7 +1192,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                           <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
                             Dòng {rIdx + 1}
                           </td>
-                          {Object.entries(row).map(([field, val]) => {
+                          {row && typeof row === 'object' && Object.entries(row).map(([field, val]) => {
                             const isReadOnly = field === 'jeta1' || field === 'ratio' || field === 'cost';
                             let displayValue = String(val);
 

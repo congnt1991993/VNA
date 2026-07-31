@@ -1,11 +1,14 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Button, Select, PillarBadge, Input } from '../components/UI';
+import { Button, Select, PillarBadge, Input, Modal } from '../components/UI';
 import {
   Plus, Search, Upload, Download, FileSpreadsheet, ArrowLeft,
-  Settings, BarChart2, Save, X, Info, User, Check, AlertCircle, FileText, Trash2
+  Settings, BarChart2, Save, X, Info, User, Check, AlertCircle, FileText, Trash2,
+  Calendar, Clock, History
 } from 'lucide-react';
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
+import { IndicatorHistoryTable } from '../components/IndicatorHistoryTable';
+import { UnifiedDataEntryForm } from '../components/UnifiedDataEntryForm';
 import { FORM_DEFINITIONS } from '../data/accessControl';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -119,12 +122,28 @@ const MOCK_FORMULAS = [
   }
 ];
 
+const mapIndicatorDeptToFormDept = (dept: string): string => {
+  if (!dept) return 'Ban Kế hoạch Phát triển';
+  const d = dept.toLowerCase().trim();
+  if (d.includes('kế hoạch') || d.includes('khpt')) return 'Ban Kế hoạch Phát triển';
+  if (d.includes('an toàn') || d.includes('atcl')) return 'Ban An toàn chất lượng (Ban ATCL)';
+  if (d.includes('khai thác') || d.includes('ttđhkt')) return 'Tổ Khai thác (TTĐHKT)';
+  if (d.includes('tổ chức') || d.includes('tcnl') || d.includes('nhân lực')) return 'Ban Tổ chức Nhân lực';
+  if (d.includes('công nghệ') || d.includes('cntt') || d.includes('chuyển đổi')) return 'Ban Chuyển đổi số & CNTT';
+  if (d.includes('dịch vụ') || d.includes('dvhk')) return 'Tổ Dịch vụ';
+  if (d.includes('truyền thông')) return 'Ban Truyền thông';
+  if (d.includes('bông sen vàng') || d.includes('ttbsv')) return 'Trung tâm Bông Sen Vàng (TTBSV)';
+  if (d.includes('kỹ thuật')) return 'Tổ Kỹ thuật (Ban QLVT)';
+  return dept;
+};
+
 const MOCK_INDICATORS: Indicator[] = MOCK_INDICATORS_JSON as Indicator[];
 
 export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ departmentFilter }) => {
   const [viewMode, setViewMode] = useState<'LIST' | 'DETAIL' | 'DASHBOARD'>('LIST');
   const [indicators, setIndicators] = useState<Indicator[]>([]);
   const [formIndicator, setFormIndicator] = useState<Indicator | null>(null);
+  const [historyFormPeriod, setHistoryFormPeriod] = useState<string | null>(null);
 
   const [formulas, setFormulas] = useState<any[]>([]);
   const [searchFormQuery, setSearchFormQuery] = useState('');
@@ -147,6 +166,110 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     if (!formIndicator) return [];
     return formulas.filter(f => f.appliedTo && f.appliedTo.includes(formIndicator.code));
   }, [formulas, formIndicator]);
+
+  const formulaHistory = useMemo(() => {
+    if (!formIndicator) return [];
+    const code = formIndicator.code;
+    const historyList = [];
+
+    if (code === 'GRI 302-1') {
+      historyList.push(
+        {
+          version: 'v2.1',
+          expression: 'Jet_Fuel_Uplift - Jet_Fuel_Defueled',
+          appliedFrom: '15/10/2025',
+          appliedTo: 'Hiện tại',
+          updatedBy: 'Nguyễn Văn A',
+          updatedAt: '15/10/2025',
+          status: 'Active',
+          changeLog: 'Cập nhật hệ số hao hụt nhiên liệu Jet A1 theo tiêu chuẩn mới.'
+        },
+        {
+          version: 'v2.0',
+          expression: 'Jet_Fuel_Uplift - Jet_Fuel_Defueled * 0.98',
+          appliedFrom: '01/01/2025',
+          appliedTo: '14/10/2025',
+          updatedBy: 'Trần Thị Hà',
+          updatedAt: '01/01/2025',
+          status: 'Inactive',
+          changeLog: 'Sửa đổi công thức tính trừ hao hụt định mức 2% đối với lượng nhiên liệu thu hồi.'
+        },
+        {
+          version: 'v1.0',
+          expression: 'Jet_Fuel_Uplift',
+          appliedFrom: '01/10/2024',
+          appliedTo: '31/12/2024',
+          updatedBy: 'Admin',
+          updatedAt: '01/10/2024',
+          status: 'Inactive',
+          changeLog: 'Công thức khởi tạo ban đầu, tính tổng lượng nhiên liệu nạp.'
+        }
+      );
+    } else if (code === 'GRI 305-1') {
+      historyList.push(
+        {
+          version: 'v1.2',
+          expression: 'Net_Fuel_Consumption * 3.15 + Mobile_Combustion_CO2',
+          appliedFrom: '01/01/2025',
+          appliedTo: 'Hiện tại',
+          updatedBy: 'Lê Minh Tuấn',
+          updatedAt: '01/01/2025',
+          status: 'Active',
+          changeLog: 'Cập nhật hệ số chuyển đổi phát thải CO2 sang 3.15 theo cập nhật IPCC 2024.'
+        },
+        {
+          version: 'v1.0',
+          expression: 'Net_Fuel_Consumption * 3.16',
+          appliedFrom: '01/10/2024',
+          appliedTo: '31/12/2024',
+          updatedBy: 'System',
+          updatedAt: '01/10/2024',
+          status: 'Inactive',
+          changeLog: 'Công thức phiên bản đầu tiên theo hệ số quy đổi cũ.'
+        }
+      );
+    } else if (code === 'GRI 302-4') {
+      historyList.push(
+        {
+          version: 'v1.0',
+          expression: '(Baseline_Fuel - Actual_Fuel) / Total_Flight_Hours * (1 + Efficiency_Rate)',
+          appliedFrom: '12/10/2025',
+          appliedTo: 'Hiện tại',
+          updatedBy: 'Nguyễn Văn A',
+          updatedAt: '12/10/2025',
+          status: 'Active',
+          changeLog: 'Thiết lập công thức mô phỏng tính nhiên liệu tiết kiệm đầu tiên.'
+        }
+      );
+    } else {
+      // General history mock only for quantitative indicators (having unit/weight/assigned forms/metabase link)
+      if (formIndicator.metabaseLink || formIndicator.unit) {
+        historyList.push(
+          {
+            version: 'v1.1',
+            expression: `Sum(${code}_Input_Value) * 1.05`,
+            appliedFrom: '01/01/2026',
+            appliedTo: 'Hiện tại',
+            updatedBy: 'Chuyên viên ESG',
+            updatedAt: '01/01/2026',
+            status: 'Active',
+            changeLog: 'Điều chỉnh hệ số quy đổi năng lượng hiệu quả.'
+          },
+          {
+            version: 'v1.0',
+            expression: `Sum(${code}_Input_Value)`,
+            appliedFrom: '01/10/2024',
+            appliedTo: '31/12/2025',
+            updatedBy: 'Admin',
+            updatedAt: '01/10/2024',
+            status: 'Inactive',
+            changeLog: 'Thiết lập công thức tích lũy cơ bản.'
+          }
+        );
+      }
+    }
+    return historyList;
+  }, [formIndicator]);
 
   // Advanced filters state
   const [searchText, setSearchText] = useState('');
@@ -216,25 +339,30 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        const synced = parsed.map((item: any) => {
-          const match = MOCK_INDICATORS.find(m => m.id === item.id) ||
-            MOCK_INDICATORS.find(m => m.name === item.name) ||
-            (item.code && MOCK_INDICATORS.find(m => m.code === item.code));
-          if (match) {
-            return {
-              ...item,
-              department: match.department,
-              sourceForm: match.sourceForm,
-              inputDept: match.inputDept,
-              approveDept: match.approveDept,
-              metabaseLink: match.metabaseLink,
-              reportText: match.reportText
-            };
-          }
-          return item;
-        });
-        setIndicators(synced);
-        localStorage.setItem('vna_esg_indicators', JSON.stringify(synced));
+        if (Array.isArray(parsed)) {
+          const synced = parsed.map((item: any) => {
+            const match = MOCK_INDICATORS.find(m => m.id === item.id) ||
+              MOCK_INDICATORS.find(m => m.name === item.name) ||
+              (item.code && MOCK_INDICATORS.find(m => m.code === item.code));
+            if (match) {
+              return {
+                ...item,
+                department: match.department,
+                sourceForm: match.sourceForm,
+                inputDept: match.inputDept,
+                approveDept: match.approveDept,
+                metabaseLink: match.metabaseLink,
+                reportText: match.reportText
+              };
+            }
+            return item;
+          });
+          setIndicators(synced);
+          localStorage.setItem('vna_esg_indicators', JSON.stringify(synced));
+        } else {
+          setIndicators(MOCK_INDICATORS);
+          localStorage.setItem('vna_esg_indicators', JSON.stringify(MOCK_INDICATORS));
+        }
       } catch (e) {
         setIndicators(MOCK_INDICATORS);
         localStorage.setItem('vna_esg_indicators', JSON.stringify(MOCK_INDICATORS));
@@ -467,7 +595,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             </a>
           </div>
 
-          <div className="flex-1 w-full bg-white rounded-lg overflow-hidden min-h-[750px] flex flex-col">
+          <div className="flex-1 w-full bg-white rounded-lg overflow-hidden min-h-[750px] flex flex-col mb-6">
             <iframe
               src={formIndicator.metabaseLink}
               frameBorder="0"
@@ -477,6 +605,32 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               allowtransparency
             ></iframe>
           </div>
+
+          <IndicatorHistoryTable
+            indicatorCode={formIndicator.code}
+            unit={formIndicator.unit || ''}
+            department={formIndicator.department || ''}
+            onViewForm={(period) => setHistoryFormPeriod(period)}
+          />
+
+          <Modal
+            isOpen={!!historyFormPeriod && !!formIndicator}
+            onClose={() => setHistoryFormPeriod(null)}
+            title={`Chi tiết biểu mẫu nhập liệu - Kỳ ${historyFormPeriod}`}
+            size="xl"
+          >
+            {historyFormPeriod && formIndicator && (
+              <div className="max-h-[85vh] overflow-y-auto p-4 bg-slate-50 rounded-xl">
+                <UnifiedDataEntryForm
+                  department={mapIndicatorDeptToFormDept(formIndicator.department || '')}
+                  effectivePeriod={historyFormPeriod}
+                  onBack={() => setHistoryFormPeriod(null)}
+                  onSave={() => setHistoryFormPeriod(null)}
+                  isNewPeriod={false}
+                />
+              </div>
+            )}
+          </Modal>
         </div>
       );
     }
@@ -512,7 +666,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             </Button>
           </div>
 
-          <div className="flex-1 bg-slate-50 p-6 rounded-xl border border-gray-200 flex flex-col min-h-[500px]">
+          <div className="flex-1 bg-slate-50 p-6 rounded-xl border border-gray-200 flex flex-col min-h-[500px] mb-6">
             <div className="flex items-center justify-between mb-4 border-b border-gray-200 pb-3">
               <span className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
                 <FileText size={16} className="text-vna-blue" /> Văn bản hiển thị trên Dashboard
@@ -549,6 +703,32 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               </div>
             </div>
           </div>
+
+          <IndicatorHistoryTable
+            indicatorCode={formIndicator.code}
+            unit={formIndicator.unit || ''}
+            department={formIndicator.department || ''}
+            onViewForm={(period) => setHistoryFormPeriod(period)}
+          />
+
+          <Modal
+            isOpen={!!historyFormPeriod && !!formIndicator}
+            onClose={() => setHistoryFormPeriod(null)}
+            title={`Chi tiết biểu mẫu nhập liệu - Kỳ ${historyFormPeriod}`}
+            size="xl"
+          >
+            {historyFormPeriod && formIndicator && (
+              <div className="max-h-[85vh] overflow-y-auto p-4 bg-slate-50 rounded-xl">
+                <UnifiedDataEntryForm
+                  department={mapIndicatorDeptToFormDept(formIndicator.department || '')}
+                  effectivePeriod={historyFormPeriod}
+                  onBack={() => setHistoryFormPeriod(null)}
+                  onSave={() => setHistoryFormPeriod(null)}
+                  isNewPeriod={false}
+                />
+              </div>
+            )}
+          </Modal>
         </div>
       );
     }
@@ -584,7 +764,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-lg border border-gray-200 flex-1">
+        <div className="bg-white p-5 rounded-lg border border-gray-200 flex-1 mb-6">
           <h3 className="text-sm font-bold text-vna-blue mb-4 text-left">
             Biểu đồ xu hướng
           </h3>
@@ -592,6 +772,32 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             <IndicatorChart indicatorCode={formIndicator.code} chartName={formIndicator.name} chartType="Line" />
           </div>
         </div>
+
+        <IndicatorHistoryTable
+          indicatorCode={formIndicator.code}
+          unit={formIndicator.unit || ''}
+          department={formIndicator.department || ''}
+          onViewForm={(period) => setHistoryFormPeriod(period)}
+        />
+
+        <Modal
+          isOpen={!!historyFormPeriod && !!formIndicator}
+          onClose={() => setHistoryFormPeriod(null)}
+          title={`Chi tiết biểu mẫu nhập liệu - Kỳ ${historyFormPeriod}`}
+          size="xl"
+        >
+          {historyFormPeriod && formIndicator && (
+            <div className="max-h-[85vh] overflow-y-auto p-4 bg-slate-50 rounded-xl">
+              <UnifiedDataEntryForm
+                department={mapIndicatorDeptToFormDept(formIndicator.department || '')}
+                effectivePeriod={historyFormPeriod}
+                onBack={() => setHistoryFormPeriod(null)}
+                onSave={() => setHistoryFormPeriod(null)}
+                isNewPeriod={false}
+              />
+            </div>
+          )}
+        </Modal>
       </div>
     );
   }
@@ -885,6 +1091,87 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               className="w-full min-h-[120px] border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-vna-blue/20 focus:border-vna-blue"
               placeholder="Nhập giới thiệu, phương pháp tính toán của chỉ tiêu ở đây..."
             />
+          </div>
+
+          {/* LỊCH SỬ CÔNG THỨC TÍNH TOÁN */}
+          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm text-left mt-6">
+            <div className="flex items-center gap-2 border-b border-gray-200 pb-3 mb-4">
+              <History className="text-vna-blue" size={18} />
+              <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Lịch sử công thức tính toán</h3>
+            </div>
+            
+            {formulaHistory.length === 0 ? (
+              <div className="p-6 text-center text-gray-500 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                <Info size={24} className="mx-auto text-gray-400 mb-2" />
+                <p className="text-sm font-semibold">Không tìm thấy lịch sử công thức tính toán cho chỉ tiêu này.</p>
+                <p className="text-xs text-gray-400 mt-1">Chỉ tiêu này là định tính (Thuyết minh) hoặc chưa được thiết lập công thức tính toán.</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-3xs">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-gray-50/60 border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider text-[10px]">
+                      <th className="p-3 w-16 text-center">Phiên bản</th>
+                      <th className="p-3 w-72">Biểu thức công thức</th>
+                      <th className="p-3">Mô tả thay đổi / Lý do cập nhật</th>
+                      <th className="p-3 w-48 text-center">Thời gian áp dụng</th>
+                      <th className="p-3 w-36">Người cập nhật</th>
+                      <th className="p-3 w-28 text-center">Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-150 bg-white">
+                    {formulaHistory.map((item, index) => (
+                      <tr key={index} className="hover:bg-slate-50/30 transition-colors">
+                        <td className="p-3 text-center font-bold text-slate-800">
+                          <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[10px]">
+                            {item.version}
+                          </span>
+                        </td>
+                        <td className="p-3 font-mono text-[11px] text-gray-700 select-all bg-slate-50/50">
+                          {item.expression}
+                        </td>
+                        <td className="p-3 text-gray-600 font-medium">
+                          {item.changeLog}
+                        </td>
+                        <td className="p-3 text-center text-gray-500 font-semibold">
+                          <div className="flex items-center justify-center gap-1">
+                            <Calendar size={12} className="text-gray-400" />
+                            <span>{item.appliedFrom}</span>
+                            <span className="text-gray-300">→</span>
+                            <span className={item.appliedTo === 'Hiện tại' ? 'text-vna-blue font-bold' : ''}>
+                              {item.appliedTo}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-3 text-gray-500 font-medium">
+                          <div className="flex flex-col gap-0.5">
+                            <div className="flex items-center gap-1 font-semibold text-slate-700">
+                              <User size={12} className="text-gray-400" />
+                              <span>{item.updatedBy}</span>
+                            </div>
+                            <div className="flex items-center gap-1 text-[10px] text-gray-400">
+                              <Clock size={11} className="text-gray-300" />
+                              <span>{item.updatedAt}</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="p-3 text-center whitespace-nowrap">
+                          {item.status === 'Active' ? (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/30">
+                              <Check size={10} /> Đang áp dụng
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-50 text-gray-400 border border-gray-200/30">
+                              Hết hiệu lực
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
 
