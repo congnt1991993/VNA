@@ -1,0 +1,396 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Tổ Kỹ thuật
+1. Thông tin chung
+Đơn vị phụ trách: Tổ Kỹ thuật.
+Đầu mối Tổ Kỹ thuật:
+Bà Đỗ Thị Như Quỳnh – Phó trưởng phòng Ban QLVT, Bà Ngô Việt Hà – Chuyên viên Ban QLVT
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+SAF Report
+Báo cáo sử dụng SAF
+Báo cáo bắt buộc theo Điều 8 của Quy định ReFuelEU Aviation.Phạm vi: các chuyến bay thương mại có khởi hành từ các sân bay thuộc Liên minh EU.
+ANCM, FIMS, Tổng nhiên liệu cần sử dụng theo kế hoạch: PMS.Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công, Tổng nhiên liệu cần tra nạp theo kế hoạch: PMS.Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công, Nhập liệu thủ công
+Hàng năm, Hàng tháng (ngày cuối cùng trong tháng), Theo năm
+Tổ Kỹ thuật
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 2.1
+Total EU Flights - Tổng số chuyến bay thương mại từ châu Âu
+Thời gian Năm., Theo quốc gia: EU.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.2
+Total Flight Hours - Tổng số giờ bay
+Thời gian Năm., Theo quốc gia: EU.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.3
+Planned SAF Volume (Tonnes) – Lượng SAF kế hoạch ban đầu (tấn)
+Thời gian Năm., Theo quốc gia: EU.
+Hàng năm
+Data Warehouse
+Tổng nhiên liệu cần tra nạp theo kế hoạch: PMS.Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công
+CT 2.4
+Actual SAF Uplifted (Tonnes) – Lượng SAF nạp thực tế (tấn)
+Thời gian Năm., Theo quốc gia: EU.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.5
+Neat SAF Ratio by Airport - Tỷ lệ neat SAF theo sân bay
+Tỷ lệ Neat SAF (%) = (Khối lượng SAF nguyên chất / Tổng khối lượng SAF pha trộn) * 100.  Dữ liệu được quy đổi về cùng đơn vị trước khi tính toán (nếu cần).
+Thời gian Năm., Theo quốc gia: EU., Theo sân bay.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.6
+Monthly SAF Uplift Volume - Lượng SAF tra nạp theo tháng trong năm
+Thời gian Năm., Theo quốc gia: EU.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.7
+Monthly SAF Surcharge – Phụ phí SAF theo tháng trong năm
+Thời gian Năm., Theo quốc gia: EU.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.8
+SAF Purchase Volume by Eligible Fuel and Supplier – Lượng mua SAF theo loại SAF và sân bay
+Thời gian Năm., Theo quốc gia: EU., Theo loại SAF., Theo sân bay.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.9
+SAF Purchase Reporting - Bảng chi tiết việc mua SAF
+Thời gian Năm., Theo quốc gia: EU., Theo sân bay., Theo nhà cung cấp., Theo loại SAF.
+Theo năm
+Data Warehouse
+FIMS
+CT 2.10
+Fuel Reporting - Bảng chi tiết nhiên liệu tra nạp tại các sân bay
+Thời gian Năm., Theo quốc gia: EU., Theo sân bay., Theo loại nhiên liệu.
+Theo năm
+Data Warehouse
+FIMS
+CT 2.11
+Total Flights Departing from France - Tổng số chuyến bay tại Pháp
+Thời gian Năm., Theo quốc gia: Pháp.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.12
+Total Flight Hours (France) – Tổng số giờ bay (Pháp)
+Thời gian Năm., Theo quốc gia: Pháp.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.13
+Planned SAF Volume (France) - Lượng SAF kế hoạch ban đầu (Pháp)
+Thời gian Năm., Theo quốc gia: Pháp.
+Hàng năm
+Data Warehouse
+Tổng nhiên liệu cần sử dụng theo kế hoạch: PMS.Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công
+CT 2.14
+Actual SAF Uplifted Volume (Pháp) - Lượng SAF nạp thực tế (Pháp)
+Thời gian Năm., Theo quốc gia: Pháp.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.15
+Neat SAF Ratio by Airport (France) – Tỷ lệ neat SAF theo sân bay (Pháp)
+Tỷ lệ Neat SAF (%) = (Khối lượng SAF nguyên chất / Tổng khối lượng SAF pha trộn) * 100.  Dữ liệu được quy đổi về cùng đơn vị trước khi tính toán (nếu cần).
+Thời gian Năm., Theo quốc gia: Pháp., Theo sân bay.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.16
+Monthly SAF Uplift Volume (Tonnes) (France) – Lượng SAF tra nạp theo tháng trong năm (Pháp)
+Thời gian Năm., Theo quốc gia: Pháp.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.17
+SAF Surcharge by Month in the Year (France) – Phụ phí SAF theo tháng trong năm (Pháp)
+Thời gian Năm., Theo quốc gia: Pháp.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 2.18
+SAF Purchased Volume by SAF Type and Supplier (France) - Lượng mua SAF theo loại SAF và sân bay (Pháp)
+Thời gian Năm., Theo quốc gia: Pháp., Theo loại SAF., Theo sân bay.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Báo cáo sử dụng SAF
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Báo cáo sử dụng SAF
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Total EU Flights - Tổng số chuyến bay thương mại từ châu Âu
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+2
+Total Flight Hours - Tổng số giờ bay
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+3
+Planned SAF Volume (Tonnes) – Lượng SAF kế hoạch ban đầu (tấn)
+Tổng nhiên liệu cần tra nạp theo kế hoạch: PMS.Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công
+Hàng năm
+Thủ công
+4
+Actual SAF Uplifted (Tonnes) – Lượng SAF nạp thực tế (tấn)
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+5
+Neat SAF Ratio by Airport - Tỷ lệ neat SAF theo sân bay
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+6
+Monthly SAF Uplift Volume - Lượng SAF tra nạp theo tháng trong năm
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+7
+Monthly SAF Surcharge – Phụ phí SAF theo tháng trong năm
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+8
+SAF Purchase Volume by Eligible Fuel and Supplier – Lượng mua SAF theo loại SAF và sân bay
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+9
+SAF Purchase Reporting - Bảng chi tiết việc mua SAF
+FIMS
+Theo năm
+Tự động
+10
+Fuel Reporting - Bảng chi tiết nhiên liệu tra nạp tại các sân bay
+FIMS
+Theo năm
+Tự động
+11
+Total Flights Departing from France - Tổng số chuyến bay tại Pháp
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+12
+Total Flight Hours (France) – Tổng số giờ bay (Pháp)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+13
+Planned SAF Volume (France) - Lượng SAF kế hoạch ban đầu (Pháp)
+Tổng nhiên liệu cần sử dụng theo kế hoạch: PMS.Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công
+Hàng năm
+Thủ công
+14
+Actual SAF Uplifted Volume (Pháp) - Lượng SAF nạp thực tế (Pháp)
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+15
+Neat SAF Ratio by Airport (France) – Tỷ lệ neat SAF theo sân bay (Pháp)
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+16
+Monthly SAF Uplift Volume (Tonnes) (France) – Lượng SAF tra nạp theo tháng trong năm (Pháp)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+17
+SAF Surcharge by Month in the Year (France) – Phụ phí SAF theo tháng trong năm (Pháp)
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+18
+SAF Purchased Volume by SAF Type and Supplier (France) - Lượng mua SAF theo loại SAF và sân bay (Pháp)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-TKT-WEB-01
+Thông số định mức & phát thải CO2.
+Cao
+Form nhập liệu các tham số cấu hình: Tỷ lệ SAF quy định (safPlannedRatio), Hạn ngạch ETS (quotaEts), Baseline CORSIA (baselineCorsia), Đơn giá tín chỉ CO2 vượt mức (priceEua), Phụ phí mua SAF (surchargeSaf).
+YCQ-TKT-WEB-02
+Import Excel ReFuelEU chuẩn 16 cột.
+Cao
+Hỗ trợ import tệp Excel chuẩn 16 cột thông tin gồm: Mã sân bay ICAO, Nhà cung cấp, MST nhà cung cấp, Số lô (Batch), Lượng mua (Tấn), Phân loại SAF, Quy trình, Nguyên liệu, Nguồn gốc, Hệ số phát thải vòng đời, và 6 cột lượng kê khai bù trừ dưới các MBMs (EU, CH, UK, CORSIA, MBM1, MBM2).
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-TKT-WEB-01
+Hình 01: Màn hình Định mức
+Tham số cấu hình phát thải
+Kiểm thử nhập và lưu các chỉ số định mức và phụ phí.
+YCQ-TKT-WEB-02
+Hình 02: Màn hình nạp SAF chi tiết
+Bảng Excel 16 cột import
+Kiểm thử kéo thả file Excel ReFuelEU và xác nhận tính hợp lệ của dữ liệu.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Tổ Kỹ thuật
+1. Thông tin chung
+Tổ Kỹ thuật.
+Tính năng cấu hình định mức phát thải, nhập dữ liệu SAF và import Excel ReFuelEU.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng cấu hình định mức phát thải (ETS/CORSIA), nhập chi phí SAF và import tệp Excel ReFuelEU Aviation 16 cột.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-TKT-WEB-01
+Kiểm thử cấu hình định mức
+Nhập tỷ lệ SAF kế hoạch 2.5%, hạn ngạch 16200 tấn, kiểm tra tính toán chi phí đền bù CO2 tương ứng.
+Đạt
+—
+Hoàn thành
+YCQ-TKT-WEB-02
+Kiểm thử import Excel ReFuelEU
+Chọn file Excel mẫu chứa thông tin lô SAF, kiểm tra hệ thống đọc đúng 16 cột dữ liệu và lưu thành công.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Tổ Kỹ thuật
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

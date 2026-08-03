@@ -1,0 +1,526 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian: Từ 9:00 đến 11:00, ngày 28 tháng 05 năm 2026
+Địa điểm: Phòng họp HUI - 310, tầng 3, tòa nhà VN1
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Ông Nguyễn Đình Đàn - Chuyên viên - Ban ATCL
+2. Phía Aequitas
+Ông Bùi Văn Tuân - Data Lead dự án
+Ông Nguyễn Danh Hưng - DA dự án
+Bà Phạm Lưu Hỷ Nhi - DA dự án
+Ông Nguyễn Giang Đông - DA dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp nhằm khảo sát, trao đổi và làm rõ các nghiệp vụ liên quan đến:
+Các chỉ tiêu có thể số hóa để đưa lên báo cáo.
+Làm rõ định nghĩa, nội dung nghiệp vụ của các chỉ tiêu/chỉ tiêu con
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+Ban ATCL và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+Xác nhận số hóa:
+Chỉ tiêu Airline E-1 - Noise - Tiếng ồn bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+Chỉ tiêu Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) bao gồm 12 chỉ tiêu con, đã làm rõ 12 /12  chỉ tiêu con.
+Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố bao gồm 4 chỉ tiêu con, đã làm rõ 4 /4 chỉ tiêu con.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban An toàn chất lượng. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU
+STT
+Loại số hóa
+Nhóm
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+Noise
+Airline E-1
+Noise / Tiếng ồn
+Môi trường
+Ban ATCL (anh Đàn)
+2
+Chỉ tiêu số hóa ngay
+Energy & Emission
+Chưa có mã
+Direct greenhouse gas emissions (Scope 1) from domestic flights / Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+Môi trường
+Ban ATCL (anh Đàn)
+3
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 403-2
+Hazard identification, risk assessment, and incident investigation / Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Xã hội
+Ban ATCL (anh Đàn)
+CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+I. Định nghĩa chỉ tiêu
+1.1. Chỉ tiêu Airline E-1 - Noise - Tiếng ồn
+Mã chỉ tiêu
+Airline E-1
+Tên chỉ tiêu
+Noise - Tiếng ồn
+Mô tả
+Thống kê và tính toán tỷ lệ phần trăm (%) đội tàu đáp ứng các giới hạn của Annex 16, Volume I (Chapter 3, 4, 14) theo hướng dẫn ASRH của IATA
+Trụ cột
+Môi trường
+Đơn vị phụ trách
+Ban ATCL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu Airline E-1
+Chỉ tiêu Airline E-1 nhằm đánh giá khả năng quản lý tác động môi trường của hãng hàng không và mức độ tuân thủ các quy định quốc tế về tiếng ồn hàng không.
+2. Áp dụng Airline E-1 trong ngành hàng không
+Đối với Vietnam Airlines, chỉ tiêu Airline E-1 được áp dụng nhằm theo dõi và quản lý tác động tiếng ồn phát sinh từ hoạt động khai thác đội tàu bay trong quá trình vận hành tại các sân bay trong nước và quốc tế.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu từ chỉ tiêu Airline E-1 là cơ sở để đánh giá:
+Hỗ trợ doanh nghiệp nhận diện và kiểm soát các tác động môi trường từ hoạt động khai thác bay.
+Đánh giá hiệu quả các chương trình giảm thiểu tiếng ồn và hiện đại hóa đội tàu bay.
+Tăng cường quản lý rủi ro liên quan đến cộng đồng, pháp lý và môi trường.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu Airline E-1 được làm rõ qua chỉ tiêu con sau:
+CT 5.1 – Total aircraft - Tổng tàu bay
+CT 5.2 – Distribution of noise certification categories - Cơ cấu chứng chỉ tiếng ồn
+CT 5.3 – Aircraft noise certification by year - Chứng nhận tiếng ồn máy bay theo năm
+CT 5.4 – Noise certification by aircraft type - Chứng chỉ tiếng ồn theo loại máy bay
+1.2. Chỉ tiêu Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+Mã chỉ tiêu
+Chưa có mã
+Tên chỉ tiêu
+Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+Mô tả
+Lượng khí nhà kính phát thải trực tiếp từ các chuyến bay nội địa (Phạm vi 1) bao gồm CO2, CH4, N2O. Lượng nhiên liệu tra nạp từ các sân bay trong nước (chuyến bay nội địa, hoặc quốc tế có điểm xuất phát từ Việt Nam).
+Ghi chú: Không bao gồm chuyến VIP, cứu thương, chữa cháy, nhân đạo,...
+Trụ cột
+Môi trường
+Đơn vị phụ trách
+Ban ATCL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu
+Đây là một chỉ tiêu con chuyên sâu thuộc nhóm đo lường Phát thải trực tiếp (Scope 1), được thiết kế đặc thù để phục vụ công tác kiểm kê khí nhà kính quốc gia theo quy định nhà nước.
+Chỉ tiêu này đo lường lượng khí nhà kính phát thải trực tiếp từ các chuyến bay nội địa (Phạm vi 1), bao gồm các loại khí chính là CO2, CH4 và N2O. Để đảm bảo tính chính xác theo ranh giới quốc gia, dữ liệu đầu vào được xác định là lượng nhiên liệu tra nạp từ các sân bay trong nước (bao gồm cả chuyến bay nội địa hoặc các chuyến bay quốc tế có điểm xuất phát từ Việt Nam).
+Một điểm lưu ý quan trọng về ranh giới hệ thống của chỉ tiêu này là nó chỉ tập trung vào hoạt động khai thác thương mại, do đó không bao gồm các chuyến bay đặc biệt như chuyến VIP, cứu thương, chữa cháy, nhân đạo
+2. Áp dụng trong ngành hàng không
+Đối với hệ thống dữ liệu của Vietnam Airlines, việc bóc tách chỉ tiêu này đòi hỏi sự kết hợp giữa dữ liệu tra nạp nhiên liệu thực tế và các bộ lọc loại trừ khắt khe
+3. Ý nghĩa quản trị và báo cáo
+Việc tách riêng "Dấu chân carbon nội địa" mang lại những giá trị chiến lược và tài chính thiết thực cho Ban điều hành Vietnam Airlines:
+Tuân thủ pháp lý và Kiểm kê Quốc gia: Đây là cơ sở dữ liệu bắt buộc để Vietnam Airlines báo cáo cho Cục Hàng không và Bộ Tài nguyên & Môi trường, đáp ứng các quy định về kiểm kê khí nhà kính của Chính phủ Việt Nam trong cam kết hướng tới Net Zero tại COP26.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu được làm rõ qua chỉ tiêu con:
+CT 5.5 - Total Fuel Consumption - Tổng nhiên liệu tiêu thụ
+CT 5.6 - Jet A-1 Fuel Consumption - Nhiên liệu tiêu thụ Jet A-1
+CT 5.7 - Neat SAF Consumption - Nhiên liệu tiêu thụ SAF
+CT 5.8 - Total Equivalent Fuel Consumption - Tổng năng lượng tiêu thụ tương đương
+CT 5.9 - Total GHG Emissions - Tổng phát thải khí nhà kính (Phát thải Jet A1 + Phát thải SAF)
+CT 5.10 - CO2 Emissions - Phát thải CO2  (Phát thải Jet A1 + Phát thải SAF)
+CT 5.11 - CH4 Emissions - Phát thải CH4  (Phát thải Jet A1 + Phát thải SAF)
+CT 5.12 - N2O Emissions - Phát thải N2O  (Phát thải Jet A1 + Phát thải SAF)
+CT 5.13 - Annual GHG Emissions - Tổng phát thải nhà kính theo năm
+CT 5.14 - Annual Emissions Intensity - Cường độ phát thải nhà kính theo năm
+CT 5.15 - Monthly GHG Emissions - Tổng phát thải nhà kính theo tháng
+CT 5.16 - GHG Emissions by Aircraft Type - Tổng phát thải nhà kính theo loại tàu bay
+1.3. Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Mã chỉ tiêu
+GRI 403-2
+Tên chỉ tiêu
+Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Mô tả
+Thống kê các mối nguy và sự cố an toàn khai thác bay phát sinh trong kỳ báo cáo, bao gồm các sự cố do va chạm chim bay và sét đánh.
+Trụ cột
+Xã hội
+Đơn vị phụ trách
+Ban ATCL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 403-2
+Chỉ tiêu GRI 403-2 nhằm đánh giá hiệu quả của hệ thống nhận diện mối nguy, báo cáo sự cố và quản lý rủi ro an toàn trong quá trình vận hành của doanh nghiệp. Đối với ngành hàng không, chỉ tiêu này đặc biệt tập trung vào các mối nguy có khả năng ảnh hưởng trực tiếp đến an toàn khai thác bay, tài sản và con người, bao gồm các sự cố phát sinh trong quá trình vận hành tàu bay.
+2. Áp dụng trong ngành hàng không
+Đối với Vietnam Airlines, chỉ tiêu GRI 403-2 được áp dụng nhằm theo dõi và quản lý các mối nguy phát sinh trong hoạt động khai thác, đặc biệt là các nguy cơ ảnh hưởng đến an toàn như va chạm chim bay (bird strike) và sét đánh (lightning strike).
+Thông qua việc ghi nhận số lượng mối nguy, số sự cố và tần suất phát sinh theo từng giai đoạn khai thác, doanh nghiệp có thể đánh giá mức độ rủi ro trong khai thác, đồng thời xây dựng các biện pháp phòng ngừa và kiểm soát phù hợp nhằm đảm bảo an toàn khai thác liên tục.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu từ chỉ tiêu GRI 403-2 là cơ sở để đánh giá:
+Hiệu quả của hệ thống nhận diện, báo cáo và quản lý mối nguy trong hoạt động khai thác bay.
+Xu hướng phát sinh sự cố theo thời gian nhằm hỗ trợ công tác phân tích, dự báo và phòng ngừa rủi ro.
+Hiệu quả triển khai các chương trình quản lý an toàn khai thác và nâng cao năng lực ứng phó sự cố.
+Mức độ tuân thủ các yêu cầu về quản lý an toàn hàng không theo quy định nội bộ và tiêu chuẩn quốc tế.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu GRI 403-2 được làm rõ qua chỉ tiêu con:
+CT 5.17 – Total flights – Tổng số chuyến bay
+CT 5.18 – Bird strike hazards – Số mối nguy do va chạm chim bay
+CT 5.19 – Lightning strike hazards – Số mối nguy do sét đánh
+CT 5.20 – Flights and incidents by month – Số lượng chuyến bay và số sự cố theo tháng
+II. Chi tiết nghiệp vụ
+2.1. Chỉ tiêu Airline E-1 - Noise - Tiếng ồn
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 5.1
+1. Tên chỉ tiêu: Total aircraft - Tổng tàu bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số tàu bay đang được khai thác thực tế.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô đội tàu bay đang khai thác trong kỳ báo cáo, làm cơ sở đánh giá tổng mức độ phát sinh tiếng ồn từ hoạt động bay của hãng hàng không.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm, Quý, Tháng, Ngày (thời điểm) và theo Kiểu/ Loại tàu bay.
+5. Nguồn dữ liệu:
+Excel.
+6. Tần suất cập nhật:. Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 5.2
+1. Tên chỉ tiêu: Distribution of noise certification categories - Cơ cấu chứng chỉ tiếng ồn
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Cơ cấu tỷ trọng tàu bay theo từng Chapter tiếng ồn tại thời điểm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá mức độ tuân thủ của đội tàu bay đối với các tiêu chuẩn và quy định quốc tế về tiếng ồn hàng không. Chỉ tiêu giúp doanh nghiệp theo dõi tỷ trọng tàu bay đạt các cấp chứng nhận tiếng ồn khác nhau, từ đó đánh giá mức độ hiện đại, thân thiện môi trường và khả năng giảm thiểu ảnh hưởng tiếng ồn đến cộng đồng xung quanh sân bay.
+3. Công thức tính:
+Tỷ lệ % của Loại Chapter / Tổng số đội tàu bay.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian:Năm, Quý, Tháng, Ngày (thời điểm) và theo Kiểu/ Loại tàu bay.
+5. Nguồn dữ liệu:
+Excel.
+6. Tần suất cập nhật: Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 5.3
+1. Tên chỉ tiêu: Aircraft noise certification by year - Chứng nhận tiếng ồn máy bay theo năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Sự thay đổi theo thời gian của số lượng tàu bay tuân thủ các tiêu chuẩn tiếng ồn.
+2.2. Ý nghĩa/Mục đích đo lường:
+Hỗ trợ theo dõi tình hình cấp mới, duy trì hoặc cập nhật chứng nhận tiếng ồn của tàu bay theo từng năm báo cáo. Chỉ tiêu này giúp đánh giá hiệu quả công tác quản lý tuân thủ quy định môi trường hàng không.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm, Quý, Tháng, Ngày (thời điểm) và theo Kiểu/ Loại tàu bay.
+5. Nguồn dữ liệu:
+Excel.
+6. Tần suất cập nhật: Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 5.4
+1. Tên chỉ tiêu: Noise certification by aircraft type - Chứng chỉ tiếng ồn theo loại máy bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Chỉ tiêu phản ánh số lượng tàu bay đang khai thác được phân loại theo chứng chỉ tiếng ồn tương ứng theo tiêu chuẩn của Tổ chức Hàng không Dân dụng Quốc tế (ICAO). Chỉ tiêu được trình bày theo từng loại máy bay nhằm đánh giá mức độ đáp ứng yêu cầu kiểm soát tiếng ồn và tác động môi trường của đội bay.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh mức độ đáp ứng tiêu chuẩn tiếng ồn của từng dòng hoặc loại tàu bay đang khai thác.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm, Quý, Tháng, Ngày (thời điểm) và theo Kiểu/ Loại tàu bay.
+5. Nguồn dữ liệu:
+Excel.
+6. Tần suất cập nhật: Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+2.2. Chỉ tiêu Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 5.5
+1. Tên chỉ tiêu: Total Fuel Consumption - Tổng nhiên liệu tiêu thụ
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng lượng nhiên liệu hàng không được ghi nhận tiêu thụ trong kỳ, được xác định dựa trên lượng nhiên liệu nạp vào tàu bay.
+Toàn bộ nhiên liệu nạp cho chuyến bay sẽ được phân bổ vào ngày khởi hành của chuyến bay đó, bao gồm cả nhiên liệu sử dụng trong giai đoạn taxi out/in, kể cả đối với các chuyến bay kéo dài sang ngày hôm sau.
+Nhiên liệu tiêu thụ bao gồm cả nhiên liệu Jet A-1 và nhiên liệu SAF nguyên chất; tuy nhiên không phải tất cả chuyến bay đều sử dụng SAF, do một số chuyến bay chỉ sử dụng 100% nhiên liệu Jet A-1.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu này phản ánh tổng lượng nhiên liệu hàng không đã được tiêu thụ phục vụ hoạt động khai thác bay trong kỳ báo cáo
+3. Công thức tính: Tổng nhiên liệu tiêu thụ là tổng lượng nhiên liệu đã nạp trên tất cả chuyến bay theo hóa đơn.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 5.6
+1. Tên chỉ tiêu: Jet A-1 Fuel Consumption - Nhiên liệu tiêu thụ Jet A-1
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng lượng nhiên liệu hàng không hóa thạch Jet A-1 được tra nạp và sử dụng cho hoạt động khai thác bay
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi hiệu quả sử dụng năng lượng
+3. Công thức tính: Nhiên liệu tiêu thụ Jet A-1 = Tổng nhiên liệu tiêu thụ (Tấn) - Lượng SAF nguyên chất (Tấn)
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 5.7
+1. Tên chỉ tiêu: Neat SAF Consumption - Nhiên liệu tiêu thụ SAF
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Nhiên liệu tiêu thụ SAF là phần SAF nguyên chất (Neat SAF).
+Trên thực tế, tàu bay không sử dụng 100% SAF mà sử dụng nhiên liệu pha trộn giữa SAF và Jet A-1 theo tỷ lệ do nhà cung cấp hoặc quy định từng khu vực quy định.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh mức độ sử dụng nhiên liệu hàng không bền vững (SAF) trong hoạt động khai thác bay và theo dõi lộ trình giảm phát thải CO₂ của hãng hàng không
+3. Công thức tính: Nhiên liệu tiêu thụ SAF = Tổng lượng SAF nguyên chất được xác định trong chứng nhận từ nhà cung cấp tại các sân bay.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 5.8
+1. Tên chỉ tiêu: Total Equivalent Fuel Consumption - Tổng năng lượng tiêu thụ tương đương
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng mức năng lượng mà Vietnam Airlines đã thực tế tiêu thụ trong kỳ báo cáo, được xác định bằng cách quy đổi khối lượng nhiên liệu vật lý (chủ yếu là nhiên liệu bay Jet A-1) sang một đơn vị đo lường năng lượng tiêu chuẩn chung là Tấn dầu quy đổi (TOE).
+Bản chất của chỉ tiêu này là chuyển đổi "Khối lượng" (Tấn) sang "Năng lượng sinh ra" (TOE) thông qua một Hệ số quy đổi nhiệt trị tiêu chuẩn. Điều này giúp phản ánh chính xác hàm lượng năng lượng đã được Hãng đốt cháy để phục vụ hoạt động khai thác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo quy định của Luật Sử dụng năng lượng tiết kiệm và hiệu quả, các cơ sở sử dụng năng lượng trọng điểm quốc gia (như Vietnam Airlines) bắt buộc phải báo cáo số liệu tiêu thụ hàng năm cho Bộ Công Thương và Bộ Giao thông Vận tải bằng đơn vị chuẩn là TOE. Chỉ tiêu này chính là cơ sở dữ liệu để thực thi nghĩa vụ pháp lý đó.
+3. Công thức tính: Tổng nhiên liệu tiêu thụ tương đương = Tổng nhiên liệu tiêu thụ (Tấn) * Hệ số quy đổi Tấn sang TOE
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: TOE.
+CT 5.9
+1. Tên chỉ tiêu: Total Total GHG Emissions - Tổng phát thải khí nhà kính
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng các loại khí nhà kính phát sinh trực tiếp từ quá trình đốt cháy nhiên liệu (chủ yếu là Jet A-1) trong hoạt động khai thác bay của Vietnam Airlines xuyên suốt kỳ báo cáo.
+Theo chuẩn mực kiểm kê quốc tế, chỉ tiêu này là tổng hòa của 3 loại khí nhà kính cốt lõi: CO2, CH4 và N2O.
+Để chuẩn hóa và có thể cộng gộp, khối lượng của các khí phi carbon (CH4 và N2O) được nhân với Hệ số tiềm năng nóng lên toàn cầu (GWP - Global Warming Potential) để quy đổi về cùng một đơn vị đo lường tiêu chuẩn là tCO2e
+2.2. Ý nghĩa/Mục đích đo lường:
+Đây là chỉ số bắt buộc và cốt lõi nhất trong báo cáo phát triển bền vững (ESG), nhằm đáp ứng yêu cầu minh bạch hóa dữ liệu, cũng như tuân thủ khung pháp lý kiểm kê khí nhà kính của Chính phủ và Tổ chức Hàng không Dân dụng Quốc tế (ICAO).
+3. Công thức tính: Tổng phát thải khí nhà kính = Phát thải khí CO2 (tCO2e) + Phát thải khí CH4 (tCO2e) + Phát thải khí N2O (tCO2e)
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.10
+1. Tên chỉ tiêu: CO2 Emissions - Phát thải CO2
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng khí Carbon Dioxide (CO2) phát sinh trực tiếp và xả thải vào bầu khí quyển từ quá trình đốt cháy nhiên liệu hàng không (chủ yếu là Jet A-1) trong các hoạt động khai thác bay của Vietnam Airlines xuyên suốt kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đây là chỉ số bắt buộc và cốt lõi nhất trong báo cáo phát triển bền vững (ESG), nhằm đáp ứng yêu cầu minh bạch hóa dữ liệu, cũng như tuân thủ khung pháp lý kiểm kê khí nhà kính của Chính phủ và Tổ chức Hàng không Dân dụng Quốc tế (ICAO).
+3. Công thức tính: Phát thải CO2 = Nhiên liệu tiêu thụ Jet A-1 (Tấn) * Hệ số phát thải CO2
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.11
+1. Tên chỉ tiêu: CH4 Emissions - Phát thải CH4
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là khối lượng khí CH4 phát sinh trực tiếp từ quá trình đốt cháy nhiên liệu hàng không trong hoạt động khai thác bay của Vietnam Airlines xuyên suốt kỳ báo cáo.
+Trong cơ cấu khí nhà kính từ động cơ máy bay, lượng khí CH4 phát thải vật lý chiếm tỷ trọng rất nhỏ, tuy nhiên đây là một loại khí nhà kính phi carbon (non-CO2 GHG) bắt buộc phải kiểm kê.
+2.2. Ý nghĩa/Mục đích đo lường:
+Nhằm đáp ứng yêu cầu minh bạch hóa dữ liệu, cũng như tuân thủ khung pháp lý kiểm kê khí nhà kính của Chính phủ và Tổ chức Hàng không Dân dụng Quốc tế (ICAO).
+3. Công thức tính: Phát thải CH4 = Nhiên liệu tiêu thụ Jet A-1 (Tấn) / 1000000 * NCV * Hệ số phát thải CH4 * GWP*CH4
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.12
+1. Tên chỉ tiêu: N2O Emissions - Phát thải N2O
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là khối lượng khí N2O phát sinh trực tiếp từ quá trình đốt cháy nhiên liệu hàng không trong buồng đốt động cơ tàu bay của Vietnam Airlines xuyên suốt kỳ báo cáo.
+Tương tự như CH4, N2O là một loại khí nhà kính phi carbon (non-CO2 GHG). Dù chiếm tỷ trọng khối lượng vật lý vô cùng nhỏ bé so với lượng CO2 sinh ra, N2O vẫn là một cấu phần bắt buộc phải ghi nhận trong kiểm kê khí nhà kính.
+2.2. Ý nghĩa/Mục đích đo lường:
+Nhằm đáp ứng yêu cầu minh bạch hóa dữ liệu, cũng như tuân thủ khung pháp lý kiểm kê khí nhà kính của Chính phủ và Tổ chức Hàng không Dân dụng Quốc tế (ICAO).
+3. Công thức tính: Phát thải N2O = Nhiên liệu tiêu thụ Jet A-1 (Tấn) / 1000000 * NCV * Hệ số phát thải N2O * GWP*N2O
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.13
+1. Tên chỉ tiêu: Annual GHG Emissions - Tổng phát thải nhà kính theo năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu tổng hợp lũy kế toàn bộ lượng phát thải khí nhà kính (bao gồm các cấu phần CO2, CH4, N2O đã được quy đổi thống nhất ra đơn vị tCO2e) phát sinh từ chuỗi hoạt động khai thác của Vietnam Airlines trong trọn vẹn một chu kỳ 12 tháng
+2.2. Ý nghĩa/Mục đích đo lường:
+Nhằm đáp ứng yêu cầu minh bạch hóa dữ liệu, cũng như tuân thủ khung pháp lý kiểm kê khí nhà kính của Chính phủ và Tổ chức Hàng không Dân dụng Quốc tế (ICAO).
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.14
+1. Tên chỉ tiêu: Annual Emissions Intensity - Cường độ phát thải nhà kính theo năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Cường độ phát thải là tỷ số giữa mức phát thải khí nhà kính chia cho một đơn vị tham chiếu đặc trưng của tổ chức (mẫu số chung).
+Trong ngành hàng không, để bao hàm cả vận tải hành khách và hàng hóa (đặc thù của VNA), mẫu số chung chuẩn mực nhất thường được sử dụng là RTK (Revenue Tonne-Kilometres - Tấn-Kilomet thực hiện)
+2.2. Ý nghĩa/Mục đích đo lường:
+Đo lường hiệu quả thực chất: Khi hãng mở rộng mạng bay và tăng số chuyến, tổng phát thải (Scope 1) chắc chắn sẽ tăng. Tuy nhiên, nếu Cường độ phát thải giảm đi, điều đó chứng minh hãng đang vận hành hiệu quả hơn
+3. Công thức tính: Cường độ phát thải khí nhà kính = Tổng phát thải khí nhà kính / Tổng RTK
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu:
+Tổng phát thải nhà kính: FIMS
+RTK: RPS
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.15
+1. Tên chỉ tiêu: Monthly GHG Emissions - Tổng phát thải nhà kính theo tháng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu thống kê tổng khối lượng phát thải khí nhà kính (bao gồm tổng hòa các cấu phần CO2, CH4, N2O đã được quy đổi thống nhất sang đơn vị chuẩn tCO2e) sinh ra từ hoạt động đốt nhiên liệu bay của Vietnam Airlines, được bóc tách và chốt số liệu theo từng tháng riêng biệt.
+2.2. Ý nghĩa/Mục đích đo lường:
+Khai thác hàng không có đặc thù phân bổ sản lượng không đồng đều (tập trung rất cao vào cao điểm Hè, Lễ Tết Nguyên Đán). Việc theo dõi phát thải theo tháng giúp Ban Lãnh đạo đối chiếu trực quan đồ thị phát thải với đồ thị sản lượng (số chuyến bay, giờ bay, tải cung ứng) để đảm bảo hai chỉ số này đang biến động đồng pha
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+CT 5.16
+1. Tên chỉ tiêu: GHG Emissions by Aircraft Type - Tổng phát thải nhà kính theo loại tàu bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng khối lượng phát thải khí nhà kính trực tiếp (đã quy đổi sang tCO2e) dựa trên từng chủng loại máy bay cụ thể cấu thành nên đội tàu bay của Vietnam Airlines
+2.2. Ý nghĩa/Mục đích đo lường:
+Trong ngành hàng không, nâng cấp đội tàu là đòn bẩy mạnh mẽ nhất để giảm phát thải. Dữ liệu này cung cấp bằng chứng định lượng (bằng con số tCO2e) để Ban Lãnh đạo chứng minh hiệu quả đầu tư của các dòng máy bay thế hệ mới
+Dữ liệu phát thải bóc tách theo từng loại tàu bay là cơ sở để Khối Thương mại và Khối Khai thác đưa ra các quyết định xếp lịch bay thông minh. Ví dụ: Việc ưu tiên bố trí các tàu bay có hiệu năng nhiên liệu tốt nhất cho các đường bay dài, hoặc các đường bay có yêu cầu khắt khe về phí môi trường (như khu vực Châu Âu), sẽ giúp Hãng tối ưu hóa cả về chi phí vận hành lẫn lượng carbon phát thải.
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo loại tàu bay
+Theo chặng bay
+Theo khu vực
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: tCO2e
+2.3. Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 5.17
+1. Tên chỉ tiêu: Total flights – Tổng số chuyến bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số chuyến bay khai thác trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô hoạt động khai thác bay của hãng hàng không trong kỳ báo cáo, làm cơ sở để đánh giá tần suất phát sinh mối nguy, sự cố an toàn và các tác động liên quan đến hoạt động khai thác bay.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: AQD.
+6. Tần suất cập nhật: Hàng ngày.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Chuyến.
+CT 5.18
+1. Tên chỉ tiêu: Bird strike hazards - Số mối nguy do chim va chạm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số mối nguy hoặc sự cố liên quan đến tàu bay bị chim va chạm được ghi nhận trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi xu hướng phát sinh sự cố do chim va chạm, đánh giá rủi ro vận hành trong điều kiện thời tiết bất lợi và nâng cao hiệu quả công tác quản lý an toàn khai thác bay.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: AQD.
+6. Tần suất cập nhật: Hàng ngày.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Mối nguy.
+CT 5.19
+1. Tên chỉ tiêu: Lightning strike hazards - Số mối nguy do sét đánh
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số mối nguy hoặc sự cố liên quan đến tàu bay bị sét đánh được ghi nhận trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi xu hướng phát sinh sự cố do sét đánh, đánh giá rủi ro vận hành trong điều kiện thời tiết bất lợi và nâng cao hiệu quả công tác quản lý an toàn khai thác bay.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: AQD.
+6. Tần suất cập nhật: Hàng ngày.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Mối nguy.
+CT 5.20
+1. Tên chỉ tiêu: Monthly Flights and Incidents - Số lượng chuyến bay và số sự cố theo tháng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Thống kê số lượng chuyến bay và số sự cố phát sinh theo từng tháng trong kỳ báo cáo, bao gồm các sự cố va chạm chim bay (bird strike) và sét đánh (lightning strike).
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh xu hướng biến động giữa quy mô khai thác bay và số lượng sự cố an toàn phát sinh theo từng tháng trong năm báo cáo.
+Theo dõi tần suất phát sinh mối nguy, đánh giá các giai đoạn có rủi ro cao trong vận hành khai thác bay và phục vụ công tác phân tích, cảnh báo và quản lý an toàn khai thác.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng/Năm.
+Theo loại mối nguy.
+5. Nguồn dữ liệu: AQD.
+6. Tần suất cập nhật: Hàng ngày.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Mối nguy/Chuyến.
+Mong muốn so sánh các tháng trong năm.

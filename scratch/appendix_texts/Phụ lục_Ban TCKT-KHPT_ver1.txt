@@ -1,0 +1,306 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Ban TCKT-KHPT
+1. Thông tin chung
+Đơn vị phụ trách: Ban TCKT-KHPT.
+Đầu mối Ban TCKT-KHPT:
+Ông Nguyễn Trọng Đức – Phó trưởng phòng Chiến lược Ban KHPTBà Phạm Thị Dung – Chuyên viên Ban KHPTÔng Nguyễn Thành Trung – Chuyên viên Ban TCKT Ban TCKT-KHPT
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+GRI 204-1
+Proportion of spending on local suppliers - Số lượng NCC địa phương / tổng số NCC
+Tổng số nhà cung cấp địa phương trên tổng số nhà cung cấp
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS, Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS.Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công, Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng, loại hợp đồng): CMS, Thông tin nhà cung cấp Việt Nam có cam kết về phát triển bền vững: nhập thủ công, Thông tin nhà cung cấp có cam kết về phát triển bền vững: nhập thủ công, Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công, Nhập liệu thủ công
+Hàng tháng (ngày cuối cùng trong tháng), Khi có nhà cung cấp mới
+Ban TCKT-KHPT
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 10.1
+Total suppliers – Tổng số NCC
+Tổng số nhà cung cấp = tổng số nhà cung cấp quốc tế + tổng số nhà cung cấp Việt Nam.
+Thời gian Năm, Quý.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng, loại hợp đồng): CMS
+CT 10.2
+Sustainable suppliers – Tổng số NCC có cam kết về phát triển bền vững
+Không có.
+Thời gian Năm, Quý.
+Khi có nhà cung cấp mới
+Data Warehouse
+Thông tin nhà cung cấp có cam kết về phát triển bền vững: nhập thủ công
+CT 10.3
+Local suppliers – Số NCC Việt Nam
+Tổng số nhà cung cấp địa phương = Tổng số nhà cung cấp Việt Nam.
+Thời gian Năm, Quý.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS
+CT 10.4
+Sustainable local suppliers – Số NCC Việt Nam có cam kết về phát triển bền vững
+Không có.
+Thời gian Năm, Quý.
+Khi có nhà cung cấp mới
+Data Warehouse
+Thông tin nhà cung cấp Việt Nam có cam kết về phát triển bền vững: nhập thủ công
+CT 10.5
+International suppliers – Số NCC nước ngoài
+Tổng số nhà cung cấp nước ngoài = Tổng số nhà cung cấp không phải là NCC Việt Nam.
+Thời gian Năm, Quý.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS
+CT 10.6
+Sustainable international suppliers – Số NCC nước ngoài có cam kết về phát triển bền vững
+Không có.
+Năm, Quý.
+Khi có nhà cung cấp mới
+Data Warehouse
+Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công
+CT 10.7
+Supplier statistics and sustainability commitments – Thống kê các NCC và cam kết về PTBV
+Không có.
+Năm, Quý.
+Khi có nhà cung cấp mới
+Data Warehouse
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS.Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công
+CT 10.8
+Number of suppliers for the last 3 years – Số lượng NCC 3 năm gần nhất
+Không có.
+3 năm gần nhất, bao gồm năm hiện tại.
+Khi có nhà cung cấp mới
+Data Warehouse
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS.Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Proportion of spending on local suppliers - Số lượng NCC địa phương / tổng số NCC
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Proportion of spending on local suppliers - Số lượng NCC địa phương / tổng số NCC
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Total suppliers – Tổng số NCC
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng, loại hợp đồng): CMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+2
+Sustainable suppliers – Tổng số NCC có cam kết về phát triển bền vững
+Thông tin nhà cung cấp có cam kết về phát triển bền vững: nhập thủ công
+Khi có nhà cung cấp mới
+Thủ công
+3
+Local suppliers – Số NCC Việt Nam
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+4
+Sustainable local suppliers – Số NCC Việt Nam có cam kết về phát triển bền vững
+Thông tin nhà cung cấp Việt Nam có cam kết về phát triển bền vững: nhập thủ công
+Khi có nhà cung cấp mới
+Thủ công
+5
+International suppliers – Số NCC nước ngoài
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+6
+Sustainable international suppliers – Số NCC nước ngoài có cam kết về phát triển bền vững
+Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công
+Khi có nhà cung cấp mới
+Thủ công
+7
+Supplier statistics and sustainability commitments – Thống kê các NCC và cam kết về PTBV
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS.Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công
+Khi có nhà cung cấp mới
+Thủ công
+8
+Number of suppliers for the last 3 years – Số lượng NCC 3 năm gần nhất
+Thông tin nhà cung cấp (Tên nhà cung cấp, NCC Việt Nam/nước ngoài, thời gian bắt đầu hợp đồng, thời gian kết thúc hợp đồng): CMS.Thông tin nhà cung cấp nước ngoài có cam kết về phát triển bền vững: nhập thủ công
+Khi có nhà cung cấp mới
+Thủ công
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-KHPT-WEB-01
+Giao diện Dashboard điều hành tổng quan chung (Executive Dashboard).
+Cao
+Hiển thị biểu đồ phân tích tích hợp (Metabase iframe) gồm 4 tab chuyển đổi: Tổng quan chung (ALL), Environmental (E), Social (S), và Governance (G). Hỗ trợ nút xem chi tiết trên Metabase và bảng danh sách chỉ tiêu chi tiết bên dưới.
+YCQ-KHPT-WEB-02
+Quy trình Đề xuất & Thiết lập mục tiêu KPI.
+Cao
+Giao diện hỗ trợ quản lý danh mục KPI có các trường: Mã chỉ tiêu, Tên chỉ tiêu, Đơn vị tính, Số kế hoạch, Số thực hiện, Tiến độ (%), Đánh giá (Đạt/Không đạt), và Đơn vị chủ trì. Cho phép KHPT gửi yêu cầu làm kế hoạch KPI năm xuống các phòng ban, theo dõi tiến độ nộp và phê duyệt/yêu cầu nộp lại số liệu kế hoạch trực tiếp trên hệ thống (Kế hoạch lưu vào mục riêng cho KHPT quản lý).
+YCQ-KHPT-WEB-03
+Quản trị Kho tài liệu Phát triển bền vững chung.
+Trung bình
+Tiếp nhận yêu cầu upload tài liệu của các phòng ban dưới dạng tệp đính kèm. Hỗ trợ KHPT duyệt lưu trữ (vào thư mục dùng chung) hoặc từ chối chỉnh sửa.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-KHPT-WEB-01
+Hình 01: Giao diện dashboard tổng quan
+Dữ liệu Metabase nhúng
+Kiểm thử hiển thị biểu đồ và bảng danh sách chỉ tiêu.
+YCQ-KHPT-WEB-02
+Hình 02: Màn hình quản lý KPI
+Dữ liệu chỉ tiêu KPI
+Kiểm thử cập nhật số kế hoạch và theo dõi tiến độ.
+YCQ-KHPT-WEB-03
+Hình 03: Màn hình kho tài liệu
+Tệp đính kèm pdf/docx
+Kiểm thử tải lên tài liệu và nút kiểm duyệt lưu trữ.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Ban TCKT-KHPT
+1. Thông tin chung
+Ban TCKT-KHPT.
+Tính năng Dashboard tổng quan, Quản lý mục tiêu KPI và Kho tài liệu PTBV chung.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng hiển thị Dashboard tổng quan chung, 3 trụ cột E, S, G, Quản lý KPI và Kho tài liệu PTBV chung của Ban KHPT.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-KHPT-WEB-01
+Kiểm thử Dashboard tổng quan
+Mở trang Tổng quan điều hành, kiểm tra hiển thị iframe Metabase và các tab E, S, G. Kiểm tra bảng chỉ tiêu bên dưới.
+Đạt
+—
+Hoàn thành
+YCQ-KHPT-WEB-02
+Kiểm thử quản lý KPI
+Mở chức năng Quản lý KPI, kiểm tra nhập số kế hoạch KPI cho các chỉ tiêu.
+Đạt
+—
+Hoàn thành
+YCQ-KHPT-WEB-03
+Kiểm thử Kho tài liệu
+Mở chức năng Kho tài liệu PTBV chung, kiểm tra tải lên tài liệu và kiểm duyệt lưu trữ.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Ban TCKT-KHPT
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

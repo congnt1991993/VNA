@@ -1,0 +1,979 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian & Địa điểm
+Phiên 1: Từ 09:00 đến 11:30, ngày 18/05/2026 | Phòng họp HUI, tầng 3, tòa VN1.
+Phiên 2: Từ 09:00 đến 11:30, ngày 19/05/2026 | Phòng họp HUI, tầng 3, tòa VN1.
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Bà Đỗ Thị Như Quỳnh - Phó trưởng phòng - Ban Quản lý vật tư
+Bà Ngô Việt Hà - Chuyên viên - Ban Quản lý vật tư
+Bà Nguyễn Bạch Lê - Chuyên viên - TTĐHKT
+Bà Nguyễn Thị Thanh Thanh - Chuyên viên - TTĐHKT
+Ông Nguyễn Minh Tiến - Phó trưởng phòng - Ban CĐSCN
+Bà Trần Thanh Vân - Chuyên viên -  Ban CĐSCN
+2. Phía Aequitas
+Ông Trần Ngọc Sơn - PM dự án
+Ông Nguyễn Chính Nam - BA dự án
+Ông Chu Minh Hiếu - DA dự án
+Ông Nguyễn Danh Hưng - DA dự án
+Bà Phạm Lưu Hỷ Nhi - DA dự án
+Ông Nguyễn Giang Đông - DA dự án
+Ông Nguyễn Thế Thiện - DE dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp ghi nhận và xác nhận các nội dung đã trao đổi với Tổ Kỹ thuật liên quan đến nhóm chỉ tiêu SAF/ReFuelEU Aviation, bao gồm: cách hiểu nghiệp vụ, phạm vi chỉ tiêu, một số trường dữ liệu liên quan và các vấn đề cần tiếp tục làm rõ.
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+Tổ Kỹ thuật, Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+Xác nhận số hóa:
+1/3 chỉ tiêu là Báo cáo sử dụng SAF.
+1/3 chỉ tiêu là Báo cáo CO2 phát thải vượt mức.
+1/3 chỉ tiêu là Báo cáo CARBURE đã được gộp vào chỉ tiêu Báo cáo sử dụng SAF.
+Tổng số chỉ tiêu con đã xác nhận: 40/40 chỉ tiêu con. Trong đó:
+Chỉ tiêu Báo cáo sử dụng SAF: 18/18 chỉ tiêu con
+Chỉ tiêu Báo cáo CO2 phát thải vượt mức: 22/22 chỉ tiêu con.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 18/05/2026 và 19/05/2026 với Tổ Kỹ thuật và Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU
+STT
+Loại số hóa
+Nhóm
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+Energy and Emissions
+(Không có mã)
+SAF Report / Báo cáo sử dụng SAF
+Môi trường
+Tổ Kỹ thuật (chị Quỳnh, chị Hà)
+Tổ Khai thác (chị Lê, chị Thanh)
+Chỉ tiêu này đã bao gồm CARBURE - Báo cáo sử dụng SAF tại Pháp
+2
+Chỉ tiêu số hóa ngay
+Energy and Emissions
+(Không có mã)
+CO2 emissions report (offset by EUA) / Báo cáo CO2 phát thải vượt mức
+Môi trường
+Tổ Kỹ thuật (chị Quỳnh, chị Hà)
+Tổ Khai thác (chị Lê, chị Thanh)
+CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+I. Định nghĩa chỉ tiêu
+1.1. Chỉ tiêu SAF Report - Báo cáo sử dụng SAF
+Mã chỉ tiêu
+Chưa có mã
+Tên chỉ tiêu
+SAF Report - Báo cáo sử dụng SAF
+Mô tả
+Báo cáo bắt buộc theo Điều 8 của Quy định ReFuelEU Aviation.
+Phạm vi: các chuyến bay thương mại có khởi hành từ các sân bay thuộc Liên minh EU.
+Trụ cột
+Environment - Môi trường
+Đơn vị phụ trách
+Tổ Kỹ thuật - Ban Quản lý vật tư
+Mô tả chi tiết
+1. Tổng quan về chỉ tiêu
+Báo cáo SAF Report được xây dựng nhằm theo dõi, quản lý và báo cáo tình hình sử dụng nhiên liệu hàng không bền vững (Sustainable Aviation Fuel – SAF) theo yêu cầu của Quy định ReFuelEU Aviation.
+Báo cáo áp dụng đối với các chuyến bay thương mại có khởi hành từ các sân bay thuộc phạm vi Liên minh châu Âu (EU) và phục vụ công tác tổng hợp dữ liệu nhiên liệu, phát thải khí nhà kính, chi phí SAF và mức độ tuân thủ quy định môi trường hàng không.
+Các chỉ tiêu trong báo cáo phản ánh:
+Quy mô hoạt động khai thác bay thuộc phạm vi áp dụng;
+Nhu cầu và thực tế sử dụng SAF;
+Tỷ lệ sử dụng SAF nguyên chất;
+Cơ cấu SAF theo loại nhiên liệu và nhà cung cấp;
+Dữ liệu phục vụ đối soát, kiểm toán và báo cáo tuân thủ ReFuelEU Aviation.
+2. Áp dụng trong ngành hàng không
+Theo định hướng Net Zero 2050 của ngành hàng không quốc tế, SAF được xem là giải pháp trọng tâm nhằm giảm phát thải CO₂ từ hoạt động khai thác bay do có khả năng giảm đáng kể phát thải carbon vòng đời so với nhiên liệu hóa thạch truyền thống.
+ReFuelEU Aviation yêu cầu các hãng hàng không theo dõi và báo cáo định kỳ về:
+Lượng SAF sử dụng;
+Dữ liệu nhiên liệu tra nạp tại các sân bay thuộc EU;
+Thông tin mua SAF và nhà cung cấp nhiên liệu.
+Báo cáo SAF Report hỗ trợ hãng hàng không đáp ứng các yêu cầu quản lý dữ liệu, báo cáo tuân thủ và xác minh phát thải theo quy định hiện hành.
+3. Ý nghĩa quản trị và báo cáo
+Báo cáo là cơ sở phục vụ:
+Theo dõi tiến độ triển khai sử dụng SAF;
+Đánh giá mức độ tuân thủ ReFuelEU Aviation;
+Quản lý chi phí và kế hoạch mua SAF;
+Phân tích xu hướng sử dụng nhiên liệu bền vững theo thời gian;
+Hỗ trợ tính toán giảm phát thải CO₂;
+Phục vụ công tác kiểm toán, xác minh và báo cáo ESG/phát triển bền vững.
+Ngoài ra, báo cáo còn hỗ trợ đối chiếu dữ liệu giữa hệ thống khai thác bay, dữ liệu nhiên liệu, hóa đơn/certificate từ nhà cung cấp và dữ liệu tài chính liên quan đến SAF.
+4. Danh sách chỉ tiêu thành phần
+CT 2.1 – Total EU Flights – Tổng số chuyến bay thương mại từ châu Âu
+CT 2.2 – Total Flight Hours – Tổng số giờ bay
+CT 2.3 – Planned SAF Volume (Tonnes) – Lượng SAF kế hoạch ban đầu (tấn)
+CT 2.4 – Actual SAF Uplifted (Tonnes) – Lượng SAF nạp thực tế (tấn)
+CT 2.5 – Neat SAF Ratio by Airport – Tỷ lệ neat SAF theo sân bay
+CT 2.6 – Monthly SAF Uplift Volume – Lượng SAF tra nạp theo tháng trong năm
+CT 2.7 – SAF Surcharge by Month in the Year – Phụ phí SAF theo tháng trong năm
+CT 2.8 – SAF Purchase Volume by Eligible Fuel and Supplier – Lượng mua SAF theo loại SAF & sân bay
+CT 2.9 – SAF Purchase Reporting – Bảng chi tiết việc mua SAF
+CT 2.10 – Fuel Reporting – Bảng chi tiết nhiên liệu tra nạp tại các sân bay
+CT 2.11 – Total France Flights – Tổng số chuyến bay tại Pháp
+CT 2.12 – Total Flight Hours (France) – Tổng số giờ bay (Pháp)
+CT 2.13 – Planned SAF Volume (Tonnes) (France) – Lượng SAF kế hoạch ban đầu (Pháp)
+CT 2.14 – Actual SAF Uplifted (Tonnes) (France) – Lượng SAF nạp thực tế (Pháp)
+CT 2.15 – Neat SAF Ratio by Airport (France) – Tỷ lệ neat SAF theo sân bay (Pháp)
+CT 2.16 – Monthly SAF Uplift Volume (Tonnes) (France) – Lượng SAF tra nạp theo tháng trong năm (Pháp)
+CT 2.17 – SAF Surcharge by Month in the Year (France) – Phụ phí SAF theo tháng trong năm (Pháp)
+CT 2.18 – SAF Purchase Volume by Eligible Fuel and Supplier (France) – Lượng mua SAF theo loại SAF & sân bay (Pháp).
+1.2.  Chỉ tiêu CO2 Emissions Report (offset by EUA) - Báo cáo CO2 phát thải vượt mức
+Mã chỉ tiêu
+Chưa có mã
+Tên chỉ tiêu
+CO2 Emissions Report (offset by EUA) - Báo cáo CO2 phát thải vượt mức
+Mô tả
+Lượng CO2 phát thải vượt hạn mức cho phép theo chính sách ETS (EU Emissions Trading Scheme) và số tín chỉ CO2 (EUA) phải nộp tương ứng để bù trừ.
+Trụ cột
+Environment - Môi trường
+Đơn vị phụ trách
+Tổ Kỹ thuật - Ban Quản lý vật tư
+Mô tả chi tiết
+1. Tổng quan về chỉ tiêu
+CO2 Emissions Report (offset by EUA) là báo cáo theo dõi lượng phát thải khí CO₂ phát sinh từ hoạt động khai thác bay thuộc phạm vi quản lý của:
+EU ETS (European Union Emissions Trading System);
+UK ETS (United Kingdom Emissions Trading Scheme);
+CORSIA (Carbon Offsetting and Reduction Scheme for International Aviation).
+Báo cáo phản ánh:
+Lượng phát thải CO₂ thực tế;
+Phần phát thải vượt hạn ngạch hoặc vượt baseline;
+Nghĩa vụ bù trừ carbon;
+Chi phí mua tín chỉ carbon (EUA/UKA);
+Phân tích phát thải theo chặng bay và phạm vi chuyến bay.
+Báo cáo được sử dụng phục vụ công tác quản lý phát thải khí nhà kính, tuân thủ quy định môi trường hàng không quốc tế và theo dõi nghĩa vụ bù trừ carbon của hãng hàng không.
+2. Áp dụng trong ngành hàng không
+Các cơ chế này yêu cầu hãng hàng không:
+Theo dõi lượng nhiên liệu tiêu thụ và phát thải CO₂;
+Báo cáo phát thải định kỳ;
+Thực hiện bù trừ phát thải carbon thông qua hạn ngạch hoặc tín chỉ carbon tương ứng (EUA/UKA hoặc carbon offsets).
+Báo cáo CO2 Emissions Report hỗ trợ tổng hợp dữ liệu phát thải và nghĩa vụ bù trừ theo từng cơ chế quản lý phát thải hiện hành.
+3. Ý nghĩa quản trị và báo cáo
+Báo cáo là cơ sở phục vụ theo dõi tổng lượng phát thải CO₂ từ hoạt động khai thác bay, xác định phần phát thải vượt hạn ngạch hoặc vượt baseline theo các cơ chế EU ETS, UK ETS và CORSIA, đồng thời hỗ trợ tính toán nghĩa vụ bù trừ carbon và chi phí mua tín chỉ carbon (EUA/UKA).
+Ngoài ra, báo cáo còn hỗ trợ phân tích phát thải theo chặng bay, theo phạm vi chuyến bay và theo từng năm báo cáo nhằm đánh giá xu hướng phát thải, hiệu quả các chương trình giảm phát thải và sử dụng SAF, phục vụ công tác quản trị ESG, lập kế hoạch ngân sách carbon, chiến lược Net Zero cũng như kiểm toán, xác minh và báo cáo với cơ quan quản lý hoặc đơn vị đánh giá độc lập.
+4. Danh sách chỉ tiêu thành phần
+CT 2.19 – EU ETS Full Scope Flights – Tổng số chuyến bay đi/đến châu Âu
+CT 2.20 – EU ETS Reduced Scope Flights – Số chuyến bay EU ETS thuộc phạm vi cần đền bù khí thải
+CT 2.21 – CO₂ Offsetting Requirement (Tonnes) (EU ETS) – Lượng CO₂ cần đền bù (tấn)
+CT 2.22 – CO₂ Emissions vs ETS Allowance – Phát thải CO₂ so với hạn ngạch ETS theo từng năm
+CT 2.23 – Annual EUA Compensation Cost (USD) – Tổng chi phí bù trừ EUA (USD) theo năm
+CT 2.24 – CO₂ Emissions by Route (EU ETS) – Phát thải CO₂ theo chặng bay (EU ETS)
+CT 2.25 – CO₂ Emissions by Scope (EU ETS) – Phát thải CO₂ theo phạm vi (EU ETS)
+CT 2.26 – UK ETS Full Scope Flights – Tổng số chuyến bay đi/đến UK
+CT 2.27 – UK ETS Reduced Scope Flights – Số chuyến bay UK ETS thuộc phạm vi cần đền bù khí thải
+CT 2.28 – CO₂ Offsetting Requirement (Tonnes) (UK ETS) – Lượng CO₂ cần đền bù (tấn)
+CT 2.29 – CO₂ Emissions vs UK Allowance – Phát thải CO₂ so với hạn ngạch UK
+CT 2.30 – Annual UKA Compensation Cost (USD) – Tổng chi phí bù trừ UKA (USD) theo năm
+CT 2.31 – CO₂ Emissions by Route (UK ETS) – Phát thải CO₂ theo chặng bay
+CT 2.32 – CO₂ Emissions by Scope (UK ETS) – Phát thải CO₂ theo phạm vi (UK ETS)
+CT 2.33 – Total Number of International Flights CORSIA – Tổng số chuyến bay quốc tế thuộc phạm vi CORSIA
+CT 2.34 – Total Number of International Flights Subject to Offsetting Requirements CORSIA – Tổng số chuyến bay CORSIA thuộc phạm vi cần đền bù
+CT 2.35 – Total CO₂ Emissions from International Flights (Tonnes) – Tổng phát thải CORSIA (tấn)
+CT 2.36 – Total CO₂ Emissions from Flights Subject to Offsetting Requirements (Tonnes) – Tổng phát thải CORSIA cần đền bù (tấn)
+CT 2.37 – Total Emissions Reductions claimed from the use of CORSIA Eligible Fuels (Tonnes) – Tổng lượng phát thải CO₂ được giảm trừ nhờ sử dụng SAF (tấn)
+CT 2.38 – CO₂ Emissions vs Baseline (Tonnes) – Phát thải CO₂ bù trừ so với Baseline qua các năm (tấn)
+CT 2.39 – CO₂ Emissions by Route (CORSIA) – Phát thải CO₂ theo chặng bay
+CT 2.40 – CO₂ Emissions by Scope (CORSIA) – Phát thải CO₂ theo phạm vi chuyến bay.
+II. Chi tiết nghiệp vụ
+2.1. Chỉ tiêu SAF Report - Báo cáo sử dụng SAF
+Mã chỉ tiêu con
+Mô tả/Description
+CT 2.1
+1. Tên chỉ tiêu: Total EU Flights - Tổng số chuyến bay thương mại từ châu Âu 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số chuyến bay thương mại có điểm khởi hành từ các sân bay thuộc Liên minh châu Âu trong kỳ báo cáo, không phân biệt loại hình khai thác chuyến bay.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô hoạt động khai thác thương mại của TCTHK đối với các chuyến bay xuất phát từ các quốc gia thuộc EU.
+Là cơ sở tính toán các chỉ số liên quan đến tiêu thụ nhiên liệu, phát thải khí nhà kính hoặc báo cáo tuân thủ RefuelEU Aviation.
+3. Công thức tính toán:
+Chỉ tính các chuyến bay có sân bay khởi hành (DEP) từ các quốc gia theo quy định Liên minh Châu Âu.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+5. Nguồn dữ liệu: FIMS
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Chuyến.
+CT 2.2
+1. Tên chỉ tiêu: Total Flight Hours - Tổng số giờ bay 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng giờ bay thực tế của chuyến bay xuất phát từ Liên minh châu Âu từ khi lúc cất cánh đến khi hạ cánh.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá cường độ vận hành đội bay.
+3. Công thức tính toán:
+Tổng số giờ bay thực tế của chuyến bay (tính từ thời điểm tàu bay cất cánh (block-off) đến thời điểm hạ cánh (block-on) theo dữ liệu khai thác thực tế).
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+5. Nguồn dữ liệu: FIMS
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Giờ.
+CT 2.3
+1. Tên chỉ tiêu: Planned SAF Volume (Tonnes) – Lượng SAF kế hoạch ban đầu (tấn) 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là lượng nhiên liệu hàng không bền vững (SAF) được ước tính cần sử dụng trong kỳ theo kế hoạch.
+Chỉ tiêu này mang tính dự kiến ban đầu và được sử dụng làm cơ sở theo dõi mức độ đáp ứng yêu cầu pha trộn SAF theo quy định.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh nhu cầu SAF dự kiến theo yêu cầu pháp lý trong kỳ, phục vụ công tác lập kế hoạch nhiên liệu, dự báo chi phí, chuẩn bị nguồn cung SAF và theo dõi khả năng tuân thủ các quy định môi trường.
+Là cơ sở để so sánh với lượng SAF thực tế sử dụng nhằm đánh giá mức độ hoàn thành kế hoạch và chênh lệch thực hiện.
+3. Công thức tính toán:
+Lượng SAF kế hoạch ban đầu =  Tổng nhiên liệu cần sử dụng theo kế hoạch * Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+5. Nguồn dữ liệu:
+Tổng nhiên liệu cần sử dụng theo kế hoạch: PMS.
+Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công.
+6. Tần suất cập nhật: Hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.4
+1. Tên chỉ tiêu:Actual SAF Uplifted (Tonnes) – Lượng SAF nạp thực tế (tấn)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) đã được nạp thực tế cho tàu bay trong kỳ báo cáo, được xác định dựa trên hóa đơn hoặc xác nhận cung cấp nhiên liệu từ các nhà cung cấp tại sân bay.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đánh giá mức độ thực hiện kế hoạch SAF, khả năng tuân thủ các quy định về tỷ lệ sử dụng SAF theo yêu cầu của nhà chức trách và tính toán giảm phát thải CO₂.
+Là cơ sở để đối chiếu với lượng SAF kế hoạch ban đầu, phục vụ công tác kiểm soát chi phí và xác minh dữ liệu nhiên liệu.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+5. Nguồn dữ liệu:
+Lượng SAF tra nạp thực tế: Lấy từ chứng từ tra nạp SAF thực tế.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.5
+1. Tên chỉ tiêu: Neat SAF Ratio by Airport - Tỷ lệ neat SAF theo sân bay  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Là tỷ lệ giữa khối lượng nhiên liệu hàng không bền vững nguyên chất (Neat SAF) và tổng khối lượng nhiên liệu SAF pha trộn (Blended SAF) được nạp tại từng sân bay trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tỷ lệ sử dụng SAF nguyên chất tại từng sân bay nhằm đánh giá mức độ đáp ứng yêu cầu sử dụng SAF theo quy định của nhà chức trách và theo dõi chất lượng triển khai SAF tại các điểm nạp nhiên liệu.
+3. Công thức tính:
+Tỷ lệ Neat SAF (%) = (Khối lượng SAF nguyên chất / Tổng khối lượng SAF pha trộn) * 100.
+Dữ liệu được quy đổi về cùng đơn vị trước khi tính toán (nếu cần).
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+Theo sân bay.
+5. Nguồn dữ liệu:
+Khối lượng SAF nguyên chất, SAF pha trộn: Lấy từ chứng từ tra nạp SAF thực tế.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: %.
+CT 2.6
+1. Tên chỉ tiêu: Monthly SAF Uplift Volume - Lượng SAF tra nạp theo tháng trong năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) được ghi nhận theo từng tháng trong kỳ báo cáo.
+Dữ liệu có thể được xác định theo số kế hoạch hoặc theo lượng SAF nạp thực tế tùy thuộc vào tình trạng xác nhận chứng từ (certificate) từ nhà cung cấp nhiên liệu.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tiến độ thực hiện kế hoạch SAF, đánh giá xu hướng sử dụng nhiên liệu bền vững và hỗ trợ so sánh giữa kết quả thực hiện với cùng kỳ năm trước.
+3. Công thức tính toán:
+Trường hợp đã có thư xác nhận:
+Lượng SAF cho từng chuyến bay = (Lượng Neat SAF thực tế / Tổng nhiên liệu SAF pha trộn) * Lượng nhiên liệu nạp từng chuyến bay.
+Lượng SAF nạp theo tháng = Σ Lượng SAF cho từng chuyến bay.
+Trường hợp chưa có thư xác nhận sẽ lấy theo số kế hoạch:
+Lượng SAF cho từng chuyến bay = % SAF theo kế hoạch * Lượng nhiên liệu nạp từng chuyến bay.
+Lượng SAF nạp heo tháng = Σ Lượng SAF cho từng chuyến bay.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+5. Nguồn dữ liệu:
+% SAF theo kế hoạch: Nhập thủ công.
+Lượng nhiên liệu nạp theo chuyến bay: FIMS
+Lượng SAF neat thực tế, Tổng nhiên liệu SAF pha trộn: Lấy từ chứng từ tra nạp SAF thực tế.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+Mong muốn so sánh kỳ trước, cùng kỳ.
+CT 2.7
+1. Tên chỉ tiêu: Monthly SAF Surcharge – Phụ phí SAF theo tháng trong năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) đã được mua và phụ phí mua SAF phát sinh trong kỳ báo cáo, được tổng hợp theo từng năm dựa trên dữ liệu nạp nhiên liệu và dữ liệu tài chính liên quan đến SAF tại các sân bay thuộc phạm vi áp dụng.
+Lượng SAF theo tháng = Tổng khối lượng SAF pha trộn thực tế đã mua.
+Phụ phí SAF theo tháng = Phụ phí mua SAF phát sinh tương ứng với lượng SAF đã nạp.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tình hình triển khai sử dụng SAF và chi phí thực tế phát sinh theo từng năm nhằm đánh giá hiệu quả thực hiện kế hoạch sử dụng SAF.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo lượng SAF: Tấn.
+Đơn vị đo phụ phí SAF: USD.
+CT 2.8
+1. Tên chỉ tiêu: SAF Purchase Volume by Eligible Fuel and Supplier – Lượng mua SAF theo loại SAF và sân bay  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) đã được mua trong kỳ báo cáo, được phân loại theo:
+Loại SAF (HEFA, FT, ATJ…);
+Nhà cung cấp nhiên liệu.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi cơ cấu sử dụng SAF theo từng công nghệ sản xuất và từng nhà cung cấp nhằm đánh giá tính đa dạng nguồn cung, mức độ phụ thuộc nhà cung cấp và hiệu quả triển khai chiến lược sử dụng SAF của hãng.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+Theo loại SAF.
+Theo sân bay.
+5. Nguồn dữ liệu:
+Sân bay EU: FIMS.
+Lượng mua SAF, loại SAF:  Lấy từ chứng từ tra nạp SAF thực tế.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 2 (Cần thiết).8. Thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.9
+1. Tên chỉ tiêu: SAF Purchase Reporting - Bảng chi tiết việc mua SAF 2. Định nghĩa/Diễn giải:
+Là bảng dữ liệu chi tiết phục vụ theo dõi và báo cáo tình hình mua, nạp và sử dụng nhiên liệu hàng không bền vững (SAF) theo yêu cầu tuân thủ của ReFuelEU Aviation.
+Bảng bao gồm các thông tin liên quan đến hoạt động mua SAF như:
+Mã ICAO của sân bay thuộc Liên minh Châu Âu
+Nhà cung cấp nhiên liệu
+Mã số VAT của nhà cung cấp nhiên liệu hàng không
+Mã lô nhiên liệu
+Khối lượng nhiên liệu đã mua (tấn)
+Phân loại nhiên liệu đủ điều kiện
+Quy trình sản xuất/chuyển đổi nhiên liệu
+Tên nguyên liệu đầu vào
+Quốc gia xuất xứ của nguyên liệu đầu vào
+Phát thải vòng đời của nhiên liệu đủ điều kiện (gCO2eq/MJ)
+Nhiên liệu đủ điều kiện (tấn) được kê khai theo EU ETS
+Nhiên liệu đủ điều kiện (tấn) được kê khai theo CH ETS
+Nhiên liệu đủ điều kiện (tấn) được kê khai theo UK ETS
+Nhiên liệu đủ điều kiện (tấn) được kê khai theo CORSIA
+Nhiên liệu đủ điều kiện (tấn) được kê khai theo các cơ chế thị trường khác (MBMs)
+Nhiên liệu đủ điều kiện (tấn) chưa được kê khai
+3. Công thức tính toán: Chưa có
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+Theo sân bay.
+Theo nhà cung cấp.
+Theo loại SAF.
+5. Nguồn dữ liệu:
+Mã ICAO sân bay: FIMS.
+Nhà cung cấp nhiên liệu, Khối lượng nhiên liệu đã mua, Phân loại nhiên liệu, Quy trình sản xuất/chuyển đổi nhiên liệu, Tên nguyên liệu đầu vào, Quốc gia xuất xứ, Phát thải vòng đời: Lấy từ chứng từ mua SAF, hợp đồng/hóa đơn từ NCC.
+Mã số VAT của nhà cung cấp, Mã lô nhiên liệu: Cần Ban QLVT xác minh lại với nhà cung cấp.
+Nhiên liệu đủ điều kiện (tấn) được kê khai theo EU ETS/CH ETS/UK ETS/CORSIA và các cơ chế khác: Chưa có thông tin.
+6. Tần suất cập nhật: Theo năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Thông tin khác:
+Đơn vị đo: Tấn.
+Loại biểu diễn dữ liệu khuyến nghị: Table (Bảng dữ liệu).
+CT 2.10
+1. Tên chỉ tiêu: Fuel Reporting - Bảng chi tiết nhiên liệu tra nạp tại các sân bay  2. Định nghĩa/Diễn giải:
+Là bảng dữ liệu chi tiết ghi nhận thông tin nhiên liệu hàng không đã được tra nạp tại các sân bay thuộc phạm vi áp dụng của ReFuelEU Aviation trong kỳ báo cáo, bao gồm các thông tin liên quan đến hoạt động tra nạp nhiên liệu như:
+Tên sân bay thuộc EU.
+Mã ICAO của sân bay đó.
+Tổng số chuyến bay cất cánh từ sân bay này trong kỳ báo cáo.
+Tổng số giờ bay của các chuyến khởi hành từ sân bay này.
+Tổng lượng nhiên liệu lẽ ra cần thiết cho hoạt động bay trong năm.
+Tổng lượng nhiên liệu thực tế đã nạp tại sân bay trong năm.
+Lượng nhiên liệu cõng thêm vì mục đích kinh tế.
+Lượng nhiên liệu mang thêm do yêu cầu an toàn bay/quy định khai thác.
+Dữ liệu được xây dựng theo mẫu báo cáo và yêu cầu quản lý dữ liệu nhiên liệu của ReFuelEU Aviation.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: EU.
+Theo sân bay.
+Theo loại nhiên liệu.
+5. Nguồn dữ liệu:
+Tên sân bay, mã ICAO/IATA sân bay, tổng số chuyến bay khởi hành, tổng số giờ bay và lượng nhiên liệu thực tế đã tra nạp tại sân bay: FIMS.
+Tổng lượng nhiên liệu kế hoạch cần thiết cho chuyến bay: CFP.
+Lượng nhiên liệu cõng thêm vì mục đích kinh tế: mặc định bằng 0.
+Lượng nhiên liệu bổ sung do yêu cầu an toàn bay hoặc yêu cầu khai thác: mặc định bằng 0.
+6. Tần suất cập nhật: Theo năm.7. Mức độ ưu tiên: 1 (Rất cần thiết). 8. Thông tin khác:
+Đơn vị đo: Tấn.
+Loại biểu diễn dữ liệu khuyến nghị: Table (Bảng dữ liệu).
+CT 2.11
+1. Tên chỉ tiêu: Total Flights Departing from France - Tổng số chuyến bay tại Pháp  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số chuyến bay thương mại có điểm khởi hành từ các sân bay thuộc lãnh thổ Pháp trong kỳ báo cáo, không phân biệt loại hình chuyến bay hoặc điểm đến.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi quy mô hoạt động khai thác bay tại thị trường Pháp.
+3. Công thức tính toán:
+Chỉ tính các chuyến bay có sân bay khởi hành (DEP) thuộc lãnh thổ Pháp.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác:
+Đơn vị đo: Chuyến.
+CT 2.12
+1. Tên chỉ tiêu: Total Flight Hours (France) – Tổng số giờ bay (Pháp)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng thời gian bay thực tế của toàn bộ các chuyến bay thương mại có điểm khởi hành từ các sân bay thuộc lãnh thổ Pháp trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi quy mô hoạt động khai thác bay tại thị trường Pháp.
+3. Công thức tính toán:
+Tổng thời gian bay được tính từ thời điểm tàu bay rời vị trí đỗ để chuẩn bị cất cánh đến thời điểm tàu bay vào vị trí đỗ sau khi hạ cánh.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 2 (Cần thiết). 8. Thông tin khác:
+Đơn vị đo: Giờ.
+CT 2.13
+1. Tên chỉ tiêu: Planned SAF Volume (France) - Lượng SAF kế hoạch ban đầu (Pháp)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) dự kiến cần sử dụng trong kỳ báo cáo, được tính toán dựa trên tổng nhu cầu nhiên liệu khai thác và tỷ lệ SAF bắt buộc theo quy định của nhà chức trách hoặc kế hoạch nội bộ của hãng hàng không.
+Đây là giá trị kế hoạch hoặc giá trị ước tính ban đầu được xác định tại thời điểm đầu kỳ báo cáo trước khi phát sinh dữ liệu tra nạp thực tế.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi nhu cầu SAF dự kiến cần triển khai nhằm phục vụ công tác lập kế hoạch nhiên liệu, ngân sách và tuân thủ các quy định về sử dụng SAF của nhà chức trách.
+3. Công thức tính toán:
+Lượng SAF kế hoạch ban đầu =  Tổng nhiên liệu cần sử dụng theo kế hoạch * Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+5. Nguồn dữ liệu:
+Tổng nhiên liệu cần sử dụng theo kế hoạch: PMS.
+Tỷ lệ SAF theo quy định của nhà chức trách áp dụng tại thời điểm lập kế hoạch: Nhập thủ công.
+6. Tần suất cập nhật: Hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.14
+1. Tên chỉ tiêu: Actual SAF Uplifted Volume (Pháp) - Lượng SAF nạp thực tế (Pháp)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) đã được tra nạp thực tế vào tàu bay trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi khối lượng SAF thực tế đã sử dụng nhằm đánh giá mức độ thực hiện kế hoạch sử dụng SAF và khả năng đáp ứng các yêu cầu tuân thủ môi trường.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+5. Nguồn dữ liệu:
+Lượng SAF tra nạp thực tế: Lấy từ chứng từ mua SAF, hợp đồng/hóa đơn từ NCC.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.15
+1. Tên chỉ tiêu: Neat SAF Ratio by Airport (France) – Tỷ lệ neat SAF theo sân bay (Pháp)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Là tỷ lệ giữa khối lượng nhiên liệu hàng không bền vững nguyên chất (Neat SAF) và tổng khối lượng nhiên liệu SAF pha trộn (Blended SAF) được nạp tại từng sân bay trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tỷ lệ sử dụng SAF nguyên chất tại từng sân bay nhằm đánh giá mức độ đáp ứng yêu cầu sử dụng SAF theo quy định của nhà chức trách và theo dõi chất lượng triển khai SAF tại các điểm nạp nhiên liệu.
+3. Công thức tính:
+Tỷ lệ Neat SAF (%) = (Khối lượng SAF nguyên chất / Tổng khối lượng SAF pha trộn) * 100.
+Dữ liệu được quy đổi về cùng đơn vị trước khi tính toán (nếu cần).
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+Theo sân bay.
+5. Nguồn dữ liệu:
+Khối lượng SAF nguyên chất, SAF pha trộn: Lấy từ chứng từ mua SAF, hợp đồng/hóa đơn từ NCC.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: %.
+CT 2.16
+1. Tên chỉ tiêu: Monthly SAF Uplift Volume (Tonnes) (France) – Lượng SAF tra nạp theo tháng trong năm (Pháp)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) được ghi nhận theo từng tháng trong kỳ báo cáo.
+Dữ liệu có thể được xác định theo số kế hoạch hoặc theo lượng SAF nạp thực tế tùy thuộc vào tình trạng xác nhận chứng từ (certificate) từ nhà cung cấp nhiên liệu.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tiến độ thực hiện kế hoạch SAF, đánh giá xu hướng sử dụng nhiên liệu bền vững và hỗ trợ so sánh giữa kết quả thực hiện với cùng kỳ năm trước.
+3. Công thức tính toán:
+Trường hợp đã có thư xác nhận:
+Lượng SAF cho từng chuyến bay = (Lượng Neat SAF thực tế / Tổng nhiên liệu SAF pha trộn) * Lượng nhiên liệu nạp từng chuyến bay.
+Lượng SAF nạp theo tháng = Σ Lượng SAF cho từng chuyến bay.
+Trường hợp chưa có thư xác nhận sẽ lấy theo số kế hoạch:
+Lượng SAF cho từng chuyến bay = % SAF theo kế hoạch * Lượng nhiên liệu nạp từng chuyến bay.
+Lượng SAF nạp heo tháng = Σ Lượng SAF cho từng chuyến bay.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+5. Nguồn dữ liệu:
+% SAF theo kế hoạch: Nhập thủ công.
+Lượng nhiên liệu nạp theo chuyến bay: FIMS
+Lượng SAF neat thực tế, Tổng nhiên liệu SAF pha trộn: Lấy từ chứng từ mua SAF, hợp đồng/hóa đơn từ NCC.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+Mong muốn so sánh kỳ trước, cùng kỳ.
+CT 2.17
+1. Tên chỉ tiêu: SAF Surcharge by Month in the Year (France) – Phụ phí SAF theo tháng trong năm (Pháp)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) đã được mua và phụ phí mua SAF phát sinh trong kỳ báo cáo, được tổng hợp theo từng năm dựa trên dữ liệu nạp nhiên liệu và dữ liệu tài chính liên quan đến SAF tại các sân bay thuộc phạm vi áp dụng.
+Lượng SAF theo tháng = Tổng khối lượng SAF pha trộn thực tế đã mua.
+Phụ phí SAF theo tháng = Phụ phí mua SAF phát sinh tương ứng với lượng SAF đã nạp.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tình hình triển khai sử dụng SAF và chi phí thực tế phát sinh theo từng năm nhằm đánh giá hiệu quả thực hiện kế hoạch sử dụng SAF.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo lượng SAF: Tấn.
+Đơn vị đo phụ phí SAF: USD.
+CT 2.18
+1. Tên chỉ tiêu: SAF Purchased Volume by SAF Type and Supplier (France) - Lượng mua SAF theo loại SAF và nhà cung cấp (Pháp)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng khối lượng nhiên liệu hàng không bền vững (SAF) đã được mua trong kỳ báo cáo, được phân loại theo:
+Loại SAF (HEFA, FT, ATJ…);
+Nhà cung cấp nhiên liệu.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi cơ cấu sử dụng SAF theo từng công nghệ sản xuất và từng nhà cung cấp nhằm đánh giá tính đa dạng nguồn cung, mức độ phụ thuộc nhà cung cấp và hiệu quả triển khai chiến lược sử dụng SAF của hãng.
+3. Công thức tính toán:
+Tổng lượng SAF theo loại SAF = Tổng khối lượng SAF được ghi nhận theo từng loại SAF trong kỳ báo cáo.
+Tổng lượng SAF theo nhà cung cấp = Tổng khối lượng SAF được cung cấp bởi từng nhà cung cấp trong kỳ báo cáo.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo quốc gia: Pháp.
+Theo loại SAF.
+Theo nhà cung cấp.
+5. Nguồn dữ liệu:
+Sân bay Pháp: FIMS.
+Lượng mua SAF, loại SAF: Lấy từ chứng từ mua SAF, hợp đồng/hóa đơn từ NCC.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 2 (Cần thiết)8. Thông tin khác:
+Đơn vị đo: Tấn.
+2.2. Chỉ tiêu CO2 emissions report (offset by EUA) - Báo cáo CO2 phát thải vượt mức
+Mã chỉ tiêu con
+Mô tả/Description
+CT 2.19
+1. Tên chỉ tiêu: EU ETS Full Scope Flights - Tổng số chuyến bay đi/đến châu Âu 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Tổng số chuyến bay thương mại có điểm đi, điểm đến, hoặc cả điểm đi và điểm đến thuộc các sân bay thuộc châu Âu trong kỳ báo cáo, không phân biệt loại hình khai thác chuyến bay (full scope).
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống EU ETS
+3. Công thức tính toán:
+Chỉ tính các chuyến bay có điểm đi (DEP), điểm đến (ARR), hoặc cả DEP và ARR thuộc các sân bay tại EU.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi EU ETS: Full scope.
+5. Nguồn dữ liệu: FIMS
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Chuyến
+CT 2.20
+1. Tên chỉ tiêu: EU ETS Reduced Scope Flights - Số chuyến bay áp dụng EU ETS 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số các chuyến bay thương mại có điểm đi và đến đều thuộc các sân bay thuộc châu Âu trong kỳ báo cáo, không phân biệt loại hình khai thác chuyến bay (Reduced scope).
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống EU ETS.
+3. Công thức tính toán:
+Chỉ tính các chuyến bay có điểm đi (DEP) và điểm đến (ARR) dều thuộc các sân bay tại EU.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm.
+Theo phạm vi EU ETS: Reduced scope.
+5. Nguồn dữ liệu: FIMS
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Tấn
+CT 2.21
+1. Tên chỉ tiêu: CO₂ Offsetting Requirement (tonnes) (ET ETS) - Lượng CO₂ cần đền bù (tấn) (EU ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng lượng phát thải CO₂ cuối cùng mà hãng hàng không có nghĩa vụ phải bù trừ sau khi đã áp dụng các cơ chế giảm trừ theo quy định, bao gồm miễn trừ phạm vi áp dụng, giảm phát thải từ nhiên liệu SAF hoặc các khoản phân bổ/hạn ngạch liên quan (chỉ tính trong phạm vi "Reduced scope").
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống EU ETS.
+3. Công thức tính toán:
+Lượng CO2 cần đền bù = Lượng phát thải CO2 thực tế – Lượng CO2 được giảm trừ (nhờ sử dụng nhiên liệu SAF) – Hạn ngạch miễn phí (Allowance).
+Lượng CO2 được giảm trừ (nhờ sử dụng nhiên liệu SAF) = Lượng phát thải CO2 do Jet A-1 - Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi EU ETS: Reduced scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu tiêu thụ, Lượng phát thải CO2 thực tế: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Tấn
+Hiện trạng: Lượng CO2 cần đền bù hiện vẫn đang dừng ở mức xây dựng công thức mô phỏng do gặp vướng mắc ở bài toán tối ưu chi phí đền bù và sự thiếu hụt dữ liệu đầu vào từ thị trường. Cần phải thống nhất thêm về quy trình cung cấp thông tin đơn giá và luồng quyết định chọn chương trình để áp dụng trước khi gửi báo cáo cho đơn vị xác minh.
+CT 2.22
+1. Tên chỉ tiêu: CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch ETS 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+So sánh phát thải thực tế với hạn ngạch được cấp theo năm.
+2.2. Ý nghĩa/Mục đích đo lường:
+Trong những năm trước, nhà chức trách Châu Âu thường cấp cho các hãng bay một khoản hạn ngạch miễn phí, và chỉ phải đi mua tín chỉ để bù trừ cho phần phát thải vượt ngưỡng so với hạn ngạch đó.
+Quy định hiện tại (Không còn hạn ngạch): Từ khoảng năm 2022 trở đi, các hãng hàng không không còn được cấp hạn ngạch miễn phí nữa. Áp dụng theo nguyên tắc "thải ra bao nhiêu thì phải mua bù trừ bấy nhiêu.
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+Lượng nhiên liệu tiêu thụ đối với từng chặng bay = Lượng nhiên liệu tồn trước chuyến bay (R0) + Lượng nạp vào chuyến đó (U1) - Lượng nhiên liệu còn lại sau chuyến bay (R1)
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi EU ETS: Reduced scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu nạp: AMOS.
+Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+Hạn ngạch ETS: Nhập thủ công.
+6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: Tấn
+Mong muốn so sánh các tháng trong năm.
+CT 2.23
+1. Tên chỉ tiêu: Annual EUA Compensation Cost (USD) - Tổng chi phí bù trừ EUA (USD) theo năm  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Thống kê tổng chi phí mua tín chỉ EUA để bù trừ lượng phát thải CO₂ vượt hạn ngạch theo từng năm. Các chuyến bay thuộc phạm vi EU ETS khi phát thải CO₂ vượt hạn ngạch cho phép sẽ phải mua tín chỉ EUA tương ứng để bù trừ.
+Có nhiều loại tín chỉ EUA khác nhau, mỗi loại có đơn giá riêng tại thời điểm mua.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi chi phí thực tế doanh nghiệp phải chi trả để đáp ứng yêu cầu bù trừ phát thải theo quy định EU ETS, đồng thời hỗ trợ đánh giá tác động tài chính của phát thải CO₂ qua các năm.
+3. Công thức tính toán:
+Tổng chi phí bù trừ EUA = Tổng số lượng tín chỉ EUA cần mua mỗi loại * Đơn giá mỗi loại.
+Trong đó:
+Số lượng tín chỉ EUA cần mua mỗi loại = Lượng CO₂ phát thải vượt mức (tấn).
+1 tấn CO₂ phát thải vượt ngưỡng = 1 tín chỉ EUA.
+Đơn giá mỗi loại = Giá tiền của từng loại tín chỉ EUA tại thời điểm mua.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo loại tín chỉ EUA.
+Theo phạm vi EU ETS: Reduced scope.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: USD.
+Mong muốn so sánh các tháng trong năm.
+CT 2.24
+1. Tên chỉ tiêu: CO₂ Emissions by Route (EU ETS) - Phát thải CO₂ theo chặng bay (EU ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng CO₂ phát sinh, phân theo từng đường bay EU ETS
+2.2. Ý nghĩa/Mục đích đo lường:
+Lượng phát CO2 đối với từng chặng bay được tính toán dựa trên lượng nhiên liệu tiêu thụ của từng chặng bay đó
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+Lượng nhiên liệu tiêu thụ đối với từng chặng bay = Lượng nhiên liệu tồn trước chuyến bay (R0) + Lượng nạp vào chuyến đó (U1) - Lượng nhiên liệu còn lại sau chuyến bay (R1)
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi EU ETS: Reduced scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu nạp: AMOS.
+Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường)8. Thông tin khác:
+Đơn vị đo: Tấn
+CT 2.25
+1. Tên chỉ tiêu: CO₂ Emissions by Scope (EU ETS) - Phát thải CO₂ theo phạm vi chuyến bay (EU ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Phân loại phát thải theo loại chuyến bay Full scope và Reduce scope.
+2.2. Ý nghĩa/Mục đích đo lường:
+Full scope: Phát thải CO₂ đối với toàn bộ chuyến bay có điểm đi, điểm đến, hoặc cả điểm đi và điểm đến thuộc châu Âu
+Reduced scope: Phát thải CO₂ đối với toàn bộ chuyến bay có điểm đi và điểm đến đều thuộc châu Âu
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+Lượng nhiên liệu tiêu thụ đối với từng chặng bay = Lượng nhiên liệu tồn trước chuyến bay (R0) + Lượng nạp vào chuyến đó (U1) - Lượng nhiên liệu còn lại sau chuyến bay (R1)
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi EU ETS: Reduced scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu nạp: AMOS.
+Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường) 8. Thông tin khác:
+Đơn vị đo: Tấn
+CT 2.26
+1. Tên chỉ tiêu: UK ETS Full Scope Flights - Tổng số chuyến bay đi/đến UK 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tất cả những chuyến bay có điểm đi, điểm đến, hoặc cả điểm đi và đến thuộc UK (full scope).
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống EU ETS.
+3. Công thức tính toán:
+Đếm các chuyến bay có DEP hoặc ARR thuộc các sân bay tại Anh.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi UK ETS: Full scope.
+5. Nguồn dữ liệu: FIMS
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: Chuyến
+CT 2.27
+1. Tên chỉ tiêu: UK ETS Reduced Scope Flights - Số chuyến bay áp dụng UK ETS 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Chỉ các chuyến bay nội địa UK hoặc phạm vi UK - EU (Reduced scope)
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống EU ETS.
+3. Công thức tính toán:
+Đếm các chuyến bay có cả DEP và ARR đều thuộc các sân bay tại Anh, hoặc chuyến bay có điểm đi - đến từ UK - EU.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi UK ETS: Reduced scope.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: Chuyến.
+CT 2.28
+1. Tên chỉ tiêu: CO₂ Offsetting Requirement (tonnes) (UK ETS) - Lượng CO₂ cần đền bù (tấn) (UK ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng lượng phát thải CO₂ cuối cùng mà hãng hàng không có nghĩa vụ phải bù trừ sau khi đã áp dụng các cơ chế giảm trừ theo quy định, bao gồm miễn trừ phạm vi áp dụng, giảm phát thải từ nhiên liệu SAF hoặc các khoản phân bổ/hạn ngạch liên quan (chỉ tính trong phạm vi "Reduced scope").
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống UK ETS.
+3. Công thức tính toán:
+Lượng CO2 cần đền bù = Lượng phát thải CO2 thực tế – Lượng CO2 được giảm trừ (nhờ sử dụng nhiên liệu SAF) – Hạn ngạch miễn phí (Allowance).
+Lượng CO2 được giảm trừ (nhờ sử dụng nhiên liệu SAF) = Lượng phát thải CO2 do Jet A-1 - Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi UK ETS: Reduced scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu tiêu thụ: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Tấn
+Hiện trạng: Lượng CO2 cần đền bù hiện vẫn đang dừng ở mức xây dựng công thức mô phỏng do gặp vướng mắc ở bài toán tối ưu chi phí đền bù và sự thiếu hụt dữ liệu đầu vào từ thị trường. Cần phải thống nhất thêm về quy trình cung cấp thông tin đơn giá và luồng quyết định chọn chương trình để áp dụng trước khi gửi báo cáo cho đơn vị xác minh.
+CT 2.29
+1. Tên chỉ tiêu: CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch UK2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+So sánh phát thải thực tế với hạn ngạch được cấp theo năm.
+2.2. Ý nghĩa/Mục đích đo lường:
+Trong những năm trước, nhà chức trách Châu Âu thường cấp cho các hãng bay một khoản hạn ngạch miễn phí, và chỉ phải đi mua tín chỉ để bù trừ cho phần phát thải vượt ngưỡng so với hạn ngạch đó.
+Quy định hiện tại (Không còn hạn ngạch): Từ khoảng năm 2022 trở đi, các hãng hàng không không còn được cấp hạn ngạch miễn phí nữa. Áp dụng theo nguyên tắc "thải ra bao nhiêu thì phải mua bù trừ bấy nhiêu.
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+Lượng nhiên liệu tiêu thụ đối với từng chặng bay = Lượng nhiên liệu tồn trước chuyến bay (R0) + Lượng nạp vào chuyến đó (U1) - Lượng nhiên liệu còn lại sau chuyến bay (R1)
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi UK ETS: Reduced scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu nạp: AMOS.
+Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+Hạn ngạch UK: Nhập thủ công.
+6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: Tấn
+CT 2.30
+1. Tên chỉ tiêu: Annual UKA Compensation Cost (USD) - Tổng chi phí bù trừ UKA (USD) theo năm  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Thống kê tổng chi phí mua tín chỉ UKA để bù trừ lượng phát thải CO₂ vượt hạn ngạch theo từng năm. Các chuyến bay thuộc phạm vi UK ETS khi phát thải CO₂ vượt hạn ngạch cho phép sẽ phải mua tín chỉ UKA tương ứng để bù trừ.
+Có nhiều loại tín chỉ UKA khác nhau, mỗi loại có đơn giá riêng tại thời điểm mua.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi chi phí thực tế doanh nghiệp phải chi trả để đáp ứng yêu cầu bù trừ phát thải theo quy định UK ETS, đồng thời hỗ trợ đánh giá tác động tài chính của phát thải CO₂ qua các năm.
+3. Công thức tính toán:
+Tổng chi phí bù trừ UKA = Tổng số lượng tín chỉ UKA cần mua mỗi loại * Đơn giá mỗi loại.
+Trong đó:
+Số lượng tín chỉ UKA cần mua mỗi loại = Lượng CO₂ phát thải vượt mức (tấn).
+1 tấn CO₂ phát thải vượt ngưỡng = 1 tín chỉ UKA.
+Đơn giá mỗi loại = Giá tiền của từng loại tín chỉ UKA tại thời điểm mua.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo loại tín chỉ UKA.
+Theo phạm vi UK ETS: Reduced scope.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: USD.
+Mong muốn so sánh các tháng trong năm.
+CT 2.31
+1. Tên chỉ tiêu: CO₂ Emissions by Route (UK ETS) - Phát thải CO₂ theo chặng bay (UK ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng CO₂ phát sinh, phân theo từng đường bay UK ETS
+2.2. Ý nghĩa/Mục đích đo lường:
+Lượng phát CO2 đối với từng chặng bay được tính toán dựa trên lượng nhiên liệu tiêu thụ của từng chặng bay đó
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+Lượng nhiên liệu tiêu thụ đối với từng chặng bay = Lượng nhiên liệu tồn trước chuyến bay (R0) + Lượng nạp vào chuyến đó (U1) - Lượng nhiên liệu còn lại sau chuyến bay (R1)
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi UK ETS: Reduced scope.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường) 8. Thông tin khác:
+Đơn vị đo: Tấn
+CT 2.32
+1. Tên chỉ tiêu: CO₂ Emissions by Scope (UK ETS) - Phát thải CO₂ theo phạm vi chuyến bay (UK ETS)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Phân loại phát thải theo loại chuyến bay Full scope và Reduced scope.
+2.2. Ý nghĩa/Mục đích đo lường:
+Full scope: Phát thải CO₂ đối với toàn bộ chuyến bay có điểm đi/đến thuộc UK
+Reduced scope: Phát thải CO₂ đối với chuyến bay nội địa UK hoặc chuyến bay khởi hành từ UK đến EU
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi UK ETS: Full scope và Reduced scope
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường) 8. Thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.33
+1. Tên chỉ tiêu: Total Number of International Flights CORSIA – Tổng số chuyến bay quốc tế thuộc phạm vi CORSIA
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số chuyến bay quốc tế được thực hiện trong kỳ báo cáo thuộc phạm vi áp dụng của chương trình CORSIA theo quy định của ICAO.
+Phạm vi CORSIA bao gồm tất cả các chuyến bay quốc tế giữa 02 Quốc gia Thành viên ICAO khác nhau, ngoại trừ các chuyến bay: nhân đạo, y tế và chữa cháy; các chuyến bay thực hiện trước hoặc sau các chuyến bay nêu trên nếu cần thiết để phục vụ cho các chuyến bay được miễn trừ đó.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi tổng số chuyến bay thuộc đối tượng quản lý và báo cáo theo cơ chế CORSIA nhằm phục vụ công tác tính toán phát thải CO₂ và tuân thủ yêu cầu báo cáo môi trường hàng không quốc tế.
+3. Công thức tính toán:
+Toàn bộ chuyến bay và lượng nhiên liệu tiêu thụ vẫn phải được báo cáo; các chuyến bay thuộc diện ngoại trừ được ghi nhận phát thải bằng 0.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi CORSIA: Full scope.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Chuyến.
+CT 2.34
+1. Tên chỉ tiêu: Total Number of International Flights Subject to Offsetting Requirements CORSIA – Tổng số chuyến bay CORSIA thuộc phạm vi cần đền bù
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số chuyến bay quốc tế thuộc phạm vi áp dụng nghĩa vụ đền bù phát thải theo quy định của CORSIA trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc xác định phạm vi các chuyến bay phát sinh nghĩa vụ đền bù phát thải và báo cáo dữ liệu cho hệ thống CORSIA.
+3. Công thức tính toán:
+Tổng số chuyến bay thuộc phạm vi cần đền bù = Tổng số chuyến bay quốc tế thuộc phạm vi CORSIA đáp ứng điều kiện phát sinh nghĩa vụ đền bù theo quy định hiện hành.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi CORSIA: Full scope.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Chuyến.
+Phạm vi áp dụng có thể thay đổi theo từng giai đoạn triển khai của CORSIA.
+CT 2.35
+1. Tên chỉ tiêu: Total CO₂ Emissions from International Flights (Tonnes) – Tổng phát thải CORSIA (tấn)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng lượng phát thải CO₂ phát sinh từ việc tiêu thụ nhiên liệu trên các chuyến bay quốc tế thuộc phạm vi CORSIA trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi lượng phát thải CO₂ của các hoạt động khai thác thuộc phạm vi CORSIA và báo cáo dữ liệu cho hệ thống CORSIA.
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi CORSIA: Full scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu tiêu thụ: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Chuyến.
+Phạm vi áp dụng có thể thay đổi theo từng giai đoạn triển khai của CORSIA.
+CT 2.36
+1. Tên chỉ tiêu: Total CO₂ Emissions from Flights Subject to Offsetting Requirements (Tonnes) – Tổng phát thải CORSIA cần đền bù (tấn)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng lượng phát thải CO₂ phát sinh từ các chuyến bay thuộc phạm vi áp dụng nghĩa vụ đền bù phát thải theo quy định của CORSIA.
+Theo cơ chế CORSIA, các hãng hàng không phải thực hiện bù trừ đối với phần phát thải CO₂ vượt quá mức baseline quy định.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu cho hệ thống CORSIA.
+3. Công thức tính toán:
+Lượng CO2 cần đền bù = Lượng phát thải CO2 thực tế – Lượng CO2 được giảm trừ (nhờ sử dụng nhiên liệu SAF) – Baseline.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi CORSIA: Full scope.
+5. Nguồn dữ liệu:
+Lượng phát thải CO2 thực tế, lượng CO2 được giảm trừ: Tham chiếu CT 2.35 và CT 2.37.
+Baseline: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Tấn
+Hiện trạng: Lượng CO2 cần đền bù hiện vẫn đang dừng ở mức xây dựng công thức mô phỏng do gặp vướng mắc ở bài toán tối ưu chi phí đền bù và sự thiếu hụt dữ liệu đầu vào từ thị trường. Cần phải thống nhất thêm về quy trình cung cấp thông tin đơn giá và luồng quyết định chọn chương trình để áp dụng trước khi gửi báo cáo cho đơn vị xác minh.
+CT 2.37
+1. Tên chỉ tiêu: Total Emissions Reductions claimed from the use of CORSIA Eligible Fuels (Tonnes) – Tổng lượng phát thải CO₂ được giảm trừ nhờ sử dụng SAF (tấn)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng lượng phát thải CO₂ được giảm trừ khi sử dụng nhiên liệu đủ điều kiện theo CORSIA (CORSIA Eligible Fuels - CEF) theo quy định của ICAO.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi hiệu quả giảm phát thải từ việc sử dụng nhiên liệu đủ điều kiện theo CORSIA và xác định mức giảm phát thải được ghi nhận trong báo cáo CORSIA.
+3. Công thức tính toán:
+Lượng CO2 được giảm trừ (nhờ sử dụng nhiên liệu SAF) = Lượng phát thải CO2 do Jet A-1 - Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+Theo phạm vi CORSIA: Full scope.
+5. Nguồn dữ liệu:
+Lượng nhiên liệu tiêu thụ: FIMS.
+Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: Lấy từ chứng nhận nạp SAF tại mỗi sân bay.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.38
+1. Tên chỉ tiêu: CO₂ Emissions vs Baseline - Phát thải CO₂ so với Baseline qua các năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Thể hiện mức chênh lệch giữa lượng phát thải CO₂ thực tế của các chuyến bay thuộc phạm vi áp dụng CORSIA và mức phát thải cơ sở (Baseline) theo từng năm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi xu hướng biến động phát thải CO₂ so với mức baseline qua các năm nhằm đánh giá mức độ gia tăng phát thải và nghĩa vụ bù trừ carbon theo cơ chế CORSIA.
+3. Công thức tính toán:
+Phát thải CO₂ vượt mức (tấn) = Tổng phát thải CO₂ (tấn) − Baseline.
+Tổng phát thải CO₂: Lượng phát thải thực tế của các chuyến bay thuộc phạm vi CORSIA trong kỳ báo cáo.
+Baseline: mức phát thải cơ sở được xác định theo quy định hiện hành của CORSIA.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi CORSIA: Full scope.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+Mong muốn so sánh kỳ trước, kế hoạch.
+CT 2.39
+1. Tên chỉ tiêu: CO₂ Emissions by Route - Phát thải CO₂ theo chặng bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là lượng phát thải khí CO₂ được tính toán cho từng chặng bay thuộc phạm vi áp dụng CORSIA trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi mức phát thải CO₂ chi tiết theo từng chặng bay nhằm phục vụ công tác quản lý phát thải, phân tích hiệu quả khai thác và tính toán nghĩa vụ bù trừ carbon theo cơ chế CORSIA.
+3. Công thức tính toán:
+Lượng phát thải CO2 thực tế = Lượng phát thải CO2 do Jet A-1 + Lượng phát thải CO2 do SAF nguyên chất.
+Lượng phát thải CO2 do Jet A-1 = Lượng nhiên liệu tiêu thụ * Hệ số phát thải (3.16).
+Lượng phát thải CO2 do SAF nguyên chất: Đang xác minh.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi CORSIA: Full scope.
+Theo chặng bay.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 3 (Bình thường).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+CT 2.40
+1. Tên chỉ tiêu: CO₂ Emissions by Scope - Phát thải CO₂ theo phạm vi chuyến bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phân loại lượng phát thải khí CO₂ theo từng phạm vi chuyến bay thuộc cơ chế CORSIA trong kỳ báo cáo, được phân loại theo Full Scope và Reduced Scope. Trong đó:
+Full Scope: Các chuyến bay quốc tế giữa hai quốc gia tham gia CORSIA hoặc giữa một quốc gia tham gia CORSIA và một quốc gia không tham gia CORSIA.
+Reduced Scope: Các chuyến bay quốc tế giữa hai quốc gia tham gia CORSIA.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi cơ cấu phát thải CO₂ theo từng phạm vi chuyến bay nhằm phục vụ công tác quản lý phát thải, báo cáo tuân thủ và tính toán nghĩa vụ bù trừ carbon theo cơ chế CORSIA.
+3. Công thức tính toán:
+Phát thải CO₂ được tổng hợp theo từng nhóm phạm vi chuyến bay:
+Full Scope;
+Reduced Scope.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi CORSIA: Full scope, Reduced scope.
+5. Nguồn dữ liệu: FIMS.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 3 (Bình thường).
+8. Những thông tin khác:
+Đơn vị đo: Tấn.
+III. Tài liệu tham khảo
+Chỉ thị EU ETS (Directive 2003/87/EC và các bản cập nhật cho Hàng không):
+Văn bản gốc: Directive 2003/87/EC establishing a scheme for greenhouse gas emission allowance trading
+Bản cập nhật mới nhất cho Hàng không (Directive (EU) 2023/958): Amending Directive 2003/87/EC as regards aviation's contribution to the Union's economy-wide emission reduction target
+Quy định MRV (Monitoring, Reporting, and Verification) của EU:
+Trong ngành hàng không, quy định này được thực hiện thông qua Quy định về Giám sát và Báo cáo (MRR): Implementing Regulation (EU) 2018/2066 on the monitoring and reporting of greenhouse gas emissions
+Thông tin hướng dẫn bổ sung của Ủy ban Châu Âu về MRV cho hàng không: EU ETS for Aviation - Monitoring, Reporting and Verification
+Hướng dẫn báo cáo hàng không bền vững (ASRH Edition 2)
+Quy định ReFuelEU Aviation của Ủy ban Châu Âu:
+Văn bản chính thức: Regulation (EU) 2023/2405 on ensuring a level playing field for sustainable air transport (ReFuelEU Aviation)
+Hướng dẫn CORSIA của Tổ chức Hàng không Dân dụng Quốc tế (ICAO):
+Trang chủ CORSIA: ICAO Carbon Offsetting and Reduction Scheme for International Aviation
+Các yếu tố được triển khai (Implementation Elements): CORSIA Implementation Elements

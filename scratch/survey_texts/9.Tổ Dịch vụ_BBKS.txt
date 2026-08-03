@@ -1,0 +1,870 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian & Địa điểm:
+Phiên 1: Từ 09:00 đến 11:00, ngày 22/05/2026 | Phòng họp HUI, tầng 3, tòa VN1.
+Phiên 2: Từ 09:00 đến 10:30, ngày 25/05/2026 | Phòng họp HUI, tầng 3, tòa VN1.
+Phiên 3: Từ 09:00 đến 11:00, ngày 23/06/2026 | Phòng họp PXU, tầng 3, tòa VN1.
+I. Thành phần tham dự:
+1. Phía VNA
+Ông Nguyễn Minh Tiến: Phó trưởng phòng, Ban CĐSCN
+Bà Trần Thanh Vân: Chuyên viên, Ban CĐSCN
+Bà Nguyễn Thị Hằng: Chuyên viên, Ban DVHK
+Ông Bùi Đông Hải: Chuyên viên, Ban DVHK
+Bà Vũ Thu Hiền: Chuyên viên, Ban DVHK
+Bà Chu Anh Trà: Chuyên viên, Ban DVHK
+Bà Trần Minh Thư: Chuyên viên, Ban DVHK
+Ông Nguyễn Quốc Bảo: Chuyên viên, Ban DVHK
+Ông Nguyễn Tuấn Sơn: Chuyên viên, Ban DVHK
+Bà Phan Thị Hà Ngọc: Chuyên viên, Ban DVHK
+Bà Vũ Hà Lê: Chuyên viên, Ban DVHK
+2. Phía Aequitas
+Ông Trần Ngọc Sơn: PM dự án
+Ông Bùi Văn Tuân: Data Lead dự án
+Ông Nguyễn Chính Nam: BA dự án
+Ông Chu Minh Hiếu: DA dự án
+Ông Nguyễn Danh Hưng: DA dự án
+Bà Phạm Lưu Hỷ Nhi: DA dự án
+Ông Nguyễn Giang Đông: DA dự án
+Ông Nguyễn Thế Thiện: DE dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp nhằm khảo sát, trao đổi và làm rõ các nghiệp vụ liên quan đến:
+Các chỉ tiêu có thể số hóa để đưa lên báo cáo.
+Xác định cách tính toán và phương án lấy dữ liệu cho từng chỉ tiêu.
+(Lưu ý: Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống).
+2. Nội dung cuộc họp
+Tổ Dịch vụ, Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+Xác nhận chỉ tiêu cần số hóa:
+7/7 chỉ tiêu thuộc Tổ dịch vụ là GRI 303-3, GRI 303-5, Airline B-1, GRI 406-1 (Phần đối với khách hàng), GRI 416-1, GRI 416-2, GRI 417-2.
+Xác nhận đã làm rõ nội dung nghiệp vụ các chỉ tiêu con:
+Chỉ tiêu GRI 303-3 bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+Chỉ tiêu GRI 303-5 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con
+Chỉ tiêu Airline B-1 bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+Chỉ tiêu GRI 406-1 (Phần đối với khách hàng) bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+Chỉ tiêu GRI 416-1 bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con
+Chỉ tiêu GRI 416-2:
+Nếu không có sự cố (số lượng sự cố trong kỳ báo cáo bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+Nếu có sự cố (số lượng sự cố trong kỳ báo cáo lớn hơn 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+Chỉ tiêu GRI 417-2:
+Nếu không có sự cố (số lượng sự cố bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+Nếu có sự cố (số lượng sự cố > 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 22/05/2026 và ngày 25/05/2026 với Tổ Dịch vụ. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU - TỔ DỊCH VỤ
+STT
+Loại số hóa
+Chủ đề
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+Energy and Emissions
+GRI 303-3
+Water Withdrawal/ Lượng nước khai thác
+Xã hội
+Tổ Dịch vụ (ông Bùi Đông Hải)
+2
+Chỉ tiêu số hóa ngay
+Energy and Emissions
+GRI 303-5
+Water Consumption/ Lượng nước tiêu thụ
+Xã hội
+Tổ Dịch vụ (anh Bùi Đông Hải)
+3
+Chỉ tiêu số hóa ngay
+Customer Experience
+Airline B-1
+Customer satisfaction (NPS Net Promoter Score)/ Mức độ hài lòng của khách hàng
+Xã hội
+Tổ Dịch vụ (chị Ngô Thái Hương)
+4
+Chỉ tiêu số hóa ngay
+Customer Experience
+GRI 406-1
+Incidents of discrimination and corrective actions taken/ Sự cố phân biệt đối xử và biện pháp xử lý
+Xã hội
+Tổ Dịch vụ (chị Vũ Thu Hiền)
+Phạm vi: đối với khách hàng bên ngoài
+5
+Chỉ tiêu số hóa ngay
+Customer Experience
+GRI 416-1
+Assessment of the health and safety impacts of product and service categories/ Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+Xã hội
+Tổ Dịch vụ (chị Hàn Quỳnh Trang & chị Chu Anh Trà & chị Phạm Thị Minh Yến & anh Nguyễn Tuấn Sơn & anh Nguyễn Quốc Bảo & anh Lương Minh Trí & chị Vũ Hà Lê & chị Phan Thị Hà Ngọc)
+6
+Chỉ tiêu số hóa ngay
+Customer Experience
+GRI 416-2
+Incidents of noncompliance concerning the health and safety impacts of products and services/ Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ
+Xã hội
+Tổ Dịch vụ (chị Hàn Quỳnh Trang & chị Chu Anh Trà)
+7
+Chỉ tiêu số hóa ngay
+Customer Experience
+GRI 417-2
+Incidents of noncompliance concerning product and service information and labeling/ Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ
+Xã hội
+Tổ Dịch vụ (chị Hàn Quỳnh Trang & chị Chu Anh Tra)
+CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+I. Định nghĩa chỉ tiêu
+1.1. Chỉ tiêu GRI 303-3 – Water Withdrawal - Lượng nước khai thác
+Mã chỉ tiêu
+GRI 303-3
+Tên chỉ tiêu
+Water Withdrawal/ Lượng nước khai thác
+Mô tả
+Lượng nước cấp lên chuyến bay
+Trụ cột
+Environment – Môi trường
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 303-3
+GRI 303-3 là một chỉ tiêu trọng yếu thuộc nhóm tiêu chuẩn Nước và Nước thải (GRI 303) của Global Reporting Initiative (GRI). Chỉ tiêu này đo lường tổng lượng nước mà doanh nghiệp rút ra phục vụ cho hoạt động khai thác bay.
+Chỉ tiêu này yêu cầu doanh nghiệp thống kê và báo cáo tổng lượng nước khai thác (tính bằng Megaliter - ML)
+2. Áp dụng GRI 303-3 trong ngành hàng không
+Đối với Vietnam Airlines, lượng nước khai thác thống kê dựa vào các dữ liệu tàu bay và đường bay.
+3. Ý nghĩa quản trị và báo cáo
+Kiểm soát chi phí vận hành: Cung cấp bức tranh toàn cảnh về lượng nước khai thác, từ đó phát hiện các điểm rò rỉ thất thoát hoặc các quy trình đang lãng phí nước.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 303-3 được làm rõ qua những chỉ số sau:
+CT 3.1 - Total Water Withdrawal - Tổng lượng nước cấp lên
+CT 3.2 - Total Water Withdrawal by Narrow-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân hẹp
+CT 3.3 - Total Water Withdrawal by Wide-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân rộng
+CT 3.4 - Water Withdrawal by Route Type - Lượng nước cấp lên theo đường bay
+CT 3.5 - Water Withdrawal by Aircraft Type - Lượng nước cấp lên loại tàu bay
+CT 3.6 - Annual Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo năm vs. Mục tiêu
+CT 3.7 - Monthly Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo tháng vs. Mục tiêu
+1.2. Chỉ tiêu GRI 303-5 – Water Consumption - Lượng nước tiêu thụ
+Mã chỉ tiêu
+GRI 303-5
+Tên chỉ tiêu
+Water Consumption/ Lượng nước tiêu thụ
+Mô tả
+Lượng nước được sử dụng trên chuyến bay và xả đi cuối ngày
+Trụ cột
+Environment – Môi trường
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 303-5
+GRI 303-5 là chỉ tiêu cuối cùng và đóng vai trò chốt chặn trong nhóm tiêu chuẩn Nước và Nước thải (GRI 303) của Global Reporting Initiative (GRI), với tên gọi chính thức là “Water Consumption” (Lượng nước tiêu thụ).
+Chỉ tiêu này yêu cầu doanh nghiệp báo cáo:
+Tổng lượng nước thực tế đã tiêu thụ trong kỳ (tính bằng Megaliter - ML)
+2. Áp dụng GRI 303-5 trong ngành hàng không
+Theo quy trình khai thác thực tế tại Vietnam Airlines hiện nay, cách tiếp cận đối với lượng nước tiêu thụ trên đội bay được quy chuẩn hóa một cách trực diện và thực tế nhất theo công thức: Lượng nước tiêu thụ (Consumption) = Lượng nước cấp lên tàu bay (Water Withdrawal)
+3. Ý nghĩa quản trị và báo cáo
+Kiểm soát chi phí vận hành: Cung cấp bức tranh toàn cảnh về lượng nước tiêu thụ, từ đó phát hiện các điểm rò rỉ thất thoát hoặc các quy trình đang lãng phí nước.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 303-5 được làm rõ qua những chỉ số sau:
+CT 3.8 - Total Water Consumption - Tổng lượng nước tiêu thụ
+CT 3.9 - Water Consumption by Route Type - Lượng nước tiêu thụ theo loại đường bay
+CT 3.10 - Water Consumption by Aircraft Type  - Lượng nước tiêu thụ theo loại tàu bay
+CT 3.11 - Annual Water Consumption vs Target - Lượng nước tiêu thụ theo năm vs. Mục tiêu
+CT 3.12 - Monthly Water Consumption vs. Target - Lượng nước tiêu thụ theo tháng vs. Mục tiêu
+CT 3.13 - Average Water Consumption by Route Group for Wide-body Aircraft  - Lượng nước tiêu thụ trung bình theo nhóm đường bay đối với tàu bay thân rộng
+1.3. Chỉ tiêu Airline B-1 - Customer satisfaction (NPS Net Promotor Score) - Mức độ hài lòng của khách hàng
+Mã chỉ tiêu
+GRI 204-1
+Tên chỉ tiêu
+Customer satisfaction (NPS Net Promoter Score)/ Mức độ hài lòng của khách hàng
+Mô tả
+Mức độ hài lòng của khách hàng và khả năng khách hàng sẵn sàng giới thiệu dịch vụ của hãng hàng không.
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 204-1
+Airline B-1 – Customer Satisfaction (NPS – Net Promoter Score) là chỉ tiêu thuộc nhóm Customer Experience, được sử dụng để đo lường mức độ hài lòng, lòng trung thành và khả năng khách hàng sẵn sàng giới thiệu dịch vụ của hãng hàng không cho người khác.
+Chỉ tiêu được xây dựng dựa trên phương pháp luận Net Promoter Score (NPS), trong đó khách hàng được khảo sát theo thang điểm từ 0 đến 10 để đánh giá khả năng giới thiệu dịch vụ. Kết quả khảo sát được phân thành ba nhóm:
+Detractors (0–6 điểm): Nhóm khách hàng không hài lòng;
+Passives (7–8 điểm): Nhóm khách hàng trung lập;
+Promoters (9–10 điểm): Nhóm khách hàng hài lòng và sẵn sàng giới thiệu dịch vụ.
+NPS là một trong những chỉ số quan trọng phản ánh chất lượng trải nghiệm khách hàng trong ngành hàng không, nơi chất lượng phục vụ, tính đúng giờ, dịch vụ mặt đất và trải nghiệm trên chuyến bay ảnh hưởng trực tiếp đến mức độ hài lòng của hành khách.
+2. Áp dụng GRI 204-1 trong ngành hàng không
+Đối với Vietnam Airlines, chỉ tiêu Airline B-1 được triển khai nhằm theo dõi và đánh giá trải nghiệm khách hàng trên toàn bộ hành trình dịch vụ, bao gồm các chuyến bay nội địa (DOM) và quốc tế (INT).
+Việc theo dõi biến động NPS theo thời gian giúp doanh nghiệp đánh giá hiệu quả triển khai các chương trình cải thiện dịch vụ và mức độ hoàn thành KPI chăm sóc khách hàng.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu Airline B-1 là cơ sở quan trọng phục vụ:
+Đánh giá chất lượng dịch vụ tổng thể: Phản ánh trực tiếp cảm nhận và trải nghiệm thực tế của khách hàng đối với dịch vụ hàng không.
+Hỗ trợ cải thiện trải nghiệm khách hàng: Phân tích NPS theo nhóm chuyến bay, hạng hội viên hoặc theo thời gian giúp xác định các điểm cần cải thiện trong hoạt động khai thác và phục vụ.
+Theo dõi hiệu quả KPI dịch vụ: So sánh NPS thực tế với mục tiêu kế hoạch hỗ trợ đánh giá hiệu quả vận hành và chất lượng chăm sóc khách hàng của doanh nghiệp.
+Nâng cao năng lực cạnh tranh thương hiệu: Mức độ hài lòng cao của khách hàng góp phần cải thiện hình ảnh thương hiệu, tăng khả năng giữ chân khách hàng và nâng cao vị thế cạnh tranh của hãng hàng không trên thị trường.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu GRI 204-1 được làm rõ qua những chỉ tiêu con sau:
+CT 3.14 – Average NPS – NPS trung bình
+CT 3.15 – NPS (Domestic) – NPS (DOM)
+CT 3.16 – NPS (International) – NPS (INT)
+CT 3.17 – Survey Responses – Số phản hồi khảo sát
+CT 3.18 – Promoter Customer Rate (%) – Tỷ lệ khách hàng Promoter (%)
+CT 3.19 – NPS Trend vs. Target overtime – Xu hướng điểm NPS so với mục tiêu theo thời gian
+CT 3.20 – NPS by Membership Tier – Điểm NPS theo hạng hội viên.
+1.4. Chỉ tiêu GRI 406-1 - Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý (phần khách hàng)
+Mã chỉ tiêu
+GRI 406-1
+Tên chỉ tiêu
+Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý
+Mô tả
+Các vụ việc phân biệt đối xử và biện pháp khắc phục đã thực hiện đối với hành khách bên ngoài.
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 406-1
+GRI 406-1 là chỉ tiêu thuộc bộ tiêu chuẩn báo cáo phát triển bền vững GRI, tập trung vào việc công bố các vụ việc phân biệt đối xử và các biện pháp khắc phục đã được thực hiện trong tổ chức. Chỉ tiêu phản ánh mức độ tuân thủ các nguyên tắc về bình đẳng, đa dạng và không phân biệt đối xử trong môi trường làm việc cũng như trong hoạt động cung cấp dịch vụ cho khách hàng.
+Trong ngành hàng không, chỉ tiêu này có ý nghĩa đặc biệt quan trọng do đặc thù phục vụ số lượng lớn hành khách đa quốc tịch, độ tuổi, giới tính và điều kiện thể chất khác nhau. Các nhóm hành khách dễ bị tổn thương như người khuyết tật, người cao tuổi, phụ nữ mang thai, người đi cùng trẻ em hoặc người suy giảm thị giác/thính giác có nguy cơ đối mặt với các hành vi phân biệt đối xử hoặc bất bình đẳng trong quá trình sử dụng dịch vụ hàng không.
+2. Áp dụng GRI 406-1 trong ngành hàng không
+Đối với Vietnam Airlines, phạm vi triển khai GRI 406-1 tập trung vào việc ghi nhận, theo dõi và quản lý các vụ việc liên quan đến phân biệt đối xử phát sinh trong quá trình khai thác và phục vụ khách hàng. Dữ liệu được tổng hợp từ các hệ thống quản lý phản ánh/khiếu nại khách hàng, bao gồm thông tin vụ việc, trạng thái xử lý, thời gian xử lý và biện pháp khắc phục đã thực hiện.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu GRI 406-1 là cơ sở quan trọng phục vụ:
+Nâng cao chất lượng dịch vụ và trải nghiệm hành khách: Giúp nhận diện sớm các hành vi hoặc quy trình có nguy cơ gây phân biệt đối xử để kịp thời điều chỉnh và cải thiện trải nghiệm khách hàng.
+Bảo vệ quyền lợi các nhóm hành khách dễ bị tổn thương: Theo dõi các vụ việc liên quan đến người khuyết tật, người cao tuổi, phụ nữ mang thai hoặc hành khách có nhu cầu hỗ trợ đặc biệt nhằm đảm bảo khả năng tiếp cận dịch vụ công bằng và an toàn.
+Tăng cường quản trị tuân thủ và kiểm soát rủi ro: Hỗ trợ giám sát việc tuân thủ các chính sách nội bộ, quy định pháp luật và tiêu chuẩn quốc tế liên quan đến bình đẳng và chống phân biệt đối xử.
+Củng cố uy tín và cam kết ESG: Việc minh bạch hóa số lượng vụ việc và biện pháp khắc phục thể hiện cam kết của hãng đối với trách nhiệm xã hội, đa dạng và hòa nhập trong hoạt động kinh doanh.
+4. Danh sách chỉ tiêu thành phần (Đối với phần khách hàng)
+Chỉ tiêu GRI 406-1 được làm rõ qua những chỉ tiêu con sau:
+CT 3.21 – Total Discrimination Cases – Tổng số vụ việc phân biệt đối xử
+CT 3.22 – Resolved Cases – Số vụ việc đã xử lý xong
+CT 3.23 – Cases Under Review – Số vụ việc đang được xem xét
+CT 3.24 – Average Resolution Time (Days) – Thời gian xử lý trung bình (ngày)
+CT 3.25 – Number of Discrimination Cases overtime – Số vụ phân biệt đối xử qua các năm
+CT 3.26 – Case Resolution Status – Tình trạng xử lý vụ việc
+CT 3.27 – Corrective Action Statistics – Thống kê biện pháp khắc phục.
+1.5. Chỉ tiêu GRI 416-1 - Assessment of the health and safety impacts of product and service categories - Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+Mã chỉ tiêu
+GRI 416-1
+Tên chỉ tiêu
+Assessment of the health and safety impacts of product and service categories - Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+Mô tả
+Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ.
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 416-1
+GRI 416-1 là chỉ tiêu thuộc bộ tiêu chuẩn báo cáo phát triển bền vững GRI, tập trung vào việc công bố tỷ lệ các danh mục sản phẩm và dịch vụ được đánh giá tác động về sức khỏe và an toàn.
+2. Áp dụng GRI 416-1 trong ngành hàng không
+Đối với Vietnam Airlines, phạm vi triển khai GRI 416-1 tập trung vào việc theo dõi và đánh giá các sản phẩm, dịch vụ trọng yếu nhằm đảm bảo đáp ứng các yêu cầu về an toàn và chất lượng trước khi đưa vào khai thác. Việc đánh giá được thực hiện thông qua các quy trình kiểm soát nội bộ, tiêu chuẩn kỹ thuật, quy định an toàn khai thác và các hoạt động kiểm định/chứng nhận theo yêu cầu của cơ quan quản lý ngành hàng không.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu GRI 416-1 là cơ sở quan trọng phục vụ:
+Nâng cao chất lượng và an toàn dịch vụ: Giúp doanh nghiệp đảm bảo các sản phẩm và dịch vụ được đánh giá đầy đủ về rủi ro sức khỏe và an toàn trước khi cung cấp tới khách hàng, từ đó giảm thiểu nguy cơ phát sinh sự cố trong quá trình khai thác.
+Tăng cường kiểm soát rủi ro vận hành: Hỗ trợ nhận diện sớm các nguy cơ liên quan đến kỹ thuật, chất lượng dịch vụ hoặc an toàn khai thác để kịp thời triển khai biện pháp phòng ngừa và cải tiến.
+Đảm bảo tuân thủ quy định và tiêu chuẩn quốc tế: Hỗ trợ doanh nghiệp đáp ứng các yêu cầu của cơ quan quản lý hàng không, tiêu chuẩn an toàn quốc tế và các cam kết ESG liên quan đến sức khỏe và an toàn khách hàng.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu GRI 416-1 được làm rõ qua những chỉ tiêu con sau:
+CT 3.28 – Health & Safety Assessment Rate - Tỷ lệ danh mục sản phẩm/dịch vụ được đánh giá tác động sức khỏe và an toàn (%)
+CT 3.29 – Total number of material categories affecting passenger health and safety – Tổng số danh mục trọng yếu có ảnh hướng đến sức khỏe và an toàn của hành khách
+CT 3.30 – Structure of material categories – Cơ cấu danh mục trọng yếu
+CT 3.31 – Product evaluation criteria – Tiêu chuẩn đánh giá sản phẩm
+1.6. Chỉ tiêu GRI 416-2 - Incidents of noncompliance concerning the health and safety impacts of products and services - Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ
+Mã chỉ tiêu
+GRI 416-2
+Tên chỉ tiêu
+Incidents of noncompliance concerning the health and safety impacts of products and services - Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ
+Mô tả
+Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ.
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 416-2
+GRI 416-2 là chỉ tiêu thuộc bộ tiêu chuẩn báo cáo phát triển bền vững GRI, tập trung vào việc công bố các vụ việc không tuân thủ liên quan đến tác động sức khỏe và an toàn của sản phẩm và dịch vụ. Chỉ tiêu phản ánh mức độ tuân thủ của doanh nghiệp đối với các quy định pháp luật, tiêu chuẩn ngành và các bộ quy tắc tự nguyện liên quan đến an toàn khách hàng.
+2. Áp dụng GRI 416-2 trong ngành hàng không
+Đối với Vietnam Airlines, phạm vi triển khai GRI 416-2 tập trung vào việc ghi nhận, theo dõi và quản lý các vụ việc không tuân thủ liên quan đến sức khỏe và an toàn của sản phẩm/dịch vụ phát sinh trong quá trình khai thác và phục vụ khách hàng.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu GRI 416-2 là cơ sở quan trọng phục vụ:
+Tăng cường kiểm soát tuân thủ và quản trị rủi ro: Giúp doanh nghiệp theo dõi và nhận diện các vấn đề liên quan đến an toàn sản phẩm/dịch vụ nhằm kịp thời triển khai biện pháp khắc phục và phòng ngừa tái diễn.
+Nâng cao chất lượng và độ an toàn dịch vụ: Thông qua việc phân tích các vụ việc vi phạm hoặc cảnh báo, doanh nghiệp có thể cải thiện quy trình vận hành, kiểm soát chất lượng và nâng cao trải nghiệm khách hàng.
+Đảm bảo tuân thủ quy định và tiêu chuẩn quốc tế: Hỗ trợ doanh nghiệp đáp ứng yêu cầu của cơ quan quản lý hàng không, tiêu chuẩn an toàn quốc tế và các cam kết ESG liên quan đến sức khỏe và an toàn khách hàng.
+4. Cách thức hiển thị
+Nếu không có sự cố (số lượng sự cố trong kỳ báo cáo bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+Nếu có sự cố (số lượng sự cố trong kỳ báo cáo lớn hơn 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+1.7. Chỉ tiêu GRI 417-2 - Incidents of noncompliance concerning product and service information and labeling - Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ
+Mã chỉ tiêu
+GRI 417-2
+Tên chỉ tiêu
+Incidents of noncompliance concerning product and service information and labeling - Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ
+Mô tả
+Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ.
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Tổ Dịch vụ
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 417-2
+GRI 417-2 là chỉ tiêu thuộc bộ tiêu chuẩn báo cáo phát triển bền vững GRI, tập trung vào việc công bố các vụ việc không tuân thủ liên quan đến thông tin và ghi nhãn sản phẩm/dịch vụ. Chỉ tiêu phản ánh mức độ tuân thủ của doanh nghiệp đối với các quy định pháp luật, tiêu chuẩn ngành.
+2. Áp dụng GRI 417-2 trong ngành hàng không
+Đối với Vietnam Airlines, phạm vi triển khai GRI 417-2 tập trung vào việc ghi nhận, theo dõi và quản lý các vụ việc không tuân thủ liên quan đến việc cung cấp thông tin và ghi nhãn sản phẩm/dịch vụ trong quá trình kinh doanh và phục vụ khách hàng.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu GRI 416-2 là cơ sở quan trọng phục vụ:
+Nâng cao tính minh bạch và trải nghiệm khách hàng: Giúp doanh nghiệp đảm bảo khách hàng được cung cấp đầy đủ, chính xác và kịp thời các thông tin liên quan đến sản phẩm và dịch vụ, từ đó nâng cao mức độ hài lòng và tin tưởng của hành khách.
+Tăng cường kiểm soát tuân thủ và quản trị rủi ro: Hỗ trợ doanh nghiệp theo dõi và kiểm soát các rủi ro liên quan đến sai lệch thông tin, quảng bá không chính xác hoặc vi phạm quy định về công bố thông tin.
+Đảm bảo tuân thủ quy định và tiêu chuẩn quốc tế: Hỗ trợ đáp ứng các yêu cầu của cơ quan quản lý hàng không, pháp luật bảo vệ quyền lợi người tiêu dùng và các tiêu chuẩn ESG liên quan đến minh bạch thông tin khách hàng.
+4. Cách thức hiển thị
+Nếu không có sự cố (số lượng sự cố trong kỳ báo cáo bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là “Không có sự cố nào trong kỳ báo cáo”.
+Nếu có sự cố (số lượng sự cố trong kỳ báo cáo lớn hơn 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+II. Chi tiết nghiệp vụ
+2.1. Chỉ tiêu GRI 303-3 –Water Withdrawal - Lượng nước khai thác
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 3.1
+1. Tên chỉ tiêu: CT 3.1 - Total Water Withdrawal - Tổng lượng nước cấp lên
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng lượng nước sạch thực tế được bơm/cấp (water uplift) vào bình chứa của tất cả các tàu bay thuộc Vietnam Airlines trong kỳ báo cáo nhằm phục vụ nhu cầu sinh hoạt, ăn uống và vệ sinh trên chuyến bay.
+Để đảm bảo tính chính xác và bám sát đặc thù cấu trúc đội bay, chỉ tiêu này được bóc tách và tính toán dựa trên hai nhóm tàu bay chính: Nhóm tàu bay thân rộng (Wide-body aircraft gồm B787,  A350) và Nhóm tàu bay thân hẹp (A321, A320).
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp con số tổng thể về lượng nước Hãng tiêu thụ trực tiếp cho hoạt động khai thác, là dữ liệu bắt buộc để lập báo cáo ESG theo chuẩn mực GRI 303-3.
+3. Công thức tính: Tổng lượng nước cấp lên = Tổng lượng nước cấp lên ở tàu bay thân hẹp + Tổng lượng nước cấp lên ở tàu bay thân rộng
+Trong đó:
+Tàu bay thân rộng: B787, A350
+Tàu bay thân hẹp: A321, A320
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Đối với lượng nước cấp lên ở tàu thân hẹp: Chưa có thông tin
+Đối với lượng nước cấp lên ở tàu thân rộng: Được lấy ở điện ACARS v phía OCC tổng hợp lại thành file Excel
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.2
+1. Tên chỉ tiêu: CT 3.2 - Total Water Withdrawal by Narrow-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân hẹp
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng lượng nước sạch được ước tính đã cấp lên toàn bộ các chuyến bay khai thác bằng đội tàu bay thân hẹp (A321, A320) của Vietnam Airlines trong kỳ báo cáo.
+Do hiện tại hệ thống chưa tự động hóa được việc thu thập số liệu nạp nước thực tế của tàu thân hẹp, Hãng áp dụng phương pháp tính toán dựa trên định mức khoán. Công thức được chia theo 3 nhóm đường bay đặc thù để sát với nhu cầu sử dụng thực tế nhất:
+Mức 50 lít/chuyến: Áp dụng cho các chặng bay nội địa nối các sân bay địa phương (chặng ngắn, thời gian bay ít, nhu cầu sử dụng nhà vệ sinh/nước uống thấp).
+Mức 75 lít/chuyến: Áp dụng cho các chuyến bay nội địa có điểm đi hoặc đến từ 3 sân bay Hub là HAN, DAD, SGN
+Mức 200 lít/chuyến: Áp dụng cho các chuyến bay quốc tế
+Tổng số lít này sau đó được chia cho 1.000.000 để quy đổi ra đơn vị báo cáo chuẩn quốc tế là Megaliter (ML).
+2.2. Ý nghĩa/Mục đích đo lường:
+Giúp tính toán dữ liệu của đội tàu bay thân hẹp
+3. Công thức tính:
+((Số chuyến bay thuộc nhóm nội địa đi 2 đầu từ các sân bay địa phương) * 50 + (Số chuyến bay thuộc nhóm có điểm đi hoặc điểm đến từ HAN/DAD/SGN * 75) + (Số chuyến bay quốc tế) * 200) / 1000000
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Chưa có thông tin
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.3
+1. Tên chỉ tiêu: CT 3.3 - Total Water Withdrawal by Wide-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân rộng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng lượng nước sạch được ước tính đã cấp lên toàn bộ các chuyến bay khai thác bằng đội tàu bay thân hẹp (B787, A350) của Vietnam Airlines trong kỳ báo cáo.
+Chỉ tiêu này là cách tính kết hợp 2 bước, giúp đảm bảo số liệu báo cáo luôn đầy đủ và không bao giờ bị thiếu sót
+Lớp dữ liệu thực tế: Kế thừa trực tiếp số liệu đo lường tự động từ hệ thống truyền tin của tàu bay (điện ACARS) do Trung tâm Điều hành Khai thác (OCC) tập hợp.
+Trong trường hợp chuyến bay bị thiếu hoặc lỗi dữ liệu điện ACARS, hệ thống sẽ tự động tính toán bù trừ dựa trên Hệ số tải khách thực tế. Điểm tinh tế ở đây là Hãng đã bóc tách chính xác "Số khách người lớn" (loại trừ trẻ sơ sinh - INF do nhu cầu dùng nước khác biệt) để so với sức chứa tối đa.
+Đồng thời, định mức chuẩn được phân lớp cực kỳ chi tiết thành 5 nhóm đường bay dựa trên cự ly bay và đặc thù thị trường
+2.2. Ý nghĩa/Mục đích đo lường:
+Giúp tính toán dữ liệu của đội tàu bay thân rộng
+3. Công thức tính:
+Tổng lượng cấp lên theo tàu bay thân rộng = Tổng số nước tiêu thụ được ghi nhận ở file Excel từ điện ACARS
+Đối với các chuyến không được ghi nhận lượng nước, Số nước tiêu thụ được tính = Định mức cho đường bay tương ứng * (Số khách người lớn thực tế trên chuyến bay / Số khách tối đa dựa theo sức chứa của các loại tàu bay).
+Số khách người lớn thực tế trên chuyến bay = Tổng số hành khách trên chuyến bay - Số hành khách là trẻ sơ sinh (INF)
+Định mức cho đường bay được chia thành 5 nhóm
+Điểm đi và điểm đến thuộc các sân bay: SFO, LHR, CPH
+Điểm đi và điểm đến thuộc các sân bay: AMS, CDG, FRA, MUC, MXP, SYD, SVO
+Điểm đi và điểm đến thuộc các sân bay: PER, MEL
+Điểm đi và điểm đến thuộc các quốc gia Hàn Quốc, Nhật Bản, Ấn Độ và các đường bay có độ dài tương đương
+Các đường bay còn lại (bao gồm cả chuyến chở hàng)
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Được lấy ở điện ACARS và phía OCC tổng hợp lại thành file Excel
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.4
+1. Tên chỉ tiêu: CT 3.4 - Water Withdrawal by Route Type - Lượng nước cấp lên theo đường bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là việc bóc tách và phân bổ "Tổng lượng nước cấp lên" theo các nhóm đường bay đặc thù của hãng (ví dụ: Quốc nội vs. Quốc tế)
+2.2. Ý nghĩa/Mục đích đo lường:
+Giúp phân tích được hành vi sử dụng nước và mức độ dư thừa nước theo đặc điểm từng tuyến bay.
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Đối chiếu với Mã chỉ tiêu CT 3.1
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.5
+1. Tên chỉ tiêu: CT 3.5 - Water Withdrawal by Aircraft Type - Lượng nước cấp lên loại tàu bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là việc phân loại lượng nước sạch đã cấp lên theo bốn dòng tàu bay (Thân rộng: B787, A350; Thân hẹp: A321, A320) hiện đang khai thác trong đội bay của VNA
+2.2. Ý nghĩa/Mục đích đo lường:
+Việc đo lường này giúp khối Khai thác mặt đất và khối Kỹ thuật phát hiện xem dòng tàu bay nào đang bị nạp mức nước
+3. Công thức tính: Không
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Đối chiếu với Mã chỉ tiêu CT 3.1
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.6
+1. Tên chỉ tiêu: CT 3.6 - Annual Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo năm vs. Mục tiêu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu so sánh trực tiếp giữa lượng nước thực tế đã cấp lên toàn mạng bay trong một năm tài chính so với hạn mức mục tiêu (Target) đã được Ban Lãnh đạo VNA phê duyệt từ đầu kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Dữ liệu này cung cấp bức tranh tổng thể cho Báo cáo Phát triển Bền vững, chứng minh với cổ đông và các tổ chức độc lập rằng Hãng không chỉ đưa ra cam kết bảo vệ môi trường mà còn thực thi và theo dõi sát sao mức độ hoàn thành cam kết đó
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu: Không có
+5. Nguồn dữ liệu:
+Đối với lượng nước cấp lên theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1
+Đối với mục tiêu: Nhập tay
+6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.7
+1. Tên chỉ tiêu: CT 3.7 - Monthly Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo tháng vs. Mục tiêu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là phiên bản chia nhỏ (breakdown) của CT 3.4 theo chu kỳ hàng tháng. Chỉ tiêu này theo dõi lượng nước cấp lên tàu bay trong một tháng cụ thể và đối chiếu với hạn mức nước đã được lên kế hoạch cho riêng tháng đó (có tính đến tính thời vụ như tháng cao điểm hè, lễ tết)
+2.2. Ý nghĩa/Mục đích đo lường:
+Thay vì đợi đến cuối năm mới biết kết quả (có thể đã bị vượt ngân sách), việc đo lường hàng tháng giúp Khối Dịch vụ kịp thời phát hiện các đợt biến động bất thường (ví dụ trạm Tân Sơn Nhất nạp lố định mức trong tháng 6).
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu: Năm
+5. Nguồn dữ liệu:
+Đối với lượng nước cấp lên theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1
+Đối với mục tiêu: Nhập tay
+6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+2.2. Chỉ tiêu GRI 303-5 – Water Consumption - Lượng nước tiêu thụ
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 3.8
+1. Tên chỉ tiêu: CT 3.8 - Total Water Consumption - Tổng lượng nước tiêu thụ
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Do cuối ngày nước cuối ngày được rút hết ra và đã coi như là tiêu thụ, vậy hiện tại Lượng nước tiêu thụ được coi là bằng  Lượng nước cấp lên
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô sử dụng tài nguyên nước trực tiếp của VNA, đáp ứng yêu cầu công bố thông tin của chuẩn GRI 303.
+3. Công thức tính:
+Tổng lượng nước tiêu thụ = Tổng lượng nước cấp lên
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Đối chiếu với Mã chỉ tiêu CT 3.1
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.9
+1. Tên chỉ tiêu: CT 3.9 - Water Consumption by Route Type - Lượng nước tiêu thụ theo loại đường bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là việc bóc tách và phân bổ "Tổng lượng nước tiêu thụ" theo các nhóm đường bay đặc thù của hãng (ví dụ: Quốc nội vs. Quốc tế)
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô sử dụng tài nguyên nước trực tiếp của VNA, đáp ứng yêu cầu công bố thông tin của chuẩn GRI 303.
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Đối chiếu với Mã chỉ tiêu CT 3.1
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.10
+1. Tên chỉ tiêu: CT 3.10 - Water Consumption by Aircraft Type  - Lượng nước tiêu thụ theo loại tàu bay
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là việc phân loại lượng nước sạch đã cấp lên theo bốn dòng tàu bay hiện đang khai thác trong đội bay của VNA
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô sử dụng tài nguyên nước trực tiếp của VNA, đáp ứng yêu cầu công bố thông tin của chuẩn GRI 303.
+3. Công thức tính: Không
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Đối chiếu với Mã chỉ tiêu CT 3.1
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.11
+1. Tên chỉ tiêu: CT 3.11 - Annual Water Consumption vs Target - Lượng nước tiêu thụ theo năm vs. Mục tiêu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu so sánh trực tiếp giữa lượng nước thực tế đã tiêu thụ toàn mạng bay trong một năm tài chính so với hạn mức mục tiêu (Target) đã được Ban Lãnh đạo VNA phê duyệt từ đầu kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô sử dụng tài nguyên nước trực tiếp của VNA, đáp ứng yêu cầu công bố thông tin của chuẩn GRI 303.
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu: Không có
+5. Nguồn dữ liệu:
+Đối với lượng nước tiêu thụ theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1
+Đối với mục tiêu: Nhập tay
+6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.12
+1. Tên chỉ tiêu: CT 3.12 - Monthly Water Consumption vs. Target - Lượng nước tiêu thụ theo tháng vs. Mục tiêu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là phiên bản chia nhỏ (breakdown) của CT 3.9 theo chu kỳ hàng tháng. Chỉ tiêu này theo dõi lượng nước tiêu thụ trong một tháng cụ thể và đối chiếu với hạn mức nước đã được lên kế hoạch cho riêng tháng đó (có tính đến tính thời vụ như tháng cao điểm hè, lễ tết)
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô sử dụng tài nguyên nước trực tiếp của VNA, đáp ứng yêu cầu công bố thông tin của chuẩn GRI 303.
+3. Công thức tính: Không có
+4. Chiều tổng hợp dữ liệu: Năm
+5. Nguồn dữ liệu:
+Đối với lượng nước tiêu thụ theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1
+Đối với mục tiêu: Nhập tay
+6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Megaliter (ML)
+CT 3.13
+1. Tên chỉ tiêu: CT 3.13 - Average Water Consumption by Route Group for Wide-body Aircraft  - Lượng nước tiêu thụ trung bình theo nhóm đường bay đối với tàu bay thân rộng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là thống kê thể tích nước sạch tiêu thụ trung bình trên một chuyến bay khai thác bằng tàu bay thân rộng (A350/B787). Chỉ tiêu phân tách chi tiết theo các nhóm đường bay có đặc thù dịch vụ khác nhau
+Chỉ tiêu phân tách thành các nhóm sau:
+Nhóm 1 - Đường bay Quốc tế: Bao gồm tất cả các chuyến bay quốc tế (không phân biệt khung giờ do tiêu chuẩn phục vụ bữa ăn là đồng nhất).
+Nhóm 2 - Đường bay HAN-SGN / SGN-HAN (Khung giờ ăn nóng): Các chuyến bay có giờ khởi hành dự kiến (ETD) nằm trong khung từ 05:00 - 08:00 và 11:00 - 13:00.
+Nhóm 3 - Đường bay HAN-SGN / SGN-HAN (Khung giờ thường): Các chuyến bay có ETD nằm ngoài 2 khung giờ ăn nóng nêu trên.
+Nhóm 4 - Các đường bay nội địa khác: Các đường bay nội địa còn lại khai thác bằng tàu thân rộng.
+2.2. Ý nghĩa/Mục đích đo lường:
+Làm cơ sở dữ liệu gốc (Baseline) để xây dựng KPI năm kế tiếp: Đây là mục đích cốt lõi. Số liệu trung bình của năm hiện tại (Y-1) kết hợp với tỷ lệ tăng trưởng hành khách dự kiến sẽ là công thức đầu vào để tính toán hạn mức KPI tiêu thụ nước cho năm ngân sách tiếp theo (Y).
+3. Công thức tính: Lượng nước trung bình của 1 nhóm = (Tổng lượng nước sạch tiêu thụ của toàn bộ chuyến bay thuộc 1 nhóm) / (Tổng số chuyến bay thuộc 1 nhóm)
+4. Chiều tổng hợp dữ liệu: Năm
+5. Nguồn dữ liệu:
+Đối chiếu với Mã chỉ tiêu CT 3.1
+6. Tần suất cập nhật: Theo tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Lít (L)
+2.3. Chỉ tiêu Airline B-1 - Customer satisfaction (NPS Net Promotor Score) - Mức độ hài lòng của khách hàng
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 3.14
+1. Tên chỉ tiêu: Average NPS – NPS trung bình
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là điểm Net Promoter Score (NPS) trung bình của toàn bộ khách hàng tham gia khảo sát đối với tất cả các chuyến bay trong kỳ báo cáo. Chỉ tiêu phản ánh mức độ hài lòng và khả năng khách hàng sẵn sàng giới thiệu dịch vụ cho người khác.
+Phân loại nhóm khách hàng:
+Detractors: Khách hàng đánh giá từ 0–6 điểm;
+Passives: Khách hàng đánh giá từ 7–8 điểm;
+Promoters: Khách hàng đánh giá từ 9–10 điểm.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá mức độ hài lòng, trải nghiệm khách hàng và chất lượng dịch vụ tổng thể của hãng hàng không.
+3. Công thức tính:
+NPS = % Promoters − % Detractors.
+% Promoters = Số khách hàng Promoters / Tổng số khách hàng tham gia khảo sát.
+% Detractors = Số khách hàng Detractors / Tổng số khách hàng tham gia khảo sát.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Report Pro.
+6. Tần suất cập nhật: Hàng tháng
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: NPS.
+CT 3.15
+1. Tên chỉ tiêu: NPS (DOM)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là điểm Net Promoter Score (NPS) trung bình đối với các chuyến bay nội địa (Domestic) trong kỳ báo cáo, phản ánh mức độ hài lòng và khả năng khách hàng sẵn sàng giới thiệu dịch vụ trên mạng bay nội địa.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá chất lượng dịch vụ và trải nghiệm khách hàng đối với hoạt động khai thác chuyến bay nội địa.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi: Domestic.
+5. Nguồn dữ liệu: Report Pro.
+6. Tần suất cập nhật:
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: NPS.
+CT 3.16
+1. Tên chỉ tiêu: NPS (INT)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là điểm Net Promoter Score (NPS) trung bình đối với các chuyến bay quốc tế (International) trong kỳ báo cáo, phản ánh mức độ hài lòng và khả năng khách hàng sẵn sàng giới thiệu dịch vụ trên mạng bay quốc tế.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá chất lượng dịch vụ và trải nghiệm khách hàng đối với hoạt động khai thác chuyến bay quốc tế.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi: International.
+5. Nguồn dữ liệu: Report Pro.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: NPS.
+CT 3.17
+1. Tên chỉ tiêu: Survey Responses – Số phản hồi khảo sát
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số phản hồi khảo sát hợp lệ được ghi nhận từ khách hàng trong kỳ báo cáo, phục vụ tính toán các chỉ số NPS và đánh giá trải nghiệm khách hàng.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi mức độ tham gia khảo sát của khách hàng và đảm bảo độ tin cậy của dữ liệu đánh giá trải nghiệm dịch vụ.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Report Pro.
+6. Tần suất cập nhật:
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Số phản hồi.
+CT 3.18
+1. Tên chỉ tiêu: Promoter Customer Rate – Tỷ lệ khách hàng Promoter
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tỷ lệ khách hàng thuộc nhóm Promoter trong tổng số phản hồi khảo sát, tức nhóm khách hàng có mức độ hài lòng cao và sẵn sàng giới thiệu dịch vụ cho người khác.
+Nhóm Promoter bao gồm các khách hàng đánh giá từ 9–10 điểm trong khảo sát NPS.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá mức độ hài lòng, lòng trung thành và khả năng khách hàng sẵn sàng giới thiệu dịch vụ của hãng hàng không.
+3. Công thức tính:
+Tỷ lệ khách hàng Promoter = Số khách hàng thuộc nhóm Promoter / Tổng số khách hàng tham gia khảo sát × 100%.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Report Pro.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: %.
+CT 3.19
+1. Tên chỉ tiêu: NPS Trend vs. Target Over Time – Xu hướng điểm NPS so với mục tiêu theo thời gian
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phản ánh biến động điểm NPS thực tế so với mục tiêu kế hoạch qua các kỳ báo cáo (theo năm), được phân tách theo hai nhóm chuyến bay nội địa (DOM) và quốc tế (INT).
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi xu hướng thay đổi mức độ hài lòng của khách hàng theo thời gian, đánh giá mức độ hoàn thành KPI và hỗ trợ cải thiện chất lượng dịch vụ theo từng nhóm chuyến bay.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo phạm vi: DOM và INT.
+5. Nguồn dữ liệu:
+Điểm NPS: Report Pro.
+Mục tiêu NPS được xác định theo kế hoạch KPI hàng năm của TCTHK.
+6. Tần suất cập nhật:
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: NPS.
+Mong muốn so sánh theo từng năm.
+CT 3.20
+1. Tên chỉ tiêu: NPS by Membership Tier – Điểm NPS theo hạng hội viên
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là điểm Net Promoter Score (NPS) được phân tách theo từng hạng hội viên khách hàng trong kỳ báo cáo nhằm phản ánh mức độ hài lòng và trải nghiệm dịch vụ của từng nhóm khách hàng thân thiết.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá mức độ hài lòng của từng nhóm hội viên, hỗ trợ phân tích hành vi khách hàng và cải thiện chất lượng dịch vụ đối với từng phân khúc khách hàng thân thiết.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+Theo hạng hội viên.
+5. Nguồn dữ liệu: Report Pro.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: NPS.
+2.4. Chỉ tiêu GRI 406-1 - Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý (phần khách hàng)
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 3.21
+1. Tên chỉ tiêu: Total Discrimination Cases – Tổng số vụ việc phân biệt đối xử
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số vụ việc liên quan đến hành vi phân biệt đối xử được ghi nhận trong kỳ báo cáo, bao gồm các phản ánh, khiếu nại hoặc vụ việc đã được xác minh phát sinh trong môi trường làm việc hoặc hoạt động cung cấp dịch vụ, không phân biệt trạng thái xử lý.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi và giám sát các vụ việc liên quan đến phân biệt đối xử theo tiêu chuẩn GRI 406-1; hỗ trợ đánh giá mức độ tuân thủ các nguyên tắc bình đẳng, đa dạng và trách nhiệm xã hội trong hoạt động của doanh nghiệp.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Vụ việc.
+CT 3.22
+1. Tên chỉ tiêu: Resolved Cases – Số vụ việc đã xử lý xong
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số vụ việc phân biệt đối xử đã hoàn tất quá trình xem xét, xử lý và đóng vụ việc theo quy định nội bộ trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi hiệu quả xử lý các vụ việc phân biệt đối xử và đánh giá khả năng phản hồi, giải quyết khiếu nại của TCTHK.
+3. Công thức tính:
+Là tổng số vụ việc đã có Closed Date (ngày đóng hồ sơ) trong kỳ báo cáo.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Vụ việc.
+CT 3.23
+1. Tên chỉ tiêu: Cases Under Review – Số vụ việc đang được xem xét
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số vụ việc phân biệt đối xử đang trong quá trình xác minh, điều tra hoặc xử lý tại thời điểm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi hiệu quả xử lý các vụ việc phân biệt đối xử và đánh giá khả năng phản hồi, giải quyết khiếu nại của TCTHK.
+3. Công thức tính:
+Là tổng số vụ việc chưa có Closed Date (ngày đóng hồ sơ) trong kỳ báo cáo.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Vụ việc.
+CT 3.24
+1. Tên chỉ tiêu: Average Resolution Time – Thời gian xử lý trung bình
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là thời gian trung bình tính từ thời điểm tiếp nhận vụ việc đến khi hoàn tất xử lý, được đo lường theo đơn vị ngày nhằm đánh giá hiệu quả và tốc độ xử lý vụ việc.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi hiệu quả xử lý các vụ việc phân biệt đối xử và đánh giá khả năng phản hồi, giải quyết khiếu nại của TCTHK.
+3. Công thức tính:
+Thời gian xử lý trung bình (ngày) = Thời gian xử lý 1 vụ việc (ngày) / Tổng số vụ việc phân biệt đối xử.
+Thời gian xử lý 1 vụ việc (ngày) = Ngày đóng hồ sơ - Ngày tạo hồ sơ.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Ngày.
+CT 3.25
+1. Tên chỉ tiêu: Number of Discrimination Cases overtime – Số vụ phân biệt đối xử qua các năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là số lượng vụ việc phân biệt đối xử được ghi nhận theo từng năm hoặc kỳ báo cáo nhằm theo dõi xu hướng biến động của các vụ việc theo thời gian.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi xu hướng phát sinh các vụ việc phân biệt đối xử qua các năm và hỗ trợ đánh giá hiệu quả của các biện pháp kiểm soát, phòng ngừa.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật:Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Vụ việc.
+Mong muốn so sánh các tháng trong năm.
+CT 3.26
+1. Tên chỉ tiêu: Case Resolution Status – Tình trạng xử lý vụ việc
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là thông tin phản ánh trạng thái xử lý của các vụ việc phân biệt đối xử tại thời điểm báo cáo, bao gồm:
+Đã xử lý: Khi đã có Closed Date.
+Đang xử lý: Còn lại.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi tiến độ xử lý vụ việc, giám sát tình trạng tồn đọng và đánh giá hiệu quả quản lý, xử lý các vụ việc phân biệt đối xử.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Vụ việc.
+Mong muốn gửi cảnh báo đối với những vụ việc chưa được xử lý xong.
+CT 3.27
+1. Tên chỉ tiêu: Corrective Action Statistics – Thống kê biện pháp khắc phục
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là thống kê các biện pháp khắc phục hoặc xử lý đã thực hiện đối với các vụ phân biệt đối xử, bao gồm:
+Xin lỗi khách hàng đối với tất cả các trường hợp;
+Bồi thường đối với các trường hợp có ghi nhận “bồi thường” trong phản hồi khách hàng;
+Các trường hợp có ghi nhận “rút kinh nghiệm nội bộ” trong hướng xử lý nội bộ cũng được tính vào bồi thường.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi hiệu quả triển khai các biện pháp xử lý, cải thiện chất lượng dịch vụ và đánh giá mức độ phản hồi của TCTHK đối với các vụ việc phân biệt đối xử.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Vụ việc.
+2.5. Chỉ tiêu GRI 416-1 - Assessment of the health and safety impacts of product and service categories - Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 3.28
+1. Tên chỉ tiêu: Safety Compliance Rate (%) – Tỷ lệ tuân thủ An toàn (%)
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tỷ lệ phần trăm các sản phẩm/dịch vụ đạt yêu cầu an toàn trên tổng số sản phẩm/dịch vụ đã thực hiện đánh giá.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi và giám sát mức độ tuân thủ các yêu cầu về sức khỏe và an toàn đối với sản phẩm/dịch vụ theo tiêu chuẩn GRI 416-1, hỗ trợ đánh giá hiệu quả công tác quản lý rủi ro và trách nhiệm của doanh nghiệp đối với khách hàng.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+5. Nguồn dữ liệu: LMS, excel.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: %.
+Luôn bằng 100% vì tất cả sản phẩm đều phải được đánh giá an toàn trước khi được phục vụ khách.
+CT 3.29
+1. Tên chỉ tiêu: Total number of material categories affecting passenger health and safety – Tổng số danh mục trọng yếu có ảnh hướng đến sức khỏe và an toàn của hành khách
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số sản phẩm hoặc dịch vụ đã được triển khai trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh quy mô danh mục sản phẩm/dịch vụ mà doanh nghiệp đang quản lý và chịu trách nhiệm về các yêu cầu an toàn, sức khỏe khách hàng.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+5. Nguồn dữ liệu: LMS, excel.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Sản phẩm.
+Với danh mục suất ăn: Mỗi đường bay có phục vụ suất ăn sẽ tương đương với một sản phẩm
+CT 3.30
+1. Tên chỉ tiêu: Structure of material categories – Cơ cấu danh mục trọng yếu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số lượng sản phẩm/dịch vụ đã hoàn tất quy trình đánh giá sức khỏe và an toàn theo tiêu chuẩn áp dụng.
+2.2. Ý nghĩa/Mục đích đo lường:
+Thể hiện tỷ trọng các nhóm sản phẩm/dịch vụ trong tổng danh mục đang khai thác, từ đó xác định các nhóm có mức độ ảnh hưởng lớn đến sức khỏe và an toàn khách hàng.
+3. Công thức tính:
+Chia theo 5 danh mục sản phẩm: Suất ăn, Đồ uống, Dụng cụ, Vật tư vật phẩm, Vệ sinh máy bay.
+4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+5. Nguồn dữ liệu:  LMS, excel.
+6. Tần suất cập nhật: Hàng tháng
+7. Mức độ ưu tiên: 2 (Cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Sản phẩm.
+CT 3.31
+1. Tên chỉ tiêu: Product evaluation criteria – Tiêu chuẩn đánh giá sản phẩm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số lượng sản phẩm/dịch vụ đã hoàn tất quy trình đánh giá sức khỏe và an toàn theo tiêu chuẩn áp dụng.
+Hiển thị: câu diễn giải số sản phẩm đã hoàn thành đánh giá sức khỏe & an toàn trước khi đưa vào khai thác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh chất lượng và mức độ an toàn của sản phẩm/dịch vụ sau khi được kiểm tra, đánh giá theo quy trình của doanh nghiệp hoặc quy định pháp luật.
+3. Công thức tính: Không có.
+4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+5. Nguồn dữ liệu: Lms, excel.
+6. Tần suất cập nhật:Hàng tháng
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Không có.

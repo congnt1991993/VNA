@@ -1,0 +1,1425 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian: Từ 9:00 đến 11:00, ngày 27 tháng 05 năm 2026
+Địa điểm: Phòng họp VCL - 311, tầng 3, tòa nhà VN1
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Ông Nguyễn Song Trường - Trưởng phòng, Ban TCNL
+Bà Nguyễn Thị Minh Huyền - Chuyên viên, Ban TCNL
+Ông Trần Quang Anh - Chuyên viên, Ban TCNL
+2. Phía Aequitas
+Ông Trần Ngọc Sơn - PM dự án
+Ông Nguyễn Chính Nam - BA dự án
+Ông Chu Minh Hiếu - DA dự án
+Ông Nguyễn Danh Hưng - DA dự án
+Bà Phạm Lưu Hỷ Nhi - DA dự án
+Ông Nguyễn Giang Đông - DA dự án
+Ông Nguyễn Thế Thiện - DE dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp nhằm khảo sát, trao đổi và làm rõ các nghiệp vụ liên quan đến:
+Các chỉ tiêu có thể số hóa để đưa lên báo cáo.
+Làm rõ định nghĩa, nội dung nghiệp vụ của các chỉ tiêu/chỉ tiêu con
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+Ban Tổ chức nhân lực và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+Xác nhận số hóa 9/9 chỉ tiêu báo cáo động, cụ thể:
+Chỉ tiêu Airline D-1 - Number of strikes - Số vụ đình công bao gồm 1 chỉ tiêu con, đã làm rõ 1/1 chỉ tiêu con.
+Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+Chỉ tiêu GRI 202-1 - Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+Chỉ tiêu GRI 401-1 - New employees hires and employee turnover - Tuyển dụng và nghỉ việc bao gồm 18 chỉ tiêu con, đã làm rõ 18/18 chỉ tiêu con.
+Chỉ tiêu GRI 403-9 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức bao gồm 11 chỉ tiêu con, đã làm rõ 10/11 chỉ tiêu con, hiện tại chỉ tiêu chưa làm rõ là chỉ tiêu CT 4.47 - Number of employees by field - Số lượng lao động theo lĩnh vực do phía Ban TCNL yêu cầu hiện chưa cần báo cáo và phía TCNL cần nghiên cứu thêm.
+Chỉ tiêu Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+Chỉ tiêu GRI 202-2 bao gồm 2 chỉ tiêu con, đã làm rõ 2/2 chỉ tiêu con.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 27/05/2026 với Ban Tổ chức nhân lực. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU - BAN TỔ CHỨC NHÂN LỰC
+STT
+Loại số hóa
+Nhóm
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+Labor Conditions
+Airline D-1
+Working days lost to strikes - Ngày công mất do đình công
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+2
+Chỉ tiêu số hóa ngay
+Labor Conditions
+Airline F-2
+Employee satisfaction - Mức độ hài lòng của nhân viên
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+3
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 202-1
+Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+4
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 401-1
+New employee hires and employee turnover - Tuyển dụng và nghỉ việc
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+5
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 403-9
+Work-related injuries - Thương tật do lao động
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+6
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 405-1
+Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+7
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 2-7
+Scale of the organization - Quy mô tổ chức
+Social - Xã hội
+Anh Trường, Anh Quang Anh - Ban TCNL
+8
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 404-2
+Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Social - Xã hội
+Chị Huyền- Ban TCNL
+9
+Chỉ tiêu số hóa ngay
+Labor Conditions
+GRI 202-2
+Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+10
+Số hóa dạng danh mục
+Labor Conditions
+GRI 401-2
+Benefits provided to fulltime employees that are not provided to temporary or parttime employees-Phúc lợi cho nhân viên toàn thời gian
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+11
+Số hóa dạng danh mục
+Labor Conditions
+GRI 403-4
+Worker participation, consultation, and communication on occupational health and safety-Sự tham gia, tham vấn và trao đổi thông tin của người lao động về an toàn và sức khỏe nghề nghiệp
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+12
+Số hóa dạng danh mục
+Labor Conditions
+GRI 403-10
+Workrelated illhealth-Bệnh liên quan đến nghề nghiệp
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+13
+Số hóa dạng danh mục
+Labor Conditions
+GRI 406-1
+Incidents of discrimination and corrective actions taken-Sự cố phân biệt đối xử và biện pháp xử lý
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+14
+Số hóa dạng danh mục
+Labor Conditions
+GRI 2-30
+Collective bargaining agreements-Thỏa ước lao động tập thể
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+15
+Số hóa dạng danh mục
+People and Development
+GRI 404-3
+Percentage of employees receiving regular performance and career development reviews-Phát triển nghề nghiệp
+Governance - Quản trị
+Anh Trường, Anh Quang Anh - Ban TCNL
+CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+A. Chỉ tiêu số hóa
+I. Định nghĩa chỉ tiêu
+1.1. Chỉ tiêu Airline D-1 - Working days lost to strikes - Ngày công mất do đình công
+Mã chỉ tiêu
+Airline D-1
+Tên chỉ tiêu
+Working days lost to strikes - Ngày công mất do đình công
+Mô tả
+Số lượng ngày công mất do đình công
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu Airline D-1
+Chỉ tiêu Airline D-1 quy định việc theo dõi, đo lường và công bố tổng số ngày làm việc bị tổn thất do các cuộc đình công, ngừng việc tập thể hoặc các tranh chấp lao động chính thức từ phía cán bộ nhân viên trong kỳ báo cáo.
+Mục tiêu của chỉ tiêu này nhằm đánh giá mối quan hệ lao động, mức độ gắn kết của nhân sự và đo lường các rủi ro tiềm ẩn có thể gây gián đoạn mạng bay toàn hệ thống.
+2. Áp dụng Airline D-1 trong ngành hàng không
+Đối với Vietnam Airlines, Airline D-1 quản lý số vụ đình công xảy ra trong năm báo cáo.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu từ chỉ tiêu Airline D-1 là cơ sở để đánh giá mức độ kiểm soát rủi ro vận hành và tính liên tục trong kinh doanh của hãng hàng không trước các biến động về nhân sự.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu Airline D-1 được làm rõ qua chỉ tiêu con sau:
+CT 4.1 – Number of strikes - Số vụ đình công
+1.2. Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên
+Mã chỉ tiêu
+Airline F-2
+Tên chỉ tiêu
+Employee satisfaction - Mức độ hài lòng của nhân viên
+Mô tả
+Mức độ hài lòng của nhân viên
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu Airline F-2
+Trong ngành hàng không - một ngành dịch vụ thâm dụng lao động có tính đặc thù và áp lực vận hành cao - Airline F-2 đo lường mức độ hạnh phúc, sự gắn bó và môi trường làm việc an toàn của toàn bộ đội ngũ cán bộ công nhân viên.
+Đây chính là thước đo trực tiếp về nguồn lực nội tại và văn hóa an toàn của toàn bộ hãng hàng không.
+2. Áp dụng Airline F-2 trong ngành hàng không
+Đối với Vietnam Airlines, phạm vi triển khai tương ứng với khảo sát đánh giá mức độ hài lòng của cán bộ nhân viên.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu về mức độ hài lòng của nhân sự từ Airline F-2 là đầu ra quan trọng nhất để đánh giá tác động xã hội nội bộ của hãng, đóng vai trò cơ sở phục vụ:
+Tối ưu hóa nguồn lực cốt lõi
+Hoạch định chính sách đãi ngộ
+Minh bạch hóa báo cáo ESG
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu Airline F-2 được làm rõ qua những chỉ tiêu con sau:
+CT 4.2 - Overall satisfaction - Mức độ hài lòng chung
+CT 4.3 - Satisfaction level by division - Mức độ hài lòng theo khối
+CT 4.4 - Satisfaction level by employment type - Mức độ hài lòng theo đối tượng lao động
+CT 4.5 - Overall satisfaction across years - Mức độ hài lòng tổng thể qua các năm
+1.3. Chỉ tiêu GRI 202-1 - Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+Mã chỉ tiêu
+GRI 202-1
+Tên chỉ tiêu
+Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+Mô tả
+Tỷ lệ lương khởi điểm theo giới tính tiêu chuẩn so với mức lương tối thiểu (Vùng 1)= Lương khởi điểm/ Lương tối thiểu. Không phân biệt giới tính
+Trụ cột
+Social - Xã hội
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+1. Tổng quan về chỉ tiêu
+Báo cáo Tỷ lệ lương khởi điểm so với lương tối thiểu vùng (theo tiêu chuẩn GRI 202-1) là báo cáo theo dõi, đánh giá mức độ công bằng và hợp lý trong chính sách tiền lương của hãng hàng không.
+2. Áp dụng trong ngành hàng không
+Chỉ tiêu này so sánh mức lương cơ bản của hãng hàng không so với mức lương cơ bản vùng 1 theo quy định.
+3. Ý nghĩa quản trị và báo cáo
+Báo cáo là cơ sở phục vụ theo dõi chính sách thu nhập của người lao động, xác định mức độ tuân thủ pháp luật lao động về lương tối thiểu, đồng thời hỗ trợ tính toán, điều chỉnh hệ thống thang bảng lương nhằm đảm bảo tính cạnh tranh và công bằng trong nội bộ hãng hàng không.
+4. Danh sách chỉ tiêu thành phần
+CT 4.6 - Starting salary of Vietnamese pilots - Lương khởi điểm phi công Việt Nam
+CT 4.7 - Starting salary of permanent flight attendants - Lương khởi điểm tiếp viên cơ hữu
+CT 4.8 - Starting salary of ground staff - Lương khởi điểm lao động mặt đất
+CT 4.9 - Region 1 minimum wage - Mức lương tối thiểu vùng 1
+CT 4.10 - Starting salary and Region 1 minimum wage over the years - Mức lương khởi điểm và lương tối thiểu vùng 1 qua các năm
+1.4. Chỉ tiêu GRI 401-1 – New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+Mã chỉ tiêu
+GRI 401-1
+Tên chỉ tiêu
+New employees hires and employee turnover/Tuyển dụng và nghỉ việc
+Mô tả
+Số lượng lao động tuyển dụng mới và số lượng nghỉ việc/nghỉ việc tự nguyện
+Trụ cột
+Social  – Xã hội
+Đơn vị phụ trách
+Ban TCNL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 401-1
+GRI 401-1 là một chỉ tiêu trọng điểm thuộc nhóm tiêu chuẩn Xã hội (GRI 400 - Labor Conditions) của Global Reporting Initiative. Chỉ tiêu này không đo lường quy mô tĩnh (như GRI 2-7) mà đo lường "Dòng chảy nhân sự" (Human Resource Flow), bao gồm tốc độ thu hút nhân tài (tuyển mới) và mức độ giữ chân người lao động (nghỉ việc) trong kỳ báo cáo.
+Chỉ tiêu này yêu cầu doanh nghiệp thống kê và báo cáo chi tiết:
+Số lượng lao động tuyển mới, phân tách theo nhóm tuổi
+Số lượng và tỷ lệ thôi việc (đặc biệt là thôi việc tự nguyện), cũng được phân tách theo nhóm tuổi
+Dữ liệu phân tích đa chiều theo Giới tính, Khu vực tuyển dụng,....
+2. Áp dụng GRI 401-1 trong ngành hàng không
+Ngành hàng không có tính đặc thù cao về chuyên môn (Phi công, Tiếp viên, Kỹ sư). Do đó, thay vì gộp chung toàn bộ lực lượng lao động, Vietnam Airlines hiện tại đang tổng hợp và báo cáo chỉ tiêu này dựa trên 8 nhóm lao động trọng yếu để phản ánh đúng thực tế quản trị và chiến lược nhân sự:
+Cán bộ, chuyên viên, nhân viên
+Phi công Việt Nam.
+Phi công nước ngoài.
+Phi công ALS
+Tiếp viên cơ hữu
+Tiếp viên nước ngoài.
+Tiếp viên ALS.
+NV tại Chi nhánh nước ngoài.
+3. Ý nghĩa quản trị và báo cáo
+Bằng cách quan sát độ tuổi của người mới vào và người rời đi, hãng sẽ đánh giá được bức tranh thế hệ của lực lượng lao động. Điều này giúp Vietnam Airlines chủ động tuyển dụng thêm người trẻ, tránh tình trạng thiếu hụt nhân sự do nhân viên lớn tuổi nghỉ hưu.
+Giữ chân nhân tài và tiết kiệm chi phí: Đào tạo một phi công hay tiếp viên tốn rất nhiều thời gian và chi phí. Nếu số liệu cho thấy tỷ lệ nghỉ việc tăng cao ở lực lượng nòng cốt, hãng có thể kịp thời nhận ra vấn đề để điều chỉnh chính sách đãi ngộ, tránh lãng phí khoản tiền đã đầu tư đào tạo.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 401-1 được làm rõ qua những chỉ số sau:
+CT 4.11 - Total New Hires - Tổng số tuyển mới
+CT 4.12 - New Hires by Month - Số tuyển mới theo tháng
+CT 4.13 - New Hires by Age Group - Số tuyển mới theo nhóm tuổi
+CT 4.14 - New Hires by Gender - Số tuyển mới theo giới tính
+CT 4.15 - New Hires by Division - Số tuyển mới theo các khối
+CT 4.16 - New Hires by  Recruitment Region - Số tuyển mới theo khu vực tuyển dụng
+CT 4.17 - New Hires by Employee Level - Số tuyển mới theo cấp độ nhân viên
+CT 4.18 - Total Employee Turnover -Tổng số nghỉ việc
+CT 4.19 - Total Employee Voluntary Turnover - Tổng số nghỉ việc tự nguyện
+CT 4.20 - Voluntary Turnover Rate - Tỷ lệ nghỉ việc tự nguyện
+CT 4.21 - Employee turnover by month - Số nghỉ việc theo tháng
+CT 4.22 - Employee turnover by Age Group - Số nghỉ việc theo nhóm tuổi
+CT 4.23 - Employee turnover by Tenure - Số nghỉ việc theo thâm niên
+CT 4.24 - Employee turnover by Gender - Số nghỉ việc theo giới tính
+CT 4.25 - Employee turnover by Division- Số nghỉ việc theo khối
+CT 4.26 - Employee turnover by Recruitment Region - Số nghỉ việc theo khu vực tuyển dụng
+CT 4.27 - Employee turnover by Employee Level - Số nghỉ việc theo cấp độ nhân viên
+CT 4.28 - Employee turnover by reason for leaving - Số nghỉ việc theo lý do nghỉ việc
+1.5. Chỉ tiêu GRI 403-9 - Workrelated injuries - Thương tật do lao động
+Mã chỉ tiêu
+GRI 403-9
+Tên chỉ tiêu
+Workrelated injuries - Thương tật do lao động
+Mô tả
+Số vụ/người thương tật do lao động
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+1. Tổng quan về chỉ tiêu
+GRI 403-9 là chỉ tiêu tập trung vào việc công bố các trường hợp thương tật phát sinh liên quan đến công việc trong quá trình lao động. Chỉ tiêu phản ánh mức độ ảnh hưởng của các nguy cơ nghề nghiệp đến sức khỏe và sự an toàn của người lao động, đồng thời đánh giá hiệu quả của hệ thống quản lý an toàn lao động trong doanh nghiệp.
+2. Áp dụng trong ngành hàng không
+Trong ngành hàng không, GRI 403-9 được áp dụng để theo dõi và quản lý các thương tật phát sinh trong quá trình khai thác, bảo dưỡng, phục vụ mặt đất, vận hành kỹ thuật và các hoạt động hỗ trợ khác.
+3. Ý nghĩa quản trị và báo cáo
+Chỉ tiêu GRI 403-9 có ý nghĩa quan trọng trong công tác quản trị an toàn sức khỏe nghề nghiệp và báo cáo phát triển bền vững của doanh nghiệp.
+Giúp doanh nghiệp theo dõi xu hướng tai nạn và thương tật lao động theo thời gian.
+Là cơ sở để xây dựng chương trình đào tạo, phòng ngừa và cải thiện điều kiện làm việc.
+Hỗ trợ giảm thiểu chi phí liên quan đến tai nạn lao động, gián đoạn hoạt động và bồi thường.
+Đáp ứng yêu cầu công bố thông tin theo tiêu chuẩn GRI.
+Tăng tính minh bạch trong quản trị ESG và phát triển bền vững.
+Tạo cơ sở đối chiếu với các chuẩn quốc tế và doanh nghiệp cùng ngành.
+4. Danh sách chỉ tiêu thành phần
+CT 4.29 - Total accidents - Tổng số vụ tai nạn
+CT 4.30 - Number of injured people - Số người bị thương
+CT 4.31 - Number of fatal accidents - Số vụ có người chết
+CT 4.32 - Number of deaths - Số người chết
+CT 4.33 - Distribution of injury factors - Cơ cấu yếu tố gây chấn thương
+CT 4.34 - Distribution of accident causes - Cơ cấu nguyên nhân xảy ra tai nạn
+1.6. Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+Mã chỉ tiêu
+GRI 405-1
+Tên chỉ tiêu
+Diversity of governance bodies and employees/Đa dạng trong cơ quan quản trị
+Mô tả
+- Tỷ lệ giới tính trong cấp quản lý (HĐQT, BGĐ, BKS)
+- Tỷ lệ nhóm tuổi trong cấp quản lý (HĐQT, BGĐ, BKS)
+Trụ cột
+Social  – Xã hội
+Đơn vị phụ trách
+Ban TCNL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 405-1
+GRI 405-1 là một chỉ tiêu quan trọng thuộc nhóm tiêu chuẩn Xã hội (GRI 400) của Global Reporting Initiative (GRI). Chỉ tiêu này tập trung vào khía cạnh Bình đẳng và Đa dạng (Diversity and Equal Opportunity) trong môi trường làm việc.
+Mục tiêu của GRI 405-1 là bức tranh toàn cảnh về thành phần nhân sự của doanh nghiệp, từ cấp lãnh đạo cao nhất cho đến nhân viên các cấp. Chỉ tiêu này yêu cầu doanh nghiệp thống kê tỷ lệ phần trăm nhân sự dựa trên các tiêu chí cốt lõi:
+Giới tính: Nam, Nữ.
+Nhóm tuổi: Dưới 30 tuổi, từ 30 - 50 tuổi, và trên 50 tuổi.
+Việc báo cáo chỉ tiêu này giúp thể hiện cam kết của tổ chức trong việc xây dựng một môi trường làm việc bao trùm, công bằng, không phân biệt đối xử và tạo cơ hội bình đẳng cho mọi cá nhân.
+2. Áp dụng GRI 405-1 trong ngành hàng không
+Theo quy định hiện tại của Vietnam Airlines, cấu trúc Cơ quan quản trị được xác định bao gồm 3 bộ phận cốt lõi:
+HĐQT (Hội đồng quản trị): Cơ quan quyết định các chiến lược dài hạn.
+BGĐ (Ban Giám đốc): Cơ quan điều hành các hoạt động kinh doanh và khai thác hàng ngày.
+BKS (Ban Kiểm soát): Cơ quan giám sát tính minh bạch và tuân thủ.
+Hệ thống sẽ thống kê tỷ lệ cơ cấu giới tính (Nam/Nữ) và độ tuổi (<30, 30-50, >50) của các thành viên thuộc 3 ban này. Số liệu này cho thấy mức độ đa dạng trong tiếng nói lãnh đạo ở tầm vĩ mô của hãng.
+3. Ý nghĩa quản trị và báo cáo
+Quyết định lãnh đạo đa chiều và hiệu quả hơn: Một cơ quan quản trị (HĐQT, BGĐ, BKS) có sự đa dạng về giới tính và độ tuổi sẽ mang lại nhiều góc nhìn khác nhau. Điều này giúp tránh được lối tư duy một chiều, từ đó đưa ra các quyết định chiến lược sát với thực tế, bao quát được nhu cầu của nhiều nhóm khách hàng hơn.
+Nâng cao hình ảnh thương hiệu nhà tuyển dụng: Khi Vietnam Airlines chứng minh được mình có tỷ lệ nữ giới cao trong Ban lãnh đạo, hoặc tạo điều kiện cho nữ giới làm phi công/kỹ sư, hãng sẽ xây dựng được hình ảnh một môi trường làm việc hiện đại, công bằng. Điều này giúp thu hút nhân tài và tăng sự gắn bó của nhân viên.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 405-1 được làm rõ qua những chỉ số sau:
+CT 4.35 - Total Members - Tổng số thành viên trong cơ quan quản trị
+CT 4.36 - Female Ratio - Tỷ lệ thành viên nữ
+CT 4.37 - Member by Governance Bodies - Số lượng thành viên theo cơ quan quản trị
+CT 4.38 - Age Group and Gender Distribution - Số lượng thành viên theo nhóm tuổi và giới tính
+1.7. Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức
+Mã chỉ tiêu
+GRI 2-7
+Tên chỉ tiêu
+Diversity of governance bodies and employees/Đa dạng trong cơ quan quản trị
+Mô tả
+- Số lượng lao động 31/12 hàng năm
+- Số lượng lao động bình quân hàng năm
+- Tỷ lệ lao động nữ
+- Tỷ lệ cán bộ quản lý nữ (cấp phòng trở lên)
+Trụ cột
+Social  – Xã hội
+Đơn vị phụ trách
+Ban TCNL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 2-7
+GRI 2-7 là một chỉ tiêu mang tính nền tảng thuộc nhóm Tiêu chuẩn chung (GRI 2: General Disclosures) của Global Reporting Initiative. Mục đích của chỉ tiêu này là cung cấp cho người đọc báo cáo một bức tranh toàn cảnh, khách quan về độ lớn, phạm vi hoạt động và sức mạnh kinh tế của tổ chức.
+2. Áp dụng GRI 2-7 trong ngành hàng không
+Ngành hàng không đặc trưng bởi lực lượng lao động đa dạng, chuyên môn hóa cực cao (phi công, tiếp viên, kỹ sư, nhân viên mặt đất) và mang tính toàn cầu. Tại Vietnam Airlines, bộ dữ liệu tổng hợp từ hệ thống SkyHR sẽ cung cấp bức tranh toàn diện về quy mô tổ chức thông qua các chỉ tiêu phân tích.
+3. Ý nghĩa quản trị và báo cáo
+Bảo chứng cho sự bình đẳng và hiện đại: Ngành hàng không vốn thường bị gắn mác là ngành "thống trị bởi nam giới" (đặc biệt ở mảng kỹ thuật và phi công). Các chỉ tiêu tỷ lệ nữ (đặc biệt là cán bộ quản lý nữ) và đa dạng quốc tịch là bằng chứng thép chứng minh VNA có một môi trường làm việc bao trùm, hiện đại
+Nhận diện rủi ro "Lão hóa" đội ngũ: Bức tranh cơ cấu theo nhóm tuổi cho phép VNA dự báo chính xác thời điểm làn sóng nghỉ hưu diễn ra ở các vị trí chủ chốt. Từ đó, hãng chủ động hoạch định các chương trình đào tạo thế hệ kế cận.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 2-7 được làm rõ qua những chỉ số sau:
+CT 4.39 - Total Employee - Tổng số nhân sự
+CT 4.40 - Female Ratio - Tỷ lệ nhân sự nữ
+CT 4.41 - Female Management Ratio - Tỷ lệ cán bộ quản lý nữ
+CT 4.42 - Average Employee - Lao động bình quân
+CT 4.43 - Number of employees as of December 31 by year - Số lượng nhân sự 31/12 theo năm
+CT 4.44 - Number of employees by age group - Số lượng nhân sự theo nhóm tuổi
+CT 4.45 - Number of employees by gender - Số lượng nhân sự theo giới tính
+CT 4.46 - Number of employees by nationality - Số lượng nhân sự theo quốc tịch
+CT 4.47 - Number of employees by job level - Số lượng nhân sự theo cấp bậc
+CT 4.48 - Number of employees by field - Số lượng nhân sự theo lĩnh vực
+CT 4.49 - Number of employees by division - Số lượng nhân sự theo khối
+1.8. Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Mã chỉ tiêu
+GRI 404-2
+Tên chỉ tiêu
+Programs for upgrading employee skills and transition assistance programs/Chương trình nâng cao kỹ năng
+Mô tả
+Tổng số người tham gia các chương trình nâng cao kỹ năng cho nhân viên và các chương trình hỗ trợ chuyển tiếp
+Trụ cột
+Social  – Xã hội
+Đơn vị phụ trách
+Ban TCNL
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 404-2
+GRI 404-2 là chỉ tiêu thuộc nhóm tiêu chuẩn Xã hội (GRI 400) của Global Reporting Initiative. Trong khi các chỉ tiêu đào tạo khác đếm số "giờ học", thì GRI 404-2 tập trung sâu hơn vào Loại hình chương trình và Nguồn lực đầu tư.
+Mục tiêu của chỉ tiêu này là minh bạch hóa nỗ lực của doanh nghiệp trong việc nâng cấp kỹ năng, chuyên môn cho lực lượng lao động để đáp ứng công việc hiện tại, cũng như các chương trình hỗ trợ họ chuyển đổi nghề nghiệp (khi điều chuyển công tác, tái cơ cấu, hoặc chuẩn bị nghỉ hưu.
+Chỉ tiêu này yêu cầu báo cáo tổng hợp từ số lượt tham gia đến chi phí tài chính tương ứng, được bóc tách chi tiết theo từng đối tượng lao động và từng loại hình đào tạo.
+2. Áp dụng GRI 404-2 trong ngành hàng không
+Dữ liệu cho chỉ tiêu này tại Vietnam Airlines được tổng hợp chủ yếu từ hệ thống SkyHR. Hệ thống tập trung đo lường tổng số người tham gia vào các chương trình nâng cao kỹ năng và hỗ trợ chuyển tiếp, được bóc tách gọn gàng theo các lớp dữ liệu sau:
+Quản lý khóa học: Phân tách số lượng khóa đào tạo theo danh mục
+Quy mô tham gia: Thống kê số lượng người tham gia đào tạo
+3. Ý nghĩa quản trị và báo cáo
+Việc thống kê các "Chương trình đào tạo " minh chứng cho tính nhân văn của Hãng hàng không Quốc gia. Chẳng hạn, khi hãng nâng cấp đội tàu bay loại bỏ dần các dòng tàu cũ, phi công và thợ máy được tham gia đào tạo chuyển loại sang tàu mới (A350/B787) để không bị mất việc, đảm bảo sự chuyển dịch lực lượng lao động mượt mà và không gây gián đoạn vận hành.
+Trong hàng không, đào tạo không phải là "phúc lợi", mà là "bắt buộc". Nếu không đủ số lượt đào tạo định kỳ cho Phi công và Tiếp viên, Cục Hàng không (CAAV) hoặc EASA/FAA sẽ rút chứng chỉ khai thác. Dữ liệu này chứng minh với nhà đầu tư rằng VNA luôn tuân thủ tuyệt đối tiêu chuẩn an toàn bay quốc tế
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 404-2 được làm rõ qua những chỉ số sau:
+CT 4.50 - Total training attendees per year - Tổng số lượt người tham gia đào tạo/năm
+CT 4.51 - Total training costs per year - Tổng chi phí đào tạo/năm
+CT 4.52 - Number of training enrollments by employee group: Pilots/Cabin Crew/Ground Staff per year - Số lượt đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất tham gia đào tạo/năm
+CT 4.53 - Training costs by employee group: Pilots/Cabin Crew/Ground Staff per year - Chi phí đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất/năm
+CT 4.54 - Number of training enrollments by type of training per year: Initial/Recurrent/Type rating/Upgrade per year - Số lượt đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm
+CT 4.55 - Training costs by type of training: Initial/Recurrent/Type rating/Upgrade per year - Chi phí đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm
+1.9. Chỉ tiêu GRI 202-2 - Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Mã chỉ tiêu
+GRI 202-2
+Tên chỉ tiêu
+Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Mô tả
+Chỉ tiêu phản ánh mức độ tham gia của nguồn nhân lực địa phương trong hoạt động quản lý và điều hành doanh nghiệp.
+Trụ cột
+Social – Xã hội
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+1. Tổng quan về chỉ tiêu
+GRI 202-2 dùng để đo lường tỷ lệ nhân sự quản lý cấp cao được tuyển dụng từ cộng đồng địa phương tại các địa điểm hoạt động trọng yếu của doanh nghiệp. Chỉ tiêu phản ánh mức độ ưu tiên sử dụng nguồn nhân lực địa phương trong công tác quản lý và điều hành doanh nghiệp.
+2. Áp dụng trong ngành hàng không
+Đối với các hãng hàng không quốc tế chỉ tiêu này còn phản ánh chiến lược nội địa hóa nguồn nhân lực quản lý tại từng quốc gia hoặc khu vực hoạt động.
+3. Ý nghĩa quản trị và báo cáo
+Giúp doanh nghiệp đánh giá mức độ phát triển nguồn nhân lực địa phương.
+Hỗ trợ xây dựng chiến lược kế thừa và phát triển đội ngũ quản lý.
+Tăng cường sự gắn kết với cộng đồng và chính quyền địa phương.
+4. Danh sách chỉ tiêu thành phần
+CT 4.56 - Percentage of Vietnamese managers in Vietnam - Tỷ lệ quản lý người Việt Nam tại Việt Nam
+CT 4.57 - Percentage of foreign managers overseas - Tỷ lệ quản lý người nước ngoài tại nước ngoài
+II. Chi tiết nghiệp vụ
+2.1. Chỉ tiêu Airline D-1 - Number of strikes - Số vụ đình công
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 4.1
+1. Tên chỉ tiêu: Number of strikes - Số vụ đình công
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số vụ đình công xảy ra trong năm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu là cơ sở để đánh giá mức độ kiểm soát rủi ro vận hành và tính liên tục trong kinh doanh của hãng hàng không trước các biến động về nhân sự.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Không có.
+6. Tần suất cập nhật: Khi có phát sinh thực tế.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+2.2. Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 4.2
+1. Tên chỉ tiêu: Overall satisfaction - Mức độ hài lòng chung
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Bao gồm:
+- 1. Mức độ hài lòng tổng thể (My Organization/Overall satisfaction)
+- 2. Đặc điểm công việc (My job)
+- 3. Điều kiện làm việc (My work)
+- 4. Đào tạo và thăng tiến (Training and Career development)
+- 5. Lãnh đạo (cấp trên trực tiếp) (My Supervisor/Direct Manager)
+- 6. Mối quan hệ nơi công sở (My Team)
+- 7. Thu nhập (My Income)
+- 8. Phúc lợi cho người lao động (My Welfare)
+2.2. Ý nghĩa/Mục đích đo lường:.
+Mức độ hài lòng chung của cán bộ nhân viên.
+3. Công thức tính:
+Lấy theo giá trị tương ứng với tổng công ty.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Nhập thủ công.
+6. Tần suất cập nhật: Tháng 11 hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: %.
+CT 4.3
+1. Tên chỉ tiêu: Satisfaction level by division - Mức độ hài lòng theo khối
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Bao gồm:
+- 1. Mức độ hài lòng tổng thể (My Organization/Overall satisfaction)
+- 2. Đặc điểm công việc (My job)
+- 3. Điều kiện làm việc (My work)
+- 4. Đào tạo và thăng tiến (Training and Career development)
+- 5. Lãnh đạo (cấp trên trực tiếp) (My Supervisor/Direct Manager)
+- 6. Mối quan hệ nơi công sở (My Team)
+- 7. Thu nhập (My Income)
+- 8. Phúc lợi cho người lao động (My Welfare)
+Chia theo 6 khối:
+(1): Khối Thương mại
+(2): Khối Dịch vụ
+(3): Khối Khai thác bay
+(4): Khối Kỹ thuật
+(5): Tham mưu tổng hợp (bao gồm lĩnh vực an toàn)
+(6): Trực thuộc khác
+2.2. Ý nghĩa/Mục đích đo lường:.
+Mức độ hài lòng chung của cán bộ nhân viên.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Nhập thủ công.
+6. Tần suất cập nhật: Tháng 11 hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: %.
+CT 4.4
+1. Tên chỉ tiêu: Satisfaction level by employment type - Mức độ hài lòng theo đối tượng lao động
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Bao gồm:
+- 1. Mức độ hài lòng tổng thể (My Organization/Overall satisfaction)
+- 2. Đặc điểm công việc (My job)
+- 3. Điều kiện làm việc (My work)
+- 4. Đào tạo và thăng tiến (Training and Career development)
+- 5. Lãnh đạo (cấp trên trực tiếp) (My Supervisor/Direct Manager)
+- 6. Mối quan hệ nơi công sở (My Team)
+- 7. Thu nhập (My Income)
+- 8. Phúc lợi cho người lao động (My Welfare)
+Chia theo 8 loại đối tượng lao động:
+(1) Lao động mặt đất
+(2) Phi công Việt Nam
+(3) Phi công ALS
+(4) Tiếp viên Việt Nam
+(5) Tiếp viên ALS
+(6) Nhân viên chi nhánh nước ngoài
+(7) Phi công nước ngoài
+(8) Tiếp viên nước ngoài
+2.2. Ý nghĩa/Mục đích đo lường:.
+Mức độ hài lòng chung của cán bộ nhân viên.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Nhập thủ công.
+6. Tần suất cập nhật: Tháng 11 hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: %.
+CT 4.5
+1. Tên chỉ tiêu: Overall satisfaction across years - Mức độ hài lòng tổng thể qua các năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Mức độ hài lòng tổng thể (My Organization/Overall satisfaction) qua các năm.
+2.2. Ý nghĩa/Mục đích đo lường:.
+So sánh mức độ hài lòng tổng thể qua các năm.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Nhập thủ công.
+6. Tần suất cập nhật: Tháng 11 hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Thang điểm 5.
+2.3. Chỉ tiêu GRI 202-1 - Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.6
+1. Tên chỉ tiêu: Starting salary of Vietnamese pilots - Lương khởi điểm phi công Việt Nam2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Mức lương khởi điểm của phi công Việt Nam. Chỉ lấy theo lương chức danh.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu về lương.
+3. Công thức tính toán:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+5. Nguồn dữ liệu:
+Nhập tay
+6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ (Việt Nam đồng).
+CT 4.7
+1. Tên chỉ tiêu: Starting salary of permanent flight attendants - Lương khởi điểm tiếp viên cơ hữu2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Mức lương khởi điểm của tiếp viên cơ hữu. Chỉ lấy theo lương chức danh.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu về lương.
+3. Công thức tính toán:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+5. Nguồn dữ liệu:
+Nhập tay
+6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ (Việt Nam đồng).
+CT 4.8
+1. Tên chỉ tiêu: Starting salary of ground staff - Lương khởi điểm lao động mặt đất2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Mức lương khởi điểm của lao động mặt đất. Lấy theo lương chức danh
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu về lương.
+3. Công thức tính toán:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+5. Nguồn dữ liệu:
+Nhập tay
+6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ (Việt Nam đồng).
+CT 4.9
+1. Tên chỉ tiêu: Region 1 minimum wage - Mức lương tối thiểu vùng 12. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Mức lương tối thiểu vùng 1 theo quy định của Nhà nước.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu về lương.
+3. Công thức tính toán:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Năm
+5. Nguồn dữ liệu:
+Nhập tay
+6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ (Việt Nam đồng).
+CT 4.10
+1. Tên chỉ tiêu: Starting salary and Region 1 minimum wage over the years - Mức lương khởi điểm và lương tối thiểu vùng 1 qua các năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Mức lương khởi điểm của phi công Việt Nam, tiếp viên cơ hữu, lao động mặt đất và mức lương tối thiểu vùng 1, theo 5 năm gần nhất tính từ năm hiện tại.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ việc theo dõi và báo cáo dữ liệu về lương.
+3. Công thức tính toán:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+5 năm gần nhất, tính từ năm hiện tại.
+5. Nguồn dữ liệu:
+Nhập tay
+6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ (Việt Nam đồng).
+2.4. Chỉ tiêu GRI 401-1 – New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.11
+1. Tên chỉ tiêu: Total New Hires - Tổng số tuyển mới2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng số lượng nhân sự đã gia nhập và chính thức ký hợp đồng lao động với Vietnam Airlines trong kỳ báo cáo.
+Chỉ tiêu này tính đếm số lượng thực tế bằng đơn vị Người và được trích xuất trực tiếp từ dữ liệu hồ sơ nhân viên mới trên hệ thống SkyHR
+2.2. Ý nghĩa/Mục đích đo lường:
+Giúp đánh giá tạo việc làm và vị thế của Vietnam Airlines trong việc thu hút nhân tài trên thị trường lao động
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.12
+1. Tên chỉ tiêu: New Hires by Month - Số tuyển mới theo tháng2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là số lượng lao động tuyển mới gia nhập tổ chức được ghi nhận chi tiết theo từng tháng phát sinh trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp bức tranh chi tiết về dòng chảy nhân sự mới theo các chu kỳ thời gian linh hoạt
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.13
+1. Tên chỉ tiêu: New Hires by Age Group - Số tuyển mới theo nhóm tuổi2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng lao động được tuyển mới gia nhập tổ chức trong năm báo cáo dựa trên phân khúc độ tuổi.
+Dữ liệu nhân sự tuyển mới được phân loại cụ thể thành 9 nhóm tuổi bao gồm:
+(1) Từ 25 tuổi trở xuống
+(2) Từ 25 đến dưới 30 tuổi
+(3) Từ 30 đến dưới 35 tuổi
+(4) Từ 35 đến dưới 40 tuổi
+(5) Từ 40 đến dưới 45 tuổi
+(6) Từ 45 đến dưới 50 tuổi
+(7) Từ 50 đến dưới 55 tuổi
+(8) Từ 55 đến dưới 60 tuổi
+(9) Trên 60 tuổi
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp thông tin nhân khẩu học chi tiết để đáp ứng yêu cầu công bố dữ liệu tuyển dụng
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.14
+1. Tên chỉ tiêu: New Hires by Gender - Số lượng lao động tuyển mới theo giới tính2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách tổng số lượng lao động được tuyển mới và gia nhập tổ chức trong kỳ báo cáo dựa trên chiều phân tích về giới tính (Nam và Nữ).
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp thông tin nhân khẩu học chi tiết để đáp ứng yêu cầu công bố dữ liệu thuộc chuẩn GRI 401-1 về Tuyển dụng và nghỉ việc.
+Giúp đánh giá mức độ cân bằng giới trong dòng chảy nhân tài mới, phản ánh mức độ hiệu quả của chính sách tuyển dụng công bằng, không phân biệt đối xử
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.15
+1. Tên chỉ tiêu: New Hires by Division - Số lượng lao động tuyển mới theo các khối2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách tổng số lượng lao động được tuyển mới và chính thức gia nhập Vietnam Airlines trong kỳ báo cáo, được phân loại chi tiết theo các khối của Hãng.
+Dòng chảy nhân sự mới được ghi nhận và phân bổ vào 6 nhóm khối chức năng chính, bao gồm:
+(1) Khối Thương mại
+(2) Khối Dịch vụ
+(3) Khối Khai thác bay
+(4) Khối Kỹ thuật
+(5) Tham mưu tổng hợp (bao gồm lĩnh vực an toàn)
+(6) Trực thuộc khác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp lớp thông tin phân tích sâu hơn về cấu trúc tuyển dụng, bổ trợ đắc lực cho các dữ liệu nhân khẩu học (tuổi, giới tính) thuộc chuẩn GRI 401-1
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.16
+1. Tên chỉ tiêu: New Hires by  Recruitment Region - Số lượng lao động tuyển mới theo khu vực tuyển dụng2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách tổng số lượng lao động được tuyển mới và chính thức gia nhập Vietnam Airlines trong kỳ báo cáo, phân loại dựa trên khu vực địa lý nơi nhân sự được tuyển dụng và làm việc
+Theo đặc thù cấu trúc mạng lưới của Hãng, dữ liệu được phân chia thành hai khu vực chính:
+Vietnam (Trong nước): Lực lượng lao động được tuyển dụng làm việc tại các cơ sở, chi nhánh, sân bay và hội sở chính trong lãnh thổ Việt Nam.
+Overseas (Nước ngoài): Lực lượng lao động được tuyển dụng cho các chi nhánh, văn phòng đại diện của Hãng tại nước ngoài,
+2.2. Ý nghĩa/Mục đích đo lường:
+Thỏa mãn trực tiếp yêu cầu công bố thông tin chi tiết về biến động nhân sự theo khu vực địa lý của chuẩn GRI 401-1.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.17
+1. Tên chỉ tiêu: New Hires by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng lao động được tuyển mới và gia nhập Vietnam Airlines trong kỳ báo cáo, phân loại dựa trên cấp bậc chức danh và đặc thù nghề nghiệp
+Theo cấu trúc định biên của Hãng, dòng chảy nhân sự tuyển mới được ghi nhận và chia thành 4 cấp độ/nhóm chuyên môn cụ thể bao gồm:
+(1) Cấp Quản lý trở lên (Managers and above).
+(2) Chuyên viên / Nhân viên (Executives).
+(3) Phi công.
+(4) Tiếp viên.
+2.2. Ý nghĩa/Mục đích đo lường:
+Bổ sung lớp phân tích sâu về đặc thù ngành nghề cho chỉ tiêu GRI 401-1, giúp bức tranh biến động nhân sự trở nên minh bạch và đa chiều hơn thay vì chỉ nhìn vào con số tổng
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.18
+1. Tên chỉ tiêu: Total Employee Turnover -Tổng số nghỉ việc2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số lượng người lao động chính thức rời khỏi tổ chức hoặc chấm dứt hợp đồng lao động với Vietnam Airlines trong kỳ báo cáo.
+Chỉ tiêu này bao gồm tổng hợp của tất cả các loại hình thôi việc
+2.2. Ý nghĩa/Mục đích đo lường:
+Khi kết hợp đối chiếu với chỉ tiêu Tuyển mới, tổ chức có thể đánh giá được mình đang trong giai đoạn mở rộng hay thu hẹp nhân sự.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.19
+1. Tên chỉ tiêu: Total Employee Voluntary Turnover - Tổng số nghỉ việc tự nguyện
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tổng số lượng người lao động nghỉ việc với lý do “Xin thôi việc” và chính thức rời khỏi Vietnam Airlines trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đây là thước đo chân thực nhất phản ánh trực tiếp "sức khỏe" của môi trường làm việc, tính cạnh tranh của chính sách đãi ngộ (C&B) và lộ trình phát triển nghề nghiệp
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.20
+1. Tên chỉ tiêu: Voluntary Turnover Rate - Tỷ lệ nghỉ việc tự nguyện
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là tỷ số phần trăm giữa số lượng người lao động nghỉ việc tự nguyện trên tổng số lao động bình quân của tổ chức trong kỳ báo cáo.
+Chỉ tiêu này chỉ tính các trường hợp thôi việc tự nguyện (Resignation), loại trừ hoàn toàn các trường hợp nghỉ việc không tự nguyện như cắt giảm, sa thải, hết hạn hợp đồng hay nghỉ hưu.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đây là chỉ số cốt lõi dùng để đo lường trực tiếp mức độ hài lòng và sự gắn kết của nhân viên đối với môi trường làm việc
+3. Công thức tính toán: Tỷ lệ nghỉ việc tự nguyện = Số lượng người lao động nghỉ việc tự nguyện / Tổng số lao động bình quân của tổ chức trong kỳ báo cáo
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: %
+CT 4.21
+1. Tên chỉ tiêu: Employee turnover by month - Số lượng lao động nghỉ việc theo tháng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu thống kê tổng số lượng người lao động chính thức chấm dứt hợp đồng và rời khỏi tổ chức (Vietnam Airlines) được ghi nhận chi tiết và bóc tách theo từng tháng phát sinh trong kỳ báo cáo
+Chỉ tiêu này bao hàm tất cả các lý do thôi việc
+2.2. Ý nghĩa/Mục đích đo lường:
+Giúp nhận diện được quy luật của dòng chảy nhân sự.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.22
+1. Tên chỉ tiêu: Employee turnover by Age Group - Số lượng lao động nghỉ việc theo nhóm tuổi
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng người lao động đã chính thức chấm dứt hợp đồng lao động và rời khỏi tổ chức trong kỳ báo cáo dựa trên độ tuổi của họ.
+Dữ liệu nhân sự nghỉ việc được phân loại cụ thể thành 9 nhóm tuổi bao gồm:
+(1) Từ 25 tuổi trở xuống
+(2) Từ 25 đến dưới 30 tuổi
+(3) Từ 30 đến dưới 35 tuổi
+(4) Từ 35 đến dưới 40 tuổi
+(5) Từ 40 đến dưới 45 tuổi
+(6) Từ 45 đến dưới 50 tuổi
+(7) Từ 50 đến dưới 55 tuổi
+(8) Từ 55 đến dưới 60 tuổi
+(9) Trên 60 tuổi
+2.2. Ý nghĩa/Mục đích đo lường:
+Thỏa mãn trực tiếp yêu cầu công bố thông tin chi tiết về biến động nhân sự phân loại theo nhóm tuổi của chuẩn mực GRI 401-1.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.23
+1. Tên chỉ tiêu: Employee turnover by Tenure - Số lượng lao động nghỉ việc theo thâm niên
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu thống kê tổng số lượng người lao động đã chính thức chấm dứt hợp đồng và rời khỏi tổ chức trong kỳ báo cáo, được phân tách chi tiết dựa trên thâm niên công tác.
+Thâm niên của nhân sự được tính từ ngày bắt đầu gia nhập hoặc ký hợp đồng lao động chính thức đến ngày hiệu lực nghỉ việc. Sau đó, dữ liệu được phân loại vào 4 nhóm mốc thời gian cụ thể bao gồm:
+(1) Dưới 4 năm
+(2) Từ 4 đến 10 năm
+(3) Từ 10 đến 20 năm
+(4) Hơn 20 năm.
+2.2. Ý nghĩa/Mục đích đo lường:
+Khi kết hợp phân tích thâm niên với các nhóm độ tuổi và giới tính, tổ chức sẽ có một lăng kính đa chiều để đánh giá độ ổn định của môi trường làm việc và tính bền vững của nguồn nhân lực hiện hành.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.24
+1. Tên chỉ tiêu: Employee turnover by Gender - Số lượng lao động nghỉ việc theo giới tính
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng người lao động đã chính thức chấm dứt hợp đồng và rời khỏi tổ chức trong kỳ báo cáo, được phân loại dữ liệu cụ thể theo chiều giới tính (Nam và Nữ).
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp thông tin nhân khẩu học chi tiết để đáp ứng yêu cầu công bố dữ liệu minh bạch về cấu trúc biến động nhân sự theo chuẩn GRI 401-1
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.25
+1. Tên chỉ tiêu: Employee turnover by Division- Số lượng lao động nghỉ việc theo khối
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng người lao động đã chính thức chấm dứt hợp đồng và rời khỏi tổ chức trong kỳ báo cáo, được phân loại theo khối
+Dòng chảy nhân sự mới được ghi nhận và phân bổ vào 6 nhóm khối chức năng chính, bao gồm:
+(1) Khối Thương mại
+(2) Khối Dịch vụ
+(3) Khối Khai thác bay
+(4) Khối Kỹ thuật
+(5) Tham mưu tổng hợp (bao gồm lĩnh vực an toàn)
+(6) Trực thuộc khác
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp thông tin nhân khẩu học chi tiết để đáp ứng yêu cầu công bố dữ liệu minh bạch về cấu trúc biến động nhân sự theo chuẩn GRI 401-1
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.26
+1. Tên chỉ tiêu: Employee turnover by Recruitment Region - Số lượng lao động nghỉ việc theo khu vực tuyển dụng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng người lao động đã chính thức chấm dứt hợp đồng lao động và rời khỏi Vietnam Airlines trong kỳ báo cáo, được phân loại dựa trên khu vực địa lý nơi nhân sự đó được tuyển dụng..
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ trực tiếp cho yêu cầu công bố thông tin chi tiết về biến động nhân sự (employee turnover) phân loại theo khu vực địa lý, đáp ứng chuẩn mực GRI 401-1.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.27
+1. Tên chỉ tiêu: Employee turnover by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng người lao động đã chính thức chấm dứt hợp đồng lao động và rời khỏi Vietnam Airlines trong kỳ báo cáo, phân loại dựa trên cấp bậc chức danh và đặc thù nghề nghiệp
+Theo cấu trúc định biên của Hãng, dòng chảy nhân sự nghỉ việc được ghi nhận và chia thành 4 cấp độ/nhóm chuyên môn cụ thể bao gồm:
+(1) Cấp Quản lý trở lên (Managers and above).
+(2) Chuyên viên / Nhân viên (Executives).
+(3) Phi công.
+(4) Tiếp viên.
+2.2. Ý nghĩa/Mục đích đo lường:
+Bổ sung lớp phân tích sâu về đặc thù ngành nghề cho chỉ tiêu GRI 401-1, giúp bức tranh biến động nhân sự trở nên minh bạch và đa chiều hơn thay vì chỉ nhìn vào con số tổng
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.28
+1. Tên chỉ tiêu: Employee turnover by reason for leaving - Số lượng lao động nghỉ việc theo lý do nghỉ việc2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết tổng số lượng người lao động đã chính thức chấm dứt hợp đồng lao động và rời khỏi Vietnam Airlines trong kỳ báo cáo, được phân loại cụ thể dựa trên nguyên nhân cốt lõi dẫn đến nghỉ việc
+2.2. Ý nghĩa/Mục đích đo lường:
+Bổ sung lớp phân tích sâu về đặc thù ngành nghề cho chỉ tiêu GRI 401-1, giúp bức tranh biến động nhân sự trở nên minh bạch và đa chiều hơn thay vì chỉ nhìn vào con số tổng
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+2.5. Chỉ tiêu GRI 403-9 - Workrelated injuries - Thương tật do lao động
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.29
+1. Tên chỉ tiêu:  Total accidents - Tổng số vụ tai nạn lao động2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng số vụ tai nạn lao động xảy ra đối với người lao động trong kỳ báo cáo, bao gồm cả tai nạn nhẹ, nặng và nghiêm trọng theo quy định.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ theo dõi và đánh giá mức độ an toàn lao động trong quá trình hoạt động, hỗ trợ doanh nghiệp nhận diện xu hướng tai nạn, kiểm soát rủi ro và xây dựng các biện pháp phòng ngừa phù hợp nhằm giảm thiểu sự cố lao động
+3. Công thức tính toán:
+Tổng số vụ tai nạn lao động trong kỳ báo cáo (6 tháng/lần)
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+Excel
+6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Vụ
+CT 4.30
+1. Tên chỉ tiêu: Number of injured people - Số người bị thương2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số người lao động bị thương do tai nạn lao động trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh mức độ ảnh hưởng của tai nạn lao động đến người lao động, hỗ trợ đánh giá hiệu quả của công tác an toàn, bảo hộ lao động và các biện pháp kiểm soát nguy cơ tại nơi làm việc.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+Excel
+6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.31
+1. Tên chỉ tiêu: Number of fatal accidents - Số vụ có người chết2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Số sự kiện tai nạn mà hậu quả có ít nhất một người tử vong.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá mức độ nghiêm trọng của các tai nạn lao động, hỗ trợ doanh nghiệp nhận diện các rủi ro trọng yếu, nâng cao công tác quản trị an toàn và đảm bảo tuân thủ các quy định pháp luật liên quan đến an toàn lao động.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+Excel
+6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Vụ
+CT 4.32
+1. Tên chỉ tiêu: Number of deaths - Số người chết2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số nạn nhân tử vong từ tất cả các vụ tai nạn trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh hậu quả nghiêm trọng của tai nạn lao động đối với người lao động, hỗ trợ đánh giá hiệu quả của hệ thống quản lý an toàn sức khỏe nghề nghiệp và thúc đẩy các biện pháp giảm thiểu tai nạn nghiêm trọng.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+Excel
+6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.33
+1. Tên chỉ tiêu: Distribution of injury factors - Cơ cấu yếu tố gây chấn thương
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Chỉ tiêu phản ánh tỷ trọng và sự phân bố các yếu tố trực tiếp gây ra chấn thương trong các vụ tai nạn lao động, như máy móc thiết bị, vật rơi, điện, phương tiện vận chuyển, bề mặt làm việc, hóa chất hoặc các tác nhân khác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ phân tích các yếu tố trực tiếp gây ra chấn thương trong lao động, hỗ trợ doanh nghiệp xác định nhóm nguy cơ chính để xây dựng biện pháp phòng ngừa, cải thiện điều kiện làm việc và nâng cao an toàn cho người lao động.
+3. Công thức tính toán:Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+Excel
+6. Tần suất cập nhật: 6 tháng/lần.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác: Không có
+CT 4.34
+1. Tên chỉ tiêu: Distribution of accident causes - Cơ cấu nguyên nhân xảy ra tai nạn
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tỷ trọng các vụ tai nạn theo từng nhóm nguyên nhân
+2.2. Ý nghĩa/Mục đích đo lường:
+Hỗ trợ nhận diện và phân tích các nguyên nhân chủ yếu dẫn đến tai nạn lao động; phục vụ công tác điều tra, đánh giá rủi ro và triển khai các giải pháp kiểm soát nhằm hạn chế tái diễn tai nạn trong tương lai.
+3. Công thức tính toán:Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+Excel
+6. Tần suất cập nhật: 6 tháng/lần.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+2.6. Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.35
+1. Tên chỉ tiêu: Total Members - Tổng số thành viên trong cơ quan quản trị2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng số lượng cá nhân đang chính thức giữ các chức vụ lãnh đạo cấp cao thuộc cơ quan quản trị của Vietnam Airlines trong kỳ báo cáo.
+Theo cấu trúc của Hãng, cơ quan quản trị được xác định bao gồm Hội đồng Quản trị (HĐQT), Ban Giám đốc (BGĐ) và Ban Kiểm soát (BKS).
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp quy mô tổng thể của bộ máy lãnh đạo và ra quyết định quan trọng.
+Đây là con số nền tảng (mẫu số gốc) bắt buộc phải có để tính toán và bóc tách các tỷ lệ phân bổ về nhân khẩu học (giới tính, độ tuổi) cho các chỉ tiêu tiếp theo thuộc nhóm GRI 405-1.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.36
+1. Tên chỉ tiêu: Female Ratio - Tỷ lệ thành viên nữ2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tỷ lệ phần trăm số lượng thành viên nữ trên tổng số thành viên thuộc các cơ quan quản trị (bao gồm HĐQT, BGĐ và BKS).
+2.2. Ý nghĩa/Mục đích đo lường:
+Đây là chỉ số ESG cực kỳ quan trọng được các nhà đầu tư và cổ đông quan tâm. Nó phản ánh cam kết của Vietnam Airlines trong việc phá vỡ "trần kính" (glass ceiling), tạo cơ hội thăng tiến công bằng lên các vị trí cao
+Nâng cao chất lượng quản trị: Nhiều nghiên cứu cho thấy sự hiện diện của nữ giới ở tầng lãnh đạo giúp các quyết định chiến lược cân bằng, bao trùm và quản trị rủi ro tốt hơn.
+3. Công thức tính toán: Tỷ lệ thành viên nữ = Số thành viên nữ trong cơ quan quản trị / Tổng số thành viên trong cơ quan quản trị
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.37
+1. Tên chỉ tiêu: Member by Governance Bodies - Số lượng thành viên theo cơ quan quản trị2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách chi tiết số lượng lãnh đạo Nam và Nữ phân bổ cụ thể vào từng cấu phần của cơ quan quản trị: HĐQT, BGĐ và BKS.
+2.2. Ý nghĩa/Mục đích đo lường:
+Thay vì chỉ nhìn vào một con số % tổng thể (có thể bị che lấp nếu nữ giới chỉ tập trung ở một ban nhất định), chỉ tiêu này giúp soi chiếu trực diện cấu trúc quyền lực. Việc theo dõi xem sự đa dạng giới tính đang diễn ra ở khối giám sát (BKS), khối hoạch định (HĐQT) hay khối điều hành trực tiếp (BGĐ) sẽ mang lại bức tranh quản trị minh bạch và toàn diện hơn.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.38
+1. Tên chỉ tiêu: Age Group and Gender Distribution - Số lượng thành viên theo nhóm tuổi và giới tính 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phân loại chi tiết các thành viên thuộc cơ quan quản trị (HĐQT, BGĐ, BKS) thông qua kết hợp: Nhóm tuổi và Giới tính.
+2.2. Ý nghĩa/Mục đích đo lường:
+Giúp tổ chức đánh giá sự cân bằng giữa bề dày kinh nghiệm/sự thận trọng (nhóm >50 tuổi) và sự linh hoạt/tư duy đổi mới (nhóm 30-50 tuổi) ở giới chức lãnh đạo.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+2.7. Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.39
+1. Tên chỉ tiêu: Total Employee - Tổng số nhân sự2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng số người lao động chính thức đang làm việc tại tổ chức trong kỳ báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đo lường quy mô tổng thể của Vietnam Airlines theo chuẩn mực GRI 2-7. Đây là chỉ số nền tảng bắt buộc để tính toán các tỷ lệ phân bổ nhân khẩu học
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.40
+1. Tên chỉ tiêu: Female Ratio - Tỷ lệ nhân sự nữ2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tỷ lệ phần trăm lao động nữ trên tổng số lượng người lao động của tổ chức
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ yêu cầu phân tích số bình quân người lao động theo chiều giới tính.
+Thước đo cam kết của Hãng trong việc đảm bảo cơ hội việc làm công bằng, tạo dựng môi trường làm việc đa dạng và bao trùm (Diversity & Inclusion)
+3. Công thức tính toán: Tỷ lệ nhân sự nữ = Tổng số nhân sự nữ / Bình quân lao động
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: %
+CT 4.41
+1. Tên chỉ tiêu: Female Management Ratio - Tỷ lệ cán bộ quản lý nữ2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tỷ lệ phần trăm nhân sự nữ giữ các vị trí lãnh đạo, cụ thể được tính từ cấp phòng trở lên
+2.2. Ý nghĩa/Mục đích đo lường:
+Đáp ứng yêu cầu phân tích số lượng người lao động cấp quản lý theo giới tính.
+3. Công thức tính toán: Tỷ lệ cán bộ quản lý nữ = Tổng số cán bộ quản lý là nữ / Lao động bình quân
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: %
+CT 4.42
+1. Tên chỉ tiêu: Average Employee - Lao động bình quân2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là số lượng lao động bình quân hằng năm của tổ chức.
+Được tính toán bằng phương pháp lấy trung bình cộng số lượng nhân sự của 12 tháng trong năm
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp bức tranh thực tế về quy mô nguồn nhân lực duy trì xuyên suốt trong năm thay vì chỉ nhìn vào một thời điểm chốt sổ tĩnh.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.43
+1. Tên chỉ tiêu: Number of employees as of December 31 by year - Số lượng lao động 31/12 theo năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng số người lao động được ghi nhận tại thời điểm chốt sổ vào ngày 31/12 hàng năm
+2.2. Ý nghĩa/Mục đích đo lường:
+Đảm bảo tính nhất quán với kỳ báo cáo tài chính cuối năm, phục vụ trực tiếp cho việc công bố quy mô tổ chức trên các Báo cáo Thường niên và Báo cáo Phát triển Bền vững theo đúng chuẩn GRI 2-7
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.44
+1. Tên chỉ tiêu: Number of employees by age group - Số lượng lao động theo nhóm tuổi2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách tổng số lượng nhân sự hiện hành thành các phân khúc độ tuổi
+(1) Từ 25 tuổi trở xuống
+(2) Từ 25 đến dưới 30 tuổi
+(3) Từ 30 đến dưới 35 tuổi
+(4) Từ 35 đến dưới 40 tuổi
+(5) Từ 40 đến dưới 45 tuổi
+(6) Từ 45 đến dưới 50 tuổi
+(7) Từ 50 đến dưới 55 tuổi
+(8) Từ 55 đến dưới 60 tuổi
+(9) Trên 60 tuổi
+2.2. Ý nghĩa/Mục đích đo lường:
+Nhận diện cơ cấu "già hóa" hoặc trẻ hóa của lực lượng lao động
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.45
+1. Tên chỉ tiêu: Number of employees by gender - Số lượng nhân viên theo giới tính2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách lực lượng lao động hiện tại thành các nhóm tuyệt đối theo giới tính (số lượng Nam, số lượng Nữ).
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi quy mô và xây dựng cơ sở vật chất, chính sách an sinh xã hội (như chế độ thai sản, y tế) phù hợp với quy mô giới tính tại nơi làm việc.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.46
+1. Tên chỉ tiêu: Number of employees by nationality - Số lượng lao động theo quốc tịch2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phân tách lực lượng lao động thành các nhóm quốc tịch (người Việt Nam và người nước ngoài)
+2.2. Ý nghĩa/Mục đích đo lường:
+Đảm bảo tính nhất quán với kỳ báo cáo tài chính cuối năm, phục vụ trực tiếp cho việc công bố quy mô tổ chức trên các Báo cáo Thường niên và Báo cáo Phát triển Bền vững theo đúng chuẩn GRI 2-7.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.47
+1. Tên chỉ tiêu: Number of employees by job level - Số lượng lao động theo cấp bậc nhân viên2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phân loại tổng nhân sự dựa trên tính chất công việc và cấp bậc
+Cấp quản lý trở lên
+Chuyên viên/Nhân viên
+Phi công
+Tiếp viên.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đảm bảo tính nhất quán với kỳ báo cáo tài chính cuối năm, phục vụ trực tiếp cho việc công bố quy mô tổ chức trên các Báo cáo Thường niên và Báo cáo Phát triển Bền vững theo đúng chuẩn GRI 2-7.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.48
+1. Tên chỉ tiêu: Number of employees by field - Số lượng lao động theo lĩnh vực
+*Ghi chú: Chỉ tiêu phía Ban TCNL yêu cầu chưa báo cáo, cần nghiên cứu thêm 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách số lượng nhân sự dựa trên chuyên môn/mảng nghiệp vụ hoạt động (Tiếp viên, lao động mặt đất, Phi công)
+2.2. Ý nghĩa/Mục đích đo lường:
+Cung cấp cơ sở để đánh giá xem VNA đang phân bổ bao nhiêu % nguồn lực vào các lĩnh vực sinh lời cốt lõi hoặc các lĩnh vực đòi hỏi chuyên môn an toàn khắt khe
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 4 (Chưa quan tâm)8. Thông tin khác:
+Đơn vị đo: Người
+CT 4.49
+1. Tên chỉ tiêu: Number of employees by division - Số lượng lao động theo khối2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phân bổ nhân sự chi tiết theo cơ cấu tổ chức (các Khối chức năng), bao gồm:
+(1) Khối Thương mại
+(2) Khối Dịch vụ
+(3) Khối Khai thác bay
+(4) Khối Kỹ thuật
+(5) Tham mưu tổng hợp (bao gồm lĩnh vực an toàn)
+(6) Trực thuộc khác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Đây là la bàn để giám sát định biên nhân sự.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Người
+2.8. Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.50
+1. Tên chỉ tiêu: Total training attendees per year - Tổng số lượt người tham gia đào tạo/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng số lượt nhân viên ghi danh và thực tế tham gia vào các chương trình đào tạo trong kỳ báo cáo
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đánh giá hoạt động của công tác đào tạo trên phạm vi toàn TCT nhằm đảm bảo toàn bộ NLĐ của TCT được đào tạo theo đúng công việc được giao
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Lượt người
+CT 4.51
+1. Tên chỉ tiêu: Total training costs per year - Tổng chi phí đào tạo/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là tổng ngân sách thực tế tổ chức đã giải ngân cho toàn bộ các hoạt động đào tạo, huấn luyện, cấp chứng chỉ và hỗ trợ chuyển tiếp của người lao động trong kỳ
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đánh giá quy mô đầu tư của công ty vào việc nâng cao năng lực đội ngũ qua việc không ngừng "nâng cấp" kỹ năng cho người lao động, giúp họ đáp ứng được sự thay đổi của công nghệ và môi trường kinh doanh.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ
+CT 4.52
+1. Tên chỉ tiêu: Number of training enrollments by employee group: Pilots/Cabin Crew/Ground Staff per year - Số lượt đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất tham gia đào tạo/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách tổng số lượt người tham gia đào tạo dựa trên 3 nhóm đối tượng đặc thù của quy trình khai thác bay: Phi công, Tiếp viên, và Người lao động (NLĐ) mặt đất
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đảm bảo hoạt động đào tạo được xây dựng theo đối tượng để đáp ứng yêu cầu kiến thức, kỹ năng theo vị trí công việc.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Lượt người
+CT 4.53
+1. Tên chỉ tiêu: Training costs by employee group: Pilots/Cabin Crew/Ground Staff per year - Chi phí đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách tổng chi phí đào tạo phân bổ chi tiết vào 3 nhóm đối tượng thụ hưởng: Phi công, Tiếp viên, và NLĐ mặt đất.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đánh giá, đo lường đầu tư của công ty vào việc đảm bảo, nâng cao năng lực đội ngũ qua việc không ngừng "nâng cấp" kỹ năng cho người lao động, giúp họ đáp ứng được sự thay đổi của công nghệ và môi trường kinh doanh.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: VNĐ
+CT 4.54
+1. Tên chỉ tiêu: Number of training enrollments by type of training per year: Initial/Recurrent/Type rating/Upgrade per year - Số lượt đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu phân loại chi tiết tổng số lượt tham gia đào tạo dựa trên tính chất và vòng đời của khóa học.
+Cấu trúc phân loại bao gồm 4 nhóm chính:
+(1) Đào tạo cơ bản
+(2) Đào tạo định kỳ
+(3) Đào tạo chuyển loại
+(4) Đào tạo nâng cấp
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đánh giá công tác đào tạo được xây dựng theo loại hình đào tạo đảm bảo NLĐ khi thay đổi vị trí công việc đều được tham gia đào tạo.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Đơn vị đo: Lượt người
+CT 4.55
+1. Tên chỉ tiêu: Training costs by type of training: Initial/Recurrent/Type rating/Upgrade per year - Chi phí đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Là chỉ tiêu bóc tách và phân bổ tổng ngân sách đào tạo vào 4 nhóm tính chất khóa học
+Cấu trúc phân loại bao gồm 4 nhóm chính:
+(1) Đào tạo cơ bản
+(2) Đào tạo định kỳ
+(3) Đào tạo chuyển loại
+(4) Đào tạo nâng cấp
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đánh giá, đo lường đầu tư của công ty vào việc đảm bảo, nâng cao năng lực đội ngũ qua việc không ngừng "nâng cấp" kỹ năng cho người lao động, giúp họ đáp ứng được sự thay đổi của công nghệ và môi trường kinh doanh.
+3. Công thức tính toán: Không có
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm
+5. Nguồn dữ liệu:
+SkyHR
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác:
+Đơn vị đo: VNĐ
+2.9. Chỉ tiêu GRI 202-2 - Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Mã chỉ tiêu con
+Mô tả/Description
+CT 4.56
+1. Tên chỉ tiêu: Percentage of Vietnamese managers in Vietnam - Tỷ lệ quản lý người Việt Nam tại Việt Nam (Lãnh đạo cấp phòng trở lên)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Tỷ lệ phần trăm lãnh đạo cấp cao là người Việt trên tổng số lãnh đạo cấp cao tại Việt Nam.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phục vụ đánh giá mức độ sử dụng và phát triển nguồn nhân lực quản lý là người Việt Nam trong hoạt động tại Việt Nam, hỗ trợ theo dõi hiệu quả chính sách phát triển nhân tài nội địa, tăng cường tính ổn định trong quản trị và thúc đẩy cơ hội phát triển nghề nghiệp cho lao động trong nước.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm.
+5. Nguồn dữ liệu:
+Cổng nhập liệu thủ công.
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác: Không có.
+CT 4.57
+1. Tên chỉ tiêu: Percentage of foreign managers overseas - Tỷ lệ quản lý người nước ngoài tại nước ngoài (Lãnh đạo cấp phòng trở lên)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tỷ lệ phần trăm lãnh đạo cấp cao là người nước ngoài trên tổng số lãnh đạo cấp cao tại nước ngoài.
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh mức độ sử dụng nguồn nhân lực quản lý là người bản địa tại các đơn vị hoạt động ở nước ngoài, hỗ trợ đánh giá hiệu quả chiến lược nội địa hóa nhân sự quản lý, khả năng thích ứng với môi trường sở tại và tăng cường tính bền vững trong hoạt động quốc tế của doanh nghiệp.
+3. Công thức tính toán: Không có.
+4. Chiều tổng hợp dữ liệu:
+Thời gian: Tháng, Năm.
+5. Nguồn dữ liệu:
+Cổng nhập liệu thủ công.
+6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác: Không có.
+B. Chỉ tiêu số hóa dạng danh mục
+1. Chỉ tiêu GRI 401-2 Benefits provided to fulltime employees that are not provided to temporary or parttime employees - Phúc lợi cho nhân viên toàn thời gian
+Mã chỉ tiêu
+GRI 401-2
+Tên chỉ tiêu
+Benefits provided to fulltime employees that are not provided to temporary or parttime employees - Phúc lợi cho nhân viên toàn thời gian
+Mô tả
+Thể hiện hệ thống phúc lợi cao cấp vượt trội thu hút nhân tài của hãng.
+Trụ cột
+Governance – Quản trị
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+Nội dung hiển thị trên dashboard: “Mọi nhân viên chính thức ký hợp đồng lao động trực tiếp với Vietnam Airlines đều được hưởng chế độ đãi ngộ toàn diện, vượt trội so với mặt bằng chung của thị trường lao động, bao gồm: Bảo hiểm sức khỏe, Bảo hiểm hưu trí tự nguyện nhóm, vé máy bay giảm cước trên các chặng bay của Vietnam Airlines và đối tác liên kết (vé ID/AD, my ID Travel); các chính sách nhân văn, gắn kết như hỗ trợ các gia đình thương binh liệt sỹ, quà sinh nhật người lao động, quà tặng 8/3, 20/10 dành cho lao động nữ, …”
+2. Chỉ tiêu GRI 403-4 - Worker participation, consultation, and communication on occupational health and safety - Sự tham gia, tham vấn và trao đổi thông tin của người lao động về an toàn và sức khỏe nghề nghiệp
+Mã chỉ tiêu
+GRI 403-4
+Tên chỉ tiêu
+Worker participation, consultation, and communication on occupational health and safety - Sự tham gia, tham vấn và trao đổi thông tin của người lao động về an toàn và sức khỏe nghề nghiệp
+Mô tả
+Sự tham gia dân chủ của người lao động vào công tác an toàn vệ sinh lao động.
+Trụ cột
+Governance – Quản trị
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+Nội dung hiển thị trên dashboard: “Vietnam Airlines duy trì cơ chế đối thoại dân chủ trong công tác ATVSLĐ. Hội đồng ATVSLĐ của TCT được thành lập với 6 thành viên, trong đó đại diện người sử dụng lao động làm Chủ tịch; đại diện công đoàn Công đoàn TCT làm Phó Chủ tịch; đại diện Ban Tổ chức và nhân lực làm Ủy viên thường trực-Thư ký và các thành viên thuộc các ban An toàn chất lượng, An ninh Hàng không và Trạm y tế thuộc Đoàn bay 919. Hội đồng có nhiệm vụ tư vấn, phối hợp với người sử dụng lao động xây dựng nội quy, quy trình, kế hoạch và biện pháp ATVSLĐ; tổ chức đối thoại hằng năm giữa người lao động và người sử dụng lao động nhằm chia sẻ thông tin, tăng cường sự hiểu biết và thúc đẩy cải thiện các điều kiện làm việc công bằng, an toàn cho người lao động; nâng cao hiệu quả thực hiện chính sách, pháp luật về  ATVSLĐ tại nơi làm việc; kiểm tra tình hình thực hiện tác ATVSLĐ; và yêu cầu người sử dụng lao động xử lý, khắc phục nguy cơ mất ATVSLĐ. Bên cạnh đó, kế hoạch ATVSLĐ hằng năm của các cơ quan, đơn vị trong TCT đều xây dựng nội dung “Thông tin, tuyên truyền, giáo dục về ATVSLĐ”
+3. Chỉ tiêu GRI 403-10 - Workrelated illhealth-Bệnh liên quan đến nghề nghiệp
+Mã chỉ tiêu
+GRI 403-10
+Tên chỉ tiêu
+Workrelated illhealth-Bệnh liên quan đến nghề nghiệp
+Mô tả
+Thể hiện sự chăm sóc sức khỏe chủ động và ngăn ngừa bệnh nghề nghiệp cho tổ bay.
+Trụ cột
+Governance – Quản trị
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+Nội dung hiển thị trên dashboard: “Vietnam Airlines đặt sức khỏe thể chất và tinh thần của người lao động là ưu tiên hàng đầu trong quản trị ATVSLĐ. Trong kỳ báo cáo, TCT tiếp tục duy trì thành tích xuất sắc với 0 ca bệnh nghề nghiệp mới phát sinh. Để bảo đảm sức khỏe khai thác cho tổ bay, hãng tuân thủ tuyệt đối quy trình quản trị mệt mỏi phi hành đoàn (FRMS), bảo đảm 100% số giờ nghỉ ngơi tối thiểu giữa các ca bay đạt chuẩn an toàn. Đồng thời, định kỳ hàng năm TCT tổ chức khám sức khỏe cho toàn thể người lao động ít nhất 1 lần/ năm, một số lao động đặc thù được khám 2 lần/ năm hoặc khám bệnh nghề nghiệp chuyên sâu tại các cơ sở y tế đạt chuẩn, chi phí do TCT chi trả.”
+4. Chỉ tiêu GRI 406-1 Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý
+Mã chỉ tiêu
+GRI 406-1
+Tên chỉ tiêu
+Workrelated illhealth - Bệnh liên quan đến nghề nghiệp
+Mô tả
+Thể hiện sự chăm sóc sức khỏe chủ động và ngăn ngừa bệnh nghề nghiệp cho tổ bay.
+Trụ cột
+Governance – Quản trị
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+Nội dung hiển thị trên dashboard: “Trong kỳ báo cáo, TCT ghi nhận 0 ý kiến về phân biệt đối xử hay kỳ thị đối với nhân viên nội bộ. TCT duy trì nguyên tắc bình đẳng, không chấp nhận hành vi xúc phạm, đe dọa hoặc phân biệt đối xử trong môi trường làm việc.”
+5. Chỉ tiêu GRI 2-30 Collective bargaining agreements-Thỏa ước lao động tập thể
+Mã chỉ tiêu
+GRI 2-30
+Tên chỉ tiêu
+Collective bargaining agreements-Thỏa ước lao động tập thể
+Mô tả
+Đo lường tỷ lệ bao phủ của thỏa ước tập thể bảo vệ quyền lợi người lao động.
+Trụ cột
+Governance – Quản trị
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+Nội dung hiển thị trên dashboard: “ Vietnam Airlines tôn trọng, cam kết bảo vệ quyền và lợi ích hợp pháp của người lao động thông qua cơ chế đối thoại, thương lượng và thỏa thuận. 100% người lao động được bảo vệ quyền lợi tại Thỏa ước lao động tập thể. Hằng năm, Ban lãnh đạo TCT phối hợp chặt chẽ với Ban chấp hành Công đoàn TCT tổ chức Hội nghị người lao động và đối thoại định kỳ nhằm lắng nghe tâm tư, nguyện vọng và liên tục cải thiện điều kiện làm việc, quyền và lợi ích hợp pháp của người lao động."
+6. Chỉ tiêu GRI 404-3 Percentage of employees receiving regular performance and career development reviews - Phát triển nghề nghiệp
+Mã chỉ tiêu
+GRI 404-3
+Tên chỉ tiêu
+Percentage of employees receiving regular performance and career development reviews-Phát triển nghề nghiệp
+Mô tả
+Sự minh bạch, công bằng trong đánh giá hiệu suất để phát triển sự nghiệp.
+Trụ cột
+Governance – Quản trị
+Đơn vị phụ trách
+Ban Tổ chức nhân lực
+Mô tả chi tiết
+Nội dung hiển thị trên dashboard: “Vietnam Airlines cam kết xây dựng một môi trường làm việc công bằng và tạo động lực phát triển liên tục thông qua hệ thống đánh giá kết quả công việc được số hóa trên nền tảng SkyHR. Hàng tháng, công tác đánh giá hiệu quả công việc được thực hiện một cách khách quan, công khai và minh bạch, áp dụng đồng bộ hệ thống Thẻ điểm cân bằng (BSC) kết hợp với các chỉ số đo lường hiệu quả cốt lõi (KPI) và các trục chỉ số đánh giá theo mô hình quản trị hiện đại. Kết quả đánh giá thực hiện công việc này là căn cứ quan trọng để Tổng công ty thực thi các chính sách nhân sự bền vững, bao gồm: quy hoạch, bổ nhiệm, điều động, luân chuyển; xác định nhu cầu đào tạo, bồi dưỡng phát triển năng lực; xét nâng bậc, khen thưởng, kỷ luật và giải quyết các quan hệ lao động phát sinh.”

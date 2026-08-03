@@ -1,0 +1,813 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Tổ Dịch vụ
+1. Thông tin chung
+Đơn vị phụ trách: Tổ Dịch vụ.
+Đầu mối Tổ Dịch vụ:
+Bà Nguyễn Thị Hằng – Chuyên viên Ban DVHKÔng Bùi Đông Hải – Chuyên viên Ban DVHKBà Vũ Thu Hiền – Chuyên viên Ban DVHK Tổ Dịch vụ
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+GRI 303-3
+Water Withdrawal/ Lượng nước khai thác
+Lượng nước cấp lên chuyến bay
+Chưa có thông tin, Excel, Đối chiếu với Mã chỉ tiêu CT 3.1, Đối với lượng nước cấp lên theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay, Đối với lượng nước cấp lên theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay, Nhập liệu thủ công
+Hàng tháng (ngày cuối cùng trong tháng), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Dịch vụ
+GRI 303-5
+Water Consumption/ Lượng nước tiêu thụ
+Lượng nước được sử dụng trên chuyến bay và xả đi cuối ngày
+Đối chiếu với Mã chỉ tiêu CT 3.1, Đối với lượng nước tiêu thụ theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay, Đối với lượng nước tiêu thụ theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay, Nhập liệu thủ công
+Hàng tháng (ngày cuối cùng trong tháng), Theo tháng (ngày cuối cùng trong tháng), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Dịch vụ
+GRI 204-1
+Customer satisfaction (NPS Net Promoter Score)/ Mức độ hài lòng của khách hàng
+Mức độ hài lòng của khách hàng và khả năng khách hàng sẵn sàng giới thiệu dịch vụ của hãng hàng không.
+Report Pro, Điểm NPS: Report Pro.Mục tiêu NPS được xác định theo kế hoạch KPI hàng năm của TCTHK
+Hàng tháng
+Tổ Dịch vụ
+GRI 406-1
+Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý
+Các vụ việc phân biệt đối xử và biện pháp khắc phục đã thực hiện đối với hành khách bên ngoài.
+Nhập thủ công, Nhập liệu thủ công
+Hàng tháng
+Tổ Dịch vụ
+GRI 416-1
+Assessment of the health and safety impacts of product and service categories - Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ.
+LMS, excel, Lms, excel, Nhập thủ công, Nhập liệu thủ công
+Hàng tháng
+Tổ Dịch vụ
+GRI 416-2
+Incidents of noncompliance concerning the health and safety impacts of products and services - Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ
+LMS, excel, Lms, excel, Nhập thủ công, Nhập liệu thủ công
+Hàng năm (hoặc khi có điều chỉnh mục tiêu), Hàng tháng
+Tổ Dịch vụ
+GRI 417-2
+Incidents of noncompliance concerning product and service information and labeling - Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ
+Nhập thủ công, Nhập liệu thủ công
+Hàng năm (hoặc khi có điều chỉnh mục tiêu), Hàng tháng
+Tổ Dịch vụ
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 3.1
+Total Water Withdrawal - Tổng lượng nước cấp lên
+Tổng lượng nước cấp lên = Tổng lượng nước cấp lên ở tàu bay thân hẹp + Tổng lượng nước cấp lên ở tàu bay thân rộngTrong đó:Tàu bay thân rộng: B787, A350Tàu bay thân hẹp: A321, A320
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Excel
+CT 3.2
+Total Water Withdrawal by Narrow-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân hẹp
+((Số chuyến bay thuộc nhóm nội địa đi 2 đầu từ các sân bay địa phương) * 50 + (Số chuyến bay thuộc nhóm có điểm đi hoặc điểm đến từ HAN/DAD/SGN * 75) + (Số chuyến bay quốc tế) * 200) / 1000000
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Chưa có thông tin
+CT 3.3
+Total Water Withdrawal by Wide-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân rộng
+Tổng lượng cấp lên theo tàu bay thân rộng = Tổng số nước tiêu thụ được ghi nhận ở file Excel từ điện ACARSĐối với các chuyến không được ghi nhận lượng nước, Số nước tiêu thụ được tính = Định mức cho đường bay tương ứng * (Số khách người lớn thực tế trên chuyến bay / Số khách tối đa dựa theo sức chứa của các loại tàu bay).Số khách người lớn thực tế trên chuyến bay = Tổng số hành khách trên chuyến bay - Số hành khách là trẻ sơ sinh (INF)Định mức cho đường bay được chia thành 5 nhóm Điểm đi và điểm đến thuộc các sân bay: SFO, LHR, CPHĐiểm đi và điểm đến thuộc các sân bay: AMS, CDG, FRA, MUC, MXP, SYD, SVOĐiểm đi và điểm đến thuộc các sân bay: PER, MELĐiểm đi và điểm đến thuộc các quốc gia Hàn Quốc, Nhật Bản, Ấn Độ và các đường bay có độ dài tương đươngCác đường bay còn lại (bao gồm cả chuyến chở hàng)
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Excel
+CT 3.4
+Water Withdrawal by Route Type - Lượng nước cấp lên theo đường bay
+Không có
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối chiếu với Mã chỉ tiêu CT 3.1
+CT 3.5
+Water Withdrawal by Aircraft Type - Lượng nước cấp lên loại tàu bay
+Không
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối chiếu với Mã chỉ tiêu CT 3.1
+CT 3.6
+Annual Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo năm vs. Mục tiêu
+Không có
+Không có
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối với lượng nước cấp lên theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+CT 3.7
+Monthly Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo tháng vs. Mục tiêu
+Không có
+Năm
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối với lượng nước cấp lên theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+CT 3.8
+Total Water Consumption - Tổng lượng nước tiêu thụ
+Tổng lượng nước tiêu thụ = Tổng lượng nước cấp lên
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối chiếu với Mã chỉ tiêu CT 3.1
+CT 3.9
+Water Consumption by Route Type - Lượng nước tiêu thụ theo loại đường bay
+Không có
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối chiếu với Mã chỉ tiêu CT 3.1
+CT 3.10
+Water Consumption by Aircraft Type  - Lượng nước tiêu thụ theo loại tàu bay
+Không
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối chiếu với Mã chỉ tiêu CT 3.1
+CT 3.11
+Annual Water Consumption vs Target - Lượng nước tiêu thụ theo năm vs. Mục tiêu
+Không có
+Không có
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối với lượng nước tiêu thụ theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+CT 3.12
+Monthly Water Consumption vs. Target - Lượng nước tiêu thụ theo tháng vs. Mục tiêu
+Không có
+Năm
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối với lượng nước tiêu thụ theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+CT 3.13
+Average Water Consumption by Route Group for Wide-body Aircraft  - Lượng nước tiêu thụ trung bình theo nhóm đường bay đối với tàu bay thân rộng
+Lượng nước trung bình của 1 nhóm = (Tổng lượng nước sạch tiêu thụ của toàn bộ chuyến bay thuộc 1 nhóm) / (Tổng số chuyến bay thuộc 1 nhóm)
+Năm
+Theo tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Đối chiếu với Mã chỉ tiêu CT 3.1
+CT 3.14
+Average NPS – NPS trung bình
+% Promoters = Số khách hàng Promoters / Tổng số khách hàng tham gia khảo sát.% Detractors = Số khách hàng Detractors / Tổng số khách hàng tham gia khảo sát.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Report Pro
+CT 3.15
+NPS (DOM)
+Không có.
+Thời gian Năm., Theo phạm vi: Domestic.
+Data Warehouse
+Report Pro
+CT 3.16
+NPS (INT)
+Không có.
+Thời gian Năm., Theo phạm vi: International.
+Hàng tháng
+Data Warehouse
+Report Pro
+CT 3.17
+Survey Responses – Số phản hồi khảo sát
+Không có.
+Thời gian Năm.
+Data Warehouse
+Report Pro
+CT 3.18
+Promoter Customer Rate – Tỷ lệ khách hàng Promoter
+Tỷ lệ khách hàng Promoter = Số khách hàng thuộc nhóm Promoter / Tổng số khách hàng tham gia khảo sát × 100%.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Report Pro
+CT 3.19
+NPS Trend vs. Target Over Time – Xu hướng điểm NPS so với mục tiêu theo thời gian
+Không có.
+Thời gian Năm., Theo phạm vi: DOM và INT.
+Data Warehouse
+Điểm NPS: Report Pro.Mục tiêu NPS được xác định theo kế hoạch KPI hàng năm của TCTHK
+CT 3.20
+NPS by Membership Tier – Điểm NPS theo hạng hội viên
+Không có.
+Thời gian Năm., Theo hạng hội viên.
+Hàng tháng
+Data Warehouse
+Report Pro
+CT 3.21
+Total Discrimination Cases – Tổng số vụ việc phân biệt đối xử
+Không có.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.22
+Resolved Cases – Số vụ việc đã xử lý xong
+Là tổng số vụ việc đã có Closed Date (ngày đóng hồ sơ) trong kỳ báo cáo.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.23
+Cases Under Review – Số vụ việc đang được xem xét
+Là tổng số vụ việc chưa có Closed Date (ngày đóng hồ sơ) trong kỳ báo cáo.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.24
+Average Resolution Time – Thời gian xử lý trung bình
+Thời gian xử lý trung bình (ngày) = Thời gian xử lý 1 vụ việc (ngày) / Tổng số vụ việc phân biệt đối xử.Thời gian xử lý 1 vụ việc (ngày) = Ngày đóng hồ sơ - Ngày tạo hồ sơ.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.25
+Number of Discrimination Cases overtime – Số vụ phân biệt đối xử qua các năm
+Không có.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.26
+Case Resolution Status – Tình trạng xử lý vụ việc
+Không có.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.27
+Corrective Action Statistics – Thống kê biện pháp khắc phục
+Không có.
+Thời gian Năm.
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.28
+Safety Compliance Rate (%) – Tỷ lệ tuân thủ An toàn (%)
+Không có.
+Danh mục sản phẩm, Năm, Tháng
+Hàng tháng
+Data Warehouse
+LMS, excel
+CT 3.29
+Total number of material categories affecting passenger health and safety – Tổng số danh mục trọng yếu có ảnh hướng đến sức khỏe và an toàn của hành khách
+Không có.
+Danh mục sản phẩm, Năm, Tháng
+Hàng tháng
+Data Warehouse
+LMS, excel
+CT 3.30
+Structure of material categories – Cơ cấu danh mục trọng yếu
+Chia theo 5 danh mục sản phẩm: Suất ăn, Đồ uống, Dụng cụ, Vật tư vật phẩm, Vệ sinh máy bay.
+Danh mục sản phẩm, Năm, Tháng
+Hàng tháng
+Data Warehouse
+LMS, excel
+CT 3.31
+Product evaluation criteria – Tiêu chuẩn đánh giá sản phẩm
+Không có.
+Danh mục sản phẩm, Năm, Tháng
+Hàng tháng
+Data Warehouse
+Lms, excel
+CT 3.30
+Total number of incidents - Tổng số sự cố
+Không có
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.31
+Number of non-compliance incidents resulting in fines - Số sự cố không tuân thủ quy định dẫn đến bị phạt tiền
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.32
+Number of non-compliance incidents resulting in warnings - Số sự cố không chấp hành quy định bị cảnh cáo
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.33
+Number of incidents involving non-compliance with voluntary codes - Số sự cố không tuân thủ các quy tắc tự nguyện
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.34
+Monthly incident trend - Xu hướng sự cố theo tháng
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.35
+Incident type distribution - Cơ cấu loại sự cố
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.36
+Target number of incidents - Mục tiêu số sự cố
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng năm (hoặc khi có điều chỉnh mục tiêu)
+Data Warehouse
+Nhập thủ công
+CT 3.37
+Total number of incidents - Tổng số sự cố
+Không có
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.38
+Number of non-compliance incidents resulting in fines - Số sự cố không tuân thủ quy định dẫn đến bị phạt tiền
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.39
+Number of non-compliance incidents resulting in warnings - Số sự cố không chấp hành quy định bị cảnh cáo
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.40
+Number of incidents involving non-compliance with voluntary codes - Số sự cố không tuân thủ các quy tắc tự nguyện
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.41
+Monthly incident trend - Xu hướng sự cố theo tháng
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.42
+Incident type distribution - Cơ cấu loại sự cố
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng tháng
+Data Warehouse
+Nhập thủ công
+CT 3.43
+Target number of incidents - Mục tiêu số sự cố
+Không có.
+Theo thời gian (Năm, Tháng, Quý).
+Hàng năm (hoặc khi có điều chỉnh mục tiêu)
+Data Warehouse
+Nhập thủ công
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Water Withdrawal/ Lượng nước khai thác
+Thủ công
+2
+Water Consumption/ Lượng nước tiêu thụ
+Thủ công
+3
+Customer satisfaction (NPS Net Promoter Score)/ Mức độ hài lòng của khách hàng
+Tự động
+4
+Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý
+Thủ công
+5
+Assessment of the health and safety impacts of product and service categories - Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+Thủ công
+6
+Incidents of noncompliance concerning the health and safety impacts of products and services - Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ
+Thủ công
+7
+Incidents of noncompliance concerning product and service information and labeling - Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Water Withdrawal/ Lượng nước khai thác
+x
+2
+Water Consumption/ Lượng nước tiêu thụ
+x
+3
+Customer satisfaction (NPS Net Promoter Score)/ Mức độ hài lòng của khách hàng
+4
+Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý
+x
+5
+Assessment of the health and safety impacts of product and service categories - Đánh giá tác động sức khỏe và an toàn của các sản phẩm/dịch vụ
+x
+6
+Incidents of noncompliance concerning the health and safety impacts of products and services - Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ
+x
+7
+Incidents of noncompliance concerning product and service information and labeling - Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Total Water Withdrawal - Tổng lượng nước cấp lên
+Excel
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+2
+Total Water Withdrawal by Narrow-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân hẹp
+Chưa có thông tin
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+3
+Total Water Withdrawal by Wide-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân rộng
+Excel
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+4
+Water Withdrawal by Route Type - Lượng nước cấp lên theo đường bay
+Đối chiếu với Mã chỉ tiêu CT 3.1
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+5
+Water Withdrawal by Aircraft Type - Lượng nước cấp lên loại tàu bay
+Đối chiếu với Mã chỉ tiêu CT 3.1
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+6
+Annual Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo năm vs. Mục tiêu
+Đối với lượng nước cấp lên theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+7
+Monthly Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo tháng vs. Mục tiêu
+Đối với lượng nước cấp lên theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+8
+Total Water Consumption - Tổng lượng nước tiêu thụ
+Đối chiếu với Mã chỉ tiêu CT 3.1
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+9
+Water Consumption by Route Type - Lượng nước tiêu thụ theo loại đường bay
+Đối chiếu với Mã chỉ tiêu CT 3.1
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+10
+Water Consumption by Aircraft Type  - Lượng nước tiêu thụ theo loại tàu bay
+Đối chiếu với Mã chỉ tiêu CT 3.1
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+11
+Annual Water Consumption vs Target - Lượng nước tiêu thụ theo năm vs. Mục tiêu
+Đối với lượng nước tiêu thụ theo năm: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+12
+Monthly Water Consumption vs. Target - Lượng nước tiêu thụ theo tháng vs. Mục tiêu
+Đối với lượng nước tiêu thụ theo tháng: Đối chiếu với Mã chỉ tiêu CT 3.1Đối với mục tiêu: Nhập tay
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+13
+Average Water Consumption by Route Group for Wide-body Aircraft  - Lượng nước tiêu thụ trung bình theo nhóm đường bay đối với tàu bay thân rộng
+Đối chiếu với Mã chỉ tiêu CT 3.1
+Theo tháng (ngày cuối cùng trong tháng)
+Tự động
+14
+Average NPS – NPS trung bình
+Report Pro
+Hàng tháng
+Tự động
+15
+NPS (DOM)
+Report Pro
+Tự động
+16
+NPS (INT)
+Report Pro
+Hàng tháng
+Tự động
+17
+Survey Responses – Số phản hồi khảo sát
+Report Pro
+Tự động
+18
+Promoter Customer Rate – Tỷ lệ khách hàng Promoter
+Report Pro
+Hàng tháng
+Tự động
+19
+NPS Trend vs. Target Over Time – Xu hướng điểm NPS so với mục tiêu theo thời gian
+Điểm NPS: Report Pro.Mục tiêu NPS được xác định theo kế hoạch KPI hàng năm của TCTHK
+Tự động
+20
+NPS by Membership Tier – Điểm NPS theo hạng hội viên
+Report Pro
+Hàng tháng
+Tự động
+21
+Total Discrimination Cases – Tổng số vụ việc phân biệt đối xử
+Nhập thủ công
+Hàng tháng
+Thủ công
+22
+Resolved Cases – Số vụ việc đã xử lý xong
+Nhập thủ công
+Hàng tháng
+Thủ công
+23
+Cases Under Review – Số vụ việc đang được xem xét
+Nhập thủ công
+Hàng tháng
+Thủ công
+24
+Average Resolution Time – Thời gian xử lý trung bình
+Nhập thủ công
+Hàng tháng
+Thủ công
+25
+Number of Discrimination Cases overtime – Số vụ phân biệt đối xử qua các năm
+Nhập thủ công
+Hàng tháng
+Thủ công
+26
+Case Resolution Status – Tình trạng xử lý vụ việc
+Nhập thủ công
+Hàng tháng
+Thủ công
+27
+Corrective Action Statistics – Thống kê biện pháp khắc phục
+Nhập thủ công
+Hàng tháng
+Thủ công
+28
+Safety Compliance Rate (%) – Tỷ lệ tuân thủ An toàn (%)
+LMS, excel
+Hàng tháng
+Tự động
+29
+Total number of material categories affecting passenger health and safety – Tổng số danh mục trọng yếu có ảnh hướng đến sức khỏe và an toàn của hành khách
+LMS, excel
+Hàng tháng
+Tự động
+30
+Structure of material categories – Cơ cấu danh mục trọng yếu
+LMS, excel
+Hàng tháng
+Tự động
+31
+Product evaluation criteria – Tiêu chuẩn đánh giá sản phẩm
+Lms, excel
+Hàng tháng
+Tự động
+32
+Total number of incidents - Tổng số sự cố
+Nhập thủ công
+Hàng tháng
+Thủ công
+33
+Number of non-compliance incidents resulting in fines - Số sự cố không tuân thủ quy định dẫn đến bị phạt tiền
+Nhập thủ công
+Hàng tháng
+Thủ công
+34
+Number of non-compliance incidents resulting in warnings - Số sự cố không chấp hành quy định bị cảnh cáo
+Nhập thủ công
+Hàng tháng
+Thủ công
+35
+Number of incidents involving non-compliance with voluntary codes - Số sự cố không tuân thủ các quy tắc tự nguyện
+Nhập thủ công
+Hàng tháng
+Thủ công
+36
+Monthly incident trend - Xu hướng sự cố theo tháng
+Nhập thủ công
+Hàng tháng
+Thủ công
+37
+Incident type distribution - Cơ cấu loại sự cố
+Nhập thủ công
+Hàng tháng
+Thủ công
+38
+Target number of incidents - Mục tiêu số sự cố
+Nhập thủ công
+Hàng năm (hoặc khi có điều chỉnh mục tiêu)
+Thủ công
+39
+Total number of incidents - Tổng số sự cố
+Nhập thủ công
+Hàng tháng
+Thủ công
+40
+Number of non-compliance incidents resulting in fines - Số sự cố không tuân thủ quy định dẫn đến bị phạt tiền
+Nhập thủ công
+Hàng tháng
+Thủ công
+41
+Number of non-compliance incidents resulting in warnings - Số sự cố không chấp hành quy định bị cảnh cáo
+Nhập thủ công
+Hàng tháng
+Thủ công
+42
+Number of incidents involving non-compliance with voluntary codes - Số sự cố không tuân thủ các quy tắc tự nguyện
+Nhập thủ công
+Hàng tháng
+Thủ công
+43
+Monthly incident trend - Xu hướng sự cố theo tháng
+Nhập thủ công
+Hàng tháng
+Thủ công
+44
+Incident type distribution - Cơ cấu loại sự cố
+Nhập thủ công
+Hàng tháng
+Thủ công
+45
+Target number of incidents - Mục tiêu số sự cố
+Nhập thủ công
+Hàng năm (hoặc khi có điều chỉnh mục tiêu)
+Thủ công
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-TDV-WEB-01
+Nhập liệu mục tiêu năm.
+Cao
+Form nhập liệu các chỉ tiêu nước sạch năm (waterWithdrawalTarget, waterConsumptionTarget), Tổng số nhà cung cấp (totalSuppliers), Số nhà cung cấp địa phương (localSuppliers), Điểm NPS kế hoạch (npsTarget).
+YCQ-TDV-WEB-02
+Nhật ký sự cố vi phạm an toàn dịch vụ (GRI 416-2) và vi phạm nhãn mác (GRI 417-2).
+Cao
+Giao diện cho phép cập nhật danh sách sự cố gồm: Mã sự cố, Tháng xảy ra, Mô tả vụ việc. Nếu danh sách trống, hiển thị tuyên bố mặc định: "Không có sự cố nào trong kỳ báo cáo."
+YCQ-TDV-WEB-03
+Dashboard NPS & Nguồn nước.
+Cao
+Trực quan hóa dữ liệu NPS và lượng nước tiêu thụ/tuần hoàn theo tháng/quý/năm trên dashboard chuyên môn.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-TDV-WEB-01
+Hình 01: Màn hình Mục tiêu năm
+Dữ liệu mục tiêu năm
+Kiểm thử nhập và lưu các chỉ số mục tiêu năm.
+YCQ-TDV-WEB-02
+Hình 02: Màn hình Nhật ký sự cố
+Danh sách sự cố
+Kiểm thử nhập danh sách sự cố và hiển thị tuyên bố mặc định khi sự cố bằng 0.
+YCQ-TDV-WEB-03
+Hình 03: Dashboard Dịch vụ & NPS
+Biểu đồ Metabase
+Kiểm thử hiển thị biểu đồ xu hướng NPS và tiêu thụ nước.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Tổ Dịch vụ
+1. Thông tin chung
+Tổ Dịch vụ.
+Tính năng nhập liệu Dịch vụ khách hàng, NPS và sự cố dịch vụ & nhãn mác.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng nhập mục tiêu năm, định mức nước, nhật ký sự cố dịch vụ & nhãn mác, và Dashboard NPS của Tổ Dịch vụ.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-TDV-WEB-01
+Kiểm thử nhập mục tiêu năm
+Nhập các giá trị mục tiêu nước và NPS kế hoạch, kiểm tra lưu trữ thành công.
+Đạt
+—
+Hoàn thành
+YCQ-TDV-WEB-02
+Kiểm thử nhật ký sự cố
+Nhập một vụ vi phạm nhãn mác mới, kiểm tra hiển thị. Xóa hết sự cố để kiểm tra câu tuyên bố mặc định.
+Đạt
+—
+Hoàn thành
+YCQ-TDV-WEB-03
+Kiểm thử Dashboard Dịch vụ
+Kiểm tra hiển thị các biểu đồ NPS nội địa/quốc tế và tỷ lệ Promoter.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Tổ Dịch vụ
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

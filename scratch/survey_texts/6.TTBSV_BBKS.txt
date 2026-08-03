@@ -1,0 +1,158 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian: Từ 14:00 đến 15:00, ngày 06/05/2026
+Địa điểm: Phòng họp 1, tầng 3, tòa VN3.
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Ông Trần Minh Hùng - Phó phòng - TTBSV
+Ông Phạm Đình Đức - Chuyên viên - TTBSV
+Bà Trần Thanh Vân - Chuyên viên - Ban CĐSCN
+2. Phía Aequitas
+Ông Nguyễn Chính Nam - BA dự án
+Ông Nguyễn Đức Anh - DA dự án
+Ông Chu Minh Hiếu - DA dự án
+Ông Nguyễn Danh Hưng - DA dự án
+Bà Phạm Lưu Hỷ Nhi - DA dự án
+Ông Nguyễn Giang Đông - DA dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp ghi nhận và xác nhận các nội dung đã trao đổi với TTBSV liên quan đến nhóm chỉ tiêu báo cáo phát triển bền vững Net Zero. Các nội dung bao gồm: cách hiểu nghiệp vụ, phạm vi các chỉ tiêu có thể số hóa đưa lên báo cáo, công thức tính toán và một số trường dữ liệu liên quan.
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+TTBSV và Aequitas cùng trao đổi, thống nhất các nội dung sau:
+Xác nhận số hóa 1/1 chỉ tiêu: Airline B-2 - Customer engagement - Tương tác khách hàng.
+Tổng số chỉ tiêu con đã xác nhận: 4 chỉ tiêu con.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 06/05/2026 với TTBSV. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU
+STT
+Loại số hóa
+Chủ đề
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+Customer Experience
+Airline B-2
+Customer engagement / Tương tác khách hàng
+Môi trường
+TTBSV (anh Hùng, anh Đức)
+I. Định nghĩa chỉ tiêu
+1.1. Chỉ tiêu Airline B-2 - Customer engagement - Tương tác khách hàng
+Mã chỉ tiêu
+GRI 302-1
+Tên chỉ tiêu
+Airline B-2 - Customer engagement - Tương tác khách hàng
+Mô tả
+Tổng số hội viên Bông Sen Vàng tính tới cuối tháng/quý/năm.
+Trụ cột
+Social - Xã hội
+Đơn vị phụ trách
+Trung tâm Bông Sen Vàng
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu Airline B-2:
+Airline B-2 – Customer Engagement là chỉ tiêu dùng để theo dõi tổng số hội viên tham gia chương trình khách hàng thân thiết Bông Sen Vàng của Vietnam Airlines theo từng kỳ báo cáo.
+Trong ngành hàng không, chương trình khách hàng thân thiết đóng vai trò quan trọng trong việc duy trì mối quan hệ với hành khách và nâng cao mức độ gắn kết giữa khách hàng với hãng hàng không.
+Chỉ tiêu này được sử dụng để thống kê và theo dõi quy mô hội viên của chương trình Bông Sen Vàng theo Tháng/Quý/Năm. Dữ liệu được tổng hợp phục vụ mục đích quản trị nội bộ, theo dõi xu hướng phát triển chương trình hội viên và hỗ trợ công tác báo cáo phát triển bền vững liên quan đến khách hàng.
+2. Áp dụng GRI 302-1 trong ngành hàng không
+Đối với Vietnam Airlines, phạm vi triển khai hiện tại của chỉ tiêu tập trung vào việc quản lý tổng số hội viên Bông Sen Vàng theo từng kỳ báo cáo.
+Dữ liệu được tổng hợp theo:
+Thời gian báo cáo (cuối tháng/quý/năm).
+Tổng số hội viên tại thời điểm ghi nhận.
+3. Ý nghĩa quản trị và báo cáo
+Chỉ tiêu Customer Engagement là cơ sở quan trọng phục vụ:
+Theo dõi quy mô chương trình hội viên Bông Sen Vàng.
+Đánh giá xu hướng tăng trưởng hội viên qua các kỳ báo cáo.
+Hỗ trợ công tác tổng hợp số liệu quản trị nội bộ.
+Phục vụ báo cáo ESG và báo cáo phát triển bền vững liên quan đến khách hàng.
+Ngoài mục tiêu báo cáo, chỉ tiêu này còn giúp doanh nghiệp theo dõi mức độ duy trì và phát triển của chương trình khách hàng thân thiết trong dài hạn.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu Airline B-2 được làm rõ qua những chỉ số sau:
+CT 9.1 – Total Lotus Members – Tổng số hội viên Bông Sen Vàng
+CT 9.2 – Membership Growth Trend – Xu hướng tăng trưởng hội viên
+CT 9.3 – Quarterly Membership Trend – Xu hướng hội viên theo Quý trong năm
+CT 9.4 – Monthly Membership Trend – Xu hướng hội viên theo Tháng trong năm
+II. Chi tiết nghiệp vụ
+2.1. Chỉ tiêu Airline B-2 - Customer engagement - Tương tác khách hàng
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 9.1
+1. Tên chỉ tiêu:  Total Lotus Members – Tổng số hội viên Bông Sen Vàng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Thống kê tổng số hội viên đang tham gia chương trình Bông Sen Vàng của Vietnam Airlines tại từng thời điểm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi xu hướng phát triển của chương trình hội viên Bông Sen Vàng theo thời gian, phục vụ công tác quản trị nội bộ và báo cáo phát triển bền vững liên quan đến khách hàng.
+3. Công thức tính:
+Tổng số hội viên Bông Sen Vàng = Tổng số hội viên tại thời điểm ghi nhận dữ liệu.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: CLM.
+6. Tần suất cập nhật: Thời gian thực (Realtime).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Hội viên.
+CT 9.2
+1. Tên chỉ tiêu: Membership Growth Trend – Xu hướng tăng trưởng hội viên
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Thể hiện xu hướng tăng trưởng tổng số hội viên Bông Sen Vàng theo từng năm.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi sự thay đổi về quy mô hội viên của chương trình khách hàng thân thiết qua các năm báo cáo.
+Là cơ sở phục vụ báo cáo ESG và báo cáo phát triển bền vững liên quan đến khách hàng và chất lượng dịch vụ.
+3. Công thức tính:
+Tổng số hội viên Bông Sen Vàng trong năm = Tổng số hội viên tại thời điểm cuối năm báo cáo.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: CLM.
+6. Tần suất cập nhật: Thời gian thực (Realtime).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Hội viên.
+Mong muốn so sánh giữa các năm.
+CT 9.3
+1. Tên chỉ tiêu: Quarterly Membership Trend – Xu hướng hội viên theo Quý trong năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Chỉ tiêu thể hiện xu hướng biến động tổng số hội viên Bông Sen Vàng theo từng quý trong năm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi sự thay đổi quy mô hội viên của chương trình khách hàng thân thiết theo từng giai đoạn trong năm.
+Là cơ sở phục vụ báo cáo ESG và báo cáo phát triển bền vững liên quan đến khách hàng và chất lượng dịch vụ.
+3. Công thức tính:
+Tổng số hội viên Bông Sen Vàng trong quý = Tổng số hội viên tại thời điểm cuối quý báo cáo.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Quý, Năm.
+5. Nguồn dữ liệu: CLM.
+6. Tần suất cập nhật: Thời gian thực (Realtime).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Hội viên.
+Mong muốn so sánh các quý trong năm.
+CT 9.4
+1. Tên chỉ tiêu: Monthly Membership Trend – Xu hướng hội viên theo Tháng trong năm
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Xu hướng biến động tổng số hội viên Bông Sen Vàng theo từng tháng trong năm báo cáo.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi sự thay đổi quy mô hội viên của chương trình khách hàng thân thiết theo từng giai đoạn trong năm.
+Là cơ sở phục vụ báo cáo ESG và báo cáo phát triển bền vững liên quan đến khách hàng và chất lượng dịch vụ.
+3. Công thức tính:
+Tổng số hội viên Bông Sen Vàng trong tháng = Tổng số hội viên tại thời điểm cuối tháng báo cáo.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng, Năm.
+5. Nguồn dữ liệu: CLM.
+6. Tần suất cập nhật: Thời gian thực (Realtime).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị đo: Hội viên.
+Mong muốn so sánh các tháng trong năm.

@@ -1,0 +1,457 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN ATCL
+1. Thông tin chung
+Đơn vị phụ trách: Ban An toàn chất lượng (Ban ATCL).
+Đầu mối Ban ATCL:
+Ông Nguyễn Đình Đàn – Chuyên viên Ban ATCL
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+Airline E-1
+Noise - Tiếng ồn
+Thống kê và tính toán tỷ lệ phần trăm (%) đội tàu đáp ứng các giới hạn của Annex 16, Volume I (Chapter 3, 4, 14) theo hướng dẫn ASRH của IATA
+Excel
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Ban An toàn chất lượng
+Chưa có mã
+Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+Lượng khí nhà kính phát thải trực tiếp từ các chuyến bay nội địa (Phạm vi 1) bao gồm CO2, CH4, N2O. Lượng nhiên liệu tra nạp từ các sân bay trong nước (chuyến bay nội địa, hoặc quốc tế có điểm xuất phát từ Việt Nam).Ghi chú: Không bao gồm chuyến VIP, cứu thương, chữa cháy, nhân đạo,...
+FIMS
+Hàng tháng
+Ban An toàn chất lượng
+GRI 403-2
+Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Thống kê các mối nguy và sự cố an toàn khai thác bay phát sinh trong kỳ báo cáo, bao gồm các sự cố do va chạm chim bay và sét đánh.
+VHAT
+Hàng ngày
+Ban An toàn chất lượng
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 5.1
+Tổng tàu bay hoạt động (Total aircraft)
+Không có.
+Thời gian (Năm, Quý, Tháng, Ngày), Kiểu/Loại tàu bay
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Data Warehouse
+Excel
+CT 5.2
+Cơ cấu chứng chỉ tiếng ồn (Distribution of noise certification categories)
+Tỷ lệ % của Loại Chapter / Tổng số đội tàu bay.
+Thời gian (Năm, Quý, Tháng, Ngày), Kiểu/Loại tàu bay
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Data Warehouse
+Excel
+CT 5.3
+Chứng nhận tiếng ồn máy bay theo năm (Aircraft noise certification by year)
+Không có.
+Thời gian (Năm, Quý, Tháng, Ngày), Kiểu/Loại tàu bay
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Data Warehouse
+Excel
+CT 5.4
+Chứng chỉ tiếng ồn theo loại máy bay (Noise certification by aircraft type)
+Không có.
+Thời gian (Năm, Quý, Tháng, Ngày), Kiểu/Loại tàu bay
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Data Warehouse
+Excel
+CT 5.5
+Tổng nhiên liệu tiêu thụ (Total Fuel Consumption)
+Tổng nhiên liệu tiêu thụ là tổng lượng nhiên liệu đã nạp trên tất cả chuyến bay theo hóa đơn.
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.6
+Nhiên liệu tiêu thụ Jet A-1 (Jet A-1 Fuel Consumption)
+Nhiên liệu tiêu thụ Jet A-1 = Tổng nhiên liệu tiêu thụ (Tấn) - Lượng SAF nguyên chất (Tấn)
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.7
+Nhiên liệu tiêu thụ SAF (Neat SAF Consumption)
+Nhiên liệu tiêu thụ SAF = Tổng lượng SAF nguyên chất được xác định trong chứng nhận từ nhà cung cấp tại các sân bay.
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.8
+Tổng năng lượng tiêu thụ tương đương (Total Equivalent Fuel Consumption)
+Tổng nhiên liệu tiêu thụ tương đương = Tổng nhiên liệu tiêu thụ (Tấn) * Hệ số quy đổi Tấn sang TOE
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.9
+Tổng phát thải khí nhà kính (Total GHG Emissions)
+Tổng phát thải khí nhà kính = Phát thải khí CO2 (tCO2e) + Phát thải khí CH4 (tCO2e) + Phát thải khí N2O (tCO2e)
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.10
+Phát thải CO2 (CO2 Emissions)
+Phát thải CO2 = Nhiên liệu tiêu thụ Jet A-1 (Tấn) * Hệ số phát thải CO2
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.11
+Phát thải CH4 (CH4 Emissions)
+Phát thải CH4 = Nhiên liệu tiêu thụ Jet A-1 (Tấn) / 1000000 * NCV * Hệ số phát thải CH4 * GWP*CH4
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.12
+Phát thải N2O (N2O Emissions)
+Phát thải N2O = Nhiên liệu tiêu thụ Jet A-1 (Tấn) / 1000000 * NCV * Hệ số phát thải N2O * GWP*N2O
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.13
+Tổng phát thải nhà kính theo năm (Annual GHG Emissions)
+Không có
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.14
+Cường độ phát thải nhà kính theo năm (Annual Emissions Intensity)
+Cường độ phát thải khí nhà kính = Tổng phát thải khí nhà kính / Tổng RTK
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS, RPS
+CT 5.15
+Tổng phát thải nhà kính theo tháng (Monthly GHG Emissions)
+Không có
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.16
+Tổng phát thải nhà kính theo loại tàu bay (GHG Emissions by Aircraft Type)
+Không có
+Thời gian (Năm), Loại tàu bay, Chặng bay, Khu vực
+Hàng tháng
+Data Warehouse
+FIMS
+CT 5.17
+Tổng số chuyến bay (Total flights)
+Không có.
+Thời gian (Năm)
+Hàng ngày
+Data Warehouse
+VHAT
+CT 5.18
+Số mối nguy do chim va chạm (Bird strike hazards)
+Không có.
+Thời gian (Năm)
+Hàng ngày
+Data Warehouse
+VHAT
+CT 5.19
+Số mối nguy do sét đánh (Lightning strike hazards)
+Không có.
+Thời gian (Năm)
+Hàng ngày
+Data Warehouse
+VHAT
+CT 5.20
+Số lượng chuyến bay và số sự cố theo tháng (Monthly Flights and Incidents)
+Không có.
+Thời gian (Tháng/Năm), Loại mối nguy
+Hàng ngày
+Data Warehouse
+VHAT
+5.Dữ liệu và tích hợp
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Airline E-1 - Noise - Tiếng ồn
+Thủ công
+2
+Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+Tự động
+3
+GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Tự động
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Airline E-1 - Noise - Tiếng ồn
+x
+2
+Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa
+3
+GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Tổng tàu bay hoạt động (Total aircraft)
+Excel
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Thủ công
+2
+Cơ cấu chứng chỉ tiếng ồn (Distribution of noise certification categories)
+Excel
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Thủ công
+3
+Chứng nhận tiếng ồn máy bay theo năm (Aircraft noise certification by year)
+Excel
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Thủ công
+4
+Chứng chỉ tiếng ồn theo loại máy bay (Noise certification by aircraft type)
+Excel
+Theo giấy chứng nhận nhà khai thác (AOC) cập nhật
+Thủ công
+5
+Tổng nhiên liệu tiêu thụ (Total Fuel Consumption)
+FIMS
+Hàng tháng
+Tự động
+6
+Nhiên liệu tiêu thụ Jet A-1 (Jet A-1 Fuel Consumption)
+FIMS
+Hàng tháng
+Tự động
+7
+Nhiên liệu tiêu thụ SAF (Neat SAF Consumption)
+FIMS
+Hàng tháng
+Tự động
+8
+Tổng năng lượng tiêu thụ tương đương (Total Equivalent Fuel Consumption)
+FIMS
+Hàng tháng
+Tự động
+9
+Tổng phát thải khí nhà kính (Total GHG Emissions)
+FIMS
+Hàng tháng
+Tự động
+10
+Phát thải CO2 (CO2 Emissions)
+FIMS
+Hàng tháng
+Tự động
+11
+Phát thải CH4 (CH4 Emissions)
+FIMS
+Hàng tháng
+Tự động
+12
+Phát thải N2O (N2O Emissions)
+FIMS
+Hàng tháng
+Tự động
+13
+Tổng phát thải nhà kính theo năm (Annual GHG Emissions)
+FIMS
+Hàng tháng
+Tự động
+14
+Cường độ phát thải nhà kính theo năm (Annual Emissions Intensity)
+FIMS, RPS
+Hàng tháng
+Tự động
+15
+Tổng phát thải nhà kính theo tháng (Monthly GHG Emissions)
+FIMS
+Hàng tháng
+Tự động
+16
+Tổng phát thải nhà kính theo loại tàu bay (GHG Emissions by Aircraft Type)
+FIMS
+Hàng tháng
+Tự động
+17
+Tổng số chuyến bay (Total flights)
+VHAT
+Hàng ngày
+Tự động
+18
+Số mối nguy do chim va chạm (Bird strike hazards)
+VHAT
+Hàng ngày
+Tự động
+19
+Số mối nguy do sét đánh (Lightning strike hazards)
+VHAT
+Hàng ngày
+Tự động
+20
+Số lượng chuyến bay và số sự cố theo tháng (Monthly Flights and Incidents)
+VHAT
+Hàng ngày
+Tự động
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-ATCL-WEB-01
+Nhập liệu chỉ số tiếng ồn & phát thải.
+Cao
+Form nhập liệu gồm: Chỉ số tiếng ồn sân bay (noiseLevel) lấy từ AMOS, Lượng phát thải Scope 1 Domestic (ghgEmissions) lấy từ FIMS/Excel.
+YCQ-ATCL-WEB-02
+Nhật ký sự cố an toàn (GRI 403-2).
+Cao
+Giao diện bảng cho phép thêm mới, sửa đổi danh sách sự cố an toàn lao động/dịch vụ gồm: Mã sự cố, Ngày xảy ra, Tiêu đề sự cố, Trạng thái xử lý (Open | Investigating | Closed).
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-ATCL-WEB-01
+Hình 01: Màn hình Nhập liệu ATCL
+Số liệu mức ồn và khí thải
+Kiểm thử nhập chỉ số ồn sân bay và lượng phát thải Scope 1.
+YCQ-ATCL-WEB-02
+Hình 02: Màn hình Nhật ký sự cố an toàn
+Danh sách sự cố an toàn
+Kiểm thử nhập thông tin sự cố an toàn lao động và đổi trạng thái xử lý.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN ATCL
+1. Thông tin chung
+Ban An toàn chất lượng (Ban ATCL).
+Tính năng nhập tiếng ồn sân bay, phát thải nội địa và nhật ký sự cố an toàn.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng nhập mức ồn sân bay (Airline E-1), lượng phát thải Scope 1 Domestic và nhật ký sự cố an toàn lao động (GRI 403-2) của Ban ATCL.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-ATCL-WEB-01
+Kiểm thử nhập mức ồn và phát thải
+Nhập mức ồn 85dB và lượng khí thải 12500 tấn CO2, kiểm tra ghi nhận dữ liệu.
+Đạt
+—
+Hoàn thành
+YCQ-ATCL-WEB-02
+Kiểm thử nhật ký sự cố
+Nhập một vụ tai nạn lao động tại sân đỗ, kiểm tra lưu trữ và theo dõi biểu đồ sự cố.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Ban ATCL
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

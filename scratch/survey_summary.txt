@@ -1,0 +1,2303 @@
+================================================================================
+BÁO CÁO KHẢO SÁT: 1.Ban ATCL_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 8: I. Thành phần tham dự gồm:
+Paragraph 9: 1. Phía VNA
+Paragraph 11: 2. Phía Aequitas
+Paragraph 16: II. Nội dung khảo sát:
+Paragraph 17: 1. Mục đích cuộc họp
+Paragraph 22: 2. Nội dung cuộc họp
+Paragraph 24: Xác nhận số hóa:
+Paragraph 29: 3. Kết luận chính sau phiên làm việc:
+Paragraph 33: PHỤ LỤC 01
+Paragraph 34: DANH MỤC CÁC CHỈ TIÊU
+Paragraph 35: STT
+Paragraph 60: GRI 403-2
+Paragraph 64: CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+Paragraph 65: I. Định nghĩa chỉ tiêu
+Paragraph 66: 1.1. Chỉ tiêu Airline E-1 - Noise - Tiếng ồn
+Paragraph 78: 1. Tổng quan về Chỉ tiêu Airline E-1
+Paragraph 80: 2. Áp dụng Airline E-1 trong ngành hàng không
+Paragraph 82: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 87: 4. Danh sách chỉ tiêu thành phần
+Paragraph 106: 1. Tổng quan về Chỉ tiêu
+Paragraph 110: 2. Áp dụng trong ngành hàng không
+Paragraph 112: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 115: 4. Danh sách chỉ tiêu thành phần
+Paragraph 129: 1.3. Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Paragraph 131: GRI 403-2
+Paragraph 141: 1. Tổng quan về Chỉ tiêu GRI 403-2
+Paragraph 143: 2. Áp dụng trong ngành hàng không
+Paragraph 146: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 152: 4. Danh sách chỉ tiêu thành phần
+Paragraph 158: II. Chi tiết nghiệp vụ
+Paragraph 159: 2.1. Chỉ tiêu Airline E-1 - Noise - Tiếng ồn
+Paragraph 162: CT 5.1
+Paragraph 163: 1. Tên chỉ tiêu: Total aircraft - Tổng tàu bay
+Paragraph 164: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 165: 2.1. Định nghĩa/Diễn giải:
+Paragraph 167: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 169: 3. Công thức tính:
+Paragraph 171: 4. Chiều tổng hợp dữ liệu:
+Paragraph 173: 5. Nguồn dữ liệu:
+Paragraph 175: 6. Tần suất cập nhật:. Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+Paragraph 176: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 177: 8. Những thông tin khác:
+Paragraph 179: CT 5.2
+Paragraph 180: 1. Tên chỉ tiêu: Distribution of noise certification categories - Cơ cấu chứng chỉ tiếng ồn
+Paragraph 181: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 182: 2.1. Định nghĩa/Diễn giải:
+Paragraph 184: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 186: 3. Công thức tính:
+Paragraph 188: 4. Chiều tổng hợp dữ liệu:
+Paragraph 190: 5. Nguồn dữ liệu:
+Paragraph 192: 6. Tần suất cập nhật: Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+Paragraph 193: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 194: 8. Những thông tin khác:
+Paragraph 196: CT 5.3
+Paragraph 197: 1. Tên chỉ tiêu: Aircraft noise certification by year - Chứng nhận tiếng ồn máy bay theo năm
+Paragraph 198: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 199: 2.1. Định nghĩa/Diễn giải:
+Paragraph 201: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 203: 3. Công thức tính:
+Paragraph 205: 4. Chiều tổng hợp dữ liệu:
+Paragraph 207: 5. Nguồn dữ liệu:
+Paragraph 209: 6. Tần suất cập nhật: Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+Paragraph 210: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 211: 8. Những thông tin khác:
+Paragraph 213: CT 5.4
+Paragraph 214: 1. Tên chỉ tiêu: Noise certification by aircraft type - Chứng chỉ tiếng ồn theo loại máy bay
+Paragraph 215: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 216: 2.1. Định nghĩa/Diễn giải:
+Paragraph 218: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 220: 3. Công thức tính:
+Paragraph 222: 4. Chiều tổng hợp dữ liệu:
+Paragraph 224: 5. Nguồn dữ liệu:
+Paragraph 226: 6. Tần suất cập nhật: Theo giấy chứng nhận nhà khai thác (AOC) cập nhật.
+Paragraph 227: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 228: 8. Những thông tin khác:
+Paragraph 233: CT 5.5
+Paragraph 234: 1. Tên chỉ tiêu: Total Fuel Consumption - Tổng nhiên liệu tiêu thụ
+Paragraph 235: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 236: 2.1. Định nghĩa/Diễn giải:
+Paragraph 240: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 242: 3. Công thức tính: Tổng nhiên liệu tiêu thụ là tổng lượng nhiên liệu đã nạp trên tất cả chuyến bay theo hóa đơn.
+Paragraph 243: 4. Chiều tổng hợp dữ liệu:
+Paragraph 248: 5. Nguồn dữ liệu: FIMS
+Paragraph 249: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 250: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 251: 8. Những thông tin khác:
+Paragraph 253: CT 5.6
+Paragraph 254: 1. Tên chỉ tiêu: Jet A-1 Fuel Consumption - Nhiên liệu tiêu thụ Jet A-1
+Paragraph 255: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 256: 2.1. Định nghĩa/Diễn giải:
+Paragraph 258: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 260: 3. Công thức tính: Nhiên liệu tiêu thụ Jet A-1 = Tổng nhiên liệu tiêu thụ (Tấn) - Lượng SAF nguyên chất (Tấn)
+Paragraph 261: 4. Chiều tổng hợp dữ liệu:
+Paragraph 266: 5. Nguồn dữ liệu: FIMS.
+Paragraph 267: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 268: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 269: 8. Những thông tin khác:
+Paragraph 271: CT 5.7
+Paragraph 272: 1. Tên chỉ tiêu: Neat SAF Consumption - Nhiên liệu tiêu thụ SAF
+Paragraph 273: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 274: 2.1. Định nghĩa/Diễn giải:
+Paragraph 277: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 279: 3. Công thức tính: Nhiên liệu tiêu thụ SAF = Tổng lượng SAF nguyên chất được xác định trong chứng nhận từ nhà cung cấp tại các sân bay.
+Paragraph 280: 4. Chiều tổng hợp dữ liệu:
+Paragraph 285: 5. Nguồn dữ liệu: FIMS.
+Paragraph 286: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 287: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 288: 8. Những thông tin khác:
+Paragraph 290: CT 5.8
+Paragraph 291: 1. Tên chỉ tiêu: Total Equivalent Fuel Consumption - Tổng năng lượng tiêu thụ tương đương
+Paragraph 292: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 293: 2.1. Định nghĩa/Diễn giải:
+Paragraph 296: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 298: 3. Công thức tính: Tổng nhiên liệu tiêu thụ tương đương = Tổng nhiên liệu tiêu thụ (Tấn) * Hệ số quy đổi Tấn sang TOE
+Paragraph 299: 4. Chiều tổng hợp dữ liệu:
+Paragraph 304: 5. Nguồn dữ liệu: FIMS.
+Paragraph 305: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 306: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 307: 8. Những thông tin khác:
+Paragraph 309: CT 5.9
+Paragraph 310: 1. Tên chỉ tiêu: Total Total GHG Emissions - Tổng phát thải khí nhà kính
+Paragraph 311: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 312: 2.1. Định nghĩa/Diễn giải:
+Paragraph 316: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 318: 3. Công thức tính: Tổng phát thải khí nhà kính = Phát thải khí CO2 (tCO2e) + Phát thải khí CH4 (tCO2e) + Phát thải khí N2O (tCO2e)
+Paragraph 319: 4. Chiều tổng hợp dữ liệu:
+Paragraph 324: 5. Nguồn dữ liệu: FIMS.
+Paragraph 325: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 326: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 327: 8. Những thông tin khác:
+Paragraph 329: CT 5.10
+Paragraph 330: 1. Tên chỉ tiêu: CO2 Emissions - Phát thải CO2
+Paragraph 331: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 332: 2.1. Định nghĩa/Diễn giải:
+Paragraph 334: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 336: 3. Công thức tính: Phát thải CO2 = Nhiên liệu tiêu thụ Jet A-1 (Tấn) * Hệ số phát thải CO2
+Paragraph 337: 4. Chiều tổng hợp dữ liệu:
+Paragraph 342: 5. Nguồn dữ liệu: FIMS.
+Paragraph 343: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 344: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 345: 8. Những thông tin khác:
+Paragraph 347: CT 5.11
+Paragraph 348: 1. Tên chỉ tiêu: CH4 Emissions - Phát thải CH4
+Paragraph 349: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 350: 2.1. Định nghĩa/Diễn giải:
+Paragraph 353: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 355: 3. Công thức tính: Phát thải CH4 = Nhiên liệu tiêu thụ Jet A-1 (Tấn) / 1000000 * NCV * Hệ số phát thải CH4 * GWP*CH4
+Paragraph 356: 4. Chiều tổng hợp dữ liệu:
+Paragraph 361: 5. Nguồn dữ liệu: FIMS.
+Paragraph 362: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 363: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 364: 8. Những thông tin khác:
+Paragraph 366: CT 5.12
+Paragraph 367: 1. Tên chỉ tiêu: N2O Emissions - Phát thải N2O
+Paragraph 368: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 369: 2.1. Định nghĩa/Diễn giải:
+Paragraph 372: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 374: 3. Công thức tính: Phát thải N2O = Nhiên liệu tiêu thụ Jet A-1 (Tấn) / 1000000 * NCV * Hệ số phát thải N2O * GWP*N2O
+Paragraph 375: 4. Chiều tổng hợp dữ liệu:
+Paragraph 380: 5. Nguồn dữ liệu: FIMS.
+Paragraph 381: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 382: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 383: 8. Những thông tin khác:
+Paragraph 385: CT 5.13
+Paragraph 386: 1. Tên chỉ tiêu: Annual GHG Emissions - Tổng phát thải nhà kính theo năm
+Paragraph 387: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 388: 2.1. Định nghĩa/Diễn giải:
+Paragraph 390: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 392: 3. Công thức tính: Không có
+Paragraph 393: 4. Chiều tổng hợp dữ liệu:
+Paragraph 398: 5. Nguồn dữ liệu: FIMS.
+Paragraph 399: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 400: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 401: 8. Những thông tin khác:
+Paragraph 403: CT 5.14
+Paragraph 404: 1. Tên chỉ tiêu: Annual Emissions Intensity - Cường độ phát thải nhà kính theo năm
+Paragraph 405: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 406: 2.1. Định nghĩa/Diễn giải:
+Paragraph 409: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 411: 3. Công thức tính: Cường độ phát thải khí nhà kính = Tổng phát thải khí nhà kính / Tổng RTK
+Paragraph 412: 4. Chiều tổng hợp dữ liệu:
+Paragraph 417: 5. Nguồn dữ liệu:
+Paragraph 419: RTK: RPS
+Paragraph 420: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 421: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 422: 8. Những thông tin khác:
+Paragraph 424: CT 5.15
+Paragraph 425: 1. Tên chỉ tiêu: Monthly GHG Emissions - Tổng phát thải nhà kính theo tháng
+Paragraph 426: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 427: 2.1. Định nghĩa/Diễn giải:
+Paragraph 429: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 431: 3. Công thức tính: Không có
+Paragraph 432: 4. Chiều tổng hợp dữ liệu:
+Paragraph 437: 5. Nguồn dữ liệu: FIMS.
+Paragraph 438: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 439: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 440: 8. Những thông tin khác:
+Paragraph 442: CT 5.16
+Paragraph 443: 1. Tên chỉ tiêu: GHG Emissions by Aircraft Type - Tổng phát thải nhà kính theo loại tàu bay
+Paragraph 444: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 445: 2.1. Định nghĩa/Diễn giải:
+Paragraph 447: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 450: 3. Công thức tính: Không có
+Paragraph 451: 4. Chiều tổng hợp dữ liệu:
+Paragraph 456: 5. Nguồn dữ liệu: FIMS.
+Paragraph 457: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 458: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 459: 8. Những thông tin khác:
+Paragraph 461: 2.3. Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố
+Paragraph 464: CT 5.17
+Paragraph 465: 1. Tên chỉ tiêu: Total flights – Tổng số chuyến bay
+Paragraph 466: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 467: 2.1. Định nghĩa/Diễn giải:
+Paragraph 469: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 471: 3. Công thức tính: Không có.
+Paragraph 472: 4. Chiều tổng hợp dữ liệu:
+Paragraph 474: 5. Nguồn dữ liệu: AQD.
+Paragraph 475: 6. Tần suất cập nhật: Hàng ngày.
+Paragraph 476: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 477: 8. Những thông tin khác:
+Paragraph 479: CT 5.18
+Paragraph 480: 1. Tên chỉ tiêu: Bird strike hazards - Số mối nguy do chim va chạm
+Paragraph 481: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 482: 2.1. Định nghĩa/Diễn giải:
+Paragraph 484: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 486: 3. Công thức tính: Không có.
+Paragraph 487: 4. Chiều tổng hợp dữ liệu:
+Paragraph 489: 5. Nguồn dữ liệu: AQD.
+Paragraph 490: 6. Tần suất cập nhật: Hàng ngày.
+Paragraph 491: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 492: 8. Những thông tin khác:
+Paragraph 494: CT 5.19
+Paragraph 495: 1. Tên chỉ tiêu: Lightning strike hazards - Số mối nguy do sét đánh
+Paragraph 496: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 497: 2.1. Định nghĩa/Diễn giải:
+Paragraph 499: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 501: 3. Công thức tính: Không có.
+Paragraph 502: 4. Chiều tổng hợp dữ liệu:
+Paragraph 504: 5. Nguồn dữ liệu: AQD.
+Paragraph 505: 6. Tần suất cập nhật: Hàng ngày.
+Paragraph 506: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 507: 8. Những thông tin khác:
+Paragraph 509: CT 5.20
+Paragraph 510: 1. Tên chỉ tiêu: Monthly Flights and Incidents - Số lượng chuyến bay và số sự cố theo tháng
+Paragraph 511: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 512: 2.1. Định nghĩa/Diễn giải:
+Paragraph 514: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 517: 3. Công thức tính: Không có.
+Paragraph 518: 4. Chiều tổng hợp dữ liệu:
+Paragraph 521: 5. Nguồn dữ liệu: AQD.
+Paragraph 522: 6. Tần suất cập nhật: Hàng ngày.
+Paragraph 523: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 524: 8. Những thông tin khác:
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 2.Ban CĐSCN_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 8: I. Thành phần tham dự gồm:
+Paragraph 9: 1. Phía VNA
+Paragraph 11: 2. Phía Aequitas
+Paragraph 14: II. Nội dung khảo sát:
+Paragraph 15: 1. Mục đích cuộc họp
+Paragraph 20: 2. Nội dung cuộc họp
+Paragraph 22: Xác nhận số hóa: Chỉ tiêu GRI 418-1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+Paragraph 27: 3. Kết luận chính sau phiên làm việc:
+Paragraph 31: PHỤ LỤC 01
+Paragraph 32: DANH MỤC CÁC CHỈ TIÊU
+Paragraph 33: STT
+Paragraph 44: GRI 418-1
+Paragraph 48: CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+Paragraph 49: I. Định nghĩa chỉ tiêu
+Paragraph 52: GRI 418-1
+Paragraph 64: 1. Tổng quan về Chỉ tiêu GRI 418-1
+Paragraph 66: 2. Áp dụng GRI 418-1 trong ngành hàng không
+Paragraph 68: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 70: 4. Danh sách chỉ tiêu thành phần
+Paragraph 77: II. Chi tiết nghiệp vụ
+Paragraph 81: CT 8.1
+Paragraph 82: 1. Tên chỉ tiêu: Total number of complaints - Tổng số khiếu nại
+Paragraph 83: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 84: 2.1. Định nghĩa/Diễn giải:
+Paragraph 86: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 88: 3. Công thức tính:
+Paragraph 90: 4. Chiều tổng hợp dữ liệu:
+Paragraph 92: 5. Nguồn dữ liệu:
+Paragraph 94: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 95: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 96: 8. Những thông tin khác:
+Paragraph 98: CT 8.2
+Paragraph 99: 1. Tên chỉ tiêu: Number of privacy breach incidents - Số vụ vi phạm quyền riêng tư
+Paragraph 100: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 101: 2.1. Định nghĩa/Diễn giải:
+Paragraph 103: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 105: 3. Công thức tính:
+Paragraph 107: 4. Chiều tổng hợp dữ liệu:
+Paragraph 109: 5. Nguồn dữ liệu:
+Paragraph 111: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 112: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 113: 8. Những thông tin khác:
+Paragraph 115: CT 8.3
+Paragraph 116: 1. Tên chỉ tiêu: Number of data loss incidents - Số vụ mất dữ liệu
+Paragraph 117: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 118: 2.1. Định nghĩa/Diễn giải:
+Paragraph 120: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 122: 3. Công thức tính:
+Paragraph 124: 4. Chiều tổng hợp dữ liệu:
+Paragraph 126: 5. Nguồn dữ liệu:
+Paragraph 128: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 129: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 130: 8. Những thông tin khác:
+Paragraph 132: CT 8.4
+Paragraph 133: 1. Tên chỉ tiêu: Number of privacy breach and data loss incidents by month - Số vi phạm quyền riêng tư và mất dữ liệu theo tháng
+Paragraph 134: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 135: 2.1. Định nghĩa/Diễn giải:
+Paragraph 137: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 139: 3. Công thức tính:
+Paragraph 141: 4. Chiều tổng hợp dữ liệu:
+Paragraph 143: 5. Nguồn dữ liệu:
+Paragraph 145: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 146: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 147: 8. Những thông tin khác:
+Paragraph 149: CT 8.5
+Paragraph 150: 1. Tên chỉ tiêu: Distribution of privacy breach and data loss risks - Cơ cấu rủi ro vi phạm quyền riêng tư và mất dữ liệu
+Paragraph 151: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 152: 2.1. Định nghĩa/Diễn giải:
+Paragraph 154: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 156: 3. Công thức tính:
+Paragraph 158: 4. Chiều tổng hợp dữ liệu:
+Paragraph 160: 5. Nguồn dữ liệu:
+Paragraph 162: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 163: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 164: 8. Những thông tin khác:
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 3.Ban TCNL_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 8: I. Thành phần tham dự gồm:
+Paragraph 9: 1. Phía VNA
+Paragraph 13: 2. Phía Aequitas
+Paragraph 21: II. Nội dung khảo sát:
+Paragraph 22: 1. Mục đích cuộc họp
+Paragraph 27: 2. Nội dung cuộc họp
+Paragraph 29: Xác nhận số hóa 9/9 chỉ tiêu báo cáo động, cụ thể:
+Paragraph 40: 3. Kết luận chính sau phiên làm việc:
+Paragraph 44: PHỤ LỤC 01
+Paragraph 45: DANH MỤC CÁC CHỈ TIÊU - BAN TỔ CHỨC NHÂN LỰC
+Paragraph 46: STT
+Paragraph 71: GRI 202-1
+Paragraph 78: GRI 401-1
+Paragraph 85: GRI 403-9
+Paragraph 92: GRI 405-1
+Paragraph 99: GRI 2-7
+Paragraph 106: GRI 404-2
+Paragraph 113: GRI 202-2
+Paragraph 120: GRI 401-2
+Paragraph 127: GRI 403-4
+Paragraph 134: GRI 403-10
+Paragraph 141: GRI 406-1
+Paragraph 148: GRI 2-30
+Paragraph 155: GRI 404-3
+Paragraph 159: CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+Paragraph 161: I. Định nghĩa chỉ tiêu
+Paragraph 162: 1.1. Chỉ tiêu Airline D-1 - Working days lost to strikes - Ngày công mất do đình công
+Paragraph 174: 1. Tổng quan về Chỉ tiêu Airline D-1
+Paragraph 177: 2. Áp dụng Airline D-1 trong ngành hàng không
+Paragraph 179: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 181: 4. Danh sách chỉ tiêu thành phần
+Paragraph 184: 1.2. Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên
+Paragraph 196: 1. Tổng quan về Chỉ tiêu Airline F-2
+Paragraph 199: 2. Áp dụng Airline F-2 trong ngành hàng không
+Paragraph 201: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 206: 4. Danh sách chỉ tiêu thành phần
+Paragraph 214: GRI 202-1
+Paragraph 224: 1. Tổng quan về chỉ tiêu
+Paragraph 226: 2. Áp dụng trong ngành hàng không
+Paragraph 228: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 230: 4. Danh sách chỉ tiêu thành phần
+Paragraph 236: 1.4. Chỉ tiêu GRI 401-1 – New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+Paragraph 238: GRI 401-1
+Paragraph 248: 1. Tổng quan về Chỉ tiêu GRI 401-1
+Paragraph 254: 2. Áp dụng GRI 401-1 trong ngành hàng không
+Paragraph 264: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 267: 4. Danh sách chỉ tiêu thành phần
+Paragraph 287: 1.5. Chỉ tiêu GRI 403-9 - Workrelated injuries - Thương tật do lao động
+Paragraph 289: GRI 403-9
+Paragraph 299: 1. Tổng quan về chỉ tiêu
+Paragraph 301: 2. Áp dụng trong ngành hàng không
+Paragraph 303: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 311: 4. Danh sách chỉ tiêu thành phần
+Paragraph 318: 1.6. Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+Paragraph 320: GRI 405-1
+Paragraph 331: 1. Tổng quan về Chỉ tiêu GRI 405-1
+Paragraph 337: 2. Áp dụng GRI 405-1 trong ngành hàng không
+Paragraph 343: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 346: 4. Danh sách chỉ tiêu thành phần
+Paragraph 352: 1.7. Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức
+Paragraph 354: GRI 2-7
+Paragraph 367: 1. Tổng quan về Chỉ tiêu GRI 2-7
+Paragraph 369: 2. Áp dụng GRI 2-7 trong ngành hàng không
+Paragraph 371: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 374: 4. Danh sách chỉ tiêu thành phần
+Paragraph 387: 1.8. Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Paragraph 389: GRI 404-2
+Paragraph 399: 1. Tổng quan về Chỉ tiêu GRI 404-2
+Paragraph 403: 2. Áp dụng GRI 404-2 trong ngành hàng không
+Paragraph 407: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 410: 4. Danh sách chỉ tiêu thành phần
+Paragraph 418: 1.9. Chỉ tiêu GRI 202-2 - Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Paragraph 420: GRI 202-2
+Paragraph 430: 1. Tổng quan về chỉ tiêu
+Paragraph 432: 2. Áp dụng trong ngành hàng không
+Paragraph 434: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 438: 4. Danh sách chỉ tiêu thành phần
+Paragraph 441: II. Chi tiết nghiệp vụ
+Paragraph 442: 2.1. Chỉ tiêu Airline D-1 - Number of strikes - Số vụ đình công
+Paragraph 445: CT 4.1
+Paragraph 446: 1. Tên chỉ tiêu: Number of strikes - Số vụ đình công
+Paragraph 447: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 448: 2.1. Định nghĩa/Diễn giải:
+Paragraph 450: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 452: 3. Công thức tính:
+Paragraph 454: 4. Chiều tổng hợp dữ liệu:
+Paragraph 456: 5. Nguồn dữ liệu:
+Paragraph 458: 6. Tần suất cập nhật: Khi có phát sinh thực tế.
+Paragraph 459: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 460: 8. Những thông tin khác:
+Paragraph 462: 2.2. Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên
+Paragraph 465: CT 4.2
+Paragraph 466: 1. Tên chỉ tiêu: Overall satisfaction - Mức độ hài lòng chung
+Paragraph 467: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 468: 2.1. Định nghĩa/Diễn giải:
+Paragraph 478: 2.2. Ý nghĩa/Mục đích đo lường:.
+Paragraph 480: 3. Công thức tính:
+Paragraph 482: 4. Chiều tổng hợp dữ liệu:
+Paragraph 484: 5. Nguồn dữ liệu:
+Paragraph 486: 6. Tần suất cập nhật: Tháng 11 hàng năm.
+Paragraph 487: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 488: 8. Những thông tin khác:
+Paragraph 490: CT 4.3
+Paragraph 491: 1. Tên chỉ tiêu: Satisfaction level by division - Mức độ hài lòng theo khối
+Paragraph 492: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 493: 2.1. Định nghĩa/Diễn giải:
+Paragraph 510: 2.2. Ý nghĩa/Mục đích đo lường:.
+Paragraph 512: 3. Công thức tính:
+Paragraph 514: 4. Chiều tổng hợp dữ liệu:
+Paragraph 516: 5. Nguồn dữ liệu:
+Paragraph 518: 6. Tần suất cập nhật: Tháng 11 hàng năm.
+Paragraph 519: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 520: 8. Những thông tin khác:
+Paragraph 522: CT 4.4
+Paragraph 523: 1. Tên chỉ tiêu: Satisfaction level by employment type - Mức độ hài lòng theo đối tượng lao động
+Paragraph 524: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 525: 2.1. Định nghĩa/Diễn giải:
+Paragraph 544: 2.2. Ý nghĩa/Mục đích đo lường:.
+Paragraph 546: 3. Công thức tính:
+Paragraph 548: 4. Chiều tổng hợp dữ liệu:
+Paragraph 550: 5. Nguồn dữ liệu:
+Paragraph 552: 6. Tần suất cập nhật: Tháng 11 hàng năm.
+Paragraph 553: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 554: 8. Những thông tin khác:
+Paragraph 556: CT 4.5
+Paragraph 557: 1. Tên chỉ tiêu: Overall satisfaction across years - Mức độ hài lòng tổng thể qua các năm
+Paragraph 558: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 559: 2.1. Định nghĩa/Diễn giải:
+Paragraph 561: 2.2. Ý nghĩa/Mục đích đo lường:.
+Paragraph 563: 3. Công thức tính:
+Paragraph 565: 4. Chiều tổng hợp dữ liệu:
+Paragraph 567: 5. Nguồn dữ liệu:
+Paragraph 569: 6. Tần suất cập nhật: Tháng 11 hàng năm.
+Paragraph 570: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 571: 8. Những thông tin khác:
+Paragraph 576: CT 4.6
+Paragraph 579: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 581: 3. Công thức tính toán:
+Paragraph 583: 4. Chiều tổng hợp dữ liệu:
+Paragraph 585: 5. Nguồn dữ liệu:
+Paragraph 587: 6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 589: CT 4.7
+Paragraph 592: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 594: 3. Công thức tính toán:
+Paragraph 596: 4. Chiều tổng hợp dữ liệu:
+Paragraph 598: 5. Nguồn dữ liệu:
+Paragraph 600: 6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 602: CT 4.8
+Paragraph 605: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 607: 3. Công thức tính toán:
+Paragraph 609: 4. Chiều tổng hợp dữ liệu:
+Paragraph 611: 5. Nguồn dữ liệu:
+Paragraph 613: 6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 615: CT 4.9
+Paragraph 616: 1. Tên chỉ tiêu: Region 1 minimum wage - Mức lương tối thiểu vùng 12. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 618: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 620: 3. Công thức tính toán:
+Paragraph 622: 4. Chiều tổng hợp dữ liệu:
+Paragraph 624: 5. Nguồn dữ liệu:
+Paragraph 626: 6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 628: CT 4.10
+Paragraph 631: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 633: 3. Công thức tính toán:
+Paragraph 635: 4. Chiều tổng hợp dữ liệu:
+Paragraph 637: 5. Nguồn dữ liệu:
+Paragraph 639: 6. Tần suất cập nhật: Hàng năm.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 641: 2.4. Chỉ tiêu GRI 401-1 – New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+Paragraph 644: CT 4.11
+Paragraph 645: 1. Tên chỉ tiêu: Total New Hires - Tổng số tuyển mới2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 648: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 650: 3. Công thức tính toán: Không có
+Paragraph 651: 4. Chiều tổng hợp dữ liệu:
+Paragraph 653: 5. Nguồn dữ liệu:
+Paragraph 655: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 657: CT 4.12
+Paragraph 658: 1. Tên chỉ tiêu: New Hires by Month - Số tuyển mới theo tháng2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 659: 2.1. Định nghĩa/Diễn giải:
+Paragraph 661: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 663: 3. Công thức tính toán: Không có
+Paragraph 664: 4. Chiều tổng hợp dữ liệu:
+Paragraph 666: 5. Nguồn dữ liệu:
+Paragraph 668: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 670: CT 4.13
+Paragraph 671: 1. Tên chỉ tiêu: New Hires by Age Group - Số tuyển mới theo nhóm tuổi2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 672: 2.1. Định nghĩa/Diễn giải:
+Paragraph 684: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 686: 3. Công thức tính toán: Không có
+Paragraph 687: 4. Chiều tổng hợp dữ liệu:
+Paragraph 689: 5. Nguồn dữ liệu:
+Paragraph 691: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 693: CT 4.14
+Paragraph 694: 1. Tên chỉ tiêu: New Hires by Gender - Số lượng lao động tuyển mới theo giới tính2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 695: 2.1. Định nghĩa/Diễn giải:
+Paragraph 697: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 700: 3. Công thức tính toán: Không có
+Paragraph 701: 4. Chiều tổng hợp dữ liệu:
+Paragraph 703: 5. Nguồn dữ liệu:
+Paragraph 705: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 707: CT 4.15
+Paragraph 708: 1. Tên chỉ tiêu: New Hires by Division - Số lượng lao động tuyển mới theo các khối2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 709: 2.1. Định nghĩa/Diễn giải:
+Paragraph 718: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 720: 3. Công thức tính toán: Không có
+Paragraph 721: 4. Chiều tổng hợp dữ liệu:
+Paragraph 723: 5. Nguồn dữ liệu:
+Paragraph 725: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 727: CT 4.16
+Paragraph 729: 2.1. Định nghĩa/Diễn giải:
+Paragraph 734: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 736: 3. Công thức tính toán: Không có
+Paragraph 737: 4. Chiều tổng hợp dữ liệu:
+Paragraph 739: 5. Nguồn dữ liệu:
+Paragraph 741: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 743: CT 4.17
+Paragraph 744: 1. Tên chỉ tiêu: New Hires by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 745: 2.1. Định nghĩa/Diễn giải:
+Paragraph 752: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 754: 3. Công thức tính toán: Không có
+Paragraph 755: 4. Chiều tổng hợp dữ liệu:
+Paragraph 757: 5. Nguồn dữ liệu:
+Paragraph 759: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 761: CT 4.18
+Paragraph 762: 1. Tên chỉ tiêu: Total Employee Turnover -Tổng số nghỉ việc2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 763: 2.1. Định nghĩa/Diễn giải:
+Paragraph 766: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 768: 3. Công thức tính toán: Không có
+Paragraph 769: 4. Chiều tổng hợp dữ liệu:
+Paragraph 771: 5. Nguồn dữ liệu:
+Paragraph 773: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 775: CT 4.19
+Paragraph 776: 1. Tên chỉ tiêu: Total Employee Voluntary Turnover - Tổng số nghỉ việc tự nguyện
+Paragraph 777: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 778: 2.1. Định nghĩa/Diễn giải:
+Paragraph 780: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 782: 3. Công thức tính toán: Không có
+Paragraph 783: 4. Chiều tổng hợp dữ liệu:
+Paragraph 785: 5. Nguồn dữ liệu:
+Paragraph 787: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 789: CT 4.20
+Paragraph 790: 1. Tên chỉ tiêu: Voluntary Turnover Rate - Tỷ lệ nghỉ việc tự nguyện
+Paragraph 791: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 792: 2.1. Định nghĩa/Diễn giải:
+Paragraph 795: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 798: 4. Chiều tổng hợp dữ liệu:
+Paragraph 800: 5. Nguồn dữ liệu:
+Paragraph 802: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 804: CT 4.21
+Paragraph 805: 1. Tên chỉ tiêu: Employee turnover by month - Số lượng lao động nghỉ việc theo tháng
+Paragraph 806: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 807: 2.1. Định nghĩa/Diễn giải:
+Paragraph 810: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 812: 3. Công thức tính toán: Không có
+Paragraph 813: 4. Chiều tổng hợp dữ liệu:
+Paragraph 815: 5. Nguồn dữ liệu:
+Paragraph 817: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 819: CT 4.22
+Paragraph 820: 1. Tên chỉ tiêu: Employee turnover by Age Group - Số lượng lao động nghỉ việc theo nhóm tuổi
+Paragraph 821: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 822: 2.1. Định nghĩa/Diễn giải:
+Paragraph 834: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 836: 3. Công thức tính toán: Không có
+Paragraph 837: 4. Chiều tổng hợp dữ liệu:
+Paragraph 839: 5. Nguồn dữ liệu:
+Paragraph 841: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 843: CT 4.23
+Paragraph 844: 1. Tên chỉ tiêu: Employee turnover by Tenure - Số lượng lao động nghỉ việc theo thâm niên
+Paragraph 845: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 846: 2.1. Định nghĩa/Diễn giải:
+Paragraph 853: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 855: 3. Công thức tính toán: Không có
+Paragraph 856: 4. Chiều tổng hợp dữ liệu:
+Paragraph 858: 5. Nguồn dữ liệu:
+Paragraph 860: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 862: CT 4.24
+Paragraph 863: 1. Tên chỉ tiêu: Employee turnover by Gender - Số lượng lao động nghỉ việc theo giới tính
+Paragraph 864: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 865: 2.1. Định nghĩa/Diễn giải:
+Paragraph 867: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 869: 3. Công thức tính toán: Không có
+Paragraph 870: 4. Chiều tổng hợp dữ liệu:
+Paragraph 872: 5. Nguồn dữ liệu:
+Paragraph 874: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 876: CT 4.25
+Paragraph 877: 1. Tên chỉ tiêu: Employee turnover by Division- Số lượng lao động nghỉ việc theo khối
+Paragraph 878: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 879: 2.1. Định nghĩa/Diễn giải:
+Paragraph 888: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 890: 3. Công thức tính toán: Không có
+Paragraph 891: 4. Chiều tổng hợp dữ liệu:
+Paragraph 893: 5. Nguồn dữ liệu:
+Paragraph 895: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 897: CT 4.26
+Paragraph 898: 1. Tên chỉ tiêu: Employee turnover by Recruitment Region - Số lượng lao động nghỉ việc theo khu vực tuyển dụng
+Paragraph 899: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 900: 2.1. Định nghĩa/Diễn giải:
+Paragraph 902: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 904: 3. Công thức tính toán: Không có
+Paragraph 905: 4. Chiều tổng hợp dữ liệu:
+Paragraph 907: 5. Nguồn dữ liệu:
+Paragraph 909: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 911: CT 4.27
+Paragraph 913: 2.1. Định nghĩa/Diễn giải:
+Paragraph 920: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 922: 3. Công thức tính toán: Không có
+Paragraph 923: 4. Chiều tổng hợp dữ liệu:
+Paragraph 925: 5. Nguồn dữ liệu:
+Paragraph 927: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 929: CT 4.28
+Paragraph 931: 2.1. Định nghĩa/Diễn giải:
+Paragraph 933: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 935: 3. Công thức tính toán: Không có
+Paragraph 936: 4. Chiều tổng hợp dữ liệu:
+Paragraph 938: 5. Nguồn dữ liệu:
+Paragraph 940: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 942: 2.5. Chỉ tiêu GRI 403-9 - Workrelated injuries - Thương tật do lao động
+Paragraph 945: CT 4.29
+Paragraph 946: 1. Tên chỉ tiêu:  Total accidents - Tổng số vụ tai nạn lao động2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 948: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 950: 3. Công thức tính toán:
+Paragraph 952: 4. Chiều tổng hợp dữ liệu:
+Paragraph 954: 5. Nguồn dữ liệu:
+Paragraph 956: 6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 958: CT 4.30
+Paragraph 959: 1. Tên chỉ tiêu: Number of injured people - Số người bị thương2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 960: 2.1. Định nghĩa/Diễn giải:
+Paragraph 962: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 964: 3. Công thức tính toán: Không có
+Paragraph 965: 4. Chiều tổng hợp dữ liệu:
+Paragraph 967: 5. Nguồn dữ liệu:
+Paragraph 969: 6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 971: CT 4.31
+Paragraph 972: 1. Tên chỉ tiêu: Number of fatal accidents - Số vụ có người chết2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 974: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 976: 3. Công thức tính toán: Không có.
+Paragraph 977: 4. Chiều tổng hợp dữ liệu:
+Paragraph 979: 5. Nguồn dữ liệu:
+Paragraph 981: 6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 983: CT 4.32
+Paragraph 984: 1. Tên chỉ tiêu: Number of deaths - Số người chết2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 985: 2.1. Định nghĩa/Diễn giải:
+Paragraph 987: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 989: 3. Công thức tính toán: Không có
+Paragraph 990: 4. Chiều tổng hợp dữ liệu:
+Paragraph 992: 5. Nguồn dữ liệu:
+Paragraph 994: 6. Tần suất cập nhật: 6 tháng/lần.7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 996: CT 4.33
+Paragraph 997: 1. Tên chỉ tiêu: Distribution of injury factors - Cơ cấu yếu tố gây chấn thương
+Paragraph 998: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 999: 2.1. Định nghĩa/Diễn giải:
+Paragraph 1001: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1003: 3. Công thức tính toán:Không có
+Paragraph 1004: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1006: 5. Nguồn dữ liệu:
+Paragraph 1008: 6. Tần suất cập nhật: 6 tháng/lần.
+Paragraph 1009: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 1010: 8. Những thông tin khác: Không có
+Paragraph 1011: CT 4.34
+Paragraph 1012: 1. Tên chỉ tiêu: Distribution of accident causes - Cơ cấu nguyên nhân xảy ra tai nạn
+Paragraph 1013: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 1014: 2.1. Định nghĩa/Diễn giải:
+Paragraph 1016: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1018: 3. Công thức tính toán:Không có
+Paragraph 1019: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1021: 5. Nguồn dữ liệu:
+Paragraph 1023: 6. Tần suất cập nhật: 6 tháng/lần.
+Paragraph 1024: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 1025: 2.6. Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+Paragraph 1028: CT 4.35
+Paragraph 1032: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1035: 3. Công thức tính toán: Không có
+Paragraph 1036: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1038: 5. Nguồn dữ liệu:
+Paragraph 1040: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1042: CT 4.36
+Paragraph 1043: 1. Tên chỉ tiêu: Female Ratio - Tỷ lệ thành viên nữ2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 1045: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1048: 3. Công thức tính toán: Tỷ lệ thành viên nữ = Số thành viên nữ trong cơ quan quản trị / Tổng số thành viên trong cơ quan quản trị
+Paragraph 1049: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1051: 5. Nguồn dữ liệu:
+Paragraph 1053: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1055: CT 4.37
+Paragraph 1058: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1060: 3. Công thức tính toán: Không có
+Paragraph 1061: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1063: 5. Nguồn dữ liệu:
+Paragraph 1065: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1067: CT 4.38
+Paragraph 1070: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1072: 3. Công thức tính toán: Không có
+Paragraph 1073: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1075: 5. Nguồn dữ liệu:
+Paragraph 1077: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1079: 2.7. Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức
+Paragraph 1082: CT 4.39
+Paragraph 1083: 1. Tên chỉ tiêu: Total Employee - Tổng số nhân sự2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 1085: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1087: 3. Công thức tính toán: Không có
+Paragraph 1088: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1090: 5. Nguồn dữ liệu:
+Paragraph 1092: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1094: CT 4.40
+Paragraph 1095: 1. Tên chỉ tiêu: Female Ratio - Tỷ lệ nhân sự nữ2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 1097: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1100: 3. Công thức tính toán: Tỷ lệ nhân sự nữ = Tổng số nhân sự nữ / Bình quân lao động
+Paragraph 1101: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1103: 5. Nguồn dữ liệu:
+Paragraph 1105: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1107: CT 4.41
+Paragraph 1108: 1. Tên chỉ tiêu: Female Management Ratio - Tỷ lệ cán bộ quản lý nữ2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 1110: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1112: 3. Công thức tính toán: Tỷ lệ cán bộ quản lý nữ = Tổng số cán bộ quản lý là nữ / Lao động bình quân
+Paragraph 1113: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1115: 5. Nguồn dữ liệu:
+Paragraph 1117: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1119: CT 4.42
+Paragraph 1120: 1. Tên chỉ tiêu: Average Employee - Lao động bình quân2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 1123: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1125: 3. Công thức tính toán: Không có
+Paragraph 1126: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1128: 5. Nguồn dữ liệu:
+Paragraph 1130: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1132: CT 4.43
+Paragraph 1135: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1137: 3. Công thức tính toán: Không có
+Paragraph 1138: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1140: 5. Nguồn dữ liệu:
+Paragraph 1142: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1144: CT 4.44
+Paragraph 1156: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1158: 3. Công thức tính toán: Không có
+Paragraph 1159: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1161: 5. Nguồn dữ liệu:
+Paragraph 1163: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1165: CT 4.45
+Paragraph 1168: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1170: 3. Công thức tính toán: Không có
+Paragraph 1171: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1173: 5. Nguồn dữ liệu:
+Paragraph 1175: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1177: CT 4.46
+Paragraph 1180: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1182: 3. Công thức tính toán: Không có
+Paragraph 1183: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1185: 5. Nguồn dữ liệu:
+Paragraph 1187: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1189: CT 4.47
+Paragraph 1196: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1198: 3. Công thức tính toán: Không có
+Paragraph 1199: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1201: 5. Nguồn dữ liệu:
+Paragraph 1203: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1205: CT 4.48
+Paragraph 1206: 1. Tên chỉ tiêu: Number of employees by field - Số lượng lao động theo lĩnh vực
+Paragraph 1209: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1211: 3. Công thức tính toán: Không có
+Paragraph 1212: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1214: 5. Nguồn dữ liệu:
+Paragraph 1216: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 4 (Chưa quan tâm)8. Thông tin khác:
+Paragraph 1218: CT 4.49
+Paragraph 1227: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1229: 3. Công thức tính toán: Không có
+Paragraph 1230: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1232: 5. Nguồn dữ liệu:
+Paragraph 1234: 6. Tần suất cập nhật: Ngày.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1236: 2.8. Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Paragraph 1239: CT 4.50
+Paragraph 1242: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1244: 3. Công thức tính toán: Không có
+Paragraph 1245: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1247: 5. Nguồn dữ liệu:
+Paragraph 1249: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1251: CT 4.51
+Paragraph 1252: 1. Tên chỉ tiêu: Total training costs per year - Tổng chi phí đào tạo/năm2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 1254: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1256: 3. Công thức tính toán: Không có
+Paragraph 1257: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1259: 5. Nguồn dữ liệu:
+Paragraph 1261: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1263: CT 4.52
+Paragraph 1266: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1268: 3. Công thức tính toán: Không có
+Paragraph 1269: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1271: 5. Nguồn dữ liệu:
+Paragraph 1273: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1275: CT 4.53
+Paragraph 1278: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1280: 3. Công thức tính toán: Không có
+Paragraph 1281: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1283: 5. Nguồn dữ liệu:
+Paragraph 1285: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1287: CT 4.54
+Paragraph 1295: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1297: 3. Công thức tính toán: Không có
+Paragraph 1298: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1300: 5. Nguồn dữ liệu:
+Paragraph 1302: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 1304: CT 4.55
+Paragraph 1312: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1314: 3. Công thức tính toán: Không có
+Paragraph 1315: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1317: 5. Nguồn dữ liệu:
+Paragraph 1319: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác:
+Paragraph 1321: 2.9. Chỉ tiêu GRI 202-2 - Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Paragraph 1324: CT 4.56
+Paragraph 1327: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1329: 3. Công thức tính toán: Không có.
+Paragraph 1330: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1332: 5. Nguồn dữ liệu:
+Paragraph 1334: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác: Không có.
+Paragraph 1335: CT 4.57
+Paragraph 1337: 2.1. Định nghĩa/Diễn giải:
+Paragraph 1339: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 1341: 3. Công thức tính toán: Không có.
+Paragraph 1342: 4. Chiều tổng hợp dữ liệu:
+Paragraph 1344: 5. Nguồn dữ liệu:
+Paragraph 1346: 6. Tần suất cập nhật: Tháng.7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác: Không có.
+Paragraph 1350: GRI 401-2
+Paragraph 1363: GRI 403-4
+Paragraph 1374: 3. Chỉ tiêu GRI 403-10 - Workrelated illhealth-Bệnh liên quan đến nghề nghiệp
+Paragraph 1376: GRI 403-10
+Paragraph 1387: 4. Chỉ tiêu GRI 406-1 Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý
+Paragraph 1389: GRI 406-1
+Paragraph 1400: 5. Chỉ tiêu GRI 2-30 Collective bargaining agreements-Thỏa ước lao động tập thể
+Paragraph 1402: GRI 2-30
+Paragraph 1413: 6. Chỉ tiêu GRI 404-3 Percentage of employees receiving regular performance and career development reviews - Phát triển nghề nghiệp
+Paragraph 1415: GRI 404-3
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 4.Tổ Khai thác_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 9: I. Thành phần tham dự gồm:
+Paragraph 10: 1. Phía VNA
+Paragraph 16: 2. Phía Aequitas
+Paragraph 24: II. Nội dung khảo sát:
+Paragraph 25: 1. Mục đích cuộc họp
+Paragraph 28: 2. Nội dung cuộc họp
+Paragraph 30: Xác nhận số hóa 5/6 chỉ tiêu. Trong đó:
+Paragraph 45: 3. Kết luận chính sau phiên làm việc:
+Paragraph 49: PHỤ LỤC 01
+Paragraph 50: DANH MỤC CÁC CHỈ TIÊU
+Paragraph 51: STT
+Paragraph 62: GRI 302-1
+Paragraph 65: OCC
+Paragraph 70: GRI 302-4
+Paragraph 73: OCC
+Paragraph 78: GRI 305-1
+Paragraph 81: OCC
+Paragraph 86: GRI 305-4
+Paragraph 89: OCC
+Paragraph 94: GRI 305-5
+Paragraph 97: OCC
+Paragraph 99: I. Định nghĩa chỉ tiêu
+Paragraph 100: 1.1. Chỉ tiêu GRI 302-1 – Energy consumption within the organization – Năng lượng tiêu thụ trong tổ chức
+Paragraph 102: GRI 302-1
+Paragraph 112: 1. Tổng quan về Chỉ tiêu GRI 302-1
+Paragraph 120: 2. Áp dụng GRI 302-1 trong ngành hàng không
+Paragraph 122: 2.1. Nhiên liệu hóa thạch (Jet A-1)
+Paragraph 127: 2.2. Nhiên liệu hàng không bền vững (SAF)
+Paragraph 133: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 141: 4. Danh sách chỉ tiêu thành phần
+Paragraph 152: 1.2. Chỉ tiêu GRI 302-4 – Reduction of energy consumption – Giảm tiêu thụ năng lượng
+Paragraph 154: GRI 302-4
+Paragraph 164: 1. Tổng quan về Chỉ tiêu GRI 302-4
+Paragraph 167: 2. Áp dụng GRI 302-1 trong ngành hàng không
+Paragraph 175: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 178: 4. Danh sách chỉ tiêu thành phần
+Paragraph 186: 1.3. Chỉ tiêu GRI 305-1 – Direct (Scope 1) GHG emissions – Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+Paragraph 188: GRI 305-1
+Paragraph 199: 1. Tổng quan về Chỉ tiêu GRI 305-1
+Paragraph 206: 2. Áp dụng GRI 305-1 trong ngành hàng không
+Paragraph 214: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 220: 4. Danh sách chỉ tiêu thành phần
+Paragraph 227: 1.4. Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính
+Paragraph 229: GRI 305-4
+Paragraph 239: 1. Tổng quan về Chỉ tiêu GRI 305-4
+Paragraph 247: 2. Áp dụng GRI 305-4 trong ngành hàng không
+Paragraph 249: 2.1. Tử số: Dữ liệu phát thải khí nhà kính Hệ thống sẽ lấy dữ liệu trực tiếp từ các kết quả đo lường tổng phát thải, thông thường bao gồm:
+Paragraph 253: 2.3. Các KPI Cường độ phát thải chính (Intensity Ratios) Dữ liệu đầu ra của hệ thống sẽ tự động tính toán các chỉ số cường độ trọng điểm:
+Paragraph 255: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 261: 4. Danh sách chỉ tiêu thành phần
+Paragraph 268: 1.5. Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính
+Paragraph 270: GRI 305-5
+Paragraph 280: 1. Tổng quan về Chỉ tiêu GRI 305-5.
+Paragraph 285: 2. Áp dụng GRI 305-5 trong ngành hàng không
+Paragraph 293: 2.3. Chuyển đổi năng lượng và Nhiên liệu bền vững (SAF)
+Paragraph 295: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 301: 4. Danh sách chỉ tiêu thành phần
+Paragraph 310: II. Chi tiết nghiệp vụ
+Paragraph 311: 2.1. Chỉ tiêu GRI 302-1 – Energy consumption within the organization – Năng lượng tiêu thụ trong tổ chức
+Paragraph 314: CT 1.1
+Paragraph 315: 1. Tên chỉ tiêu: Total Fuel Consumption – Tổng nhiên liệu tiêu thụ
+Paragraph 316: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 317: 2.1. Định nghĩa/Diễn giải:
+Paragraph 321: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 324: 3. Công thức tính:
+Paragraph 326: 4. Chiều tổng hợp dữ liệu:
+Paragraph 328: 5. Nguồn dữ liệu: FIMS.
+Paragraph 329: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 330: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 331: 8. Những thông tin khác:
+Paragraph 334: CT 1.2
+Paragraph 335: 1. Tên chỉ tiêu: Jet A-1 Fuel Consumption – Nhiên liệu tiêu thụ Jet A-1
+Paragraph 336: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 337: 2.1. Định nghĩa/Diễn giải:
+Paragraph 339: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 341: 3. Công thức tính:
+Paragraph 343: 4. Chiều tổng hợp dữ liệu:
+Paragraph 345: 5. Nguồn dữ liệu:
+Paragraph 348: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 349: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 350: 8. Những thông tin khác:
+Paragraph 352: CT 1.3
+Paragraph 353: 1. Tên chỉ tiêu: SAF Consumption – Nhiên liệu tiêu thụ SAF
+Paragraph 354: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 355: 2.1. Định nghĩa/Diễn giải:
+Paragraph 358: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 361: 3. Công thức tính:
+Paragraph 363: 4. Chiều tổng hợp dữ liệu:
+Paragraph 365: 5. Nguồn dữ liệu:
+Paragraph 367: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 368: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 369: 8. Những thông tin khác:
+Paragraph 371: CT 1.4
+Paragraph 372: 1. Tên chỉ tiêu: Fuel Type Distribution – Tỷ lệ các loại nhiên liệu
+Paragraph 373: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 374: 2.1. Định nghĩa/Diễn giải:
+Paragraph 376: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 378: 3. Công thức tính:
+Paragraph 381: 4. Chiều tổng hợp dữ liệu:
+Paragraph 383: 5. Nguồn dữ liệu:
+Paragraph 385: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 386: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 387: 8. Những thông tin khác:
+Paragraph 389: CT 1.5
+Paragraph 390: 1. Tên chỉ tiêu: Neat SAF Consumption by Ratio – Tiêu thụ SAF theo tỷ lệ pha trộn SAF
+Paragraph 391: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 392: 2.1. Định nghĩa/Diễn giải:
+Paragraph 394: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 397: 3. Công thức tính:
+Paragraph 400: 4. Chiều tổng hợp dữ liệu:
+Paragraph 402: 5. Nguồn dữ liệu:
+Paragraph 404: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 405: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 406: 8. Những thông tin khác:
+Paragraph 408: CT 1.6
+Paragraph 409: 1. Tên chỉ tiêu: Annual Fuel Consumption vs Target – Tiêu thụ nhiên liệu theo năm so với mục tiêu
+Paragraph 410: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 411: 2.1. Định nghĩa/Diễn giải:
+Paragraph 414: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 416: 3. Công thức tính:
+Paragraph 419: 4. Chiều tổng hợp dữ liệu:
+Paragraph 421: 5. Nguồn dữ liệu:
+Paragraph 423: 6. Tần suất cập nhật: Cuối năm (ngày cuối cùng trong năm).
+Paragraph 424: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 425: 8. Những thông tin khác:
+Paragraph 428: CT 1.7
+Paragraph 429: 1. Tên chỉ tiêu: Monthly Fuel Consumption in the Current Year – Tiêu thụ nhiên liệu theo tháng trong năm hiện tại
+Paragraph 430: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 431: 2.1. Định nghĩa/Diễn giải:
+Paragraph 434: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 436: 3. Công thức tính:
+Paragraph 439: 4. Chiều tổng hợp dữ liệu:
+Paragraph 441: 5. Nguồn dữ liệu:
+Paragraph 443: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 444: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 445: 8. Những thông tin khác:
+Paragraph 448: CT 1.8
+Paragraph 449: 1. Tên chỉ tiêu: Annual Jet A-1 Fuel Consumption Trend - Tiêu thụ nhiên liệu Jet A-1 qua các năm
+Paragraph 450: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 451: 2.1. Định nghĩa/Diễn giải:
+Paragraph 453: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 455: 3. Công thức tính:
+Paragraph 457: 4. Chiều tổng hợp dữ liệu:
+Paragraph 459: 5. Nguồn dữ liệu:
+Paragraph 461: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 462: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 463: 8. Những thông tin khác:
+Paragraph 466: CT 1.9
+Paragraph 467: 1. Tên chỉ tiêu: Annual Neat SAF Consumption Trend - Tiêu thụ nhiên liệu SAF qua các năm
+Paragraph 468: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 469: 2.1. Định nghĩa/Diễn giải:
+Paragraph 471: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 473: 3. Công thức tính:
+Paragraph 475: 4. Chiều tổng hợp dữ liệu:
+Paragraph 477: 5. Nguồn dữ liệu:
+Paragraph 479: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 480: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 481: 8. Những thông tin khác:
+Paragraph 484: 2.2. Chỉ tiêu GRI 302-4 – Reduction of energy consumption – Giảm tiêu thụ năng lượng
+Paragraph 487: CT 1.10
+Paragraph 488: 1. Tên chỉ tiêu: Total Energy Saved – Tổng năng lượng tiết kiệm
+Paragraph 489: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 490: 2.1. Định nghĩa/Diễn giải:
+Paragraph 495: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 498: 3. Công thức tính:
+Paragraph 500: 4. Chiều tổng hợp dữ liệu:
+Paragraph 502: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 503: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 504: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 505: 8. Những thông tin khác:
+Paragraph 507: CT 1.11
+Paragraph 508: 1. Tên chỉ tiêu: Total Fuel Savings – Tổng tiết kiệm nhiên liệu
+Paragraph 509: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 510: 2.1. Định nghĩa/Diễn giải:
+Paragraph 513: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 515: 3. Công thức tính: Không có.
+Paragraph 516: 4. Chiều tổng hợp dữ liệu:
+Paragraph 518: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 519: 6. Tần suất cập nhật: Hàng tháng (trước ngày 15 tháng kế tiếp).
+Paragraph 520: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 521: 8. Những thông tin khác:
+Paragraph 523: CT 1.12
+Paragraph 524: 1. Tên chỉ tiêu: Total GHG Emissions Reduction – Tổng giảm phát thải khí nhà kính
+Paragraph 525: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 526: 2.1. Định nghĩa/Diễn giải:
+Paragraph 529: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 531: 3. Công thức tính:
+Paragraph 533: 4. Chiều tổng hợp dữ liệu:
+Paragraph 535: 5. Nguồn dữ liệu:
+Paragraph 537: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 538: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 539: 8. Những thông tin khác:
+Paragraph 542: CT 1.13
+Paragraph 543: 1. Tên chỉ tiêu: Annual Energy Savings vs Target – Năng lượng tiết kiệm theo năm so với mục tiêu
+Paragraph 544: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 545: 2.1. Định nghĩa/Diễn giải:
+Paragraph 550: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 552: 3. Công thức tính: Không có.
+Paragraph 553: 4. Chiều tổng hợp dữ liệu:
+Paragraph 555: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 556: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 557: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 558: 8. Những thông tin khác:
+Paragraph 561: CT 1.14
+Paragraph 562: 1. Tên chỉ tiêu: Annual Fuel Savings vs Target – Kết quả tiết kiệm nhiên liệu theo năm so với mục tiêu
+Paragraph 563: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 564: 2.1. Định nghĩa/Diễn giải:
+Paragraph 569: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 571: 3. Công thức tính: Không có
+Paragraph 572: 4. Chiều tổng hợp dữ liệu:
+Paragraph 574: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 575: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 576: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 577: 8. Những thông tin khác:
+Paragraph 580: CT 1.15
+Paragraph 581: 1. Tên chỉ tiêu: Monthly Energy Savings in the Year – Năng lượng tiết kiệm theo tháng trong năm
+Paragraph 582: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 583: 2.1. Định nghĩa/Diễn giải:
+Paragraph 588: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 590: 3. Công thức tính: Không có
+Paragraph 591: 4. Chiều tổng hợp dữ liệu:
+Paragraph 593: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 594: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 595: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 596: 8. Những thông tin khác:
+Paragraph 598: 2.3. Chỉ tiêu GRI 305-1 – Direct (Scope 1) GHG emissions – Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+Paragraph 601: CT 1.16
+Paragraph 602: 1. Tên chỉ tiêu: Total Emission - Tổng phát thải khí nhà kính
+Paragraph 603: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 604: 2.1. Định nghĩa/Diễn giải:
+Paragraph 606: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 609: 3. Công thức tính:
+Paragraph 611: 4. Chiều tổng hợp dữ liệu:
+Paragraph 613: 5. Nguồn dữ liệu:
+Paragraph 615: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 616: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 617: 8. Những thông tin khác:
+Paragraph 620: CT 1.17
+Paragraph 621: 1. Tên chỉ tiêu: Jet A-1 Emissions - Phát thải Jet A-1
+Paragraph 622: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 623: 2.1. Định nghĩa/Diễn giải:
+Paragraph 626: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 628: 3. Công thức tính:
+Paragraph 630: 4. Chiều tổng hợp dữ liệu:
+Paragraph 632: 5. Nguồn dữ liệu:
+Paragraph 634: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 635: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 636: 8. Những thông tin khác:
+Paragraph 639: CT 1.18
+Paragraph 640: 1. Tên chỉ tiêu: SAF Emissions - Phát thải SAF
+Paragraph 641: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 642: 2.1. Định nghĩa/Diễn giải:
+Paragraph 644: 2.2. Ý nghĩa/Mục đích đo lường:.
+Paragraph 646: 3. Công thức tính:
+Paragraph 651: 4. Chiều tổng hợp dữ liệu:
+Paragraph 653: 5. Nguồn dữ liệu:
+Paragraph 656: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 657: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 658: 8. Những thông tin khác:
+Paragraph 661: CT 1.19
+Paragraph 662: 1. Tên chỉ tiêu: Annual Emissions vs. Target - Phát thải nhà kính theo năm vs. Mục tiêu
+Paragraph 663: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 664: 2.1. Định nghĩa/Diễn giải:
+Paragraph 667: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 669: 3. Công thức tính:
+Paragraph 671: 4. Chiều tổng hợp dữ liệu:
+Paragraph 673: 5. Nguồn dữ liệu:
+Paragraph 675: 6. Tần suất cập nhật: Cuối năm (ngày cuối cùng trong năm).
+Paragraph 676: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 677: 8. Những thông tin khác:
+Paragraph 679: CT 1.20
+Paragraph 680: 1. Tên chỉ tiêu: Monthly Emissions in Current Year – Phát thải nhà kính theo tháng trong năm hiện tại
+Paragraph 681: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 682: 2.1. Định nghĩa/Diễn giải:
+Paragraph 685: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 687: 3. Công thức tính:
+Paragraph 690: 4. Chiều tổng hợp dữ liệu:
+Paragraph 692: 5. Nguồn dữ liệu:
+Paragraph 694: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 695: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 696: 8. Những thông tin khác:
+Paragraph 698: 2.4. Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính
+Paragraph 701: CT 1.21
+Paragraph 702: 1. Tên chỉ tiêu: Total Emissions Intensity - Tổng cường độ phát thải khí nhà kính
+Paragraph 703: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 704: 2.1. Định nghĩa/Diễn giải:
+Paragraph 707: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 709: 3. Công thức tính:
+Paragraph 711: 4. Chiều tổng hợp dữ liệu:
+Paragraph 713: 5. Nguồn dữ liệu:
+Paragraph 716: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 717: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 718: 8. Những thông tin khác:
+Paragraph 721: CT 1.22
+Paragraph 722: 1. Tên chỉ tiêu: Total Emission - Tổng phát thải khí nhà kính
+Paragraph 723: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 724: 2.1. Định nghĩa/Diễn giải:
+Paragraph 726: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 729: 3. Công thức tính:
+Paragraph 731: 4. Chiều tổng hợp dữ liệu:
+Paragraph 733: 5. Nguồn dữ liệu:
+Paragraph 735: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 736: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 737: 8. Những thông tin khác:
+Paragraph 740: CT 1.23
+Paragraph 741: 1. Tên chỉ tiêu: Total RTK – Tổng RTK
+Paragraph 742: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 743: 2.1. Định nghĩa/Diễn giải:
+Paragraph 745: 2.2. Ý nghĩa/Mục đích đo lường:.
+Paragraph 748: 3. Công thức tính:
+Paragraph 750: 4. Chiều tổng hợp dữ liệu:
+Paragraph 752: 5. Nguồn dữ liệu:
+Paragraph 754: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 755: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 756: 8. Những thông tin khác:
+Paragraph 758: CT 1.24
+Paragraph 759: 1. Tên chỉ tiêu: Annual Emissions Intensity vs. Target - Cường độ phát thải nhà kính theo năm vs. Mục tiêu
+Paragraph 760: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 761: 2.1. Định nghĩa/Diễn giải:
+Paragraph 763: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 765: 3. Công thức tính:
+Paragraph 767: 4. Chiều tổng hợp dữ liệu:
+Paragraph 769: 5. Nguồn dữ liệu:
+Paragraph 771: 6. Tần suất cập nhật: Cuối năm (ngày cuối cùng trong năm).
+Paragraph 772: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 773: 8. Những thông tin khác:
+Paragraph 775: CT 1.25
+Paragraph 776: 1. Tên chỉ tiêu: Monthly Emissions Intensity in Current Year – Cường độ phát thải nhà kính theo tháng trong năm hiện tại
+Paragraph 777: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 778: 2.1. Định nghĩa/Diễn giải:
+Paragraph 780: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 782: 3. Công thức tính:
+Paragraph 785: 4. Chiều tổng hợp dữ liệu:
+Paragraph 787: 5. Nguồn dữ liệu:
+Paragraph 789: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 790: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 791: 8. Những thông tin khác:
+Paragraph 793: 2.5. Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính
+Paragraph 796: CT 1.26
+Paragraph 797: 1. Tên chỉ tiêu: Total Reduction of Emissions - Tổng giảm phát thải khí nhà kính
+Paragraph 798: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 799: 2.1. Định nghĩa/Diễn giải:
+Paragraph 801: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 804: 3. Công thức tính:
+Paragraph 806: 4. Chiều tổng hợp dữ liệu:
+Paragraph 808: 5. Nguồn dữ liệu:
+Paragraph 810: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 811: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 812: 8. Những thông tin khác:
+Paragraph 815: CT 1.27
+Paragraph 816: 1. Tên chỉ tiêu: Total Energy Saved – Tổng năng lượng tiết kiệm
+Paragraph 817: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 818: 2.1. Định nghĩa/Diễn giải:
+Paragraph 823: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 826: 3. Công thức tính: Không có.
+Paragraph 827: 4. Chiều tổng hợp dữ liệu:
+Paragraph 829: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 830: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 831: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 832: 8. Những thông tin khác:
+Paragraph 834: CT 1.28
+Paragraph 835: 1. Tên chỉ tiêu: Energy-Saving Emission Reduction - Tổng phát thải giảm nhờ các biện pháp tiết kiệm nhiên liệu
+Paragraph 836: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 837: 2.1. Định nghĩa/Diễn giải:
+Paragraph 840: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 842: 3. Công thức tính:
+Paragraph 844: 4. Chiều tổng hợp dữ liệu:
+Paragraph 846: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 847: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 848: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 849: 8. Những thông tin khác:
+Paragraph 851: CT 1.29
+Paragraph 852: 1. Tên chỉ tiêu: SAF-Related Emission Reduction - Tổng giảm phát thải nhờ sử dụng SAF
+Paragraph 853: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 854: 2.1. Định nghĩa/Diễn giải:
+Paragraph 857: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 859: 3. Công thức tính:
+Paragraph 865: 4. Chiều tổng hợp dữ liệu:
+Paragraph 867: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 868: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 869: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 870: 8. Những thông tin khác:
+Paragraph 872: CT 1.30
+Paragraph 873: 1. Tên chỉ tiêu: Total Emission Reduction through Carbon Offsetting - Tổng phát thải đền bù
+Paragraph 874: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 875: 2.1. Định nghĩa/Diễn giải:
+Paragraph 877: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 879: 3. Công thức tính:
+Paragraph 881: 4. Chiều tổng hợp dữ liệu:
+Paragraph 883: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 884: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 885: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 886: 8. Những thông tin khác:
+Paragraph 888: CT 1.31
+Paragraph 889: 1. Tên chỉ tiêu: Annual Reduction of Emissions vs. Target - Giảm phát thải nhà kính theo năm vs. Mục tiêu
+Paragraph 890: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 891: 2.1. Định nghĩa/Diễn giải:
+Paragraph 893: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 895: 3. Công thức tính:
+Paragraph 897: 4. Chiều tổng hợp dữ liệu:
+Paragraph 899: 5. Nguồn dữ liệu:
+Paragraph 901: 6. Tần suất cập nhật: Cuối năm (ngày cuối cùng trong năm).
+Paragraph 902: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 903: 8. Những thông tin khác:
+Paragraph 905: CT 1.32
+Paragraph 906: 1. Tên chỉ tiêu: Monthly Reduction of Emissions in Current Year – Giảm phát thải nhà kính theo tháng trong năm hiện tại
+Paragraph 907: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 908: 2.1. Định nghĩa/Diễn giải:
+Paragraph 910: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 912: 3. Công thức tính:
+Paragraph 914: 4. Chiều tổng hợp dữ liệu:
+Paragraph 916: 5. Nguồn dữ liệu:
+Paragraph 918: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 919: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 920: 8. Những thông tin khác:
+Paragraph 922: III. Tài liệu tham khảo
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 5.Tổ Kỹ thuật_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 9: I. Thành phần tham dự gồm:
+Paragraph 10: 1. Phía VNA
+Paragraph 17: 2. Phía Aequitas
+Paragraph 25: II. Nội dung khảo sát:
+Paragraph 26: 1. Mục đích cuộc họp
+Paragraph 29: 2. Nội dung cuộc họp
+Paragraph 31: Xác nhận số hóa:
+Paragraph 39: 3. Kết luận chính sau phiên làm việc:
+Paragraph 43: PHỤ LỤC 01
+Paragraph 44: DANH MỤC CÁC CHỈ TIÊU
+Paragraph 45: STT
+Paragraph 70: CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+Paragraph 71: I. Định nghĩa chỉ tiêu
+Paragraph 72: 1.1. Chỉ tiêu SAF Report - Báo cáo sử dụng SAF
+Paragraph 85: 1. Tổng quan về chỉ tiêu
+Paragraph 94: 2. Áp dụng trong ngành hàng không
+Paragraph 101: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 110: 4. Danh sách chỉ tiêu thành phần
+Paragraph 129: 1.2.  Chỉ tiêu CO2 Emissions Report (offset by EUA) - Báo cáo CO2 phát thải vượt mức
+Paragraph 141: 1. Tổng quan về chỉ tiêu
+Paragraph 153: 2. Áp dụng trong ngành hàng không
+Paragraph 159: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 162: 4. Danh sách chỉ tiêu thành phần
+Paragraph 185: II. Chi tiết nghiệp vụ
+Paragraph 186: 2.1. Chỉ tiêu SAF Report - Báo cáo sử dụng SAF
+Paragraph 189: CT 2.1
+Paragraph 190: 1. Tên chỉ tiêu: Total EU Flights - Tổng số chuyến bay thương mại từ châu Âu 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 191: 2.1. Định nghĩa/Diễn giải:
+Paragraph 193: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 196: 3. Công thức tính toán:
+Paragraph 198: 4. Chiều tổng hợp dữ liệu:
+Paragraph 201: 5. Nguồn dữ liệu: FIMS
+Paragraph 202: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 203: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 204: 8. Những thông tin khác:
+Paragraph 206: CT 2.2
+Paragraph 207: 1. Tên chỉ tiêu: Total Flight Hours - Tổng số giờ bay 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 208: 2.1. Định nghĩa/Diễn giải:
+Paragraph 210: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 212: 3. Công thức tính toán:
+Paragraph 214: 4. Chiều tổng hợp dữ liệu:
+Paragraph 217: 5. Nguồn dữ liệu: FIMS
+Paragraph 218: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 219: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 220: 8. Những thông tin khác:
+Paragraph 222: CT 2.3
+Paragraph 223: 1. Tên chỉ tiêu: Planned SAF Volume (Tonnes) – Lượng SAF kế hoạch ban đầu (tấn) 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 224: 2.1. Định nghĩa/Diễn giải:
+Paragraph 227: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 230: 3. Công thức tính toán:
+Paragraph 232: 4. Chiều tổng hợp dữ liệu:
+Paragraph 235: 5. Nguồn dữ liệu:
+Paragraph 238: 6. Tần suất cập nhật: Hàng năm.
+Paragraph 239: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 240: 8. Những thông tin khác:
+Paragraph 242: CT 2.4
+Paragraph 243: 1. Tên chỉ tiêu:Actual SAF Uplifted (Tonnes) – Lượng SAF nạp thực tế (tấn)
+Paragraph 244: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 245: 2.1. Định nghĩa/Diễn giải:
+Paragraph 247: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 250: 3. Công thức tính toán: Không có.
+Paragraph 251: 4. Chiều tổng hợp dữ liệu:
+Paragraph 254: 5. Nguồn dữ liệu:
+Paragraph 256: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 257: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 258: 8. Những thông tin khác:
+Paragraph 260: CT 2.5
+Paragraph 263: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 265: 3. Công thức tính:
+Paragraph 268: 4. Chiều tổng hợp dữ liệu:
+Paragraph 272: 5. Nguồn dữ liệu:
+Paragraph 274: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 275: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 276: 8. Những thông tin khác:
+Paragraph 278: CT 2.6
+Paragraph 279: 1. Tên chỉ tiêu: Monthly SAF Uplift Volume - Lượng SAF tra nạp theo tháng trong năm
+Paragraph 280: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 281: 2.1. Định nghĩa/Diễn giải:
+Paragraph 284: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 286: 3. Công thức tính toán:
+Paragraph 293: 4. Chiều tổng hợp dữ liệu:
+Paragraph 296: 5. Nguồn dữ liệu:
+Paragraph 300: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 301: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 302: 8. Những thông tin khác:
+Paragraph 305: CT 2.7
+Paragraph 306: 1. Tên chỉ tiêu: Monthly SAF Surcharge – Phụ phí SAF theo tháng trong năm
+Paragraph 307: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Paragraph 311: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 313: 3. Công thức tính toán: Không có.
+Paragraph 314: 4. Chiều tổng hợp dữ liệu:
+Paragraph 317: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 318: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 319: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 320: 8. Những thông tin khác:
+Paragraph 323: CT 2.8
+Paragraph 325: 2.1. Định nghĩa/Diễn giải:
+Paragraph 329: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 331: 3. Công thức tính toán: Không có.
+Paragraph 332: 4. Chiều tổng hợp dữ liệu:
+Paragraph 337: 5. Nguồn dữ liệu:
+Paragraph 340: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 2 (Cần thiết).8. Thông tin khác:
+Paragraph 342: CT 2.9
+Paragraph 343: 1. Tên chỉ tiêu: SAF Purchase Reporting - Bảng chi tiết việc mua SAF 2. Định nghĩa/Diễn giải:
+Paragraph 362: 3. Công thức tính toán: Chưa có
+Paragraph 363: 4. Chiều tổng hợp dữ liệu:
+Paragraph 369: 5. Nguồn dữ liệu:
+Paragraph 374: 6. Tần suất cập nhật: Theo năm.
+Paragraph 375: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 376: 8. Thông tin khác:
+Paragraph 379: CT 2.10
+Paragraph 380: 1. Tên chỉ tiêu: Fuel Reporting - Bảng chi tiết nhiên liệu tra nạp tại các sân bay  2. Định nghĩa/Diễn giải:
+Paragraph 391: 3. Công thức tính toán: Không có.
+Paragraph 392: 4. Chiều tổng hợp dữ liệu:
+Paragraph 397: 5. Nguồn dữ liệu:
+Paragraph 402: 6. Tần suất cập nhật: Theo năm.7. Mức độ ưu tiên: 1 (Rất cần thiết). 8. Thông tin khác:
+Paragraph 405: CT 2.11
+Paragraph 406: 1. Tên chỉ tiêu: Total Flights Departing from France - Tổng số chuyến bay tại Pháp  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 407: 2.1. Định nghĩa/Diễn giải:
+Paragraph 409: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 411: 3. Công thức tính toán:
+Paragraph 413: 4. Chiều tổng hợp dữ liệu:
+Paragraph 416: 5. Nguồn dữ liệu: FIMS.
+Paragraph 417: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 1 (Rất cần thiết).8. Thông tin khác:
+Paragraph 419: CT 2.12
+Paragraph 420: 1. Tên chỉ tiêu: Total Flight Hours (France) – Tổng số giờ bay (Pháp)
+Paragraph 421: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 422: 2.1. Định nghĩa/Diễn giải:
+Paragraph 424: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 426: 3. Công thức tính toán:
+Paragraph 428: 4. Chiều tổng hợp dữ liệu:
+Paragraph 431: 5. Nguồn dữ liệu: FIMS.
+Paragraph 432: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 2 (Cần thiết). 8. Thông tin khác:
+Paragraph 434: CT 2.13
+Paragraph 435: 1. Tên chỉ tiêu: Planned SAF Volume (France) - Lượng SAF kế hoạch ban đầu (Pháp)
+Paragraph 436: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 437: 2.1. Định nghĩa/Diễn giải:
+Paragraph 440: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 442: 3. Công thức tính toán:
+Paragraph 444: 4. Chiều tổng hợp dữ liệu:
+Paragraph 447: 5. Nguồn dữ liệu:
+Paragraph 450: 6. Tần suất cập nhật: Hàng năm.
+Paragraph 451: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 452: 8. Những thông tin khác:
+Paragraph 454: CT 2.14
+Paragraph 455: 1. Tên chỉ tiêu: Actual SAF Uplifted Volume (Pháp) - Lượng SAF nạp thực tế (Pháp)
+Paragraph 456: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 457: 2.1. Định nghĩa/Diễn giải:
+Paragraph 459: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 461: 3. Công thức tính toán: Không có.
+Paragraph 462: 4. Chiều tổng hợp dữ liệu:
+Paragraph 465: 5. Nguồn dữ liệu:
+Paragraph 467: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 468: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 469: 8. Những thông tin khác:
+Paragraph 471: CT 2.15
+Paragraph 472: 1. Tên chỉ tiêu: Neat SAF Ratio by Airport (France) – Tỷ lệ neat SAF theo sân bay (Pháp)
+Paragraph 473: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Paragraph 475: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 477: 3. Công thức tính:
+Paragraph 480: 4. Chiều tổng hợp dữ liệu:
+Paragraph 484: 5. Nguồn dữ liệu:
+Paragraph 486: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 487: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 488: 8. Những thông tin khác:
+Paragraph 490: CT 2.16
+Paragraph 491: 1. Tên chỉ tiêu: Monthly SAF Uplift Volume (Tonnes) (France) – Lượng SAF tra nạp theo tháng trong năm (Pháp)
+Paragraph 492: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 493: 2.1. Định nghĩa/Diễn giải:
+Paragraph 496: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 498: 3. Công thức tính toán:
+Paragraph 505: 4. Chiều tổng hợp dữ liệu:
+Paragraph 508: 5. Nguồn dữ liệu:
+Paragraph 512: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 513: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 514: 8. Những thông tin khác:
+Paragraph 517: CT 2.17
+Paragraph 518: 1. Tên chỉ tiêu: SAF Surcharge by Month in the Year (France) – Phụ phí SAF theo tháng trong năm (Pháp)
+Paragraph 519: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường: 2.1. Định nghĩa/Diễn giải:
+Paragraph 523: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 525: 3. Công thức tính toán: Không có.
+Paragraph 526: 4. Chiều tổng hợp dữ liệu:
+Paragraph 529: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 530: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 531: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 532: 8. Những thông tin khác:
+Paragraph 535: CT 2.18
+Paragraph 537: 2.1. Định nghĩa/Diễn giải:
+Paragraph 541: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 543: 3. Công thức tính toán:
+Paragraph 546: 4. Chiều tổng hợp dữ liệu:
+Paragraph 551: 5. Nguồn dữ liệu:
+Paragraph 554: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng). 7. Mức độ ưu tiên: 2 (Cần thiết)8. Thông tin khác:
+Paragraph 556: 2.2. Chỉ tiêu CO2 emissions report (offset by EUA) - Báo cáo CO2 phát thải vượt mức
+Paragraph 559: CT 2.19
+Paragraph 562: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 564: 3. Công thức tính toán:
+Paragraph 566: 4. Chiều tổng hợp dữ liệu:
+Paragraph 569: 5. Nguồn dữ liệu: FIMS
+Paragraph 570: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 572: CT 2.20
+Paragraph 573: 1. Tên chỉ tiêu: EU ETS Reduced Scope Flights - Số chuyến bay áp dụng EU ETS 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 574: 2.1. Định nghĩa/Diễn giải:
+Paragraph 576: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 578: 3. Công thức tính toán:
+Paragraph 580: 4. Chiều tổng hợp dữ liệu:
+Paragraph 583: 5. Nguồn dữ liệu: FIMS
+Paragraph 584: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 586: CT 2.21
+Paragraph 589: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 591: 3. Công thức tính toán:
+Paragraph 596: 4. Chiều tổng hợp dữ liệu:
+Paragraph 599: 5. Nguồn dữ liệu:
+Paragraph 602: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 605: CT 2.22
+Paragraph 606: 1. Tên chỉ tiêu: CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch ETS 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 607: 2.1. Định nghĩa/Diễn giải:
+Paragraph 609: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 612: 3. Công thức tính toán:
+Paragraph 617: 4. Chiều tổng hợp dữ liệu:
+Paragraph 620: 5. Nguồn dữ liệu:
+Paragraph 625: 6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 628: CT 2.23
+Paragraph 629: 1. Tên chỉ tiêu: Annual EUA Compensation Cost (USD) - Tổng chi phí bù trừ EUA (USD) theo năm  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 630: 2.1. Định nghĩa/Diễn giải:
+Paragraph 633: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 635: 3. Công thức tính toán:
+Paragraph 641: 4. Chiều tổng hợp dữ liệu:
+Paragraph 645: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 646: 6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 649: CT 2.24
+Paragraph 650: 1. Tên chỉ tiêu: CO₂ Emissions by Route (EU ETS) - Phát thải CO₂ theo chặng bay (EU ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 651: 2.1. Định nghĩa/Diễn giải:
+Paragraph 653: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 655: 3. Công thức tính toán:
+Paragraph 660: 4. Chiều tổng hợp dữ liệu:
+Paragraph 663: 5. Nguồn dữ liệu:
+Paragraph 667: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường)8. Thông tin khác:
+Paragraph 669: CT 2.25
+Paragraph 670: 1. Tên chỉ tiêu: CO₂ Emissions by Scope (EU ETS) - Phát thải CO₂ theo phạm vi chuyến bay (EU ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 671: 2.1. Định nghĩa/Diễn giải:
+Paragraph 673: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 676: 3. Công thức tính toán:
+Paragraph 681: 4. Chiều tổng hợp dữ liệu:
+Paragraph 684: 5. Nguồn dữ liệu:
+Paragraph 688: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường) 8. Thông tin khác:
+Paragraph 690: CT 2.26
+Paragraph 691: 1. Tên chỉ tiêu: UK ETS Full Scope Flights - Tổng số chuyến bay đi/đến UK 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 692: 2.1. Định nghĩa/Diễn giải:
+Paragraph 694: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 696: 3. Công thức tính toán:
+Paragraph 698: 4. Chiều tổng hợp dữ liệu:
+Paragraph 701: 5. Nguồn dữ liệu: FIMS
+Paragraph 702: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 704: CT 2.27
+Paragraph 705: 1. Tên chỉ tiêu: UK ETS Reduced Scope Flights - Số chuyến bay áp dụng UK ETS 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 706: 2.1. Định nghĩa/Diễn giải:
+Paragraph 708: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 710: 3. Công thức tính toán:
+Paragraph 712: 4. Chiều tổng hợp dữ liệu:
+Paragraph 715: 5. Nguồn dữ liệu: FIMS.
+Paragraph 716: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 718: CT 2.28
+Paragraph 721: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 723: 3. Công thức tính toán:
+Paragraph 728: 4. Chiều tổng hợp dữ liệu:
+Paragraph 731: 5. Nguồn dữ liệu:
+Paragraph 734: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 737: CT 2.29
+Paragraph 738: 1. Tên chỉ tiêu: CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch UK2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 739: 2.1. Định nghĩa/Diễn giải:
+Paragraph 741: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 744: 3. Công thức tính toán:
+Paragraph 749: 4. Chiều tổng hợp dữ liệu:
+Paragraph 752: 5. Nguồn dữ liệu:
+Paragraph 757: 6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 759: CT 2.30
+Paragraph 760: 1. Tên chỉ tiêu: Annual UKA Compensation Cost (USD) - Tổng chi phí bù trừ UKA (USD) theo năm  2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 761: 2.1. Định nghĩa/Diễn giải:
+Paragraph 764: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 766: 3. Công thức tính toán:
+Paragraph 772: 4. Chiều tổng hợp dữ liệu:
+Paragraph 776: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 777: 6. Tần suất cập nhật: Theo năm 7. Mức độ ưu tiên: 1 (Rất cần thiết) 8. Thông tin khác:
+Paragraph 780: CT 2.31
+Paragraph 781: 1. Tên chỉ tiêu: CO₂ Emissions by Route (UK ETS) - Phát thải CO₂ theo chặng bay (UK ETS)2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 782: 2.1. Định nghĩa/Diễn giải:
+Paragraph 784: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 786: 3. Công thức tính toán:
+Paragraph 791: 4. Chiều tổng hợp dữ liệu:
+Paragraph 794: 5. Nguồn dữ liệu: FIMS.
+Paragraph 795: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường) 8. Thông tin khác:
+Paragraph 797: CT 2.32
+Paragraph 798: 1. Tên chỉ tiêu: CO₂ Emissions by Scope (UK ETS) - Phát thải CO₂ theo phạm vi chuyến bay (UK ETS)
+Paragraph 799: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 800: 2.1. Định nghĩa/Diễn giải:
+Paragraph 802: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 805: 3. Công thức tính toán: Không có.
+Paragraph 806: 4. Chiều tổng hợp dữ liệu:
+Paragraph 809: 5. Nguồn dữ liệu: FIMS.
+Paragraph 810: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 3 (Bình thường) 8. Thông tin khác:
+Paragraph 812: CT 2.33
+Paragraph 813: 1. Tên chỉ tiêu: Total Number of International Flights CORSIA – Tổng số chuyến bay quốc tế thuộc phạm vi CORSIA
+Paragraph 814: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 815: 2.1. Định nghĩa/Diễn giải:
+Paragraph 818: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 820: 3. Công thức tính toán:
+Paragraph 822: 4. Chiều tổng hợp dữ liệu:
+Paragraph 825: 5. Nguồn dữ liệu: FIMS.
+Paragraph 826: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 827: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 828: 8. Những thông tin khác:
+Paragraph 830: CT 2.34
+Paragraph 831: 1. Tên chỉ tiêu: Total Number of International Flights Subject to Offsetting Requirements CORSIA – Tổng số chuyến bay CORSIA thuộc phạm vi cần đền bù
+Paragraph 832: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 833: 2.1. Định nghĩa/Diễn giải:
+Paragraph 835: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 837: 3. Công thức tính toán:
+Paragraph 839: 4. Chiều tổng hợp dữ liệu:
+Paragraph 842: 5. Nguồn dữ liệu: FIMS.
+Paragraph 843: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 844: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 845: 8. Những thông tin khác:
+Paragraph 848: CT 2.35
+Paragraph 849: 1. Tên chỉ tiêu: Total CO₂ Emissions from International Flights (Tonnes) – Tổng phát thải CORSIA (tấn)
+Paragraph 850: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 851: 2.1. Định nghĩa/Diễn giải:
+Paragraph 853: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 855: 3. Công thức tính toán:
+Paragraph 859: 4. Chiều tổng hợp dữ liệu:
+Paragraph 862: 5. Nguồn dữ liệu:
+Paragraph 865: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 866: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 867: 8. Những thông tin khác:
+Paragraph 870: CT 2.36
+Paragraph 871: 1. Tên chỉ tiêu: Total CO₂ Emissions from Flights Subject to Offsetting Requirements (Tonnes) – Tổng phát thải CORSIA cần đền bù (tấn)
+Paragraph 872: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 875: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 877: 3. Công thức tính toán:
+Paragraph 879: 4. Chiều tổng hợp dữ liệu:
+Paragraph 882: 5. Nguồn dữ liệu:
+Paragraph 885: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 888: CT 2.37
+Paragraph 890: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:2.1. Định nghĩa/Diễn giải:
+Paragraph 892: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 894: 3. Công thức tính toán:
+Paragraph 898: 4. Chiều tổng hợp dữ liệu:
+Paragraph 901: 5. Nguồn dữ liệu:
+Paragraph 904: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).7. Mức độ ưu tiên: 1 (Rất cần thiết)8. Thông tin khác:
+Paragraph 906: CT 2.38
+Paragraph 907: 1. Tên chỉ tiêu: CO₂ Emissions vs Baseline - Phát thải CO₂ so với Baseline qua các năm
+Paragraph 908: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 909: 2.1. Định nghĩa/Diễn giải:
+Paragraph 911: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 913: 3. Công thức tính toán:
+Paragraph 917: 4. Chiều tổng hợp dữ liệu:
+Paragraph 920: 5. Nguồn dữ liệu: FIMS.
+Paragraph 921: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 922: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 923: 8. Những thông tin khác:
+Paragraph 926: CT 2.39
+Paragraph 927: 1. Tên chỉ tiêu: CO₂ Emissions by Route - Phát thải CO₂ theo chặng bay
+Paragraph 928: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 929: 2.1. Định nghĩa/Diễn giải:
+Paragraph 931: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 933: 3. Công thức tính toán:
+Paragraph 937: 4. Chiều tổng hợp dữ liệu:
+Paragraph 941: 5. Nguồn dữ liệu: FIMS.
+Paragraph 942: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 943: 7. Mức độ ưu tiên: 3 (Bình thường).
+Paragraph 944: 8. Những thông tin khác:
+Paragraph 946: CT 2.40
+Paragraph 947: 1. Tên chỉ tiêu: CO₂ Emissions by Scope - Phát thải CO₂ theo phạm vi chuyến bay
+Paragraph 948: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 949: 2.1. Định nghĩa/Diễn giải:
+Paragraph 953: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 955: 3. Công thức tính toán:
+Paragraph 959: 4. Chiều tổng hợp dữ liệu:
+Paragraph 962: 5. Nguồn dữ liệu: FIMS.
+Paragraph 963: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 964: 7. Mức độ ưu tiên: 3 (Bình thường).
+Paragraph 965: 8. Những thông tin khác:
+Paragraph 967: III. Tài liệu tham khảo
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 6.TTBSV_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 8: I. Thành phần tham dự gồm:
+Paragraph 9: 1. Phía VNA
+Paragraph 13: 2. Phía Aequitas
+Paragraph 20: II. Nội dung khảo sát:
+Paragraph 21: 1. Mục đích cuộc họp
+Paragraph 24: 2. Nội dung cuộc họp
+Paragraph 26: Xác nhận số hóa 1/1 chỉ tiêu: Airline B-2 - Customer engagement - Tương tác khách hàng.
+Paragraph 29: 3. Kết luận chính sau phiên làm việc:
+Paragraph 33: PHỤ LỤC 01
+Paragraph 34: DANH MỤC CÁC CHỈ TIÊU
+Paragraph 35: STT
+Paragraph 50: I. Định nghĩa chỉ tiêu
+Paragraph 51: 1.1. Chỉ tiêu Airline B-2 - Customer engagement - Tương tác khách hàng
+Paragraph 53: GRI 302-1
+Paragraph 63: 1. Tổng quan về Chỉ tiêu Airline B-2:
+Paragraph 67: 2. Áp dụng GRI 302-1 trong ngành hàng không
+Paragraph 72: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 79: 4. Danh sách chỉ tiêu thành phần
+Paragraph 85: II. Chi tiết nghiệp vụ
+Paragraph 86: 2.1. Chỉ tiêu Airline B-2 - Customer engagement - Tương tác khách hàng
+Paragraph 89: CT 9.1
+Paragraph 90: 1. Tên chỉ tiêu:  Total Lotus Members – Tổng số hội viên Bông Sen Vàng
+Paragraph 91: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 92: 2.1. Định nghĩa/Diễn giải:
+Paragraph 94: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 96: 3. Công thức tính:
+Paragraph 98: 4. Chiều tổng hợp dữ liệu:
+Paragraph 100: 5. Nguồn dữ liệu: CLM.
+Paragraph 101: 6. Tần suất cập nhật: Thời gian thực (Realtime).
+Paragraph 102: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 103: 8. Những thông tin khác:
+Paragraph 105: CT 9.2
+Paragraph 106: 1. Tên chỉ tiêu: Membership Growth Trend – Xu hướng tăng trưởng hội viên
+Paragraph 107: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 108: 2.1. Định nghĩa/Diễn giải:
+Paragraph 110: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 113: 3. Công thức tính:
+Paragraph 115: 4. Chiều tổng hợp dữ liệu:
+Paragraph 117: 5. Nguồn dữ liệu: CLM.
+Paragraph 118: 6. Tần suất cập nhật: Thời gian thực (Realtime).
+Paragraph 119: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 120: 8. Những thông tin khác:
+Paragraph 123: CT 9.3
+Paragraph 124: 1. Tên chỉ tiêu: Quarterly Membership Trend – Xu hướng hội viên theo Quý trong năm
+Paragraph 125: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 126: 2.1. Định nghĩa/Diễn giải:
+Paragraph 128: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 131: 3. Công thức tính:
+Paragraph 133: 4. Chiều tổng hợp dữ liệu:
+Paragraph 135: 5. Nguồn dữ liệu: CLM.
+Paragraph 136: 6. Tần suất cập nhật: Thời gian thực (Realtime).
+Paragraph 137: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 138: 8. Những thông tin khác:
+Paragraph 141: CT 9.4
+Paragraph 142: 1. Tên chỉ tiêu: Monthly Membership Trend – Xu hướng hội viên theo Tháng trong năm
+Paragraph 143: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 144: 2.1. Định nghĩa/Diễn giải:
+Paragraph 146: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 149: 3. Công thức tính:
+Paragraph 151: 4. Chiều tổng hợp dữ liệu:
+Paragraph 153: 5. Nguồn dữ liệu: CLM.
+Paragraph 154: 6. Tần suất cập nhật: Thời gian thực (Realtime).
+Paragraph 155: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 156: 8. Những thông tin khác:
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 7.Tổ thư ký_BBKS .txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 8: I. Thành phần tham dự gồm:
+Paragraph 9: 1. Phía VNA
+Paragraph 14: 2. Phía Aequitas
+Paragraph 20: II. Nội dung khảo sát:
+Paragraph 21: 1. Mục đích cuộc họp
+Paragraph 30: 2. Nội dung cuộc họp
+Paragraph 82: Thống nhất giải pháp số hóa việc nhập liệu và thuyết minh cho nhóm 15 chỉ tiêu định tính (dạng văn bản/text) cụ thể:
+Paragraph 103: CHỈ TIÊU GOVERNANCE
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 8.Ban TT_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 8: I. Thành phần tham dự gồm:
+Paragraph 9: 1. Phía VNA
+Paragraph 12: 2. Phía Aequitas
+Paragraph 15: II. Nội dung khảo sát:
+Paragraph 16: 1. Mục đích cuộc họp
+Paragraph 22: 2. Nội dung cuộc họp
+Paragraph 25: Xác nhận số hóa: 2/2 chỉ tiêu thuộc Ban Truyền thông
+Paragraph 48: 3. Kết luận chính sau phiên làm việc:
+Paragraph 52: PHỤ LỤC 01
+Paragraph 53: DANH MỤC CÁC CHỈ TIÊU BAN TRUYỀN THÔNG
+Paragraph 54: STT
+Paragraph 72: GRI 417-3
+Paragraph 76: CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+Paragraph 77: I. Định nghĩa chỉ tiêu
+Paragraph 78: 1.1. Airline F-1 – Volunteering during working hours - Tham gia hoạt động tình nguyện
+Paragraph 90: 1. Tổng quan về Chỉ tiêu Airline F-1
+Paragraph 92: 2. Áp dụng Airline F-1 trong ngành hàng không
+Paragraph 94: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 100: 4. Danh sách chỉ tiêu thành phần
+Paragraph 106: 1.2. GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Paragraph 108: GRI 417-3
+Paragraph 118: 1. Tổng quan về Chỉ tiêu GRI 417-3
+Paragraph 120: 2. Áp dụng GRI 417-3 trong ngành hàng không
+Paragraph 122: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 127: 4. Danh sách chỉ tiêu thành phần
+Paragraph 133: II. Chi tiết nghiệp vụ
+Paragraph 134: 2.1. Airline F-1 – Volunteering during working hours - Tham gia hoạt động tình nguyện
+Paragraph 137: CT 7.1
+Paragraph 138: 1. Tên chỉ tiêu: Total volunteer hours - Tổng số giờ tình nguyện
+Paragraph 139: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 140: 2.1. Định nghĩa/Diễn giải:
+Paragraph 142: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 147: 3. Công thức tính:
+Paragraph 150: 4. Chiều tổng hợp dữ liệu:
+Paragraph 152: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 153: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 154: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 155: 8. Những thông tin khác:
+Paragraph 157: CT 7.2
+Paragraph 159: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 160: 2.1. Định nghĩa/Diễn giải:
+Paragraph 162: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 167: 3. Công thức tính:
+Paragraph 169: 4. Chiều tổng hợp dữ liệu:
+Paragraph 171: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 172: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 173: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 174: 8. Những thông tin khác:
+Paragraph 176: CT 7.3
+Paragraph 177: 1. Tên chỉ tiêu: Average volunteer hours per employee - Số giờ tình nguyện trung bình mỗi nhân viên
+Paragraph 178: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 179: 2.1. Định nghĩa/Diễn giải:
+Paragraph 181: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 186: 3. Công thức tính:
+Paragraph 188: 4. Chiều tổng hợp dữ liệu:
+Paragraph 190: 5. Nguồn dữ liệu:
+Paragraph 192: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 193: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 194: 8. Những thông tin khác:
+Paragraph 196: CT 7.4
+Paragraph 197: 1. Tên chỉ tiêu: Total volunteer activity expenses - Tổng chi phí hoạt động tình nguyện
+Paragraph 198: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 199: 2.1. Định nghĩa/Diễn giải:
+Paragraph 201: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 206: 3. Công thức tính:
+Paragraph 208: 4. Chiều tổng hợp dữ liệu:
+Paragraph 210: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 211: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 212: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 213: 8. Những thông tin khác:
+Paragraph 215: 2.2. GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Paragraph 219: CT 7.5
+Paragraph 220: 1. Tên chỉ tiêu: Total number of incidents - Tổng số vụ việc
+Paragraph 221: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 222: 2.1. Định nghĩa/Diễn giải:
+Paragraph 224: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 229: 3. Công thức tính:
+Paragraph 231: 4. Chiều tổng hợp dữ liệu:
+Paragraph 233: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 234: 6. Tần suất cập nhật: Hàng năm.
+Paragraph 235: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 236: 8. Những thông tin khác:
+Paragraph 238: CT 7.6
+Paragraph 239: 1. Tên chỉ tiêu: Incidents resulting in administrative sanctions - Các vụ việc xử phạt hành chính
+Paragraph 240: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 241: 2.1. Định nghĩa/Diễn giải:
+Paragraph 243: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 248: 3. Công thức tính:
+Paragraph 250: 4. Chiều tổng hợp dữ liệu:
+Paragraph 252: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 253: 6. Tần suất cập nhật: Hàng năm.
+Paragraph 254: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 255: 8. Những thông tin khác:
+Paragraph 257: CT 7.7
+Paragraph 258: 1. Tên chỉ tiêu: Incidents resulting in warnings - Các vụ việc bị cảnh cáo
+Paragraph 259: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 260: 2.1. Định nghĩa/Diễn giải:
+Paragraph 262: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 267: 3. Công thức tính:
+Paragraph 269: 4. Chiều tổng hợp dữ liệu:
+Paragraph 271: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 272: 6. Tần suất cập nhật: Hàng năm.
+Paragraph 273: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 274: 8. Những thông tin khác:
+Paragraph 276: CT 7.8
+Paragraph 277: 1. Tên chỉ tiêu: Number of incidents of non-compliance with voluntary codes - Số sự cố không tuân thủ các bộ quy tắc tự nguyện
+Paragraph 278: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 279: 2.1. Định nghĩa/Diễn giải:
+Paragraph 281: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 286: 3. Công thức tính:
+Paragraph 288: 4. Chiều tổng hợp dữ liệu:
+Paragraph 290: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 291: 6. Tần suất cập nhật: Hàng năm.
+Paragraph 292: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 293: 8. Những thông tin khác:
+
+
+================================================================================
+BÁO CÁO KHẢO SÁT: 9.Tổ Dịch vụ_BBKS.txt
+================================================================================
+Paragraph 1: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Paragraph 3: BIÊN BẢN KHẢO SÁT
+Paragraph 10: I. Thành phần tham dự:
+Paragraph 11: 1. Phía VNA
+Paragraph 23: 2. Phía Aequitas
+Paragraph 32: II. Nội dung khảo sát:
+Paragraph 33: 1. Mục đích cuộc họp
+Paragraph 38: 2. Nội dung cuộc họp
+Paragraph 55: 3. Kết luận chính sau phiên làm việc:
+Paragraph 59: PHỤ LỤC 01
+Paragraph 60: DANH MỤC CÁC CHỈ TIÊU - TỔ DỊCH VỤ
+Paragraph 61: STT
+Paragraph 72: GRI 303-3
+Paragraph 79: GRI 303-5
+Paragraph 93: GRI 406-1
+Paragraph 101: GRI 416-1
+Paragraph 108: GRI 416-2
+Paragraph 115: GRI 417-2
+Paragraph 119: CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+Paragraph 120: I. Định nghĩa chỉ tiêu
+Paragraph 121: 1.1. Chỉ tiêu GRI 303-3 – Water Withdrawal - Lượng nước khai thác
+Paragraph 123: GRI 303-3
+Paragraph 133: 1. Tổng quan về Chỉ tiêu GRI 303-3
+Paragraph 136: 2. Áp dụng GRI 303-3 trong ngành hàng không
+Paragraph 138: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 140: 4. Danh sách chỉ tiêu thành phần
+Paragraph 149: 1.2. Chỉ tiêu GRI 303-5 – Water Consumption - Lượng nước tiêu thụ
+Paragraph 151: GRI 303-5
+Paragraph 161: 1. Tổng quan về Chỉ tiêu GRI 303-5
+Paragraph 165: 2. Áp dụng GRI 303-5 trong ngành hàng không
+Paragraph 167: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 169: 4. Danh sách chỉ tiêu thành phần
+Paragraph 177: 1.3. Chỉ tiêu Airline B-1 - Customer satisfaction (NPS Net Promotor Score) - Mức độ hài lòng của khách hàng
+Paragraph 179: GRI 204-1
+Paragraph 189: 1. Tổng quan về Chỉ tiêu GRI 204-1
+Paragraph 196: 2. Áp dụng GRI 204-1 trong ngành hàng không
+Paragraph 199: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 205: 4. Danh sách chỉ tiêu thành phần
+Paragraph 214: 1.4. Chỉ tiêu GRI 406-1 - Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý (phần khách hàng)
+Paragraph 216: GRI 406-1
+Paragraph 226: 1. Tổng quan về Chỉ tiêu GRI 406-1
+Paragraph 229: 2. Áp dụng GRI 406-1 trong ngành hàng không
+Paragraph 231: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 237: 4. Danh sách chỉ tiêu thành phần (Đối với phần khách hàng)
+Paragraph 248: GRI 416-1
+Paragraph 258: 1. Tổng quan về Chỉ tiêu GRI 416-1
+Paragraph 260: 2. Áp dụng GRI 416-1 trong ngành hàng không
+Paragraph 262: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 267: 4. Danh sách chỉ tiêu thành phần
+Paragraph 275: GRI 416-2
+Paragraph 285: 1. Tổng quan về Chỉ tiêu GRI 416-2
+Paragraph 287: 2. Áp dụng GRI 416-2 trong ngành hàng không
+Paragraph 289: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 294: 4. Cách thức hiển thị
+Paragraph 299: GRI 417-2
+Paragraph 309: 1. Tổng quan về Chỉ tiêu GRI 417-2
+Paragraph 311: 2. Áp dụng GRI 417-2 trong ngành hàng không
+Paragraph 313: 3. Ý nghĩa quản trị và báo cáo
+Paragraph 318: 4. Cách thức hiển thị
+Paragraph 321: II. Chi tiết nghiệp vụ
+Paragraph 322: 2.1. Chỉ tiêu GRI 303-3 –Water Withdrawal - Lượng nước khai thác
+Paragraph 325: CT 3.1
+Paragraph 326: 1. Tên chỉ tiêu: CT 3.1 - Total Water Withdrawal - Tổng lượng nước cấp lên
+Paragraph 327: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 328: 2.1. Định nghĩa/Diễn giải:
+Paragraph 331: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 333: 3. Công thức tính: Tổng lượng nước cấp lên = Tổng lượng nước cấp lên ở tàu bay thân hẹp + Tổng lượng nước cấp lên ở tàu bay thân rộng
+Paragraph 337: 4. Chiều tổng hợp dữ liệu:
+Paragraph 339: 5. Nguồn dữ liệu:
+Paragraph 342: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 343: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 344: 8. Những thông tin khác:
+Paragraph 346: CT 3.2
+Paragraph 347: 1. Tên chỉ tiêu: CT 3.2 - Total Water Withdrawal by Narrow-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân hẹp
+Paragraph 348: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 349: 2.1. Định nghĩa/Diễn giải:
+Paragraph 356: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 358: 3. Công thức tính:
+Paragraph 360: 4. Chiều tổng hợp dữ liệu:
+Paragraph 362: 5. Nguồn dữ liệu:
+Paragraph 364: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 365: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 366: 8. Những thông tin khác:
+Paragraph 368: CT 3.3
+Paragraph 369: 1. Tên chỉ tiêu: CT 3.3 - Total Water Withdrawal by Wide-body Aircraft  - Tổng lượng nước cấp lên theo tàu bay thân rộng
+Paragraph 370: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 371: 2.1. Định nghĩa/Diễn giải:
+Paragraph 377: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 379: 3. Công thức tính:
+Paragraph 389: 4. Chiều tổng hợp dữ liệu:
+Paragraph 391: 5. Nguồn dữ liệu:
+Paragraph 393: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 394: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 395: 8. Những thông tin khác:
+Paragraph 397: CT 3.4
+Paragraph 398: 1. Tên chỉ tiêu: CT 3.4 - Water Withdrawal by Route Type - Lượng nước cấp lên theo đường bay
+Paragraph 399: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 400: 2.1. Định nghĩa/Diễn giải:
+Paragraph 402: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 404: 3. Công thức tính: Không có
+Paragraph 405: 4. Chiều tổng hợp dữ liệu:
+Paragraph 407: 5. Nguồn dữ liệu:
+Paragraph 409: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 410: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 411: 8. Những thông tin khác:
+Paragraph 413: CT 3.5
+Paragraph 414: 1. Tên chỉ tiêu: CT 3.5 - Water Withdrawal by Aircraft Type - Lượng nước cấp lên loại tàu bay
+Paragraph 415: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 416: 2.1. Định nghĩa/Diễn giải:
+Paragraph 418: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 420: 3. Công thức tính: Không
+Paragraph 421: 4. Chiều tổng hợp dữ liệu:
+Paragraph 423: 5. Nguồn dữ liệu:
+Paragraph 425: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 426: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 427: 8. Những thông tin khác:
+Paragraph 429: CT 3.6
+Paragraph 430: 1. Tên chỉ tiêu: CT 3.6 - Annual Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo năm vs. Mục tiêu
+Paragraph 431: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 432: 2.1. Định nghĩa/Diễn giải:
+Paragraph 434: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 436: 3. Công thức tính: Không có
+Paragraph 437: 4. Chiều tổng hợp dữ liệu: Không có
+Paragraph 438: 5. Nguồn dữ liệu:
+Paragraph 441: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 442: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 443: 8. Những thông tin khác:
+Paragraph 445: CT 3.7
+Paragraph 446: 1. Tên chỉ tiêu: CT 3.7 - Monthly Water Withdrawal vs. Target - Tổng lượng nước cấp lên theo tháng vs. Mục tiêu
+Paragraph 447: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 448: 2.1. Định nghĩa/Diễn giải:
+Paragraph 450: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 452: 3. Công thức tính: Không có
+Paragraph 453: 4. Chiều tổng hợp dữ liệu: Năm
+Paragraph 454: 5. Nguồn dữ liệu:
+Paragraph 457: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 458: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 459: 8. Những thông tin khác:
+Paragraph 461: 2.2. Chỉ tiêu GRI 303-5 – Water Consumption - Lượng nước tiêu thụ
+Paragraph 464: CT 3.8
+Paragraph 465: 1. Tên chỉ tiêu: CT 3.8 - Total Water Consumption - Tổng lượng nước tiêu thụ
+Paragraph 466: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 467: 2.1. Định nghĩa/Diễn giải:
+Paragraph 469: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 471: 3. Công thức tính:
+Paragraph 473: 4. Chiều tổng hợp dữ liệu:
+Paragraph 475: 5. Nguồn dữ liệu:
+Paragraph 477: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 478: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 479: 8. Những thông tin khác:
+Paragraph 481: CT 3.9
+Paragraph 482: 1. Tên chỉ tiêu: CT 3.9 - Water Consumption by Route Type - Lượng nước tiêu thụ theo loại đường bay
+Paragraph 483: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 484: 2.1. Định nghĩa/Diễn giải:
+Paragraph 486: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 488: 3. Công thức tính: Không có
+Paragraph 489: 4. Chiều tổng hợp dữ liệu:
+Paragraph 491: 5. Nguồn dữ liệu:
+Paragraph 493: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 494: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 495: 8. Những thông tin khác:
+Paragraph 497: CT 3.10
+Paragraph 498: 1. Tên chỉ tiêu: CT 3.10 - Water Consumption by Aircraft Type  - Lượng nước tiêu thụ theo loại tàu bay
+Paragraph 499: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 500: 2.1. Định nghĩa/Diễn giải:
+Paragraph 502: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 504: 3. Công thức tính: Không
+Paragraph 505: 4. Chiều tổng hợp dữ liệu:
+Paragraph 507: 5. Nguồn dữ liệu:
+Paragraph 509: 6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+Paragraph 510: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 511: 8. Những thông tin khác:
+Paragraph 513: CT 3.11
+Paragraph 514: 1. Tên chỉ tiêu: CT 3.11 - Annual Water Consumption vs Target - Lượng nước tiêu thụ theo năm vs. Mục tiêu
+Paragraph 515: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 516: 2.1. Định nghĩa/Diễn giải:
+Paragraph 518: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 520: 3. Công thức tính: Không có
+Paragraph 521: 4. Chiều tổng hợp dữ liệu: Không có
+Paragraph 522: 5. Nguồn dữ liệu:
+Paragraph 525: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 526: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 527: 8. Những thông tin khác:
+Paragraph 529: CT 3.12
+Paragraph 530: 1. Tên chỉ tiêu: CT 3.12 - Monthly Water Consumption vs. Target - Lượng nước tiêu thụ theo tháng vs. Mục tiêu
+Paragraph 531: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 532: 2.1. Định nghĩa/Diễn giải:
+Paragraph 534: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 536: 3. Công thức tính: Không có
+Paragraph 537: 4. Chiều tổng hợp dữ liệu: Năm
+Paragraph 538: 5. Nguồn dữ liệu:
+Paragraph 541: 6. Tần suất cập nhật: Theo tháng hoặc theo năm (ngày cuối cùng trong tháng).
+Paragraph 542: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 543: 8. Những thông tin khác:
+Paragraph 545: CT 3.13
+Paragraph 547: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 548: 2.1. Định nghĩa/Diễn giải:
+Paragraph 555: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 558: 4. Chiều tổng hợp dữ liệu: Năm
+Paragraph 559: 5. Nguồn dữ liệu:
+Paragraph 561: 6. Tần suất cập nhật: Theo tháng (ngày cuối cùng trong tháng).
+Paragraph 562: 7. Mức độ ưu tiên: 1 (Cần thiết).
+Paragraph 563: 8. Những thông tin khác:
+Paragraph 565: 2.3. Chỉ tiêu Airline B-1 - Customer satisfaction (NPS Net Promotor Score) - Mức độ hài lòng của khách hàng
+Paragraph 568: CT 3.14
+Paragraph 569: 1. Tên chỉ tiêu: Average NPS – NPS trung bình
+Paragraph 570: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 571: 2.1. Định nghĩa/Diễn giải:
+Paragraph 577: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 579: 3. Công thức tính:
+Paragraph 583: 4. Chiều tổng hợp dữ liệu:
+Paragraph 585: 5. Nguồn dữ liệu: Report Pro.
+Paragraph 586: 6. Tần suất cập nhật: Hàng tháng
+Paragraph 587: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 588: 8. Những thông tin khác:
+Paragraph 590: CT 3.15
+Paragraph 591: 1. Tên chỉ tiêu: NPS (DOM)
+Paragraph 592: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 593: 2.1. Định nghĩa/Diễn giải:
+Paragraph 595: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 597: 3. Công thức tính: Không có.
+Paragraph 598: 4. Chiều tổng hợp dữ liệu:
+Paragraph 601: 5. Nguồn dữ liệu: Report Pro.
+Paragraph 602: 6. Tần suất cập nhật:
+Paragraph 603: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 604: 8. Những thông tin khác:
+Paragraph 606: CT 3.16
+Paragraph 607: 1. Tên chỉ tiêu: NPS (INT)
+Paragraph 608: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 609: 2.1. Định nghĩa/Diễn giải:
+Paragraph 611: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 613: 3. Công thức tính: Không có.
+Paragraph 614: 4. Chiều tổng hợp dữ liệu:
+Paragraph 617: 5. Nguồn dữ liệu: Report Pro.
+Paragraph 618: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 619: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 620: 8. Những thông tin khác:
+Paragraph 622: CT 3.17
+Paragraph 623: 1. Tên chỉ tiêu: Survey Responses – Số phản hồi khảo sát
+Paragraph 624: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 625: 2.1. Định nghĩa/Diễn giải:
+Paragraph 627: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 629: 3. Công thức tính: Không có.
+Paragraph 630: 4. Chiều tổng hợp dữ liệu:
+Paragraph 632: 5. Nguồn dữ liệu: Report Pro.
+Paragraph 633: 6. Tần suất cập nhật:
+Paragraph 634: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 635: 8. Những thông tin khác:
+Paragraph 637: CT 3.18
+Paragraph 638: 1. Tên chỉ tiêu: Promoter Customer Rate – Tỷ lệ khách hàng Promoter
+Paragraph 639: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 640: 2.1. Định nghĩa/Diễn giải:
+Paragraph 643: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 645: 3. Công thức tính:
+Paragraph 647: 4. Chiều tổng hợp dữ liệu:
+Paragraph 649: 5. Nguồn dữ liệu: Report Pro.
+Paragraph 650: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 651: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 652: 8. Những thông tin khác:
+Paragraph 654: CT 3.19
+Paragraph 655: 1. Tên chỉ tiêu: NPS Trend vs. Target Over Time – Xu hướng điểm NPS so với mục tiêu theo thời gian
+Paragraph 656: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 657: 2.1. Định nghĩa/Diễn giải:
+Paragraph 659: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 661: 3. Công thức tính: Không có.
+Paragraph 662: 4. Chiều tổng hợp dữ liệu:
+Paragraph 665: 5. Nguồn dữ liệu:
+Paragraph 668: 6. Tần suất cập nhật:
+Paragraph 669: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 670: 8. Những thông tin khác:
+Paragraph 673: CT 3.20
+Paragraph 674: 1. Tên chỉ tiêu: NPS by Membership Tier – Điểm NPS theo hạng hội viên
+Paragraph 675: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 676: 2.1. Định nghĩa/Diễn giải:
+Paragraph 678: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 680: 3. Công thức tính: Không có.
+Paragraph 681: 4. Chiều tổng hợp dữ liệu:
+Paragraph 684: 5. Nguồn dữ liệu: Report Pro.
+Paragraph 685: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 686: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 687: 8. Những thông tin khác:
+Paragraph 689: 2.4. Chỉ tiêu GRI 406-1 - Incidents of discrimination and corrective actions taken - Sự cố phân biệt đối xử và biện pháp xử lý (phần khách hàng)
+Paragraph 692: CT 3.21
+Paragraph 693: 1. Tên chỉ tiêu: Total Discrimination Cases – Tổng số vụ việc phân biệt đối xử
+Paragraph 694: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 695: 2.1. Định nghĩa/Diễn giải:
+Paragraph 697: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 699: 3. Công thức tính: Không có.
+Paragraph 700: 4. Chiều tổng hợp dữ liệu:
+Paragraph 702: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 703: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 704: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 705: 8. Những thông tin khác:
+Paragraph 707: CT 3.22
+Paragraph 708: 1. Tên chỉ tiêu: Resolved Cases – Số vụ việc đã xử lý xong
+Paragraph 709: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 710: 2.1. Định nghĩa/Diễn giải:
+Paragraph 712: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 714: 3. Công thức tính:
+Paragraph 716: 4. Chiều tổng hợp dữ liệu:
+Paragraph 718: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 719: 6. Tần suất cập nhật: Hàng tháng
+Paragraph 720: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 721: 8. Những thông tin khác:
+Paragraph 723: CT 3.23
+Paragraph 724: 1. Tên chỉ tiêu: Cases Under Review – Số vụ việc đang được xem xét
+Paragraph 725: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 726: 2.1. Định nghĩa/Diễn giải:
+Paragraph 728: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 730: 3. Công thức tính:
+Paragraph 732: 4. Chiều tổng hợp dữ liệu:
+Paragraph 734: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 735: 6. Tần suất cập nhật: Hàng tháng
+Paragraph 736: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 737: 8. Những thông tin khác:
+Paragraph 739: CT 3.24
+Paragraph 740: 1. Tên chỉ tiêu: Average Resolution Time – Thời gian xử lý trung bình
+Paragraph 741: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 742: 2.1. Định nghĩa/Diễn giải:
+Paragraph 744: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 746: 3. Công thức tính:
+Paragraph 749: 4. Chiều tổng hợp dữ liệu:
+Paragraph 751: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 752: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 753: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 754: 8. Những thông tin khác:
+Paragraph 756: CT 3.25
+Paragraph 757: 1. Tên chỉ tiêu: Number of Discrimination Cases overtime – Số vụ phân biệt đối xử qua các năm
+Paragraph 758: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 759: 2.1. Định nghĩa/Diễn giải:
+Paragraph 761: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 763: 3. Công thức tính: Không có.
+Paragraph 764: 4. Chiều tổng hợp dữ liệu:
+Paragraph 766: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 767: 6. Tần suất cập nhật:Hàng tháng.
+Paragraph 768: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 769: 8. Những thông tin khác:
+Paragraph 772: CT 3.26
+Paragraph 773: 1. Tên chỉ tiêu: Case Resolution Status – Tình trạng xử lý vụ việc
+Paragraph 774: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 775: 2.1. Định nghĩa/Diễn giải:
+Paragraph 779: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 781: 3. Công thức tính: Không có.
+Paragraph 782: 4. Chiều tổng hợp dữ liệu:
+Paragraph 784: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 785: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 786: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 787: 8. Những thông tin khác:
+Paragraph 790: CT 3.27
+Paragraph 791: 1. Tên chỉ tiêu: Corrective Action Statistics – Thống kê biện pháp khắc phục
+Paragraph 792: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 793: 2.1. Định nghĩa/Diễn giải:
+Paragraph 798: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 800: 3. Công thức tính: Không có.
+Paragraph 801: 4. Chiều tổng hợp dữ liệu:
+Paragraph 803: 5. Nguồn dữ liệu: Nhập thủ công.
+Paragraph 804: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 805: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 806: 8. Những thông tin khác:
+Paragraph 811: CT 3.28
+Paragraph 812: 1. Tên chỉ tiêu: Safety Compliance Rate (%) – Tỷ lệ tuân thủ An toàn (%)
+Paragraph 813: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 814: 2.1. Định nghĩa/Diễn giải:
+Paragraph 816: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 818: 3. Công thức tính: Không có.
+Paragraph 819: 4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+Paragraph 820: 5. Nguồn dữ liệu: LMS, excel.
+Paragraph 821: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 822: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 823: 8. Những thông tin khác:
+Paragraph 826: CT 3.29
+Paragraph 828: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 829: 2.1. Định nghĩa/Diễn giải:
+Paragraph 831: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 833: 3. Công thức tính: Không có.
+Paragraph 834: 4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+Paragraph 835: 5. Nguồn dữ liệu: LMS, excel.
+Paragraph 836: 6. Tần suất cập nhật: Hàng tháng.
+Paragraph 837: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 838: 8. Những thông tin khác:
+Paragraph 841: CT 3.30
+Paragraph 842: 1. Tên chỉ tiêu: Structure of material categories – Cơ cấu danh mục trọng yếu
+Paragraph 843: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 844: 2.1. Định nghĩa/Diễn giải:
+Paragraph 846: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 848: 3. Công thức tính:
+Paragraph 850: 4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+Paragraph 851: 5. Nguồn dữ liệu:  LMS, excel.
+Paragraph 852: 6. Tần suất cập nhật: Hàng tháng
+Paragraph 853: 7. Mức độ ưu tiên: 2 (Cần thiết).
+Paragraph 854: 8. Những thông tin khác:
+Paragraph 856: CT 3.31
+Paragraph 857: 1. Tên chỉ tiêu: Product evaluation criteria – Tiêu chuẩn đánh giá sản phẩm
+Paragraph 858: 2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+Paragraph 859: 2.1. Định nghĩa/Diễn giải:
+Paragraph 862: 2.2. Ý nghĩa/Mục đích đo lường:
+Paragraph 864: 3. Công thức tính: Không có.
+Paragraph 865: 4. Chiều tổng hợp dữ liệu: Danh mục sản phẩm
+Paragraph 866: 5. Nguồn dữ liệu: Lms, excel.
+Paragraph 867: 6. Tần suất cập nhật:Hàng tháng
+Paragraph 868: 7. Mức độ ưu tiên: 1 (Rất cần thiết).
+Paragraph 869: 8. Những thông tin khác:
+
+

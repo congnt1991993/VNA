@@ -1,0 +1,933 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Ban Tổ chức nhân lực
+1. Thông tin chung
+Đơn vị phụ trách: Ban Tổ chức nhân lực.
+Đầu mối Ban Tổ chức nhân lực:
+Ông Nguyễn Song Trường – Trưởng phòng Ban TCNLBà Nguyễn Thị Minh Huyền – Chuyên viên Ban TCNLÔng Trần Quang Anh – Chuyên viên Ban TCNL Ban Tổ chức nhân lực
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+Airline D-1
+Working days lost to strikes - Ngày công mất do đình công
+Số lượng ngày công mất do đình công
+Không có
+Khi có phát sinh thực tế
+Ban Tổ chức nhân lực
+Airline F-2
+Employee satisfaction - Mức độ hài lòng của nhân viên
+Mức độ hài lòng của nhân viên
+Nhập thủ công, Nhập liệu thủ công
+Tháng 11 hàng năm
+Ban Tổ chức nhân lực
+GRI 202-1
+Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+Tỷ lệ lương khởi điểm theo giới tính tiêu chuẩn so với mức lương tối thiểu (Vùng 1)= Lương khởi điểm/ Lương tối thiểu. Không phân biệt giới tính
+Nhập tay, Nhập liệu thủ công
+Hàng năm
+Ban Tổ chức nhân lực
+GRI 401-1
+New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+Số lượng lao động tuyển dụng mới và số lượng nghỉ việc/nghỉ việc tự nguyện
+SkyHR
+Ngày
+Ban Tổ chức nhân lực
+GRI 403-9
+Workrelated injuries - Thương tật do lao động
+Số vụ/người thương tật do lao động
+Excel, Nhập liệu thủ công
+6 tháng/lần
+Ban Tổ chức nhân lực
+GRI 405-1
+Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+- Tỷ lệ giới tính trong cấp quản lý (HĐQT, BGĐ, BKS)- Tỷ lệ nhóm tuổi trong cấp quản lý (HĐQT, BGĐ, BKS)
+SkyHR
+Ngày
+Ban Tổ chức nhân lực
+GRI 2-7
+Scale of the organization - Quy mô tổ chức
+- Số lượng lao động 31/12 hàng năm- Số lượng lao động bình quân hàng năm- Tỷ lệ lao động nữ- Tỷ lệ cán bộ quản lý nữ (cấp phòng trở lên)
+SkyHR
+Ngày
+Ban Tổ chức nhân lực
+GRI 404-2
+Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Tổng số người tham gia các chương trình nâng cao kỹ năng cho nhân viên và các chương trình hỗ trợ chuyển tiếp
+SkyHR
+Tháng
+Ban Tổ chức nhân lực
+GRI 202-2
+Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Chỉ tiêu phản ánh mức độ tham gia của nguồn nhân lực địa phương trong hoạt động quản lý và điều hành doanh nghiệp.
+Cổng nhập liệu thủ công, Nhập liệu thủ công
+Tháng
+Ban Tổ chức nhân lực
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 4.1
+Number of strikes - Số vụ đình công
+Không có.
+Thời gian Năm.
+Khi có phát sinh thực tế
+Data Warehouse
+Không có
+CT 4.2
+Overall satisfaction - Mức độ hài lòng chung
+Lấy theo giá trị tương ứng với tổng công ty.
+Thời gian Năm.
+Tháng 11 hàng năm
+Data Warehouse
+Nhập thủ công
+CT 4.3
+Satisfaction level by division - Mức độ hài lòng theo khối
+Không có.
+Thời gian Năm.
+Tháng 11 hàng năm
+Data Warehouse
+Nhập thủ công
+CT 4.4
+Satisfaction level by employment type - Mức độ hài lòng theo đối tượng lao động
+Không có.
+Thời gian Năm.
+Tháng 11 hàng năm
+Data Warehouse
+Nhập thủ công
+CT 4.5
+Overall satisfaction across years - Mức độ hài lòng tổng thể qua các năm
+Không có.
+5 năm gần nhất.
+Tháng 11 hàng năm
+Data Warehouse
+Nhập thủ công
+CT 4.6
+Starting salary of Vietnamese pilots - Lương khởi điểm phi công Việt Nam
+Thời gian: Năm
+Hàng năm
+Data Warehouse
+Nhập tay
+CT 4.7
+Starting salary of permanent flight attendants - Lương khởi điểm tiếp viên cơ hữu
+Thời gian: Năm
+Hàng năm
+Data Warehouse
+Nhập tay
+CT 4.8
+Starting salary of ground staff - Lương khởi điểm lao động mặt đất
+Thời gian: Năm
+Hàng năm
+Data Warehouse
+Nhập tay
+CT 4.9
+Region 1 minimum wage - Mức lương tối thiểu vùng 1
+Thời gian: Năm
+Hàng năm
+Data Warehouse
+Nhập tay
+CT 4.10
+Starting salary and Region 1 minimum wage over the years - Mức lương khởi điểm và lương tối thiểu vùng 1 qua các năm
+5 năm gần nhất, tính từ năm hiện tại.
+Hàng năm
+Data Warehouse
+Nhập tay
+CT 4.11
+Total New Hires - Tổng số tuyển mới
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.12
+New Hires by Month - Số tuyển mới theo tháng
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.13
+New Hires by Age Group - Số tuyển mới theo nhóm tuổi
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.14
+New Hires by Gender - Số lượng lao động tuyển mới theo giới tính
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.15
+New Hires by Division - Số lượng lao động tuyển mới theo các khối
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.16
+New Hires by  Recruitment Region - Số lượng lao động tuyển mới theo khu vực tuyển dụng
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.17
+New Hires by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.18
+Total Employee Turnover -Tổng số nghỉ việc
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.19
+Total Employee Voluntary Turnover - Tổng số nghỉ việc tự nguyện
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.20
+Voluntary Turnover Rate - Tỷ lệ nghỉ việc tự nguyện
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.21
+Employee turnover by month - Số lượng lao động nghỉ việc theo tháng
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.22
+Employee turnover by Age Group - Số lượng lao động nghỉ việc theo nhóm tuổi
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.23
+Employee turnover by Tenure - Số lượng lao động nghỉ việc theo thâm niên
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.24
+Employee turnover by Gender - Số lượng lao động nghỉ việc theo giới tính
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.25
+Employee turnover by Division- Số lượng lao động nghỉ việc theo khối
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.26
+Employee turnover by Recruitment Region - Số lượng lao động nghỉ việc theo khu vực tuyển dụng
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.27
+Employee turnover by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.28
+Employee turnover by reason for leaving - Số lượng lao động nghỉ việc theo lý do nghỉ việc
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.29
+Total accidents - Tổng số vụ tai nạn
+Thời gian: Năm
+6 tháng/lần
+Data Warehouse
+Excel
+CT 4.30
+Number of injured people - Số người bị thương
+Thời gian: Năm
+6 tháng/lần
+Data Warehouse
+Excel
+CT 4.31
+Number of fatal accidents - Số vụ có người chết
+Thời gian: Năm
+6 tháng/lần
+Data Warehouse
+Excel
+CT 4.32
+Number of deaths - Số người chết
+Thời gian: Năm
+6 tháng/lần
+Data Warehouse
+Excel
+CT 4.33
+Distribution of injury factors - Cơ cấu yếu tố gây chấn thương
+Thời gian: Năm
+6 tháng/lần
+Data Warehouse
+Excel
+CT 4.34
+Distribution of accident causes - Cơ cấu nguyên nhân xảy ra tai nạn
+Thời gian: Năm
+6 tháng/lần
+Data Warehouse
+Excel
+CT 4.35
+Total Members - Tổng số thành viên trong cơ quan quản trị
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.36
+Female Ratio - Tỷ lệ thành viên nữ
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.37
+Member by Governance Bodies - Số lượng thành viên theo cơ quan quản trị
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.38
+Age Group and Gender Distribution - Số lượng thành viên theo nhóm tuổi và giới tính
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.39
+Total Employee - Tổng số nhân sự
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.40
+Female Ratio - Tỷ lệ nhân sự nữ
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.41
+Female Management Ratio - Tỷ lệ cán bộ quản lý nữ
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.42
+Average Employee - Lao động bình quân
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.43
+Number of employees as of December 31 by year - Số lượng lao động 31/12 theo năm
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.44
+Number of employees by age group - Số lượng lao động theo nhóm tuổi
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.45
+Number of employees by gender - Số lượng nhân viên theo giới tính
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.46
+Number of employees by nationality - Số lượng lao động theo quốc tịch
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.47
+Number of employees by job level - Số lượng lao động theo cấp bậc nhân viên
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.48
+Number of employees by field - Số lượng lao động theo lĩnh vực*Ghi chú: Chỉ tiêu phía Ban TCNL yêu cầu chưa báo cáo, cần nghiên cứu thêm
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.49
+Number of employees by division - Số lượng lao động theo khối
+Thời gian: Tháng, Năm
+Ngày
+Data Warehouse
+SkyHR
+CT 4.50
+Total training attendees per year - Tổng số lượt người tham gia đào tạo/năm
+Thời gian: Tháng, Năm
+Tháng
+Data Warehouse
+SkyHR
+CT 4.51
+Total training costs per year - Tổng chi phí đào tạo/năm
+Thời gian: Tháng, Năm
+Tháng
+Data Warehouse
+SkyHR
+CT 4.52
+Number of training enrollments by employee group: Pilots/Cabin Crew/Ground Staff per year - Số lượt đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất tham gia đào tạo/năm
+Thời gian: Tháng, Năm
+Tháng
+Data Warehouse
+SkyHR
+CT 4.53
+Training costs by employee group: Pilots/Cabin Crew/Ground Staff per year - Chi phí đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất/năm
+Thời gian: Tháng, Năm
+Tháng
+Data Warehouse
+SkyHR
+CT 4.54
+Number of training enrollments by type of training per year: Initial/Recurrent/Type rating/Upgrade per year - Số lượt đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm
+Thời gian: Tháng, Năm
+Tháng
+Data Warehouse
+SkyHR
+CT 4.55
+Training costs by type of training: Initial/Recurrent/Type rating/Upgrade per year - Chi phí đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm
+Thời gian: Tháng, Năm
+Tháng
+Data Warehouse
+SkyHR
+CT 4.56
+Percentage of Vietnamese managers in Vietnam - Tỷ lệ quản lý người Việt Nam tại Việt Nam
+Thời gian: Tháng, Năm.
+Tháng
+Data Warehouse
+Cổng nhập liệu thủ công
+CT 4.57
+Percentage of foreign managers overseas - Tỷ lệ quản lý người nước ngoài tại nước ngoài
+Thời gian: Tháng, Năm.
+Tháng
+Data Warehouse
+Cổng nhập liệu thủ công
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Working days lost to strikes - Ngày công mất do đình công
+Tự động
+2
+Employee satisfaction - Mức độ hài lòng của nhân viên
+Thủ công
+3
+Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+Thủ công
+4
+New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+Tự động
+5
+Workrelated injuries - Thương tật do lao động
+Thủ công
+6
+Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+Tự động
+7
+Scale of the organization - Quy mô tổ chức
+Tự động
+8
+Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+Tự động
+9
+Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Working days lost to strikes - Ngày công mất do đình công
+2
+Employee satisfaction - Mức độ hài lòng của nhân viên
+x
+3
+Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1
+x
+4
+New employees hires and employee turnover - Tuyển dụng và nghỉ việc
+5
+Workrelated injuries - Thương tật do lao động
+x
+6
+Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị
+7
+Scale of the organization - Quy mô tổ chức
+8
+Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng
+9
+Proportion of senior management hired from the local community - Tỷ lệ lãnh đạo cấp cao là người bản địa
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Number of strikes - Số vụ đình công
+Không có
+Khi có phát sinh thực tế
+Tự động
+2
+Overall satisfaction - Mức độ hài lòng chung
+Nhập thủ công
+Tháng 11 hàng năm
+Thủ công
+3
+Satisfaction level by division - Mức độ hài lòng theo khối
+Nhập thủ công
+Tháng 11 hàng năm
+Thủ công
+4
+Satisfaction level by employment type - Mức độ hài lòng theo đối tượng lao động
+Nhập thủ công
+Tháng 11 hàng năm
+Thủ công
+5
+Overall satisfaction across years - Mức độ hài lòng tổng thể qua các năm
+Nhập thủ công
+Tháng 11 hàng năm
+Thủ công
+6
+Starting salary of Vietnamese pilots - Lương khởi điểm phi công Việt Nam
+Nhập tay
+Hàng năm
+Thủ công
+7
+Starting salary of permanent flight attendants - Lương khởi điểm tiếp viên cơ hữu
+Nhập tay
+Hàng năm
+Thủ công
+8
+Starting salary of ground staff - Lương khởi điểm lao động mặt đất
+Nhập tay
+Hàng năm
+Thủ công
+9
+Region 1 minimum wage - Mức lương tối thiểu vùng 1
+Nhập tay
+Hàng năm
+Thủ công
+10
+Starting salary and Region 1 minimum wage over the years - Mức lương khởi điểm và lương tối thiểu vùng 1 qua các năm
+Nhập tay
+Hàng năm
+Thủ công
+11
+Total New Hires - Tổng số tuyển mới
+SkyHR
+Ngày
+Tự động
+12
+New Hires by Month - Số tuyển mới theo tháng
+SkyHR
+Ngày
+Tự động
+13
+New Hires by Age Group - Số tuyển mới theo nhóm tuổi
+SkyHR
+Ngày
+Tự động
+14
+New Hires by Gender - Số lượng lao động tuyển mới theo giới tính
+SkyHR
+Ngày
+Tự động
+15
+New Hires by Division - Số lượng lao động tuyển mới theo các khối
+SkyHR
+Ngày
+Tự động
+16
+New Hires by  Recruitment Region - Số lượng lao động tuyển mới theo khu vực tuyển dụng
+SkyHR
+Ngày
+Tự động
+17
+New Hires by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên
+SkyHR
+Ngày
+Tự động
+18
+Total Employee Turnover -Tổng số nghỉ việc
+SkyHR
+Ngày
+Tự động
+19
+Total Employee Voluntary Turnover - Tổng số nghỉ việc tự nguyện
+SkyHR
+Ngày
+Tự động
+20
+Voluntary Turnover Rate - Tỷ lệ nghỉ việc tự nguyện
+SkyHR
+Ngày
+Tự động
+21
+Employee turnover by month - Số lượng lao động nghỉ việc theo tháng
+SkyHR
+Ngày
+Tự động
+22
+Employee turnover by Age Group - Số lượng lao động nghỉ việc theo nhóm tuổi
+SkyHR
+Ngày
+Tự động
+23
+Employee turnover by Tenure - Số lượng lao động nghỉ việc theo thâm niên
+SkyHR
+Ngày
+Tự động
+24
+Employee turnover by Gender - Số lượng lao động nghỉ việc theo giới tính
+SkyHR
+Ngày
+Tự động
+25
+Employee turnover by Division- Số lượng lao động nghỉ việc theo khối
+SkyHR
+Ngày
+Tự động
+26
+Employee turnover by Recruitment Region - Số lượng lao động nghỉ việc theo khu vực tuyển dụng
+SkyHR
+Ngày
+Tự động
+27
+Employee turnover by Employee Level - Số lượng lao động tuyển mới theo cấp độ nhân viên
+SkyHR
+Ngày
+Tự động
+28
+Employee turnover by reason for leaving - Số lượng lao động nghỉ việc theo lý do nghỉ việc
+SkyHR
+Ngày
+Tự động
+29
+Total accidents - Tổng số vụ tai nạn
+Excel
+6 tháng/lần
+Thủ công
+30
+Number of injured people - Số người bị thương
+Excel
+6 tháng/lần
+Thủ công
+31
+Number of fatal accidents - Số vụ có người chết
+Excel
+6 tháng/lần
+Thủ công
+32
+Number of deaths - Số người chết
+Excel
+6 tháng/lần
+Thủ công
+33
+Distribution of injury factors - Cơ cấu yếu tố gây chấn thương
+Excel
+6 tháng/lần
+Thủ công
+34
+Distribution of accident causes - Cơ cấu nguyên nhân xảy ra tai nạn
+Excel
+6 tháng/lần
+Thủ công
+35
+Total Members - Tổng số thành viên trong cơ quan quản trị
+SkyHR
+Ngày
+Tự động
+36
+Female Ratio - Tỷ lệ thành viên nữ
+SkyHR
+Ngày
+Tự động
+37
+Member by Governance Bodies - Số lượng thành viên theo cơ quan quản trị
+SkyHR
+Ngày
+Tự động
+38
+Age Group and Gender Distribution - Số lượng thành viên theo nhóm tuổi và giới tính
+SkyHR
+Ngày
+Tự động
+39
+Total Employee - Tổng số nhân sự
+SkyHR
+Ngày
+Tự động
+40
+Female Ratio - Tỷ lệ nhân sự nữ
+SkyHR
+Ngày
+Tự động
+41
+Female Management Ratio - Tỷ lệ cán bộ quản lý nữ
+SkyHR
+Ngày
+Tự động
+42
+Average Employee - Lao động bình quân
+SkyHR
+Ngày
+Tự động
+43
+Number of employees as of December 31 by year - Số lượng lao động 31/12 theo năm
+SkyHR
+Ngày
+Tự động
+44
+Number of employees by age group - Số lượng lao động theo nhóm tuổi
+SkyHR
+Ngày
+Tự động
+45
+Number of employees by gender - Số lượng nhân viên theo giới tính
+SkyHR
+Ngày
+Tự động
+46
+Number of employees by nationality - Số lượng lao động theo quốc tịch
+SkyHR
+Ngày
+Tự động
+47
+Number of employees by job level - Số lượng lao động theo cấp bậc nhân viên
+SkyHR
+Ngày
+Tự động
+48
+Number of employees by field - Số lượng lao động theo lĩnh vực*Ghi chú: Chỉ tiêu phía Ban TCNL yêu cầu chưa báo cáo, cần nghiên cứu thêm
+SkyHR
+Ngày
+Tự động
+49
+Number of employees by division - Số lượng lao động theo khối
+SkyHR
+Ngày
+Tự động
+50
+Total training attendees per year - Tổng số lượt người tham gia đào tạo/năm
+SkyHR
+Tháng
+Tự động
+51
+Total training costs per year - Tổng chi phí đào tạo/năm
+SkyHR
+Tháng
+Tự động
+52
+Number of training enrollments by employee group: Pilots/Cabin Crew/Ground Staff per year - Số lượt đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất tham gia đào tạo/năm
+SkyHR
+Tháng
+Tự động
+53
+Training costs by employee group: Pilots/Cabin Crew/Ground Staff per year - Chi phí đào tạo theo đối tượng: Phi công/Tiếp viên/NLĐ mặt đất/năm
+SkyHR
+Tháng
+Tự động
+54
+Number of training enrollments by type of training per year: Initial/Recurrent/Type rating/Upgrade per year - Số lượt đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm
+SkyHR
+Tháng
+Tự động
+55
+Training costs by type of training: Initial/Recurrent/Type rating/Upgrade per year - Chi phí đào tạo theo loại hình: Cơ bản/Định kỳ/Chuyển loại/Nâng cấp/năm
+SkyHR
+Tháng
+Tự động
+56
+Percentage of Vietnamese managers in Vietnam - Tỷ lệ quản lý người Việt Nam tại Việt Nam
+Cổng nhập liệu thủ công
+Tháng
+Thủ công
+57
+Percentage of foreign managers overseas - Tỷ lệ quản lý người nước ngoài tại nước ngoài
+Cổng nhập liệu thủ công
+Tháng
+Thủ công
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-TCNL-WEB-01
+Rút chỉ tiêu nhân sự theo lĩnh vực (CT 4.47).
+Cao
+Không hiển thị lát cắt nhân sự theo lĩnh vực công việc (Pilots/Cabin/Ground) trên Dashboard quy mô nhân sự (GRI 2-7). Chỉ hiển thị nhân sự theo giới tính, độ tuổi, khu vực và hợp đồng.
+YCQ-TCNL-WEB-02
+Ma trận điểm hài lòng nhân viên (GRI 405-1).
+Cao
+Thiết lập bảng nhập điểm hài lòng gồm 8 tiêu chí: Hài lòng chung, Đặc điểm công việc, Điều kiện làm việc, Đào tạo & Thăng tiến, Ban lãnh đạo, Quan hệ đồng nghiệp, Thu nhập, Phúc lợi. Hỗ trợ nhập theo từng ban/đơn vị hoặc nhập Toàn tổng công ty.
+YCQ-TCNL-WEB-03
+Khai báo tai nạn lao động (GRI 403-9) và đình công (GRI 2-30).
+Cao
+Đình công: Nhập thông tin Có/Không xảy ra đình công (hasStrike), Số lượng vụ đình công (strikeCount), và Mô tả chi tiết vụ việc (strikeDescription). An toàn lao động: Nút tải lên chứng từ/tệp báo cáo tai nạn lao động định kỳ.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-TCNL-WEB-01
+Hình 01: Dashboard Nhân lực
+Biểu đồ quy mô nhân sự
+Xác nhận không còn phân tích theo lĩnh vực công việc.
+YCQ-TCNL-WEB-02
+Hình 02: Màn hình Điểm hài lòng
+Ma trận điểm khảo sát
+Kiểm thử nhập điểm hài lòng cho 8 tiêu chí và tính toán giá trị trung bình.
+YCQ-TCNL-WEB-03
+Hình 03: Màn hình Tai nạn & Đình công
+Số liệu an toàn & tệp đính kèm
+Kiểm thử khai báo sự việc đình công và upload file báo cáo tai nạn.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Ban Tổ chức nhân lực
+1. Thông tin chung
+Ban Tổ chức nhân lực.
+Tính năng nhập khảo sát hài lòng, an toàn lao động, đình công và quản lý nhân sự.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng nhập điểm ma trận hài lòng nhân viên, tỷ lệ lãnh đạo, báo cáo tai nạn lao động, nhật ký đình công (không hiển thị chỉ tiêu cơ cấu nhân sự theo lĩnh vực CT 4.47).
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-TCNL-WEB-01
+Kiểm thử ẩn chỉ tiêu CT 4.47
+Kiểm tra biểu đồ quy mô nhân sự để đảm bảo không hiển thị phân tích theo lĩnh vực Pilots/Cabin/Ground.
+Đạt
+—
+Hoàn thành
+YCQ-TCNL-WEB-02
+Kiểm thử nhập điểm hài lòng
+Nhập ma trận điểm khảo sát cho Ban TCNL, kiểm tra lưu trữ và đồng bộ dữ liệu.
+Đạt
+—
+Hoàn thành
+YCQ-TCNL-WEB-03
+Kiểm thử khai báo đình công
+Khai báo có xảy ra 1 vụ đình công tự phát, kiểm tra hiển thị. Thử tải tệp báo cáo tai nạn lao động.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Ban Tổ chức nhân lực
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

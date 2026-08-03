@@ -1,0 +1,313 @@
+================================================================================
+PAGE FILE: OpsTTBSV.tsx
+================================================================================
+Interface found:
+interface OpsTTBSVRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  year: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+  npsTarget: string;
+  npsActual: string;
+  customerSurveys: string;
+}
+
+================================================================================
+PAGE FILE: OpsFlight.tsx
+================================================================================
+Interface found:
+interface Incident {
+  id: string;
+  date: string;
+  title: string;
+  status: 'Open' | 'Investigating' | 'Closed';
+}
+
+Interface found:
+interface OpsFlightRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  year: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+  noiseLevel: string;
+  ghgEmissions: string;
+  incidents: Incident[];
+}
+
+================================================================================
+PAGE FILE: OpsPlanning.tsx
+================================================================================
+Interface found:
+interface KPIItem {
+  id: number;
+  code: string;
+  name: string;
+  subName?: string;
+  unit: string;
+  plan: number | string;
+  actual: number | string;
+  progress: number;
+  progressText: string;
+  isPass: boolean;
+  dept: string;
+  creator: string;
+  approver: string;
+  approvalTime: string;
+  status: ApprovalStatus;
+}
+
+Interface found:
+interface OpsRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  effectivePeriod: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+}
+
+================================================================================
+PAGE FILE: OpsDigital.tsx
+================================================================================
+Interface found:
+interface OpsDigitalRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  year: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+
+  // Data Entry
+  privacyBreaches: string;
+  dataLosses: string;
+
+  // Alerts (Since it's zero tolerance, we just need one critical alert config per record)
+  alertField: string;
+  alertOperator: string;
+  alertValue: string;
+  alertInApp: boolean;
+  alertEmail: boolean;
+  alertAssignees: string[];
+  alertMessage: string;
+}
+
+================================================================================
+PAGE FILE: OpsService.tsx
+================================================================================
+Interface found:
+interface MonthlyTarget {
+  month: number;
+  withdrawal: string;
+  consumption: string;
+}
+
+Interface found:
+interface Incident {
+  id: string;
+  month: string;
+  description: string;
+}
+
+Interface found:
+interface AlertCondition {
+  id: string;
+  field: string;
+  operator: string;
+  value: string;
+  message: string;
+  priority: string;
+}
+
+Interface found:
+interface OpsServiceRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  year: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+
+  // Area 1: Annual Targets
+  waterWithdrawalTarget: string;
+  waterConsumptionTarget: string;
+  totalSuppliers: string;
+  localSuppliers: string;
+  npsTarget: string;
+
+  // Area 2: Monthly Targets
+  monthlyTargets: MonthlyTarget[];
+
+  // Area 3: Incidents
+  incidents416: Incident[];
+  incidents417: Incident[];
+
+  // Area 4: Alerts
+  alertConditions: AlertCondition[];
+  assignees: string[];
+}
+
+================================================================================
+PAGE FILE: OpsComm.tsx
+================================================================================
+Interface found:
+interface OpsRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  effectivePeriod: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+  violations: number;
+}
+
+================================================================================
+PAGE FILE: OpsATCL.tsx
+================================================================================
+Interface found:
+interface Incident {
+  id: string;
+  date: string;
+  title: string;
+  status: 'Open' | 'Investigating' | 'Closed';
+}
+
+Interface found:
+interface OpsATCLRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  year: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+  noiseLevel: string;
+  ghgEmissions: string;
+  incidents: Incident[];
+}
+
+================================================================================
+PAGE FILE: OpsHR.tsx
+================================================================================
+Interface found:
+interface SatisfactionScore {
+  overall: string;
+  jobCharacteristics: string;
+  workingConditions: string;
+  trainingPromotion: string;
+  leadership: string;
+  officeRelations: string;
+  income: string;
+  benefits: string;
+}
+
+Interface found:
+interface DepartmentMatrixScore {
+  name: string;
+  isOverall: boolean;
+  scores: SatisfactionScore;
+}
+
+Interface found:
+interface LocalLeaderRate {
+  month: string;
+  vnRate: string;
+  foreignRate: string;
+}
+
+Interface found:
+interface AlertCondition {
+  id: string;
+  field: string;
+  operator: string;
+  value: string;
+  message: string;
+  priority: string;
+}
+
+Interface found:
+interface OpsHRRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  year: string;
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+
+  // Area 1: Block 1.1 Matrix
+  matrixScores: DepartmentMatrixScore[];
+
+  // Area 1: Block 1.2
+  localLeaderRates: LocalLeaderRate[];
+
+  // Area 2: Block 2.1
+  accidentReportPeriod: string;
+  accidentFileUploaded: boolean;
+
+  // Area 2: Block 2.2
+  hasStrike: boolean;
+  strikeCount: string;
+  strikeDescription: string;
+
+  // Area 3: Alerts
+  alertConditions: AlertCondition[];
+  assignees: string[];
+}
+
+================================================================================
+PAGE FILE: TechOps.tsx
+================================================================================
+Interface found:
+interface TechnicalOpsRecord {
+  logs?: ApprovalLog[];
+  id: string;
+  effectivePeriod: string; // Thời gian áp dụng, ví dụ: Tháng 03/2026
+  status: ApprovalStatus;
+  creator?: string;
+  editor?: string;
+  editTime?: string;
+  // Nhóm Cấu hình Định mức
+  safPlannedRatio: number; // Tỷ lệ SAF quy định (%)
+  quotaEts: number; // Hạn ngạch EU/UK ETS (Tấn CO2)
+  baselineCorsia: number; // Mức Baseline (CORSIA) (Tấn CO2)
+  // Nhóm Cập nhật SAF thực tế & Chi phí
+  actualSaf: number; // Lượng SAF nạp thực tế (Tấn)
+  neatSaf: number; // Lượng Neat SAF (Tấn)
+  priceEua: number; // Đơn giá tín chỉ EUA/UKA (USD)
+  surchargeSaf: number; // Phụ phí mua SAF (USD)
+  // Bảng chi tiết mua SAF import
+  importedRows: ReFuelEURow[];
+}
+
+Interface found:
+interface ReFuelEURow {
+  airportIcao: string; // 1. ICAO Code of Union Airport
+  supplier: string; // 2. Fuel Supplier
+  supplierVat: string; // 3. VAT Number of Aviation Fuel Supplier
+  batchNumber: string; // 4. Batch Number
+  amountPurchased: number; // 5. Amount Purchased (tonnes)
+  category: string; // 6. Category
+  process: string; // 7. Process
+  feedstock: string; // 8. Feedstock
+  origin: string; // 9. Origin
+  lifecycleEmissions: number; // 10. Lifecycle emissions (gCO2eq/MJ)
+  // 11-16. Lượng kê khai bù trừ dưới các MBMs
+  claimedEu: number; // 11. Eligible Fuel claimed under EU
+  claimedCh: number; // 12. Eligible Fuel claimed under CH
+  claimedUk: number; // 13. Eligible Fuel claimed under UK
+  claimedCorsia: number; // 14. Eligible Fuel claimed under CORSIA
+  claimedOtherMbm1: number; // 15. Eligible Fuel claimed under other MBMs 1
+  claimedOtherMbm2: number; // 16. Eligible Fuel claimed under other MBMs 2
+}
+

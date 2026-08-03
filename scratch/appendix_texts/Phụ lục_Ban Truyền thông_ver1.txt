@@ -1,0 +1,332 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Ban Truyền thông
+1. Thông tin chung
+Đơn vị phụ trách: Ban Truyền thông.
+Đầu mối Ban Truyền thông:
+Bà Hoàng Thị Lệ Thu – Chuyên viên Ban Truyền thôngBà Đồng Thu Trà My – Chuyên viên Ban Truyền thông Ban Truyền thông
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+Airline F-1
+Volunteering during working hours - Tham gia hoạt động tình nguyện
+Tham gia hoạt động tình nguyện trong giờ làm việc.
+Nhập thủ công, Tổng số nhân sự: SkyHR, Nhập liệu thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Ban Truyền thông
+GRI 417-3
+Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Các vụ việc không tuân thủ liên quan đến truyền thông marketing.
+Nhập thủ công, Nhập liệu thủ công
+Hàng năm
+Ban Truyền thông
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 7.1
+Total volunteer hours - Tổng số giờ tình nguyện
+Tổng số giờ tình nguyện = Tổng thời gian tham gia tình nguyện của tất cả nhân sự, theo toàn bộ chương trình tình nguyện trong năm.(VD: dự án A có 50 nhân sự tham gia, thời gian tham gia của mỗi nhân sự là 10 giờ thì tổng thời gian tham gia tình nguyện = 50*10 = 500 giờ).
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 7.2
+Total number of employees participating in volunteer activities during working hours - Tổng số nhân viên tham gia hoạt động tình nguyện trong giờ làm việc
+Không có.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 7.3
+Average volunteer hours per employee - Số giờ tình nguyện trung bình mỗi nhân viên
+Số giờ tình nguyện trung bình mỗi nhân viên = Tổng số giờ tình nguyện / Tổng số nhân viên
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Tổng số nhân sự: SkyHR
+CT 7.4
+Total volunteer activity expenses - Tổng chi phí hoạt động tình nguyện
+Không có.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 7.5
+Total number of incidents - Tổng số vụ việc
+Không có.
+Thời gian Năm.
+Hàng năm
+Data Warehouse
+Nhập thủ công
+CT 7.6
+Incidents resulting in administrative sanctions - Các vụ việc xử phạt hành chính
+Không có.
+Thời gian Năm.
+Hàng năm
+Data Warehouse
+Nhập thủ công
+CT 7.7
+Incidents resulting in warnings - Các vụ việc bị cảnh cáo
+Không có.
+Thời gian Năm.
+Hàng năm
+Data Warehouse
+Nhập thủ công
+CT 7.8
+Number of incidents of non-compliance with voluntary codes - Số sự cố không tuân thủ các bộ quy tắc tự nguyện
+Không có.
+Thời gian Năm.
+Hàng năm
+Data Warehouse
+Nhập thủ công
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Volunteering during working hours - Tham gia hoạt động tình nguyện
+Thủ công
+2
+Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Volunteering during working hours - Tham gia hoạt động tình nguyện
+x
+2
+Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Total volunteer hours - Tổng số giờ tình nguyện
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+2
+Total number of employees participating in volunteer activities during working hours - Tổng số nhân viên tham gia hoạt động tình nguyện trong giờ làm việc
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+3
+Average volunteer hours per employee - Số giờ tình nguyện trung bình mỗi nhân viên
+Tổng số nhân sự: SkyHR
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+4
+Total volunteer activity expenses - Tổng chi phí hoạt động tình nguyện
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+5
+Total number of incidents - Tổng số vụ việc
+Nhập thủ công
+Hàng năm
+Thủ công
+6
+Incidents resulting in administrative sanctions - Các vụ việc xử phạt hành chính
+Nhập thủ công
+Hàng năm
+Thủ công
+7
+Incidents resulting in warnings - Các vụ việc bị cảnh cáo
+Nhập thủ công
+Hàng năm
+Thủ công
+8
+Number of incidents of non-compliance with voluntary codes - Số sự cố không tuân thủ các bộ quy tắc tự nguyện
+Nhập thủ công
+Hàng năm
+Thủ công
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-BTT-WEB-01
+CMS Quản trị Web Public ESG.
+Cao
+Cho phép Ban TT chỉnh sửa, biên soạn và duyệt xuất bản các bài viết Chiến lược ESG (3 trụ cột), Thông điệp/Tầm nhìn của ban lãnh đạo. Hỗ trợ cơ chế ẩn/hiện bài viết trên trang Web Public.
+YCQ-BTT-WEB-02
+API đồng bộ tin tức hoạt động.
+Cao
+Tích hợp API tự động đồng bộ các bài viết từ cổng tin tức nội bộ Spirit VNA về danh mục Tin tức hoạt động của Website ESG Public.
+YCQ-BTT-WEB-03
+Lưu trữ báo cáo ESG tập trung.
+Trung bình
+Cho phép Ban TT gửi yêu cầu nộp báo cáo thường niên ESG tới các phòng ban. Hệ thống hiển thị danh mục các báo cáo được nộp tập trung dưới dạng thư mục, hỗ trợ tải về trực tiếp.
+YCQ-BTT-WEB-04
+Hiển thị tuyên bố mặc định GRI 417-3.
+Cao
+Khi số vụ vi phạm bằng 0, hệ thống tự động hiển thị câu tuyên bố: "Vietnam Airlines không có vụ việc nào liên quan đến tuân thủ truyền thông marketing." thay vì để trống dữ liệu.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-BTT-WEB-01
+Hình 01: Màn hình quản trị CMS
+Nội dung bài viết ESG
+Kiểm thử soạn thảo, biên tập và duyệt xuất bản bài viết.
+YCQ-BTT-WEB-02
+Hình 02: Trang tin tức hoạt động
+API Feed từ Spirit VNA
+Kiểm thử đồng bộ dữ liệu tự động.
+YCQ-BTT-WEB-03
+Hình 03: Thư mục báo cáo ESG
+Tệp PDF báo cáo
+Kiểm thử yêu cầu nộp và tải xuống báo cáo.
+YCQ-BTT-WEB-04
+Hình 04: Biểu đồ báo cáo GRI 417-3
+Chỉ số vi phạm = 0
+Kiểm thử hiển thị câu tuyên bố mặc định.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Ban Truyền thông
+1. Thông tin chung
+Ban Truyền thông.
+Tính năng CMS quản trị Web Public, API Spirit VNA và Lưu trữ báo cáo ESG.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng hiển thị CMS Website ESG, đồng bộ API Spirit VNA, Quản lý báo cáo ESG tập trung và chỉ tiêu GRI 417-3.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-BTT-WEB-01
+Kiểm thử CMS quản trị
+Thực hiện tạo bài viết mới, biên tập và xuất bản lên trang public. Kiểm tra nút ẩn/hiện bài viết.
+Đạt
+—
+Hoàn thành
+YCQ-BTT-WEB-02
+Kiểm thử đồng bộ API
+Kiểm tra danh mục tin tức tự động cập nhật bài viết mới từ Spirit VNA.
+Đạt
+—
+Hoàn thành
+YCQ-BTT-WEB-03
+Kiểm thử Lưu trữ báo cáo
+Gửi yêu cầu nộp báo cáo và kiểm tra tệp báo cáo thường niên xuất hiện tại thư mục tập trung.
+Đạt
+—
+Hoàn thành
+YCQ-BTT-WEB-04
+Kiểm thử Hiển thị chỉ tiêu
+Kiểm tra giao diện hiển thị câu tuyên bố mặc định của GRI 417-3 khi số vụ vi phạm bằng 0.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Ban Truyền thông
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

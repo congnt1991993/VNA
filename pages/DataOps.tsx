@@ -26,6 +26,206 @@ interface EsgDataAnalysisRecord {
   kpiTarget?: number;
 }
 
+// --- AUDIT LOG TYPES & INITIAL MOCK DATA ---
+interface AuditLogEntry {
+  id: string;
+  indicatorCode: string;
+  indicatorName: string;
+  formName: string;
+  user: string;
+  timestamp: string; // dd/MM/yyyy hh:mm
+  actionType: 'Khởi tạo' | 'Cập nhật';
+  period: string;
+}
+
+const INITIAL_AUDIT_LOGS: AuditLogEntry[] = [
+  {
+    id: 'LOG-1',
+    indicatorCode: 'Airline E-1',
+    indicatorName: 'Tiếng ồn',
+    formName: 'Biểu mẫu tiếng ồn tàu bay',
+    user: 'ns_vna@vietnamairlines.com',
+    timestamp: '28/10/2025 09:15',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-2',
+    indicatorCode: 'Airline E-1',
+    indicatorName: 'Tiếng ồn',
+    formName: 'Biểu mẫu tiếng ồn tàu bay',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '25/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-3',
+    indicatorCode: 'GRI 302-1',
+    indicatorName: 'Năng lượng tiêu thụ của tổ chức',
+    formName: 'Biểu mẫu tiêu thụ năng lượng',
+    user: 'ktoan_esg@vietnamairlines.com',
+    timestamp: '29/10/2025 10:30',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-4',
+    indicatorCode: 'GRI 302-1',
+    indicatorName: 'Năng lượng tiêu thụ của tổ chức',
+    formName: 'Biểu mẫu tiêu thụ năng lượng',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '25/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-5',
+    indicatorCode: 'Airline B-1',
+    indicatorName: 'Mức độ hài lòng của khách hàng (NPS)',
+    formName: 'Biểu mẫu chỉ số hài lòng (NPS)',
+    user: 'dv_khachhang@vietnamairlines.com',
+    timestamp: '15/10/2025 14:20',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-6',
+    indicatorCode: 'Airline B-1',
+    indicatorName: 'Mức độ hài lòng của khách hàng (NPS)',
+    formName: 'Biểu mẫu chỉ số hài lòng (NPS)',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '10/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-7',
+    indicatorCode: 'Airline B-2',
+    indicatorName: 'Tương tác khách hàng (BSV)',
+    formName: 'Biểu mẫu tương tác khách hàng BSV',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '15/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-8',
+    indicatorCode: 'GRI 2-7',
+    indicatorName: 'Quy mô tổ chức',
+    formName: 'Biểu mẫu quy mô nhân sự',
+    user: 'ns_vna@vietnamairlines.com',
+    timestamp: '16/10/2025 11:45',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-9',
+    indicatorCode: 'GRI 2-7',
+    indicatorName: 'Quy mô tổ chức',
+    formName: 'Biểu mẫu quy mô nhân sự',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '10/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-10',
+    indicatorCode: 'GRI 302-4',
+    indicatorName: 'Giảm tiêu thụ năng lượng',
+    formName: 'Biểu mẫu giảm tiêu thụ năng lượng',
+    user: 'tech_ops@vietnamairlines.com',
+    timestamp: '14/10/2025 16:30',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-11',
+    indicatorCode: 'GRI 302-4',
+    indicatorName: 'Giảm tiêu thụ năng lượng',
+    formName: 'Biểu mẫu giảm tiêu thụ năng lượng',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '10/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-12',
+    indicatorCode: 'Airline F-1',
+    indicatorName: 'Tham gia hoạt động tình nguyện',
+    formName: 'Biểu mẫu hoạt động tình nguyện',
+    user: 'doanthanhnien@vietnamairlines.com',
+    timestamp: '12/10/2025 15:10',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-13',
+    indicatorCode: 'Airline F-1',
+    indicatorName: 'Tham gia hoạt động tình nguyện',
+    formName: 'Biểu mẫu hoạt động tình nguyện',
+    user: 'doanthanhnien@vietnamairlines.com',
+    timestamp: '10/10/2025 09:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-14',
+    indicatorCode: 'GRI 404-2',
+    indicatorName: 'Chương trình nâng cao kỹ năng nhân viên',
+    formName: 'Biểu mẫu đào tạo nhân viên',
+    user: 'daotao_vna@vietnamairlines.com',
+    timestamp: '18/10/2025 10:20',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-15',
+    indicatorCode: 'GRI 404-2',
+    indicatorName: 'Chương trình nâng cao kỹ năng nhân viên',
+    formName: 'Biểu mẫu đào tạo nhân viên',
+    user: 'sys_sync@vietnamairlines.com',
+    timestamp: '15/10/2025 08:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  },
+  {
+    id: 'LOG-16',
+    indicatorCode: 'GRI 2-9',
+    indicatorName: 'Cơ cấu và thành phần quản trị',
+    formName: 'Cơ cấu và thành phần quản trị',
+    user: 'thu_ky_hdot@vietnamairlines.com',
+    timestamp: '10/10/2025 17:00',
+    actionType: 'Cập nhật',
+    period: '2025'
+  },
+  {
+    id: 'LOG-17',
+    indicatorCode: 'GRI 2-9',
+    indicatorName: 'Cơ cấu và thành phần quản trị',
+    formName: 'Cơ cấu và thành phần quản trị',
+    user: 'thu_ky_hdot@vietnamairlines.com',
+    timestamp: '05/10/2025 09:00',
+    actionType: 'Khởi tạo',
+    period: '2025'
+  }
+];
+
+const getFormName = (code: string) => {
+  switch (code) {
+    case 'Airline E-1': return 'Biểu mẫu tiếng ồn tàu bay';
+    case 'GRI 302-1': return 'Biểu mẫu tiêu thụ năng lượng';
+    case 'Airline B-1': return 'Biểu mẫu chỉ số hài lòng (NPS)';
+    case 'Airline B-2': return 'Biểu mẫu tương tác khách hàng BSV';
+    case 'GRI 2-7': return 'Biểu mẫu quy mô nhân sự';
+    case 'GRI 302-4': return 'Biểu mẫu giảm tiêu thụ năng lượng';
+    case 'Airline F-1': return 'Biểu mẫu hoạt động tình nguyện';
+    case 'GRI 404-2': return 'Biểu mẫu đào tạo nhân viên';
+    case 'GRI 2-9': return 'Cơ cấu và thành phần quản trị';
+    default: return 'Biểu mẫu chỉ tiêu ESG';
+  }
+};
+
 // --- SHARED DETAIL TYPES ---
 interface FlightDataRecord {
   id: string;
@@ -299,6 +499,7 @@ export const DataOpsPage: React.FC<{ mode: 'analysis' | 'logs' }> = ({ mode }) =
   // Detail View Filters
   const [filterStatus, setFilterStatus] = useState<'ALL' | 'SYSTEM' | 'MANUAL' | 'ERROR'>('ALL');
   const [detailSearchText, setDetailSearchText] = useState('');
+  const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>(INITIAL_AUDIT_LOGS);
 
   // Shared Handlers
   const handleViewDetail = (record: EsgDataAnalysisRecord) => {
@@ -316,6 +517,27 @@ export const DataOpsPage: React.FC<{ mode: 'analysis' | 'logs' }> = ({ mode }) =
     setIsAdjusting(false);
   };
 
+  const handleSaveAdjustments = () => {
+    setIsAdjusting(false);
+    if (detailRecord) {
+      const now = new Date();
+      const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      
+      const newLog: AuditLogEntry = {
+        id: `LOG-${Date.now()}`,
+        indicatorCode: detailRecord.code,
+        indicatorName: detailRecord.name,
+        formName: getFormName(detailRecord.code),
+        user: 'congnt@vietnamairlines.com',
+        timestamp: formattedDate,
+        actionType: 'Cập nhật',
+        period: detailRecord.period
+      };
+      
+      setAuditLogs(prev => [newLog, ...prev]);
+    }
+  };
+
   const handleAddManual = () => {
       alert("Chức năng thêm dữ liệu thủ công");
   };
@@ -328,7 +550,7 @@ export const DataOpsPage: React.FC<{ mode: 'analysis' | 'logs' }> = ({ mode }) =
                 <Button variant="outline" onClick={() => setIsAdjusting(false)} className="text-gray-600">
                     Hủy bỏ
                 </Button>
-                <Button variant="primary" onClick={() => setIsAdjusting(false)}>
+                <Button variant="primary" onClick={handleSaveAdjustments}>
                     <Save size={16} /> Lưu điều chỉnh
                 </Button>
             </>
@@ -429,6 +651,71 @@ export const DataOpsPage: React.FC<{ mode: 'analysis' | 'logs' }> = ({ mode }) =
         </div>
       </>
   );
+
+  const renderAuditLogTable = () => {
+    if (!detailRecord) return null;
+    
+    // Filter audit logs for the current indicator code and period
+    const logs = auditLogs.filter(
+      log => log.indicatorCode === detailRecord.code && log.period === detailRecord.period
+    );
+
+    return (
+      <div className="border border-gray-200 bg-white shadow-sm mt-8 rounded-lg overflow-hidden animate-in fade-in duration-300">
+        <div className="border-b border-gray-100 px-5 py-4 flex items-center justify-between bg-gray-50/50">
+          <div className="flex items-center gap-2">
+            <Clock className="text-vna-blue" size={18} />
+            <h3 className="font-bold text-gray-800 text-base">Lịch sử thay đổi dữ liệu (Audit Log)</h3>
+          </div>
+          <span className="text-xs bg-blue-50 text-vna-blue px-2.5 py-1 rounded-full border border-blue-100 font-semibold">
+            {logs.length} phiên bản
+          </span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-vna-blue/5 text-vna-blue">
+              <tr className="text-xs uppercase font-bold">
+                <th className="py-3 px-4 text-center border-b border-blue-100 w-12">STT</th>
+                <th className="py-3 px-4 text-left border-b border-blue-100 min-w-[200px]">Tên chỉ tiêu</th>
+                <th className="py-3 px-4 text-left border-b border-blue-100 min-w-[180px]">Tên biểu</th>
+                <th className="py-3 px-4 text-left border-b border-blue-100 min-w-[200px]">Tài khoản thay đổi</th>
+                <th className="py-3 px-4 text-center border-b border-blue-100 min-w-[150px]">Thời gian thay đổi</th>
+                <th className="py-3 px-4 text-center border-b border-blue-100 min-w-[120px]">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
+              {logs.length > 0 ? (
+                logs.map((log, index) => (
+                  <tr key={log.id} className="hover:bg-blue-50/50 transition-colors">
+                    <td className="py-3 px-4 text-center text-black/45 font-medium">{index + 1}</td>
+                    <td className="py-3 px-4 font-semibold text-black/85">{log.indicatorCode} - {log.indicatorName}</td>
+                    <td className="py-3 px-4 text-gray-600">{log.formName}</td>
+                    <td className="py-3 px-4 text-gray-700 font-medium">{log.user}</td>
+                    <td className="py-3 px-4 text-center text-gray-600 font-mono text-xs">{log.timestamp}</td>
+                    <td className="py-3 px-4 text-center">
+                      <span className={`px-2.5 py-1 rounded text-xs font-semibold border ${
+                        log.actionType === 'Khởi tạo'
+                          ? 'bg-green-50 text-green-700 border-green-200'
+                          : 'bg-amber-50 text-amber-700 border-amber-200'
+                      }`}>
+                        {log.actionType}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={6} className="py-6 text-center text-gray-400 italic">
+                    Không có lịch sử thay đổi cho kỳ báo cáo này.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
 
   // --- 1. ANALYSIS MODE (MERGED) ---
   if (mode === 'analysis') {
@@ -532,6 +819,7 @@ export const DataOpsPage: React.FC<{ mode: 'analysis' | 'logs' }> = ({ mode }) =
                             </div>
                         </div>
                     </div>
+                    {renderAuditLogTable()}
                 </div>
              );
         }
@@ -1049,6 +1337,7 @@ export const DataOpsPage: React.FC<{ mode: 'analysis' | 'logs' }> = ({ mode }) =
                 <div className="flex-1 flex flex-col min-h-0">
                     {activeTab === 'DATA' ? renderDataContent() : renderAnalysisTab()}
                 </div>
+                {renderAuditLogTable()}
             </div>
         );
     }

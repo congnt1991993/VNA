@@ -1,0 +1,625 @@
+================================================================================
+FILE: Phụ lục Trung tâm Bông Sen Vàng_ver1.txt
+================================================================================
+Line 37: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 39: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 115: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 117: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 125: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 131: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 144: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 148: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 165: Áp dụng đối với chỉ tiêu Airline B-2 thuộc nhóm khách hàng, hiển thị trên Dashboard TTBSV. Dữ liệu được đối chiếu, xác nhận từ hệ thống CLM.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo File 01
+Line 174: File TC Dashboard
+   > Kiểm thử giao diện, số liệu dashboard hiển thị tại chức năng “Danh mục chỉ tiêu”
+   > Tổng số …. Case được kiểm thử
+   > Passed: …/… testcase
+   > Failed: …/… testcase
+Line 175: Kiểm thử giao diện, số liệu dashboard hiển thị tại chức năng “Danh mục chỉ tiêu”
+   > Tổng số …. Case được kiểm thử
+   > Passed: …/… testcase
+   > Failed: …/… testcase
+   > Pendding: …/… testcase
+
+================================================================================
+FILE: Phụ lục_Ban An Toàn Chất Lượng_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 45: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 47: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 325: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 327: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 335: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 341: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 354: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 358: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 371: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban ATCL.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban ATCL có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 374: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban ATCL.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban ATCL có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Ban CĐSCN_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 33: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 35: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 124: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 126: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 134: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 140: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 153: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 157: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 170: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban CĐSCN.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban CĐSCN có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 173: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban CĐSCN.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban CĐSCN có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Ban KHPT_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 34: Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > Báo cáo định tính / thuyết minh cho chỉ tiêu Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > Nhập thủ công, Nhập liệu thủ công
+   > Hàng năm
+   > Ban KHPT
+Line 35: Báo cáo định tính / thuyết minh cho chỉ tiêu Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > Nhập thủ công, Nhập liệu thủ công
+   > Hàng năm
+   > Ban KHPT
+   > GRI 2-11
+Line 117: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 119: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 134: Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > Nhập văn bản thuyết minh
+   > Thời gian (Năm)
+   > Hàng năm
+   > Data Warehouse
+Line 240: Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > Thủ công
+   > 3
+   > Chair of the highest governance body / Lãnh đạo cấp cao
+   > Thủ công
+Line 289: Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > x
+   > 3
+   > Chair of the highest governance body / Lãnh đạo cấp cao
+   > x
+Line 343: Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+   > Nhập thủ công
+   > Hàng năm
+   > Thủ công
+   > 3
+Line 412: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 414: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 422: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 428: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 441: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 445: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 458: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban KHPT.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban KHPT có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 461: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban KHPT.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban KHPT có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Ban TCKT-KHPT_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 33: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 35: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 160: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 162: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 170: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 176: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 189: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 193: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 206: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban TCKT-KHPT.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban TCKT-KHPT có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 209: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban TCKT-KHPT.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban TCKT-KHPT có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Ban TCNL_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 81: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 83: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 787: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 789: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 797: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 803: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 816: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 820: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 833: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban Tổ chức nhân lực.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban Tổ chức nhân lực có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 836: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban Tổ chức nhân lực.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban Tổ chức nhân lực có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Ban Truyền thông_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 39: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 41: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 172: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 174: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 182: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 188: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 201: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 205: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 218: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban Truyền thông.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban Truyền thông có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 221: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Ban Truyền thông.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Ban Truyền thông có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Tổ Dịch vụ_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 67: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 69: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 667: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 669: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 677: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 683: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 696: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 700: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 713: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Tổ Dịch vụ.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Tổ Dịch vụ có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 716: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Tổ Dịch vụ.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Tổ Dịch vụ có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Tổ Khai thác_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 35: Lượng năng lượng được tiết kiệm do cải tiến quy trình, đầu tư công nghệ tiết kiệm năng lượng hoặc thay đổi hành vi sử dụng.
+   > FIMS, Nhập thủ công, Nhập liệu thủ công
+   > Hàng tháng (ngày cuối cùng trong tháng), Hàng tháng (trước ngày 15 tháng kế tiếp), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+   > Tổ Khai thác
+   > GRI 305-1
+Line 63: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 65: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 747: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 749: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 757: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 763: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 776: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 780: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 793: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Tổ Khai thác.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Tổ Khai thác có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 796: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Tổ Khai thác.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Tổ Khai thác có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+
+================================================================================
+FILE: Phụ lục_Tổ Kỹ thuật_ver1.txt
+================================================================================
+Line 14: - Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+   > 2.2 Mục tiêu
+   > - Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+   > -  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+   > 3. Danh mục chỉ tiêu và số KH
+Line 33: 4. Danh mục dashboard
+   > Mã
+   > Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+Line 35: Tên dashboard
+   > Công thức tính
+   > Bộ lọc/drill-down
+   > Tần suất cập nhật báo cáo
+   > Nơi lưu
+Line 264: 6.1. Giao diện nhập liệu
+   > Không có
+   > 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+Line 266: 6.2. Giao diện báo cáo
+   > Hình 01: Màn hình báo cáo Airline B-2
+   > 5. Danh mục yêu cầu
+   > Mã yêu cầu
+   > Nội dung
+Line 274: Hiển thị dashboard theo dõi chỉ tiêu Airline B-2 (Hội viên Bông Sen Vàng) với các biểu đồ xu hướng theo Tháng/Quý/Năm.
+   > Cao
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+   > 8. Tiêu chí UAT
+   > Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+Line 280: Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+   > Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+   > Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+   > 5. Cảnh báo và workflow khi nhập liệu (web)
+   > Không có
+Line 293: Hình 01: Giao diện dashboard Airline B-2
+   > Bổ sung sau
+   > Bổ sung sau
+   > YCQ-BSV-01
+   > Hình 01: Giao diện dashboard Airline B-2
+Line 297: Hình 01: Giao diện dashboard Airline B-2
+   > ...
+   > ...
+   > 8. Xác nhận
+   > Đại diện CQĐV
+Line 310: Chức năng nhập liệu an toàn chất lượng, Import Excel và Dashboard Xã hội.
+   > Phiên bản 1.0
+   > 2. Phạm vi xác nhận
+   > Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Tổ Kỹ thuật.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Tổ Kỹ thuật có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+Line 313: Các chỉ tiêu tiếng ồn, phát thải nội địa và sự cố an toàn (Airline E-1, GRI 403-2, Scope 1 Domestic) Dashboard chỉ tiêu Ban Tổ Kỹ thuật.Dữ liệu tiếng ồn từ AMOS, phát thải từ FIMS, sự cố từ /Excel.Cán bộ/Đầu mối Tổ Kỹ thuật có quyền nhập, sửa dữ liệu và import file Excel trong kỳ báo cáo.Cảnh báo sai định dạng Excel.
+   > Web
+   > 3. Kết quả UAT
+   > Mã yêu cầu
+   > Theo file 01
+

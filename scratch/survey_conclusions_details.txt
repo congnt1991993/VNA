@@ -1,0 +1,654 @@
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 1.Ban ATCL_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 21): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Ban ATCL và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa:
+  Chỉ tiêu Airline E-1 - Noise - Tiếng ồn bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) bao gồm 12 chỉ tiêu con, đã làm rõ 12 /12  chỉ tiêu con.
+  Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố bao gồm 4 chỉ tiêu con, đã làm rõ 4 /4 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban An toàn chất lượng. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 22): ---
+  2. Nội dung cuộc họp
+  Ban ATCL và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa:
+  Chỉ tiêu Airline E-1 - Noise - Tiếng ồn bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) bao gồm 12 chỉ tiêu con, đã làm rõ 12 /12  chỉ tiêu con.
+  Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố bao gồm 4 chỉ tiêu con, đã làm rõ 4 /4 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban An toàn chất lượng. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 24): ---
+  Xác nhận số hóa:
+  Chỉ tiêu Airline E-1 - Noise - Tiếng ồn bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu Direct greenhouse gas emissions (Scope 1) from domestic flights - Phát thải khí nhà kính trực tiếp (Phạm vi 1) bao gồm 12 chỉ tiêu con, đã làm rõ 12 /12  chỉ tiêu con.
+  Chỉ tiêu GRI 403-2 - Hazard identification, risk assessment, and incident investigation - Nhận diện mối nguy, đánh giá rủi ro và điều tra sự cố bao gồm 4 chỉ tiêu con, đã làm rõ 4 /4 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban An toàn chất lượng. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 29): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban An toàn chất lượng. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 2.Ban CĐSCN_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 19): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa: Chỉ tiêu GRI 418-1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  Xác nhận nội dung nhập liệu hàng tháng:
+  Số vụ vi phạm quyền riêng tư
+  Số vụ mất dữ liệu
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban CĐSCN. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 20): ---
+  2. Nội dung cuộc họp
+  Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa: Chỉ tiêu GRI 418-1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  Xác nhận nội dung nhập liệu hàng tháng:
+  Số vụ vi phạm quyền riêng tư
+  Số vụ mất dữ liệu
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban CĐSCN. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 22): ---
+  Xác nhận số hóa: Chỉ tiêu GRI 418-1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  Xác nhận nội dung nhập liệu hàng tháng:
+  Số vụ vi phạm quyền riêng tư
+  Số vụ mất dữ liệu
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban CĐSCN. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 27): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban CĐSCN. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 3.Ban TCNL_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 26): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Ban Tổ chức nhân lực và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa 9/9 chỉ tiêu báo cáo động, cụ thể:
+  Chỉ tiêu Airline D-1 - Number of strikes - Số vụ đình công bao gồm 1 chỉ tiêu con, đã làm rõ 1/1 chỉ tiêu con.
+  Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 202-1 - Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+  Chỉ tiêu GRI 401-1 - New employees hires and employee turnover - Tuyển dụng và nghỉ việc bao gồm 18 chỉ tiêu con, đã làm rõ 18/18 chỉ tiêu con.
+  Chỉ tiêu GRI 403-9 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+  Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức bao gồm 11 chỉ tiêu con, đã làm rõ 10/11 chỉ tiêu con, hiện tại chỉ tiêu chưa làm rõ là chỉ tiêu CT 4.47 - Number of employees by field - Số lượng lao động theo lĩnh vực do phía Ban TCNL yêu cầu hiện chưa cần báo cáo và phía TCNL cần nghiên cứu thêm.
+  Chỉ tiêu Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+  Chỉ tiêu GRI 202-2 bao gồm 2 chỉ tiêu con, đã làm rõ 2/2 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 27/05/2026 với Ban Tổ chức nhân lực. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 27): ---
+  2. Nội dung cuộc họp
+  Ban Tổ chức nhân lực và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa 9/9 chỉ tiêu báo cáo động, cụ thể:
+  Chỉ tiêu Airline D-1 - Number of strikes - Số vụ đình công bao gồm 1 chỉ tiêu con, đã làm rõ 1/1 chỉ tiêu con.
+  Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 202-1 - Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+  Chỉ tiêu GRI 401-1 - New employees hires and employee turnover - Tuyển dụng và nghỉ việc bao gồm 18 chỉ tiêu con, đã làm rõ 18/18 chỉ tiêu con.
+  Chỉ tiêu GRI 403-9 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+  Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức bao gồm 11 chỉ tiêu con, đã làm rõ 10/11 chỉ tiêu con, hiện tại chỉ tiêu chưa làm rõ là chỉ tiêu CT 4.47 - Number of employees by field - Số lượng lao động theo lĩnh vực do phía Ban TCNL yêu cầu hiện chưa cần báo cáo và phía TCNL cần nghiên cứu thêm.
+  Chỉ tiêu Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+  Chỉ tiêu GRI 202-2 bao gồm 2 chỉ tiêu con, đã làm rõ 2/2 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 27/05/2026 với Ban Tổ chức nhân lực. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 29): ---
+  Xác nhận số hóa 9/9 chỉ tiêu báo cáo động, cụ thể:
+  Chỉ tiêu Airline D-1 - Number of strikes - Số vụ đình công bao gồm 1 chỉ tiêu con, đã làm rõ 1/1 chỉ tiêu con.
+  Chỉ tiêu Airline F-2 - Employee satisfaction - Mức độ hài lòng của nhân viên bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 202-1 - Ratios of standard entry level wage by gender compared to local minimum wage - Tỷ lệ lương khởi điểm so với lương tối thiểu vùng 1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+  Chỉ tiêu GRI 401-1 - New employees hires and employee turnover - Tuyển dụng và nghỉ việc bao gồm 18 chỉ tiêu con, đã làm rõ 18/18 chỉ tiêu con.
+  Chỉ tiêu GRI 403-9 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+  Chỉ tiêu GRI 405-1 - Diversity of governance bodies and employees - Đa dạng trong cơ quan quản trị bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 2-7 - Scale of the organization - Quy mô tổ chức bao gồm 11 chỉ tiêu con, đã làm rõ 10/11 chỉ tiêu con, hiện tại chỉ tiêu chưa làm rõ là chỉ tiêu CT 4.47 - Number of employees by field - Số lượng lao động theo lĩnh vực do phía Ban TCNL yêu cầu hiện chưa cần báo cáo và phía TCNL cần nghiên cứu thêm.
+  Chỉ tiêu Chỉ tiêu GRI 404-2 - Programs for upgrading employee skills and transition assistance programs - Chương trình nâng cao kỹ năng bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con.
+  Chỉ tiêu GRI 202-2 bao gồm 2 chỉ tiêu con, đã làm rõ 2/2 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 27/05/2026 với Ban Tổ chức nhân lực. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 40): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 27/05/2026 với Ban Tổ chức nhân lực. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 4.Tổ Khai thác_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 27): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Tổ Khai thác và Aequitas cùng trao đổi, thống nhất các nội dung sau:
+  Xác nhận số hóa 5/6 chỉ tiêu. Trong đó:
+  Các chỉ tiêu xác nhận số hóa: 5 chỉ tiêu
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính
+  Chỉ tiêu GRI 305-7 - Nitrogen oxides (NOx), sulfur oxides (SOx), and other significant air emissions - NOx, SOx và các khí thải khác: Đầu mối VNA báo Verifier (bên thứ ba ngoài VNA) chưa xác nhận công thức tính nên có thể không chốt trong giai đoạn khai phá dữ liệu. Do đó phía TTĐHKT đồng ý chưa số hóa chỉ tiêu trong giai đoạn này.
+  Tổng số chỉ tiêu con đã xác nhận: 32/32 chỉ tiêu con. Trong đó:
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức: 9/9 chỉ tiêu con
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng: 6/6 chỉ tiêu con
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1): 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính: 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính: 7/7 chỉ tiêu con
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 20/05/2026 và 21/05/2026 với Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 28): ---
+  2. Nội dung cuộc họp
+  Tổ Khai thác và Aequitas cùng trao đổi, thống nhất các nội dung sau:
+  Xác nhận số hóa 5/6 chỉ tiêu. Trong đó:
+  Các chỉ tiêu xác nhận số hóa: 5 chỉ tiêu
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính
+  Chỉ tiêu GRI 305-7 - Nitrogen oxides (NOx), sulfur oxides (SOx), and other significant air emissions - NOx, SOx và các khí thải khác: Đầu mối VNA báo Verifier (bên thứ ba ngoài VNA) chưa xác nhận công thức tính nên có thể không chốt trong giai đoạn khai phá dữ liệu. Do đó phía TTĐHKT đồng ý chưa số hóa chỉ tiêu trong giai đoạn này.
+  Tổng số chỉ tiêu con đã xác nhận: 32/32 chỉ tiêu con. Trong đó:
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức: 9/9 chỉ tiêu con
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng: 6/6 chỉ tiêu con
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1): 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính: 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính: 7/7 chỉ tiêu con
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 20/05/2026 và 21/05/2026 với Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 30): ---
+  Xác nhận số hóa 5/6 chỉ tiêu. Trong đó:
+  Các chỉ tiêu xác nhận số hóa: 5 chỉ tiêu
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính
+  Chỉ tiêu GRI 305-7 - Nitrogen oxides (NOx), sulfur oxides (SOx), and other significant air emissions - NOx, SOx và các khí thải khác: Đầu mối VNA báo Verifier (bên thứ ba ngoài VNA) chưa xác nhận công thức tính nên có thể không chốt trong giai đoạn khai phá dữ liệu. Do đó phía TTĐHKT đồng ý chưa số hóa chỉ tiêu trong giai đoạn này.
+  Tổng số chỉ tiêu con đã xác nhận: 32/32 chỉ tiêu con. Trong đó:
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức: 9/9 chỉ tiêu con
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng: 6/6 chỉ tiêu con
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1): 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính: 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính: 7/7 chỉ tiêu con
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 20/05/2026 và 21/05/2026 với Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 31): ---
+  Các chỉ tiêu xác nhận số hóa: 5 chỉ tiêu
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính
+  Chỉ tiêu GRI 305-7 - Nitrogen oxides (NOx), sulfur oxides (SOx), and other significant air emissions - NOx, SOx và các khí thải khác: Đầu mối VNA báo Verifier (bên thứ ba ngoài VNA) chưa xác nhận công thức tính nên có thể không chốt trong giai đoạn khai phá dữ liệu. Do đó phía TTĐHKT đồng ý chưa số hóa chỉ tiêu trong giai đoạn này.
+  Tổng số chỉ tiêu con đã xác nhận: 32/32 chỉ tiêu con. Trong đó:
+  Chỉ tiêu GRI 302-1 - Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức: 9/9 chỉ tiêu con
+  Chỉ tiêu GRI 302-4 - Reduction of energy consumption - Giảm tiêu thụ năng lượng: 6/6 chỉ tiêu con
+  Chỉ tiêu GRI 305-1 - Direct (Scope 1) GHG emissions - Phát thải khí nhà kính trực tiếp (Phạm vi 1): 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-4 - GHG emissions intensity - Cường độ phát thải khí nhà kính: 5/5 chỉ tiêu con
+  Chỉ tiêu GRI 305-5 - Reduction of GHG emissions - Giảm phát thải khí nhà kính: 7/7 chỉ tiêu con
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 20/05/2026 và 21/05/2026 với Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 45): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 20/05/2026 và 21/05/2026 với Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 5.Tổ Kỹ thuật_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 28): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Tổ Kỹ thuật, Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa:
+  1/3 chỉ tiêu là Báo cáo sử dụng SAF.
+  1/3 chỉ tiêu là Báo cáo CO2 phát thải vượt mức.
+  1/3 chỉ tiêu là Báo cáo CARBURE đã được gộp vào chỉ tiêu Báo cáo sử dụng SAF.
+  Tổng số chỉ tiêu con đã xác nhận: 40/40 chỉ tiêu con. Trong đó:
+  Chỉ tiêu Báo cáo sử dụng SAF: 18/18 chỉ tiêu con
+  Chỉ tiêu Báo cáo CO2 phát thải vượt mức: 22/22 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 18/05/2026 và 19/05/2026 với Tổ Kỹ thuật và Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 29): ---
+  2. Nội dung cuộc họp
+  Tổ Kỹ thuật, Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa:
+  1/3 chỉ tiêu là Báo cáo sử dụng SAF.
+  1/3 chỉ tiêu là Báo cáo CO2 phát thải vượt mức.
+  1/3 chỉ tiêu là Báo cáo CARBURE đã được gộp vào chỉ tiêu Báo cáo sử dụng SAF.
+  Tổng số chỉ tiêu con đã xác nhận: 40/40 chỉ tiêu con. Trong đó:
+  Chỉ tiêu Báo cáo sử dụng SAF: 18/18 chỉ tiêu con
+  Chỉ tiêu Báo cáo CO2 phát thải vượt mức: 22/22 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 18/05/2026 và 19/05/2026 với Tổ Kỹ thuật và Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 31): ---
+  Xác nhận số hóa:
+  1/3 chỉ tiêu là Báo cáo sử dụng SAF.
+  1/3 chỉ tiêu là Báo cáo CO2 phát thải vượt mức.
+  1/3 chỉ tiêu là Báo cáo CARBURE đã được gộp vào chỉ tiêu Báo cáo sử dụng SAF.
+  Tổng số chỉ tiêu con đã xác nhận: 40/40 chỉ tiêu con. Trong đó:
+  Chỉ tiêu Báo cáo sử dụng SAF: 18/18 chỉ tiêu con
+  Chỉ tiêu Báo cáo CO2 phát thải vượt mức: 22/22 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 18/05/2026 và 19/05/2026 với Tổ Kỹ thuật và Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 39): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 18/05/2026 và 19/05/2026 với Tổ Kỹ thuật và Tổ Khai thác. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 6.TTBSV_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 23): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  TTBSV và Aequitas cùng trao đổi, thống nhất các nội dung sau:
+  Xác nhận số hóa 1/1 chỉ tiêu: Airline B-2 - Customer engagement - Tương tác khách hàng.
+  Tổng số chỉ tiêu con đã xác nhận: 4 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 06/05/2026 với TTBSV. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 24): ---
+  2. Nội dung cuộc họp
+  TTBSV và Aequitas cùng trao đổi, thống nhất các nội dung sau:
+  Xác nhận số hóa 1/1 chỉ tiêu: Airline B-2 - Customer engagement - Tương tác khách hàng.
+  Tổng số chỉ tiêu con đã xác nhận: 4 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 06/05/2026 với TTBSV. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 26): ---
+  Xác nhận số hóa 1/1 chỉ tiêu: Airline B-2 - Customer engagement - Tương tác khách hàng.
+  Tổng số chỉ tiêu con đã xác nhận: 4 chỉ tiêu con.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 06/05/2026 với TTBSV. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 29): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 06/05/2026 với TTBSV. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 7.Tổ thư ký_BBKS .txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 29): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Trong buổi khảo sát tổ thư ký đã thống nhất những nội dung sau:
+  Quy trình phê duyệt báo cáo ESG
+  Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+  - Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+  - Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+  Yêu cầu chức năng
+  - Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+  - Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục.
+  - Có đánh dấu trạng thái hoàn thành của các phòng ban.
+  - Có cơ chế nhắc nhở người dùng qua email
+  Quy trình quản lý KPI
+  Quy trình đề xuất và phê duyệt KPI ESG:
+  Bước 1: Chuyên viên phòng KHPT gửi yêu cầu làm kế hoạch cho các chỉ tiêu xuống cho tổ ban phụ trách.
+  Bước 2: Chuyên viên tổ ban  thực hiện lên kế hoạch cho các chỉ tiêu dựa theo yêu cầu được nhận và update trạng thái
+  Bước 3: Ban KHPT thực hiện tổng hợp số liệu từng phòng ban đề xuất và thực hiện:
+  + Phê duyệt: thực hiện đổi trạng thái thành phê duyệt của kế hoạch
+  + Từ chối: thực hiện đổi trạng thái thành từ chối, nhập lý do và quay trở lại bước 2
+  Yêu cầu chức năng
+  Có chức năng cho KHPT thực hiện gửi yêu cầu xuống các phòng ban thực hiện làm kế hoạch
+  Kế hoạch các phòng ban gửi lên được lưu vào mục riêng cho ban KHPT quản lý.
+  Có màn hình theo dõi kết quả thực hiện KPI của từng tổ ban gửi lên sau khi phê duyệt.
+  Có mail thông báo đến các thành viên của tổ ban được phân công phụ trách.
+  Thiết kế và quản trị public website
+  Phân quyền và Trách nhiệm quản trị
+  Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+  Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+  Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+  Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+  Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách các báo cáo của VNA công khai các năm.
+  Yêu cầu chức năng:
+  Phần Thông điệp & Tầm nhìn và Chiến lược ESG: Nội dung do ban KHPT soạn thảo và tổng hợp, sau đó được ban Truyền Thông biên tập lại nên cần có cơ chế review và approve cho thông tin.
+  Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+  Chức năng Tổng quan điều hành
+  Yêu cầu chức năng:
+  Các chức năng tại phần tổng quan điều hành Ban KHPT yêu cầu thể hiện theo 5 mục cụ thể:
+  + Tổng quan chung ESG: ban KHPT phụ trách
+  + Khối kỹ thuật: Tổ Kỹ thuật phụ trách.
+  + Khối khai thác: Tổ Khai thác phụ trách
+  + Khối dịch vụ: Tổ Dịch vụ phụ trách
+  + Quản lý chung: ban Tổ chức nhân lực phụ trách chính
+  Những mục chuyên môn từng phòng ban thể hiện theo bố cục đầu tiên là tổng quan sau đó chi tiết là các chỉ tiêu ở sau
+  Tại các màn hình dashboard cho phép người dùng chủ động điều chỉnh vị trí/thay thế các biểu đồ trên dashboard bằng biểu đồ ở dashboard chỉ tiêu phòng ban được giao.
+  Quy trình Quản lý tài liệu
+  Quy trình phê duyệt tài liệu chuyên môn giữa Tổ ban chuyên môn và Ban KHPT qua 2 bước nghiệp vụ cốt lõi:
+  Bước 1: Chuyên viên thuộc Tổ ban chuyên môn tạo yêu cầu bổ sung tài liệu liên quan đến chỉ số ESG và tải tệp lên hệ thống.
+  Bước 2: Chuyên viên Ban KHPT tiếp nhận hồ sơ và tiến hành kiểm tra tính chuẩn xác của tài liệu.
+  Từ chối: Luồng quay ngược về Bước 1 để yêu cầu chuyên viên Tổ ban bổ sung/chỉnh lý lại.
+  Phê duyệt:  thực hiện 2 công việc tự động:
+--- Bắt đầu phần thảo luận & kết luận (dòng 30): ---
+  2. Nội dung cuộc họp
+  Trong buổi khảo sát tổ thư ký đã thống nhất những nội dung sau:
+  Quy trình phê duyệt báo cáo ESG
+  Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+  - Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+  - Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+  Yêu cầu chức năng
+  - Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+  - Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục.
+  - Có đánh dấu trạng thái hoàn thành của các phòng ban.
+  - Có cơ chế nhắc nhở người dùng qua email
+  Quy trình quản lý KPI
+  Quy trình đề xuất và phê duyệt KPI ESG:
+  Bước 1: Chuyên viên phòng KHPT gửi yêu cầu làm kế hoạch cho các chỉ tiêu xuống cho tổ ban phụ trách.
+  Bước 2: Chuyên viên tổ ban  thực hiện lên kế hoạch cho các chỉ tiêu dựa theo yêu cầu được nhận và update trạng thái
+  Bước 3: Ban KHPT thực hiện tổng hợp số liệu từng phòng ban đề xuất và thực hiện:
+  + Phê duyệt: thực hiện đổi trạng thái thành phê duyệt của kế hoạch
+  + Từ chối: thực hiện đổi trạng thái thành từ chối, nhập lý do và quay trở lại bước 2
+  Yêu cầu chức năng
+  Có chức năng cho KHPT thực hiện gửi yêu cầu xuống các phòng ban thực hiện làm kế hoạch
+  Kế hoạch các phòng ban gửi lên được lưu vào mục riêng cho ban KHPT quản lý.
+  Có màn hình theo dõi kết quả thực hiện KPI của từng tổ ban gửi lên sau khi phê duyệt.
+  Có mail thông báo đến các thành viên của tổ ban được phân công phụ trách.
+  Thiết kế và quản trị public website
+  Phân quyền và Trách nhiệm quản trị
+  Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+  Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+  Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+  Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+  Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách các báo cáo của VNA công khai các năm.
+  Yêu cầu chức năng:
+  Phần Thông điệp & Tầm nhìn và Chiến lược ESG: Nội dung do ban KHPT soạn thảo và tổng hợp, sau đó được ban Truyền Thông biên tập lại nên cần có cơ chế review và approve cho thông tin.
+  Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+  Chức năng Tổng quan điều hành
+  Yêu cầu chức năng:
+  Các chức năng tại phần tổng quan điều hành Ban KHPT yêu cầu thể hiện theo 5 mục cụ thể:
+  + Tổng quan chung ESG: ban KHPT phụ trách
+  + Khối kỹ thuật: Tổ Kỹ thuật phụ trách.
+  + Khối khai thác: Tổ Khai thác phụ trách
+  + Khối dịch vụ: Tổ Dịch vụ phụ trách
+  + Quản lý chung: ban Tổ chức nhân lực phụ trách chính
+  Những mục chuyên môn từng phòng ban thể hiện theo bố cục đầu tiên là tổng quan sau đó chi tiết là các chỉ tiêu ở sau
+  Tại các màn hình dashboard cho phép người dùng chủ động điều chỉnh vị trí/thay thế các biểu đồ trên dashboard bằng biểu đồ ở dashboard chỉ tiêu phòng ban được giao.
+  Quy trình Quản lý tài liệu
+  Quy trình phê duyệt tài liệu chuyên môn giữa Tổ ban chuyên môn và Ban KHPT qua 2 bước nghiệp vụ cốt lõi:
+  Bước 1: Chuyên viên thuộc Tổ ban chuyên môn tạo yêu cầu bổ sung tài liệu liên quan đến chỉ số ESG và tải tệp lên hệ thống.
+  Bước 2: Chuyên viên Ban KHPT tiếp nhận hồ sơ và tiến hành kiểm tra tính chuẩn xác của tài liệu.
+  Từ chối: Luồng quay ngược về Bước 1 để yêu cầu chuyên viên Tổ ban bổ sung/chỉnh lý lại.
+  Phê duyệt:  thực hiện 2 công việc tự động:
+  Bước 2.1: Hệ thống gửi Thông báo tài liệu đã được phê duyệt tới chuyên viên Tổ ban chuyên môn để họ nắm bắt thông tin.
+--- Bắt đầu phần thảo luận & kết luận (dòng 99): ---
+  Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 29/05/2026 với Ban KHPT. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+  CHỈ TIÊU GOVERNANCE
+  GRI 2-9: Governance structure and composition/Cơ cấu và thành phần quản trị (Ban KHPT)
+  Trưởng ban: Tổng giám đốc
+  Phó Trưởng ban thường trực: Phó Tổng giám đốc
+  GRI 2-10: Nomination and selection of the highest governance body /Quy trình đề cử, lựa chọn cơ quan quản lý cao nhất (Ban TCNL)
+  VNA có quy trình lựa chọn thành viên HĐQT tuân thủ theo Luật Doanh nghiệp và Điều lệ của VNA.
+  GRI 2-11: Chair of the highest governance body/ Trưởng Ban Điều hành (Ban KHPT)
+  Trưởng Ban điều hành chương trình Phát triển bền vững là Tổng giám đốc: là người đứng đầu, chịu trách nhiệm pháp lý cao nhất về toàn bộ hoạt động của Ban Điều hành; phân công nhiệm vụ cho các thành viên thực hiện các nhiệm vụ của Ban Điều hành.
+  GRI 2-12: Role of the highest governance body in overseeing the management of impacts/Vai trò của Ban Điều hành trong giám sát quản lý tác động (Ban KHPT)
+  Vai trò của Ban Điều hành: là cơ quan hoạch định chiến lược, chính sách và chương trình, kế hoạch hành động thực hiện các mục tiêu PTBV của TCTHK, đảm bảo sự tuân thủ các quy định pháp luật hiện hành của Việt Nam, Chiến lược quốc gia về PTBV, đồng thời đáp ứng đầy đủ các yêu cầu và cam kết quốc tế mà TCTHK là thành viên, bao gồm nhưng không giới hạn các tiêu chuẩn của Tổ chức Hàng không Dân dụng quốc tế (ICAO), Hiệp hội Vận tải Hàng không quốc tế (IATA) và chương trình CORSIA.
+  GRI 2-13: Delegating authority/Phân công trách nhiệm (Ban KHPT)
+  Tổ Thư ký là cơ quan thường trực, điều phối chuyên môn của Ban Điều hành, có chức năng tham mưu tổng hợp cho Ban Điều hành trong việc triển khai Chương trình PTBV của TCTHK, chịu sự chỉ đạo trực tiếp của Trưởng Ban Điều hành và Phó Trưởng ban thường trực
+  Tổ công tác được thành lập theo từng lĩnh vực, từng chương trình PTBV của TCTHK để chủ trì triển khai nghiên cứu, xây dựng, thực hiện và chịu trách nhiệm về kết quả các kế hoạch hành động PTBV được Ban Điều hành phân công
+  GRI 2-15: Conflicts of interest/Xung đột lợi ích (Ban PC)
+  Vietnam Airlines không chấp nhận bất kỳ hành xung đột lợi ích dưới bất kỳ hình thức nào
+  GRI 2-23: Policy commitments /Các cam kết về chính sách (Ban KHPT)
+  Một số chính sách, quy định, cam kết:
+  Quy trình Giám sát - Báo cáo - Xác minh khí thải (MRV) được triển khai nhằm bảo đảm việc giám sát, báo cáo và kiểm chứng phát thải khí nhà kính được thực hiện minh bạch, chính xác và phù hợp với các yêu cầu quốc tế
+  Kế hoạch giám sát phát thải (EMP) quy định phương pháp và quy trình quản lý dữ liệu phát thải, làm cơ sở cho việc tính toán và báo cáo phát thải khí nhà kính của hãng hàng không
+  Triển khai tài liệu Kế hoạch ứng phó khẩn nguy làm cơ sở thực hiện, điều phối hoạt động khẩn nguy toàn bộ công ty.
+  Quy chế bảo vệ môi trường, sử dụng năng lượng tiết kiệm và hiệu quả với mục tiêu triển khai thực hiện các hoạt động bảo vệ môi trường và sử dụng năng lượng tiết kiệm và hiệu quả thỏa mãn nhu cầu của khách hàng, hướng tới sự phát triển bền vững của TCT.
+  Quy chế tổ chức và hoạt động Ủy ban An toàn – VNA Group nhằm đảm bảo thống nhất việc triển khai hoạt động An toàn tại TCT và các công ty vốn góp
+  Tài liệu Hệ thống quản lý an toàn SMSM mô tả các chính sách an toàn, các phương pháp và quy trình triển khai, vận hành an toàn trong phạm vi Vietnam Airlines
+  Tài liệu Quản lý chất lượng (QMM) nhằm hướng dẫn tất cả các hoạt động bay, bảo trì, dịch vụ mặt đất và đào tạo để đạt được các mục tiêu chất lượng và liên tục cải tiến hệ thống quản lý chất lượng
+  Quy chế quản lý lao động - thiết lập các nguyên tắc chiến lược dài hạn về quản trị nguồn nhân lực, bảo đảm an sinh xã hội, cân bằng giới tính lực lượng lao động, cấp quản lý và phát triển lực lượng lao động đặc thù ngành hàng không
+  Nội quy lao động - quy định các tiêu chuẩn vận hành nhằm bảo vệ sức khỏe, xây dựng môi trường làm việc lành mạnh, bình đẳng và an toàn cho toàn thể người lao động
+  Hướng dẫn hội nhập nhân viên - bảo đảm nhân sự mới hòa nhập nhanh chóng và gắn kết bền vững với tổ chức, góp phần phát triển nguồn vốn con người dài hạn
+  Quy chế đấu thầu và mua sắm - triển khai trên nguyên tắc công khai, minh bạch, tuân thủ chặt chẽ quy định pháp luật hiện hành và các quy chế nội bộ
+  Chương trình phòng chống tham nhũng, thực hành tiết kiệm và chống lãng phí - được xác định là kim chỉ nam trong mọi hoạt động sản xuất kinh doanh và công tác quản trị nội bộ
+  Chính sách giải quyết tranh chấp - các tranh chấp thương mại và pháp lý với đối tác, nhà cung cấp được xử lý trên tinh thần thiện chí, hợp tác và tôn trọng đầy đủ các thỏa thuận đã ký kết cũng như pháp luật có liên quan
+  TCT ban hành bộ định nghĩa hành vi và hướng dẫn thực hiện văn hóa chính trực để khuyến khích mỗi người lao động tuân thủ quy trình, cổ vũ thực hiện các hoạt động vận hành an toàn.
+  TCT đã xây dựng sổ tay văn hóa nâng tầm để từng bước nâng cao chất lượng dịch vụ, tiến tới dịch vụ 5 sao.
+  GRI 2-26: Mechanisms for seeking advice and raising concerns about ethics/Cơ chế tham vấn, phản ánh các vấn đề đạo đức (Ban PC)
+  VNA có đơn vị Pháp chế, thực hiện tư vấn cho các Lãnh đạo và công ty về vấn đề pháp lý.
+  GRI 2-29: Approach to stakeholder engagement/Tiếp cận đối thoại các bên liên quan (VPTCT)
+  VNA có quy định cung cấp thông tin, làm việc với các nhà đầu tư. Ngoài ra, VNA đã tổ chức ĐHĐCĐ thường niên định kỳ và bất thường để cung cấp thông tin, lấy ý kiến nhà đầu tư đối với những quyết định lớn.
+  GRI 3-3: Management of material topics /Quản lý các chủ đề trọng yếu (Ban KHPT)
+  Cách tiếp cận quản lý
+  Các hoạt động chính:
+  Kiểm toán và đánh giá nội bộ định kỳ trên toàn hệ thống
+  Họp HĐQT và các Ủy ban HĐQT hàng quý; họp bất thường theo yêu cầu
+  Họp BĐH PTBV định kỳ hàng quý để rà soát tiến độ các chỉ tiêu ESG
+  Đại hội đồng Cổ đông thường niên
+  Đối thoại định kỳ giữa lãnh đạo và người lao động (hội nghị người lao động cấp CQĐV, cấp TCT)
+  Chương trình định hướng cho cán bộ nhân viên mới về văn hóa và giá trị cốt lõi
+  Ấn phẩm nội bộ (bản tin, thông báo, tạp chí nội bộ Vietnam Airlines)
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 8.Ban TT_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 21): ---
+  Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+  2. Nội dung cuộc họp
+  Chỉ tiêu ESG số hóa
+  Ban Truyền thông và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa: 2/2 chỉ tiêu thuộc Ban Truyền thông
+  Chỉ tiêu Airline F-1 - Volunteering during working hours - Tham gia hoạt động tình nguyện: số hóa 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing: số hóa 4/4 chỉ tiêu con. Trường hợp không phát sinh vụ việc, thể hiện bằng 1 câu tuyên bố: Vietnam Airlines không có vụ việc nào liên quan đến tuân thủ truyền thông marketing.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  Quy trình xuất bản báo cáo thường niên ESG
+  Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+  - Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+  - Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+  Yêu cầu chức năng
+  - Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+  - Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục..
+  - Có đánh dấu trạng thái hoàn thành của các phòng ban.
+  - Có cơ chế nhắc nhở người dùng qua email
+  Quy trình quản trị web public
+  Phân quyền và Trách nhiệm quản trị
+  Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+  Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+  Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+  Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+  Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách Báo cáo Phát triển bền vững các năm.
+  Yêu cầu chức năng:
+  -        Phần Thông điệp & Tầm nhìn và Chiến lược ESG: yêu cầu có chức năng cho ban Truyền thông biên tập lại nội dung do Ban KHPT soạn thảo.
+  -        Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban Truyền thông. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 22): ---
+  2. Nội dung cuộc họp
+  Chỉ tiêu ESG số hóa
+  Ban Truyền thông và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận số hóa: 2/2 chỉ tiêu thuộc Ban Truyền thông
+  Chỉ tiêu Airline F-1 - Volunteering during working hours - Tham gia hoạt động tình nguyện: số hóa 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing: số hóa 4/4 chỉ tiêu con. Trường hợp không phát sinh vụ việc, thể hiện bằng 1 câu tuyên bố: Vietnam Airlines không có vụ việc nào liên quan đến tuân thủ truyền thông marketing.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  Quy trình xuất bản báo cáo thường niên ESG
+  Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+  - Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+  - Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+  Yêu cầu chức năng
+  - Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+  - Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục..
+  - Có đánh dấu trạng thái hoàn thành của các phòng ban.
+  - Có cơ chế nhắc nhở người dùng qua email
+  Quy trình quản trị web public
+  Phân quyền và Trách nhiệm quản trị
+  Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+  Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+  Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+  Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+  Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách Báo cáo Phát triển bền vững các năm.
+  Yêu cầu chức năng:
+  -        Phần Thông điệp & Tầm nhìn và Chiến lược ESG: yêu cầu có chức năng cho ban Truyền thông biên tập lại nội dung do Ban KHPT soạn thảo.
+  -        Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban Truyền thông. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 25): ---
+  Xác nhận số hóa: 2/2 chỉ tiêu thuộc Ban Truyền thông
+  Chỉ tiêu Airline F-1 - Volunteering during working hours - Tham gia hoạt động tình nguyện: số hóa 4/4 chỉ tiêu con.
+  Chỉ tiêu GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing: số hóa 4/4 chỉ tiêu con. Trường hợp không phát sinh vụ việc, thể hiện bằng 1 câu tuyên bố: Vietnam Airlines không có vụ việc nào liên quan đến tuân thủ truyền thông marketing.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  Quy trình xuất bản báo cáo thường niên ESG
+  Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+  - Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+  - Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+  Yêu cầu chức năng
+  - Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+  - Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục..
+  - Có đánh dấu trạng thái hoàn thành của các phòng ban.
+  - Có cơ chế nhắc nhở người dùng qua email
+  Quy trình quản trị web public
+  Phân quyền và Trách nhiệm quản trị
+  Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+  Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+  Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+  Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+  Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách Báo cáo Phát triển bền vững các năm.
+  Yêu cầu chức năng:
+  -        Phần Thông điệp & Tầm nhìn và Chiến lược ESG: yêu cầu có chức năng cho ban Truyền thông biên tập lại nội dung do Ban KHPT soạn thảo.
+  -        Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban Truyền thông. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 48): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban Truyền thông. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+
+================================================================================
+KHẢO SÁT CHUYÊN SÂU: 9.Tổ Dịch vụ_BBKS.txt
+================================================================================
+--- Bắt đầu phần thảo luận & kết luận (dòng 37): ---
+  (Lưu ý: Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống).
+  2. Nội dung cuộc họp
+  Tổ Dịch vụ, Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận chỉ tiêu cần số hóa:
+  7/7 chỉ tiêu thuộc Tổ dịch vụ là GRI 303-3, GRI 303-5, Airline B-1, GRI 406-1 (Phần đối với khách hàng), GRI 416-1, GRI 416-2, GRI 417-2.
+  Xác nhận đã làm rõ nội dung nghiệp vụ các chỉ tiêu con:
+  Chỉ tiêu GRI 303-3 bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+  Chỉ tiêu GRI 303-5 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con
+  Chỉ tiêu Airline B-1 bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+  Chỉ tiêu GRI 406-1 (Phần đối với khách hàng) bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+  Chỉ tiêu GRI 416-1 bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con
+  Chỉ tiêu GRI 416-2:
+  Nếu không có sự cố (số lượng sự cố trong kỳ báo cáo bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+  Nếu có sự cố (số lượng sự cố trong kỳ báo cáo lớn hơn 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+  Chỉ tiêu GRI 417-2:
+  Nếu không có sự cố (số lượng sự cố bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+  Nếu có sự cố (số lượng sự cố > 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 22/05/2026 và ngày 25/05/2026 với Tổ Dịch vụ. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 38): ---
+  2. Nội dung cuộc họp
+  Tổ Dịch vụ, Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+  Xác nhận chỉ tiêu cần số hóa:
+  7/7 chỉ tiêu thuộc Tổ dịch vụ là GRI 303-3, GRI 303-5, Airline B-1, GRI 406-1 (Phần đối với khách hàng), GRI 416-1, GRI 416-2, GRI 417-2.
+  Xác nhận đã làm rõ nội dung nghiệp vụ các chỉ tiêu con:
+  Chỉ tiêu GRI 303-3 bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+  Chỉ tiêu GRI 303-5 bao gồm 6 chỉ tiêu con, đã làm rõ 6/6 chỉ tiêu con
+  Chỉ tiêu Airline B-1 bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+  Chỉ tiêu GRI 406-1 (Phần đối với khách hàng) bao gồm 7 chỉ tiêu con, đã làm rõ 7/7 chỉ tiêu con
+  Chỉ tiêu GRI 416-1 bao gồm 4 chỉ tiêu con, đã làm rõ 4/4 chỉ tiêu con
+  Chỉ tiêu GRI 416-2:
+  Nếu không có sự cố (số lượng sự cố trong kỳ báo cáo bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+  Nếu có sự cố (số lượng sự cố trong kỳ báo cáo lớn hơn 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+  Chỉ tiêu GRI 417-2:
+  Nếu không có sự cố (số lượng sự cố bằng 0): Hệ thống sẽ hiển thị một câu tuyên bố mặc định là "Không có sự cố nào trong kỳ báo cáo".
+  Nếu có sự cố (số lượng sự cố > 0): Hệ thống cho phép người dùng nhập số sự cố trong kỳ báo cáo và nội dung chi tiết sự cố.
+  (Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 22/05/2026 và ngày 25/05/2026 với Tổ Dịch vụ. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+--- Bắt đầu phần thảo luận & kết luận (dòng 55): ---
+  3. Kết luận chính sau phiên làm việc:
+  Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 22/05/2026 và ngày 25/05/2026 với Tổ Dịch vụ. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+  Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+  Xác nhận của AequitasXác nhận của VNA
+
+

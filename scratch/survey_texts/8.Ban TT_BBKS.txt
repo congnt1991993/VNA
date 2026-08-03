@@ -1,0 +1,296 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian: Từ 9:00 đến 10:30, ngày 28 tháng 05 năm 2026
+Địa điểm: Phòng họp UIH - 401, tầng 4, tòa nhà VN1
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Bà Hoàng Thị Lệ Thu - Chuyên viên - Ban Truyền thông
+Bà Đồng Thu Trà My - Chuyên viên - Ban Truyền thông
+2. Phía Aequitas
+Ông Nguyễn Chính Nam - BA dự án
+Ông Chu Minh Hiếu - DA dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp nhằm khảo sát, trao đổi và làm rõ các nghiệp vụ liên quan đến:
+Các chỉ tiêu có thể số hóa để đưa lên báo cáo. Nội dung và nghiệp vụ.
+Quy trình phê duyệt và xuất bản báo cáo thường niên về phát triển bền vững (ESG).
+Quy trình quản trị web public.
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+Chỉ tiêu ESG số hóa
+Ban Truyền thông và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+Xác nhận số hóa: 2/2 chỉ tiêu thuộc Ban Truyền thông
+Chỉ tiêu Airline F-1 - Volunteering during working hours - Tham gia hoạt động tình nguyện: số hóa 4/4 chỉ tiêu con.
+Chỉ tiêu GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing: số hóa 4/4 chỉ tiêu con. Trường hợp không phát sinh vụ việc, thể hiện bằng 1 câu tuyên bố: Vietnam Airlines không có vụ việc nào liên quan đến tuân thủ truyền thông marketing.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+Quy trình xuất bản báo cáo thường niên ESG
+Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+- Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+- Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+Yêu cầu chức năng
+- Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+- Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục..
+- Có đánh dấu trạng thái hoàn thành của các phòng ban.
+- Có cơ chế nhắc nhở người dùng qua email
+Quy trình quản trị web public
+Phân quyền và Trách nhiệm quản trị
+Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách Báo cáo Phát triển bền vững các năm.
+Yêu cầu chức năng:
+-        Phần Thông điệp & Tầm nhìn và Chiến lược ESG: yêu cầu có chức năng cho ban Truyền thông biên tập lại nội dung do Ban KHPT soạn thảo.
+-        Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban Truyền thông. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU BAN TRUYỀN THÔNG
+STT
+Loại số hóa
+Nhóm
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+People and Development
+Airline F-1
+Volunteering during working hours (Scope: Corporate Communications Department - Tham gia hoạt động tình nguyện
+Social - Xã hội
+Chị Thu, Chị Trà My
+2
+Chỉ tiêu số hóa ngay
+Customer Experience
+GRI 417-3
+Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Social - Xã hội
+Chị Thu, Chị Trà My
+CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+I. Định nghĩa chỉ tiêu
+1.1. Airline F-1 – Volunteering during working hours - Tham gia hoạt động tình nguyện
+Mã chỉ tiêu
+Airline F-1
+Tên chỉ tiêu
+Volunteering during working hours - Tham gia hoạt động tình nguyện
+Mô tả
+Tham gia hoạt động tình nguyện trong giờ làm việc.
+Trụ cột
+Social - Xã hội
+Đơn vị phụ trách
+Ban Truyền thông
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu Airline F-1
+Airline F-1 là một chỉ tiêu đánh giá hiệu quả phát triển bền vững, nằm trong nhóm tiêu chuẩn Xã hội (Social - S) của doanh nghiệp, với tên gọi chính thức là “Volunteering during working hours” (Hoạt động tình nguyện trong giờ làm việc).
+2. Áp dụng Airline F-1 trong ngành hàng không
+Trong ngành hàng không, Airline F-1 được sử dụng để quản lý, theo dõi và công bố tổng số thời gian cũng như nguồn lực mà nhân viên đóng góp cho các hoạt động cộng đồng, xã hội ngay trong giờ làm việc được tính lương. Đây là một trong những chỉ tiêu trọng yếu phản ánh trách nhiệm xã hội của doanh nghiệp (CSR), mức độ gắn kết của người lao động và uy tín thương hiệu của hãng hàng không.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu từ chỉ tiêu Airline F-1 là cơ sở quan trọng phục vụ:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu Airline F-1 được làm rõ qua những chỉ tiêu con sau:
+CT 7.1 – Total volunteer hours - Tổng số giờ tình nguyện
+CT 7.2 – Total number of employees participating in volunteer activities during working hours - Tổng số nhân viên tham gia hoạt động tình nguyện trong giờ làm việc
+CT 7.3 – Average volunteer hours per employee - Số giờ tình nguyện trung bình mỗi nhân viên
+CT 7.4 – Total volunteer activity expenses - Tổng chi phí hoạt động tình nguyện
+1.2. GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Mã chỉ tiêu
+GRI 417-3
+Tên chỉ tiêu
+Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Mô tả
+Các vụ việc không tuân thủ liên quan đến truyền thông marketing.
+Trụ cột
+Social - Xã hội
+Đơn vị phụ trách
+Ban Truyền thông
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 417-3
+GRI 417-3 là một chỉ tiêu thành phần thuộc bộ tiêu chuẩn báo cáo phát triển bền vững Global Reporting Initiative (GRI), nằm trong nhóm tiêu chuẩn Xã hội GRI 400, với tên gọi chính thức là “Incidents of non-compliance concerning marketing communications” (Các vụ việc không tuân thủ liên quan đến truyền thông marketing).
+2. Áp dụng GRI 417-3 trong ngành hàng không
+Trong ngành hàng không, GRI 417-3 được sử dụng để quản lý, giám sát và công bố thông tin minh bạch về các sự cố liên quan đến việc vi phạm quy định pháp lý hoặc các bộ quy tắc tự nguyện trong hoạt động truyền thông, quảng cáo, khuyến mại và tài trợ của hãng. Việc đảm bảo tính trung thực, minh bạch trong thông tin giá vé, điều kiện hành lý và các cam kết môi trường là yếu tố cốt lõi để bảo vệ quyền lợi người tiêu dùng và uy tín của hãng.
+3. Ý nghĩa quản trị và báo cáo
+Dữ liệu về các vụ việc không tuân thủ từ chỉ tiêu GRI 417-3 là thước đo quan trọng để đánh giá sức khỏe quản trị và mức độ rủi ro thương hiệu của hãng, đóng vai trò cơ sở phục vụ:
+Đánh giá hiệu quả của quy trình kiểm duyệt nội dung truyền thông và năng lực quản trị rủi ro pháp lý trong hoạt động thương mại.
+Bảo vệ uy tín thương hiệu của Hãng hàng không quốc gia, củng cố niềm tin và lòng trung thành của khách hàng thông qua việc cung cấp thông tin trung thực, minh bạch.
+Lập Báo cáo phát triển bền vững ESG để cung cấp các minh chứng rõ ràng cho các nhà đầu tư, đối tác toàn cầu.
+4. Danh sách chỉ tiêu thành phần
+Đối với chỉ tiêu GRI 417-3 được làm rõ qua những chỉ số sau:
+CT 7.5 - Total number of incidents - Tổng số vụ việc
+CT 7.6 - Incidents resulting in administrative sanctions - Các vụ việc xử phạt hành chính
+CT 7.7 - Incidents resulting in warnings - Các vụ việc bị cảnh cáo
+CT 7.8 - Number of incidents of non-compliance with voluntary codes - Số sự cố không tuân thủ các bộ quy tắc tự nguyện
+II. Chi tiết nghiệp vụ
+2.1. Airline F-1 – Volunteering during working hours - Tham gia hoạt động tình nguyện
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 7.1
+1. Tên chỉ tiêu: Total volunteer hours - Tổng số giờ tình nguyện
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số giờ tình nguyện.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Tổng số giờ tình nguyện = Tổng thời gian tham gia tình nguyện của tất cả nhân sự, theo toàn bộ chương trình tình nguyện trong năm.
+(VD: dự án A có 50 nhân sự tham gia, thời gian tham gia của mỗi nhân sự là 10 giờ thì tổng thời gian tham gia tình nguyện = 50*10 = 500 giờ).
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Giờ.
+CT 7.2
+1. Tên chỉ tiêu: Total number of employees participating in volunteer activities during working hours - Tổng số nhân viên tham gia hoạt động tình nguyện trong giờ làm việc
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số nhân viên tham gia hoạt động tình nguyện trong giờ làm việc. Một nhân viên tham gia nhiều hoạt động tình nguyện trong năm báo cáo chỉ được tính 1 lần.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Nhân viên.
+CT 7.3
+1. Tên chỉ tiêu: Average volunteer hours per employee - Số giờ tình nguyện trung bình mỗi nhân viên
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số giờ trung bình một nhân viên tham gia hoạt động tình nguyện.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Số giờ tình nguyện trung bình mỗi nhân viên = Tổng số giờ tình nguyện / Tổng số nhân viên
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu:
+Tổng số nhân sự: SkyHR
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Giờ.
+CT 7.4
+1. Tên chỉ tiêu: Total volunteer activity expenses - Tổng chi phí hoạt động tình nguyện
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng chi phí hoạt động tình nguyện, bao gồm cả chi phí tổ chức và chi phí quyên góp.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng tháng (ngày cuối cùng trong tháng).
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: VNĐ (Việt Nam đồng).
+2.2. GRI 417-3 - Incidents of non-compliance concerning marketing communications - Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+Trường hợp có phát sinh vụ việc trong năm báo cáo:
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 7.5
+1. Tên chỉ tiêu: Total number of incidents - Tổng số vụ việc
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số sự cố được ghi nhận trong kỳ báo cáo liên quan đến việc truyền thông, quảng cáo, khuyến mại hoặc tuyên bố marketing không đáp ứng quy định pháp luật, tiêu chuẩn ngành hoặc quy định nội bộ.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Sự cố.
+CT 7.6
+1. Tên chỉ tiêu: Incidents resulting in administrative sanctions - Các vụ việc xử phạt hành chính
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số sự cố không tuân thủ mà doanh nghiệp bị áp dụng hình phạt như phạt tiền, đình chỉ chiến dịch, thu hồi nội dung, hoặc các biện pháp xử phạt khác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Sự cố.
+CT 7.7
+1. Tên chỉ tiêu: Incidents resulting in warnings - Các vụ việc bị cảnh cáo
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số sự cố không tuân thủ dẫn đến cảnh cáo, yêu cầu chỉnh sửa, gỡ bỏ nội dung hoặc cam kết không tái phạm.
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Sự cố.
+CT 7.8
+1. Tên chỉ tiêu: Number of incidents of non-compliance with voluntary codes - Số sự cố không tuân thủ các bộ quy tắc tự nguyện
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số sự cố vi phạm các bộ quy tắc tự nguyện, chuẩn mực ngành hoặc quy định đạo đức marketing mà doanh nghiệp đã cam kết áp dụng (ví dụ: bộ quy tắc quảng cáo có trách nhiệm).
+2.2. Ý nghĩa/Mục đích đo lường:
+Theo dõi và đánh giá mức độ đóng góp thực tế của doanh nghiệp đối với sự phát triển của cộng đồng và xã hội.
+Nâng cao tinh thần trách nhiệm, sự gắn kết của người lao động.
+Xây dựng hình ảnh thương hiệu Hãng hàng không quốc gia nhân văn, có trách nhiệm và gắn liền với lợi ích của cộng đồng.
+Cung cấp số liệu chứng minh cho các tổ chức đánh giá xếp hạng ESG quốc tế về khía cạnh Xã hội.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Năm.
+5. Nguồn dữ liệu: Nhập thủ công.
+6. Tần suất cập nhật: Hàng năm.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Đơn vị tính: Sự cố.
+Trường hợp không phát sinh vụ việc nào trong năm báo cáo:
+Thể hiện bằng 1 câu tuyên bố: Vietnam Airlines không có vụ việc nào liên quan đến tuân thủ truyền thông marketing.

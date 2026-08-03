@@ -1,0 +1,225 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ TTBSV
+1. Thông tin chung
+Tên cơ quan đơn vị
+Trung tâm Bông Sen Vàng (TTBSV).
+Đầu mối nghiệp vụ và dữ liệu
+Trung tâm Bông Sen Vàng (TTBSV):
+Ông Trần Minh Hùng – Phó phòng TTBSV
+Ông Phạm Đình Đức – Chuyên viên TTBSV
+Người xác nhận
+Phiên bản
+1.0
+2. Mục tiêu
+Theo dõi quy mô và xu hướng tăng trưởng của chương trình Hội viên Bông Sen Vàng theo tháng/quý/năm.
+Cung cấp số liệu phục vụ công tác quản trị nội bộ.
+Hỗ trợ lập báo cáo ESG/phát triển bền vững đối với các chỉ tiêu thuộc trụ cột Xã hội.
+Khai thác dữ liệu từ hệ thống Khách hàng thân thiết và tổng hợp trên các báo cáo định kỳ.
+3. Danh mục chỉ tiêu và số KH
+TTBSV hiện theo dõi 01 chỉ tiêu PTBV. Chi tiết như sau:
+Mã chỉ tiêu
+Tên
+chỉ tiêu_VI
+Tên
+chỉ tiêu_EN
+Đơn vị đo
+Công thức tính
+Nguồn
+dữ liệu
+Chiều tổng hợp dữ liệu
+CQ phụ trách
+Airline B-2
+Tổng số hội viên Bông Sen Vàng
+Number of Lotusmiles Members
+Hệ thống CLM
+Tháng/ Quý/ Năm
+Trung tâm Bông Sen Vàng
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 9.1
+Tổng số hội viên Bông Sen Vàng
+Thống kê tổng số hội viên đang tham gia chương trình Bông Sen Vàng của Vietnam Airlines tại từng thời điểm báo cáo.
+Năm
+Hàng ngày
+Data Warehouse
+CLM
+CT 9.2
+Xu hướng tăng trưởng hội viên
+Xu hướng tăng trưởng tổng số hội viên Bông Sen Vàng theo từng năm.Công thức: Tổng số hội viên Bông Sen Vàng trong năm = Tổng số hội viên tại thời điểm cuối năm báo cáo.
+Năm
+Hàng ngày
+Data Warehouse
+CLM
+CT 9.3
+Xu hướng hội viên theo Quý trong năm
+Chỉ tiêu thể hiện xu hướng biến động tổng số hội viên Bông Sen Vàng theo từng quý trong năm báo cáo.Công thức: Tổng số hội viên Bông Sen Vàng trong quý = Tổng số hội viên tại thời điểm cuối quý báo cáo.
+Năm
+Hàng ngày
+Data Warehouse
+CLM
+CT 9.4
+Xu hướng hội viên theo Tháng trong năm
+Xu hướng biến động tổng số hội viên Bông Sen Vàng theo từng tháng trong năm báo cáo.Công thức: Tổng số hội viên Bông Sen Vàng trong tháng = Tổng số hội viên tại thời điểm cuối tháng báo cáo.
+Năm
+Hàng ngày
+Data Warehouse
+CLM
+5. Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Airline B-2 - Customer engagement - Tương tác khách hàng
+Tự động
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Tổng số hội viên Bông Sen Vàng
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Tổng số hội viên Bông Sen Vàng
+CLM
+Hàng ngày
+Tự động
+2
+Xu hướng tăng trưởng hội viên
+CLM
+Hàng ngày
+Tự động
+3
+Xu hướng hội viên theo Quý trong năm
+CLM
+Hàng ngày
+Tự động
+4
+Xu hướng hội viên theo Tháng trong năm
+CLM
+Hàng ngày
+Tự động
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-BSV-WEB-01
+Nhập liệu chỉ tiêu Hội viên mới (Airline B-2).
+Cao
+Form nhập liệu gồm 3 trường dữ liệu: Số lượng hội viên mới kế hoạch (npsTarget), Điểm/Số thực tế đạt được (npsActual), và Số lượng khảo sát thu về (customerSurveys).
+YCQ-BSV-WEB-02
+Dashboard tăng trưởng hội viên.
+Cao
+Hiển thị biểu đồ tăng trưởng số lượng hội viên mới theo tháng trong năm, phân tách theo hạng thẻ hội viên. Dữ liệu lấy tự động từ hệ thống CLM.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-BSV-WEB-01
+Hình 01: Màn hình Nhập liệu hội viên
+Số liệu hội viên Bông Sen Vàng
+Kiểm thử nhập và lưu số lượng hội viên mới kế hoạch/thực tế.
+YCQ-BSV-WEB-02
+Hình 02: Dashboard KPI Airline B-2
+Biểu đồ Metabase
+Kiểm thử hiển thị biểu đồ xu hướng hội viên theo tháng.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN BSV
+1. Thông tin chung
+Đơn vị phụ trách: Trung tâm Bông Sen Vàng (TTBSV).
+Đầu mối Trung tâm Bông Sen Vàng:
+Ông Trần Minh Hùng – Phó phòng TTBSV
+Ông Phạm Đình Đức – Chuyên viên TTBSV
+2. Phạm vi xác nhận
+Áp dụng đối với chỉ tiêu Airline B-2 thuộc nhóm khách hàng, hiển thị trên Dashboard TTBSV. Dữ liệu được đối chiếu, xác nhận từ hệ thống CLM.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo File 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+File TC Dashboard
+Kiểm thử giao diện, số liệu dashboard hiển thị tại chức năng “Danh mục chỉ tiêu”
+Tổng số …. Case được kiểm thử
+Passed: …/… testcase
+Failed: …/… testcase
+Pendding: …/… testcase
+… lỗi liên quan đến
+File TC Nhập liệu
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline B-2
+Sẽ bổ sung trong khi thực hiện dự án
+Hệ thống CLM (hoặc file gốc đơn vị cung cấp)
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối TTBSV
+Dữ liệu từ năm 2022 đến năm 2025
+Đã kiểm tra
+6. Danh sách tồn tại (lấy theo thông tin tại mục 3)
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+Mã tc failed và pendding
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

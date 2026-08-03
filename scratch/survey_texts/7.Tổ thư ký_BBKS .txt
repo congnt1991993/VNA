@@ -1,0 +1,160 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian: Từ 14:00 đến 16:30, ngày 29 tháng 05 năm 2026
+Địa điểm: Phòng họp 310, tầng 3, tòa nhà VN1
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Ông Nguyễn Trọng Đức –Phó trưởng phòng Chiến lược - Ban KHPT
+Bà Phạm Thị Dung - Chuyên viên Ban KHPT
+Bà Hoàng Thị Lệ Thu – Chuyên viên Ban TT
+Bà Đồng Thu Trà My – Chuyên viên Ban TT
+2. Phía Aequitas
+Ông Trần Ngọc Sơn – PM dự án
+Ông Nguyễn Chính Nam - BA dự án
+Ông Chu Minh Hiếu - DA dự án
+Ông Nguyễn Danh Hưng - DA dự án
+Ông Nguyễn Giang Đông - DA dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp nhằm khảo sát, trao đổi và làm rõ các nghiệp vụ liên quan đến:
+Quy trình lưu trữ báo cáo ESG.
+Quy trình quản lý KPI.
+Thiết kế và quản trị public website
+Chức năng Tổng quan điều hành chung
+Quy trình quản lý văn bản
+Chỉ tiêu ESG
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+Trong buổi khảo sát tổ thư ký đã thống nhất những nội dung sau:
+Quy trình phê duyệt báo cáo ESG
+Quyết định thay thế quy trình phê duyệt báo cáo ESG đã được thống nhất tại buổi khảo sát ngày 26/05/2026 với ban KHPT thành quy trình lưu trữ báo cáo ESG cụ thể:
+- Bước 1: Ban TT sẽ tạo thông tin yêu cầu tổng hợp báo cáo ESG
+- Bước 2: Các tổ ban khi nhận được yêu cầu thực hiện làm và tải file báo cáo đã có phê duyệt của lãnh đạo ban và chuyển trạng thái để thông báo lại cho ban TT
+Yêu cầu chức năng
+- Có chức năng cho phép Ban TT gửi yêu cầu xuống tổ chuyên môn gửi báo cáo ESG
+- Báo cáo của các tổ ban được lưu trữ tại cùng 1 thư mục.
+- Có đánh dấu trạng thái hoàn thành của các phòng ban.
+- Có cơ chế nhắc nhở người dùng qua email
+Quy trình quản lý KPI
+Quy trình đề xuất và phê duyệt KPI ESG:
+Bước 1: Chuyên viên phòng KHPT gửi yêu cầu làm kế hoạch cho các chỉ tiêu xuống cho tổ ban phụ trách.
+Bước 2: Chuyên viên tổ ban  thực hiện lên kế hoạch cho các chỉ tiêu dựa theo yêu cầu được nhận và update trạng thái
+Bước 3: Ban KHPT thực hiện tổng hợp số liệu từng phòng ban đề xuất và thực hiện:
++ Phê duyệt: thực hiện đổi trạng thái thành phê duyệt của kế hoạch
++ Từ chối: thực hiện đổi trạng thái thành từ chối, nhập lý do và quay trở lại bước 2
+Yêu cầu chức năng
+Có chức năng cho KHPT thực hiện gửi yêu cầu xuống các phòng ban thực hiện làm kế hoạch
+Kế hoạch các phòng ban gửi lên được lưu vào mục riêng cho ban KHPT quản lý.
+Có màn hình theo dõi kết quả thực hiện KPI của từng tổ ban gửi lên sau khi phê duyệt.
+Có mail thông báo đến các thành viên của tổ ban được phân công phụ trách.
+Thiết kế và quản trị public website
+Phân quyền và Trách nhiệm quản trị
+Quản trị nội dung theo cấu trúc Website Trang public được chia thành các khu vực với cách thức quản trị nội dung khác nhau:
+Phần Thông điệp & Tầm nhìn: Khu vực này hiển thị tổng quan các thông điệp, vision (tầm nhìn) và mục tiêu cốt lõi về phát triển bền vững.
+Phần Chiến lược ESG: Thể hiện nội dung chiến lược phát triển của VNA theo 3 mục tiêu môi trường, xã hội, quản trị. Ở mỗi mục tiêu có bài viết chi tiết thể hiện theo từng trụ cột.
+Phần Tin tức & Hoạt động thực tế: Để website luôn được "sống động" và cập nhật thông tin kịp thời, hệ thống sẽ kết nối API để nhúng/kéo tự động các bài viết từ kênh truyền thông nội bộ (như trang Spirit) sang.
+Phần Lưu trữ báo cáo: Khu vực này quản lý các đường link dẫn tới danh sách các báo cáo của VNA công khai các năm.
+Yêu cầu chức năng:
+Phần Thông điệp & Tầm nhìn và Chiến lược ESG: Nội dung do ban KHPT soạn thảo và tổng hợp, sau đó được ban Truyền Thông biên tập lại nên cần có cơ chế review và approve cho thông tin.
+Website có cơ chế cập nhật bài viết từ trang spirit qua API.
+Chức năng Tổng quan điều hành
+Yêu cầu chức năng:
+Các chức năng tại phần tổng quan điều hành Ban KHPT yêu cầu thể hiện theo 5 mục cụ thể:
++ Tổng quan chung ESG: ban KHPT phụ trách
++ Khối kỹ thuật: Tổ Kỹ thuật phụ trách.
++ Khối khai thác: Tổ Khai thác phụ trách
++ Khối dịch vụ: Tổ Dịch vụ phụ trách
++ Quản lý chung: ban Tổ chức nhân lực phụ trách chính
+Những mục chuyên môn từng phòng ban thể hiện theo bố cục đầu tiên là tổng quan sau đó chi tiết là các chỉ tiêu ở sau
+Tại các màn hình dashboard cho phép người dùng chủ động điều chỉnh vị trí/thay thế các biểu đồ trên dashboard bằng biểu đồ ở dashboard chỉ tiêu phòng ban được giao.
+Quy trình Quản lý tài liệu
+Quy trình phê duyệt tài liệu chuyên môn giữa Tổ ban chuyên môn và Ban KHPT qua 2 bước nghiệp vụ cốt lõi:
+Bước 1: Chuyên viên thuộc Tổ ban chuyên môn tạo yêu cầu bổ sung tài liệu liên quan đến chỉ số ESG và tải tệp lên hệ thống.
+Bước 2: Chuyên viên Ban KHPT tiếp nhận hồ sơ và tiến hành kiểm tra tính chuẩn xác của tài liệu.
+Từ chối: Luồng quay ngược về Bước 1 để yêu cầu chuyên viên Tổ ban bổ sung/chỉnh lý lại.
+Phê duyệt:  thực hiện 2 công việc tự động:
+Bước 2.1: Hệ thống gửi Thông báo tài liệu đã được phê duyệt tới chuyên viên Tổ ban chuyên môn để họ nắm bắt thông tin.
+Bước 2.2: Hệ thống tự động cấu hình Hiển thị tài liệu lên chức năng tương ứng trên phần mềm ESG để đưa vào khai thác sử dụng.
+Chỉ tiêu ESG
+Thống nhất giải pháp số hóa việc nhập liệu và thuyết minh cho nhóm 15 chỉ tiêu định tính (dạng văn bản/text) cụ thể:
+GRI 2-9: Governance structure and composition / Cơ cấu và thành phần quản trị
+GRI 2-10: Nomination and selection of the highest governance body / quy trình đề cử, lựa chọn lãnh đạo cấp cao
+GRI 2-11: Chair of the highest governance body / Lãnh đạo cấp cao
+GRI 2-12: Role of the highest governance body in overseeing the management of impacts / Vai trò của cơ quan quản trị cao nhất trong giám sát quản lý tác động
+GRI 2-13: Delegating authority / Phân quyền
+GRI 2-15: Conflicts of interest / Xung đột lợi ích
+GRI 2-23: Policy commitments / Các cam kết về chính sách
+GRI 2-26: Mechanisms for seeking advice and raising concerns about ethics / Cơ chế tham vấn, phản ánh các vấn đề đạo đức
+GRI 2-29: Approach to stakeholder engagement / Tiếp cận đối thoại các bên liên quan
+GRI 3-3: Management of material topics / Quản lý các chủ đề trọng yếu
+GRI 201-4: Financial assistance received from government / Trợ cấp/tài trợ nhận từ chính phủ
+GRI 205-2: Communication and training about anti-corruption policies and procedures / Truyền thông, đào tạo về chống tham nhũng
+GRI 205-3: Confirmed incidents of corruption and actions taken / Sự cố tham nhũng xác nhận và biện pháp xử lý
+GRI 206-1: Legal actions for anti-competitive behavior, anti-trust, and monopoly practices / Vụ kiện về cạnh tranh không lành mạnh, độc quyền
+GRI 415-1: Political contributions / Đóng góp cho các hoạt động chính trị
+(Chi tiết phần hiển thị của chỉ tiêu trong file Thông tin chỉ tiêu Governance_v1 được ban KHPT gửi lại)
+Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 29/05/2026 với Ban KHPT. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+CHỈ TIÊU GOVERNANCE
+GRI 2-9: Governance structure and composition/Cơ cấu và thành phần quản trị (Ban KHPT)
+Trưởng ban: Tổng giám đốc
+Phó Trưởng ban thường trực: Phó Tổng giám đốc
+GRI 2-10: Nomination and selection of the highest governance body /Quy trình đề cử, lựa chọn cơ quan quản lý cao nhất (Ban TCNL)
+VNA có quy trình lựa chọn thành viên HĐQT tuân thủ theo Luật Doanh nghiệp và Điều lệ của VNA.
+GRI 2-11: Chair of the highest governance body/ Trưởng Ban Điều hành (Ban KHPT)
+Trưởng Ban điều hành chương trình Phát triển bền vững là Tổng giám đốc: là người đứng đầu, chịu trách nhiệm pháp lý cao nhất về toàn bộ hoạt động của Ban Điều hành; phân công nhiệm vụ cho các thành viên thực hiện các nhiệm vụ của Ban Điều hành.
+GRI 2-12: Role of the highest governance body in overseeing the management of impacts/Vai trò của Ban Điều hành trong giám sát quản lý tác động (Ban KHPT)
+Vai trò của Ban Điều hành: là cơ quan hoạch định chiến lược, chính sách và chương trình, kế hoạch hành động thực hiện các mục tiêu PTBV của TCTHK, đảm bảo sự tuân thủ các quy định pháp luật hiện hành của Việt Nam, Chiến lược quốc gia về PTBV, đồng thời đáp ứng đầy đủ các yêu cầu và cam kết quốc tế mà TCTHK là thành viên, bao gồm nhưng không giới hạn các tiêu chuẩn của Tổ chức Hàng không Dân dụng quốc tế (ICAO), Hiệp hội Vận tải Hàng không quốc tế (IATA) và chương trình CORSIA.
+GRI 2-13: Delegating authority/Phân công trách nhiệm (Ban KHPT)
+Tổ Thư ký là cơ quan thường trực, điều phối chuyên môn của Ban Điều hành, có chức năng tham mưu tổng hợp cho Ban Điều hành trong việc triển khai Chương trình PTBV của TCTHK, chịu sự chỉ đạo trực tiếp của Trưởng Ban Điều hành và Phó Trưởng ban thường trực
+Tổ công tác được thành lập theo từng lĩnh vực, từng chương trình PTBV của TCTHK để chủ trì triển khai nghiên cứu, xây dựng, thực hiện và chịu trách nhiệm về kết quả các kế hoạch hành động PTBV được Ban Điều hành phân công
+GRI 2-15: Conflicts of interest/Xung đột lợi ích (Ban PC)
+Vietnam Airlines không chấp nhận bất kỳ hành xung đột lợi ích dưới bất kỳ hình thức nào
+GRI 2-23: Policy commitments /Các cam kết về chính sách (Ban KHPT)
+Một số chính sách, quy định, cam kết:
+Quy trình Giám sát - Báo cáo - Xác minh khí thải (MRV) được triển khai nhằm bảo đảm việc giám sát, báo cáo và kiểm chứng phát thải khí nhà kính được thực hiện minh bạch, chính xác và phù hợp với các yêu cầu quốc tế
+Kế hoạch giám sát phát thải (EMP) quy định phương pháp và quy trình quản lý dữ liệu phát thải, làm cơ sở cho việc tính toán và báo cáo phát thải khí nhà kính của hãng hàng không
+Triển khai tài liệu Kế hoạch ứng phó khẩn nguy làm cơ sở thực hiện, điều phối hoạt động khẩn nguy toàn bộ công ty.
+Quy chế bảo vệ môi trường, sử dụng năng lượng tiết kiệm và hiệu quả với mục tiêu triển khai thực hiện các hoạt động bảo vệ môi trường và sử dụng năng lượng tiết kiệm và hiệu quả thỏa mãn nhu cầu của khách hàng, hướng tới sự phát triển bền vững của TCT.
+Quy chế tổ chức và hoạt động Ủy ban An toàn – VNA Group nhằm đảm bảo thống nhất việc triển khai hoạt động An toàn tại TCT và các công ty vốn góp
+Tài liệu Hệ thống quản lý an toàn SMSM mô tả các chính sách an toàn, các phương pháp và quy trình triển khai, vận hành an toàn trong phạm vi Vietnam Airlines
+Tài liệu Quản lý chất lượng (QMM) nhằm hướng dẫn tất cả các hoạt động bay, bảo trì, dịch vụ mặt đất và đào tạo để đạt được các mục tiêu chất lượng và liên tục cải tiến hệ thống quản lý chất lượng
+Quy chế quản lý lao động - thiết lập các nguyên tắc chiến lược dài hạn về quản trị nguồn nhân lực, bảo đảm an sinh xã hội, cân bằng giới tính lực lượng lao động, cấp quản lý và phát triển lực lượng lao động đặc thù ngành hàng không
+Nội quy lao động - quy định các tiêu chuẩn vận hành nhằm bảo vệ sức khỏe, xây dựng môi trường làm việc lành mạnh, bình đẳng và an toàn cho toàn thể người lao động
+Hướng dẫn hội nhập nhân viên - bảo đảm nhân sự mới hòa nhập nhanh chóng và gắn kết bền vững với tổ chức, góp phần phát triển nguồn vốn con người dài hạn
+Quy chế đấu thầu và mua sắm - triển khai trên nguyên tắc công khai, minh bạch, tuân thủ chặt chẽ quy định pháp luật hiện hành và các quy chế nội bộ
+Chương trình phòng chống tham nhũng, thực hành tiết kiệm và chống lãng phí - được xác định là kim chỉ nam trong mọi hoạt động sản xuất kinh doanh và công tác quản trị nội bộ
+Chính sách giải quyết tranh chấp - các tranh chấp thương mại và pháp lý với đối tác, nhà cung cấp được xử lý trên tinh thần thiện chí, hợp tác và tôn trọng đầy đủ các thỏa thuận đã ký kết cũng như pháp luật có liên quan
+TCT ban hành bộ định nghĩa hành vi và hướng dẫn thực hiện văn hóa chính trực để khuyến khích mỗi người lao động tuân thủ quy trình, cổ vũ thực hiện các hoạt động vận hành an toàn.
+TCT đã xây dựng sổ tay văn hóa nâng tầm để từng bước nâng cao chất lượng dịch vụ, tiến tới dịch vụ 5 sao.
+GRI 2-26: Mechanisms for seeking advice and raising concerns about ethics/Cơ chế tham vấn, phản ánh các vấn đề đạo đức (Ban PC)
+VNA có đơn vị Pháp chế, thực hiện tư vấn cho các Lãnh đạo và công ty về vấn đề pháp lý.
+GRI 2-29: Approach to stakeholder engagement/Tiếp cận đối thoại các bên liên quan (VPTCT)
+VNA có quy định cung cấp thông tin, làm việc với các nhà đầu tư. Ngoài ra, VNA đã tổ chức ĐHĐCĐ thường niên định kỳ và bất thường để cung cấp thông tin, lấy ý kiến nhà đầu tư đối với những quyết định lớn.
+GRI 3-3: Management of material topics /Quản lý các chủ đề trọng yếu (Ban KHPT)
+Cách tiếp cận quản lý
+Các hoạt động chính:
+Kiểm toán và đánh giá nội bộ định kỳ trên toàn hệ thống
+Họp HĐQT và các Ủy ban HĐQT hàng quý; họp bất thường theo yêu cầu
+Họp BĐH PTBV định kỳ hàng quý để rà soát tiến độ các chỉ tiêu ESG
+Đại hội đồng Cổ đông thường niên
+Đối thoại định kỳ giữa lãnh đạo và người lao động (hội nghị người lao động cấp CQĐV, cấp TCT)
+Chương trình định hướng cho cán bộ nhân viên mới về văn hóa và giá trị cốt lõi
+Ấn phẩm nội bộ (bản tin, thông báo, tạp chí nội bộ Vietnam Airlines)
+Chương trình đào tạo định kỳ: chống tham nhũng, bảo mật thông tin, an toàn hàng không, ESG
+Kênh phản ánh nội bộ tiếp nhận ý kiến và khiếu nại của CBNV
+GRI 201-4: Financial assistance received from government /Trợ cấp/tài trợ nhận từ chính phủ (Ban TCKT)
+Chính phủ đóng vai trò như một cổ đông lớn và thực hiện vai trò, nghĩa vụ như một cổ đông.
+GRI 205-2: Communication and training about anti-corruption policies and procedures/Truyền thông, đào tạo về chống tham nhũng (Ban PC)
+VNA có thực hiện truyền thông nội bộ về việc chống tham nhũng, chống lãng phĩ theo triển khai của Chính phủ, Đảng và Nhà nước.
+GRI 205-3: Confirmed incidents of corruption and actions taken /Sự cố tham nhũng xác nhận và biện pháp xử lý (Ban PC)
+VNA không có sự cố liên quan đến tham nhũng.
+GRI 206-1: Legal actions for anti-competitive behavior, anti-trust, and monopoly practices/Vụ kiện về cạnh tranh không lành mạnh, độc quyền (Ban PC)
+VNA không phát sinh các vụ về cạnh tranh không lành mạnh, độc quyền. Thị trường hàng không Việt Nam là thị trường có sự tự do cạnh tranh ở mức độ Cao với sự tham gia của các hãng hàng không Việt Nam (Vietjet, Bamboo, v.v) và thế giới.
+GRI 415-1: Political contributions /Đóng góp cho các hoạt động chính trị (Ban TT)
+Không có

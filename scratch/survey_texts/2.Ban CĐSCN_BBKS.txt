@@ -1,0 +1,165 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+BIÊN BẢN KHẢO SÁT
+Dự án: Thuê DV phần mềm phục vụ công tác quản lý phát triển bền vững cho TCTHK
+(VNA Netzero)
+Thời gian: Từ 14:00 đến 14:30, ngày 28 tháng 05 năm 2026
+Địa điểm: Phòng họp HUI - 310, tầng 3, tòa nhà VN1
+I. Thành phần tham dự gồm:
+1. Phía VNA
+Ông Đỗ Duy Thái - Chuyên viên - Ban CĐSCN
+2. Phía Aequitas
+Ông Nguyễn Chính Nam - BA dự án
+Ông Nguyễn Giang Đông - DA dự án
+II. Nội dung khảo sát:
+1. Mục đích cuộc họp
+Cuộc họp nhằm khảo sát, trao đổi và làm rõ các nghiệp vụ liên quan đến:
+Các chỉ tiêu có thể số hóa để đưa lên báo cáo.
+Làm rõ định nghĩa, nội dung nghiệp vụ của các chỉ tiêu/chỉ tiêu con
+Biên bản này là căn cứ ghi nhận nội dung cuộc họp, không thay thế tài liệu URD, tài liệu Data Requirement hoặc tài liệu thiết kế hệ thống.
+2. Nội dung cuộc họp
+Ban CĐSCN và Aequitas cùng trao đổi và thống nhất các nội dung sau:
+Xác nhận số hóa: Chỉ tiêu GRI 418-1 bao gồm 5 chỉ tiêu con, đã làm rõ 5/5 chỉ tiêu con.
+(Chi tiết theo Phụ lục 01: Danh mục các chỉ tiêu, danh mục các chỉ tiêu số hóa và chi tiết chỉ tiêu đã xác nhận.)
+Xác nhận nội dung nhập liệu hàng tháng:
+Số vụ vi phạm quyền riêng tư
+Số vụ mất dữ liệu
+3. Kết luận chính sau phiên làm việc:
+Aequitas đã ghi nhận các thông tin được trao đổi, chia sẻ tại cuộc họp khảo sát ngày 28/05/2026 với Ban CĐSCN. Các nội dung này là cơ sở đầu vào để Aequitas tiếp tục tổng hợp, rà soát và hoàn thiện tài liệu URD.
+Các nội dung chưa được làm rõ hoặc chưa được xác nhận tại cuộc họp này sẽ tiếp tục được rà soát, làm rõ trong các buổi khảo sát tiếp theo và cập nhật tại các tài liệu phân tích chi tiết liên quan.
+Xác nhận của AequitasXác nhận của VNA
+PHỤ LỤC 01
+DANH MỤC CÁC CHỈ TIÊU
+STT
+Loại số hóa
+Nhóm
+Mã chỉ tiêu
+Tên chỉ tiêu
+Trụ cột
+Đầu mối
+Ghi chú
+1
+Chỉ tiêu số hóa ngay
+Customer Experience
+GRI 418-1
+Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+Xã hội
+Ban CĐSCN
+CHI TIẾT CHỈ TIÊU ĐÃ XÁC NHẬN
+I. Định nghĩa chỉ tiêu
+1.1. Chỉ tiêu GRI 418-1 - Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+Mã chỉ tiêu
+GRI 418-1
+Tên chỉ tiêu
+Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+Mô tả
+Số lượng khiếu nại đã được xác minh liên quan đến:
+Vi phạm quyền riêng tư khách hàng (customer privacy breaches).
+Các trường hợp mất dữ liệu khách hàng (loss of customer data)
+Trụ cột
+Xã hội
+Đơn vị phụ trách
+Ban CĐSCN
+Mô tả chi tiết
+1. Tổng quan về Chỉ tiêu GRI 418-1
+Chỉ tiêu GRI 418-1 phản ánh khả năng bảo vệ dữ liệu cá nhân, tính minh bạch trong quản trị thông tin khách hàng và mức độ tuân thủ các quy định pháp luật về an toàn thông tin, bảo mật dữ liệu và quyền riêng tư. Đồng thời, đây cũng là một nội dung ESG quan trọng liên quan đến trách nhiệm xã hội và quản trị doanh nghiệp trong bối cảnh chuyển đổi số và gia tăng rủi ro an ninh mạng.
+2. Áp dụng GRI 418-1 trong ngành hàng không
+Đối với Vietnam Airlines, chỉ tiêu GRI 418-1 có ý nghĩa đặc biệt quan trọng do các hãng hàng không quản lý khối lượng lớn dữ liệu cá nhân và dữ liệu hành trình của hành khách. .
+3. Ý nghĩa quản trị và báo cáo
+Chỉ tiêu GRI 418-1 có ý nghĩa quan trọng trong công tác quản trị dữ liệu khách hàng, quản trị rủi ro công nghệ thông tin và nâng cao tính minh bạch trong báo cáo ESG của doanh nghiệp. Việc theo dõi và công bố các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư và mất dữ liệu khách hàng giúp doanh nghiệp đánh giá hiệu quả của hệ thống bảo mật thông tin, khả năng kiểm soát rủi ro an ninh mạng và mức độ tuân thủ các quy định pháp luật về bảo vệ dữ liệu cá nhân.
+4. Danh sách chỉ tiêu thành phần
+Chỉ tiêu GRI 418-1 được làm rõ qua chỉ tiêu con sau:
+CT 8.1 – Total number of verified complaints related to personal data - Tổng số khiếu nại
+CT 8.2 – Number of privacy breach incidents - Số vụ vi phạm quyền riêng tư
+CT 8.3 – Number of data loss incidents - Số vụ mất dữ liệu
+CT 8.4 – Number of privacy breach and data loss incidents by month - Số vi phạm quyền riêng tư và mất dữ liệu theo tháng
+CT 8.5 – Distribution of privacy breach and data loss risks - Cơ cấu rủi ro vi phạm quyền riêng tư và mất dữ liệu
+II. Chi tiết nghiệp vụ
+2.1. Chỉ tiêu GRI 418-1 - Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+Mã chỉ tiêu con
+Mô tả/ Description
+CT 8.1
+1. Tên chỉ tiêu: Total number of complaints - Tổng số khiếu nại
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tổng số khiếu nại mà sau quá trình điều tra, xác minh nội bộ hoặc bởi cơ quan có thẩm quyền, được kết luận là có liên quan đến vi phạm quyền riêng tư hoặc mất dữ liệu cá nhân trong kỳ báo cáo..
+2.2. Ý nghĩa/Mục đích đo lường:
+Phản ánh tổng số khiếu nại liên quan đến quyền riêng tư khách hàng và dữ liệu khách hàng phát sinh trong kỳ báo cáo. Việc theo dõi chỉ tiêu này giúp doanh nghiệp đánh giá mức độ phát sinh các vấn đề liên quan đến bảo mật thông tin, chất lượng quản trị dữ liệu và mức độ tin cậy của khách hàng đối với hệ thống quản lý thông tin của doanh nghiệp.
+3. Công thức tính:
+Tổng số khiếu nại = Số vụ vi phạm quyền riêng tư + Số vụ mất dữ liệu.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng, Quý, Năm.
+5. Nguồn dữ liệu:
+Input qua cổng nhập liệu.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 8.2
+1. Tên chỉ tiêu: Number of privacy breach incidents - Số vụ vi phạm quyền riêng tư
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số vụ việc đã được xác minh trong đó dữ liệu cá nhân của khách hàng bị truy cập, sử dụng, tiết lộ hoặc xử lý trái phép, không đúng mục đích hoặc không có sự đồng ý hợp lệ.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu đo lường số lượng sự cố đã được xác minh liên quan đến việc truy cập, sử dụng hoặc tiết lộ thông tin cá nhân trái phép. Chỉ tiêu này giúp doanh nghiệp đánh giá hiệu quả của các chính sách bảo mật, mức độ tuân thủ quy định về bảo vệ dữ liệu cá nhân và khả năng kiểm soát rủi ro liên quan đến quyền riêng tư khách hàng.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng, Quý, Năm.
+5. Nguồn dữ liệu:
+Input qua cổng nhập liệu.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 8.3
+1. Tên chỉ tiêu: Number of data loss incidents - Số vụ mất dữ liệu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Số vụ việc đã xác minh trong đó dữ liệu cá nhân bị mất mát, phá hủy, rò rỉ, hoặc không thể truy cập do lỗi hệ thống, tấn công mạng, thao tác sai hoặc các nguyên nhân khác.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu phản ánh số lượng sự cố mất mát, thất lạc hoặc rò rỉ dữ liệu khách hàng trong kỳ báo cáo. Việc theo dõi chỉ tiêu này giúp doanh nghiệp đánh giá mức độ an toàn của hệ thống lưu trữ và quản lý dữ liệu, đồng thời hỗ trợ xác định các điểm yếu trong công tác an ninh thông tin để có biện pháp cải thiện phù hợp.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng, Quý, Năm.
+5. Nguồn dữ liệu:
+Input qua cổng nhập liệu.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 8.4
+1. Tên chỉ tiêu: Number of privacy breach and data loss incidents by month - Số vi phạm quyền riêng tư và mất dữ liệu theo tháng
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Biểu đồ hoặc chỉ số thể hiện số lượng và xu hướng các sự cố vi phạm quyền riêng tư và mất dữ liệu theo từng tháng.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu này giúp doanh nghiệp theo dõi xu hướng phát sinh sự cố theo thời gian, nhận diện các giai đoạn có rủi ro cao và hỗ trợ xây dựng các biện pháp kiểm soát, phòng ngừa kịp thời.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng, Quý, Năm.
+5. Nguồn dữ liệu:
+Input qua cổng nhập liệu.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.
+CT 8.5
+1. Tên chỉ tiêu: Distribution of privacy breach and data loss risks - Cơ cấu rủi ro vi phạm quyền riêng tư và mất dữ liệu
+2. Định nghĩa/Diễn giải/Ý nghĩa/Mục đích đo lường:
+2.1. Định nghĩa/Diễn giải:
+Tỷ trọng các sự cố được phân loại theo nhóm rủi ro chính: vi phạm quyền riêng tư, mất dữ liệu, hoặc kết hợp cả hai.
+2.2. Ý nghĩa/Mục đích đo lường:
+Chỉ tiêu phản ánh tỷ trọng hoặc phân loại các nhóm rủi ro liên quan đến vi phạm quyền riêng tư và mất dữ liệu theo nguyên nhân, mức độ ảnh hưởng hoặc loại hình sự cố. Việc đo lường cơ cấu rủi ro giúp doanh nghiệp nhận diện các nguy cơ trọng yếu, ưu tiên nguồn lực quản trị rủi ro và nâng cao hiệu quả của hệ thống bảo mật thông tin.
+3. Công thức tính:
+Không có.
+4. Chiều tổng hợp dữ liệu:
+Theo thời gian: Tháng, Quý, Năm.
+5. Nguồn dữ liệu:
+Input qua cổng nhập liệu.
+6. Tần suất cập nhật: Hàng tháng.
+7. Mức độ ưu tiên: 1 (Rất cần thiết).
+8. Những thông tin khác:
+Không có.

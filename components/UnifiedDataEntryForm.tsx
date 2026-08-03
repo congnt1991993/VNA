@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './UI';
-import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search } from 'lucide-react';
+import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search, Clock } from 'lucide-react';
 
 import kpiRules from './NetzeroGRI_KPI_Rules.json';
 
@@ -278,6 +278,21 @@ const GOV_INDICATOR_MAPPINGS: Record<string, {
     mainPointsVi: "- Tổng giá trị các khoản đóng góp chính trị trực tiếp và gián tiếp.\n- Phương pháp quy đổi giá trị nếu đóng góp bằng hiện vật.",
     mainPointsEn: "- Total value of direct and indirect political contributions.\n- Valuation method for in-kind contributions.",
     defaultVnaTextEn: "As a national flag carrier, Vietnam Airlines does not make financial or in-kind contributions to political parties or campaigns. The company participates in policy engagement indirectly through trade association dues."
+  }
+};
+
+const getFormName = (code: string) => {
+  switch (code) {
+    case 'Airline E-1': return 'Biểu mẫu tiếng ồn tàu bay';
+    case 'GRI 302-1': return 'Biểu mẫu tiêu thụ năng lượng';
+    case 'Airline B-1': return 'Biểu mẫu chỉ số hài lòng (NPS)';
+    case 'Airline B-2': return 'Biểu mẫu tương tác khách hàng BSV';
+    case 'GRI 2-7': return 'Biểu mẫu quy mô nhân sự';
+    case 'GRI 302-4': return 'Biểu mẫu giảm tiêu thụ năng lượng';
+    case 'Airline F-1': return 'Biểu mẫu hoạt động tình nguyện';
+    case 'GRI 404-2': return 'Biểu mẫu đào tạo nhân viên';
+    case 'GRI 2-9': return 'Cơ cấu và thành phần quản trị';
+    default: return 'Biểu mẫu chỉ tiêu ESG';
   }
 };
 
@@ -685,8 +700,90 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     });
   }, [indicatorDetails, searchText]);
 
+  const mockAuditLogs = React.useMemo(() => {
+    const logs: any[] = [];
+    const periodYear = effectivePeriod.includes('2026') ? '2026' : '2025';
+    
+    indicatorDetails.forEach((ind, index) => {
+      const formName = getFormName(ind.code);
+      
+      logs.push({
+        id: `LOG-UPD-${ind.code}`,
+        indicatorCode: ind.code,
+        indicatorName: ind.name,
+        formName: formName,
+        user: index % 2 === 0 ? 'ns_vna@vietnamairlines.com' : 'tckt@vietnamairlines.com',
+        timestamp: `18/05/${periodYear} 10:${30 + index}`,
+        actionType: 'Cập nhật'
+      });
+      
+      logs.push({
+        id: `LOG-CRE-${ind.code}`,
+        indicatorCode: ind.code,
+        indicatorName: ind.name,
+        formName: formName,
+        user: 'sys_sync@vietnamairlines.com',
+        timestamp: `10/05/${periodYear} 08:00`,
+        actionType: 'Khởi tạo'
+      });
+    });
+    
+    return logs;
+  }, [indicatorDetails, effectivePeriod]);
+
+  const renderAuditLogTable = () => {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm mt-6 overflow-hidden animate-in fade-in duration-300">
+        <div className="border-b border-gray-150 px-5 py-4 flex items-center justify-between bg-gray-50/50">
+          <div className="flex items-center gap-2">
+            <span className="text-vna-blue flex items-center"><Clock size={18} /></span>
+            <h3 className="font-bold text-gray-800 text-base">Lịch sử thay đổi dữ liệu (Audit Log)</h3>
+          </div>
+          <span className="text-xs bg-blue-50 text-vna-blue px-2.5 py-1 rounded-full border border-blue-100 font-semibold">
+            {mockAuditLogs.length} phiên bản
+          </span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 text-left">
+            <thead className="bg-vna-blue/5 text-vna-blue">
+              <tr className="text-xs uppercase font-bold text-gray-700">
+                <th className="py-3 px-4 border-b border-blue-100 w-12 text-center">STT</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[200px]">Tên chỉ tiêu</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[180px]">Tên biểu</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[200px]">Tài khoản thay đổi</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[150px] text-center">Thời gian thay đổi</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[120px] text-center">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 text-sm text-gray-750">
+              {mockAuditLogs.map((log, index) => (
+                <tr key={log.id} className="hover:bg-blue-50/50 transition-colors">
+                  <td className="py-3 px-4 text-center text-black/45 font-medium">{index + 1}</td>
+                  <td className="py-3 px-4 font-semibold text-black/85">{log.indicatorCode} - {log.indicatorName}</td>
+                  <td className="py-3 px-4 text-gray-600">{log.formName}</td>
+                  <td className="py-3 px-4 text-gray-700 font-medium">{log.user}</td>
+                  <td className="py-3 px-4 text-center text-gray-600 font-mono text-xs">{log.timestamp}</td>
+                  <td className="py-3 px-4 text-center">
+                    <span className={`px-2.5 py-1 rounded text-xs font-semibold border ${
+                      log.actionType === 'Khởi tạo'
+                        ? 'bg-green-50 text-green-700 border-green-200'
+                        : 'bg-amber-50 text-amber-700 border-amber-200'
+                    }`}>
+                      {log.actionType}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="flex gap-6 min-h-[75vh] text-left animate-in fade-in duration-300">
+    <div className="space-y-6">
+      <div className="flex gap-6 min-h-[75vh] text-left animate-in fade-in duration-300">
 
       {/* Sidebar: CHỈ TIÊU ĐƯỢC PHÂN CÔNG */}
       <div className="w-80 bg-white rounded-xl border border-gray-200 p-5 shrink-0 flex flex-col h-[calc(100vh-140px)] sticky top-20 shadow-sm">
@@ -1287,6 +1384,8 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
           );
         })}
       </div>
+    </div>
+    {renderAuditLogTable()}
     </div>
   );
 };

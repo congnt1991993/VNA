@@ -1,0 +1,893 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Tổ Khai thác
+1. Thông tin chung
+Đơn vị phụ trách: Tổ Khai thác.
+Đầu mối Tổ Khai thác:
+Bà Nguyễn Bạch Lê – Chuyên viên TTĐHKT, Bà Nguyễn Thị Thanh Thanh – Chuyên viên TTĐHKT
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+GRI 302-1
+Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+Tổng lượng nhiên liệu tiêu thụ trong hoạt động khai thác tàu bay của VNA.Phạm vi: Tổng hợp, thống kê lượng Jet Fuel và SAF tiêu thụ, chi phí và nguồn cung.
+ANCM, FIMS, Nhiên liệu SAF nguyên chất, SAF pha trộn: ANCM, Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Cuối năm (ngày cuối cùng trong năm), Hàng tháng (ngày cuối cùng trong tháng), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Khai thác
+GRI 302-4
+Reduction of energy consumption – Giảm tiêu thụ năng lượng
+Lượng năng lượng được tiết kiệm do cải tiến quy trình, đầu tư công nghệ tiết kiệm năng lượng hoặc thay đổi hành vi sử dụng.
+FIMS, Nhập thủ công, Nhập liệu thủ công
+Hàng tháng (ngày cuối cùng trong tháng), Hàng tháng (trước ngày 15 tháng kế tiếp), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Khai thác
+GRI 305-1
+Direct (Scope 1) GHG emissions – Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+Lượng khí nhà kính phát thải trực tiếp từ các nguồn do tổ chức kiểm soátPhạm vi hiện tại: Khối lượng CO2 phát thải của các chuyến bay
+FIMS, Kế thừa trực tiếp từ dữ liệu tiêu thụ nhiên liệu (GRI 302-1) bao gồm hóa đơn nạp nhiên liệu bay, Techlog, Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Cuối năm (ngày cuối cùng trong năm), Hàng tháng (ngày cuối cùng trong tháng), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Khai thác
+GRI 305-4
+GHG emissions intensity - Cường độ phát thải khí nhà kính
+Cường độ phát thải CO2 trên 100RTK
+Kế thừa trực tiếp từ dữ liệu tiêu thụ nhiên liệu (GRI 302-1) bao gồm hóa đơn nạp nhiên liệu bay, Techlog, Phần mềm RPS, Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3, Tổng phát thải khí nhà kính được thừa hưởng kết quả từ báo cáo GRI 305-4Số RTK được lấy từ phần mềm RPS
+Cuối năm (ngày cuối cùng trong năm), Hàng tháng (ngày cuối cùng trong tháng), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Khai thác
+GRI 305-5
+Reduction of GHG emissions - Giảm phát thải khí nhà kính
+Lượng khí nhà kính (CO2) giảm được nhờ áp dụng các biện pháp tiết kiệm nhiên liệu, tối ưu nhiên liệu sử dụng trong khai thác tàu bay và sử dụng nhiên liệu SAF.
+Nhập tay, Nhập thủ công, Nhập liệu thủ công
+Cuối năm (ngày cuối cùng trong năm), Hàng tháng (ngày cuối cùng trong tháng), Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tổ Khai thác
+Carbon Emissions Compliance Report
+Carbon Emissions Compliance Report - Báo cáo tuân thủ phát thải Carbon
+Theo dõi tình hình phát thải CO2 và việc tuân thủ các quy định về quản lý phát thải các-bon theo các cơ chế EU ETS, UK ETS và CORSIA, bao gồm nghĩa vụ bù trừ phát thải, hạn ngạch phát thải và các chỉ số phục vụ đánh giá mức độ tuân thủ.
+EU ETS, FIMS, Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM, Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM.Hạn ngạch ETS: Nhập thủ công, Lượng nhiên liệu tiêu thụ, Lượng phát thải CO2 thực tế: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM, Lượng phát thải CO2 thực tế, lượng CO2 được giảm trừ: Tham chiếu CT 2.35 và CT 2.37.Baseline: Nhập thủ công, Nhập thủ công, Nhập liệu thủ công
+Hàng tháng (ngày cuối cùng trong tháng), Theo năm
+Tổ Khai thác
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 1.1
+Total Fuel Consumption – Tổng nhiên liệu tiêu thụ
+Tổng nhiên liệu tiêu thụ là tổng lượng nhiên liệu đã nạp trên tất cả chuyến bay theo hóa đơn.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 1.2
+Jet A-1 Fuel Consumption – Nhiên liệu tiêu thụ Jet A-1
+Nhiên liệu tiêu thụ Jet A-1 = Tổng nhiên liệu tiêu thụ - Lượng SAF nguyên chất.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 1.3
+SAF Consumption – Nhiên liệu tiêu thụ SAF
+Nhiên liệu tiêu thụ SAF = Tổng lượng SAF nguyên chất được xác định trong chứng nhận từ nhà cung cấp tại các sân bay.
+Thời gian Tháng/Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 1.4
+Fuel Type Distribution – Tỷ lệ các loại nhiên liệu
+Tỷ lệ nhiên liệu SAF = Lượng tiêu thụ nhiên liệu SAF/ Tổng lượng nhiên liệu tiêu thụ.Tỷ lệ nhiên liệu Jet A-1 = Lượng tiêu thụ nhiên liệu Jet A-1/ Tổng lượng nhiên liệu tiêu thụ.
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.5
+Neat SAF Consumption by Ratio – Tiêu thụ SAF theo tỷ lệ pha trộn SAF
+Tỷ lệ pha trộn SAF được xác định dựa trên tỷ lệ giữa lượng SAF nguyên chất (Neat SAF) và tổng lượng nhiên liệu SAF pha trộn (Blended SAF), cụ thể:Tỷ lệ pha trộn SAF (% Neat SAF) = Lượng SAF nguyên chất (Neat SAF) / Lượng SAF pha trộn (Blended SAF).
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhiên liệu SAF nguyên chất, SAF pha trộn: ANCM
+CT 1.6
+Annual Fuel Consumption vs Target – Tiêu thụ nhiên liệu theo năm so với mục tiêu
+Tổng nhiên liệu tiêu thụ theo năm = Tổng lượng tiêu thụ Jet A-1 + Tổng lượng tiêu thụ SAF (theo năm).So sánh giữa giá trị thực tế và giá trị mục tiêu theo từng năm báo cáo.
+Thời gian Năm.
+Cuối năm (ngày cuối cùng trong năm)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.7
+Monthly Fuel Consumption in the Current Year – Tiêu thụ nhiên liệu theo tháng trong năm hiện tại
+Tổng nhiên liệu tiêu thụ theo tháng = Tổng lượng tiêu thụ Jet A-1 + Tổng lượng tiêu thụ SAF trong tháng tương ứng.Dữ liệu được tổng hợp và hiển thị theo từng tháng của năm hiện tại.
+Thời gian Tháng/Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.8
+Annual Jet A-1 Fuel Consumption Trend - Tiêu thụ nhiên liệu Jet A-1 qua các năm
+Nhiên liệu tiêu thụ Jet A-1 = Tổng nhiên liệu tiêu thụ - Lượng SAF nguyên chất.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.9
+Annual Neat SAF Consumption Trend - Tiêu thụ nhiên liệu SAF qua các năm
+Nhiên liệu tiêu thụ SAF = Tổng lượng SAF nguyên chất được xác định trong chứng nhận từ nhà cung cấp tại các sân bay.
+Thời gian Tháng/Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+ANCM
+CT 1.10
+Total Energy Saved – Tổng năng lượng tiết kiệm
+Tổng năng lượng tiết kiệm (L) = Tổng tiết kiệm nhiên liệu (kg) / 0.8.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.11
+Total Fuel Savings – Tổng tiết kiệm nhiên liệu
+Không có.
+Thời gian Năm.
+Hàng tháng (trước ngày 15 tháng kế tiếp)
+Data Warehouse
+Nhập thủ công
+CT 1.12
+Total GHG Emissions Reduction – Tổng giảm phát thải khí nhà kính
+Tổng giảm phát thải khí nhà kính (tấn) = Tổng phát thải giảm nhờ các biện pháp tiết kiệm nhiên liệu nhiên liệu + Tổng giảm phát thải nhờ sử dụng SAF + Tổng phát thải đền bù
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 1.13
+Annual Energy Savings vs Target – Năng lượng tiết kiệm theo năm so với mục tiêu
+Không có.
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.14
+Annual Fuel Savings vs Target – Kết quả tiết kiệm nhiên liệu theo năm so với mục tiêu
+Không có
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.15
+Monthly Energy Savings in the Year – Năng lượng tiết kiệm theo tháng trong năm
+Không có
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.16
+Total Emission - Tổng phát thải khí nhà kính
+Tổng phát thải khí nhà kính = Phát thải Jet A-1 + Phát thải SAF
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Kế thừa trực tiếp từ dữ liệu tiêu thụ nhiên liệu (GRI 302-1) bao gồm hóa đơn nạp nhiên liệu bay, Techlog
+CT 1.17
+Jet A-1 Emissions - Phát thải Jet A-1
+Phát thải Jet A-1 (Tấn) = Nhiên liệu tiêu thụ Jet A-1 (Lít)  * 0.8 / 1000 * Hệ số phát thải CO2
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 1.18
+SAF Emissions - Phát thải SAF
+Phát thải SAF = Hàm lượng năng lượng (MJ) * Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ) / 1000000Trong đó: Hàm lượng năng lượng (Energy content)Cường độ phát thải CO2 tương đương của vòng đời (CO2e lifecycle emissions intensity)
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 1.19
+Annual Emissions vs. Target - Phát thải nhà kính theo năm vs. Mục tiêu
+Phát thải nhà kính theo năm = Phát thải Jet A-1 + Phát thải SAF (theo năm)
+Thời gian Năm.
+Cuối năm (ngày cuối cùng trong năm)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.20
+Monthly Emissions in Current Year – Phát thải nhà kính theo tháng trong năm hiện tại
+Phát thải nhà kính theo tháng = Phát thải Jet A-1 + Phát thải SAF trong tháng tương ứng.Dữ liệu được tổng hợp và hiển thị theo từng tháng của năm hiện tại.
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.21
+Total Emissions Intensity - Tổng cường độ phát thải khí nhà kính
+Cường độ phát thải khí nhà kính = Tổng phát thải khí nhà kính / Tổng RTK
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Tổng phát thải khí nhà kính được thừa hưởng kết quả từ báo cáo GRI 305-4Số RTK được lấy từ phần mềm RPS
+CT 1.22
+Total Emission - Tổng phát thải khí nhà kính
+Tổng phát thải khí nhà kính = Phát thải Jet A-1 + Phát thải SAF
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Kế thừa trực tiếp từ dữ liệu tiêu thụ nhiên liệu (GRI 302-1) bao gồm hóa đơn nạp nhiên liệu bay, Techlog
+CT 1.23
+Total RTK – Tổng RTK
+Tổng RTK là tổng cộng RTK của tất cả các chặng bay
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Phần mềm RPS
+CT 1.24
+Annual Emissions Intensity vs. Target - Cường độ phát thải nhà kính theo năm vs. Mục tiêu
+Cường độ phát thải nhà kính theo năm = Tổng phát thải khí nhà kính / Tổng RTK  (theo năm)
+Thời gian Năm.
+Cuối năm (ngày cuối cùng trong năm)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.25
+Monthly Emissions Intensity in Current Year – Cường độ phát thải nhà kính theo tháng trong năm hiện tại
+Cường độ phát thải nhà kính theo năm = Tổng phát thải khí nhà kính / Tổng RTK trong tháng tương ứng.Dữ liệu được tổng hợp và hiển thị theo từng tháng của năm hiện tại.
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+CT 1.26
+Total Reduction of Emissions - Tổng giảm phát thải khí nhà kính
+Tổng giảm phát thải khí nhà kính (tấn) = Tổng phát thải giảm nhờ các biện pháp tiết kiệm nhiên liệu + Tổng giảm phát thải nhờ sử dụng SAF + Tổng phát thải đền bù
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập tay
+CT 1.27
+Total Energy Saved – Tổng năng lượng tiết kiệm
+Không có.
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.28
+Energy-Saving Emission Reduction - Tổng phát thải giảm nhờ các biện pháp tiết kiệm nhiên liệu
+Tổng phát thải giảm nhờ các biện pháp tiết kiệm nhiên liệu = Tổng nhiên liệu tiết kiệm (Lít) * 0.8 / 1000 * 3.16
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.29
+SAF-Related Emission Reduction - Tổng giảm phát thải nhờ sử dụng SAF
+Tổng phát thải giảm nhờ sử dụng SAF (Tấn) = Hàm lượng năng lượng (MJ) * (Cường độ phát thải cơ sở của nhiên liệu hóa thạch (gCO2e/MJ) - Cường độ phát thải CO2 tương đương của vòng đời (gCO2e/MJ)) / 1000000Trong đó:  Hàm năng lượng (Energy content)Cường độ phát thải cơ sở của nhiên liệu hóa thạch: Theo Chỉ thị RED II và RED III của EU, hệ số cơ sở là 94Cường độ phát thải CO2 tương đương của vòng đời (CO2e lifecycle emissions intensity)
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.30
+Total Emission Reduction through Carbon Offsetting - Tổng phát thải đền bù
+Tổng phát thải đền bù = Lượng CO₂ cần đền bù (EU ETS) + Lượng CO₂ cần đền bù (UK ETS) + Lượng CO₂ cần đền bù (CORSIA).
+Thời gian Năm.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập thủ công
+CT 1.31
+Annual Reduction of Emissions vs. Target - Giảm phát thải nhà kính theo năm vs. Mục tiêu
+Không có
+Thời gian Năm.
+Cuối năm (ngày cuối cùng trong năm)
+Data Warehouse
+Nhập tay
+CT 1.32
+Monthly Reduction of Emissions in Current Year – Giảm phát thải nhà kính theo tháng trong năm hiện tại
+Không có
+Thời gian Năm.
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Data Warehouse
+Nhập tay
+CT 2.19
+EU ETS Full Scope Flights - Tổng số chuyến bay đi/đến châu Âu
+Thời gian: Năm , Theo phạm vi EU ETS: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+EU ETS
+CT 2.20
+EU ETS Reduced Scope Flights - Số chuyến bay áp dụng EU ETS
+Thời gian: Năm., Theo phạm vi EU ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+EU ETS
+CT 2.21
+CO₂ Offsetting Requirement (tonnes) (EU ETS) - Lượng CO₂ cần đền bù (tấn) (EU ETS)
+Thời gian: Năm , Theo phạm vi EU ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Lượng nhiên liệu tiêu thụ, Lượng phát thải CO2 thực tế: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM
+CT 2.22
+CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch ETS
+Thời gian: Năm , Theo phạm vi EU ETS: Reduced scope.
+Theo năm
+Data Warehouse
+Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM.Hạn ngạch ETS: Nhập thủ công
+CT 2.23
+Annual EUA Compensation Cost (USD) - Tổng chi phí bù trừ EUA (USD) theo năm
+Thời gian: Năm , Theo loại tín chỉ EUA., Theo phạm vi EU ETS: Reduced scope.
+Theo năm
+Data Warehouse
+Nhập thủ công
+CT 2.24
+CO₂ Emissions by Route (EU ETS) - Phát thải CO₂ theo chặng bay (EU ETS)
+Thời gian: Năm , Theo phạm vi EU ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM
+CT 2.25
+CO₂ Emissions by Scope (EU ETS) - Phát thải CO₂ theo phạm vi chuyến bay (EU ETS)
+Thời gian: Năm , Theo phạm vi EU ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM
+CT 2.26
+UK ETS Full Scope Flights - Tổng số chuyến bay đi/đến UK
+Thời gian: Năm, Theo phạm vi UK ETS: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.27
+UK ETS Reduced Scope Flights - Số chuyến bay áp dụng UK ETS
+Thời gian: Năm , Theo phạm vi UK ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.28
+CO₂ Offsetting Requirement (tonnes) (UK ETS) - Lượng CO₂ cần đền bù (tấn) (UK ETS)
+Thời gian: Năm , Theo phạm vi UK ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.29
+CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch UK
+Thời gian: Năm , Theo phạm vi UK ETS: Reduced scope.
+Theo năm
+Data Warehouse
+FIMS
+CT 2.30
+Annual UKA Compensation Cost (USD) - Tổng chi phí bù trừ UKA (USD) theo năm
+Thời gian: Năm , Theo loại tín chỉ UKA., Theo phạm vi UK ETS: Reduced scope.
+Theo năm
+Data Warehouse
+Nhập thủ công
+CT 2.31
+CO₂ Emissions by Route (UK ETS) - Phát thải CO₂ theo chặng bay (UK ETS)
+Thời gian: Năm , Theo phạm vi UK ETS: Reduced scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.32
+CO₂ Emissions by Scope (UK ETS) - Phát thải CO₂ theo phạm vi chuyến bay (UK ETS)
+Thời gian: Năm, Theo phạm vi UK ETS: Full scope và Reduced scope
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.33
+Total Number of International Flights CORSIA – Tổng số chuyến bay quốc tế thuộc phạm vi CORSIA
+Thời gian Năm., Theo phạm vi CORSIA: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.34
+Total Number of International Flights Subject to Offsetting Requirements CORSIA – Tổng số chuyến bay CORSIA thuộc phạm vi cần đền bù
+Thời gian Năm., Theo phạm vi CORSIA: Offsetting Scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.35
+Total CO₂ Emissions from International Flights (Tonnes) – Tổng phát thải CORSIA (tấn)
+Thời gian Năm., Theo phạm vi CORSIA: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.36
+Total CO₂ Emissions from Flights Subject to Offsetting Requirements (Tonnes) – Tổng phát thải CORSIA cần đền bù (tấn)
+Thời gian: Năm , Theo phạm vi CORSIA: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+Lượng phát thải CO2 thực tế, lượng CO2 được giảm trừ: Tham chiếu CT 2.35 và CT 2.37.Baseline: Nhập thủ công
+CT 2.37
+Total Emissions Reductions claimed from the use of CORSIA Eligible Fuels (Tonnes) – Tổng lượng phát thải CO₂ được giảm trừ nhờ sử dụng SAF (tấn)
+Thời gian: Năm , Theo phạm vi CORSIA: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.38
+CO₂ Emissions vs Baseline - Phát thải CO₂ so với Baseline qua các năm
+Thời gian Năm., Theo phạm vi CORSIA: Full scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.39
+CO₂ Emissions by Route - Phát thải CO₂ theo chặng bay
+Thời gian Năm., Theo phạm vi CORSIA: Full scope., Theo chặng bay.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+CT 2.40
+CO₂ Emissions by Scope - Phát thải CO₂ theo phạm vi chuyến bay
+Thời gian Năm., Theo phạm vi CORSIA: Full scope, Offsetting Scope.
+Hàng tháng (ngày cuối cùng trong tháng)
+Data Warehouse
+FIMS
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+Tự động
+2
+Reduction of energy consumption – Giảm tiêu thụ năng lượng
+Thủ công
+3
+Direct (Scope 1) GHG emissions – Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+Tự động
+4
+GHG emissions intensity - Cường độ phát thải khí nhà kính
+Tự động
+5
+Reduction of GHG emissions - Giảm phát thải khí nhà kính
+Thủ công
+6
+Carbon Emissions Compliance Report - Báo cáo tuân thủ phát thải Carbon
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Energy consumption within the organization - Năng lượng tiêu thụ trong tổ chức
+2
+Reduction of energy consumption – Giảm tiêu thụ năng lượng
+x
+3
+Direct (Scope 1) GHG emissions – Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+4
+GHG emissions intensity - Cường độ phát thải khí nhà kính
+5
+Reduction of GHG emissions - Giảm phát thải khí nhà kính
+x
+6
+Carbon Emissions Compliance Report - Báo cáo tuân thủ phát thải Carbon
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Total Fuel Consumption – Tổng nhiên liệu tiêu thụ
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+2
+Jet A-1 Fuel Consumption – Nhiên liệu tiêu thụ Jet A-1
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+3
+SAF Consumption – Nhiên liệu tiêu thụ SAF
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+4
+Fuel Type Distribution – Tỷ lệ các loại nhiên liệu
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tự động
+5
+Neat SAF Consumption by Ratio – Tiêu thụ SAF theo tỷ lệ pha trộn SAF
+Nhiên liệu SAF nguyên chất, SAF pha trộn: ANCM
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tự động
+6
+Annual Fuel Consumption vs Target – Tiêu thụ nhiên liệu theo năm so với mục tiêu
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Cuối năm (ngày cuối cùng trong năm)
+Tự động
+7
+Monthly Fuel Consumption in the Current Year – Tiêu thụ nhiên liệu theo tháng trong năm hiện tại
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+8
+Annual Jet A-1 Fuel Consumption Trend - Tiêu thụ nhiên liệu Jet A-1 qua các năm
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+9
+Annual Neat SAF Consumption Trend - Tiêu thụ nhiên liệu SAF qua các năm
+ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+10
+Total Energy Saved – Tổng năng lượng tiết kiệm
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+11
+Total Fuel Savings – Tổng tiết kiệm nhiên liệu
+Nhập thủ công
+Hàng tháng (trước ngày 15 tháng kế tiếp)
+Thủ công
+12
+Total GHG Emissions Reduction – Tổng giảm phát thải khí nhà kính
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+13
+Annual Energy Savings vs Target – Năng lượng tiết kiệm theo năm so với mục tiêu
+Nhập thủ công
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+14
+Annual Fuel Savings vs Target – Kết quả tiết kiệm nhiên liệu theo năm so với mục tiêu
+Nhập thủ công
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+15
+Monthly Energy Savings in the Year – Năng lượng tiết kiệm theo tháng trong năm
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+16
+Total Emission - Tổng phát thải khí nhà kính
+Kế thừa trực tiếp từ dữ liệu tiêu thụ nhiên liệu (GRI 302-1) bao gồm hóa đơn nạp nhiên liệu bay, Techlog
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+17
+Jet A-1 Emissions - Phát thải Jet A-1
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+18
+SAF Emissions - Phát thải SAF
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+19
+Annual Emissions vs. Target - Phát thải nhà kính theo năm vs. Mục tiêu
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Cuối năm (ngày cuối cùng trong năm)
+Tự động
+20
+Monthly Emissions in Current Year – Phát thải nhà kính theo tháng trong năm hiện tại
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tự động
+21
+Total Emissions Intensity - Tổng cường độ phát thải khí nhà kính
+Tổng phát thải khí nhà kính được thừa hưởng kết quả từ báo cáo GRI 305-4Số RTK được lấy từ phần mềm RPS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+22
+Total Emission - Tổng phát thải khí nhà kính
+Kế thừa trực tiếp từ dữ liệu tiêu thụ nhiên liệu (GRI 302-1) bao gồm hóa đơn nạp nhiên liệu bay, Techlog
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+23
+Total RTK – Tổng RTK
+Phần mềm RPS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+24
+Annual Emissions Intensity vs. Target - Cường độ phát thải nhà kính theo năm vs. Mục tiêu
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Cuối năm (ngày cuối cùng trong năm)
+Tự động
+25
+Monthly Emissions Intensity in Current Year – Cường độ phát thải nhà kính theo tháng trong năm hiện tại
+Tham chiếu nguồn dữ liệu của CT 1.2 và CT 1.3
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Tự động
+26
+Total Reduction of Emissions - Tổng giảm phát thải khí nhà kính
+Nhập tay
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+27
+Total Energy Saved – Tổng năng lượng tiết kiệm
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+28
+Energy-Saving Emission Reduction - Tổng phát thải giảm nhờ các biện pháp tiết kiệm nhiên liệu
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+29
+SAF-Related Emission Reduction - Tổng giảm phát thải nhờ sử dụng SAF
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+30
+Total Emission Reduction through Carbon Offsetting - Tổng phát thải đền bù
+Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+31
+Annual Reduction of Emissions vs. Target - Giảm phát thải nhà kính theo năm vs. Mục tiêu
+Nhập tay
+Cuối năm (ngày cuối cùng trong năm)
+Thủ công
+32
+Monthly Reduction of Emissions in Current Year – Giảm phát thải nhà kính theo tháng trong năm hiện tại
+Nhập tay
+Theo tháng hoặc theo năm (ngày cuối cùng trong tháng)
+Thủ công
+33
+EU ETS Full Scope Flights - Tổng số chuyến bay đi/đến châu Âu
+EU ETS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+34
+EU ETS Reduced Scope Flights - Số chuyến bay áp dụng EU ETS
+EU ETS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+35
+CO₂ Offsetting Requirement (tonnes) (EU ETS) - Lượng CO₂ cần đền bù (tấn) (EU ETS)
+Lượng nhiên liệu tiêu thụ, Lượng phát thải CO2 thực tế: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+36
+CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch ETS
+Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM.Hạn ngạch ETS: Nhập thủ công
+Theo năm
+Thủ công
+37
+Annual EUA Compensation Cost (USD) - Tổng chi phí bù trừ EUA (USD) theo năm
+Nhập thủ công
+Theo năm
+Thủ công
+38
+CO₂ Emissions by Route (EU ETS) - Phát thải CO₂ theo chặng bay (EU ETS)
+Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+39
+CO₂ Emissions by Scope (EU ETS) - Phát thải CO₂ theo phạm vi chuyến bay (EU ETS)
+Lượng nhiên liệu nạp, Lượng nhiên liệu tồn trước chuyến bay, Lượng nhiên liệu còn lại sau chuyến bay: EU ETS.Hàm lượng năng lượng, Cường độ phát thải CO2 tương đương của vòng đời: ANCM
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+40
+UK ETS Full Scope Flights - Tổng số chuyến bay đi/đến UK
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+41
+UK ETS Reduced Scope Flights - Số chuyến bay áp dụng UK ETS
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+42
+CO₂ Offsetting Requirement (tonnes) (UK ETS) - Lượng CO₂ cần đền bù (tấn) (UK ETS)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+43
+CO₂ Emissions vs ETS Allowance - Phát thải CO₂ so với hạn ngạch UK
+FIMS
+Theo năm
+Tự động
+44
+Annual UKA Compensation Cost (USD) - Tổng chi phí bù trừ UKA (USD) theo năm
+Nhập thủ công
+Theo năm
+Thủ công
+45
+CO₂ Emissions by Route (UK ETS) - Phát thải CO₂ theo chặng bay (UK ETS)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+46
+CO₂ Emissions by Scope (UK ETS) - Phát thải CO₂ theo phạm vi chuyến bay (UK ETS)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+47
+Total Number of International Flights CORSIA – Tổng số chuyến bay quốc tế thuộc phạm vi CORSIA
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+48
+Total Number of International Flights Subject to Offsetting Requirements CORSIA – Tổng số chuyến bay CORSIA thuộc phạm vi cần đền bù
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+49
+Total CO₂ Emissions from International Flights (Tonnes) – Tổng phát thải CORSIA (tấn)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+50
+Total CO₂ Emissions from Flights Subject to Offsetting Requirements (Tonnes) – Tổng phát thải CORSIA cần đền bù (tấn)
+Lượng phát thải CO2 thực tế, lượng CO2 được giảm trừ: Tham chiếu CT 2.35 và CT 2.37.Baseline: Nhập thủ công
+Hàng tháng (ngày cuối cùng trong tháng)
+Thủ công
+51
+Total Emissions Reductions claimed from the use of CORSIA Eligible Fuels (Tonnes) – Tổng lượng phát thải CO₂ được giảm trừ nhờ sử dụng SAF (tấn)
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+52
+CO₂ Emissions vs Baseline - Phát thải CO₂ so với Baseline qua các năm
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+53
+CO₂ Emissions by Route - Phát thải CO₂ theo chặng bay
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+54
+CO₂ Emissions by Scope - Phát thải CO₂ theo phạm vi chuyến bay
+FIMS
+Hàng tháng (ngày cuối cùng trong tháng)
+Tự động
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-TKT-WEB-01
+Nhật ký sự cố an toàn khai thác bay.
+Cao
+Nhập liệu và quản lý danh sách sự cố an toàn khai thác bay bao gồm: Mã sự cố, Ngày xảy ra, Tiêu đề sự cố, Trạng thái xử lý (Open | Investigating | Closed).
+YCQ-TKT-WEB-02
+Rút chỉ tiêu khí thải NOx, SOx (GRI 305-7).
+Cao
+Loại bỏ hoàn toàn chỉ tiêu phát thải khí NOx, SOx (GRI 305-7) ra khỏi giao diện báo cáo và dashboard khai thác trên Web Portal.
+YCQ-TKT-WEB-03
+Dashboard năng lượng & phát thải Scope 1.
+Cao
+Trực quan hóa lượng Jet Fuel & SAF tiêu thụ, lượng CO2 phát thải hóa thạch và biogenic CO2. Hỗ trợ bộ lọc chặng bay, loại tàu bay, và khu vực bay.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-TKT-WEB-01
+Hình 01: Màn hình Nhật ký sự cố
+Danh sách sự cố khai thác
+Kiểm thử nhập liệu sự cố và cập nhật trạng thái xử lý.
+YCQ-TKT-WEB-02
+Hình 02: Danh mục chỉ tiêu Khai thác
+Danh sách chỉ tiêu
+Xác nhận không còn xuất hiện mã chỉ tiêu GRI 305-7.
+YCQ-TKT-WEB-03
+Hình 03: Dashboard Khai thác bay
+Biểu đồ Metabase
+Kiểm thử hiển thị biểu đồ tiêu hao nhiên liệu và phát thải CO2.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Tổ Khai thác
+1. Thông tin chung
+Tổ Khai thác.
+Tính năng nhập liệu Khai thác bay, mức ồn, phát thải và nhật ký sự cố.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng nhập tiêu hao nhiên liệu, mức ồn, phát thải khí nhà kính và nhật ký sự cố khai thác bay của Tổ Khai thác (không hiển thị chỉ tiêu khí NOx, SOx GRI 305-7).
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-TKT-WEB-01
+Kiểm thử nhật ký sự cố
+Nhập sự cố va chạm chim bay, kiểm tra lưu trữ và thay đổi trạng thái sang Closed.
+Đạt
+—
+Hoàn thành
+YCQ-TKT-WEB-02
+Kiểm thử rút chỉ tiêu SOx/NOx
+Kiểm tra màn hình chỉ tiêu và dashboard để đảm bảo chỉ tiêu GRI 305-7 đã được ẩn hoàn toàn.
+Đạt
+—
+Hoàn thành
+YCQ-TKT-WEB-03
+Kiểm thử Dashboard Khai thác
+Kiểm tra hiển thị dữ liệu lượng phát thải CO2 Scope 1 Domestic.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Tổ Khai thác
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)

@@ -1,0 +1,242 @@
+BỘ TÀI LIỆU KỸ THUẬT PHẦN MỀM
+PHỤ LỤC 01: YÊU CẦU NGHIỆP VỤ THEO BAN Ban CĐSCN
+1. Thông tin chung
+Đơn vị phụ trách: Ban CĐSCN.
+Đầu mối Ban CĐSCN:
+Ông Đỗ Duy Thái – Chuyên viên Ban CĐSCN Ban CĐSCN
+2. Hiện trạng và mục tiêu
+2.1 Hiện trạng
+- Dữ liệu phân tán, thiếu sự liên thông: Thông tin đầu vào phục vụ báo cáo đang nằm rải rác tại nhiều nguồn dữ liệu độc lập và không đồng nhất:
+Excel: Đang là công cụ chính để theo dõi các thông số về tiếng ồn (Noise) và chứng chỉ tàu bay.
+FIMS: Nguồn dữ liệu về nhiên liệu tiêu thụ và phát thải Scope 1.
+VHAT: Nguồn dữ liệu về sự cố an toàn khai thác (va chạm chim bay, sét đánh).
+RPS: Nguồn dữ liệu về sản lượng khai thác (RTK) để tính toán cường độ phát thải.
+- Rủi ro từ quy trình báo cáo thủ công: Việc tổng hợp dữ liệu từ các nguồn rời rạc nêu trên đòi hỏi nhân sự phải thực hiện trích xuất và xử lý bằng các thao tác thủ công. Điều này không chỉ gây lãng phí nguồn lực mà còn tiềm ẩn rủi ro sai lệch số liệu, thiếu tính nhất quán khi cần đối chiếu dữ liệu giữa các tháng/năm.
+2.2 Mục tiêu
+- Số hóa chỉ tiêu báo cáo: Xác định các chỉ tiêu con cần thực hiện số hóa để đưa lên hệ thống báo cáo, đảm bảo khả năng theo dõi, phân tích và đánh giá.
+-  Hỗ trợ theo dõi các chỉ tiêu phát triển bền vững theo thời gian, tự động tổng hợp và trực quan hóa dữ liệu thông qua các báo cáo.
+3. Danh mục chỉ tiêu và số KH
+Mã chỉ tiêu
+Tên
+chỉ tiêu
+Mô tả
+Nguồn
+dữ liệu
+Tần suất
+Đầu mối
+GRI 418-1
+Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+Số lượng khiếu nại đã được xác minh liên quan đến:Vi phạm quyền riêng tư khách hàng (customer privacy breaches).Các trường hợp mất dữ liệu khách hàng (loss of customer data)
+Input qua cổng nhập liệu, Nhập liệu thủ công
+Hàng tháng
+Ban CĐSCN
+4. Danh mục dashboard
+Mã
+Tên dashboard
+Công thức tính
+Bộ lọc/drill-down
+Tần suất cập nhật báo cáo
+Nơi lưu
+kết quả
+Nguồn dữ liệu
+CT 8.1
+Total number of complaints - Tổng số khiếu nại
+Tổng số khiếu nại = Số vụ vi phạm quyền riêng tư + Số vụ mất dữ liệu.
+Thời gian Tháng, Quý, Năm.
+Hàng tháng
+Data Warehouse
+Input qua cổng nhập liệu
+CT 8.2
+Number of privacy breach incidents - Số vụ vi phạm quyền riêng tư
+Không có.
+Thời gian Tháng, Quý, Năm.
+Hàng tháng
+Data Warehouse
+Input qua cổng nhập liệu
+CT 8.3
+Number of data loss incidents - Số vụ mất dữ liệu
+Không có.
+Thời gian Tháng, Quý, Năm.
+Hàng tháng
+Data Warehouse
+Input qua cổng nhập liệu
+CT 8.4
+Number of privacy breach and data loss incidents by month - Số vi phạm quyền riêng tư và mất dữ liệu theo tháng
+Không có.
+Thời gian Tháng, Quý, Năm.
+Hàng tháng
+Data Warehouse
+Input qua cổng nhập liệu
+CT 8.5
+Distribution of privacy breach and data loss risks - Cơ cấu rủi ro vi phạm quyền riêng tư và mất dữ liệu
+Không có.
+Thời gian Tháng, Quý, Năm.
+Hàng tháng
+Data Warehouse
+Input qua cổng nhập liệu
+5.Dữ liệu và tích hợp
+5.1 Dữ liệu được tích hợp từ các nguồn
+STT
+Tên chỉ số
+Loại dữ liệu
+1
+Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+Thủ công
+5.2 Ma trận dữ liệu nguồn theo từng KPIs (Data Source Matrix for KPIs)
+STT
+Tên chỉ số
+MANUAL
+1
+Substantiated complaints concerning breaches of customer privacy and losses of customer data - Các khiếu nại đã được xác minh liên quan đến vi phạm quyền riêng tư của khách hàng và mất dữ liệu khách hàng
+x
+Bảng chi tiết các thẻ, biểu đồ như sau:
+STT
+Tên các thẻ, biểu đồ
+Dữ liệu khai thác
+Nguồn dữ liệu
+Tần suất cập nhật báo cáo
+Phương thức
+1
+Total number of complaints - Tổng số khiếu nại
+Input qua cổng nhập liệu
+Hàng tháng
+Thủ công
+2
+Number of privacy breach incidents - Số vụ vi phạm quyền riêng tư
+Input qua cổng nhập liệu
+Hàng tháng
+Thủ công
+3
+Number of data loss incidents - Số vụ mất dữ liệu
+Input qua cổng nhập liệu
+Hàng tháng
+Thủ công
+4
+Number of privacy breach and data loss incidents by month - Số vi phạm quyền riêng tư và mất dữ liệu theo tháng
+Input qua cổng nhập liệu
+Hàng tháng
+Thủ công
+5
+Distribution of privacy breach and data loss risks - Cơ cấu rủi ro vi phạm quyền riêng tư và mất dữ liệu
+Input qua cổng nhập liệu
+Hàng tháng
+Thủ công
+6.1. Giao diện nhập liệu
+Không có
+6.2. Giao diện báo cáo
+Hình 01: Màn hình báo cáo Airline B-2
+5. Danh mục yêu cầu
+Mã yêu cầu
+Nội dung
+Ưu tiên
+Tiêu chí chấp nhận
+YCQ-CDS-WEB-01
+Nhập liệu sự cố dữ liệu cá nhân (GRI 418-1).
+Cao
+Form nhập liệu thủ công hàng tháng đối với 2 tham số: Số khiếu nại vi phạm quyền riêng tư (privacyBreaches) và Số vụ mất mát dữ liệu cá nhân (dataLosses). Có tính năng kiểm tra lỗi định dạng dữ liệu đầu vào.
+8. Tiêu chí UAT
+Các biểu đồ hiển thị đúng số liệu đã được duyệt của TTBSV.
+4. Phân quyền
+Chỉ tiêu được hiển thị trên Dashboard của TTBSV và Dashboard KPI Airline B-2. Dữ liệu được khai thác theo các chiều thời gian gồm tháng, quý và năm.
+Ban Lãnh đạo và đầu mối TTBSV được cấp quyền xem và khai thác báo cáo.
+Bổ sung/chỉnh sửa sau khi chốt tài liệu phân quyền bên BA
+5. Cảnh báo và workflow khi nhập liệu (web)
+Quy trình phê duyệt số liệu được thực hiện ngoại tuyến (offline) theo quy chế vận hành thực tế. Hệ thống ghi nhận số liệu trực tiếp vào cơ sở dữ liệu Clean DB và cập nhật tức thời lên Dashboard.
+7. Truy vết ( web truy vết dữ liệu nhập liệu và sửa đổi)
+Mã yêu cầu
+File 01
+Thành phần
+thiết kế
+Dữ liệu
+Test case dự kiến
+YCQ-CDS-WEB-01
+Hình 01: Màn hình Nhập liệu bảo mật
+Số liệu sự cố bảo mật
+Kiểm thử nhập số vụ vi phạm và kiểm tra định dạng dữ liệu.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+PHỤ LỤC 03: MẪU UAT THEO BAN Ban CĐSCN
+1. Thông tin chung
+Ban CĐSCN.
+Tính năng nhập liệu sự cố an toàn thông tin và bảo mật dữ liệu.
+Phiên bản 1.0
+2. Phạm vi xác nhận
+Các tính năng nhập liệu chỉ tiêu GRI 418-1 của Ban CĐSCN và cảnh báo vi phạm bảo mật dữ liệu.
+Web
+3. Kết quả UAT
+Mã yêu cầu
+Theo file 01
+Nội dung
+Test case
+Kết quả
+Lỗi/tồn tại
+Trạng thái
+YCQ-CDS-WEB-01
+Kiểm thử nhập số liệu bảo mật
+Nhập các số vụ vi phạm bảo mật dữ liệu và mất mát thông tin, kiểm tra lưu dữ liệu và hiển thị cảnh báo.
+Đạt
+—
+Hoàn thành
+4. Kết quả đối soát dữ liệu
+Báo cáo
+Kỳ dữ liệu
+Nguồn
+đối soát
+Kết quả
+Sai lệch
+Xác nhận
+Airline E-1 (Tiếng ồn)
+Sẽ bổ sung trong khi thực hiện dự án
+Danh sách đội tàu bay và chứng nhận tiếng ồn từ AMOS đối chiếu với DWH
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+GRI 403-2 (Sự cố an toàn)
+Sẽ bổ sung trong khi thực hiện dự án
+Số lượng sự cố thực tế từ VHAT đối chiếu với kết quả hiển thị
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+5. Kết quả phân quyền
+Nhóm
+người dùng
+Phạm vi kiểm tra
+Kết quả
+Ghi chú
+Đầu mối Ban CĐSCN
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+Ban Lãnh đạo
+Bổ sung sau khi chốt tài liệu Phân quyền
+Sẽ bổ sung trong khi thực hiện dự án
+Sẽ bổ sung trong khi thực hiện dự án
+6. Danh sách tồn tại
+Mã
+Nội dung
+Mức độ
+Phương án
+Thời hạn
+Trách nhiệm
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+[Bổ sung trong quá trình thực hiện dự án]
+7. Kết luận
+Đạt.
+Đạt có điều kiện.
+Chưa đạt.
+8. Xác nhận
+Đại diện CQĐV
+Ban CĐSCN
+Nhà cung cấp
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
+(Ký và ghi rõ họ tên)
