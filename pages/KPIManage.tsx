@@ -271,6 +271,78 @@ const INITIAL_KPIS: KPIItem[] = [
   }
 ];
 
+const KPI_MAPPINGS: Record<string, { kpiCode: string; kpiName: string }[]> = {
+  "Airline E-1": [
+    { kpiCode: "Airline E-1", kpiName: "Noise Compliance/ Tiếng ồn" }
+  ],
+  "GRI 418-1": [
+    { kpiCode: "GRI 418-1", kpiName: "Các sự cố liên quan đến dữ liệu cá nhân/ Substantiated complaints concerning breaches of customer privacy and losses of customer data" }
+  ],
+  "GRI 2-7": [
+    { kpiCode: "GRI 2-7", kpiName: "Quy mô tổ chức/Scale of organization" }
+  ],
+  "GRI 401-1": [
+    { kpiCode: "GRI 401-1", kpiName: "Tuyển mới và nghỉ việc/New employee hires and employee turnover" }
+  ],
+  "GRI 405-1": [
+    { kpiCode: "GRI 405-1", kpiName: "Diversity of governance bodies and employees/Đa dạng trong cơ quan quản trị" }
+  ],
+  "GRI 406-1": [
+    { kpiCode: "GRI 406-1", kpiName: "Incidents of discrimination and corrective actions taken/Số sự cố phân biệt đối xử và biện pháp xử lý" }
+  ],
+  "GRI 416-2": [
+    { kpiCode: "GRI 416-2", kpiName: "Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ / Incidents of non-compliance concerning the health and safety impacts of products and services" }
+  ],
+  "GRI 417-2": [
+    { kpiCode: "GRI 417-2", kpiName: "Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ / Incidents of non-compliance concerning product and service information and labeling" }
+  ],
+  "Airline B-1": [
+    { kpiCode: "Airline B-1_01", kpiName: "NPS (DOM)" },
+    { kpiCode: "Airline B-1_02", kpiName: "NPS (INT)" }
+  ],
+  "GRI 303-3": [
+    { kpiCode: "GRI 303-3", kpiName: "Water withdrawal/Lượng nước cấp lên" }
+  ],
+  "GRI 303-5": [
+    { kpiCode: "GRI 303-5", kpiName: "Water consumption/Lượng nước tiêu thụ" }
+  ],
+  "GRI 302-1": [
+    { kpiCode: "GRI 302-1", kpiName: "Energy consumption within the organization/Năng lượng tiêu thụ trong tổ chức" }
+  ],
+  "GRI 302-4": [
+    { kpiCode: "GRI 302-4", kpiName: "Reduction of energy consumption/Giảm tiêu thụ năng lượng" }
+  ],
+  "GRI 305-1": [
+    { kpiCode: "GRI 305-1", kpiName: "Direct (Scope 1) GHG emissions/Phát thải khí nhà kính trực tiếp (Phạm vi 1)" }
+  ],
+  "GRI 305-4": [
+    { kpiCode: "GRI 305-4", kpiName: "GHG emissions intensity/Cường độ phát thải khí nhà kính" }
+  ],
+  "GRI 305-5": [
+    { kpiCode: "GRI 305-5", kpiName: "Reduction of GHG emissions/Giảm phát thải khí nhà kính" }
+  ],
+  "Không thuộc GRI": [
+    { kpiCode: "SAF", kpiName: "SAF report/Báo cáo sử dụng SAF" }
+  ],
+  "4": [
+    { kpiCode: "SAF", kpiName: "SAF report/Báo cáo sử dụng SAF" }
+  ],
+  "GRI 417-3": [
+    { kpiCode: "GRI 417-3", kpiName: "Incidents of non-compliance concerning marketing communications/Các vụ việc không tuân thủ liên quan đến truyền thông marketing" }
+  ],
+  "Airline F-1": [
+    { kpiCode: "Airline F-1", kpiName: "Volunteering during working hours/Tham gia hoạt động tình nguyện" }
+  ],
+  "Airline B-2": [
+    { kpiCode: "Airline B-2", kpiName: "Customer engagement/Tương tác khách hàng" }
+  ]
+};
+
+const isVietnamese = (text: string) => {
+  const vnRegex = /[áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđ]/i;
+  return vnRegex.test(text);
+};
+
 export const KPIManagePage: React.FC = () => {
   const { currentUser, isAdmin } = useAccess();
   
@@ -487,11 +559,51 @@ export const KPIManagePage: React.FC = () => {
 
   const handleSelectIndicator = (indCode: string) => {
     setIndicatorCode(indCode);
-    const ind = indicatorMap.get(indCode);
-    if (ind) {
-      setName(ind.name || name);
-      setSubName(ind.nameEn || subName);
-      setUnit(ind.unit || unit);
+    setCode(''); // reset KPI Code
+    const mappedKpis = KPI_MAPPINGS[indCode];
+    if (mappedKpis && mappedKpis.length > 0) {
+      setName('');
+      setSubName('');
+      const ind = indicatorMap.get(indCode);
+      if (ind) {
+        setUnit(ind.unit || unit);
+      }
+    } else {
+      const ind = indicatorMap.get(indCode);
+      if (ind) {
+        setName(ind.name || name);
+        setSubName(ind.nameEn || subName);
+        setUnit(ind.unit || unit);
+      }
+    }
+  };
+
+  const handleSelectKpiCode = (kpiCode: string) => {
+    setCode(kpiCode);
+    const mappedKpis = KPI_MAPPINGS[indicatorCode];
+    if (mappedKpis) {
+      const matched = mappedKpis.find(item => item.kpiCode === kpiCode);
+      if (matched) {
+        const fullName = matched.kpiName;
+        if (fullName.includes('/')) {
+          const parts = fullName.split('/');
+          const part1 = parts[0].trim();
+          const part2 = parts[1].trim();
+          if (isVietnamese(part1)) {
+            setName(part1);
+            setSubName(part2);
+          } else if (isVietnamese(part2)) {
+            setName(part2);
+            setSubName(part1);
+          } else {
+            setName(part1);
+            setSubName(part2);
+          }
+        } else {
+          setName(fullName);
+          setSubName('');
+        }
+      }
     }
   };
 
@@ -662,7 +774,28 @@ export const KPIManagePage: React.FC = () => {
             </div>
           )}
 
-          <Input label="Mã KPI" value={code} onChange={(e) => setCode(e.target.value)} placeholder="VD: KPI-ENV-01" required />
+          {KPI_MAPPINGS[indicatorCode] && KPI_MAPPINGS[indicatorCode].length > 0 ? (
+            <div className="w-full text-left">
+              <label className="block text-sm font-semibold text-gray-700 mb-1">
+                Mã KPI <span className="text-red-500">*</span>
+              </label>
+              <select
+                value={code}
+                onChange={(e) => handleSelectKpiCode(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm font-medium bg-white text-gray-700"
+                required
+              >
+                <option value="">-- Chọn Mã KPI --</option>
+                {KPI_MAPPINGS[indicatorCode].map(opt => (
+                  <option key={opt.kpiCode} value={opt.kpiCode}>
+                    {opt.kpiCode}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <Input label="Mã KPI" value={code} onChange={(e) => setCode(e.target.value)} placeholder="VD: KPI-ENV-01" required />
+          )}
           <Select 
             label="Kỳ báo cáo" 
             value={frequency} 

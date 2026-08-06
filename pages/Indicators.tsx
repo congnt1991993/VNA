@@ -33,6 +33,10 @@ interface Indicator extends Partial<EsgIndicator> {
   reportLink?: string;
   reportText?: any;
   formula?: string;
+  isStatic?: boolean;
+  question?: string;
+  descriptionCondition?: 'Yes' | 'No';
+  mainDisclosurePoints?: string;
 }
 
 const MOCK_FORMULAS = [
@@ -460,7 +464,11 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
       approveDept: 'Lãnh đạo Ban QLVT',
       monitorDept: 'Ban Chỉ đạo ESG',
       isActive: true,
-      introduction: ''
+      introduction: '',
+      isStatic: false,
+      question: '',
+      descriptionCondition: 'No',
+      mainDisclosurePoints: ''
     });
     setViewMode('DETAIL');
   };
@@ -859,9 +867,82 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                   ]}
                 />
               </div>
-              <Input label="Link Báo cáo" value={formIndicator.reportLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, reportLink: e.target.value })} placeholder="Nhập link embed báo cáo" />
-              <Input label="Link Metabase" value={formIndicator.metabaseLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, metabaseLink: e.target.value })} placeholder="Nhập link truy cập metabase" />
+              <div className="pt-3 border-t border-gray-200 space-y-4">
+                <label className="flex items-center gap-2 cursor-pointer text-sm font-bold text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={formIndicator.isStatic || false}
+                    onChange={(e) => setFormIndicator({ 
+                      ...formIndicator, 
+                      isStatic: e.target.checked,
+                      question: e.target.checked ? formIndicator.question : '',
+                      descriptionCondition: e.target.checked ? (formIndicator.descriptionCondition || 'No') : 'No',
+                      mainDisclosurePoints: e.target.checked ? formIndicator.mainDisclosurePoints : ''
+                    })}
+                    className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                  />
+                  <span>Chỉ tiêu tĩnh</span>
+                </label>
 
+                {formIndicator.isStatic && (
+                  <div className="space-y-4 pl-4 border-l-2 border-vna-blue bg-blue-50/10 p-3 rounded-r-md animate-in fade-in slide-in-from-top-1 duration-200">
+                    <Input 
+                      label="Câu hỏi (Question)" 
+                      value={formIndicator.question || ''} 
+                      onChange={(e) => setFormIndicator({ ...formIndicator, question: e.target.value })} 
+                      placeholder="VD: Trong kỳ báo cáo, doanh nghiệp có xảy ra bất kỳ vụ việc..." 
+                    />
+
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Điều kiện mô tả</span>
+                      <div className="flex gap-6 items-center bg-white border border-gray-250 p-2.5 rounded-lg w-fit">
+                        <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
+                          <input
+                            type="checkbox"
+                            checked={formIndicator.descriptionCondition === 'Yes'}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormIndicator({ ...formIndicator, descriptionCondition: 'Yes' });
+                              }
+                            }}
+                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                          />
+                          <span>Có (Yes)</span>
+                        </label>
+
+                        <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
+                          <input
+                            type="checkbox"
+                            checked={formIndicator.descriptionCondition === 'No'}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormIndicator({ ...formIndicator, descriptionCondition: 'No' });
+                              }
+                            }}
+                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                          />
+                          <span>Không (No)</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Mục chính cần công bố thuyết minh</label>
+                      <textarea
+                        value={formIndicator.mainDisclosurePoints || ''}
+                        onChange={(e) => setFormIndicator({ ...formIndicator, mainDisclosurePoints: e.target.value })}
+                        className="w-full min-h-[90px] border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-vna-blue/30 focus:border-vna-blue bg-white text-gray-800"
+                        placeholder="VD: - Tổng số và tính chất các sự cố...&#10;- Số lượng nhân sự bị xử lý..."
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="pt-3 border-t border-gray-200 space-y-4">
+                <Input label="Link Báo cáo" value={formIndicator.reportLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, reportLink: e.target.value })} placeholder="Nhập link embed báo cáo" />
+                <Input label="Link Metabase" value={formIndicator.metabaseLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, metabaseLink: e.target.value })} placeholder="Nhập link truy cập metabase" />
+              </div>
             </div>
 
             {/* TRÁCH NHIỆM & NHÃN CHƯƠNG TRÌNH */}
@@ -916,133 +997,135 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               </div>
 
               {/* BLOCK GÁN BIỂU MẪU DỮ LIỆU ĐẦU VÀO (COMBOBOX MULTIPLE SELECT KÈM SEARCH) */}
-              <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs text-left relative">
-                <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                  <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Liên kết gán Biểu mẫu dữ liệu đầu vào</h3>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase">
-                    {(formIndicator.assignedForms || []).length} được gán
-                  </span>
-                </div>
-
-                <div className="relative">
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn biểu mẫu thu thập số liệu</label>
-
-                  {/* Combobox Input Trigger */}
-                  <div
-                    onClick={() => setIsOpenFormDropdown(!isOpenFormDropdown)}
-                    className="min-h-[42px] p-2 bg-white border border-gray-300 rounded-lg flex flex-wrap gap-1.5 items-center cursor-pointer hover:border-gray-400 transition-colors focus-within:border-vna-blue focus-within:ring-1 focus-within:ring-vna-blue/30"
-                  >
-                    {(formIndicator.assignedForms || []).length === 0 ? (
-                      <span className="text-sm text-gray-400 pl-1.5">Click để chọn các biểu mẫu...</span>
-                    ) : (
-                      (formIndicator.assignedForms || []).map(formId => {
-                        const formObj = allForms.find(f => f.id === formId);
-                        return (
-                          <div
-                            key={formId}
-                            className="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 text-vna-blue px-2.5 py-0.5 rounded-md text-xs font-bold"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <span>{formObj ? formObj.name : formId}</span>
-                            <button
-                              onClick={() => {
-                                const newAssigned = (formIndicator.assignedForms || []).filter(id => id !== formId);
-                                setFormIndicator({ ...formIndicator, assignedForms: newAssigned });
-                              }}
-                              className="text-blue-500 hover:text-blue-750 font-bold ml-1 rounded-full w-3.5 h-3.5 flex items-center justify-center hover:bg-blue-100"
-                            >
-                              ×
-                            </button>
-                          </div>
-                        );
-                      })
-                    )}
-                    <span className="ml-auto text-gray-400 mr-1.5">▼</span>
+              {!formIndicator.isStatic && (
+                <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs text-left relative">
+                  <div className="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Liên kết gán Biểu mẫu dữ liệu đầu vào</h3>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase">
+                      {(formIndicator.assignedForms || []).length} được gán
+                    </span>
                   </div>
 
-                  {/* Dropdown Menu */}
-                  {isOpenFormDropdown && (
-                    <div className="absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-250 rounded-lg shadow-lg overflow-hidden flex flex-col animate-in fade-in slide-in-from-top-1 duration-150">
-                      {/* Search Bar inside Combobox */}
-                      <div className="p-2 border-b border-gray-150 bg-gray-50 flex items-center gap-2">
-                        <Search size={14} className="text-gray-400 ml-1.5" />
-                        <input
-                          type="text"
-                          value={searchFormQuery}
-                          onChange={(e) => setSearchFormQuery(e.target.value)}
-                          placeholder="Tìm kiếm biểu mẫu nhanh..."
-                          className="flex-1 bg-transparent text-sm border-none focus:outline-none focus:ring-0 p-1"
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                        {searchFormQuery && (
-                          <button
-                            onClick={(e) => { e.stopPropagation(); setSearchFormQuery(''); }}
-                            className="text-gray-400 hover:text-gray-655 text-xs font-bold"
-                          >
-                            Xóa
-                          </button>
-                        )}
-                      </div>
+                  <div className="relative">
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn biểu mẫu thu thập số liệu</label>
 
-                      {/* Options List */}
-                      <div className="max-h-60 overflow-y-auto divide-y divide-gray-100">
-                        {(() => {
-                          const filtered = allForms.filter(f =>
-                            f.name.toLowerCase().includes(searchFormQuery.toLowerCase()) ||
-                            f.id.toLowerCase().includes(searchFormQuery.toLowerCase())
-                          );
-
-                          if (filtered.length === 0) {
-                            return <div className="p-3 text-center text-xs text-gray-400">Không tìm thấy biểu mẫu nào</div>;
-                          }
-
-                          return filtered.map(form => {
-                            const isChecked = (formIndicator.assignedForms || []).includes(form.id);
-                            return (
-                              <div
-                                key={form.id}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  const currentAssigned = [...(formIndicator.assignedForms || [])];
-                                  let newAssigned;
-                                  if (isChecked) {
-                                    newAssigned = currentAssigned.filter(id => id !== form.id);
-                                  } else {
-                                    newAssigned = [...currentAssigned, form.id];
-                                  }
+                    {/* Combobox Input Trigger */}
+                    <div
+                      onClick={() => setIsOpenFormDropdown(!isOpenFormDropdown)}
+                      className="min-h-[42px] p-2 bg-white border border-gray-300 rounded-lg flex flex-wrap gap-1.5 items-center cursor-pointer hover:border-gray-400 transition-colors focus-within:border-vna-blue focus-within:ring-1 focus-within:ring-vna-blue/30"
+                    >
+                      {(formIndicator.assignedForms || []).length === 0 ? (
+                        <span className="text-sm text-gray-400 pl-1.5">Click để chọn các biểu mẫu...</span>
+                      ) : (
+                        (formIndicator.assignedForms || []).map(formId => {
+                          const formObj = allForms.find(f => f.id === formId);
+                          return (
+                            <div
+                              key={formId}
+                              className="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 text-vna-blue px-2.5 py-0.5 rounded-md text-xs font-bold"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <span>{formObj ? formObj.name : formId}</span>
+                              <button
+                                onClick={() => {
+                                  const newAssigned = (formIndicator.assignedForms || []).filter(id => id !== formId);
                                   setFormIndicator({ ...formIndicator, assignedForms: newAssigned });
                                 }}
-                                className={`p-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between text-xs transition-colors ${isChecked ? 'bg-blue-50/20 font-bold' : ''
-                                  }`}
+                                className="text-blue-500 hover:text-blue-750 font-bold ml-1 rounded-full w-3.5 h-3.5 flex items-center justify-center hover:bg-blue-100"
                               >
-                                <div className="text-left flex-1 pr-4">
-                                  <div className="text-gray-800 font-semibold">{form.name}</div>
-                                  <div className="text-[10px] text-gray-400 font-mono mt-0.5">{form.id} • {form.fields?.length || 0} trường động</div>
-                                </div>
-                                <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isChecked ? 'border-vna-blue bg-vna-blue text-white' : 'border-gray-300'
-                                  }`}>
-                                  {isChecked && <span className="text-[9px] font-black">✓</span>}
-                                </div>
-                              </div>
-                            );
-                          });
-                        })()}
-                      </div>
-
-                      {/* Dropdown Footer Action */}
-                      <div className="p-2 bg-gray-50 border-t border-gray-150 flex justify-between items-center text-[10px]">
-                        <span className="text-gray-500 font-semibold">Bấm bên ngoài để đóng bảng chọn</span>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setIsOpenFormDropdown(false); }}
-                          className="px-2.5 py-1 bg-vna-blue hover:bg-vna-blue/90 text-white rounded font-bold cursor-pointer transition-colors"
-                        >
-                          Xác nhận
-                        </button>
-                      </div>
+                                ×
+                              </button>
+                            </div>
+                          );
+                        })
+                      )}
+                      <span className="ml-auto text-gray-400 mr-1.5">▼</span>
                     </div>
-                  )}
+
+                    {/* Dropdown Menu */}
+                    {isOpenFormDropdown && (
+                      <div className="absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-250 rounded-lg shadow-lg overflow-hidden flex flex-col animate-in fade-in slide-in-from-top-1 duration-150">
+                        {/* Search Bar inside Combobox */}
+                        <div className="p-2 border-b border-gray-150 bg-gray-50 flex items-center gap-2">
+                          <Search size={14} className="text-gray-400 ml-1.5" />
+                          <input
+                            type="text"
+                            value={searchFormQuery}
+                            onChange={(e) => setSearchFormQuery(e.target.value)}
+                            placeholder="Tìm kiếm biểu mẫu nhanh..."
+                            className="flex-1 bg-transparent text-sm border-none focus:outline-none focus:ring-0 p-1"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                          {searchFormQuery && (
+                            <button
+                              onClick={(e) => { e.stopPropagation(); setSearchFormQuery(''); }}
+                              className="text-gray-400 hover:text-gray-655 text-xs font-bold"
+                            >
+                              Xóa
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Options List */}
+                        <div className="max-h-60 overflow-y-auto divide-y divide-gray-100">
+                          {(() => {
+                            const filtered = allForms.filter(f =>
+                              f.name.toLowerCase().includes(searchFormQuery.toLowerCase()) ||
+                              f.id.toLowerCase().includes(searchFormQuery.toLowerCase())
+                            );
+
+                            if (filtered.length === 0) {
+                              return <div className="p-3 text-center text-xs text-gray-400">Không tìm thấy biểu mẫu nào</div>;
+                            }
+
+                            return filtered.map(form => {
+                              const isChecked = (formIndicator.assignedForms || []).includes(form.id);
+                              return (
+                                <div
+                                  key={form.id}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const currentAssigned = [...(formIndicator.assignedForms || [])];
+                                    let newAssigned;
+                                    if (isChecked) {
+                                      newAssigned = currentAssigned.filter(id => id !== form.id);
+                                    } else {
+                                      newAssigned = [...currentAssigned, form.id];
+                                    }
+                                    setFormIndicator({ ...formIndicator, assignedForms: newAssigned });
+                                  }}
+                                  className={`p-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between text-xs transition-colors ${isChecked ? 'bg-blue-50/20 font-bold' : ''
+                                    }`}
+                                >
+                                  <div className="text-left flex-1 pr-4">
+                                    <div className="text-gray-800 font-semibold">{form.name}</div>
+                                    <div className="text-[10px] text-gray-400 font-mono mt-0.5">{form.id} • {form.fields?.length || 0} trường động</div>
+                                  </div>
+                                  <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isChecked ? 'border-vna-blue bg-vna-blue text-white' : 'border-gray-300'
+                                    }`}>
+                                    {isChecked && <span className="text-[9px] font-black">✓</span>}
+                                  </div>
+                                </div>
+                              );
+                            });
+                          })()}
+                        </div>
+
+                        {/* Dropdown Footer Action */}
+                        <div className="p-2 bg-gray-50 border-t border-gray-150 flex justify-between items-center text-[10px]">
+                          <span className="text-gray-500 font-semibold">Bấm bên ngoài để đóng bảng chọn</span>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setIsOpenFormDropdown(false); }}
+                            className="px-2.5 py-1 bg-vna-blue hover:bg-vna-blue/90 text-white rounded font-bold cursor-pointer transition-colors"
+                          >
+                            Xác nhận
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* CÔNG THỨC (chỉ tồn tại với những chỉ tiêu có dashboard báo cáo) */}
               {!!formIndicator.metabaseLink && (

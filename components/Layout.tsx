@@ -68,6 +68,12 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <Target size={20} />,
     target: 'indicators'
   },
+  {
+    id: 'kpi-manage',
+    label: 'QUẢN LÝ KPI CHỈ TIÊU',
+    icon: <ClipboardCheck size={20} />,
+    target: 'kpi-manage'
+  },
 
   // 4. BÁO CÁO & CÔNG BỐ
   {
@@ -87,7 +93,6 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <TrendingUp size={20} />,
     children: [
       { id: 'netzero', label: 'Mô phỏng kịch bản Net Zero', target: 'netzero-simulation' },
-      { id: 'kpi-manage', label: 'Quản lý KPI chỉ tiêu', target: 'kpi-manage' },
     ]
   },
   // 6. CÀI ĐẶT HỆ THỐNG
