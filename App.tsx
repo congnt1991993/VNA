@@ -23,6 +23,7 @@ import { DashboardSocPage } from './pages/DashboardSoc';
 import { DashboardGovPage } from './pages/DashboardGov';
 import { KPIManagePage } from './pages/KPIManage';
 import { CMSManagePage } from './pages/CMSManage';
+import { PublishAdjustPage } from './pages/PublishAdjust';
 import { SysOrgPage } from './pages/SysOrg';
 import { DepartmentsPage } from './pages/Departments';
 import { SysAccountsPage } from './pages/SysAccounts';
@@ -229,6 +230,8 @@ const App: React.FC = () => {
         return <DocumentApprovalPage />;
       case 'cms-manage':
         return <CMSManagePage />;
+      case 'publish-adjust':
+        return <PublishAdjustPage />;
 
       // NHÓM 6
       case 'formulas':

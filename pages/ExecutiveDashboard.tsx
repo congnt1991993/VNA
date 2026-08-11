@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Maximize2, Minimize2, Leaf, Users, ShieldAlert, ArrowLeft, FileText, Search } from 'lucide-react';
+import { Maximize2, Minimize2, Leaf, Users, ShieldAlert, ArrowLeft, FileText, Search, Globe } from 'lucide-react';
 import { Card, Table, Badge, PillarBadge, Button, Select, Input } from '../components/UI';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -11,6 +11,17 @@ export const ExecutiveDashboard: React.FC = () => {
   const [selectedIndicator, setSelectedIndicator] = useState<any | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDept, setSelectedDept] = useState('');
+  const [adjustments, setAdjustments] = useState<any[]>([]);
+
+  // Load and sync adjustments
+  const loadAdjustments = () => {
+    const saved = localStorage.getItem('vna_publish_adjustments');
+    if (saved) {
+      try {
+        setAdjustments(JSON.parse(saved));
+      } catch (e) {}
+    }
+  };
 
   // Load and sync indicators from localStorage
   const loadIndicators = () => {
@@ -28,6 +39,7 @@ export const ExecutiveDashboard: React.FC = () => {
 
   useEffect(() => {
     loadIndicators();
+    loadAdjustments();
     
     const handleSync = () => {
       const saved = localStorage.getItem('vna_esg_indicators');
@@ -37,6 +49,10 @@ export const ExecutiveDashboard: React.FC = () => {
         } catch (e) {}
       }
     };
+
+    const handleAdjSync = () => {
+      loadAdjustments();
+    };
     
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isFullscreen) {
@@ -45,10 +61,12 @@ export const ExecutiveDashboard: React.FC = () => {
     };
 
     window.addEventListener('vna_indicators_updated', handleSync);
+    window.addEventListener('vna_publish_adjustments_updated', handleAdjSync);
     window.addEventListener('keydown', handleKeyDown);
     
     return () => {
       window.removeEventListener('vna_indicators_updated', handleSync);
+      window.removeEventListener('vna_publish_adjustments_updated', handleAdjSync);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isFullscreen]);
@@ -413,6 +431,140 @@ export const ExecutiveDashboard: React.FC = () => {
                   }
                 }
 
+                // Determine target period name based on indicator frequency
+                const freq = ind.frequency || 'Hàng tháng';
+                let targetPeriod = 'Tháng 05/2026';
+                if (freq.includes('quý') || freq.includes('Quý')) {
+                  targetPeriod = 'Quý 2/2026'; // May falls in Q2
+                } else if (freq.includes('năm') || freq.includes('Năm')) {
+                  targetPeriod = 'Năm 2026';
+                } else if (freq.includes('bán niên') || freq.includes('Bán niên') || freq.includes('Bán Niên')) {
+                  targetPeriod = 'Bán niên 1/2026'; // May falls in H1
+                }
+
+                // Check for override/adjustment for the matched period on sub-charts
+                let isOverridden = false;
+                let overrideReasons: string[] = [];
+                const parseNum = (v: string) => {
+                  if (!v) return 0;
+                  const clean = v.replace(/[^0-9.-]/g, '');
+                  return clean ? Number(clean) : 0;
+                };
+
+                if (ind.code === 'GRI 302-1') {
+                  const jOverride = adjustments.find(a => a.indicatorCode === 'GRI 302-1-JETA1' && a.period === targetPeriod && a.isOverride);
+                  const sOverride = adjustments.find(a => a.indicatorCode === 'GRI 302-1-SAF' && a.period === targetPeriod && a.isOverride);
+
+                  if (jOverride || sOverride) {
+                    isOverridden = true;
+                    const jVal = jOverride ? parseNum(jOverride.overrideValue) : 108000;
+                    const sVal = sOverride ? parseNum(sOverride.overrideValue) : 5100;
+                    actualVal = Math.round(jVal + sVal).toLocaleString();
+                    if (jOverride) overrideReasons.push(`Jet A-1: ${jOverride.reason || 'Không lý do'}`);
+                    if (sOverride) overrideReasons.push(`SAF: ${sOverride.reason || 'Không lý do'}`);
+                  }
+                } else if (ind.code === 'GRI 404-2') {
+                  const depts = [
+                    { key: 'HQ', label: 'CQ' },
+                    { key: 'OPS', label: 'Khai thác' },
+                    { key: 'TECH', label: 'Kỹ thuật' },
+                    { key: 'SERVICE', label: 'Dịch vụ' },
+                    { key: 'COMMERCE', label: 'Thương mại' }
+                  ];
+                  const overrides = depts.map(d => ({
+                    override: adjustments.find(a => a.indicatorCode === `GRI 404-2-${d.key}` && a.period === targetPeriod && a.isOverride),
+                    label: d.label
+                  }));
+
+                  if (overrides.some(o => o.override)) {
+                    isOverridden = true;
+                    const hqVal = overrides[0].override ? parseNum(overrides[0].override.overrideValue) : 48;
+                    const opsVal = overrides[1].override ? parseNum(overrides[1].override.overrideValue) : 85;
+                    const techVal = overrides[2].override ? parseNum(overrides[2].override.overrideValue) : 120;
+                    const srvVal = overrides[3].override ? parseNum(overrides[3].override.overrideValue) : 90;
+                    const comVal = overrides[4].override ? parseNum(overrides[4].override.overrideValue) : 65;
+                    actualVal = Math.round((hqVal + opsVal + techVal + srvVal + comVal) / 5).toLocaleString();
+                    overrides.forEach(o => {
+                      if (o.override) overrideReasons.push(`${o.label}: ${o.override.reason || 'Không lý do'}`);
+                    });
+                  }
+                } else if (ind.code === 'GRI 2-7') {
+                  const staff = [
+                    { key: 'PILOTS', label: 'Phi công' },
+                    { key: 'CABIN', label: 'Tiếp viên' },
+                    { key: 'TECH', label: 'Kỹ thuật' },
+                    { key: 'GROUND', label: 'Mặt đất' }
+                  ];
+                  const overrides = staff.map(s => ({
+                    override: adjustments.find(a => a.indicatorCode === `GRI 2-7-${s.key}` && a.period === targetPeriod && a.isOverride),
+                    label: s.label
+                  }));
+
+                  if (overrides.some(o => o.override)) {
+                    isOverridden = true;
+                    const pilVal = overrides[0].override ? parseNum(overrides[0].override.overrideValue) : 12;
+                    const cabVal = overrides[1].override ? parseNum(overrides[1].override.overrideValue) : 45;
+                    const tecVal = overrides[2].override ? parseNum(overrides[2].override.overrideValue) : 28;
+                    const grdVal = overrides[3].override ? parseNum(overrides[3].override.overrideValue) : 15;
+                    actualVal = `${Math.min(pilVal + cabVal + tecVal + grdVal, 100)}%`;
+                    overrides.forEach(o => {
+                      if (o.override) overrideReasons.push(`${o.label}: ${o.override.reason || 'Không lý do'}`);
+                    });
+                  }
+                } else if (ind.code === 'GRI 2-9') {
+                  const members = [
+                    { key: 'IND', label: 'Độc lập' },
+                    { key: 'EXEC', label: 'Điều hành' },
+                    { key: 'NONEXEC', label: 'Không điều hành' }
+                  ];
+                  const overrides = members.map(m => ({
+                    override: adjustments.find(a => a.indicatorCode === `GRI 2-9-${m.key}` && a.period === targetPeriod && a.isOverride),
+                    label: m.label
+                  }));
+
+                  if (overrides.some(o => o.override)) {
+                    isOverridden = true;
+                    const indVal = overrides[0].override ? parseNum(overrides[0].override.overrideValue) : 3;
+                    const exeVal = overrides[1].override ? parseNum(overrides[1].override.overrideValue) : 4;
+                    const nexVal = overrides[2].override ? parseNum(overrides[2].override.overrideValue) : 2;
+                    actualVal = (indVal + exeVal + nexVal).toLocaleString();
+                    overrides.forEach(o => {
+                      if (o.override) overrideReasons.push(`${o.label}: ${o.override.reason || 'Không lý do'}`);
+                    });
+                  }
+                } else if (ind.code === 'GRI 305-4') {
+                  const override = adjustments.find(a => a.indicatorCode === 'GRI 305-4-ACTUAL' && a.period === targetPeriod && a.isOverride);
+                  if (override) {
+                    actualVal = override.overrideValue;
+                    isOverridden = true;
+                    overrideReasons.push(override.reason || 'Không ghi chú');
+                  }
+                } else if (ind.code === 'Airline B-1') {
+                  const override = adjustments.find(a => a.indicatorCode === 'AIRLINE-B1-NPS' && a.period === targetPeriod && a.isOverride);
+                  if (override) {
+                    actualVal = override.overrideValue;
+                    isOverridden = true;
+                    overrideReasons.push(override.reason || 'Không ghi chú');
+                  }
+                } else {
+                  const override = adjustments.find(a => a.indicatorCode === `${ind.code}-SUB1` && a.period === targetPeriod && a.isOverride);
+                  if (override) {
+                    actualVal = override.overrideValue;
+                    isOverridden = true;
+                    overrideReasons.push(override.reason || 'Không ghi chú');
+                  }
+                }
+
+                if (isOverridden) {
+                  const actualNum = parseNum(actualVal);
+                  const planNum = parseNum(planVal);
+
+                  if (planNum > 0) {
+                    progressVal = `${Math.min(Math.round((actualNum / planNum) * 100), 100)}%`;
+                    evaluation = actualNum >= planNum ? "Đạt" : "Không đạt";
+                  }
+                }
+
                 return (
                   <tr 
                     key={ind.id || ind.code} 
@@ -427,7 +579,16 @@ export const ExecutiveDashboard: React.FC = () => {
                     <td className="text-xs text-gray-600 text-left font-medium py-3 px-4">{ind.topic || '—'}</td>
                     <td className="text-xs text-gray-650 text-center font-semibold py-3 px-4">{ind.unit || '—'}</td>
                     <td className="text-sm font-semibold text-gray-900 text-right font-mono py-3 px-4">{planVal}</td>
-                    <td className="text-sm font-semibold text-gray-900 text-right font-mono py-3 px-4">{actualVal}</td>
+                    <td className="text-sm font-semibold text-gray-900 text-right font-mono py-3 px-4">
+                      <div className="flex items-center justify-end gap-1.5">
+                        {isOverridden && (
+                          <span className="inline-flex items-center gap-0.5 text-[9px] font-black text-amber-700 bg-amber-50 border border-amber-250 px-1 py-0.5 rounded" title={`Đã điều chỉnh đối ngoại. Chi tiết: ${overrideReasons.join(', ') || 'Không ghi chú'}`}>
+                            <Globe size={9} /> ADJ
+                          </span>
+                        )}
+                        <span>{actualVal}</span>
+                      </div>
+                    </td>
                     <td className="text-xs font-bold text-gray-700 text-center font-mono py-3 px-4">{progressVal}</td>
                     <td className="text-xs text-center py-3 px-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${

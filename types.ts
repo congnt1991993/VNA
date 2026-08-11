@@ -35,6 +35,7 @@ export type PageName =
   | 'report-approved' // NEW: Đã phê duyệt
   | 'document-approval' // NEW: Phê duyệt yêu cầu tài liệu
   | 'cms-manage' // NEW: Quản lý nội dung CMS
+  | 'publish-adjust' // NEW: Điều chỉnh dữ liệu công bố đối ngoại
 
   // NHÓM 6: CẤU HÌNH HỆ THỐNG & DANH MỤC
   | 'indicators' 

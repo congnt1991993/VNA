@@ -82,6 +82,7 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <Workflow size={20} />,
     children: [
       { id: 'esg-report', label: 'Báo cáo thường niên ESG', target: 'esg-report' },
+      { id: 'publish-adjust', label: 'Điều chỉnh số liệu công bố', target: 'publish-adjust' },
       { id: 'documents', label: 'Kho tài liệu PTBV chung', target: 'documents' },
       { id: 'cms-manage', label: 'CMS Website ESG', target: 'cms-manage' },
     ]
@@ -117,6 +118,7 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'data-approval': { vi: 'PHÊ DUYỆT SỐ LIỆU', en: 'DATA APPROVAL' },
   'reporting': { vi: 'BÁO CÁO & CÔNG BỐ', en: 'REPORTING & DISCLOSURE' },
   'esg-report': { vi: 'Báo cáo thường niên ESG', en: 'Annual ESG Report' },
+  'publish-adjust': { vi: 'Điều chỉnh số liệu công bố', en: 'Disclosure Data Adjustment' },
   'documents': { vi: 'Kho tài liệu PTBV chung', en: 'General Sustainability Docs' },
   'cms-manage': { vi: 'CMS Website ESG', en: 'CMS ESG Website' },
   'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },

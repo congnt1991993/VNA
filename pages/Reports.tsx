@@ -195,6 +195,139 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
   const [socSubTab, setSocSubTab] = useState<'404-2' | 'B-1' | '403-9'>('404-2');
   const [govSubTab, setGovSubTab] = useState<'2-9' | 'PL02'>('2-9');
 
+  // Load and sync adjustments
+  const [adjustments, setAdjustments] = useState<any[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('vna_publish_adjustments');
+    if (saved) {
+      try {
+        setAdjustments(JSON.parse(saved));
+      } catch (e) {}
+    }
+
+    const handleAdjSync = () => {
+      const saved2 = localStorage.getItem('vna_publish_adjustments');
+      if (saved2) {
+        try {
+          setAdjustments(JSON.parse(saved2));
+        } catch (e) {}
+      }
+    };
+    window.addEventListener('vna_publish_adjustments_updated', handleAdjSync);
+    return () => window.removeEventListener('vna_publish_adjustments_updated', handleAdjSync);
+  }, []);
+
+  const parseNum = (v: any) => {
+    if (typeof v === 'number') return v;
+    if (!v) return 0;
+    const clean = String(v).replace(/[^0-9.-]/g, '');
+    return clean ? Number(clean) : 0;
+  };
+
+  // 1. envFuelMixData (GRI 302-1)
+  const envFuelMixData = useMemo(() => {
+    return MOCK_ENV_FUEL_MIX.map((item, index) => {
+      const period = `Tháng ${String(index + 1).padStart(2, '0')}/2026`;
+      const jetA1Override = adjustments.find(
+        a => a.indicatorCode === 'GRI 302-1-JETA1' && a.period === period && a.isOverride
+      );
+      const safOverride = adjustments.find(
+        a => a.indicatorCode === 'GRI 302-1-SAF' && a.period === period && a.isOverride
+      );
+
+      return {
+        ...item,
+        jetA1: jetA1Override ? parseNum(jetA1Override.overrideValue) : item.jetA1,
+        saf: safOverride ? parseNum(safOverride.overrideValue) : item.saf
+      };
+    });
+  }, [adjustments]);
+
+  // 2. envEmissionsIntensityData (GRI 305-4)
+  const envEmissionsIntensityData = useMemo(() => {
+    return MOCK_ENV_EMISSIONS_INTENSITY.map(item => {
+      const override = adjustments.find(
+        a => a.indicatorCode === 'GRI 305-4-ACTUAL' && a.isOverride
+      );
+      if (override && item.year === '2025') {
+        return {
+          ...item,
+          actual: parseNum(override.overrideValue)
+        };
+      }
+      return item;
+    });
+  }, [adjustments]);
+
+  // 3. socTrainingDeptData (GRI 404-2)
+  const socTrainingDeptData = useMemo(() => {
+    return MOCK_SOC_TRAINING_DEPT.map(item => {
+      let subCode = 'GRI 404-2-HQ';
+      if (item.dept === 'Khối Khai thác') subCode = 'GRI 404-2-OPS';
+      else if (item.dept === 'Khối Kỹ thuật') subCode = 'GRI 404-2-TECH';
+      else if (item.dept === 'Khối Dịch vụ') subCode = 'GRI 404-2-SERVICE';
+      else if (item.dept === 'Khối Thương mại') subCode = 'GRI 404-2-COMMERCE';
+
+      const override = adjustments.find(
+        a => a.indicatorCode === subCode && a.period === 'Tháng 05/2026' && a.isOverride
+      );
+      return {
+        ...item,
+        hours: override ? parseNum(override.overrideValue) : item.hours
+      };
+    });
+  }, [adjustments]);
+
+  // 4. socDataNpsData (Airline B-1)
+  const socDataNpsData = useMemo(() => {
+    return MOCK_SOC_DATA_NPS.map((item, index) => {
+      const monthNum = (index + 1) * 3;
+      const period = `Tháng ${String(monthNum).padStart(2, '0')}/2026`;
+      const override = adjustments.find(
+        a => a.indicatorCode === 'AIRLINE-B1-NPS' && a.period === period && a.isOverride
+      );
+      return {
+        ...item,
+        nps: override ? parseNum(override.overrideValue) : item.nps
+      };
+    });
+  }, [adjustments]);
+
+  // 5. govBoardBreakdownData (GRI 2-9)
+  const govBoardBreakdownData = useMemo(() => {
+    return MOCK_GOV_BOARD_BREAKDOWN.map(item => {
+      let subCode = 'GRI 2-9-IND';
+      if (item.name.includes('Điều hành')) subCode = 'GRI 2-9-EXEC';
+      else if (item.name.includes('Không điều hành')) subCode = 'GRI 2-9-NONEXEC';
+
+      const override = adjustments.find(
+        a => a.indicatorCode === subCode && a.period === 'Năm 2026' && a.isOverride
+      );
+      return {
+        ...item,
+        value: override ? parseNum(override.overrideValue) : item.value
+      };
+    });
+  }, [adjustments]);
+
+  // 6. pubTrendData
+  const pubTrendData = useMemo(() => {
+    return MOCK_PUB_TREND.map((item, index) => {
+      const period = `Tháng ${String(index + 1).padStart(2, '0')}/2026`;
+      const override = adjustments.find(
+        a => a.indicatorCode === (selectedIndicatorId || 'GRI 302-1') && a.period === period && a.isOverride
+      );
+      if (override) {
+        return {
+          ...item,
+          actual: parseNum(override.overrideValue)
+        };
+      }
+      return item;
+    });
+  }, [adjustments, selectedIndicatorId]);
+
   const handleTogglePublish = (id: string) => {
      setPublishData(prev => prev.map(item => 
         item.id === id ? { ...item, isPublished: !item.isPublished } : item
@@ -337,7 +470,7 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
                         </div>
                         <div className="flex-1 min-h-0">
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={MOCK_ENV_FUEL_MIX} margin={{top: 10, right: 10, left: -20, bottom: 0}}>
+                                <AreaChart data={envFuelMixData} margin={{top: 10, right: 10, left: -20, bottom: 0}}>
                                     <defs>
                                         <linearGradient id="colorJetA1" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="#006885" stopOpacity={0.2}/>
@@ -393,7 +526,7 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
                             </div>
                             <div className="flex-1 min-h-0">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={MOCK_ENV_EMISSIONS_INTENSITY} margin={{top: 10, right: 10, left: -25, bottom: 0}}>
+                                    <LineChart data={envEmissionsIntensityData} margin={{top: 10, right: 10, left: -25, bottom: 0}}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
                                         <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{fill: '#6B7280', fontSize: 11}} />
                                         <YAxis tickLine={false} axisLine={false} tick={{fill: '#6B7280', fontSize: 10}} domain={['auto', 'auto']} />
@@ -656,7 +789,7 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
                         </div>
                         <div className="flex-1 min-h-0">
                             <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={MOCK_SOC_TRAINING_DEPT} margin={{top: 10, right: 10, left: -25, bottom: 0}}>
+                                <BarChart data={socTrainingDeptData} margin={{top: 10, right: 10, left: -25, bottom: 0}}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
                                     <XAxis dataKey="dept" tickLine={false} axisLine={false} tick={{fill: '#6B7280', fontSize: 10}} />
                                     <YAxis tickLine={false} axisLine={false} tick={{fill: '#6B7280', fontSize: 10}} />
@@ -682,7 +815,7 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
                             </div>
                             <div className="flex-1 min-h-0">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={MOCK_SOC_DATA_NPS} margin={{top: 10, right: 15, left: -25, bottom: 0}}>
+                                    <LineChart data={socDataNpsData} margin={{top: 10, right: 15, left: -25, bottom: 0}}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
                                         <XAxis dataKey="quarter" tickLine={false} axisLine={false} tick={{fill: '#6B7280', fontSize: 11}} />
                                         <YAxis tickLine={false} axisLine={false} tick={{fill: '#6B7280', fontSize: 10}} domain={[0, 100]} />
@@ -909,7 +1042,7 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie 
-                                        data={MOCK_GOV_BOARD_BREAKDOWN} 
+                                        data={govBoardBreakdownData} 
                                         cx="50%" 
                                         cy="45%" 
                                         innerRadius={65} 
@@ -1277,7 +1410,7 @@ export const ReportsPage: React.FC<{ mode: 'bi-env' | 'bi-soc' | 'bi-gov' | 'pub
                                     />
                                 </div>
                                 <ResponsiveContainer width="100%" height="90%">
-                                    <ComposedChart data={MOCK_PUB_TREND}>
+                                    <ComposedChart data={pubTrendData}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                         <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 12}} dy={10} />
                                         <YAxis axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 12}} />
