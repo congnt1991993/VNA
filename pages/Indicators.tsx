@@ -3,7 +3,7 @@ import { Button, Select, PillarBadge, Input, Modal } from '../components/UI';
 import {
   Plus, Search, Upload, Download, FileSpreadsheet, ArrowLeft,
   Settings, BarChart2, Save, X, Info, User, Check, AlertCircle, FileText, Trash2,
-  Calendar, Clock, History
+  Calendar, Clock, History, Edit3, Calculator, Lock, Database, Sparkles, RefreshCw, ShieldAlert
 } from 'lucide-react';
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
@@ -141,6 +141,68 @@ const mapIndicatorDeptToFormDept = (dept: string): string => {
   return dept;
 };
 
+interface FormulaToken {
+  id: string;
+  type: 'db_field' | 'number' | 'operator' | 'func' | 'text';
+  value: string;
+  originalValue: string;
+  isDbField: boolean;
+}
+
+const parseFormulaToTokens = (expression: string): FormulaToken[] => {
+  if (!expression) return [];
+  const regex = /([a-zA-Z_][a-zA-Z0-9_\.]*|\d+(?:\.\d+)?|[\+\-\*/\(\)\,\=]|[\s]+)/g;
+  const matches = expression.match(regex) || [];
+  
+  const tokens: FormulaToken[] = [];
+  let idCounter = 0;
+  const sqlFuncs = ['SUM', 'AVG', 'COUNT', 'MAX', 'MIN', 'ROUND', 'IF', 'COALESCE'];
+
+  matches.forEach(item => {
+    const trimmed = item.trim();
+    if (!trimmed) return;
+
+    idCounter++;
+    const id = `tok-${idCounter}`;
+
+    if (/^\d+(\.\d+)?$/.test(trimmed)) {
+      tokens.push({
+        id,
+        type: 'number',
+        value: trimmed,
+        originalValue: trimmed,
+        isDbField: false
+      });
+    } else if (/^[\+\-\*/\(\)\,\=]$/.test(trimmed)) {
+      tokens.push({
+        id,
+        type: 'operator',
+        value: trimmed,
+        originalValue: trimmed,
+        isDbField: false
+      });
+    } else if (sqlFuncs.includes(trimmed.toUpperCase())) {
+      tokens.push({
+        id,
+        type: 'func',
+        value: trimmed.toUpperCase(),
+        originalValue: trimmed,
+        isDbField: false
+      });
+    } else {
+      tokens.push({
+        id,
+        type: 'db_field',
+        value: trimmed,
+        originalValue: trimmed,
+        isDbField: true
+      });
+    }
+  });
+
+  return tokens;
+};
+
 const MOCK_INDICATORS: Indicator[] = MOCK_INDICATORS_JSON as Indicator[];
 
 export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ departmentFilter }) => {
@@ -166,15 +228,235 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     }
   }, []);
 
+  // Formula Editing States
+  const [editingFormula, setEditingFormula] = useState<any | null>(null);
+  const [editingTokens, setEditingTokens] = useState<FormulaToken[]>([]);
+  const [editingChangeLog, setEditingChangeLog] = useState('');
+  const [editingNewVersion, setEditingNewVersion] = useState('');
+  const [editingEffectiveDate, setEditingEffectiveDate] = useState(new Date().toISOString().split('T')[0]);
+  const [customFormulaHistories, setCustomFormulaHistories] = useState<Record<string, any[]>>({});
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('vna_formula_histories');
+    if (savedHistory) {
+      try {
+        setCustomFormulaHistories(JSON.parse(savedHistory));
+      } catch (e) {}
+    }
+  }, []);
+
   const appliedFormulas = useMemo(() => {
     if (!formIndicator) return [];
-    return formulas.filter(f => f.appliedTo && f.appliedTo.includes(formIndicator.code));
+    const found = formulas.filter(f => f.appliedTo && f.appliedTo.includes(formIndicator.code));
+    if (found.length > 0) return found;
+
+    // Default existing formulas if not yet mapped in mock
+    if (formIndicator.code === 'GRI 305-1') {
+      return [{
+        id: 'F_GRI_305_1',
+        code: 'CALC_SCOPE1_CO2',
+        name: 'Khối lượng phát thải CO2 Scope 1',
+        version: '1.2',
+        type: 'Calculation',
+        status: 'Active',
+        expression: 'Net_Fuel_Consumption * 3.15 + Mobile_Combustion_CO2',
+        appliedTo: ['GRI 305-1'],
+        description: 'Tính toán lượng phát thải CO2 trực tiếp từ tiêu thụ nhiên liệu và phương tiện mặt đất.'
+      }];
+    }
+    if (formIndicator.code === 'GRI 305-2') {
+      return [{
+        id: 'F_GRI_305_2',
+        code: 'CALC_SCOPE2_CO2',
+        name: 'Khối lượng phát thải CO2 Scope 2',
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: 'Purchased_Electricity_kWh * 0.7221 / 1000',
+        appliedTo: ['GRI 305-2'],
+        description: 'Tính toán lượng phát thải CO2 gián tiếp từ tiêu thụ điện năng mạng lưới.'
+      }];
+    }
+    if (formIndicator.code === 'GRI 401-1') {
+      return [{
+        id: 'F_GRI_401_1',
+        code: 'CALC_TURNOVER_RATE',
+        name: 'Tỷ lệ tuyển dụng mới',
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: '(Total_New_Hires / Total_Employees) * 100',
+        appliedTo: ['GRI 401-1'],
+        description: 'Tỷ lệ tuyển dụng nhân sự mới trên tổng số lao động bình quân.'
+      }];
+    }
+    if (formIndicator.code === 'GRI 404-2') {
+      return [{
+        id: 'F_GRI_404_2',
+        code: 'CALC_TRAINING_HOURS',
+        name: 'Số giờ đào tạo bình quân',
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: 'Total_Training_Hours / Total_Employees',
+        appliedTo: ['GRI 404-2'],
+        description: 'Bình quân số giờ đào tạo cho mỗi nhân viên trong năm.'
+      }];
+    }
+    if (formIndicator.code === 'GRI 405-1') {
+      return [{
+        id: 'F_GRI_405_1',
+        code: 'CALC_FEMALE_LEADERSHIP',
+        name: 'Tỷ lệ nữ lãnh đạo',
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: '(Female_Leaders / Total_Leaders) * 100',
+        appliedTo: ['GRI 405-1'],
+        description: 'Tỷ lệ cán bộ quản lý là nữ trong toàn hệ thống.'
+      }];
+    }
+    if (formIndicator.code === 'Airline B-1') {
+      return [{
+        id: 'F_AIRLINE_B1',
+        code: 'CALC_CSI_INDEX',
+        name: 'Chỉ số hài lòng khách hàng (CSI)',
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: '(Positive_Feedback_Count / Total_Survey_Count) * 100',
+        appliedTo: ['Airline B-1'],
+        description: 'Tỷ lệ phản hồi tích cực của hành khách qua các khảo sát dịch vụ.'
+      }];
+    }
+    if (formIndicator.formula) {
+      return [{
+        id: `F_${formIndicator.code.replace(/[^a-zA-Z0-9]/g, '_')}`,
+        code: `CALC_${formIndicator.code.replace(/[^a-zA-Z0-9]/g, '_')}`,
+        name: `Công thức tính ${formIndicator.name}`,
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: formIndicator.formula,
+        appliedTo: [formIndicator.code],
+        description: `Công thức tính toán cho chỉ tiêu ${formIndicator.name}`
+      }];
+    }
+    if (formIndicator.unit) {
+      return [{
+        id: `F_${formIndicator.code.replace(/[^a-zA-Z0-9]/g, '_')}`,
+        code: `CALC_${formIndicator.code.replace(/[^a-zA-Z0-9]/g, '_')}`,
+        name: `Công thức tính ${formIndicator.name}`,
+        version: '1.0',
+        type: 'Calculation',
+        status: 'Active',
+        expression: `SUM(${formIndicator.code.replace(/[^a-zA-Z0-9]/g, '_')}_Input_Value) * 1.0`,
+        appliedTo: [formIndicator.code],
+        description: `Tổng hợp và tính toán số liệu phát sinh cho chỉ tiêu ${formIndicator.name}`
+      }];
+    }
+    return [];
   }, [formulas, formIndicator]);
+
+  const handleOpenEditFormula = (formula: any) => {
+    setEditingFormula(formula);
+    setEditingTokens(parseFormulaToTokens(formula.expression || ''));
+    setEditingChangeLog('');
+    
+    // Parse effective date or default to today
+    let initDate = new Date().toISOString().split('T')[0];
+    if (formula.effectiveDate && formula.effectiveDate.includes('/')) {
+      const [d, m, y] = formula.effectiveDate.split('/');
+      initDate = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    }
+    setEditingEffectiveDate(initDate);
+
+    // Calculate new version string e.g. 2.1 -> 2.2
+    const currentVer = formula.version ? parseFloat(formula.version) : 1.0;
+    const nextVer = isNaN(currentVer) ? 'v1.1' : `v${(currentVer + 0.1).toFixed(1)}`;
+    setEditingNewVersion(nextVer);
+  };
+
+  const handleUpdateTokenValue = (tokenId: string, newVal: string) => {
+    setEditingTokens(prev => prev.map(t => t.id === tokenId ? { ...t, value: newVal } : t));
+  };
+
+  const handleAddMultiplier = () => {
+    const nextId1 = `tok-add-${Date.now()}-1`;
+    const nextId2 = `tok-add-${Date.now()}-2`;
+    setEditingTokens(prev => [
+      ...prev,
+      { id: nextId1, type: 'operator', value: '*', originalValue: '*', isDbField: false },
+      { id: nextId2, type: 'number', value: '1.0', originalValue: '1.0', isDbField: false }
+    ]);
+  };
+
+  const handleSaveFormula = () => {
+    if (!editingFormula || !formIndicator) return;
+    const newExpression = editingTokens.map(t => t.value).join(' ');
+    const nowStr = new Date().toLocaleDateString('vi-VN');
+    const newVerClean = editingNewVersion.replace(/^v/, '');
+
+    // Format effective date to DD/MM/YYYY
+    let formattedEffectiveDate = editingEffectiveDate;
+    if (editingEffectiveDate.includes('-')) {
+      const [y, m, d] = editingEffectiveDate.split('-');
+      formattedEffectiveDate = `${d}/${m}/${y}`;
+    }
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const isFuture = editingEffectiveDate > todayStr;
+
+    // 1. Update in formulas state & localStorage
+    const updatedFormulas = [...formulas];
+    const existingIndex = updatedFormulas.findIndex(f => f.id === editingFormula.id);
+    const updatedFormulaItem = {
+      ...editingFormula,
+      expression: newExpression,
+      version: newVerClean,
+      effectiveDate: formattedEffectiveDate,
+      updatedAt: nowStr,
+      updatedBy: 'Nguyễn Minh Hải (Admin)',
+      appliedTo: editingFormula.appliedTo?.includes(formIndicator.code)
+        ? editingFormula.appliedTo
+        : [...(editingFormula.appliedTo || []), formIndicator.code]
+    };
+
+    if (existingIndex >= 0) {
+      updatedFormulas[existingIndex] = updatedFormulaItem;
+    } else {
+      updatedFormulas.push(updatedFormulaItem);
+    }
+    setFormulas(updatedFormulas);
+    localStorage.setItem('vna_esg_formulas', JSON.stringify(updatedFormulas));
+
+    // 2. Prepend to formula history
+    const historyItem = {
+      version: editingNewVersion.startsWith('v') ? editingNewVersion : `v${editingNewVersion}`,
+      expression: newExpression,
+      appliedFrom: formattedEffectiveDate,
+      appliedTo: 'Hiện tại',
+      updatedBy: 'Nguyễn Minh Hải (Admin)',
+      updatedAt: nowStr,
+      status: isFuture ? 'Scheduled' : 'Active',
+      changeLog: editingChangeLog.trim() || `Cập nhật hệ số công thức tính toán (Hiệu lực áp dụng từ ${formattedEffectiveDate}).`
+    };
+
+    const updatedHistoryMap = { ...customFormulaHistories };
+    const currentList = updatedHistoryMap[formIndicator.code] || [];
+    updatedHistoryMap[formIndicator.code] = [historyItem, ...currentList];
+    setCustomFormulaHistories(updatedHistoryMap);
+    localStorage.setItem('vna_formula_histories', JSON.stringify(updatedHistoryMap));
+
+    // Close modal
+    setEditingFormula(null);
+  };
 
   const formulaHistory = useMemo(() => {
     if (!formIndicator) return [];
     const code = formIndicator.code;
-    const historyList = [];
+    const customList = customFormulaHistories[code] || [];
+    const historyList = [...customList];
 
     if (code === 'GRI 302-1') {
       historyList.push(
@@ -1137,19 +1419,38 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 </div>
               )}
 
-              {/* CÔNG THỨC (chỉ tồn tại với những chỉ tiêu có dashboard báo cáo) */}
-              {!!formIndicator.metabaseLink && (
+              {/* CÔNG THỨC TÍNH TOÁN */}
+              {(appliedFormulas.length > 0 || formIndicator.metabaseLink || formIndicator.unit) && (
                 <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs text-left">
-                  <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-2 uppercase tracking-wider">Công thức tính toán</h3>
+                  <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
+                    <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-1.5">
+                      <Calculator size={16} />
+                      <span>Công thức tính toán</span>
+                    </h3>
+                  </div>
                   {appliedFormulas.length === 0 ? (
                     <p className="text-xs text-gray-500 italic">Chưa cấu hình công thức nào trong hệ thống cho chỉ tiêu này.</p>
                   ) : (
                     <div className="space-y-3">
                       {appliedFormulas.map((f: any) => (
-                        <div key={f.id} className="p-3 bg-white border border-gray-200 rounded-lg space-y-2 shadow-3xs">
-                          <div className="flex justify-between items-center border-b border-gray-100 pb-1.5">
-                            <span className="text-xs font-bold text-vna-blue">{f.code} (v{f.version})</span>
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 uppercase">{f.type === 'Calculation' ? 'Tính toán' : 'Mô phỏng'}</span>
+                        <div key={f.id} className="p-3 bg-white border border-gray-200 rounded-lg space-y-2.5 shadow-3xs">
+                          <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-vna-blue font-mono">{f.code}</span>
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono">v{f.version}</span>
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 uppercase">{f.type === 'Calculation' ? 'Tính toán' : 'Mô phỏng'}</span>
+                            </div>
+                            
+                            {/* BUTTON CHỈNH SỬA CÔNG THỨC */}
+                            <button
+                              type="button"
+                              onClick={() => handleOpenEditFormula(f)}
+                              className="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-250 rounded-md text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-colors shadow-3xs"
+                              title="Chỉnh sửa hệ số công thức"
+                            >
+                              <Edit3 size={12} />
+                              <span>Sửa công thức</span>
+                            </button>
                           </div>
                           <div>
                             <span className="text-[10px] font-bold text-gray-400 block mb-0.5">Tên công thức</span>
@@ -1157,8 +1458,18 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                           </div>
                           <div>
                             <span className="text-[10px] font-bold text-gray-400 block mb-0.5">Biểu thức tính toán</span>
-                            <div className="p-2 bg-slate-50 border border-gray-250 rounded font-mono text-xs text-gray-700 select-all">
-                              {f.expression}
+                            <div className="p-2.5 bg-slate-50 border border-gray-250 rounded-lg font-mono text-xs text-gray-800 select-all flex items-center justify-between">
+                              <span>{f.expression}</span>
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-4 text-[10px] text-gray-500 font-medium pt-0.5">
+                            <div className="flex items-center gap-1.5 bg-gray-50 px-2 py-1 rounded border border-gray-150">
+                              <Calendar size={12} className="text-vna-blue" />
+                              <span>Ngày hiệu lực áp dụng: <strong className="text-vna-blue font-bold">{f.effectiveDate || f.appliedFrom || f.updatedAt || '01/01/2026'}</strong></span>
+                            </div>
+                            <div className="flex items-center gap-1 text-gray-400">
+                              <User size={12} />
+                              <span>Người cập nhật: <strong className="text-gray-700">{f.updatedBy || 'Admin'}</strong></span>
                             </div>
                           </div>
                           {f.description && (
@@ -1253,6 +1564,10 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/30">
                               <Check size={10} /> Đang áp dụng
                             </span>
+                          ) : item.status === 'Scheduled' ? (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                              <Clock size={10} /> Sắp áp dụng ({item.appliedFrom})
+                            </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-50 text-gray-400 border border-gray-200/30">
                               Hết hiệu lực
@@ -1269,6 +1584,167 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
 
         </div>
+        {/* MODAL CHỈNH SỬA HỆ SỐ CÔNG THỨC */}
+        {editingFormula && (
+          <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 shadow-2xl border border-gray-200">
+              {/* Header */}
+              <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50/80">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-lg bg-amber-50 text-amber-700 border border-amber-200">
+                    <Calculator size={18} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-vna-blue font-mono">{editingFormula.code}</span>
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-vna-blue border border-blue-200 rounded font-mono">
+                        Phiên bản hiện tại: v{editingFormula.version}
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold text-gray-800 mt-0.5">Chỉnh sửa hệ số công thức tính toán</h3>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEditingFormula(null)}
+                  className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Body */}
+              <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto text-left">
+                {/* Guidance banner */}
+                <div className="p-3 bg-blue-50/60 border border-blue-200 rounded-xl flex items-start gap-2.5 text-xs text-gray-700">
+                  <ShieldAlert size={16} className="text-vna-blue shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <p className="font-bold text-vna-blue">Quy tắc bảo vệ dữ liệu công thức:</p>
+                    <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-gray-600">
+                      <li><strong className="text-gray-800">Trường dữ liệu từ DB (🔒 Khóa):</strong> Được bảo vệ cố định theo cấu trúc bảng cơ sở dữ liệu, không cho phép chỉnh sửa.</li>
+                      <li><strong className="text-amber-800">Hệ số số học (✏️ Mở):</strong> Bạn có thể trực tiếp thay đổi các hệ số quy đổi, định mức hoặc tỷ lệ %.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Interactive Token Board */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                      <Sparkles size={14} className="text-amber-600" />
+                      <span>Thành phần công thức</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={handleAddMultiplier}
+                      className="text-[11px] text-vna-blue hover:text-vna-blue/80 font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      <Plus size={12} />
+                      <span>Thêm hệ số (* 1.0)</span>
+                    </button>
+                  </div>
+
+                  <div className="p-4 bg-slate-50 border-2 border-dashed border-gray-250 rounded-xl flex flex-wrap items-center gap-2.5 min-h-[90px]">
+                    {editingTokens.map(tok => {
+                      if (tok.isDbField) {
+                        return (
+                          <div
+                            key={tok.id}
+                            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-50 text-vna-blue border border-blue-200 rounded-lg text-xs font-mono font-bold shadow-3xs cursor-not-allowed select-none"
+                            title="Trường dữ liệu DB (Cố định, không thể sửa)"
+                          >
+                            <Lock size={11} className="text-blue-500 shrink-0" />
+                            <Database size={12} className="text-blue-600 shrink-0" />
+                            <span>{tok.value}</span>
+                          </div>
+                        );
+                      }
+
+                      if (tok.type === 'number') {
+                        return (
+                          <div key={tok.id} className="flex flex-col items-center gap-0.5">
+                            <span className="text-[8px] font-bold text-amber-700 uppercase tracking-wider">Hệ số (Sửa)</span>
+                            <input
+                              type="number"
+                              step="any"
+                              value={tok.value}
+                              onChange={(e) => handleUpdateTokenValue(tok.id, e.target.value)}
+                              className="w-24 px-2 py-1 text-xs font-mono font-black text-amber-900 bg-amber-50 border-2 border-amber-300 rounded-lg focus:border-amber-500 focus:bg-white text-center shadow-3xs focus:outline-none"
+                            />
+                          </div>
+                        );
+                      }
+
+                      return (
+                        <span key={tok.id} className="text-base font-bold text-gray-500 px-0.5">
+                          {tok.value}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Live Expression Preview */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-bold text-gray-600 uppercase">Biểu thức tính toán sau khi điều chỉnh:</label>
+                  <div className="p-3 bg-gray-900 text-emerald-400 font-mono text-xs rounded-xl border border-gray-800 select-all shadow-inner break-all">
+                    {editingTokens.map(t => t.value).join(' ')}
+                  </div>
+                </div>
+
+                {/* Version, Effective Date & Change Log */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                  <div>
+                    <label className="text-[11px] font-bold text-gray-700 block mb-1">Phiên bản mới:</label>
+                    <Input
+                      value={editingNewVersion}
+                      onChange={(e) => setEditingNewVersion(e.target.value)}
+                      className="text-xs font-mono font-bold"
+                      placeholder="v2.2"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-bold text-gray-700 block mb-1 flex items-center gap-1">
+                      <Calendar size={12} className="text-vna-blue" />
+                      <span>Ngày hiệu lực áp dụng:</span>
+                    </label>
+                    <Input
+                      type="date"
+                      value={editingEffectiveDate}
+                      onChange={(e) => setEditingEffectiveDate(e.target.value)}
+                      className="text-xs font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-bold text-gray-700 block mb-1">Lý do điều chỉnh / Ghi chú:</label>
+                    <Input
+                      value={editingChangeLog}
+                      onChange={(e) => setEditingChangeLog(e.target.value)}
+                      className="text-xs"
+                      placeholder="Ví dụ: Cập nhật hệ số theo ICAO 2026..."
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-end gap-2.5 p-3.5 border-t border-gray-200 bg-gray-50/80">
+                <Button variant="outline" size="sm" onClick={() => setEditingFormula(null)}>
+                  Hủy
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={handleSaveFormula}
+                  className="bg-vna-blue hover:bg-vna-blue/90 text-white font-bold flex items-center gap-1.5"
+                >
+                  <Save size={14} />
+                  <span>Lưu công thức</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -1450,6 +1926,156 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
           </tbody>
         </table>
       </div>
+
+      {/* MODAL CHỈNH SỬA HỆ SỐ CÔNG THỨC */}
+      {editingFormula && (
+        <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[120] flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 shadow-2xl border border-gray-200">
+            {/* Header */}
+            <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50/80">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-amber-50 text-amber-700 border border-amber-200">
+                  <Calculator size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-vna-blue font-mono">{editingFormula.code}</span>
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-vna-blue border border-blue-200 rounded font-mono">
+                      Phiên bản hiện tại: v{editingFormula.version}
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-bold text-gray-800 mt-0.5">Chỉnh sửa hệ số công thức tính toán</h3>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingFormula(null)}
+                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto text-left">
+              {/* Guidance banner */}
+              <div className="p-3 bg-blue-50/60 border border-blue-200 rounded-xl flex items-start gap-2.5 text-xs text-gray-700">
+                <ShieldAlert size={16} className="text-vna-blue shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="font-bold text-vna-blue">Quy tắc bảo vệ dữ liệu công thức:</p>
+                  <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-gray-600">
+                    <li><strong className="text-gray-800">Trường dữ liệu từ DB (🔒 Khóa):</strong> Được bảo vệ cố định theo cấu trúc bảng cơ sở dữ liệu, không cho phép chỉnh sửa.</li>
+                    <li><strong className="text-amber-800">Hệ số số học (✏️ Mở):</strong> Bạn có thể trực tiếp thay đổi các hệ số quy đổi, định mức hoặc tỷ lệ %.</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Interactive Token Board */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-amber-600" />
+                    <span>Thành phần công thức</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleAddMultiplier}
+                    className="text-[11px] text-vna-blue hover:text-vna-blue/80 font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus size={12} />
+                    <span>Thêm hệ số (* 1.0)</span>
+                  </button>
+                </div>
+
+                <div className="p-4 bg-slate-50 border-2 border-dashed border-gray-250 rounded-xl flex flex-wrap items-center gap-2.5 min-h-[90px]">
+                  {editingTokens.map(tok => {
+                    if (tok.isDbField) {
+                      return (
+                        <div
+                          key={tok.id}
+                          className="flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-50 text-vna-blue border border-blue-200 rounded-lg text-xs font-mono font-bold shadow-3xs cursor-not-allowed select-none"
+                          title="Trường dữ liệu DB (Cố định, không thể sửa)"
+                        >
+                          <Lock size={11} className="text-blue-500 shrink-0" />
+                          <Database size={12} className="text-blue-600 shrink-0" />
+                          <span>{tok.value}</span>
+                        </div>
+                      );
+                    }
+
+                    if (tok.type === 'number') {
+                      return (
+                        <div key={tok.id} className="flex flex-col items-center gap-0.5">
+                          <span className="text-[8px] font-bold text-amber-700 uppercase tracking-wider">Hệ số (Sửa)</span>
+                          <input
+                            type="number"
+                            step="any"
+                            value={tok.value}
+                            onChange={(e) => handleUpdateTokenValue(tok.id, e.target.value)}
+                            className="w-24 px-2 py-1 text-xs font-mono font-black text-amber-900 bg-amber-50 border-2 border-amber-300 rounded-lg focus:border-amber-500 focus:bg-white text-center shadow-3xs focus:outline-none"
+                          />
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <span key={tok.id} className="text-base font-bold text-gray-500 px-0.5">
+                        {tok.value}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Live Expression Preview */}
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold text-gray-600 uppercase">Biểu thức tính toán sau khi điều chỉnh:</label>
+                <div className="p-3 bg-gray-900 text-emerald-400 font-mono text-xs rounded-xl border border-gray-800 select-all shadow-inner break-all">
+                  {editingTokens.map(t => t.value).join(' ')}
+                </div>
+              </div>
+
+              {/* Version & Change Log */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <div>
+                  <label className="text-[11px] font-bold text-gray-700 block mb-1">Phiên bản mới:</label>
+                  <Input
+                    value={editingNewVersion}
+                    onChange={(e) => setEditingNewVersion(e.target.value)}
+                    className="text-xs font-mono font-bold"
+                    placeholder="v2.2"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="text-[11px] font-bold text-gray-700 block mb-1">Lý do điều chỉnh / Ghi chú thay đổi:</label>
+                  <Input
+                    value={editingChangeLog}
+                    onChange={(e) => setEditingChangeLog(e.target.value)}
+                    className="text-xs"
+                    placeholder="Ví dụ: Cập nhật hệ số phát thải theo hướng dẫn mới 2026..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end gap-2.5 p-3.5 border-t border-gray-200 bg-gray-50/80">
+              <Button variant="outline" size="sm" onClick={() => setEditingFormula(null)}>
+                Hủy
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleSaveFormula}
+                className="bg-vna-blue hover:bg-vna-blue/90 text-white font-bold flex items-center gap-1.5"
+              >
+                <Save size={14} />
+                <span>Lưu công thức</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mock Excel Import Dialog */}
       {isImportOpen && (
