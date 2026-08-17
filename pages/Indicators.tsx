@@ -855,8 +855,18 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <Input label="Chủ đề (Topic)" value={formIndicator.topic || ''} onChange={(e) => setFormIndicator({ ...formIndicator, topic: e.target.value })} placeholder="VD: Khí nhà kính, Nhiên liệu SAF" />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <Input label="Đơn vị tính" value={formIndicator.unit || ''} onChange={(e) => setFormIndicator({ ...formIndicator, unit: e.target.value })} placeholder="VD: %, Tấn, Vụ" />
+                <Select
+                  label="Tần suất báo cáo"
+                  value={formIndicator.frequency || 'Hàng tháng'}
+                  onChange={(val) => setFormIndicator({ ...formIndicator, frequency: val })}
+                  options={[
+                    { label: 'Theo tháng', value: 'Hàng tháng' },
+                    { label: 'Theo quý', value: 'Hàng quý' },
+                    { label: 'Theo năm', value: 'Hàng năm' }
+                  ]}
+                />
                 <Select
                   label="Trạng thái chỉ tiêu"
                   value={formIndicator.isActive ? 'active' : 'inactive'}

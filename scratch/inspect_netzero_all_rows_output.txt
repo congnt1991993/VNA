@@ -1,0 +1,388 @@
+Max row: 97
+
+Row  3 | GRI: Airline E-1
+       | Col G (Description): Noise 
+       | Col M (Tên KPI):      Noise Compliance/ Tiếng ồn
+--------------------------------------------------------------------------------
+Row  4 | GRI: Không thuộc GRI
+       | Col G (Description): - Kiểm kê khí nhà kính các chuyến bay nội dịa 
+(Phát thải khí nhà kính trực tiếp (Phạm vi 1) cho các chuyến bay nội địa)
+- Lượng nhiên liệu tra nạp từ các sân bay trong nước (chuyến bay nội địa, hoặc quốc tế có điểm xuất phát từ Việt Nam)
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row  5 | GRI: GRI 403-2
+       | Col G (Description): Hazard identification, risk assessment, and incident investigation
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row  6 | GRI: GRI 418-1
+       | Col G (Description): Substantiated complaints concerning breaches of customer privacy and losses of customer data
+       | Col M (Tên KPI):      Các sự cố liên quan đến dữ liệu cá nhân/ Substantiated complaints concerning breaches of customer privacy and losses of customer data
+--------------------------------------------------------------------------------
+Row  7 | GRI: GRI 2-7
+       | Col G (Description): Scale of the organization
+       | Col M (Tên KPI):      Quy mô tổ chức/Scale of organization
+--------------------------------------------------------------------------------
+Row  8 | GRI: GRI 2-30
+       | Col G (Description): Collective bargaining agreements
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row  9 | GRI: GRI 201-3
+       | Col G (Description): Defined benefit plan obligations and other retirement plans
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 10 | GRI: GRI 202-1
+       | Col G (Description): Ratios of standard entry-level wage by gender compared to local minimum wage
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 11 | GRI: GRI 202-2
+       | Col G (Description): Proportion of senior management hired from the local community
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 12 | GRI: GRI 401-1
+       | Col G (Description): New employee hires and employee turnover
+       | Col M (Tên KPI):      Tuyển mới và  nghỉ việc/New employee hires and employee turnover
+--------------------------------------------------------------------------------
+Row 13 | GRI: GRI 401-2
+       | Col G (Description): Benefits provided to full-time employees that are not provided to temporary or part-time employees
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 14 | GRI: Airline D-1
+       | Col G (Description): Working days lost to strikes 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 15 | GRI: GRI 403-4
+       | Col G (Description): Worker participation, consultation, and communication on occupational health and safety
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 16 | GRI: GRI 403-9
+       | Col G (Description): Work-related injuries 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 17 | GRI: GRI 403-10
+       | Col G (Description): Work-related ill-health
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 18 | GRI: GRI 405-1
+       | Col G (Description): Diversity of governance bodies and employees
+       | Col M (Tên KPI):      Diversity of governance bodies and employees/Đa dạng trong cơ quan quản trị
+--------------------------------------------------------------------------------
+Row 19 | GRI: GRI 406-1
+       | Col G (Description): Incidents of discrimination and corrective actions taken
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 20 | GRI: GRI 404-2
+       | Col G (Description): Programs for upgrading employee skills and transition assistance programs
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 21 | GRI: GRI 404-3
+       | Col G (Description): Percentage of employees receiving regular performance and career development reviews
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 22 | GRI: Airline F-2
+       | Col G (Description): Employee satisfaction
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 23 | GRI: GRI 406-1
+       | Col G (Description): Incidents of discrimination and corrective actions taken 
+       | Col M (Tên KPI):      Incidents of discrimination and corrective actions taken/Số sự cố phân biệt đối xử và biện pháp xử lý
+--------------------------------------------------------------------------------
+Row 24 | GRI: GRI 416-1
+       | Col G (Description): Assessment of the health and safety impacts of product and service categories
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 25 | GRI: GRI 416-2
+       | Col G (Description): Incidents of non-compliance concerning the health and safety impacts of products and services
+       | Col M (Tên KPI):      Các sự cố vi phạm liên quan đến tác động sức khỏe và an toàn của sản phẩm/dịch vụ / Incidents of non-compliance concerning the health and safety impacts of products and services
+--------------------------------------------------------------------------------
+Row 26 | GRI: GRI 417-2
+       | Col G (Description): Incidents of non-compliance concerning product and service information and labeling
+       | Col M (Tên KPI):      Các sự cố vi phạm về thông tin và nhãn sản phẩm/dịch vụ / Incidents of non-compliance concerning product and service information and labeling
+--------------------------------------------------------------------------------
+Row 27 | GRI: Airline B-1
+       | Col G (Description): Customer satisfaction
+       | Col M (Tên KPI):      1. NPS (DOM)
+2. NPS (INT)
+--------------------------------------------------------------------------------
+Row 28 | GRI: GRI 303-3
+       | Col G (Description): Water withdrawal
+       | Col M (Tên KPI):      Water withdrawal/Lượng nước cấp lên
+--------------------------------------------------------------------------------
+Row 29 | GRI: GRI 303-5
+       | Col G (Description): Water consumption
+       | Col M (Tên KPI):      Water consumption/Lượng nước tiêu thụ
+--------------------------------------------------------------------------------
+Row 30 | GRI: GRI 204-1
+       | Col G (Description): Proportion of spending on local suppliers 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 31 | GRI: GRI 302-1
+       | Col G (Description): Energy consumption within the organization
+       | Col M (Tên KPI):      Energy consumption within the organization/Năng lượng tiêu thụ trong tổ chức
+--------------------------------------------------------------------------------
+Row 32 | GRI: GRI 302-4
+       | Col G (Description): Reduction of energy consumption 
+       | Col M (Tên KPI):      Reduction of energy consumption/Giảm tiêu thụ năng lượng
+--------------------------------------------------------------------------------
+Row 33 | GRI: GRI 305-1
+       | Col G (Description): Direct (Scope 1) GHG emissions
+       | Col M (Tên KPI):      Direct (Scope 1) GHG emissions/Phát thải khí nhà kính trực tiếp (Phạm vi 1)
+--------------------------------------------------------------------------------
+Row 34 | GRI: GRI 305-4
+       | Col G (Description): GHG emissions intensity 
+       | Col M (Tên KPI):      GHG emissions intensity/Cường độ phát thải khí nhà kính
+--------------------------------------------------------------------------------
+Row 35 | GRI: GRI 305-5
+       | Col G (Description): Reduction of GHG emissions 
+       | Col M (Tên KPI):      Reduction of GHG emissions/Giảm phát thải khí nhà kính
+--------------------------------------------------------------------------------
+Row 36 | GRI: Không thuộc GRI
+       | Col G (Description): SAF report
+(Báo cáo sử dụng SAF)
+       | Col M (Tên KPI):      SAF report/Báo cáo sử dụng SAF
+--------------------------------------------------------------------------------
+Row 37 | GRI: Không thuộc GRI
+       | Col G (Description): CO2 emissions report
+(Báo cáo lượng CO2 phát thải quá mức cho phép và phải được bù trừ bằng tín chỉ CO2 (EUA))
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 38 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 39 | GRI: GRI 2-23
+       | Col G (Description): Policy commitments
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 40 | GRI: GRI 2-26
+       | Col G (Description): Mechanisms for seeking advice and raising concerns about ethics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 41 | GRI: GRI 2-9
+       | Col G (Description): Governance structure and composition
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 42 | GRI: GRI 2-13
+       | Col G (Description): Delegating authority
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 43 | GRI: GRI 2-12
+       | Col G (Description): Role of the highest governance body in overseeing the management of impacts
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 44 | GRI: GRI 2-11
+       | Col G (Description): Chair of the highest governance body 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 45 | GRI: GRI 2-10
+       | Col G (Description): Nomination and selection of the highest governance body
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 46 | GRI: GRI 2-15
+       | Col G (Description): Conflicts of interest
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 47 | GRI: GRI 2-29
+       | Col G (Description): Approach to stakeholder engagement
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 48 | GRI: GRI 201-4
+       | Col G (Description): Financial assistance received from government
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 49 | GRI: GRI 205-2
+       | Col G (Description): Communication and training about anti-corruption policies and procedures
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 50 | GRI: GRI 205-3
+       | Col G (Description): Confirmed incidents of corruption and actions taken
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 51 | GRI: GRI 206-1
+       | Col G (Description): Legal actions for anti-competitive behavior, anti-trust, and monopoly practices
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 52 | GRI: GRI 415-1
+       | Col G (Description): Political contributions
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 53 | GRI: GRI 417-3
+       | Col G (Description): Incidents of non-compliance concerning marketing communications
+       | Col M (Tên KPI):      Incidents of non-compliance concerning marketing communications/Các vụ việc không tuân thủ liên quan đến truyền thông marketing
+--------------------------------------------------------------------------------
+Row 54 | GRI: Airline F-1
+       | Col G (Description): Volunteering during working hours
+       | Col M (Tên KPI):      Volunteering during working hours/Tham gia hoạt động tình nguyện
+--------------------------------------------------------------------------------
+Row 55 | GRI: Airline B-2
+       | Col G (Description): Customer engagement 
+       | Col M (Tên KPI):      Customer engagement/Tương tác khách hàng
+--------------------------------------------------------------------------------
+Row 56 | GRI: GRI 305-7
+       | Col G (Description): Nitrogen oxides (NOX), sulfur oxides (SOX), and other significant air emissions 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 57 | GRI: GRI 305-6
+       | Col G (Description): Emissions of ozone-depleting substances (ODS)
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 58 | GRI: Airlines C-1
+       | Col G (Description): Significant spills
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 59 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 60 | GRI: GRI 413-2
+       | Col G (Description): Operations with significant actual and potential negative impacts on local communities
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 61 | GRI: GRI 2-21
+       | Col G (Description): Annual total compensation ratio
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 62 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 63 | GRI: GRI 2-6
+       | Col G (Description): Activities, value chain and other business relationships
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 64 | GRI: GRI 401-3
+       | Col G (Description): Parental leave
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 65 | GRI: GRI 402-1
+       | Col G (Description): Minimum notice periods regarding operational changes
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 66 | GRI: GRI 405-2
+       | Col G (Description): Ratio of basic salary and remuneration of women to men
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 67 | GRI: GRI 407-1
+       | Col G (Description): Operations and suppliers in which the right to freedom of association and collective bargaining may be at risk
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 68 | GRI: GRI 408-1
+       | Col G (Description): Operations and suppliers at significant risk for incidents of child labor
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 69 | GRI: GRI 409-1
+       | Col G (Description): Operations and suppliers at significant risk for incidents of forced or compulsory labor
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 70 | GRI: GRI 412-1
+       | Col G (Description): Operations that have been subject to human rights reviews or impact assessments
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 71 | GRI: GRI 414-1
+       | Col G (Description): New suppliers that were screened using social criteria
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 72 | GRI: GRI 414-2
+       | Col G (Description): Negative social impacts in the supply chain and actions taken
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 73 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 74 | GRI: GRI 403 (all)
+       | Col G (Description): Occupational Health and Safety
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 75 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 76 | GRI: GRI 417-1
+       | Col G (Description): Requirements for product and service information and labeling
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 77 | GRI: GRI 303-1
+       | Col G (Description): Interactions with water as a shared resource
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 78 | GRI: GRI 303-2
+       | Col G (Description): Management of water discharge-related impacts
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 79 | GRI: GRI 303-4
+       | Col G (Description): Water discharge
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 80 | GRI: GRI 305-2
+       | Col G (Description): Energy indirect (Scope 2) GHG emissions
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 81 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 82 | GRI: GRI 2-6
+       | Col G (Description): Activities, value chain and other business relationships
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 83 | GRI: GRI 308-2
+       | Col G (Description): Negative environmental impacts in the supply chain and actions taken
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 84 | GRI: GRI 414-2
+       | Col G (Description): Negative social impacts in the supply chain and actions taken 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 85 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 86 | GRI: GRI 301-1
+       | Col G (Description): Materials used by weight or volume
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 87 | GRI: GRI 301-2
+       | Col G (Description): Recycled input materials used 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 88 | GRI: GRI 301-3
+       | Col G (Description): Reclaimed products and their packaging materials 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 89 | GRI: GRI 306-1
+       | Col G (Description): Waste generation and significant waste-related impacts
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 90 | GRI: GRI 306-3
+       | Col G (Description): Waste generated
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 91 | GRI: GRI 306-4
+       | Col G (Description): Waste diverted from disposal
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 92 | GRI: GRI 306-5
+       | Col G (Description): Waste directed to disposal
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 93 | GRI: GRI 308-2
+       | Col G (Description): Negative environmental impacts in the supply chain and actions taken 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 94 | GRI: GRI 3-3
+       | Col G (Description): Management of material topics
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 95 | GRI: GRI 302-2
+       | Col G (Description): Energy consumption outside of the organization 
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 96 | GRI: GRI 305-3
+       | Col G (Description): Other indirect (Scope 3) GHG emissions
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------
+Row 97 | GRI: Không thuộc GRI
+       | Col G (Description): CARBURE
+(Báo cáo sử dụng nhiên liệu bền vững tại Pháp)
+       | Col M (Tên KPI):      None
+--------------------------------------------------------------------------------

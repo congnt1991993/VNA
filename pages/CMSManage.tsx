@@ -1,8 +1,93 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { IndicatorChart } from '../components/IndicatorChart';
+
+interface SubChart {
+  code: string;
+  name: string;
+  unit: string;
+  source: string;
+  frequency: string;
+}
+
+const getIndicatorSource = (code: string, unit: string): string => {
+  if (code.includes('GRI 302-1') || code.includes('GRI 302-4') || code.includes('GRI 305-1')) {
+    return 'Form Nhập liệu (Chuyên viên Ban Kỹ thuật)';
+  }
+  if (code.includes('GRI 2-7') || code.includes('GRI 401-1') || code.includes('GRI 404-2')) {
+    return 'Form Nhập liệu (Ban Tổ chức nhân lực)';
+  }
+  if (code.includes('Airline B-1')) {
+    return 'Hệ thống tích hợp đối ngoại (Qualtrics API)';
+  }
+  if (code.includes('Airline B-2')) {
+    return 'Hệ thống tích hợp CLM (BI-CLM DB Connect)';
+  }
+  if (code.includes('GRI 303-3') || code.includes('GRI 303-5')) {
+    return 'Form Nhập liệu (Tổ Dịch vụ)';
+  }
+  return 'Hệ thống tích hợp TCT (SAP/ERP Integration)';
+};
+
+const getIndicatorSubCharts = (indicator: any): SubChart[] => {
+  if (!indicator) return [];
+  const code = indicator.code;
+  const unit = indicator.unit || 'Tấn';
+  const freq = indicator.frequency || 'Hàng tháng';
+  
+  if (code === 'GRI 302-1') {
+    return [
+      { code: 'GRI 302-1-JETA1', name: 'Biểu đồ 1: Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
+      { code: 'GRI 302-1-SAF', name: 'Biểu đồ 2: Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
+    ];
+  }
+  
+  if (code === 'GRI 305-4') {
+    return [
+      { code: 'GRI 305-4-ACTUAL', name: 'Biểu đồ 1: Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
+    ];
+  }
+  
+  if (code === 'GRI 404-2') {
+    return [
+      { code: 'GRI 404-2-HQ', name: 'Biểu đồ 1: Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-OPS', name: 'Biểu đồ 2: Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-TECH', name: 'Biểu đồ 3: Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-SERVICE', name: 'Biểu đồ 4: Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-COMMERCE', name: 'Biểu đồ 5: Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+    ];
+  }
+  
+  if (code === 'Airline B-1') {
+    return [
+      { code: 'AIRLINE-B1-NPS', name: 'Biểu đồ 1: Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
+    ];
+  }
+  
+  if (code === 'GRI 2-7') {
+    return [
+      { code: 'GRI 2-7-PILOTS', name: 'Biểu đồ 1: Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-CABIN', name: 'Biểu đồ 2: Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-TECH', name: 'Biểu đồ 3: Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-GROUND', name: 'Biểu đồ 4: Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+    ];
+  }
+  
+  if (code === 'GRI 2-9') {
+    return [
+      { code: 'GRI 2-9-IND', name: 'Biểu đồ 1: Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
+      { code: 'GRI 2-9-EXEC', name: 'Biểu đồ 2: Thành phần Hội đồng Điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
+      { code: 'GRI 2-9-NONEXEC', name: 'Biểu đồ 3: Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
+    ];
+  }
+  
+  return [
+    { code: `${code}-SUB1`, name: `Biểu đồ 1: Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
+  ];
+};
 import { Card, Button, Input, Badge, Table, Toast } from '../components/UI';
 import {
   LayoutDashboard, Newspaper, FileText, Upload, Save, RefreshCw, Eye, EyeOff, Edit, Plus, CheckCircle, XCircle,
-  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, Download, Share2, Printer, ChevronRight, Target, Trash2
+  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -188,6 +273,52 @@ export const CMSManagePage: React.FC = () => {
   const [previewPage, setPreviewPage] = useState<'home' | 'detail'>('home');
   const [previewPillarId, setPreviewPillarId] = useState<'environment' | 'social' | 'governance'>('environment');
   const [showPreview, setShowPreview] = useState(false);
+  const [previewingChart, setPreviewingChart] = useState<SubChart | null>(null);
+
+  // Load published chart status from localStorage
+  const [publishedChartStatuses, setPublishedChartStatuses] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const handleSync = () => {
+      const saved = localStorage.getItem('vna_publish_chart_status');
+      if (saved) {
+        try {
+          setPublishedChartStatuses(JSON.parse(saved));
+        } catch (e) {}
+      }
+    };
+    handleSync();
+    window.addEventListener('vna_publish_adjustments_updated', handleSync);
+    return () => window.removeEventListener('vna_publish_adjustments_updated', handleSync);
+  }, []);
+
+  const publishedSubChartsForPillar = useMemo(() => {
+    const activePillar = pillars.find(p => p.id === selectedPillarId);
+    if (!activePillar) return [];
+    
+    // Get indicators for current active pillar
+    const targetPillarMap: Record<string, string> = {
+      environment: 'Environment',
+      social: 'Social',
+      governance: 'Governance'
+    };
+    const targetPillarName = targetPillarMap[activePillar.id];
+    const pillarInds = MOCK_INDICATORS_JSON.filter(ind => ind.pillar === targetPillarName);
+
+    // Extract all subcharts and filter by published status
+    const allSubCharts: any[] = [];
+    pillarInds.forEach(ind => {
+      const subCharts = getIndicatorSubCharts(ind);
+      subCharts.forEach(sub => {
+        const isPublished = publishedChartStatuses[sub.code] !== false;
+        if (isPublished) {
+          allSubCharts.push(sub);
+        }
+      });
+    });
+
+    return allSubCharts;
+  }, [selectedPillarId, pillars, publishedChartStatuses]);
 
   // Helper map for fast indicator lookup by ID/Code
   const indicatorMap = useMemo(() => {
@@ -259,6 +390,32 @@ export const CMSManagePage: React.FC = () => {
       }
       return p;
     }));
+  };
+
+  // Drag and Drop state & helpers for attached reports
+  const [draggedReport, setDraggedReport] = useState<{ section: 'news' | 'detail'; index: number } | null>(null);
+  const [dragOverReport, setDragOverReport] = useState<{ section: 'news' | 'detail'; index: number } | null>(null);
+
+  const reorderReportRow = (pillarId: string, section: 'news' | 'detail', fromIndex: number, toIndex: number) => {
+    if (fromIndex === toIndex) return;
+    setPillars(pillars.map(p => {
+      if (p.id === pillarId) {
+        const field = section === 'news' ? 'newsReports' : 'detailReports';
+        const list = [...(p[field] || [])];
+        const [movedItem] = list.splice(fromIndex, 1);
+        list.splice(toIndex, 0, movedItem);
+        return {
+          ...p,
+          [field]: list
+        };
+      }
+      return p;
+    }));
+  };
+
+  const moveReportRow = (pillarId: string, section: 'news' | 'detail', index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    reorderReportRow(pillarId, section, index, targetIndex);
   };
 
   const handleAction = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
@@ -956,12 +1113,15 @@ export const CMSManagePage: React.FC = () => {
                           </div>
                         </div>
 
-                        {/* Report config sub-section for Section 1 */}
+                        {/* Report config sub-section for Section 1 with Drag & Drop */}
                         <div className="md:col-span-2 bg-gray-50/50 p-4 rounded-xl border border-gray-200 mt-2 space-y-3">
-                          <div className="flex justify-between items-center border-b border-gray-250 pb-2">
+                          <div className="flex justify-between items-center border-b border-gray-200 pb-2">
                             <span className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
                               <Target size={14} className="text-[#005f6e]" />
                               Cấu hình báo cáo đính kèm Trang chủ (Biểu đồ / Chỉ tiêu)
+                            </span>
+                            <span className="text-[10px] text-gray-400 font-medium italic flex items-center gap-1">
+                              <GripVertical size={12} /> Kéo thả để đổi thứ tự
                             </span>
                           </div>
 
@@ -969,57 +1129,130 @@ export const CMSManagePage: React.FC = () => {
                             <p className="text-[11px] text-gray-400 italic">Chưa có báo cáo đính kèm nào được cấu hình cho Bản tin.</p>
                           ) : (
                             <div className="space-y-2.5">
-                              {activePillar.newsReports.map((report, idx) => (
-                                <div key={report.id} className="flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-200 shadow-3xs animate-in fade-in-50 duration-150">
-                                  <div className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shrink-0">
-                                    #{idx + 1}
-                                  </div>
+                              {activePillar.newsReports.map((report, idx) => {
+                                const isDragging = draggedReport?.section === 'news' && draggedReport?.index === idx;
+                                const isDragOver = dragOverReport?.section === 'news' && dragOverReport?.index === idx;
 
-                                  <div className="w-full md:w-40">
-                                    <select
-                                      value={report.type}
-                                      onChange={(e) => updateReportRow(activePillar.id, 'news', report.id, 'type', e.target.value as 'chart' | 'indicator')}
-                                      className="w-full px-3 py-1.5 border border-gray-300 rounded focus:ring-[#005f6e] focus:border-[#005f6e] text-xs font-semibold bg-gray-50 text-gray-700"
-                                    >
-                                      <option value="chart">Biểu đồ</option>
-                                      <option value="indicator">Chỉ tiêu</option>
-                                    </select>
-                                  </div>
-
-                                  <div className="flex-1 min-w-[200px]">
-                                    {report.type === 'chart' ? (
-                                      <Input
-                                        placeholder="Nhập link embed biểu đồ (URL)..."
-                                        value={report.value}
-                                        onChange={(e) => updateReportRow(activePillar.id, 'news', report.id, 'value', e.target.value)}
-                                        className="text-xs"
-                                      />
-                                    ) : (
-                                      <select
-                                        value={report.value}
-                                        onChange={(e) => updateReportRow(activePillar.id, 'news', report.id, 'value', e.target.value)}
-                                        className="w-full px-3 py-1.5 border border-gray-300 rounded focus:ring-[#005f6e] focus:border-[#005f6e] text-xs bg-white text-gray-800"
-                                      >
-                                        <option value="">-- Chọn chỉ tiêu ({activePillar.code}) --</option>
-                                        {getPillarIndicators(activePillar.id).map(ind => (
-                                          <option key={ind.code} value={ind.code}>
-                                            [{ind.code}] {ind.name}
-                                          </option>
-                                        ))}
-                                      </select>
-                                    )}
-                                  </div>
-
-                                  <Button
-                                    variant="ghost"
-                                    onClick={() => deleteReportRow(activePillar.id, 'news', report.id)}
-                                    className="text-red-500 hover:bg-red-50 p-1.5 h-8 w-8 rounded-md shrink-0 flex items-center justify-center border border-transparent animate-in zoom-in-75 duration-100"
-                                    title="Xóa dòng"
+                                return (
+                                  <div
+                                    key={report.id}
+                                    draggable
+                                    onDragStart={(e) => {
+                                      e.dataTransfer.setData('text/plain', idx.toString());
+                                      e.dataTransfer.effectAllowed = 'move';
+                                      setDraggedReport({ section: 'news', index: idx });
+                                    }}
+                                    onDragOver={(e) => {
+                                      e.preventDefault();
+                                      e.dataTransfer.dropEffect = 'move';
+                                      if (dragOverReport?.index !== idx || dragOverReport?.section !== 'news') {
+                                        setDragOverReport({ section: 'news', index: idx });
+                                      }
+                                    }}
+                                    onDragLeave={() => {
+                                      if (dragOverReport?.index === idx) {
+                                        setDragOverReport(null);
+                                      }
+                                    }}
+                                    onDrop={(e) => {
+                                      e.preventDefault();
+                                      if (draggedReport && draggedReport.section === 'news') {
+                                        reorderReportRow(activePillar.id, 'news', draggedReport.index, idx);
+                                      }
+                                      setDraggedReport(null);
+                                      setDragOverReport(null);
+                                    }}
+                                    onDragEnd={() => {
+                                      setDraggedReport(null);
+                                      setDragOverReport(null);
+                                    }}
+                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${
+                                      isDragging
+                                        ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
+                                        : isDragOver
+                                        ? 'border-t-2 border-t-[#005f6e] bg-blue-50/10 shadow-md'
+                                        : 'border-gray-200 shadow-3xs hover:border-gray-300'
+                                    }`}
                                   >
-                                    <Trash2 size={15} />
-                                  </Button>
-                                </div>
-                              ))}
+                                    {/* Drag handle */}
+                                    <div 
+                                      className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded transition-colors shrink-0"
+                                      title="Kéo thả để sắp xếp vị trí"
+                                    >
+                                      <GripVertical size={16} />
+                                    </div>
+
+                                    <div className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shrink-0 font-mono">
+                                      #{idx + 1}
+                                    </div>
+
+                                    <div className="w-full md:w-36 shrink-0">
+                                      <select
+                                        value={report.type}
+                                        onChange={(e) => updateReportRow(activePillar.id, 'news', report.id, 'type', e.target.value as 'chart' | 'indicator')}
+                                        className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg focus:ring-[#005f6e] focus:border-[#005f6e] text-xs font-semibold bg-gray-50 text-gray-700"
+                                      >
+                                        <option value="chart">Biểu đồ</option>
+                                        <option value="indicator">Chỉ tiêu</option>
+                                      </select>
+                                    </div>
+
+                                    <div className="flex-1 min-w-[200px]">
+                                      {report.type === 'chart' ? (
+                                        <Input
+                                          placeholder="Nhập link embed biểu đồ (URL)..."
+                                          value={report.value}
+                                          onChange={(e) => updateReportRow(activePillar.id, 'news', report.id, 'value', e.target.value)}
+                                          className="text-xs"
+                                        />
+                                      ) : (
+                                        <select
+                                          value={report.value}
+                                          onChange={(e) => updateReportRow(activePillar.id, 'news', report.id, 'value', e.target.value)}
+                                          className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-[#005f6e] focus:border-[#005f6e] text-xs bg-white text-gray-800"
+                                        >
+                                          <option value="">-- Chọn chỉ tiêu ({activePillar.code}) --</option>
+                                          {getPillarIndicators(activePillar.id).map(ind => (
+                                            <option key={ind.code} value={ind.code}>
+                                              [{ind.code}] {ind.name}
+                                            </option>
+                                          ))}
+                                        </select>
+                                      )}
+                                    </div>
+
+                                    {/* Move up / Move down & Delete */}
+                                    <div className="flex items-center gap-0.5 shrink-0">
+                                      <button
+                                        type="button"
+                                        disabled={idx === 0}
+                                        onClick={() => moveReportRow(activePillar.id, 'news', idx, 'up')}
+                                        className="p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer"
+                                        title="Chuyển lên trên"
+                                      >
+                                        <ChevronUp size={15} />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        disabled={idx === activePillar.newsReports.length - 1}
+                                        onClick={() => moveReportRow(activePillar.id, 'news', idx, 'down')}
+                                        className="p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer"
+                                        title="Chuyển xuống dưới"
+                                      >
+                                        <ChevronDown size={15} />
+                                      </button>
+                                      <Button
+                                        variant="ghost"
+                                        onClick={() => deleteReportRow(activePillar.id, 'news', report.id)}
+                                        className="text-red-500 hover:bg-red-50 p-1.5 h-8 w-8 rounded-md shrink-0 flex items-center justify-center border border-transparent cursor-pointer"
+                                        title="Xóa dòng"
+                                      >
+                                        <Trash2 size={15} />
+                                      </Button>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
 
@@ -1027,7 +1260,7 @@ export const CMSManagePage: React.FC = () => {
                             <Button
                               variant="outline"
                               onClick={() => addReportRow(activePillar.id, 'news')}
-                              className="text-xs py-1.5 px-3 h-8 border-dashed border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-bold flex items-center justify-center w-full sm:w-auto"
+                              className="text-xs py-1.5 px-3 h-8 border-dashed border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-bold flex items-center justify-center w-full sm:w-auto cursor-pointer"
                             >
                               <Plus size={14} className="mr-1" /> Thêm báo cáo
                             </Button>
@@ -1166,12 +1399,15 @@ export const CMSManagePage: React.FC = () => {
                           </div>
                         </div> */}
 
-                        {/* Report config sub-section for Section 2 */}
+                        {/* Report config sub-section for Section 2 with Drag & Drop */}
                         <div className="md:col-span-2 bg-gray-50/50 p-4 rounded-xl border border-gray-200 mt-2 space-y-3">
                           <div className="flex justify-between items-center border-b border-gray-200 pb-2">
                             <span className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
                               <Target size={14} className="text-[#005f6e]" />
                               Cấu hình báo cáo đính kèm Trang chi tiết (Biểu đồ / Chỉ tiêu)
+                            </span>
+                            <span className="text-[10px] text-gray-400 font-medium italic flex items-center gap-1">
+                              <GripVertical size={12} /> Kéo thả để đổi thứ tự
                             </span>
                           </div>
 
@@ -1179,57 +1415,130 @@ export const CMSManagePage: React.FC = () => {
                             <p className="text-[11px] text-gray-400 italic">Chưa có báo cáo đính kèm nào được cấu hình cho Trang chi tiết.</p>
                           ) : (
                             <div className="space-y-2.5">
-                              {activePillar.detailReports.map((report, idx) => (
-                                <div key={report.id} className="flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-200 shadow-3xs animate-in fade-in-50 duration-150">
-                                  <div className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shrink-0">
-                                    #{idx + 1}
-                                  </div>
+                              {activePillar.detailReports.map((report, idx) => {
+                                const isDragging = draggedReport?.section === 'detail' && draggedReport?.index === idx;
+                                const isDragOver = dragOverReport?.section === 'detail' && dragOverReport?.index === idx;
 
-                                  <div className="w-full md:w-40">
-                                    <select
-                                      value={report.type}
-                                      onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'type', e.target.value as 'chart' | 'indicator')}
-                                      className="w-full px-3 py-1.5 border border-gray-300 rounded focus:ring-[#005f6e] focus:border-[#005f6e] text-xs font-semibold bg-gray-50 text-gray-700"
-                                    >
-                                      <option value="chart">Biểu đồ</option>
-                                      <option value="indicator">Chỉ tiêu</option>
-                                    </select>
-                                  </div>
-
-                                  <div className="flex-1 min-w-[200px]">
-                                    {report.type === 'chart' ? (
-                                      <Input
-                                        placeholder="Nhập link embed biểu đồ (URL)..."
-                                        value={report.value}
-                                        onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'value', e.target.value)}
-                                        className="text-xs"
-                                      />
-                                    ) : (
-                                      <select
-                                        value={report.value}
-                                        onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'value', e.target.value)}
-                                        className="w-full px-3 py-1.5 border border-gray-300 rounded focus:ring-[#005f6e] focus:border-[#005f6e] text-xs bg-white text-gray-800"
-                                      >
-                                        <option value="">-- Chọn chỉ tiêu ({activePillar.code}) --</option>
-                                        {getPillarIndicators(activePillar.id).map(ind => (
-                                          <option key={ind.code} value={ind.code}>
-                                            [{ind.code}] {ind.name}
-                                          </option>
-                                        ))}
-                                      </select>
-                                    )}
-                                  </div>
-
-                                  <Button
-                                    variant="ghost"
-                                    onClick={() => deleteReportRow(activePillar.id, 'detail', report.id)}
-                                    className="text-red-500 hover:bg-red-50 p-1.5 h-8 w-8 rounded-md shrink-0 flex items-center justify-center border border-transparent animate-in zoom-in-75 duration-100"
-                                    title="Xóa dòng"
+                                return (
+                                  <div
+                                    key={report.id}
+                                    draggable
+                                    onDragStart={(e) => {
+                                      e.dataTransfer.setData('text/plain', idx.toString());
+                                      e.dataTransfer.effectAllowed = 'move';
+                                      setDraggedReport({ section: 'detail', index: idx });
+                                    }}
+                                    onDragOver={(e) => {
+                                      e.preventDefault();
+                                      e.dataTransfer.dropEffect = 'move';
+                                      if (dragOverReport?.index !== idx || dragOverReport?.section !== 'detail') {
+                                        setDragOverReport({ section: 'detail', index: idx });
+                                      }
+                                    }}
+                                    onDragLeave={() => {
+                                      if (dragOverReport?.index === idx) {
+                                        setDragOverReport(null);
+                                      }
+                                    }}
+                                    onDrop={(e) => {
+                                      e.preventDefault();
+                                      if (draggedReport && draggedReport.section === 'detail') {
+                                        reorderReportRow(activePillar.id, 'detail', draggedReport.index, idx);
+                                      }
+                                      setDraggedReport(null);
+                                      setDragOverReport(null);
+                                    }}
+                                    onDragEnd={() => {
+                                      setDraggedReport(null);
+                                      setDragOverReport(null);
+                                    }}
+                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${
+                                      isDragging
+                                        ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
+                                        : isDragOver
+                                        ? 'border-t-2 border-t-[#005f6e] bg-blue-50/10 shadow-md'
+                                        : 'border-gray-200 shadow-3xs hover:border-gray-300'
+                                    }`}
                                   >
-                                    <Trash2 size={15} />
-                                  </Button>
-                                </div>
-                              ))}
+                                    {/* Drag handle */}
+                                    <div 
+                                      className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded transition-colors shrink-0"
+                                      title="Kéo thả để sắp xếp vị trí"
+                                    >
+                                      <GripVertical size={16} />
+                                    </div>
+
+                                    <div className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shrink-0 font-mono">
+                                      #{idx + 1}
+                                    </div>
+
+                                    <div className="w-full md:w-36 shrink-0">
+                                      <select
+                                        value={report.type}
+                                        onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'type', e.target.value as 'chart' | 'indicator')}
+                                        className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg focus:ring-[#005f6e] focus:border-[#005f6e] text-xs font-semibold bg-gray-50 text-gray-700"
+                                      >
+                                        <option value="chart">Biểu đồ</option>
+                                        <option value="indicator">Chỉ tiêu</option>
+                                      </select>
+                                    </div>
+
+                                    <div className="flex-1 min-w-[200px]">
+                                      {report.type === 'chart' ? (
+                                        <Input
+                                          placeholder="Nhập link embed biểu đồ (URL)..."
+                                          value={report.value}
+                                          onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'value', e.target.value)}
+                                          className="text-xs"
+                                        />
+                                      ) : (
+                                        <select
+                                          value={report.value}
+                                          onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'value', e.target.value)}
+                                          className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-[#005f6e] focus:border-[#005f6e] text-xs bg-white text-gray-800"
+                                        >
+                                          <option value="">-- Chọn chỉ tiêu ({activePillar.code}) --</option>
+                                          {getPillarIndicators(activePillar.id).map(ind => (
+                                            <option key={ind.code} value={ind.code}>
+                                              [{ind.code}] {ind.name}
+                                            </option>
+                                          ))}
+                                        </select>
+                                      )}
+                                    </div>
+
+                                    {/* Move up / Move down & Delete */}
+                                    <div className="flex items-center gap-0.5 shrink-0">
+                                      <button
+                                        type="button"
+                                        disabled={idx === 0}
+                                        onClick={() => moveReportRow(activePillar.id, 'detail', idx, 'up')}
+                                        className="p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer"
+                                        title="Chuyển lên trên"
+                                      >
+                                        <ChevronUp size={15} />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        disabled={idx === activePillar.detailReports.length - 1}
+                                        onClick={() => moveReportRow(activePillar.id, 'detail', idx, 'down')}
+                                        className="p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer"
+                                        title="Chuyển xuống dưới"
+                                      >
+                                        <ChevronDown size={15} />
+                                      </button>
+                                      <Button
+                                        variant="ghost"
+                                        onClick={() => deleteReportRow(activePillar.id, 'detail', report.id)}
+                                        className="text-red-500 hover:bg-red-50 p-1.5 h-8 w-8 rounded-md shrink-0 flex items-center justify-center border border-transparent cursor-pointer"
+                                        title="Xóa dòng"
+                                      >
+                                        <Trash2 size={15} />
+                                      </Button>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
 
@@ -1237,11 +1546,68 @@ export const CMSManagePage: React.FC = () => {
                             <Button
                               variant="outline"
                               onClick={() => addReportRow(activePillar.id, 'detail')}
-                              className="text-xs py-1.5 px-3 h-8 border-dashed border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-bold flex items-center justify-center w-full sm:w-auto"
+                              className="text-xs py-1.5 px-3 h-8 border-dashed border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-bold flex items-center justify-center w-full sm:w-auto cursor-pointer"
                             >
                               <Plus size={14} className="mr-1" /> Thêm báo cáo
                             </Button>
                           </div>
+                        </div>
+
+                        {/* PREVIEW OF PUBLISHED CHARTS (CARD VIEW WITH PREVIEW BUTTON) */}
+                        <div className="md:col-span-2 bg-[#f8fafc] p-4.5 rounded-xl border border-dashed border-[#005f6e]/30 mt-3 space-y-3.5 shadow-2xs">
+                          <div className="flex justify-between items-center border-b border-gray-200 pb-2">
+                            <span className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                              <Eye size={14} className="text-[#005f6e]" />
+                              Danh sách biểu đồ đã công bố (Có thể xem trước)
+                            </span>
+                            <Badge variant="primary" className="text-[10px] font-bold bg-[#005f6e]/10 text-[#005f6e] border-none">
+                              {publishedSubChartsForPillar.length} Biểu đồ
+                            </Badge>
+                          </div>
+
+                          {publishedSubChartsForPillar.length === 0 ? (
+                            <p className="text-[11px] text-gray-400 italic">Không có biểu đồ nào được công bố dưới trụ cột này trong mục Điều chỉnh số liệu công bố.</p>
+                          ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                              {publishedSubChartsForPillar.map(sub => (
+                                <div key={sub.code} className="bg-white p-3.5 rounded-xl border border-gray-200 hover:border-[#005f6e]/40 transition-all shadow-3xs flex flex-col justify-between gap-3">
+                                  <div>
+                                    <div className="flex justify-between items-start gap-2 mb-1.5">
+                                      <span className="text-[10px] font-bold px-2 py-0.5 bg-blue-50 text-[#005f6e] border border-blue-100 rounded font-mono">
+                                        {sub.code}
+                                      </span>
+                                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-green-50 text-green-700 border border-green-200">
+                                        Đang công bố
+                                      </span>
+                                    </div>
+                                    <h5 className="text-xs font-bold text-gray-800 line-clamp-2 leading-tight" title={sub.name}>
+                                      {sub.name}
+                                    </h5>
+                                    <div className="flex items-center gap-2 mt-2 text-[10px] text-gray-400 font-medium">
+                                      <span>ĐVT: <strong className="text-gray-600">{sub.unit}</strong></span>
+                                      <span>•</span>
+                                      <span>Tần suất: <strong className="text-gray-600">{sub.frequency}</strong></span>
+                                    </div>
+                                  </div>
+
+                                  <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span className="text-[9px] text-gray-400 truncate max-w-[120px]" title={sub.source}>
+                                      {sub.source}
+                                    </span>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => setPreviewingChart(sub)}
+                                      className="text-xs py-1 px-2.5 h-7 border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-semibold flex items-center gap-1 shrink-0 cursor-pointer"
+                                    >
+                                      <Eye size={12} />
+                                      <span>Xem trước</span>
+                                    </Button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </Card>
@@ -1711,6 +2077,72 @@ export const CMSManagePage: React.FC = () => {
               <footer className="bg-gray-800 text-gray-400 p-8 text-center text-xs border-t border-gray-700">
                 <p>&copy; 2026 Vietnam Airlines ESG Public Portal. All rights reserved.</p>
               </footer>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL XEM TRƯỚC BIỂU ĐỒ ĐÃ CÔNG BỐ */}
+      {previewingChart && (
+        <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[110] flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 shadow-2xl border border-gray-200">
+            {/* Header */}
+            <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50/80">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-blue-50 text-[#005f6e]">
+                  <Eye size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-[#005f6e] border border-blue-200 rounded font-mono">
+                      {previewingChart.code}
+                    </span>
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-green-50 text-green-700 border border-green-200 rounded">
+                      Đang công bố
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-bold text-gray-800 mt-0.5">{previewingChart.name}</h3>
+                </div>
+              </div>
+              <button
+                onClick={() => setPreviewingChart(null)}
+                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer"
+              >
+                <XCircle size={20} />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 space-y-4">
+              <div className="grid grid-cols-3 gap-3 text-xs bg-gray-50 p-3 rounded-xl border border-gray-150">
+                <div>
+                  <span className="text-gray-400 block text-[10px]">Đơn vị tính:</span>
+                  <span className="font-semibold text-gray-700">{previewingChart.unit}</span>
+                </div>
+                <div>
+                  <span className="text-gray-400 block text-[10px]">Tần suất:</span>
+                  <span className="font-semibold text-gray-700">{previewingChart.frequency}</span>
+                </div>
+                <div>
+                  <span className="text-gray-400 block text-[10px]">Nguồn số liệu:</span>
+                  <span className="font-semibold text-gray-700 truncate block" title={previewingChart.source}>{previewingChart.source}</span>
+                </div>
+              </div>
+
+              <div className="h-[280px] bg-slate-50 p-3 rounded-xl border border-gray-200">
+                <IndicatorChart
+                  indicatorCode={previewingChart.code}
+                  chartName={previewingChart.name}
+                  chartType={previewingChart.code.includes('SAF') ? 'doughnut' : 'line'}
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end gap-2 p-3.5 border-t border-gray-100 bg-gray-50/50">
+              <Button variant="outline" size="sm" onClick={() => setPreviewingChart(null)}>
+                Đóng
+              </Button>
             </div>
           </div>
         </div>

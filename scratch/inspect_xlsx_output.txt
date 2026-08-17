@@ -1,0 +1,493 @@
+Columns: ['DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8']
+
+=== Row 0 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: nan
+  Unnamed: 1: nan
+  Unnamed: 2: nan
+  Unnamed: 3: nan
+  Unnamed: 4: nan
+  Unnamed: 5: nan
+  Unnamed: 6: nan
+  Unnamed: 7: nan
+  Unnamed: 8: nan
+
+=== Row 1 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: STT
+  Unnamed: 1: Mã GRI
+  Unnamed: 2: Chỉ tiêu (Eng)
+  Unnamed: 3: Chỉ tiêu (Vie)
+  Unnamed: 4: Hiện trạng
+(Yes/No)
+  Unnamed: 5: Các mục chính cần hiển thị
+(theo hướng dẫn của GRI)
+  Unnamed: 6: Nội dung hiển thị cho VNA
+  Unnamed: 7: Báo cáo của SQ (Vie)
+  Unnamed: 8: Chỉ tiêu 
+bổ sung
+
+=== Row 2 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 1
+  Unnamed: 1: GRI 2-9
+  Unnamed: 2: Governance structure and composition
+  Unnamed: 3: Cơ cấu và thành phần quản trị
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Sơ đồ cơ cấu quản trị
+
+2. Danh sách các Ủy ban thuộc HĐQT.
+
+3. Bảng thành phần HĐQT và từng Ủy ban theo 8 tiêu chí bắt buộc của GRI:
+   (i) thành viên điều hành / không điều hành;
+   (ii) tính độc lập;
+   (iii) nhiệm kỳ / thời gian đã tại vị;
+   (iv) số vị trí kiêm nhiệm quan trọng khác và tính chất của việc kiêm nhiệm;
+   (v) giới tính;
+   (vi) nhóm xã hội yếu thế/ít được đại diện;
+   (vii) năng lực liên quan đến tác động tới TCT;
+   (viii) đại diện của các bên liên quan.
+  Unnamed: 6: Cơ cấu quản trị của Vietnam Airlines gồm ĐHĐCĐ, HĐQT, Ban Kiểm soát và TGĐ cùng bộ máy điều hành. 
+
+HĐQT thành lập 02 tiểu ban: Tiểu ban Chiến lược và đầu tư; Tiểu ban Lao động và Tiền lương
+
+Thành phần Hội đồng quản trị: 07 thành viên, gồm 01 thành viên độc lập, thành viên người đại diện phần vốn nhà nước và đại diện ANA. 
+
+Đối với PTBV, HĐQT giữ vai trò định hướng và giám sát cao nhất. BĐH Chương trình PTBV do TGĐ làm Trưởng ban là cơ quan chịu trách nhiệm ra quyết định và giám sát việc quản lý các tác động kinh tế, môi trường và con người; TTK là cơ quan thường trực điều phối chuyên môn; các Tổ công tác được thành lập theo từng lĩnh vực/chương trình để chủ trì triển khai.
+(vẽ sơ đồ tương tự báo cáo thường niên)
+  Unnamed: 7: SIA công bố cơ cấu quản trị phát triển bền vững nhiều tầng: Hội đồng quản trị (Board) giám sát cao nhất, được hỗ trợ bởi các Ủy ban trực thuộc Board (gồm Ủy ban An toàn & Rủi ro) và Ủy ban Điều hành (MC), phân cấp xuống Ủy ban Quản lý Rủi ro & Tuân thủ Tập đoàn, Văn phòng PTBV và đại diện các khối/đơn vị kinh doanh. Thành phần và chức năng của từng tầng được nêu rõ, dẫn chiếu thêm Báo cáo Quản trị Công ty trong Báo cáo thường niên.
+  Unnamed: 8: nan
+
+=== Row 3 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 2
+  Unnamed: 1: GRI 2-10
+  Unnamed: 2: Nomination and selection of the highest governance body
+  Unnamed: 3: Quy trình đề cử, lựa chọn cơ quan quản lý cao nhất
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Quy trình đề cử, lựa chọn thành viên HĐQT và các tiểu ban
+
+2. Tiêu chí lựa chọn — bắt buộc nêu rõ có xét đến và xét như thế nào đối với:
+   (i) ý kiến của các bên liên quan (bao gồm cổ đông);
+   (ii) tính đa dạng;
+   (iii) tính độc lập;
+   (iv) năng lực liên quan đến tác động PTBV của TCT.
+
+  Unnamed: 6: Thành viên HĐQT Vietnam Airlines do ĐHĐCĐ bầu theo phương thức bầu dồn phiếu. Quyền đề cử ứng viên được thực hiện theo tỷ lệ sở hữu cổ phần; Với tư cách doanh nghiệp có vốn nhà nước chi phối, việc giới thiệu người đại diện phần vốn nhà nước tham gia HĐQT được thực hiện theo quy định của Luật số 68/2025/QH15 và chỉ đạo của cơ quan đại diện chủ sở hữu.
+
+Trong quá trình đề cử và lựa chọn, TCT xem xét: ý kiến của cổ đông và các bên liên quan thông qua ĐHĐCĐ; tính độc lập của thành viên theo quy định pháp luật về công ty đại chúng; và năng lực, kinh nghiệm phù hợp với đặc thù ngành hàng không.
+  Unnamed: 7: SIA không trình bày quy trình đề cử và lựa chọn thành viên cơ quan quản trị cao nhất trong Báo cáo PTBV; chỉ tiêu này được dẫn chiếu toàn bộ sang chương Báo cáo Quản trị Công ty trong Báo cáo thường niên FY2024/25 của SIA.
+  Unnamed: 8: nan
+
+=== Row 4 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 3
+  Unnamed: 1: GRI 2-11
+  Unnamed: 2: Chair of the highest governance body
+  Unnamed: 3: Chủ tịch HĐQT
+  Unnamed: 4: Yes
+  Unnamed: 5: Nêu rõ: Chủ tịch HĐQT có đồng thời là cán bộ điều hành cấp cao của TCT hay không.
+
+Nếu Chủ tịch kiêm nhiệm điều hành: phải mô tả chức năng điều hành, lý do bố trí và cách ngăn ngừa/giảm thiểu xung đột lợi ích.
+  Unnamed: 6: CT HĐQT Vietnam Airlines là ông Đặng Ngọc Hòa. CT HĐQT không đồng thời là cán bộ điều hành cấp cao của TCT: chức danh TGĐ - người đại diện theo pháp luật và điều hành hoạt động hằng ngày - do ông Lê Hồng Hà đảm nhiệm.
+  Unnamed: 7: Công bố rõ Chủ tịch HĐQT ông Peter Seah Lim Huat (non-independent), tách biệt vai trò CEO (Goh Choon Phong); có Lead Independent Director riêng (Ms Goh Swee Chen).
+  Unnamed: 8: nan
+
+=== Row 5 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 4
+  Unnamed: 1: GRI 2-12
+  Unnamed: 2: Legal actions for anti-competitive behavior, anti-trust, and monopoly practices
+  Unnamed: 3: Vai trò của HĐQT trong giám sát quản lý tác động
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Vai trò của HĐQT và của cán bộ điều hành cấp cao trong việc xây dựng, phê duyệt và cập nhật: tầm nhìn/sứ mệnh/giá trị cốt lõi; chiến lược PTBV; các chính sách và mục tiêu PTBV.
+
+2. Vai trò của HĐQT trong giám sát quy trình thẩm định chi tiết và các quy trình khác nhằm nhận diện và quản lý tác động kinh tế – môi trường – con người, gồm:
+   (i) HĐQT có và tương tác với các bên liên quan như thế nào để hỗ trợ các quy trình này;
+   (ii) HĐQT xem xét, sử dụng kết quả đầu ra của các quy trình này ra sao.
+
+3. Vai trò của HĐQT trong rà soát tính hiệu quả của các quy trình nêu trên và tần suất rà soát.
+  Unnamed: 6: HĐQT là cơ quan quản lý cao nhất của Vietnam Airlines giữ vai trò định hướng và giám sát toàn diện đối với phát triển bền vững. TGĐ và BĐH Chương trình PTBV chịu trách nhiệm xây dựng, đề xuất và cập nhật các nội dung về tầm nhìn, sứ mệnh, giá trị cốt lõi, chiến lược PTBV để trình HĐQT.
+
+HĐQT giám sát các quy trình nhận diện, đánh giá và quản lý tác động kinh tế, môi trường và con người thông qua báo cáo của BĐH Chương trình PTBV.
+
+Rà soát hiệu quả: TTK họp hàng tháng, BĐH họp hàng quý, rà soát các chỉ tiêu PTBV và có báo cáo lên HĐQT nếu cần
+  Unnamed: 7: Board cùng Ban lãnh đạo cấp cao giám sát việc quản lý các tác động kinh tế, môi trường và xã hội của Tập đoàn, lồng ghép yếu tố ESG vào tạo giá trị dài hạn. Các rủi ro chiến lược về PTBV và khí hậu được rà soát qua quy trình đánh giá rủi ro toàn Tập đoàn (ARMRE) và báo cáo lên Board cùng lãnh đạo cấp cao.
+  Unnamed: 8: nan
+
+=== Row 6 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 5
+  Unnamed: 1: GRI 2-13
+  Unnamed: 2: Delegation of responsibility for managing impacts
+  Unnamed: 3: Ủy quyền trách nhiệm quản lý các tác động
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Cách HĐQT phân cấp trách nhiệm quản lý tác động, gồm:
+   (i) HĐQT có bổ nhiệm cán bộ điều hành cấp cao chịu trách nhiệm về quản lý tác động hay không;
+   (ii) trách nhiệm có được giao tiếp cho người lao động khác hay không.
+
+2. Quy trình báo cáo ngược lên HĐQT về việc quản lý tác động.
+
+  Unnamed: 6: Hội đồng quản trị phân cấp trách nhiệm quản lý các tác động kinh tế, môi trường và con người cho Tổng giám đốc và bộ máy điều hành.
+BĐH Chương trình PTBV do TGĐ làm Trưởng ban là đầu mối cấp cao nhất chịu trách nhiệm điều hành công tác PTBV của TCT. TTK là cơ quan thường trực, điều phối chuyên môn và tham mưu tổng hợp, chịu sự chỉ đạo trực tiếp của Trưởng BĐH và PTBTT. Các Tổ công tác được thành lập theo từng lĩnh vực để chủ trì triển khai và chịu trách nhiệm về kết quả trong phạm vi được giao.
+Ở cấp thực thi, trách nhiệm được giao tiếp cho các Ban chức năng và đơn vị theo lĩnh vực chuyên môn: kiểm kê và giảm phát thải, quản lý nhiên liệu, mua sắm, nhân sự, dịch vụ hành khách, an toàn – chất lượng.
+
+Cơ chế báo cáo ngược: BĐH Chương trình Phát triển bền vững tổng hợp và báo cáo HĐQT về tiến độ, kết quả và các vấn đề phát sinh trong quản lý tác động PTBV.
+  Unnamed: 7: Trách nhiệm quản lý các tác động được phân cấp từ Tổng Giám đốc và Ủy ban Điều hành xuống Văn phòng PTBV (do Giám đốc PTBV phụ trách) và đại diện các khối/đơn vị kinh doanh — đóng vai trò ban thư ký vận hành. Báo cáo nêu rõ tuyến báo cáo và luồng phân bổ trách nhiệm giữa các cấp.
+  Unnamed: 8: nan
+
+=== Row 7 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 6
+  Unnamed: 1: GRI 2-14
+  Unnamed: 2: Role of the highest governance body in sustainability reporting
+  Unnamed: 3: Vai trò của cơ quan quản trị cao nhất trong báo cáo bền vững
+  Unnamed: 4: Yes
+  Unnamed: 5: Cần chỉ rõ: HĐQT có chịu trách nhiệm rà soát và phê duyệt thông tin công bố trong Báo cáo PTBV, bao gồm danh mục các chủ đề trọng yếu, hay không. Nếu có, hãy mô tả quy trình.
+ 
+Nếu không, hãy đưa lý do. 
+  Unnamed: 6: HĐQT chịu trách nhiệm rà soát và phê duyệt các thông tin công bố trong Báo cáo thường niên, bao gồm nội dung báo cáo PTBV.
+
+Quy trình rà soát và phê duyệt: TTK BĐH Chương trình PTBV chủ trì thu thập dữ liệu từ các Tổ công tác, CQĐV, tổng hợp và xây dựng dự thảo báo cáo, gửi báo cáo cho Ban TT. Ban TT tập hợp thông tin báo cáo Ban Giám đốc và HĐQT báo cáo thường niên. HĐQT xem xét và phê duyệt trước khi công bố.
+  Unnamed: 7: Board Statement khẳng định vai trò giám sát trực tiếp của Board đối với báo cáo PTBV, được phê duyệt trước công bố.
+  Unnamed: 8: x
+(trong báo cáo của SQ, nhưng không thuộc Governance)
+
+=== Row 8 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 7
+  Unnamed: 1: GRI 2-15
+  Unnamed: 2: Conflicts of interest
+  Unnamed: 3: Xung đột lợi ích
+  Unnamed: 4: Yes
+  Unnamed: 5: Mô tả quy trình HĐQT ngăn ngừa và giảm thiểu xung đột lợi ích.
+
+Báo cáo nếu xung đột lợi ích được tiết lộ đến các bên liên quan, ít nhất là bao gồm: 
+i. Kiêm nhiệm chéo trong HĐQT 
+ii. Sở hữu chéo với nhà cung cấp và các bên liên quan 
+iii. Sự tồn tại của cổ đông chi phối
+iv. Các bên liên quan: mối quan hệ, giao dịch và số dư còn lại. 
+  Unnamed: 6: Điều 55 trong Điều lệ TCT ban hành ngày 28/6/2026 quy định về trách nhiệm trung thực và tránh các xung đột về quyền lợi. 
+
+Xung đột lợi ích tới các bên liên quan:
+i. Kiêm nhiệm chéo: 
+• Ông Đặng Ngọc Hòa: Ủy viên BCH Liên đoàn thương mại và công nghiệp Việt Nam (VCCI) 
+• Ông Lê Hồng Hà: thành viên Hội đồng Học viện Hàng không Việt Nam nhiệm kỳ 2025-2030
+• Ông Tạ Mạnh Hùng: Chủ tịch HĐTV Công ty TNHH MTV Dịch vụ mặt đất sân bay Việt Nam (VIAGS)
+• Ông Lê Trường Giang: Chủ tịch HĐQT Công ty cổ phần Dịch vụ hàng hóa Tân Sơn Nhất (TCS)
+• Ông Đinh Việt Tùng: PTGĐ TCT Đầu tư và Kinh doanh vốn nhà nước (SCIC). Chủ tịch HĐQT TCT Licogi. Chủ tịch HĐQT TCTCP Bảo Minh
+• Ông Trương Văn Phước: Ủy viên hội đồng khoa học của UB Thường vụ Quốc hội
+• Ông Hidekazu Isone: PTGĐ phụ trách chiến lược của ANA Holdings
+
+ii. Sở hữu chéo với nhà cung cấp: Vietnam Airlines nắm giữ vốn tại một số đơn vị đồng thời là nhà cung cấp dịch vụ cho Tổng công ty.
+
+iii. Cổ đông chi phối: Nhà nước là cổ đông chi phối, nắm giữ khoảng 86,42% vốn điều lệ thông qua Bộ Tài chính và Tổng công ty Đầu tư và Kinh doanh vốn nhà nước (SCIC). ANA Holdings là cổ đông chiến lược với tỷ lệ 5,62%
+
+iv. Giao dịch với bên liên quan: mối quan hệ, giá trị giao dịch và số dư còn lại với các bên liên quan được trình bày tại Thuyết minh Báo cáo tài chính hợp nhất đã kiểm toán hàng năm. 
+  Unnamed: 7: SIA yêu cầu báo cáo ngay các tình huống xung đột lợi ích thực tế hoặc tiềm ẩn; Chính sách Xung đột lợi ích buộc mọi nhân viên kê khai hằng năm với Khối Nhân sự. Chính sách Luân chuyển các vị trí nhạy cảm là biện pháp kiểm soát rủi ro gian lận bổ sung, đánh giá định kỳ 2 năm/lần với các vị trí đến cấp Phó Chủ tịch Khối.
+  Unnamed: 8: nan
+
+=== Row 9 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 8
+  Unnamed: 1: GRI 2-16
+  Unnamed: 2: Communication of critical concerns
+  Unnamed: 3: Báo cáo các mối quan ngại nghiêm trọng
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Mô tả "mối quan ngại nghiêm trọng" và việc các mối quan ngại nghiêm trọng được báo cáo lên HĐQT như thế nào
+
+2. Tổng số và tính chất của các mối quan ngại nghiêm trọng đã được báo cáo lên HĐQT trong kỳ báo cáo.
+  Unnamed: 6: Vietnam Airlines xác định "mối quan ngại nghiêm trọng" là các vấn đề liên quan đến tác động tiêu cực tiềm ẩn hoặc thực tế đối với các bên liên quan, hoặc liên quan đến hành vi kinh doanh của Tổng công ty, có mức độ ảnh hưởng đủ lớn để cần đến sự xem xét của cơ quan quản trị cao nhất. 
+
+Các mối quan ngại nghiêm trọng được truyền đạt lên Hội đồng quản trị thông qua hệ thống kiểm toán nội bộ. Ban Kiểm soát thực hiện chức năng giám sát độc lập và báo cáo ĐHĐCĐ. Các vấn đề phát sinh từ kênh tiếp nhận đơn thư khiếu nại, tố cáo, kiến nghị, phản ánh và từ cơ chế tố giác nội bộ được xử lý theo trình tự, thủ tục quy định và được báo cáo lên cấp có thẩm quyền tương ứng với tính chất, mức độ của vụ việc.
+  Unnamed: 7: Các mối quan ngại nghiêm trọng được truyền đạt qua Chính sách Tố giác (Whistleblowing) và Cơ chế Khiếu nại: kênh bảo mật, ẩn danh do bên thứ ba quản lý, báo cáo được chuyển đến Kiểm toán Nội bộ và Ủy ban Kiểm toán rà soát hằng quý. SIA lược bỏ nội dung số lượng và tính chất các quan ngại báo cáo lên Board — vì lý do bảo mật.
+  Unnamed: 8: x
+
+=== Row 10 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 9
+  Unnamed: 1: GRI 2-17
+  Unnamed: 2: Collective knowledge of the highest governance body
+  Unnamed: 3: Kiến thức tập thể của cơ quan quản lý cao nhất
+  Unnamed: 4: Yes
+  Unnamed: 5: Các biện pháp đã thực hiện để nâng cao kiến thức, kỹ năng và kinh nghiệm tập thể của HĐQT về phát triển bền vững.
+  Unnamed: 6: Vietnam Airlines chú trọng nâng cao năng lực về PTBV cho đội ngũ quản trị và điều hành. Trong năm 2025, BĐH Chương trình PTBV đã hoàn thành chương trình đào tạo về PTBV do chuyên gia tư vấn độc lập bên ngoài thực hiện và dự định triển khai kế hoạch đối với HĐQT trong thời gian tới. 
+  Unnamed: 7: Công bố thành viên HĐQT hoàn thành đào tạo về PTBV/khí hậu theo yêu cầu SGX-ST, dẫn chứng kinh nghiệm ESG cụ thể của từng thành viên (VD bà Goh Swee Chen từng là Giám đốc UN Global Compact Network Singapore).
+  Unnamed: 8: x
+
+=== Row 11 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 10
+  Unnamed: 1: GRI 2-18
+  Unnamed: 2: Evaluation of performance of the highest governance body
+  Unnamed: 3: Đánh giá hiệu quả hoạt động của cơ quan quản trị cao nhất
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Mô tả quy trình đánh giá hiệu quả hoạt động của HĐQT trong việc giám sát quản lý tác động kinh tế – môi trường – con người 
+
+2. Đánh giá là độc lập hay tự đánh giá; tần suất đánh giá.
+
+3. Các hành động đã thực hiện sau đánh giá, bao gồm thay đổi về thành phần HĐQT và thay đổi về thông lệ quản trị của tổ chức.
+  Unnamed: 6: Ban KS có đánh giá HĐQT hàng năm
+  Unnamed: 7: Trong năm tài chính 2024/25, Ủy ban Đề cử đã thuê tư vấn độc lập bên ngoài đánh giá chính thức Board và các ủy ban trực thuộc, thông qua bảng câu hỏi (kèm phỏng vấn trực tiếp tùy chọn), bao gồm việc giám sát tác động của tổ chức tới kinh tế, môi trường và con người. Tư vấn kết luận Board hoạt động hiệu quả; Ủy ban Đề cử rà soát kết quả và các hành động tiếp theo phù hợp.
+  Unnamed: 8: x
+
+=== Row 12 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 11
+  Unnamed: 1: GRI 2-23
+  Unnamed: 2: Policy commitments
+  Unnamed: 3: Các cam kết về chính sách
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Danh mục các cam kết chính sách về ứng xử kinh doanh có trách nhiệm, bao gồm: 
+i. các văn kiện liên chính phủ có thẩm quyền mà các cam kết đề cập đến;
+ii. cam kết có yêu cầu thực hiện thẩm định chi tiết hay không;
+iii. cam kết có áp dụng nguyên tắc phòng ngừa hay không;
+iv. cam kết có quy định về tôn trọng quyền con người hay không.
+
+2. Cam kết riêng về tôn trọng quyền con người: 
+i. các quyền con người được quốc tế công nhận mà cam kết này bao hàm;
+ii. các nhóm bên liên quan được đặc biệt quan tâm, gồm nhóm có nguy cơ/dễ bị tổn thương.
+
+3. Đường dẫn công bố công khai của từng chính sách, hoặc lý do không công khai.
+
+4. Cấp phê duyệt của từng chính sách - nêu rõ có phải cấp cao nhất hay không.
+
+5. Phạm vi áp dụng.
+
+6. Cách truyền thông cam kết tới người lao động, đối tác kinh doanh và các bên liên quan khác.
+  Unnamed: 6: Vietnam Airlines thiết lập hệ thống cam kết chính sách về ứng xử kinh doanh có trách nhiệm, được đăng tải trên các trang nội bộ của Vietnam Airlines, bao gồm:
+• Chương trình Phòng, chống tham nhũng, tiêu cực, thực hành tiết kiệm, chống lãng phí (ban hành năm 2025);
+• Bộ định nghĩa hành vi và Hướng dẫn thực hiện văn hóa chính trực
+• Chính sách An toàn (thuộc Tài liệu Hệ thống Quản lý An toàn – SMSM)
+• Quy chế quản lý lao động
+• Quy chế bảo vệ môi trường, sử dụng năng lượng tiết kiệm và hiệu quả
+• Quy chế đấu thầu và mua sắm
+• ... 
+  Unnamed: 7: Các cam kết chính sách được neo vào Giá trị cốt lõi của SIA và bộ chính sách doanh nghiệp — gồm Chính sách Chống hối lộ/tham nhũng, Chính sách Tố giác, Bộ Quy tắc Ứng xử, Tuyên bố Chống nô lệ hiện đại, Bộ Quy tắc Nhà cung cấp và Khung Quản lý Rủi ro — áp dụng nguyên tắc phòng ngừa, bao trùm quyền con người và ứng xử kinh doanh có trách nhiệm trên toàn chuỗi giá trị.
+  Unnamed: 8: nan
+
+=== Row 13 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 12
+  Unnamed: 1: GRI 2-24
+  Unnamed: 2: Embedding policy commitments
+  Unnamed: 3: Lồng ghép các cam kết chính sách
+  Unnamed: 4: Yes
+  Unnamed: 5: Mô tả cách VNA lồng ghép từng cam kết chính sách vào toàn bộ hoạt động và quan hệ kinh doanh, bao gồm:
+i. Cách phân bổ trách nhiệm thực thi cam kết theo các cấp trong tổ chức;
+
+ii. Cách tích hợp cam kết vào chiến lược, chính sách vận hành, quy trình vận hành; 
+
+iii. Cách thực thi cam kết thông qua quan hệ kinh doanh; 
+
+iv. Đào tạo về thực thi cam kết: đối tượng, nội dung, hình thức, tần suất, tỷ lệ hoàn thành.
+  Unnamed: 6: Vietnam Airlines lồng ghép các cam kết chính sách vào hoạt động, cụ thể: 
+
+Phân bổ trách nhiệm theo cấp: HĐQT giữ vai trò giám sát cao nhất. TGĐ và BĐH Chương trình PTBV chịu trách nhiệm tổ chức thực hiện. Các Tổ công tác, CQĐV chịu trách nhiệm hằng ngày đối với từng nhóm cam kết theo lĩnh vực chuyên môn. 
+
+Tích hợp vào chiến lược và quy trình vận hành: các cam kết phát triển bền vững được cụ thể hóa thành chỉ tiêu trong kế hoạch sản xuất kinh doanh hằng năm. 
+
+Thực thi qua quan hệ kinh doanh: ví dụ qua Bộ Quy tắc Ứng xử dành cho nhà cung cấp; tiêu chí sàng lọc trong quy trình mua sắm và đấu thầu.]
+
+Đào tạo: Trong nội bộ VNA đã triển khai nhiều khóa đào tạo về thực thi các chính sách, cam kết như: về an toàn thông tin, giao tiếp và hợp tác trên môi trường số, Nâng cao nhận thức pháp luật về Bảo vệ dữ liệu cá nhân, ... 
+  Unnamed: 7: Các cam kết chính sách được thể chế hóa vào vận hành: các đơn vị kinh doanh chịu trách nhiệm triển khai cam kết kinh doanh có trách nhiệm trong công việc hằng ngày, được rà soát qua đợt Tự đánh giá Kiểm soát (CSA) hằng năm; Bộ Quy tắc Nhà cung cấp mở rộng yêu cầu tới nhà cung cấp, cùng đào tạo tuân thủ bắt buộc để củng cố việc thực thi.
+  Unnamed: 8: x
+
+=== Row 14 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 13
+  Unnamed: 1: GRI 2-25
+  Unnamed: 2: Processes to remediate negative impacts
+  Unnamed: 3: Quy trình khắc phục các tác động tiêu cực
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Cam kết của VNA về việc thực hiện hoặc hợp tác khắc phục các tác động tiêu cực mà VNA gây ra hoặc góp phần gây ra;
+
+2. Mô tả cách tiếp cận của tổ chức trong việc xác định và giải quyết các khiếu nại, bao gồm cả các cơ chế giải quyết khiếu nại mà tổ chức đã thiết lập hoặc tham gia;
+
+3. Các quy trình khắc phục khác ngoài cơ chế khiếu nại; 
+
+4. Mô tả cách thức các bên liên quan - với tư cách là người sử dụng cơ chế khiếu nại - tham gia vào quá trình thiết kế, rà soát, vận hành và cải tiến các cơ chế này;
+
+5. Cách doanh nghiệp theo dõi tính hiệu quả của cơ chế khiếu nại và các quy trình khắc phục; ví dụ minh chứng về hiệu quả, kèm phản hồi của bên liên quan. 
+  Unnamed: 6: Vietnam Airlines cam kết thực hiện hoặc hợp tác khắc phục các tác động tiêu cực mà Tổng công ty gây ra hoặc góp phần gây ra đối với các bên liên quan, trên cơ sở bảo vệ quyền và lợi ích hợp pháp của tổ chức, cá nhân và tuân thủ pháp luật hiện hành.
+  Unnamed: 7: Mô tả kênh khiếu nại nội bộ/ngoài, quy trình xử lý qua Internal Audit độc lập, Audit Committee theo dõi tiến độ khắc phục.
+  Unnamed: 8: x
+
+=== Row 15 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 14
+  Unnamed: 1: GRI 2-26
+  Unnamed: 2: Mechanisms for seeking advice and raising concerns about ethics
+  Unnamed: 3: Cơ chế tham vấn, phản ánh các vấn đề đạo đức
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Cơ chế để cá nhân xin tư vấn về việc thực thi các chính sách và thông lệ ứng xử kinh doanh có trách nhiệm. 
+
+2. Cơ chế để cá nhân phản ánh quan ngại về hành vi kinh doanh của doanh nghiệp. 
+  Unnamed: 6: Vietnam Airlines duy trì các cơ chế để cá nhân xin tư vấn và phản ánh quan ngại liên quan đến ứng xử kinh doanh có trách nhiệm.
+
+Xin tư vấn: người lao động và các bên liên quan có thể liên hệ Ban Pháp chế và các Ban chức năng để được hướng dẫn về việc áp dụng các quy định nội bộ và pháp luật liên quan trong hoạt động hằng ngày. 
+
+Phản ánh quan ngại: Vietnam Airlines tiếp nhận và xử lý đơn thư khiếu nại, tố cáo, kiến nghị, phản ánh theo quy định của pháp luật 
+
+Bảo mật và bảo vệ người tố giác: thông tin về người tố cáo được bảo mật theo quy định pháp luật; người tố cáo được bảo vệ và không bị trả đũa vì việc phản ánh trung thực.
+  Unnamed: 7: Liệt kê đầy đủ kênh (Code of Conduct, Grievance Mechanisms, Whistleblowing Policy, kênh tiếp nhận nội bộ/ngoài), số liệu cụ thể theo dõi.
+  Unnamed: 8: nan
+
+=== Row 16 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 15
+  Unnamed: 1: GRI 2-27
+  Unnamed: 2: Compliance with Laws and Regulations
+  Unnamed: 3: Tuân thủ pháp luật và các quy định
+  Unnamed: 4: No
+  Unnamed: 5: Đây là chỉ tiêu định lượng - bốn tiểu mục đều yêu cầu số liệu, không phải cam kết:
+
+1. TỔNG SỐ trường hợp không tuân thủ đáng kể phát sinh trong kỳ, chia theo:
+   (i) số trường hợp bị phạt tiền;
+   (ii) số trường hợp bị áp dụng chế tài phi tiền tệ.
+2. TỔNG SỐ và GIÁ TRỊ TIỀN các khoản phạt ĐÃ NỘP trong kỳ, chia theo:
+   (i) khoản phạt cho vi phạm phát sinh trong kỳ báo cáo;
+   (ii) khoản phạt cho vi phạm phát sinh ở các kỳ trước.
+
+3. Mô tả từng trường hợp không tuân thủ đáng kể (địa bàn, lĩnh vực, bối cảnh).
+
+4. Mô tả cách thức xác định các trường hợp không tuân thủ nghiêm trọng
+  Unnamed: 6: Vietnam Airlines cam kết duy trì ở mức cao nhất các tiêu chuẩn đạo đức trong hoạt động sản xuất kinh doanh, đề cao tính chuyên nghiệp, trung thực và minh bạch. Bảo đảm tuân thủ các điều ước quốc tế, Hiến pháp và pháp luật luôn là ưu tiên quan trọng của Tổng công ty trong mọi hoạt động. 
+Trong năm 2025, VNA không bị phạt hoặc áp dụng chế tài
+  Unnamed: 7: SIA và Scoot cam kết liêm chính, minh bạch, tuân thủ mọi luật xã hội và môi trường hiện hành tại từng quốc gia hoạt động. Trong năm tài chính 2024/25, không có khoản phạt đáng kể (trên 10.000 USD) hay chế tài phi tiền tệ nào do không tuân thủ luật về môi trường, sức khỏe và an toàn.
+  Unnamed: 8: x
+
+=== Row 17 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 16
+  Unnamed: 1: GRI 2-29
+  Unnamed: 2: Approach to stakeholder engagement
+  Unnamed: 3: Tiếp cận đối thoại các bên liên quan
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. Danh mục các nhóm bên liên quan mà doanh nghiệp đối thoại và phương pháp nhận diện các nhóm này. 
+
+2. Mục đích đối thoại với từng nhóm
+
+3. Cách doanh nghiệp đảm bảo đối thoại thực chất 
+  Unnamed: 6: Vietnam Airlines xác định các nhóm bên liên quan trên cơ sở mức độ ảnh hưởng của hoạt động của TCT tới các nhóm này và mức độ ảnh hưởng của các nhóm này tới hoạt động của TCT. Mục đích đối thoại là nắm bắt kỳ vọng và mối quan tâm của từng nhóm, nhận diện các tác động thực tế và tiềm ẩn, và xác định các biện pháp phòng ngừa, giảm thiểu phù hợp.
+
+Các nhóm bên liên quan chính và kênh đối thoại bao gồm: 
+
+• Cổ đông và nhà đầu tư: ĐHĐCĐ thường niên và bất thường; công bố thông tin định kỳ và bất thường theo quy định; gặp gỡ nhà đầu tư.
+• Khách hàng: các kênh tiếp nhận phản ánh, khiếu nại; khảo sát mức độ hài lòng; chương trình khách hàng thường xuyên; mạng xã hội.
+• Người lao động và Công đoàn: Hội nghị người lao động; đối thoại tại nơi làm việc; thương lượng tập thể; các kênh truyền thông nội bộ.
+• Cơ quan quản lý nhà nước: báo cáo định kỳ; làm việc với cơ quan đại diện chủ sở hữu và cơ quan quản lý chuyên ngành; tham gia góp ý xây dựng chính sách.
+• Nhà cung cấp và đối tác: đàm phán hợp đồng; đánh giá nhà cung cấp; hội nghị đối tác.
+• Cộng đồng: các chương trình cộng đồng và hoạt động an sinh xã hội.
+• Hiệp hội và liên minh ngành: tham gia IATA, AAPA, SkyTeam và Hiệp hội Doanh nghiệp Hàng không Việt Nam.
+• Cơ quan truyền thông: họp báo, thông cáo báo chí, kênh truyền thông chính thức.
+  Unnamed: 7: Có mục riêng "Stakeholder Engagement" với bảng chi tiết từng nhóm bên liên quan (nhà đầu tư, khách hàng, nhân viên, cơ quan quản lý...), kênh đối thoại, tần suất.
+  Unnamed: 8: nan
+
+=== Row 18 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 17
+  Unnamed: 1: GRI 3-3
+  Unnamed: 2: Management of material topics
+  Unnamed: 3: Quản lý các chủ đề trọng yếu
+  Unnamed: 4: Yes
+  Unnamed: 5: LƯU Ý CẤU TRÚC: GRI 3-3 phải được báo cáo RIÊNG cho TỪNG chủ đề trọng yếu, không báo cáo gộp cho cả trụ cột. Trước 3-3 phải có GRI 3-1 (quy trình xác định chủ đề trọng yếu) và GRI 3-2 (danh mục chủ đề trọng yếu).
+
+i. Xác định các chủ đề trọng yếu thuộc trụ cột Governance. 
+
+ii. Với mỗi chủ đề, công bố đủ 6 nội dung:
+(a) Mô tả các tác động thực tế và tiềm ẩn, tiêu cực và tích cực đối với kinh tế, môi trường và con người (kể cả quyền con người).
+(b) VNA có liên quan tới các tác động tiêu cực đó thông qua hoạt động của chính mình hay thông qua quan hệ kinh doanh — và mô tả hoạt động/quan hệ kinh doanh đó.
+(c) Các chính sách hoặc cam kết đối với chủ đề.
+(d) Các hành động quản lý chủ đề, gồm: (i) ngăn ngừa/giảm thiểu tác động tiêu cực tiềm ẩn; (ii) xử lý tác động tiêu cực thực tế, gồm thực hiện hoặc hợp tác khắc phục; (iii) quản lý tác động tích cực.
+(e) Theo dõi hiệu quả của các hành động, gồm: (i) quy trình theo dõi; (ii) mục tiêu, chỉ tiêu và chỉ số đánh giá tiến độ; (iii) mức độ hiệu quả đạt được, gồm tiến độ so với mục tiêu; (iv) bài học rút ra và cách đưa vào chính sách, quy trình vận hành.
+(f) Việc đối thoại với các bên liên quan đã định hình các hành động tại (d) và việc đánh giá hiệu quả tại (e) như thế nào.
+  Unnamed: 6: Đề xuất không đưa nội dung này lên website, vì cần báo cáo cụ thể cho 21 chỉ tiêu còn lại nên có thể trùng với các nội dung đã báo cáo
+  Unnamed: 7: Thực hiện Double Materiality Assessment (DMA) theo chuẩn GRI 2021/SGX/IFRS, xác định 10 material topics qua khảo sát nội bộ/ngoài, có ma trận trọng yếu (Materiality Matrix) trực quan, review hàng năm bởi MC và CETSC.
+  Unnamed: 8: nan
+
+=== Row 19 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 18
+  Unnamed: 1: GRI 201-4
+  Unnamed: 2: Financial assistance received from government
+  Unnamed: 3: Trợ cấp/tài trợ nhận từ chính phủ
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. TỔNG GIÁ TRỊ TIỀN TỆ hỗ trợ tài chính nhận được từ BẤT KỲ chính phủ nào trong kỳ, phân theo 08 loại:
+   (i) miễn, giảm thuế và tín dụng thuế;
+   (ii) trợ cấp;
+   (iii) tài trợ đầu tư, tài trợ nghiên cứu và phát triển, các loại tài trợ khác;
+   (iv) giải thưởng;
+   (v) miễn/giảm tiền bản quyền, phí nhượng quyền;
+   (vi) hỗ trợ tài chính từ các Cơ quan Tín dụng Xuất khẩu (ECA);
+   (vii) ưu đãi tài chính;
+   (viii) lợi ích tài chính khác đã nhận hoặc sẽ nhận từ bất kỳ chính phủ nào cho bất kỳ hoạt động nào 
+
+2. Số liệu tại mục (1) phân tách theo quốc gia 
+
+3. Chính phủ có hiện diện trong cơ cấu sở hữu hay không và mức độ hiện diện
+
+4. Cơ sở xác định giá trị: áp dụng nhất quán các nguyên tắc kế toán được thừa nhận chung.
+
+  Unnamed: 6: Sự hiện diện của Nhà nước trong cơ cấu sở hữu: Nhà nước là cổ đông chi phối của Vietnam Airlines, nắm giữ khoảng 86,42% vốn điều lệ thông qua Bộ Tài chính và Tổng công ty Đầu tư và Kinh doanh vốn nhà nước (SCIC). Nhà nước thực hiện các quyền và nghĩa vụ của cổ đông theo quy định của pháp luật và Điều lệ TCT. 
+
+Hỗ trợ tài chính nhận từ Chính phủ: Thực hiện Nghị quyết số 135/2020/QH14 ngày 17/11/2020 của Quốc hội về các giải pháp tháo gỡ khó khăn cho TCTHKVN do ảnh hưởng của đại dịch COVID-19, Vietnam Airlines đã triển khai gói giải pháp thanh khoản quy mô 12.000 tỷ đồng, gồm:
+
+• Khoản vay tái cấp vốn 4.000 tỷ đồng thông qua các tổ chức tín dụng được Ngân hàng Nhà nước tái cấp vốn với lãi suất 0%/năm, không tài sản bảo đảm. Khoản vay đã được Quốc hội cho phép gia hạn trả nợ, tối đa đến ngày 31/12/2027.
+• Phương án phát hành cổ phiếu tăng vốn điều lệ quy mô khoảng 8.000 tỷ đồng, trong đó SCIC thay mặt Chính phủ thực hiện quyền mua cổ phần của cổ đông Nhà nước.
+
+Kiểm toán Nhà nước đã thực hiện kiểm toán việc sử dụng nguồn vốn của gói hỗ trợ và kết luận nguồn vốn được quản lý, sử dụng đúng mục đích đề ra.
+  Unnamed: 7: SIA KHÔNG báo cáo chỉ tiêu GRI 201-4 (trợ cấp/hỗ trợ tài chính nhận từ chính phủ) trong Báo cáo PTBV FY2024/25 — chỉ tiêu này không có trong GRI Content Index. 
+Phần hiệu quả kinh tế chỉ công bố GRI 201-1 (giá trị kinh tế trực tiếp tạo ra và phân phối); không có công bố riêng về hỗ trợ tài chính từ chính phủ.
+  Unnamed: 8: nan
+
+=== Row 20 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 19
+  Unnamed: 1: GRI 205-2
+  Unnamed: 2: Communication and training about anti-corruption policies and procedures
+  Unnamed: 3: Truyền thông, đào tạo về chống tham nhũng
+  Unnamed: 4: Yes
+  Unnamed: 5: Đây là chỉ tiêu định lượng, cụ thể: 
+
+1. Số lượng và tỷ lệ thành viên cơ quan quản trị đã được truyền thông về chính sách và quy trình phòng, chống tham nhũng — phân theo khu vực.
+
+2. Số lượng và tỷ lệ người lao động đã được truyền thông — phân theo nhóm lao động và theo khu vực
+
+3. Số lượng và tỷ lệ đối tác kinh doanh đã được truyền thông — phân theo nhóm lao động và theo khu vực; đồng thời mô tả nếu có truyền thông tới tổ chức/cá nhân khác.
+
+4. Số lượng và tỷ lệ thành viên HĐQT đã được đào tạo về phòng, chống tham nhũng — phân theo khu vực.
+
+5. Số lượng và tỷ lệ người lao động đã được đào tạo  — phân theo nhóm lao động và khu vực.
+  Unnamed: 6: Trong năm 2025, Ban lãnh đạo Vietnam Airlines đã ban hành Chương trình Phòng, chống tham nhũng, tiêu cực, thực hành tiết kiệm, chống lãng phí — được xác định là kim chỉ nam trong mọi hoạt động sản xuất kinh doanh cũng như công tác quản trị nội bộ. Chương trình được triển khai theo Luật Phòng, chống tham nhũng 2018 và các quy định liên quan.
+-> Mục 1 và 2 đã đảm bảo tỷ lệ 100%
+  Unnamed: 7: Số liệu cụ thể 98.3% nhân viên hoàn thành đào tạo chống tham nhũng, 100% thành viên Ban điều hành hoàn thành đào tạo, đào tạo bắt buộc hàng năm qua nền tảng e-learning.
+  Unnamed: 8: nan
+
+=== Row 21 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 20
+  Unnamed: 1: GRI 205-3
+  Unnamed: 2: Confirmed incidents of corruption and actions taken
+  Unnamed: 3: Sự cố tham nhũng xác nhận và biện pháp xử lý
+  Unnamed: 4: No
+  Unnamed: 5: 1. TỔNG SỐ và TÍNH CHẤT các sự cố tham nhũng ĐÃ ĐƯỢC XÁC NHẬN trong kỳ báo cáo.
+
+2. (b) Tổng số sự cố đã xác nhận dẫn tới việc NGƯỜI LAO ĐỘNG bị sa thải hoặc bị kỷ luật vì hành vi tham nhũng.
+
+3. (c) Tổng số sự cố đã xác nhận dẫn tới việc CHẤM DỨT hoặc KHÔNG GIA HẠN hợp đồng với đối tác kinh doanh do vi phạm liên quan đến tham nhũng.
+
+4. (d) Các VỤ VIỆC PHÁP LÝ CÔNG KHAI về tham nhũng được khởi kiện đối với Tổng công ty hoặc người lao động của Tổng công ty trong kỳ, và KẾT QUẢ xử lý các vụ việc đó.
+
+  Unnamed: 6: Không có sự cố tham nhũng nào tại Vietnam Airlines
+  Unnamed: 7: Trong năm tài chính 2024/25, không có sự cố tham nhũng nào được xác nhận liên quan đến nhân viên SIA, Scoot hay đối tác kinh doanh. Trên toàn Tập đoàn, 33 đơn vị kinh doanh được đánh giá rủi ro hối lộ/tham nhũng qua Bảng câu hỏi CSA, không phát hiện rủi ro đáng kể.
+  Unnamed: 8: nan
+
+=== Row 22 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 21
+  Unnamed: 1: GRI 206-1
+  Unnamed: 2: Legal actions for anti-competitive behavior, anti-trust, and monopoly practices
+  Unnamed: 3: Vụ kiện về cạnh tranh không lành mạnh, độc quyền
+  Unnamed: 4: No
+  Unnamed: 5: 1. (a) SỐ VỤ KIỆN đang xử lý hoặc đã hoàn tất trong kỳ báo cáo liên quan đến hành vi hạn chế cạnh tranh và vi phạm pháp luật về chống độc quyền, trong đó doanh nghiệp được xác định là MỘT BÊN THAM GIA.
+
+2. (b) KẾT QUẢ CHÍNH của các vụ kiện đã hoàn tất, bao gồm các quyết định hoặc phán quyết.
+  Unnamed: 6: Không có vụ kiện về cạnh tranh không lành mạnh, độc quyền nào tại Vietnam Airlines
+  Unnamed: 7: SIA KHÔNG báo cáo chỉ tiêu GRI 206-1 (vụ kiện về hành vi phản cạnh tranh, chống độc quyền) trong Báo cáo PTBV FY2024/25 — không có trong GRI Content Index.
+Chủ yếu đề cập chung thông qua phần Compliance with Laws and Regulations tổng quát, không có sự cố pháp lý phát sinh.
+  Unnamed: 8: nan
+
+=== Row 23 ===
+  DANH SÁCH CHỈ TIÊU TRỤ CỘT GOVERNANCE: 22
+  Unnamed: 1: GRI 415-1
+  Unnamed: 2: Political contributions
+  Unnamed: 3: Đóng góp cho các hoạt động chính trị
+  Unnamed: 4: Yes
+  Unnamed: 5: 1. (a) TỔNG GIÁ TRỊ TIỀN TỆ các khoản đóng góp chính trị bằng TIỀN và bằng HIỆN VẬT, được thực hiện TRỰC TIẾP và GIÁN TIẾP bởi doanh nghiệp — phân theo QUỐC GIA và theo BÊN NHẬN/THỤ HƯỞNG.
+
+2. (b) Nếu có đóng góp bằng hiện vật: phương pháp ước tính giá trị.
+  Unnamed: 6: Là Hãng hàng không quốc gia, Vietnam Airlines phối hợp chặt chẽ với Chính phủ và các cơ quan quản lý trong quá trình xây dựng và hoàn thiện chính sách, pháp luật về hàng không dân dụng và phát triển bền vững. 
+
+Tổng công ty cũng tham gia đóng góp ý kiến chính sách một cách gián tiếp thông qua các hiệp hội và liên minh ngành như IATA, AAPA, SkyTeam và Hiệp hội Doanh nghiệp Hàng không Việt Nam. Trong năm 2026, Vietnam Airlines đã chi 753.708 USD phí hội viên cho các hiệp hội và liên minh trên
+
+  Unnamed: 7: Là hãng hàng không quốc gia của Singapore, SIA phối hợp với chính phủ, cơ quan quản lý và vận động gián tiếp qua các hiệp hội ngành (AAPA, IATA, Star Alliance). SIA không đóng góp cho chiến dịch, tổ chức chính trị hay vận động hành lang; năm 2024/25 SIA và Scoot không có khoản đóng góp chính trị nào, song đã chi 805.238 USD phí thành viên cho các hiệp hội thương mại như IATA và AAPA.
+  Unnamed: 8: nan
+

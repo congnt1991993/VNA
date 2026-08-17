@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Card, Button, Input, Select, Badge, PillarBadge, Toast } from '../components/UI';
+import { Card, Button, Input, Select, Badge, PillarBadge, Toast, Modal } from '../components/UI';
+import {
+  ResponsiveContainer,
+  ComposedChart,
+  Bar,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from 'recharts';
 import {
   Search, Sliders, Database, Leaf, Users, ShieldCheck,
   Clock, ArrowLeft, FileText, CheckCircle, Save, Filter,
@@ -172,7 +183,25 @@ export const PublishAdjustPage: React.FC = () => {
   const [expandedIndicators, setExpandedIndicators] = useState<Record<string, boolean>>({});
   const [searchQuery, setSearchQuery] = useState('');
   const [filterPillar, setFilterPillar] = useState('');
+  const [filterPublish, setFilterPublish] = useState(''); // '' (Tất cả), 'published' (Công bố), 'unpublished' (Không công bố)
   const [selectedYear, setSelectedYear] = useState('2026');
+
+  // Global publish statuses map
+  const [publishedChartStatuses, setPublishedChartStatuses] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const handleSync = () => {
+      const savedStatus = localStorage.getItem('vna_publish_chart_status');
+      if (savedStatus) {
+        try {
+          setPublishedChartStatuses(JSON.parse(savedStatus));
+        } catch (e) {}
+      }
+    };
+    handleSync();
+    window.addEventListener('vna_publish_adjustments_updated', handleSync);
+    return () => window.removeEventListener('vna_publish_adjustments_updated', handleSync);
+  }, []);
 
   // Adjustments state (flat array stored in localStorage)
   const [adjustments, setAdjustments] = useState<AdjustmentItem[]>([]);
@@ -181,6 +210,45 @@ export const PublishAdjustPage: React.FC = () => {
   const [editStates, setEditStates] = useState<Record<string, { isOverride: boolean; overrideValue: string; reason: string }>>({});
 
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
+
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  const currentPeriods = useMemo(() => getIndicatorPeriods(selectedIndicator, selectedYear), [selectedIndicator, selectedYear]);
+
+  const previewChartData = useMemo(() => {
+    if (!selectedSubChart) return [];
+    
+    return currentPeriods.map(p => {
+      const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
+      const realValueStr = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
+      
+      const parseNum = (str: string) => {
+        if (!str) return 0;
+        const cleaned = str.replace(/[^0-9.-]/g, '');
+        const num = parseFloat(cleaned);
+        return isNaN(num) ? 0 : num;
+      };
+
+      const originalVal = parseNum(realValueStr);
+      const adjustedVal = parseNum(state.overrideValue || realValueStr);
+
+      let label = p;
+      if (p.includes('Tháng ')) {
+        label = 'T' + parseInt(p.replace('Tháng ', ''));
+      } else if (p.includes('Quý ')) {
+        label = 'Q' + p.replace('Quý ', '').split('/')[0];
+      } else if (p.includes('Bán niên ')) {
+        label = 'BN' + p.replace('Bán niên ', '').split('/')[0];
+      }
+
+      return {
+        periodLabel: label,
+        fullName: p,
+        'Số liệu gốc': originalVal,
+        'Số liệu điều chỉnh': adjustedVal
+      };
+    });
+  }, [selectedSubChart, currentPeriods, editStates]);
 
   // Load data
   useEffect(() => {
@@ -205,8 +273,6 @@ export const PublishAdjustPage: React.FC = () => {
     }
   }, []);
 
-  const currentPeriods = useMemo(() => getIndicatorPeriods(selectedIndicator, selectedYear), [selectedIndicator, selectedYear]);
-
   // Update editStates when selectedSubChart changes
   useEffect(() => {
     if (!selectedSubChart) {
@@ -221,16 +287,17 @@ export const PublishAdjustPage: React.FC = () => {
         a => a.indicatorCode === selectedSubChart.code && a.period === p
       );
 
-      if (existing) {
+      if (existing && existing.isOverride) {
         states[p] = {
-          isOverride: existing.isOverride,
+          isOverride: true,
           overrideValue: existing.overrideValue,
           reason: existing.reason
         };
       } else {
+        const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
         states[p] = {
           isOverride: false,
-          overrideValue: '',
+          overrideValue: realValue,
           reason: ''
         };
       }
@@ -238,6 +305,24 @@ export const PublishAdjustPage: React.FC = () => {
 
     setEditStates(states);
   }, [selectedSubChart, adjustments, currentPeriods]);
+
+  // Chart-level publish status state
+  const [isChartPublished, setIsChartPublished] = useState(true);
+
+  useEffect(() => {
+    if (!selectedSubChart) return;
+    const savedStatus = localStorage.getItem('vna_publish_chart_status');
+    if (savedStatus) {
+      try {
+        const statuses = JSON.parse(savedStatus);
+        setIsChartPublished(statuses[selectedSubChart.code] !== false);
+      } catch (e) {
+        setIsChartPublished(true);
+      }
+    } else {
+      setIsChartPublished(true);
+    }
+  }, [selectedSubChart]);
 
   // Handle query & filters
   const filteredIndicators = useMemo(() => {
@@ -250,9 +335,21 @@ export const PublishAdjustPage: React.FC = () => {
         !filterPillar ||
         ind.pillar.toLowerCase() === filterPillar.toLowerCase();
 
-      return matchesSearch && matchesPillar;
+      let matchesPublish = true;
+      if (filterPublish) {
+        const subCharts = getIndicatorSubCharts(ind);
+        if (filterPublish === 'published') {
+          // Keep if at least one sub-chart is published (default is true if not false)
+          matchesPublish = subCharts.some(sc => publishedChartStatuses[sc.code] !== false);
+        } else if (filterPublish === 'unpublished') {
+          // Keep if at least one sub-chart is NOT published
+          matchesPublish = subCharts.some(sc => publishedChartStatuses[sc.code] === false);
+        }
+      }
+
+      return matchesSearch && matchesPillar && matchesPublish;
     });
-  }, [indicators, searchQuery, filterPillar]);
+  }, [indicators, searchQuery, filterPillar, filterPublish, publishedChartStatuses]);
 
   // Check if an indicator has any active overrides under any of its sub-charts
   const getIndicatorStatus = (ind: any) => {
@@ -311,6 +408,8 @@ export const PublishAdjustPage: React.FC = () => {
     }));
   };
 
+
+
   // Save changes
   const handleSave = () => {
     if (!selectedSubChart || !selectedIndicator) return;
@@ -326,18 +425,28 @@ export const PublishAdjustPage: React.FC = () => {
     // Construct new entries
     Object.keys(editStates).forEach(period => {
       const state = editStates[period];
-      if (state.isOverride) {
+      const realValue = getSystemRealValue(selectedSubChart.code, period, selectedSubChart.unit);
+      
+      const isValueDifferent = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
+      if (isValueDifferent) {
         newEntries.push({
           indicatorCode: selectedSubChart.code,
           period,
           isOverride: true,
-          overrideValue: state.overrideValue,
+          overrideValue: state.overrideValue.trim(),
           reason: state.reason,
           updatedAt: nowStr,
           updatedBy: 'Nguyễn Văn Hải (Admin)'
         });
       }
     });
+
+    // Save chart-level publish status
+    const savedStatus = localStorage.getItem('vna_publish_chart_status');
+    const statuses = savedStatus ? JSON.parse(savedStatus) : {};
+    statuses[selectedSubChart.code] = isChartPublished;
+    localStorage.setItem('vna_publish_chart_status', JSON.stringify(statuses));
+    setPublishedChartStatuses(statuses);
 
     const finalAdjustments = [...filteredAdjustments, ...newEntries];
 
@@ -374,17 +483,19 @@ export const PublishAdjustPage: React.FC = () => {
 
   // Reset current selections
   const handleResetCurrent = () => {
-    if (!selectedIndicator) return;
+    if (!selectedSubChart) return;
 
     const clearedStates: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
     currentPeriods.forEach(p => {
+      const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
       clearedStates[p] = {
         isOverride: false,
-        overrideValue: '',
+        overrideValue: realValue,
         reason: ''
       };
     });
     setEditStates(clearedStates);
+    setIsChartPublished(true);
     setToast({
       message: 'Đã hoàn tác các thay đổi trên giao diện. Bấm Lưu để xác nhận.',
       type: 'info'
@@ -410,8 +521,8 @@ export const PublishAdjustPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* LEFT COLUMN: INDICATOR LIST (col-span-5) */}
-        <div className="lg:col-span-5 flex flex-col gap-4">
+        {/* LEFT COLUMN: INDICATOR LIST (col-span-4) */}
+        <div className="lg:col-span-4 flex flex-col gap-4">
           <Card className="p-5 border border-gray-250 flex flex-col gap-4">
             <div className="flex justify-between items-center border-b border-gray-150 pb-2">
               <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
@@ -424,11 +535,11 @@ export const PublishAdjustPage: React.FC = () => {
             </div>
 
             {/* SEARCH & FILTER */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex flex-col gap-2.5">
               <div className="relative">
                 <Input
                   type="text"
-                  placeholder="Mã hoặc tên chỉ tiêu..."
+                  placeholder="Tìm mã hoặc tên chỉ tiêu..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-8 text-xs bg-white py-1.5"
@@ -436,17 +547,30 @@ export const PublishAdjustPage: React.FC = () => {
                 <Search size={14} className="absolute left-2.5 top-2.5 text-gray-400" />
               </div>
 
-              <Select
-                value={filterPillar}
-                onChange={setFilterPillar}
-                options={[
-                  { label: 'Tất cả trụ cột', value: '' },
-                  { label: 'Môi trường (E)', value: 'Environment' },
-                  { label: 'Xã hội (S)', value: 'Social' },
-                  { label: 'Quản trị (G)', value: 'Governance' },
-                ]}
-                className="text-xs"
-              />
+              <div className="grid grid-cols-2 gap-2">
+                <Select
+                  value={filterPillar}
+                  onChange={setFilterPillar}
+                  options={[
+                    { label: 'Tất cả trụ cột', value: '' },
+                    { label: 'Môi trường (E)', value: 'Environment' },
+                    { label: 'Xã hội (S)', value: 'Social' },
+                    { label: 'Quản trị (G)', value: 'Governance' },
+                  ]}
+                  className="text-xs"
+                />
+
+                <Select
+                  value={filterPublish}
+                  onChange={setFilterPublish}
+                  options={[
+                    { label: 'Tất cả trạng thái', value: '' },
+                    { label: 'Đang công bố', value: 'published' },
+                    { label: 'Không công bố', value: 'unpublished' },
+                  ]}
+                  className="text-xs font-semibold"
+                />
+              </div>
             </div>
 
             {/* LIST */}
@@ -507,49 +631,66 @@ export const PublishAdjustPage: React.FC = () => {
                     {/* SUB-CHARTS EXPANDED LIST */}
                     {isExpanded && (
                       <div className="bg-slate-50/30 border-l-2 border-slate-300 divide-y divide-gray-100/50">
-                        {subCharts.map(sub => {
-                          const isSubSelected = selectedSubChart?.code === sub.code;
-                          const subStatus = getSubChartStatus(sub.code);
+                        {subCharts
+                          .filter(sub => {
+                            if (!filterPublish) return true;
+                            const isPub = publishedChartStatuses[sub.code] !== false;
+                            return filterPublish === 'published' ? isPub : !isPub;
+                          })
+                          .map(sub => {
+                            const isSubSelected = selectedSubChart?.code === sub.code;
+                            const subStatus = getSubChartStatus(sub.code);
+                            const isPub = publishedChartStatuses[sub.code] !== false;
 
-                          return (
-                            <div
-                              key={sub.code}
-                              onClick={(e) => {
-                                e.stopPropagation(); // Avoid toggling collapse
-                                setSelectedIndicator(ind);
-                                setSelectedSubChart(sub);
-                              }}
-                              className={`pl-8 pr-3 py-2.5 cursor-pointer transition-all flex items-center justify-between ${
-                                isSubSelected
-                                  ? 'bg-blue-50/80 border-r-4 border-vna-blue'
-                                  : 'hover:bg-slate-100/50'
-                              }`}
-                            >
-                              <div className="flex-1 pr-3">
-                                <div className="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-                                  <span>{sub.name}</span>
+                            return (
+                              <div
+                                key={sub.code}
+                                onClick={(e) => {
+                                  e.stopPropagation(); // Avoid toggling collapse
+                                  setSelectedIndicator(ind);
+                                  setSelectedSubChart(sub);
+                                }}
+                                className={`pl-8 pr-3 py-2.5 cursor-pointer transition-all flex items-center justify-between ${
+                                  isSubSelected
+                                    ? 'bg-blue-50/80 border-r-4 border-vna-blue'
+                                    : 'hover:bg-slate-100/50'
+                                }`}
+                              >
+                                <div className="flex-1 pr-3">
+                                  <div className="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
+                                    <span className={!isPub ? 'line-through text-gray-400' : ''}>{sub.name}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 mt-1 text-[9px] text-gray-400 font-medium">
+                                    <span className="font-mono bg-gray-100 px-1 rounded">{sub.code}</span>
+                                    <span>ĐVT: {sub.unit}</span>
+                                    <span>Tần suất: {sub.frequency}</span>
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-2 mt-1 text-[9px] text-gray-400 font-medium">
-                                  <span className="font-mono bg-gray-100 px-1 rounded">{sub.code}</span>
-                                  <span>ĐVT: {sub.unit}</span>
-                                  <span>Tần suất: {sub.frequency}</span>
+
+                                <div className="flex items-center gap-1 shrink-0">
+                                  {isPub ? (
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-green-50 text-green-700 border border-green-200" title="Đang công bố">
+                                      Công bố
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-amber-50 text-amber-700 border border-amber-200" title="Không công bố">
+                                      Tạm ẩn
+                                    </span>
+                                  )}
+
+                                  {subStatus === 'adjusted' ? (
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                                      Đã sửa
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-gray-100 text-gray-400 border border-gray-150">
+                                      Gốc
+                                    </span>
+                                  )}
                                 </div>
                               </div>
-
-                              <div>
-                                {subStatus === 'adjusted' ? (
-                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[8px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
-                                    Đã sửa
-                                  </span>
-                                ) : (
-                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[8px] font-bold bg-gray-100 text-gray-455 border border-gray-150">
-                                    Gốc
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
                       </div>
                     )}
                   </div>
@@ -565,8 +706,8 @@ export const PublishAdjustPage: React.FC = () => {
           </Card>
         </div>
 
-        {/* RIGHT COLUMN: OVERRIDE CONFIG (col-span-7) */}
-        <div className="lg:col-span-7">
+        {/* RIGHT COLUMN: OVERRIDE CONFIG (col-span-8) */}
+        <div className="lg:col-span-8">
           {!selectedIndicator || !selectedSubChart ? (
             <Card className="p-12 border border-gray-250 text-center flex flex-col items-center justify-center min-h-[450px]">
               <Database size={48} className="text-gray-300 mb-4 stroke-1 animate-pulse" />
@@ -640,7 +781,24 @@ export const PublishAdjustPage: React.FC = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700 bg-white border border-gray-300 px-3 py-1.5 rounded-lg select-none hover:bg-gray-50/50 shadow-2xs">
+                      <input
+                        type="checkbox"
+                        checked={isChartPublished}
+                        onChange={(e) => setIsChartPublished(e.target.checked)}
+                        className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                      />
+                      <span>Công bố dữ liệu</span>
+                    </label>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsPreviewOpen(true)}
+                      className="text-xs py-1.5 px-3 border border-gray-300 text-gray-700 bg-white cursor-pointer flex items-center gap-1.5"
+                    >
+                      <Activity size={13} className="text-vna-blue" />
+                      <span>Xem trước</span>
+                    </Button>
                     <Button
                       variant="outline"
                       onClick={handleResetCurrent}
@@ -660,96 +818,145 @@ export const PublishAdjustPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* SCROLLABLE LIST OF PERIODS */}
-                <div className="max-h-[500px] overflow-y-auto space-y-4 pr-1">
-                  {currentPeriods.map(p => {
-                    const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
-                    const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
-                    const sourceText = selectedSubChart.source;
-                    const isText = selectedSubChart.unit === 'Văn bản' || selectedSubChart.unit === 'Báo cáo' || !selectedSubChart.unit;
+                {/* WARNING BANNER FOR UNPUBLISHED CHART */}
+                {!isChartPublished && (
+                  <div className="bg-amber-50 border border-amber-250 text-amber-800 p-3.5 rounded-xl flex items-start gap-3 text-xs font-bold shadow-2xs mb-3">
+                    <Info size={16} className="text-amber-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span>Toàn bộ số liệu của biểu đồ thành phần này đang được thiết lập là </span>
+                      <span className="text-red-700 uppercase font-black bg-red-50 border border-red-200 px-1.5 py-0.5 rounded">Không công bố</span>
+                      <span>. Dữ liệu sẽ tạm thời ẩn khỏi Executive Dashboard và BI Reports.</span>
+                    </div>
+                  </div>
+                )}
 
-                    return (
-                      <div
-                        key={p}
-                        className={`p-4 rounded-xl border transition-all ${state.isOverride
-                          ? 'bg-amber-50/20 border-amber-300/70 shadow-2xs'
-                          : 'bg-white border-gray-200'
-                          }`}
-                      >
-                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-b border-gray-100 pb-2.5 mb-3">
-                          <span className="font-bold text-gray-800 text-sm flex items-center gap-1.5">
-                            <Activity size={14} className="text-vna-blue" />
-                            {p}
-                          </span>
-                          <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700">
-                            <input
-                              type="checkbox"
-                              checked={state.isOverride}
-                              onChange={() => handleToggleOverride(p)}
-                              className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
-                            />
-                            <span className="text-amber-800 font-black">Thay đổi dữ liệu công bố</span>
-                          </label>
-                        </div>
+                {/* SCROLLABLE TABLE OF PERIODS */}
+                <div className={`overflow-x-auto border rounded-xl max-h-[520px] transition-all duration-300 ${
+                  isChartPublished 
+                    ? 'border-gray-200' 
+                    : 'border-amber-200 bg-gray-50/30 opacity-85'
+                }`}>
+                  <table className="w-full text-left border-collapse min-w-[650px]">
+                    <thead>
+                      <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold text-gray-600 uppercase tracking-wider sticky top-0 z-10 shadow-xs">
+                        <th className="p-3.5 pl-4">Kỳ báo cáo</th>
+                        <th className="p-3.5 w-44">Số liệu gốc</th>
+                        <th className="p-3.5 w-44">Số công bố mới</th>
+                        <th className="p-3.5 pr-4">Lý do điều chỉnh</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-150 text-xs">
+                      {currentPeriods.map(p => {
+                        const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
+                        const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
+                        const sourceText = selectedSubChart.source;
+                        const isText = selectedSubChart.unit === 'Văn bản' || selectedSubChart.unit === 'Báo cáo' || !selectedSubChart.unit;
+                        const isOverridden = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
 
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                          {/* SYSTEM REAL VALUE DATA (col-span-5) */}
-                          <div className="md:col-span-5 space-y-1.5 bg-gray-50/70 p-3 rounded-lg border border-gray-150">
-                            <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">
-                              Số liệu thật của hệ thống
-                            </span>
-                            <div className={`font-mono text-sm font-bold truncate ${isText ? 'text-gray-600 italic' : 'text-gray-850'}`}>
-                              {realValue}
-                            </div>
-                            <div className="text-[9px] text-gray-400 font-semibold truncate" title={sourceText}>
-                              Nguồn: {sourceText}
-                            </div>
-                          </div>
-
-                          {/* OVERRIDE CONTROLS (col-span-7) */}
-                          <div className="md:col-span-7 flex flex-col gap-3">
-                            <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2">
-                              <span className="text-xs font-bold text-gray-500 sm:text-right">Số công bố mới:</span>
-                              <div className="sm:col-span-2">
-                                <Input
-                                  type="text"
-                                  value={state.isOverride ? state.overrideValue : realValue}
-                                  onChange={(e) => handleValueChange(p, e.target.value)}
-                                  disabled={!state.isOverride}
-                                  placeholder="Nhập số mới..."
-                                  className={`text-xs font-bold font-mono py-1.5 ${state.isOverride ? 'bg-white border-amber-300 focus:ring-amber-500' : 'bg-gray-100 text-gray-450 border-gray-300'
-                                    }`}
-                                />
+                        return (
+                          <tr 
+                            key={p} 
+                            className={`transition-colors hover:bg-slate-50/50 ${
+                              isOverridden ? 'bg-amber-50/15' : ''
+                            }`}
+                          >
+                            {/* Period name */}
+                            <td className="p-3 pl-4 font-bold text-gray-800 text-sm whitespace-nowrap">
+                              <div className="flex items-center gap-1.5">
+                                <Activity size={14} className="text-vna-blue shrink-0" />
+                                <span className={!isChartPublished ? 'text-gray-400 line-through decoration-gray-400/50' : ''}>
+                                  {p}
+                                </span>
                               </div>
-                            </div>
+                            </td>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-3 items-start gap-2">
-                              <span className="text-xs font-bold text-gray-500 sm:text-right pt-1.5">Lý do điều chỉnh:</span>
-                              <div className="sm:col-span-2">
-                                <textarea
-                                  value={state.reason}
-                                  onChange={(e) => handleReasonChange(p, e.target.value)}
-                                  disabled={!state.isOverride}
-                                  rows={1.5}
-                                  placeholder="VD: Điều chỉnh sai số đo đạc / Theo kết quả kiểm toán đối ngoại..."
-                                  className={`w-full text-xs p-2 rounded-lg border focus:outline-none focus:ring-1 ${state.isOverride
-                                    ? 'bg-white border-amber-300 focus:ring-amber-500/30 focus:border-amber-400 text-gray-800'
-                                    : 'bg-gray-100 border-gray-300 text-gray-400 resize-none'
-                                    }`}
-                                />
+                            {/* System real value */}
+                            <td className="p-3">
+                              <div className="flex flex-col gap-0.5">
+                                <span className={`font-mono text-sm font-bold truncate ${isText ? 'text-gray-500 italic font-sans' : 'text-gray-850'}`}>
+                                  {realValue}
+                                </span>
+                                <span className="text-[9px] text-gray-400 truncate max-w-[170px]" title={sourceText}>
+                                  Nguồn: {sourceText}
+                                </span>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                            </td>
+
+                            {/* New override value input */}
+                            <td className="p-3">
+                              <input
+                                type="text"
+                                value={state.overrideValue}
+                                onChange={(e) => handleValueChange(p, e.target.value)}
+                                placeholder="Số mới..."
+                                className={`w-full text-xs font-bold font-mono px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${
+                                  isOverridden 
+                                    ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500' 
+                                    : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
+                                }`}
+                              />
+                            </td>
+
+                            {/* Adjustment reason input */}
+                            <td className="p-3 pr-4">
+                              <input
+                                type="text"
+                                value={state.reason}
+                                onChange={(e) => handleReasonChange(p, e.target.value)}
+                                placeholder="Nhập lý do điều chỉnh..."
+                                className={`w-full text-xs px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${
+                                  isOverridden 
+                                    ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500' 
+                                    : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
+                                }`}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </Card>
             </div>
           )}
         </div>
       </div>
+
+      {/* CHART PREVIEW MODAL */}
+      <Modal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        title={`Xem trước biểu đồ: ${selectedSubChart?.name}`}
+        size="lg"
+      >
+        <div className="p-4 space-y-4 text-left">
+          <p className="text-xs text-gray-500">
+            Biểu đồ trực quan hóa sự so sánh giữa **Số liệu gốc của hệ thống** (Cột xám) và **Số liệu sau khi anh điều chỉnh** (Đường xanh).
+          </p>
+
+          <div className="h-[350px] bg-slate-50 p-4 rounded-xl border border-gray-200">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart data={previewChartData} margin={{ top: 15, right: 10, left: -15, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                <XAxis dataKey="periodLabel" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} unit={selectedSubChart?.unit === '%' ? '%' : ''} />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }} 
+                  labelFormatter={(label, items) => items[0]?.payload?.fullName || label}
+                />
+                <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: 12 }} />
+                <Bar dataKey="Số liệu gốc" fill="#9ca3af" opacity={0.35} radius={[4, 4, 0, 0]} />
+                <Line type="monotone" dataKey="Số liệu điều chỉnh" stroke="#005f73" strokeWidth={3} activeDot={{ r: 6 }} dot={{ r: 4 }} />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="flex justify-end pt-2 border-t border-gray-100">
+            <Button variant="outline" onClick={() => setIsPreviewOpen(false)}>Đóng</Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
