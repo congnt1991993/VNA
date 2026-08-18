@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Card, Button, Input, Select, Badge, PillarBadge, Toast, Modal } from '../components/UI';
 import {
   ResponsiveContainer,
@@ -30,22 +30,45 @@ interface AdjustmentItem {
   updatedBy: string;
 }
 
-// Helper to determine the dynamic periods based on indicator frequency and selected year
+// Helper to extract localized name from "English / Vietnamese" or "English (Vietnamese)"
+const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): string => {
+  if (!name) return '';
+
+  // Format with slash: "English / Vietnamese" or "English/Vietnamese"
+  if (name.includes('/')) {
+    const parts = name.split('/').map(p => p.trim());
+    if (parts.length >= 2) {
+      return lang === 'vi' ? (parts[1] || parts[0]) : (parts[0] || parts[1]);
+    }
+  }
+
+  // Format with parentheses: "English (Vietnamese)"
+  const parenMatch = name.match(/^(.*?)\s*\((.*?)\)$/);
+  if (parenMatch) {
+    const enPart = parenMatch[1].trim();
+    const viPart = parenMatch[2].trim();
+    return lang === 'vi' ? (viPart || enPart) : (enPart || viPart);
+  }
+
+  return name;
+};
+
+// Helper to determine the dynamic periods based on indicator frequency and selected year (Newest to Oldest)
 const getIndicatorPeriods = (indicator: any, year: string): string[] => {
   if (!indicator) return [];
   const freq = indicator.frequency || 'Hàng tháng';
 
   if (freq.includes('quý') || freq.includes('Quý')) {
-    return [`Quý 1/${year}`, `Quý 2/${year}`, `Quý 3/${year}`, `Quý 4/${year}`];
+    return [`Quý 4/${year}`, `Quý 3/${year}`, `Quý 2/${year}`, `Quý 1/${year}`];
   }
   if (freq.includes('năm') || freq.includes('Năm')) {
     return [`Năm ${year}`];
   }
   if (freq.includes('bán niên') || freq.includes('Bán niên') || freq.includes('Bán Niên')) {
-    return [`Bán niên 1/${year}`, `Bán niên 2/${year}`];
+    return [`Bán niên 2/${year}`, `Bán niên 1/${year}`];
   }
   return Array.from({ length: 12 }).map((_, i) => {
-    const m = String(i + 1).padStart(2, '0');
+    const m = String(12 - i).padStart(2, '0');
     return `Tháng ${m}/${year}`;
   });
 };
@@ -126,53 +149,53 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
 
   if (code === 'GRI 302-1') {
     return [
-      { code: 'GRI 302-1-JETA1', name: 'Biểu đồ 1: Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
-      { code: 'GRI 302-1-SAF', name: 'Biểu đồ 2: Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
+      { code: 'GRI 302-1-JETA1', name: 'Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
+      { code: 'GRI 302-1-SAF', name: 'Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
     ];
   }
 
   if (code === 'GRI 305-4') {
     return [
-      { code: 'GRI 305-4-ACTUAL', name: 'Biểu đồ 1: Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
+      { code: 'GRI 305-4-ACTUAL', name: 'Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
     ];
   }
 
   if (code === 'GRI 404-2') {
     return [
-      { code: 'GRI 404-2-HQ', name: 'Biểu đồ 1: Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-OPS', name: 'Biểu đồ 2: Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-TECH', name: 'Biểu đồ 3: Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-SERVICE', name: 'Biểu đồ 4: Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-COMMERCE', name: 'Biểu đồ 5: Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+      { code: 'GRI 404-2-HQ', name: 'Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-OPS', name: 'Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-TECH', name: 'Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-SERVICE', name: 'Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-COMMERCE', name: 'Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
     ];
   }
 
   if (code === 'Airline B-1') {
     return [
-      { code: 'AIRLINE-B1-NPS', name: 'Biểu đồ 1: Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
+      { code: 'AIRLINE-B1-NPS', name: 'Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
     ];
   }
 
   if (code === 'GRI 2-7') {
     return [
-      { code: 'GRI 2-7-PILOTS', name: 'Biểu đồ 1: Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-CABIN', name: 'Biểu đồ 2: Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-TECH', name: 'Biểu đồ 3: Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-GROUND', name: 'Biểu đồ 4: Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+      { code: 'GRI 2-7-PILOTS', name: 'Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-CABIN', name: 'Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-TECH', name: 'Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-GROUND', name: 'Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
     ];
   }
 
   if (code === 'GRI 2-9') {
     return [
-      { code: 'GRI 2-9-IND', name: 'Biểu đồ 1: Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
-      { code: 'GRI 2-9-EXEC', name: 'Biểu đồ 2: Thành phần Hội đồng Điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
-      { code: 'GRI 2-9-NONEXEC', name: 'Biểu đồ 3: Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
+      { code: 'GRI 2-9-IND', name: 'Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
+      { code: 'GRI 2-9-EXEC', name: 'Thành phần Hội đồng Điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
+      { code: 'GRI 2-9-NONEXEC', name: 'Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
     ];
   }
 
   // Default sub-chart for other indicators
   return [
-    { code: `${code}-SUB1`, name: `Biểu đồ 1: Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
+    { code: `${code}-SUB1`, name: `Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
   ];
 };
 
@@ -185,9 +208,24 @@ export const PublishAdjustPage: React.FC = () => {
   const [filterPillar, setFilterPillar] = useState('');
   const [filterPublish, setFilterPublish] = useState(''); // '' (Tất cả), 'published' (Công bố), 'unpublished' (Không công bố)
   const [selectedYear, setSelectedYear] = useState('2026');
+  const [currentLang, setCurrentLang] = useState<'vi' | 'en'>(
+    () => (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi'
+  );
+
+  useEffect(() => {
+    const handleLangChange = () => {
+      const savedLang = (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi';
+      setCurrentLang(savedLang);
+    };
+    window.addEventListener('vna_language_changed', handleLangChange);
+    return () => window.removeEventListener('vna_language_changed', handleLangChange);
+  }, []);
 
   // Global publish statuses map
   const [publishedChartStatuses, setPublishedChartStatuses] = useState<Record<string, boolean>>({});
+  // Chart-level publish status & description state
+  const [isChartPublished, setIsChartPublished] = useState(true);
+  const [chartDescription, setChartDescription] = useState('');
 
   useEffect(() => {
     const handleSync = () => {
@@ -213,12 +251,42 @@ export const PublishAdjustPage: React.FC = () => {
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
+  // Measure right column height to sync left card height pixel-perfectly
+  const rightColRef = useRef<HTMLDivElement>(null);
+  const [rightColHeight, setRightColHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!rightColRef.current) return;
+    const updateHeight = () => {
+      if (rightColRef.current) {
+        const h = rightColRef.current.getBoundingClientRect().height || rightColRef.current.offsetHeight;
+        if (h > 100) {
+          setRightColHeight(Math.round(h));
+        }
+      }
+    };
+    updateHeight();
+    const rafId = requestAnimationFrame(updateHeight);
+    const timeoutId = setTimeout(updateHeight, 150);
+
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(rightColRef.current);
+    window.addEventListener('resize', updateHeight);
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
+      observer.disconnect();
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, [selectedIndicator, selectedSubChart, selectedYear, isChartPublished, adjustments]);
+
   const currentPeriods = useMemo(() => getIndicatorPeriods(selectedIndicator, selectedYear), [selectedIndicator, selectedYear]);
 
   const previewChartData = useMemo(() => {
     if (!selectedSubChart) return [];
 
-    return currentPeriods.map(p => {
+    const chronologicalPeriods = [...currentPeriods].reverse();
+    return chronologicalPeriods.map(p => {
       const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
       const realValueStr = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
 
@@ -306,9 +374,6 @@ export const PublishAdjustPage: React.FC = () => {
     setEditStates(states);
   }, [selectedSubChart, adjustments, currentPeriods]);
 
-  // Chart-level publish status state
-  const [isChartPublished, setIsChartPublished] = useState(true);
-
   const handleToggleSubChartPublish = (subCode: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     const currentStatus = publishedChartStatuses[subCode] !== false;
@@ -325,7 +390,10 @@ export const PublishAdjustPage: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!selectedSubChart) return;
+    if (!selectedSubChart) {
+      setChartDescription('');
+      return;
+    }
     const savedStatus = localStorage.getItem('vna_publish_chart_status');
     if (savedStatus) {
       try {
@@ -337,14 +405,30 @@ export const PublishAdjustPage: React.FC = () => {
     } else {
       setIsChartPublished(true);
     }
-  }, [selectedSubChart]);
+
+    // Load chart description
+    const key = `${selectedSubChart.code}_${selectedYear}`;
+    const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
+    if (savedDescriptions) {
+      try {
+        const descMap = JSON.parse(savedDescriptions);
+        setChartDescription(descMap[key] || descMap[selectedSubChart.code] || '');
+      } catch (e) {
+        setChartDescription('');
+      }
+    } else {
+      setChartDescription('');
+    }
+  }, [selectedSubChart, selectedYear]);
 
   // Handle query & filters
   const filteredIndicators = useMemo(() => {
     return indicators.filter(ind => {
+      const localizedName = getLocalizedIndicatorName(ind.name, currentLang);
       const matchesSearch =
         ind.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        ind.name.toLowerCase().includes(searchQuery.toLowerCase());
+        ind.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        localizedName.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesPillar =
         !filterPillar ||
@@ -463,6 +547,14 @@ export const PublishAdjustPage: React.FC = () => {
     localStorage.setItem('vna_publish_chart_status', JSON.stringify(statuses));
     setPublishedChartStatuses(statuses);
 
+    // Save chart description
+    const key = `${selectedSubChart.code}_${selectedYear}`;
+    const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
+    const descMap = savedDescriptions ? JSON.parse(savedDescriptions) : {};
+    descMap[key] = chartDescription;
+    descMap[selectedSubChart.code] = chartDescription;
+    localStorage.setItem('vna_chart_publish_descriptions', JSON.stringify(descMap));
+
     const finalAdjustments = [...filteredAdjustments, ...newEntries];
 
     // Save to localStorage
@@ -522,7 +614,7 @@ export const PublishAdjustPage: React.FC = () => {
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       {/* HEADER */}
-      <div className="bg-white border border-gray-200 px-6 py-4 rounded-xl shadow-xs flex justify-between items-center">
+      {/* <div className="bg-white border border-gray-200 px-6 py-4 rounded-xl shadow-xs flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-vna-blue">Điều chỉnh dữ liệu công bố</h1>
           <p className="text-black/45 text-sm mt-0.5">
@@ -533,24 +625,17 @@ export const PublishAdjustPage: React.FC = () => {
           <Globe size={14} />
           <span>VNA Disclosure Control</span>
         </div>
-      </div>
+      </div> */}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT COLUMN: INDICATOR LIST (col-span-4) */}
-        <div className="lg:col-span-4 flex flex-col gap-4">
-          <Card className="p-5 border border-gray-250 flex flex-col gap-4">
-            <div className="flex justify-between items-center border-b border-gray-150 pb-2">
-              <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
-                <Sliders size={16} />
-                <span>Chọn chỉ tiêu ESG</span>
-              </h3>
-              <Badge variant="secondary" className="font-mono text-xs">
-                {filteredIndicators.length} Chỉ tiêu
-              </Badge>
-            </div>
-
+        <div className="lg:col-span-4 flex flex-col">
+          <div
+            style={rightColHeight ? { height: `${rightColHeight}px` } : { minHeight: '820px' }}
+            className="bg-white rounded-lg border border-gray-250 p-5 flex flex-col gap-4 overflow-hidden shadow-2xs hover:shadow-md transition-shadow duration-300"
+          >
             {/* SEARCH & FILTER */}
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-2.5 shrink-0">
               <div className="relative">
                 <Input
                   type="text"
@@ -588,152 +673,143 @@ export const PublishAdjustPage: React.FC = () => {
               </div>
             </div>
 
-            {/* LIST */}
-            <div className="max-h-[620px] overflow-y-auto divide-y divide-gray-150 pr-1">
-              {filteredIndicators.map(ind => {
-                const isSelected = selectedIndicator?.code === ind.code;
-                const isExpanded = !!expandedIndicators[ind.code];
-                const status = getIndicatorStatus(ind);
-                const subCharts = getIndicatorSubCharts(ind);
+            {/* UNIFIED TABLE CONTAINER (HEADER + LIST) */}
+            <div className="border border-gray-200 rounded-lg overflow-hidden flex flex-col flex-1 min-h-0 -mt-1 shadow-2xs">
+              {/* TABLE HEADER */}
+              <div className="flex items-center justify-between bg-slate-50 border-b border-gray-200 px-3.5 py-2 text-[11px] font-bold text-gray-600 uppercase tracking-wider select-none shrink-0">
+                <span className="pl-1">Chỉ tiêu</span>
+                <span className="w-16 text-center pr-1">Công bố</span>
+              </div>
 
-                return (
-                  <div key={ind.code} className="flex flex-col">
-                    {/* INDICATOR ROW */}
-                    <div
-                      onClick={() => {
-                        setSelectedIndicator(ind);
-                        setExpandedIndicators(prev => ({
-                          ...prev,
-                          [ind.code]: !prev[ind.code]
-                        }));
-                        if (subCharts.length > 0) {
-                          setSelectedSubChart(subCharts[0]);
-                        }
-                      }}
-                      className={`p-3 cursor-pointer transition-all flex items-center justify-between group border-b border-gray-100 ${isSelected
+              {/* LIST */}
+              <div className="flex-1 overflow-y-auto divide-y divide-gray-150 min-h-0">
+                {filteredIndicators.map(ind => {
+                  const isSelected = selectedIndicator?.code === ind.code;
+                  const isExpanded = !!expandedIndicators[ind.code];
+                  const status = getIndicatorStatus(ind);
+                  const subCharts = getIndicatorSubCharts(ind);
+
+                  return (
+                    <div key={ind.code} className="flex flex-col">
+                      {/* INDICATOR ROW */}
+                      <div
+                        onClick={() => {
+                          setSelectedIndicator(ind);
+                          setExpandedIndicators(prev => ({
+                            ...prev,
+                            [ind.code]: !prev[ind.code]
+                          }));
+                          if (subCharts.length > 0) {
+                            setSelectedSubChart(subCharts[0]);
+                          }
+                        }}
+                        className={`px-3 py-2.5 cursor-pointer transition-all flex items-center justify-between group border-b border-gray-100 ${isSelected
                           ? 'bg-slate-50 border-l-4 border-vna-blue'
-                          : 'hover:bg-slate-50/50'
-                        }`}
-                    >
-                      <div className="flex-1 pr-3">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-gray-400">
-                            {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                          </span>
-                          <span className="text-[10px] font-black px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-mono">
-                            {ind.code}
-                          </span>
-                          <PillarBadge pillar={ind.pillar} />
+                          : 'hover:bg-slate-50/70'
+                          }`}
+                      >
+                        <div className="flex-1 pr-2 min-w-0">
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <span className="text-gray-400">
+                              {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                            </span>
+                            <span className="text-[10px] font-black px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-mono">
+                              {ind.code}
+                            </span>
+                            <span className="text-[9px] text-gray-500 font-medium bg-gray-150/70 px-1.5 py-0.5 rounded">
+                              {subCharts.length} biểu đồ
+                            </span>
+                          </div>
+                          <div className="text-xs font-bold text-gray-800 leading-snug">
+                            {getLocalizedIndicatorName(ind.name, currentLang)}
+                          </div>
                         </div>
-                        <div className="text-xs font-bold text-gray-800 leading-snug">
-                          {ind.name}
+
+                        <div className="w-16 flex justify-center items-center shrink-0 pr-1">
+                          {status === 'adjusted' && (
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-250">
+                              Đã sửa
+                            </span>
+                          )}
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2">
-                        {status === 'adjusted' && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-250">
-                            Đã sửa
-                          </span>
-                        )}
-                        <span className="text-[10px] text-gray-400 font-bold bg-gray-150/70 px-1.5 py-0.5 rounded-full">
-                          {subCharts.length}
-                        </span>
-                      </div>
-                    </div>
+                      {/* SUB-CHARTS EXPANDED LIST */}
+                      {isExpanded && (
+                        <div className="bg-slate-50/40 border-l-2 border-slate-300 divide-y divide-gray-100">
+                          {subCharts
+                            .filter(sub => {
+                              if (!filterPublish) return true;
+                              const isPub = publishedChartStatuses[sub.code] !== false;
+                              return filterPublish === 'published' ? isPub : !isPub;
+                            })
+                            .map(sub => {
+                              const isSubSelected = selectedSubChart?.code === sub.code;
+                              const subStatus = getSubChartStatus(sub.code);
+                              const isPub = publishedChartStatuses[sub.code] !== false;
 
-                    {/* SUB-CHARTS EXPANDED LIST */}
-                    {isExpanded && (
-                      <div className="bg-slate-50/30 border-l-2 border-slate-300 divide-y divide-gray-100/50">
-                        {subCharts
-                          .filter(sub => {
-                            if (!filterPublish) return true;
-                            const isPub = publishedChartStatuses[sub.code] !== false;
-                            return filterPublish === 'published' ? isPub : !isPub;
-                          })
-                          .map(sub => {
-                            const isSubSelected = selectedSubChart?.code === sub.code;
-                            const subStatus = getSubChartStatus(sub.code);
-                            const isPub = publishedChartStatuses[sub.code] !== false;
-
-                            return (
-                              <div
-                                key={sub.code}
-                                onClick={(e) => {
-                                  e.stopPropagation(); // Avoid toggling collapse
-                                  setSelectedIndicator(ind);
-                                  setSelectedSubChart(sub);
-                                }}
-                                className={`pl-8 pr-3 py-2.5 cursor-pointer transition-all flex items-center justify-between ${isSubSelected
-                                    ? 'bg-blue-50/80 border-r-4 border-vna-blue'
-                                    : 'hover:bg-slate-100/50'
-                                  }`}
-                              >
-                                <div className="flex-1 pr-3">
-                                  <div className="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-                                    <span className={!isPub ? 'line-through text-gray-400' : ''}>{sub.name}</span>
+                              return (
+                                <div
+                                  key={sub.code}
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Avoid toggling collapse
+                                    setSelectedIndicator(ind);
+                                    setSelectedSubChart(sub);
+                                  }}
+                                  className={`pl-7 pr-3 py-2 cursor-pointer transition-all flex items-center justify-between ${isSubSelected
+                                    ? 'bg-blue-50/80 border-r-3 border-vna-blue'
+                                    : 'hover:bg-slate-100/60'
+                                    }`}
+                                >
+                                  <div className="flex-1 pr-2 min-w-0 flex items-center gap-1.5 flex-wrap">
+                                    <span className={`text-xs font-semibold ${!isPub ? 'line-through text-gray-400' : 'text-gray-700'}`}>
+                                      {sub.name.replace(/^Biểu đồ\s*\d+\s*:\s*/i, '')}
+                                    </span>
+                                    {subStatus === 'adjusted' && (
+                                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-amber-100 text-amber-800 border border-amber-200 shrink-0">
+                                        Đã sửa
+                                      </span>
+                                    )}
                                   </div>
-                                  {/* <div className="flex items-center gap-2 mt-1 text-[9px] text-gray-400 font-medium">
-                                    <span className="font-mono bg-gray-100 px-1 rounded">{sub.code}</span>
-                                    <span>ĐVT: {sub.unit}</span>
-                                    <span>Tần suất: {sub.frequency}</span>
-                                  </div> */}
-                                </div>
 
-                                <div className="flex items-center gap-1.5 shrink-0">
-                                  {/* Switch Button Công bố */}
-                                  <div
-                                    onClick={(e) => handleToggleSubChartPublish(sub.code, e)}
-                                    className="flex items-center gap-1 cursor-pointer py-0.5 px-1 rounded hover:bg-slate-200/60 transition-colors"
-                                    title={isPub ? "Đang công bố (Click để tắt)" : "Không công bố (Click để bật)"}
-                                  >
+                                  <div className="w-16 flex justify-center items-center shrink-0 pr-1">
+                                    {/* Switch Button Công bố */}
                                     <button
                                       type="button"
                                       role="switch"
                                       aria-checked={isPub}
-                                      className={`relative inline-flex h-4 w-7 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${isPub ? 'bg-emerald-500' : 'bg-gray-300'
+                                      onClick={(e) => handleToggleSubChartPublish(sub.code, e)}
+                                      className={`relative inline-flex h-5 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${isPub ? 'bg-emerald-500 hover:bg-emerald-600 shadow-2xs' : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
+                                      title={isPub ? "Đang công bố (Click để tắt)" : "Không công bố (Click để bật)"}
                                     >
                                       <span
-                                        className={`pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isPub ? 'translate-x-3' : 'translate-x-0'
+                                        className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${isPub ? 'translate-x-6' : 'translate-x-0'
                                           }`}
                                       />
                                     </button>
-                                    <span className={`text-[8px] font-bold ${isPub ? 'text-emerald-700' : 'text-gray-400'}`}>
-                                      {isPub ? 'Công bố' : 'Ẩn'}
-                                    </span>
                                   </div>
-
-                                  {subStatus === 'adjusted' ? (
-                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
-                                      Đã sửa
-                                    </span>
-                                  ) : (
-                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-gray-100 text-gray-400 border border-gray-150">
-                                      Gốc
-                                    </span>
-                                  )}
                                 </div>
-                              </div>
-                            );
-                          })}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                              );
+                            })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
 
-              {filteredIndicators.length === 0 && (
-                <div className="py-8 text-center text-gray-400 italic text-xs">
-                  Không tìm thấy chỉ tiêu phù hợp.
-                </div>
-              )}
+                {filteredIndicators.length === 0 && (
+                  <div className="py-8 text-center text-gray-400 italic text-xs">
+                    Không tìm thấy chỉ tiêu phù hợp.
+                  </div>
+                )}
+              </div>
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* RIGHT COLUMN: OVERRIDE CONFIG (col-span-8) */}
-        <div className="lg:col-span-8">
+        <div ref={rightColRef} className="lg:col-span-8">
           {!selectedIndicator || !selectedSubChart ? (
             <Card className="p-12 border border-gray-250 text-center flex flex-col items-center justify-center min-h-[450px]">
               <Database size={48} className="text-gray-300 mb-4 stroke-1 animate-pulse" />
@@ -747,7 +823,7 @@ export const PublishAdjustPage: React.FC = () => {
           ) : (
             <div className="flex flex-col gap-6">
               {/* INDICATOR HEADER CARD */}
-              <Card className="p-5 border border-gray-250 bg-gradient-to-r from-slate-50 to-white flex flex-col gap-4">
+              {/* <Card className="p-5 border border-gray-250 bg-gradient-to-r from-slate-50 to-white flex flex-col gap-4">
                 <div className="flex justify-between items-start gap-4">
                   <div>
                     <div className="flex items-center gap-2 mb-1.5">
@@ -783,16 +859,16 @@ export const PublishAdjustPage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
 
               {/* OVERRIDES LIST CONTAINER */}
               <Card className="p-5 border border-gray-250 flex flex-col gap-4">
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-b border-gray-150 pb-2.5">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
+                    {/* <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
                       <Clock size={16} />
                       <span>Cấu hình kỳ báo cáo ({selectedSubChart.frequency || 'Hàng tháng'})</span>
-                    </h3>
+                    </h3> */}
                     <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
                       <span className="text-xs text-gray-500 font-bold">Năm công bố:</span>
                       <select
@@ -816,21 +892,21 @@ export const PublishAdjustPage: React.FC = () => {
                       <Activity size={13} className="text-vna-blue" />
                       <span>Xem trước</span>
                     </Button>
-                    <Button
+                    {/* <Button
                       variant="outline"
                       onClick={handleResetCurrent}
                       className="text-xs py-1.5 px-3 border border-gray-300 text-gray-700 bg-white cursor-pointer flex items-center gap-1.5"
                     >
                       <RotateCcw size={13} />
                       <span>Đặt lại</span>
-                    </Button>
+                    </Button> */}
                     <Button
                       variant="primary"
                       onClick={handleSave}
                       className="text-xs py-1.5 px-4 bg-vna-blue text-white cursor-pointer flex items-center gap-1.5 font-bold"
                     >
                       <Save size={14} />
-                      <span>Lưu cấu hình</span>
+                      <span>Lưu</span>
                     </Button>
                   </div>
                 </div>
@@ -849,16 +925,16 @@ export const PublishAdjustPage: React.FC = () => {
 
                 {/* SCROLLABLE TABLE OF PERIODS */}
                 <div className={`overflow-x-auto border rounded-xl max-h-[520px] transition-all duration-300 ${isChartPublished
-                    ? 'border-gray-200'
-                    : 'border-amber-200 bg-gray-50/30 opacity-85'
+                  ? 'border-gray-200'
+                  : 'border-amber-200 bg-gray-50/30 opacity-85'
                   }`}>
                   <table className="w-full text-left border-collapse min-w-[650px]">
                     <thead>
                       <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold text-gray-600 uppercase tracking-wider sticky top-0 z-10 shadow-xs">
-                        <th className="p-3.5 pl-4">Kỳ báo cáo</th>
+                        <th className="p-3.5 pl-4">Kỳ</th>
                         <th className="p-3.5 w-44">Số liệu gốc</th>
-                        <th className="p-3.5 w-44">Số công bố mới</th>
-                        <th className="p-3.5 pr-4">Lý do điều chỉnh</th>
+                        <th className="p-3.5 w-44">Điều chỉnh</th>
+                        <th className="p-3.5 pr-4">Lý do</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-150 text-xs">
@@ -891,9 +967,9 @@ export const PublishAdjustPage: React.FC = () => {
                                 <span className={`font-mono text-sm font-bold truncate ${isText ? 'text-gray-500 italic font-sans' : 'text-gray-850'}`}>
                                   {realValue}
                                 </span>
-                                <span className="text-[9px] text-gray-400 truncate max-w-[170px]" title={sourceText}>
+                                {/* <span className="text-[9px] text-gray-400 truncate max-w-[170px]" title={sourceText}>
                                   Nguồn: {sourceText}
-                                </span>
+                                </span> */}
                               </div>
                             </td>
 
@@ -905,8 +981,8 @@ export const PublishAdjustPage: React.FC = () => {
                                 onChange={(e) => handleValueChange(p, e.target.value)}
                                 placeholder="Số mới..."
                                 className={`w-full text-xs font-bold font-mono px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${isOverridden
-                                    ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
-                                    : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
+                                  ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
+                                  : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
                                   }`}
                               />
                             </td>
@@ -919,8 +995,8 @@ export const PublishAdjustPage: React.FC = () => {
                                 onChange={(e) => handleReasonChange(p, e.target.value)}
                                 placeholder="Nhập lý do điều chỉnh..."
                                 className={`w-full text-xs px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${isOverridden
-                                    ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
-                                    : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
+                                  ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
+                                  : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
                                   }`}
                               />
                             </td>
@@ -929,6 +1005,34 @@ export const PublishAdjustPage: React.FC = () => {
                       })}
                     </tbody>
                   </table>
+                </div>
+              </Card>
+
+              {/* CHART DESCRIPTION CARD */}
+              <Card className="p-5 border border-gray-250 flex flex-col gap-3">
+                <div className="flex items-center justify-between border-b border-gray-150 pb-2.5">
+                  <h3 className="text-xs font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
+                    <FileText size={15} />
+                    <span>Mô tả / Thuyết minh biểu đồ</span>
+                  </h3>
+                  {/* <span className="text-[11px] text-gray-400 font-medium">
+                    {selectedSubChart.name}
+                  </span> */}
+                </div>
+                <div className="flex flex-col gap-2">
+                  <textarea
+                    rows={4}
+                    value={chartDescription}
+                    onChange={(e) => setChartDescription(e.target.value)}
+                    placeholder="Nhập phần mô tả, bối cảnh số liệu, phân tích xu hướng hoặc ghi chú thuyết minh cho toàn bộ biểu đồ này..."
+                    className="w-full text-xs p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-vna-blue bg-white text-gray-800 resize-y leading-relaxed shadow-2xs"
+                  />
+                  <div className="flex justify-between items-center text-[11px] text-gray-400 pt-0.5">
+                    {/* <span>Thuyết minh này sẽ được đồng bộ và xuất bản cùng biểu đồ trên Executive Dashboard và Báo cáo ESG.</span> */}
+                    {/* <span className="font-mono text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+                      {chartDescription.length} ký tự
+                    </span> */}
+                  </div>
                 </div>
               </Card>
             </div>
@@ -940,14 +1044,10 @@ export const PublishAdjustPage: React.FC = () => {
       <Modal
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
-        title={`Xem trước biểu đồ: ${selectedSubChart?.name}`}
+        title={`${selectedSubChart?.name}`}
         size="lg"
       >
         <div className="p-4 space-y-4 text-left">
-          <p className="text-xs text-gray-500">
-            Biểu đồ trực quan hóa sự so sánh giữa **Số liệu gốc của hệ thống** (Cột xám) và **Số liệu sau khi anh điều chỉnh** (Đường xanh).
-          </p>
-
           <div className="h-[350px] bg-slate-50 p-4 rounded-xl border border-gray-200">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={previewChartData} margin={{ top: 15, right: 10, left: -15, bottom: 5 }}>
@@ -965,9 +1065,15 @@ export const PublishAdjustPage: React.FC = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className="flex justify-end pt-2 border-t border-gray-100">
-            <Button variant="outline" onClick={() => setIsPreviewOpen(false)}>Đóng</Button>
-          </div>
+          {chartDescription && (
+            <div className="bg-blue-50/60 border border-blue-200 rounded-xl p-3.5 text-xs text-gray-700">
+              <div className="font-bold text-vna-blue mb-1 flex items-center gap-1.5">
+                <FileText size={14} />
+                <span>Mô tả / Thuyết minh biểu đồ:</span>
+              </div>
+              <p className="whitespace-pre-line leading-relaxed text-gray-800">{chartDescription}</p>
+            </div>
+          )}
         </div>
       </Modal>
     </div>
