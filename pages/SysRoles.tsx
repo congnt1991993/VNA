@@ -22,6 +22,7 @@ const FEATURES = [
 
   // PHÂN TÍCH & CHIẾN LƯỢC
   { id: 'netzero-simulation', name: 'Mô phỏng kịch bản Net Zero', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
+  { id: 'netzero-simulation-v2', name: 'Mô phỏng kịch bản Net Zero 2', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
   { id: 'kpi-manage', name: 'Quản lý KPI', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
 
   // CÀI ĐẶT HỆ THỐNG

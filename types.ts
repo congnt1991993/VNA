@@ -12,6 +12,7 @@ export type PageName =
 
   // NHÓM 2: KẾ HOẠCH NETZERO
   | 'netzero-simulation'
+  | 'netzero-simulation-v2'
   | 'netzero-comparison'
   | 'netzero-reports'
 

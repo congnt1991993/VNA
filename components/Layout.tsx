@@ -94,6 +94,7 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <TrendingUp size={20} />,
     children: [
       { id: 'netzero', label: 'Mô phỏng kịch bản Net Zero', target: 'netzero-simulation' },
+      { id: 'netzero-v2', label: 'Mô phỏng kịch bản Net Zero 2', target: 'netzero-simulation-v2' },
     ]
   },
   // 6. CÀI ĐẶT HỆ THỐNG
@@ -123,6 +124,7 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'cms-manage': { vi: 'CMS Website ESG', en: 'CMS ESG Website' },
   'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },
   'netzero': { vi: 'Mô phỏng kịch bản Net Zero', en: 'Net Zero Simulation' },
+  'netzero-v2': { vi: 'Mô phỏng kịch bản Net Zero 2', en: 'Net Zero Simulation 2' },
   'kpi-manage': { vi: 'QUẢN LÝ KPI CHỈ TIÊU', en: 'KPI TARGET MANAGEMENT' },
   'kpi-manage-sub': { vi: 'Quản lý KPI chỉ tiêu', en: 'KPI Target Management' },
   'system-settings': { vi: 'CÀI ĐẶT HỆ THỐNG', en: 'SYSTEM SETTINGS' },
