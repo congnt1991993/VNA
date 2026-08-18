@@ -14,12 +14,26 @@ import {
 import {
   Search, Sliders, Database, Leaf, Users, ShieldCheck,
   Clock, ArrowLeft, FileText, CheckCircle, Save, Filter,
-  RotateCcw, Info, Globe, Activity, ShieldAlert, ChevronDown, ChevronRight
+  RotateCcw, Info, Globe, Activity, ShieldAlert, ChevronDown, ChevronRight,
+  History, Calendar, User
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 import { Pillar } from '../types';
 
 // --- TYPES ---
+interface AdjustmentHistoryItem {
+  id: string;
+  indicatorCode: string;
+  chartCode: string;
+  chartName: string;
+  period: string;
+  originalValue: string;
+  adjustedValue: string;
+  adjustedBy: string;
+  adjustedAt: string;
+  reason?: string;
+}
+
 interface AdjustmentItem {
   indicatorCode: string;
   period: string;
@@ -223,6 +237,70 @@ export const PublishAdjustPage: React.FC = () => {
 
   // Global publish statuses map
   const [publishedChartStatuses, setPublishedChartStatuses] = useState<Record<string, boolean>>({});
+
+  // Adjustment History state
+  const INITIAL_MOCK_HISTORY: AdjustmentHistoryItem[] = useMemo(() => [
+    {
+      id: 'HIST-VNA001',
+      indicatorCode: 'Airline E-1',
+      chartCode: 'Airline E-1-SUB1',
+      chartName: 'Tiếng ồn',
+      period: 'Tháng 12/2026',
+      originalValue: '4,615',
+      adjustedValue: '4,615',
+      adjustedBy: 'Nguyễn Văn Hải (Admin)',
+      adjustedAt: '18/08/2026 16:30',
+      reason: 'Đối soát số liệu theo biên bản kiểm toán IATA ASRH'
+    },
+    {
+      id: 'HIST-VNA002',
+      indicatorCode: 'GRI 302-1',
+      chartCode: 'GRI 302-1-JETA1',
+      chartName: 'Tiêu thụ Jet A-1 Đội bay',
+      period: 'Tháng 11/2026',
+      originalValue: '4,720',
+      adjustedValue: '4,710',
+      adjustedBy: 'Trần Thu Trang (Ban Kỹ thuật)',
+      adjustedAt: '15/08/2026 14:15',
+      reason: 'Chuẩn hóa định mức tiêu hao sau kiểm định tàu bay A350'
+    },
+    {
+      id: 'HIST-VNA003',
+      indicatorCode: 'GRI 302-1',
+      chartCode: 'GRI 302-1-SAF',
+      chartName: 'Tiêu thụ Nhiên liệu SAF pha trộn',
+      period: 'Quý 4/2026',
+      originalValue: '120',
+      adjustedValue: '125',
+      adjustedBy: 'Nguyễn Minh Hải (Admin)',
+      adjustedAt: '12/08/2026 09:45',
+      reason: 'Bổ sung khối lượng nạp thử nghiệm đường bay quốc tế'
+    },
+    {
+      id: 'HIST-VNA004',
+      indicatorCode: 'GRI 305-4',
+      chartCode: 'GRI 305-4-REAL',
+      chartName: 'Cường độ phát thải CO2 thực tế',
+      period: 'Tháng 10/2026',
+      originalValue: '785.4',
+      adjustedValue: '772.0',
+      adjustedBy: 'Nguyễn Văn Hải (Admin)',
+      adjustedAt: '05/08/2026 10:20',
+      reason: 'Áp dụng hệ số chuyển đổi ICAO mới nhất'
+    }
+  ], []);
+
+  const [adjustHistory, setAdjustHistory] = useState<AdjustmentHistoryItem[]>(() => {
+    const saved = localStorage.getItem('vna_publish_adjust_history');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        return INITIAL_MOCK_HISTORY;
+      }
+    }
+    return INITIAL_MOCK_HISTORY;
+  });
   // Chart-level publish status & description state
   const [isChartPublished, setIsChartPublished] = useState(true);
   const [chartDescription, setChartDescription] = useState('');
@@ -560,6 +638,28 @@ export const PublishAdjustPage: React.FC = () => {
     // Save to localStorage
     localStorage.setItem('vna_publish_adjustments', JSON.stringify(finalAdjustments));
     setAdjustments(finalAdjustments);
+
+    // Save adjustment history entries
+    if (newEntries.length > 0) {
+      const newHistoryItems: AdjustmentHistoryItem[] = newEntries.map(ent => ({
+        id: `HIST-${Date.now()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`,
+        indicatorCode: selectedIndicator.code,
+        chartCode: selectedSubChart.code,
+        chartName: selectedSubChart.name,
+        period: ent.period,
+        originalValue: getSystemRealValue(selectedSubChart.code, ent.period, selectedSubChart.unit),
+        adjustedValue: ent.overrideValue,
+        adjustedBy: 'Nguyễn Văn Hải (Admin)',
+        adjustedAt: nowStr,
+        reason: ent.reason
+      }));
+
+      setAdjustHistory(prev => {
+        const updated = [...newHistoryItems, ...prev];
+        localStorage.setItem('vna_publish_adjust_history', JSON.stringify(updated.slice(0, 200)));
+        return updated;
+      });
+    }
 
     // Save audit log to system logs
     const savedLogs = localStorage.getItem('vna_system_logs');
@@ -1039,6 +1139,102 @@ export const PublishAdjustPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* KHỐI LỊCH SỬ ĐIỀU CHỈNH SỐ LIỆU (DƯỚI CÙNG MÀN HÌNH) */}
+      <Card className="p-5 border border-gray-250 flex flex-col gap-3.5 shadow-2xs">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-gray-150 pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-blue-50 text-vna-blue rounded-lg border border-blue-200/50">
+              <History size={17} />
+            </div>
+            <div>
+              <h3 className="text-xs font-bold text-vna-blue uppercase tracking-wider">
+                Lịch sử điều chỉnh số liệu
+              </h3>
+              <p className="text-[11px] text-gray-500">
+                {selectedSubChart ? (
+                  <span>
+                    <strong className="text-gray-800">{selectedSubChart.name}</strong> ({selectedIndicator?.code})
+                  </span>
+                ) : (
+                  <span>Chọn một biểu đồ ở danh sách phía trên để xem lịch sử điều chỉnh chi tiết.</span>
+                )}
+              </p>
+            </div>
+          </div>
+          {selectedSubChart && (
+            <Badge variant="secondary" className="font-mono text-[10px] w-fit">
+              {adjustHistory.filter(h => h.chartCode === selectedSubChart.code).length} bản ghi
+            </Badge>
+          )}
+        </div>
+
+        {/* BẢNG DANH SÁCH LỊCH SỬ */}
+        <div className="overflow-x-auto border border-gray-200 rounded-lg">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-50 border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+                <th className="py-2.5 px-4 w-44">Kỳ</th>
+                <th className="py-2.5 px-4 w-40">Số liệu gốc</th>
+                <th className="py-2.5 px-4 w-40">Điều chỉnh</th>
+                <th className="py-2.5 px-4">Người điều chỉnh</th>
+                <th className="py-2.5 px-4 w-48 text-right pr-6">Thời gian</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 bg-white">
+              {(() => {
+                const chartHistory = selectedSubChart
+                  ? adjustHistory.filter(h => h.chartCode === selectedSubChart.code)
+                  : adjustHistory;
+
+                if (chartHistory.length === 0) {
+                  return (
+                    <tr>
+                      <td colSpan={5} className="py-8 text-center text-gray-400 italic">
+                        Chưa có lịch sử điều chỉnh số liệu nào được ghi nhận cho biểu đồ này.
+                      </td>
+                    </tr>
+                  );
+                }
+
+                return chartHistory.map(item => (
+                  <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-gray-800 flex items-center gap-1.5">
+                      <Calendar size={13} className="text-gray-400 shrink-0" />
+                      <span>{item.period}</span>
+                    </td>
+                    <td className="py-3 px-4 font-mono text-gray-500">
+                      {item.originalValue} {selectedSubChart?.unit || ''}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="font-mono font-bold text-vna-blue bg-blue-50/80 px-2 py-0.5 rounded border border-blue-200/70">
+                        {item.adjustedValue} {selectedSubChart?.unit || ''}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-gray-700">
+                      <div className="flex items-center gap-1.5">
+                        <User size={13} className="text-gray-400 shrink-0" />
+                        <span className="font-medium">{item.adjustedBy}</span>
+                      </div>
+                      {/* {item.reason && (
+                        <div className="text-[10px] text-gray-400 italic mt-0.5 truncate max-w-md">
+                          {item.reason}
+                        </div>
+                      )} */}
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[11px] text-gray-500 text-right pr-6">
+                      <div className="inline-flex items-center gap-1.5">
+                        <Clock size={13} className="text-gray-400 shrink-0" />
+                        <span>{item.adjustedAt}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ));
+              })()}
+            </tbody>
+          </table>
+        </div>
+      </Card>
 
       {/* CHART PREVIEW MODAL */}
       <Modal

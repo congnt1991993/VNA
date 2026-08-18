@@ -4,6 +4,25 @@ import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, S
 
 import kpiRules from './NetzeroGRI_KPI_Rules.json';
 
+// Helper to extract localized name from "English / Vietnamese" or "English (Vietnamese)"
+const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): string => {
+  if (!name) return '';
+  if (name.includes('/')) {
+    const parts = name.split('/').map(p => p.trim());
+    if (parts.length >= 2) {
+      return lang === 'vi' ? (parts[1] || parts[0]) : (parts[0] || parts[1]);
+    }
+  }
+  const parenMatch = name.match(/^(.*?)\s*\((.*?)\)$/);
+  if (parenMatch) {
+    const enPart = parenMatch[1].trim();
+    const viPart = parenMatch[2].trim();
+    return lang === 'vi' ? (viPart || enPart) : (enPart || viPart);
+  }
+  return name;
+};
+
+
 const GOV_INDICATOR_MAPPINGS: Record<string, {
   code: string;
   nameVi: string;
@@ -315,7 +334,19 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
   const [activeSec, setActiveSec] = useState<string>('');
   const [activeSubTab, setActiveSubTab] = useState<string>('TAB_1');
   const [activeMainTab, setActiveMainTab] = useState<'DATA' | 'PLAN'>('DATA');
-  const [inputLang, setInputLang] = useState<'VI' | 'EN'>('VI');
+  const [inputLang, setInputLang] = useState<'VI' | 'EN'>(() => {
+    const saved = localStorage.getItem('vna_esg_lang');
+    return saved === 'en' ? 'EN' : 'VI';
+  });
+
+  useEffect(() => {
+    const handleLangChange = () => {
+      const saved = localStorage.getItem('vna_esg_lang');
+      setInputLang(saved === 'en' ? 'EN' : 'VI');
+    };
+    window.addEventListener('vna_language_changed', handleLangChange);
+    return () => window.removeEventListener('vna_language_changed', handleLangChange);
+  }, []);
   const [formData, setFormData] = useState<Record<string, any>>({});
 
   useEffect(() => {
@@ -696,7 +727,8 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     return indicatorDetails.filter(ind => {
       const matchQuery = searchText.toLowerCase().trim();
       if (!matchQuery) return true;
-      return ind.code.toLowerCase().includes(matchQuery) || ind.name.toLowerCase().includes(matchQuery);
+      const locName = getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi').toLowerCase();
+      return ind.code.toLowerCase().includes(matchQuery) || ind.name.toLowerCase().includes(matchQuery) || locName.includes(matchQuery);
     });
   }, [indicatorDetails, searchText]);
 
@@ -822,7 +854,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                     }`}
                 >
                   <span className="text-[10px] font-bold text-gray-400 block tracking-wider uppercase mb-1">{ind.code}</span>
-                  <span className="font-bold text-gray-800 text-sm block leading-tight">{ind.name}</span>
+                  <span className="font-bold text-gray-800 text-sm block leading-tight">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</span>
                   <span className="text-[10px] text-gray-400 font-semibold mt-2 flex items-center gap-1">
                     <FileSpreadsheet size={12} /> {sheetCount} {sheetCount > 1 ? 'Sheets' : 'Sheet'}
                   </span>
@@ -853,7 +885,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                     <ArrowLeft size={20} />
                   </button>
                   <div>
-                    <h2 className="text-lg font-black text-vna-blue">{ind.name}</h2>
+                    <h2 className="text-lg font-black text-vna-blue">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</h2>
                     <div className="flex items-center gap-2 mt-2">
                       <span className="text-xs text-gray-500 font-bold">Kỳ báo cáo:</span>
                       <select className="border border-gray-300 rounded px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/20 outline-none">
@@ -1059,7 +1091,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                           {/* Question Selector Card */}
                           <div className="bg-slate-50 border border-gray-200 p-5 rounded-2xl">
                             <span className="text-[10px] font-black text-vna-gold uppercase tracking-wider block mb-1">
-                              {inputLang === 'VI' ? 'Câu hỏi kiểm nghiệm hiện trạng (Yes/No)' : 'Current state verification question (Yes/No)'}
+                              {inputLang === 'VI' ? 'Câu hỏi kiểm nghiệm hiện trạng (Có/Không)' : 'Current state verification question (Yes/No)'}
                             </span>
                             <h4 className="text-sm font-bold text-slate-800 leading-relaxed mb-4">
                               {inputLang === 'VI' ? mapping.questionVi : mapping.questionEn}
@@ -1093,7 +1125,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                                   />
                                   <span>
                                     {inputLang === 'VI' 
-                                      ? (option === 'Yes' ? 'Có (Yes)' : 'Không (No)') 
+                                      ? (option === 'Yes' ? 'Có' : 'Không') 
                                       : (option === 'Yes' ? 'Yes' : 'No')}
                                   </span>
                                 </label>

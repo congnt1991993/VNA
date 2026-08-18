@@ -9,9 +9,25 @@ import {
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
 import { IndicatorHistoryTable } from '../components/IndicatorHistoryTable';
-import { UnifiedDataEntryForm } from '../components/UnifiedDataEntryForm';
-import { FORM_DEFINITIONS } from '../data/accessControl';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
+
+// Helper to extract localized name from "English / Vietnamese" or "English (Vietnamese)"
+const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): string => {
+  if (!name) return '';
+  if (name.includes('/')) {
+    const parts = name.split('/').map(p => p.trim());
+    if (parts.length >= 2) {
+      return lang === 'vi' ? (parts[1] || parts[0]) : (parts[0] || parts[1]);
+    }
+  }
+  const parenMatch = name.match(/^(.*?)\s*\((.*?)\)$/);
+  if (parenMatch) {
+    const enPart = parenMatch[1].trim();
+    const viPart = parenMatch[2].trim();
+    return lang === 'vi' ? (viPart || enPart) : (enPart || viPart);
+  }
+  return name;
+};
 
 interface Indicator extends Partial<EsgIndicator> {
   id: string;
@@ -207,6 +223,18 @@ const parseFormulaToTokens = (expression: string): FormulaToken[] => {
 const MOCK_INDICATORS: Indicator[] = MOCK_INDICATORS_JSON as Indicator[];
 
 export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ departmentFilter }) => {
+  const [currentLang, setCurrentLang] = useState<'vi' | 'en'>(
+    () => (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi'
+  );
+
+  useEffect(() => {
+    const handleLangChange = () => {
+      setCurrentLang((localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi');
+    };
+    window.addEventListener('vna_language_changed', handleLangChange);
+    return () => window.removeEventListener('vna_language_changed', handleLangChange);
+  }, []);
+
   const [viewMode, setViewMode] = useState<'LIST' | 'DETAIL' | 'DASHBOARD'>('LIST');
   const [indicators, setIndicators] = useState<Indicator[]>([]);
   const [formIndicator, setFormIndicator] = useState<Indicator | null>(null);
@@ -932,7 +960,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                   </span>
                   <PillarBadge pillar={formIndicator.pillar} />
                 </div>
-                <h2 className="text-lg font-bold text-vna-blue">{formIndicator.name}</h2>
+                <h2 className="text-lg font-bold text-vna-blue">{getLocalizedIndicatorName(formIndicator.name, currentLang)}</h2>
               </div>
             </div>
             <Button
@@ -1021,7 +1049,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             <ArrowLeft size={20} />
           </Button>
           <div>
-            <h2 className="text-xl font-bold text-vna-blue">Dashboard: {formIndicator.code} - {formIndicator.name}</h2>
+            <h2 className="text-xl font-bold text-vna-blue">Dashboard: {formIndicator.code} - {getLocalizedIndicatorName(formIndicator.name, currentLang)}</h2>
             <p className="text-xs text-black/45">
               Theo dõi số liệu thực hiện và tiến độ mục tiêu chiến lược
             </p>
@@ -1190,7 +1218,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                             }}
                             className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
                           />
-                          <span>Có (Yes)</span>
+                          <span>{currentLang === 'en' ? 'Yes' : 'Có'}</span>
                         </label>
 
                         <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
@@ -1204,7 +1232,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                             }}
                             className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
                           />
-                          <span>Không (No)</span>
+                          <span>{currentLang === 'en' ? 'No' : 'Không'}</span>
                         </label>
                       </div>
                     </div>
@@ -1842,7 +1870,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <td className="py-3.5 px-4 text-center text-gray-400 font-medium whitespace-nowrap">{index + 1}</td>
                 <td className="py-3.5 px-4 font-bold text-vna-blue whitespace-nowrap">{item.code}</td>
                 <td className="py-3.5 px-4 whitespace-nowrap">
-                  <div className="font-semibold text-gray-800 truncate max-w-[280px] text-left" title={item.name}>{item.name}</div>
+                  <div className="font-semibold text-gray-800 truncate max-w-[280px] text-left" title={item.name}>{getLocalizedIndicatorName(item.name, currentLang)}</div>
                   {item.programs && item.programs.length > 0 && (
                     <div className="flex gap-1 mt-1">
                       {item.programs.map(p => (
