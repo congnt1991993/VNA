@@ -3,7 +3,8 @@ import { Button, Select, PillarBadge, Input, Modal } from '../components/UI';
 import {
   Plus, Search, Upload, Download, FileSpreadsheet, ArrowLeft,
   Settings, BarChart2, Save, X, Info, User, Check, AlertCircle, FileText, Trash2,
-  Calendar, Clock, History, Edit3, Calculator, Lock, Database, Sparkles, RefreshCw, ShieldAlert
+  Calendar, Clock, History, Edit3, Calculator, Lock, Database, Sparkles, RefreshCw, ShieldAlert,
+  ChevronLeft, ChevronRight, GripVertical, RotateCcw
 } from 'lucide-react';
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
@@ -379,16 +380,6 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
   const handleUpdateTokenValue = (tokenId: string, newVal: string) => {
     setEditingTokens(prev => prev.map(t => t.id === tokenId ? { ...t, value: newVal } : t));
-  };
-
-  const handleAddMultiplier = () => {
-    const nextId1 = `tok-add-${Date.now()}-1`;
-    const nextId2 = `tok-add-${Date.now()}-2`;
-    setEditingTokens(prev => [
-      ...prev,
-      { id: nextId1, type: 'operator', value: '*', originalValue: '*', isDbField: false },
-      { id: nextId2, type: 'number', value: '1.0', originalValue: '1.0', isDbField: false }
-    ]);
   };
 
   const handleSaveFormula = () => {
@@ -1616,13 +1607,13 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               {/* Body */}
               <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto text-left">
                 {/* Guidance banner */}
-                <div className="p-3 bg-blue-50/60 border border-blue-200 rounded-xl flex items-start gap-2.5 text-xs text-gray-700">
+                <div className="p-3.5 bg-blue-50/60 border border-blue-200 rounded-xl flex items-start gap-2.5 text-xs text-gray-700">
                   <ShieldAlert size={16} className="text-vna-blue shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <p className="font-bold text-vna-blue">Quy tắc bảo vệ dữ liệu công thức:</p>
+                    <p className="font-bold text-vna-blue">Quy tắc chỉnh sửa hệ số công thức:</p>
                     <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-gray-600">
-                      <li><strong className="text-gray-800">Trường dữ liệu từ DB (🔒 Khóa):</strong> Được bảo vệ cố định theo cấu trúc bảng cơ sở dữ liệu, không cho phép chỉnh sửa.</li>
-                      <li><strong className="text-amber-800">Hệ số số học (✏️ Mở):</strong> Bạn có thể trực tiếp thay đổi các hệ số quy đổi, định mức hoặc tỷ lệ %.</li>
+                      <li><strong className="text-amber-800">Hệ số số học có sẵn (✏️ Cho phép sửa):</strong> Bạn có thể trực tiếp thay đổi giá trị của các hệ số có sẵn trong công thức (hệ số phát thải, tỷ lệ quy đổi...).</li>
+                      <li><strong className="text-gray-800">Trường dữ liệu DB, Toán tử & Cấu trúc (🔒 Cố định):</strong> Khóa cố định toàn bộ các trường DB, toán tử (+, -, ×, ÷) và cấu trúc biểu thức để bảo toàn tính toàn vẹn dữ liệu.</li>
                     </ul>
                   </div>
                 </div>
@@ -1634,16 +1625,10 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                       <Sparkles size={14} className="text-amber-600" />
                       <span>Thành phần công thức</span>
                     </label>
-                    <button
-                      type="button"
-                      onClick={handleAddMultiplier}
-                      className="text-[11px] text-vna-blue hover:text-vna-blue/80 font-bold flex items-center gap-1 cursor-pointer"
-                    >
-                      <Plus size={12} />
-                      <span>Thêm hệ số (* 1.0)</span>
-                    </button>
+                    <span className="text-[11px] text-gray-400 italic">Nhập giá trị mới vào các ô Hệ số bên dưới</span>
                   </div>
 
+                  {/* Token Container */}
                   <div className="p-4 bg-slate-50 border-2 border-dashed border-gray-250 rounded-xl flex flex-wrap items-center gap-2.5 min-h-[90px]">
                     {editingTokens.map(tok => {
                       if (tok.isDbField) {
@@ -1651,7 +1636,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                           <div
                             key={tok.id}
                             className="flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-50 text-vna-blue border border-blue-200 rounded-lg text-xs font-mono font-bold shadow-3xs cursor-not-allowed select-none"
-                            title="Trường dữ liệu DB (Cố định, không thể sửa)"
+                            title="Trường dữ liệu DB (Cố định, không cho phép sửa)"
                           >
                             <Lock size={11} className="text-blue-500 shrink-0" />
                             <Database size={12} className="text-blue-600 shrink-0" />
@@ -1670,14 +1655,15 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                               value={tok.value}
                               onChange={(e) => handleUpdateTokenValue(tok.id, e.target.value)}
                               className="w-24 px-2 py-1 text-xs font-mono font-black text-amber-900 bg-amber-50 border-2 border-amber-300 rounded-lg focus:border-amber-500 focus:bg-white text-center shadow-3xs focus:outline-none"
+                              title="Nhập hệ số mới"
                             />
                           </div>
                         );
                       }
 
                       return (
-                        <span key={tok.id} className="text-base font-bold text-gray-500 px-0.5">
-                          {tok.value}
+                        <span key={tok.id} className="text-base font-bold text-gray-500 px-1 select-none">
+                          {tok.value === '*' ? '×' : tok.value === '/' ? '÷' : tok.value}
                         </span>
                       );
                     })}
