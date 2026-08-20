@@ -952,24 +952,24 @@ export const KPIManagePage: React.FC = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={modalType === 'add' ? `Thiết lập KPI Chỉ tiêu mới (${dept})` : "Cập nhật KPI chỉ tiêu"}
+        title={modalType === 'add' ? `Thiết lập KPI` : "Cập nhật KPI"}
         size="lg"
         footer={
           <div className="flex justify-end gap-3 w-full">
-            <Button variant="outline" onClick={() => setIsModalOpen(false)}>Hủy bỏ</Button>
-            <Button variant="primary" onClick={handleSave}>Lưu thông tin KPI</Button>
+            <Button variant="outline" onClick={() => setIsModalOpen(false)}>Hủy</Button>
+            <Button variant="primary" onClick={handleSave}>Lưu</Button>
           </div>
         }
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[70vh] overflow-y-auto p-1 text-sm">
           {/* Target Department Badge */}
-          <div className="md:col-span-2 bg-blue-50/70 p-3 rounded-lg border border-blue-200 flex items-center justify-between">
+          {/* <div className="md:col-span-2 bg-blue-50/70 p-3 rounded-lg border border-blue-200 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Building2 size={18} className="text-vna-blue" />
               <span className="font-bold text-vna-navy">Tổ Ban thiết lập: {dept}</span>
             </div>
             <Badge variant="blue">Gán theo Quản lý Ban</Badge>
-          </div>
+          </div> */}
 
           {/* Indicator selector from assigned list */}
           {activeTargetDept && activeTargetDept.indicatorIds.length > 0 && (
@@ -995,7 +995,7 @@ export const KPIManagePage: React.FC = () => {
             </div>
           )}
 
-          {KPI_MAPPINGS[indicatorCode] && KPI_MAPPINGS[indicatorCode].length > 0 ? (
+          {/* {KPI_MAPPINGS[indicatorCode] && KPI_MAPPINGS[indicatorCode].length > 0 ? (
             <div className="w-full text-left">
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Mã KPI <span className="text-red-500">*</span>
@@ -1016,8 +1016,8 @@ export const KPIManagePage: React.FC = () => {
             </div>
           ) : (
             <Input label="Mã KPI" value={code} onChange={(e) => setCode(e.target.value)} placeholder="VD: KPI-ENV-01" required />
-          )}
-          <Select
+          )} */}
+          {/* <Select
             label="Kỳ báo cáo"
             value={frequency}
             onChange={(val) => setFrequency(val)}
@@ -1026,23 +1026,22 @@ export const KPIManagePage: React.FC = () => {
               { label: 'Quý', value: 'Quý' },
               { label: 'Năm', value: 'Năm' },
             ]}
-          />
+          /> */}
           <div className="md:col-span-2">
-            <Input label="Tên Chỉ tiêu / KPI (Tiếng Việt)" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nhập tên KPI chỉ tiêu..." required />
+            <Input label="Tên KPI" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nhập tên KPI chỉ tiêu..." required />
           </div>
-          <div className="md:col-span-2">
+          {/* <div className="md:col-span-2">
             <Input label="Tên Tiếng Anh (nếu có)" value={subName} onChange={(e) => setSubName(e.target.value)} placeholder="English name..." />
-          </div>
-          <Input label="Đơn vị tính" value={unit} onChange={(e) => setUnit(e.target.value)} placeholder="VD: %, tấn, gCO2/RTK" required />
-          <Input label="Chỉ tiêu Kế hoạch (Target)" value={plan} onChange={(e) => setPlan(e.target.value)} placeholder="VD: 100" />
+          </div> */}
 
-          <Input label="Ngày bắt đầu áp dụng" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
-          <Input label="Ngày kết thúc áp dụng" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
+
+
+
 
           <div className="md:col-span-2 bg-gray-50 p-3 rounded-lg border border-gray-200">
             <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
               <ArrowUpDown size={16} className="text-vna-blue" />
-              Cách đánh giá & chiều hướng mục tiêu:
+              Chiều đánh giá KPI:
             </label>
             <div className="flex flex-col gap-2">
               <label className="flex items-start gap-2 text-xs font-medium cursor-pointer text-gray-700">
@@ -1054,7 +1053,7 @@ export const KPIManagePage: React.FC = () => {
                   className="mt-0.5 w-4 h-4 text-vna-blue focus:ring-vna-blue"
                 />
                 <div>
-                  <span className="font-bold text-vna-blue">Càng lớn càng tốt (Chiều Thuận):</span> ĐẠT khi Giá trị thực hiện &ge; Chỉ tiêu mục tiêu. (Ví dụ: Doanh thu, Tỷ lệ pha trộn SAF, NPS, Quy trình đào tạo...)
+                  <span className="font-bold text-vna-blue">ĐẠT khi số thực hiện &ge; Số kế hoạch.</span>
                 </div>
               </label>
               <label className="flex items-start gap-2 text-xs font-medium cursor-pointer text-gray-700 mt-1">
@@ -1066,17 +1065,19 @@ export const KPIManagePage: React.FC = () => {
                   className="mt-0.5 w-4 h-4 text-vna-blue focus:ring-vna-blue"
                 />
                 <div>
-                  <span className="font-bold text-amber-600">Càng nhỏ càng tốt (Chiều Nghịch):</span> ĐẠT khi Giá trị thực hiện &le; Chỉ tiêu mục tiêu. (Ví dụ: Phát thải CO2, Số vụ việc tai nạn, Sự cố an toàn...)
+                  <span className="font-bold text-amber-600">ĐẠT khi số thực hiện &le; Số kế hoạch.</span>
                 </div>
               </label>
             </div>
           </div>
-
-          <Input label="Giá trị Thực hiện (Nhập từ hệ thống)" value={actual} disabled placeholder="VD: 95" className="bg-gray-100/70 opacity-80 cursor-not-allowed font-semibold text-gray-650" />
-          <Input label="Tiến độ hoàn thành (%) (Tự động)" type="number" min="0" max="100" value={progress} disabled className="bg-gray-100/70 opacity-80 cursor-not-allowed font-semibold text-gray-650" />
-
+          <Input label="Số kế hoạch" value={plan} onChange={(e) => setPlan(e.target.value)} placeholder="VD: 100" />
+          <Input label="Số thực hiện (Tự động từ hệ thống)" value={actual} disabled placeholder="VD: 95" className="bg-gray-100/70 opacity-80 cursor-not-allowed font-semibold text-gray-650" />
+          <Input label="Đơn vị tính" value={unit} onChange={(e) => setUnit(e.target.value)} placeholder="VD: %, tấn, gCO2/RTK" required />
+          <Input label="Tiến độ hoàn thành (%)" type="number" min="0" max="100" value={progress} disabled className="bg-gray-100/70 opacity-80 cursor-not-allowed font-semibold text-gray-650" />
+          <Input label="Ngày áp dụng" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
+          <Input label="Ngày kết thúc" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
           <div className="flex items-center gap-4 pt-6 pl-2">
-            <label className="text-sm font-bold text-gray-700">Đánh giá (Tự động):</label>
+            <label className="text-sm font-bold text-gray-700">Đánh giá:</label>
             <label className="flex items-center gap-1.5 text-sm font-medium opacity-80 cursor-not-allowed">
               <input type="radio" checked={isPass} disabled className="w-4 h-4 text-emerald-600 focus:ring-emerald-500 cursor-not-allowed" /> ĐẠT
             </label>
@@ -1085,9 +1086,9 @@ export const KPIManagePage: React.FC = () => {
             </label>
           </div>
 
-          <div className="md:col-span-2">
+          {/* <div className="md:col-span-2">
             <Input label="Người soạn thảo" value={creator} onChange={(e) => setCreator(e.target.value)} />
-          </div>
+          </div> */}
         </div>
       </Modal>
 
@@ -1097,18 +1098,18 @@ export const KPIManagePage: React.FC = () => {
         <Modal
           isOpen={!!historyModalTarget}
           onClose={() => setHistoryModalTarget(null)}
-          title="Lịch sử Thiết lập & Thực hiện theo Mã KPI"
+          title="Lịch sử KPI"
           size="lg"
-          footer={
-            <div className="flex justify-between items-center w-full">
-              <span className="text-xs text-gray-500 italic">
-                * Bao gồm tất cả các kỳ báo cáo đang có hiệu lực và đã hết hiệu lực của mã KPI này.
-              </span>
-              <Button variant="primary" onClick={() => setHistoryModalTarget(null)}>
-                Đóng
-              </Button>
-            </div>
-          }
+        // footer={
+        //   <div className="flex justify-between items-center w-full">
+        //     <span className="text-xs text-gray-500 italic">
+        //       * Bao gồm tất cả các kỳ báo cáo đang có hiệu lực và đã hết hiệu lực của mã KPI này.
+        //     </span>
+        //     <Button variant="primary" onClick={() => setHistoryModalTarget(null)}>
+        //       Đóng
+        //     </Button>
+        //   </div>
+        // }
         >
           {(() => {
             const { kpi, indicatorCode, indObj, deptItem } = historyModalTarget;
@@ -1135,15 +1136,15 @@ export const KPIManagePage: React.FC = () => {
                       </span>
                       <h4 className="font-bold text-gray-800 text-sm">{indicatorName}</h4>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                    {/* <p className="text-xs text-gray-500 mt-1 flex items-center gap-2">
                       <span>Đơn vị: <strong>{targetDept}</strong></span>
                       <span>•</span>
                       <span>ĐVT: <strong>{kpi?.unit || indInfo?.unit || '%'}</strong></span>
-                    </p>
+                    </p> */}
                   </div>
                   <div className="text-right">
                     <span className="text-xs font-bold text-gray-600 bg-white px-2.5 py-1 rounded-full border border-gray-200 shadow-2xs">
-                      Tổng {allMatchingRecords.length} kỳ ghi nhận
+                      Tổng {allMatchingRecords.length} kỳ
                     </span>
                   </div>
                 </div>
@@ -1154,10 +1155,10 @@ export const KPIManagePage: React.FC = () => {
                     <thead>
                       <tr className="bg-gray-100/80 border-b border-gray-200 font-bold text-gray-600 uppercase tracking-wider text-[11px]">
                         <th className="py-2.5 px-3 text-center w-[6%]">STT</th>
-                        <th className="py-2.5 px-3 w-[22%]">KỲ ÁP DỤNG / THỜI HẠN</th>
+                        <th className="py-2.5 px-3 w-[22%]">THỜI GIAN ÁP DỤNG</th>
                         <th className="py-2.5 px-3 text-center w-[12%]">KẾ HOẠCH</th>
                         <th className="py-2.5 px-3 text-center w-[12%]">THỰC HIỆN</th>
-                        <th className="py-2.5 px-3 w-[22%]">TIẾN ĐỘ & ĐÁNH GIÁ</th>
+                        <th className="py-2.5 px-3 w-[22%]">ĐÁNH GIÁ</th>
                         <th className="py-2.5 px-3 w-[14%]">NGƯỜI LẬP</th>
                         <th className="py-2.5 px-3 text-center w-[12%]">TRẠNG THÁI</th>
                       </tr>
@@ -1180,7 +1181,7 @@ export const KPIManagePage: React.FC = () => {
                                   <Calendar size={12} className="text-gray-400" />
                                   <span>{formatDate(rec.startDate)} - {formatDate(rec.endDate)}</span>
                                 </div>
-                                <div className="text-[10px] text-gray-400 font-mono mt-0.5">Tần suất: {rec.frequency || 'Năm'}</div>
+                                {/* <div className="text-[10px] text-gray-400 font-mono mt-0.5">Tần suất: {rec.frequency || 'Năm'}</div> */}
                               </td>
                               <td className="py-2.5 px-3 text-center font-bold text-gray-700">
                                 {rec.plan || '--'} {rec.unit}
@@ -1377,29 +1378,22 @@ export const KPIManagePage: React.FC = () => {
                   <button className="text-gray-400 hover:text-gray-600">
                     {isCollapsed ? <ChevronRight size={20} /> : <ChevronDown size={20} />}
                   </button>
-                  <div className="p-2 bg-white rounded-lg border border-gray-200 shadow-xs text-vna-blue">
+                  {/* <div className="p-2 bg-white rounded-lg border border-gray-200 shadow-xs text-vna-blue">
                     <Building2 size={20} />
-                  </div>
+                  </div> */}
                   <div>
                     <div className="flex items-center gap-2">
                       <h2 className="text-base font-bold text-vna-navy">{deptItem.name}</h2>
-                      <span className="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full font-semibold">
-                        {assignedIndicatorCodes.length} chỉ tiêu gán
-                      </span>
-                      {/* {isUserDept ? (
-                        <span className="bg-emerald-100 text-emerald-800 text-[11px] px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                          <CheckCircle size={12} /> Được phép thiết lập KPI
-                        </span>
-                      ) : (
-                        <span className="bg-gray-100 text-gray-500 text-[11px] px-2 py-0.5 rounded font-medium flex items-center gap-1">
-                          <Lock size={12} /> Chỉ đọc (Khác Ban)
-                        </span>
-                      )} */}
                     </div>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      • Đã lập {deptKpis.length}/{assignedIndicatorCodes.length} chỉ tiêu KPI
-                    </p>
                   </div>
+                </div>
+
+                {/* Đã lập KPI chuyển sang cuối thẻ */}
+                <div className="text-xs font-semibold text-gray-500 flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-gray-200 shadow-2xs">
+                  {/* <span>Đã lập</span> */}
+                  <span className="font-bold text-vna-blue">{deptKpis.length}</span>/
+                  <span className="font-bold text-gray-700">{assignedIndicatorCodes.length}</span>
+                  <span>KPI</span>
                 </div>
 
                 {/* <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
@@ -1439,7 +1433,7 @@ export const KPIManagePage: React.FC = () => {
                           title={currentLang === 'vi' ? 'Nhấn để sắp xếp theo Mã chỉ tiêu' : 'Click to sort by Indicator Code'}
                         >
                           <div className="flex items-center justify-between gap-1">
-                            <span>{currentLang === 'vi' ? 'MÃ CHỈ TIÊU GỐC' : 'INDICATOR CODE'}</span>
+                            <span>{currentLang === 'vi' ? 'MÃ CHỈ TIÊU' : 'INDICATOR CODE'}</span>
                             <span className="text-gray-400">
                               {sortField === 'indicatorCode' && sortOrder === 'asc' ? <ArrowUp size={14} className="text-vna-blue font-bold" /> :
                                 sortField === 'indicatorCode' && sortOrder === 'desc' ? <ArrowDown size={14} className="text-vna-blue font-bold" /> :
@@ -1455,7 +1449,7 @@ export const KPIManagePage: React.FC = () => {
                           title={currentLang === 'vi' ? 'Nhấn để sắp xếp theo Tên KPI' : 'Click to sort by KPI Name'}
                         >
                           <div className="flex items-center justify-between gap-1">
-                            <span>{currentLang === 'vi' ? 'TÊN KPI THEO MÃ KPI TƯƠNG ỨNG' : 'KPI NAME BY CODE'}</span>
+                            <span>{currentLang === 'vi' ? 'TÊN KPI' : 'KPI NAME BY CODE'}</span>
                             <span className="text-gray-400">
                               {sortField === 'name' && sortOrder === 'asc' ? <ArrowUp size={14} className="text-vna-blue font-bold" /> :
                                 sortField === 'name' && sortOrder === 'desc' ? <ArrowDown size={14} className="text-vna-blue font-bold" /> :
@@ -1465,10 +1459,10 @@ export const KPIManagePage: React.FC = () => {
                         </th>
 
                         <th className="py-3 px-4 w-[13%]">{currentLang === 'vi' ? 'THỜI HẠN' : 'PERIOD'}</th>
-                        <th className="py-3 px-4 w-[8%]">{currentLang === 'vi' ? 'ĐƠN VỊ TÍNH' : 'UNIT'}</th>
-                        <th className="py-3 px-4 text-center w-[9%]">{currentLang === 'vi' ? 'KẾ HOẠCH (TARGET)' : 'TARGET'}</th>
+                        <th className="py-3 px-4 w-[8%]">{currentLang === 'vi' ? 'ĐVT' : 'UNIT'}</th>
+                        <th className="py-3 px-4 text-center w-[9%]">{currentLang === 'vi' ? 'KẾ HOẠCH' : 'TARGET'}</th>
                         <th className="py-3 px-4 text-center w-[9%]">{currentLang === 'vi' ? 'THỰC HIỆN' : 'ACTUAL'}</th>
-                        <th className="py-3 px-4 w-[16%]">{currentLang === 'vi' ? 'TIẾN ĐỘ & ĐÁNH GIÁ' : 'PROGRESS & EVALUATION'}</th>
+                        <th className="py-3 px-4 w-[16%]">{currentLang === 'vi' ? 'ĐÁNH GIÁ' : 'EVALUATION'}</th>
                         <th className="py-3 px-4 text-center w-[7%]">{currentLang === 'vi' ? 'THAO TÁC' : 'ACTIONS'}</th>
                       </tr>
 
@@ -1583,7 +1577,7 @@ export const KPIManagePage: React.FC = () => {
                             )}
                           </td>
                           <td className="py-3.5 px-4">
-                            <div className="flex items-center gap-1.5 flex-wrap">
+                            {/* <div className="flex items-center gap-1.5 flex-wrap">
                               {kpi.direction === 'desc' ? (
                                 <span className="bg-amber-50 text-amber-700 text-[10px] px-1.5 py-0.5 rounded font-medium border border-amber-100">
                                   {currentLang === 'vi' ? 'Càng nhỏ càng tốt' : 'Smaller is better'}
@@ -1593,7 +1587,7 @@ export const KPIManagePage: React.FC = () => {
                                   {currentLang === 'vi' ? 'Càng lớn càng tốt' : 'Higher is better'}
                                 </span>
                               )}
-                            </div>
+                            </div> */}
                             <div className="font-semibold text-gray-900 mt-1">
                               {getKpiDisplayName(kpi, currentLang)}
                             </div>
@@ -1688,9 +1682,9 @@ export const KPIManagePage: React.FC = () => {
                                 </span>
                               </td>
                               <td className="py-3.5 px-4">
-                                <div className="font-semibold text-gray-600 text-xs italic">
+                                {/* <div className="font-semibold text-gray-600 text-xs italic">
                                   {currentLang === 'vi' ? 'Chưa thiết lập KPI' : 'KPI Not Configured'}
-                                </div>
+                                </div> */}
                                 <div className="font-medium text-gray-800 mt-0.5">
                                   {indObj ? getLocalizedIndicatorName(indObj.name, currentLang) : codeId}
                                 </div>

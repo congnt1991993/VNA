@@ -1149,7 +1149,7 @@ export const PublishAdjustPage: React.FC = () => {
             </div>
             <div>
               <h3 className="text-xs font-bold text-vna-blue uppercase tracking-wider">
-                Lịch sử điều chỉnh số liệu
+                Lịch sử điều chỉnh
               </h3>
               <p className="text-[11px] text-gray-500">
                 {selectedSubChart ? (
