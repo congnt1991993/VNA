@@ -33,20 +33,20 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
   const code = indicator.code;
   const unit = indicator.unit || 'Tấn';
   const freq = indicator.frequency || 'Hàng tháng';
-  
+
   if (code === 'GRI 302-1') {
     return [
       { code: 'GRI 302-1-JETA1', name: 'Biểu đồ 1: Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
       { code: 'GRI 302-1-SAF', name: 'Biểu đồ 2: Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
     ];
   }
-  
+
   if (code === 'GRI 305-4') {
     return [
       { code: 'GRI 305-4-ACTUAL', name: 'Biểu đồ 1: Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
     ];
   }
-  
+
   if (code === 'GRI 404-2') {
     return [
       { code: 'GRI 404-2-HQ', name: 'Biểu đồ 1: Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
@@ -56,13 +56,13 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
       { code: 'GRI 404-2-COMMERCE', name: 'Biểu đồ 5: Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
     ];
   }
-  
+
   if (code === 'Airline B-1') {
     return [
       { code: 'AIRLINE-B1-NPS', name: 'Biểu đồ 1: Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
     ];
   }
-  
+
   if (code === 'GRI 2-7') {
     return [
       { code: 'GRI 2-7-PILOTS', name: 'Biểu đồ 1: Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
@@ -71,7 +71,7 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
       { code: 'GRI 2-7-GROUND', name: 'Biểu đồ 4: Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
     ];
   }
-  
+
   if (code === 'GRI 2-9') {
     return [
       { code: 'GRI 2-9-IND', name: 'Biểu đồ 1: Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
@@ -79,7 +79,7 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
       { code: 'GRI 2-9-NONEXEC', name: 'Biểu đồ 3: Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
     ];
   }
-  
+
   return [
     { code: `${code}-SUB1`, name: `Biểu đồ 1: Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
   ];
@@ -284,7 +284,7 @@ export const CMSManagePage: React.FC = () => {
       if (saved) {
         try {
           setPublishedChartStatuses(JSON.parse(saved));
-        } catch (e) {}
+        } catch (e) { }
       }
     };
     handleSync();
@@ -295,7 +295,7 @@ export const CMSManagePage: React.FC = () => {
   const publishedSubChartsForPillar = useMemo(() => {
     const activePillar = pillars.find(p => p.id === selectedPillarId);
     if (!activePillar) return [];
-    
+
     // Get indicators for current active pillar
     const targetPillarMap: Record<string, string> = {
       environment: 'Environment',
@@ -429,7 +429,7 @@ export const CMSManagePage: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-[#005f6e]">Quản trị Website ESG (Public)</h1>
-          <p className="text-black/45 text-sm mt-1">Cấu hình trực tiếp 4 phân hệ nội dung cốt lõi hiển thị trên trang thông tin đại chúng</p>
+          {/* <p className="text-black/45 text-sm mt-1">Cấu hình trực tiếp 4 phân hệ nội dung cốt lõi hiển thị trên trang thông tin đại chúng</p> */}
         </div>
         <div className="flex items-center gap-3">
           <Button
@@ -477,7 +477,7 @@ export const CMSManagePage: React.FC = () => {
                     <LayoutDashboard size={12} /> 1. Đầu trang (Hero)
                   </span>
                   <span className="text-sm font-bold">Banner & Tiêu đề</span>
-                  <span className="text-[10px] text-black/35 leading-tight mt-0.5">Hình ảnh banner, tiêu đề & mô tả phụ</span>
+                  {/* <span className="text-[10px] text-black/35 leading-tight mt-0.5">Hình ảnh banner, tiêu đề & mô tả phụ</span> */}
                 </button>
               </div>
 
@@ -496,7 +496,7 @@ export const CMSManagePage: React.FC = () => {
                     <Users size={12} /> 2. Thông điệp Lãnh đạo
                   </span>
                   <span className="text-sm font-bold">Thông điệp CEO</span>
-                  <span className="text-[10px] text-black/35 leading-tight mt-0.5">Họ tên, chức danh & nội dung thông điệp</span>
+                  {/* <span className="text-[10px] text-black/35 leading-tight mt-0.5">Họ tên, chức danh & nội dung thông điệp</span> */}
                 </button>
               </div>
 
@@ -518,7 +518,7 @@ export const CMSManagePage: React.FC = () => {
                     <Landmark size={12} /> 3. Thân trang (Mid)
                   </span>
                   <span className="text-sm font-bold">Thông tin trụ cột</span>
-                  <span className="text-[10px] text-black/35 leading-tight mt-0.5">3 trụ cột cốt lõi E-S-G & bài viết chi tiết</span>
+                  {/* <span className="text-[10px] text-black/35 leading-tight mt-0.5">3 trụ cột cốt lõi E-S-G & bài viết chi tiết</span> */}
                 </button>
 
                 {/* Sub-tabs accordion (Only when Tab 2 is active) */}
@@ -568,7 +568,7 @@ export const CMSManagePage: React.FC = () => {
                     <Newspaper size={12} /> 4. Thân trang (Lower)
                   </span>
                   <span className="text-sm font-bold">Tin tức & Hoạt động</span>
-                  <span className="text-[10px] text-black/35 leading-tight mt-0.5">Bảng tin ESG, bài viết đồng bộ từ Spirit</span>
+                  {/* <span className="text-[10px] text-black/35 leading-tight mt-0.5">Bảng tin ESG, bài viết đồng bộ từ Spirit</span> */}
                 </button>
               </div>
 
@@ -587,7 +587,7 @@ export const CMSManagePage: React.FC = () => {
                     <FileText size={12} /> 5. Cuối trang (Footer)
                   </span>
                   <span className="text-sm font-bold">Lưu trữ Báo cáo</span>
-                  <span className="text-[10px] text-black/35 leading-tight mt-0.5">Báo cáo thường niên & Bền vững dạng PDF</span>
+                  {/* <span className="text-[10px] text-black/35 leading-tight mt-0.5">Báo cáo thường niên & Bền vững dạng PDF</span> */}
                 </button>
               </div>
             </div>
@@ -605,8 +605,8 @@ export const CMSManagePage: React.FC = () => {
                     <LayoutDashboard size={16} className="text-[#005f6e]" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-black/85">Hero — Banner đầu trang</h3>
-                    <p className="text-xs text-black/40 mt-0.5">Tiêu đề chính, hình ảnh nền banner và mô tả phụ</p>
+                    <h3 className="text-base font-bold text-black/85">Hero — Banner</h3>
+                    {/* <p className="text-xs text-black/40 mt-0.5">Tiêu đề chính, hình ảnh nền banner và mô tả phụ</p> */}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -625,9 +625,9 @@ export const CMSManagePage: React.FC = () => {
               <div className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Tiêu đề chính (Headline) — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
+                    <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Tiêu đề chính</label>
                     <Input value={editingLang === 'vi' ? visionData.headlineVi : visionData.headlineEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'headlineVi' : 'headlineEn']: e.target.value })} className="font-semibold" />
-                    <p className="text-[10px] text-black/30 mt-1">Hiển thị làm tiêu đề H1 lớn nhất trên banner</p>
+                    {/* <p className="text-[10px] text-black/30 mt-1">Hiển thị làm tiêu đề H1 lớn nhất trên banner</p> */}
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Hình ảnh Banner (URL)</label>
@@ -643,9 +643,9 @@ export const CMSManagePage: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Mô tả phụ (Subheadline) — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
+                  <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Mô tả phụ</label>
                   <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-[#005f6e] focus:border-[#005f6e] text-sm" rows={2} value={editingLang === 'vi' ? visionData.subheadlineVi : visionData.subheadlineEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'subheadlineVi' : 'subheadlineEn']: e.target.value })} placeholder="Mô tả ngắn về cam kết ESG..." />
-                  <p className="text-[10px] text-black/30 mt-1">Hiển thị phụ đề nhỏ bên dưới tiêu đề chính trên banner</p>
+                  {/* <p className="text-[10px] text-black/30 mt-1">Hiển thị phụ đề nhỏ bên dưới tiêu đề chính trên banner</p> */}
                 </div>
               </div>
             </Card>
@@ -661,7 +661,7 @@ export const CMSManagePage: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-black/85">Thông điệp từ Lãnh đạo</h3>
-                    <p className="text-xs text-black/40 mt-0.5">Họ tên, chức danh CEO và nội dung thông điệp</p>
+                    {/* <p className="text-xs text-black/40 mt-0.5">Họ tên, chức danh CEO và nội dung thông điệp</p> */}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -682,12 +682,12 @@ export const CMSManagePage: React.FC = () => {
                   <div>
                     <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Họ tên Lãnh đạo — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
                     <Input value={editingLang === 'vi' ? visionData.ceoNameVi : visionData.ceoNameEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'ceoNameVi' : 'ceoNameEn']: e.target.value })} />
-                    <p className="text-[10px] text-black/30 mt-1">Tên đầy đủ hiển thị phía dưới trích dẫn</p>
+                    {/* <p className="text-[10px] text-black/30 mt-1">Tên đầy đủ hiển thị phía dưới trích dẫn</p> */}
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Chức danh — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
                     <Input value={editingLang === 'vi' ? visionData.ceoTitleVi : visionData.ceoTitleEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'ceoTitleVi' : 'ceoTitleEn']: e.target.value })} />
-                    <p className="text-[10px] text-black/30 mt-1">Chức danh hiển thị kèm tên</p>
+                    {/* <p className="text-[10px] text-black/30 mt-1">Chức danh hiển thị kèm tên</p> */}
                   </div>
                 </div>
 
@@ -752,7 +752,7 @@ export const CMSManagePage: React.FC = () => {
                         </button>
                       )}
                       <p className="text-[10px] text-black/30 leading-relaxed">
-                        Hỗ trợ JPG, PNG, WEBP. Ảnh sẽ hiển thị dạng tròn bên cạnh trích dẫn trên website.
+                        Hỗ trợ JPG, PNG
                       </p>
                     </div>
                   </div>
@@ -760,7 +760,7 @@ export const CMSManagePage: React.FC = () => {
                 <div>
                   <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Nội dung Thông điệp — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
                   <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-[#005f6e] focus:border-[#005f6e] text-sm font-sans" rows={4} value={editingLang === 'vi' ? visionData.ceoMessageVi : visionData.ceoMessageEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'ceoMessageVi' : 'ceoMessageEn']: e.target.value })} placeholder="Trích dẫn thông điệp của CEO..." />
-                  <p className="text-[10px] text-black/30 mt-1">Nội dung sẽ được hiển thị trong ô trích dẫn in nghiêng bên cạnh ảnh CEO</p>
+                  {/* <p className="text-[10px] text-black/30 mt-1">Nội dung sẽ được hiển thị trong ô trích dẫn in nghiêng bên cạnh ảnh CEO</p> */}
                 </div>
                 <div className="bg-amber-50/50 rounded-lg p-3 border border-amber-100">
                   <p className="text-[10px] font-bold text-amber-600 mb-2 uppercase tracking-wide">Xem trước trích dẫn</p>
@@ -788,7 +788,7 @@ export const CMSManagePage: React.FC = () => {
                 <div className="flex justify-between items-center mb-4">
                   <div>
                     <h3 className="text-lg font-bold text-black/85">Quản lý Bảng tin ESG</h3>
-                    <p className="text-sm text-black/45">Đồng bộ từ Spirit VNA & Phê duyệt tin bài nội bộ</p>
+                    {/* <p className="text-sm text-black/45">Đồng bộ từ Spirit VNA & Phê duyệt tin bài nội bộ</p> */}
                   </div>
                   {newsSubTab === 'sync' && (
                     <Button variant="outline" className="gap-2 text-[#005f6e] border-[#005f6e] hover:bg-[#005f6e]/5" onClick={() => handleAction('Đã đồng bộ 3 bài viết mới từ Spirit VNA!')}>
@@ -804,12 +804,12 @@ export const CMSManagePage: React.FC = () => {
                   >
                     Bài viết từ Spirit VNA
                   </button>
-                  <button
+                  {/* <button
                     className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${newsSubTab === 'approve' ? 'border-[#e6b441] text-[#005f6e]' : 'border-transparent text-black/45 hover:text-gray-700'}`}
                     onClick={() => setNewsSubTab('approve')}
                   >
                     Phê duyệt tin bài nội bộ
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -900,7 +900,7 @@ export const CMSManagePage: React.FC = () => {
               <div className="p-4 bg-gray-50 flex justify-between items-center border-b border-gray-200">
                 <div>
                   <h3 className="text-lg font-bold text-black/85">Kho Lưu trữ Báo cáo</h3>
-                  <p className="text-sm text-black/45">Quản lý file PDF Báo cáo thường niên và Báo cáo bền vững</p>
+                  {/* <p className="text-sm text-black/45">Quản lý file PDF Báo cáo thường niên và Báo cáo bền vững</p> */}
                 </div>
                 <Button variant="primary" className="gap-2 bg-[#005f6e] hover:bg-[#004e5a] text-white border-transparent" onClick={() => handleAction('Mở form upload báo cáo mới...', 'info')}>
                   <Upload size={16} /> Tải báo cáo lên
@@ -959,7 +959,7 @@ export const CMSManagePage: React.FC = () => {
                         <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
                           Cấu hình: Trụ cột {activePillar.code} - {editingLang === 'vi' ? activePillar.nameVi : activePillar.nameEn}
                         </h3>
-                        <p className="text-xs text-black/45 mt-0.5">Vui lòng nhập liệu đầy đủ cho cả hai ngôn ngữ Tiếng Việt và Tiếng Anh</p>
+                        {/* <p className="text-xs text-black/45 mt-0.5">Vui lòng nhập liệu đầy đủ cho cả hai ngôn ngữ Tiếng Việt và Tiếng Anh</p> */}
                       </div>
 
                       <div className="flex items-center gap-3 self-stretch sm:self-auto justify-between">
@@ -972,7 +972,7 @@ export const CMSManagePage: React.FC = () => {
                               : 'text-gray-600 hover:text-gray-900'
                               }`}
                           >
-                            VI: Tiếng Việt
+                            VI
                           </button>
                           <button
                             onClick={() => setEditingLang('en')}
@@ -981,7 +981,7 @@ export const CMSManagePage: React.FC = () => {
                               : 'text-gray-600 hover:text-gray-900'
                               }`}
                           >
-                            EN: English
+                            EN
                           </button>
                         </div>
 
@@ -1007,7 +1007,7 @@ export const CMSManagePage: React.FC = () => {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Tiêu đề bài viết (Title)</label>
+                          <label className="block text-xs font-bold text-gray-700 mb-1">Tiêu đề bài viết</label>
                           <Input
                             placeholder="Nhập tiêu đề hiển thị trên card tin tức..."
                             value={editingLang === 'vi' ? activePillar.newsTitleVi : activePillar.newsTitleEn}
@@ -1021,7 +1021,7 @@ export const CMSManagePage: React.FC = () => {
                           />
                         </div>
 
-                        <div>
+                        {/* <div>
                           <label className="block text-xs font-bold text-gray-700 mb-1">Trụ cột / Danh mục (Category)</label>
                           <select
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-[#005f6e] focus:border-[#005f6e] text-sm"
@@ -1051,10 +1051,10 @@ export const CMSManagePage: React.FC = () => {
                               setPillars(pillars.map(p => p.id === activePillar.id ? { ...p, newsPublishDate: val } : p));
                             }}
                           />
-                        </div>
+                        </div> */}
 
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Hình ảnh đại diện (Thumbnail URL)</label>
+                          <label className="block text-xs font-bold text-gray-700 mb-1">Hình ảnh đại diện</label>
                           <div className="flex gap-2">
                             <Input
                               placeholder="https://example.com/image.jpg"
@@ -1069,7 +1069,7 @@ export const CMSManagePage: React.FC = () => {
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Đoạn tóm tắt (Excerpt - hiển thị trên Card)</label>
+                          <label className="block text-xs font-bold text-gray-700 mb-1">Đoạn tóm tắt</label>
                           <textarea
                             rows={2}
                             placeholder="Mô tả ngắn hiển thị ngoài trang chủ (khoảng 2-3 câu)..."
@@ -1085,7 +1085,7 @@ export const CMSManagePage: React.FC = () => {
                           />
                         </div>
 
-                        <div className="md:col-span-2">
+                        {/* <div className="md:col-span-2">
                           <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung chi tiết Bản tin (Body Content - Rich Text)</label>
                           <div className="border border-gray-300 rounded-md overflow-hidden">
                             <div className="bg-gray-50 border-b border-gray-200 px-3 py-2 flex flex-wrap gap-2 text-xs font-semibold text-gray-600">
@@ -1111,7 +1111,7 @@ export const CMSManagePage: React.FC = () => {
                               }}
                             />
                           </div>
-                        </div>
+                        </div> */}
 
                         {/* Report config sub-section for Section 1 with Drag & Drop */}
                         <div className="md:col-span-2 bg-gray-50/50 p-4 rounded-xl border border-gray-200 mt-2 space-y-3">
@@ -1166,16 +1166,15 @@ export const CMSManagePage: React.FC = () => {
                                       setDraggedReport(null);
                                       setDragOverReport(null);
                                     }}
-                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${
-                                      isDragging
-                                        ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
-                                        : isDragOver
+                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${isDragging
+                                      ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
+                                      : isDragOver
                                         ? 'border-t-2 border-t-[#005f6e] bg-blue-50/10 shadow-md'
                                         : 'border-gray-200 shadow-3xs hover:border-gray-300'
-                                    }`}
+                                      }`}
                                   >
                                     {/* Drag handle */}
-                                    <div 
+                                    <div
                                       className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded transition-colors shrink-0"
                                       title="Kéo thả để sắp xếp vị trí"
                                     >
@@ -1452,16 +1451,15 @@ export const CMSManagePage: React.FC = () => {
                                       setDraggedReport(null);
                                       setDragOverReport(null);
                                     }}
-                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${
-                                      isDragging
-                                        ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
-                                        : isDragOver
+                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${isDragging
+                                      ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
+                                      : isDragOver
                                         ? 'border-t-2 border-t-[#005f6e] bg-blue-50/10 shadow-md'
                                         : 'border-gray-200 shadow-3xs hover:border-gray-300'
-                                    }`}
+                                      }`}
                                   >
                                     {/* Drag handle */}
-                                    <div 
+                                    <div
                                       className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded transition-colors shrink-0"
                                       title="Kéo thả để sắp xếp vị trí"
                                     >

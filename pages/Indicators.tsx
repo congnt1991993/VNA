@@ -1182,7 +1182,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <h2 className="text-xl font-bold text-vna-blue">
                   {formIndicator.code || 'Mới'} - {formIndicator.name || 'Tên chỉ tiêu'}
                 </h2>
-                <p className="text-xs text-black/45">Thiết lập chung và Cấu hình chỉ tiêu ESG</p>
+                {/* <p className="text-xs text-black/45">Thiết lập chung và Cấu hình chỉ tiêu ESG</p> */}
               </div>
             </div>
             <div className="flex gap-2">
@@ -1887,8 +1887,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               </th>
               <th className="py-3 px-3 font-semibold text-gray-700 w-36 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Trụ cột' : 'Pillar'}</th>
               <th className="py-3 px-3 font-semibold text-gray-700 w-40 whitespace-nowrap">{currentLang === 'vi' ? 'Chủ đề' : 'Topic'}</th>
-              <th className="py-3 px-3 font-semibold text-gray-700 w-24 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Đơn vị đo' : 'Unit'}</th>
-              <th className="py-3 px-3 font-semibold text-gray-700 w-44 whitespace-nowrap">{currentLang === 'vi' ? 'Đơn vị phụ trách' : 'Department'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-24 text-center whitespace-nowrap">{currentLang === 'vi' ? 'ĐVT' : 'Unit'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-44 whitespace-nowrap">{currentLang === 'vi' ? 'CQĐV Phụ Trách' : 'Department'}</th>
               <th className="py-3 px-3 font-semibold text-gray-700 w-28 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Trạng thái' : 'Status'}</th>
               <th className="py-3 px-3 font-semibold text-gray-700 w-24 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Thao tác' : 'Actions'}</th>
             </tr>

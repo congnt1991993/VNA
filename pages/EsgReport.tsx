@@ -232,7 +232,7 @@ export const EsgReportPage: React.FC = () => {
             </Button>
             <div>
               <h1 className="text-2xl font-bold text-vna-blue">{selectedCampaign.title}</h1>
-              
+
             </div>
             <div className="ml-auto">
               {selectedCampaign.status === 'IN_PROGRESS' && (
@@ -276,10 +276,10 @@ export const EsgReportPage: React.FC = () => {
               <Table>
                 <thead>
                   <tr>
-                    <th className="px-4 py-3">Tổ / Ban / Khối</th>
+                    <th className="px-4 py-3">CQĐV</th>
                     <th className="px-4 py-3">Trạng thái</th>
-                    <th className="px-4 py-3">Tài khoản nộp</th>
-                    <th className="px-4 py-3">Thời gian nộp</th>
+                    <th className="px-4 py-3">Tài khoản</th>
+                    <th className="px-4 py-3">Thời gian</th>
                     <th className="px-4 py-3 text-center">Tệp đính kèm</th>
                     <th className="px-4 py-3 text-center w-24">Thao tác</th>
                   </tr>
@@ -351,11 +351,11 @@ export const EsgReportPage: React.FC = () => {
                             ) : (
                               <Badge variant="danger">Chưa gửi</Badge>
                             )}
-                            {isDeptOverdue && (
+                            {/* {isDeptOverdue && (
                               <span className="inline-flex items-center gap-1 text-[10px] font-black text-red-600 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded animate-pulse">
                                 <AlertCircle size={10} /> TRỄ HẠN
                               </span>
-                            )}
+                            )} */}
                           </div>
                         </td>
                         <td className="px-4 py-3 text-sm text-gray-750 font-semibold">{dept.submittedUser || '-'}</td>

@@ -808,21 +808,16 @@ export const PublishAdjustPage: React.FC = () => {
                           : 'hover:bg-slate-50/70'
                           }`}
                       >
-                        <div className="flex-1 pr-2 min-w-0">
-                          <div className="flex items-center gap-1.5 mb-1">
-                            <span className="text-gray-400">
-                              {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                            </span>
-                            <span className="text-[10px] font-black px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-mono">
-                              {ind.code}
-                            </span>
-                            <span className="text-[9px] text-gray-500 font-medium bg-gray-150/70 px-1.5 py-0.5 rounded">
-                              {subCharts.length} biểu đồ
-                            </span>
-                          </div>
-                          <div className="text-xs font-bold text-gray-800 leading-snug">
+                        <div className="flex-1 pr-2 min-w-0 flex items-center gap-2">
+                          <span className="text-gray-400 shrink-0">
+                            {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                          </span>
+                          <span className="text-[10px] font-black px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-mono shrink-0">
+                            {ind.code}
+                          </span>
+                          <span className="text-xs font-bold text-gray-800 truncate" title={getLocalizedIndicatorName(ind.name, currentLang)}>
                             {getLocalizedIndicatorName(ind.name, currentLang)}
-                          </div>
+                          </span>
                         </div>
 
                         <div className="w-16 flex justify-center items-center shrink-0 pr-1">
