@@ -142,17 +142,10 @@ export const DocumentsPage: React.FC = () => {
     // 1. LIST VIEW
     const renderList = () => (
         <div className="flex-1 flex flex-col animate-in fade-in duration-300">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                <div>
-                    <h2 className="text-xl font-bold text-vna-blue">Kho Tài liệu PTBV</h2>
-                    <p className="text-sm text-black/45 mt-1">Lưu trữ và quản lý các văn bản, chứng chỉ, báo cáo ESG</p>
-                </div>
-                <div className="flex gap-2">
-                    {/* Removed Export Button as requested */}
-                    <Button onClick={handleAddNew} className="shadow-lg">
-                        <Plus size={18} /> Thêm tài liệu
-                    </Button>
-                </div>
+            <div className="flex justify-end items-center mb-6">
+                <Button onClick={handleAddNew} className="shadow-lg">
+                    <Plus size={18} /> Thêm tài liệu
+                </Button>
             </div>
 
             {/* Styled Filters (Matches IndicatorsPage style) */}
@@ -479,11 +472,13 @@ export const DocumentsPage: React.FC = () => {
         return (
             <div className="bg-white p-6 rounded-lg hover:shadow-md transition-shadow duration-300 border border-gray-100 min-h-[calc(100vh-120px)] flex flex-col animate-in slide-in-from-right-4 duration-300">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4 pb-6 border-b border-gray-100">
-                    <div className="flex gap-4">
-                        {/* Removed Back Button div from here */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 pb-6 border-b border-gray-100">
+                    <div className="flex items-center gap-4">
+                        <Button variant="ghost" onClick={() => setViewMode('LIST')} className="p-2 border border-gray-200 hover:bg-gray-100 bg-white text-black/45 hover:text-vna-blue">
+                            <ArrowLeft size={20} />
+                        </Button>
                         <div>
-                            <div className="flex items-center gap-3 mb-2">
+                            <div className="flex items-center gap-3">
                                 <h1 className="text-2xl font-bold text-vna-blue">{selectedDoc.name}</h1>
                                 {selectedDoc.isPublic ? (
                                     <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold border border-green-200 flex items-center gap-1">
@@ -495,21 +490,12 @@ export const DocumentsPage: React.FC = () => {
                                     </span>
                                 )}
                             </div>
-                            <p className="text-black/45 text-sm">{selectedDoc.description}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
                         <Button variant="primary" onClick={handleEditClick}><Edit2 size={16} /> Chỉnh sửa</Button>
                         <Button variant="outline" className="text-gray-600"><Download size={16} /> Tải xuống</Button>
                         <Button variant="danger" onClick={() => handleDelete(selectedDoc.id)}><Trash2 size={16} /> Xóa</Button>
-
-                        {/* Added Vertical Divider */}
-                        <div className="w-px h-8 bg-gray-300 mx-1"></div>
-
-                        {/* Added Back Button here */}
-                        <Button variant="ghost" onClick={() => setViewMode('LIST')} className="text-black/45 hover:text-vna-blue hover:bg-gray-100">
-                            <ArrowLeft size={16} /> Quay lại
-                        </Button>
                     </div>
                 </div>
 
@@ -560,18 +546,7 @@ export const DocumentsPage: React.FC = () => {
                             </div>
                         </Card>
 
-                        <Card title="Tags">
-                            <div className="flex flex-wrap gap-2">
-                                {selectedDoc.tags && selectedDoc.tags.map(tag => (
-                                    <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium border border-gray-200">
-                                        #{tag}
-                                    </span>
-                                ))}
-                                <button className="px-3 py-1 bg-white text-vna-blue rounded-full text-xs font-medium border border-dashed border-vna-blue hover:bg-blue-50">
-                                    + Thêm tag
-                                </button>
-                            </div>
-                        </Card>
+
                     </div>
                 </div>
             </div>
@@ -580,20 +555,7 @@ export const DocumentsPage: React.FC = () => {
 
     return (
         <div className="flex-1 flex flex-col animate-in fade-in duration-300">
-            <div className="flex border-b border-gray-200 mb-6 mt-2">
-                <button
-                    className={`px-6 py-3 font-semibold text-sm transition-colors border-b-2 ${mainTab === 'REPOSITORY' ? 'border-vna-blue text-vna-blue' : 'border-transparent text-black/45 hover:text-gray-700'}`}
-                    onClick={() => { setMainTab('REPOSITORY'); }}
-                >
-                    Kho tài liệu chung
-                </button>
-                {/* <button 
-          className={`px-6 py-3 font-semibold text-sm transition-colors border-b-2 ${mainTab === 'REQUESTS' ? 'border-vna-blue text-vna-blue' : 'border-transparent text-black/45 hover:text-gray-700'}`}
-          onClick={() => setMainTab('REQUESTS')}
-        >
-          Yêu cầu phê duyệt tài liệu
-        </button> */}
-            </div>
+
 
             {mainTab === 'REPOSITORY' && (
                 <>

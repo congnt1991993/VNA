@@ -4,7 +4,7 @@ import {
   Plus, Search, Upload, Download, FileSpreadsheet, ArrowLeft,
   Settings, BarChart2, Save, X, Info, User, Check, AlertCircle, FileText, Trash2,
   Calendar, Clock, History, Edit3, Calculator, Lock, Database, Sparkles, RefreshCw, ShieldAlert,
-  ChevronLeft, ChevronRight, GripVertical, RotateCcw
+  ChevronLeft, ChevronRight, GripVertical, RotateCcw, ArrowUpDown, ArrowUp, ArrowDown
 } from 'lucide-react';
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
@@ -31,6 +31,7 @@ const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): stri
 
 interface Indicator extends Partial<EsgIndicator> {
   id: string;
+  reportType?: 'NUMERIC' | 'TEXT';
   code: string;
   name: string;
   pillar: Pillar;
@@ -170,7 +171,7 @@ const parseFormulaToTokens = (expression: string): FormulaToken[] => {
   if (!expression) return [];
   const regex = /([a-zA-Z_][a-zA-Z0-9_\.]*|\d+(?:\.\d+)?|[\+\-\*/\(\)\,\=]|[\s]+)/g;
   const matches = expression.match(regex) || [];
-  
+
   const tokens: FormulaToken[] = [];
   let idCounter = 0;
   const sqlFuncs = ['SUM', 'AVG', 'COUNT', 'MAX', 'MIN', 'ROUND', 'IF', 'COALESCE'];
@@ -270,7 +271,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     if (savedHistory) {
       try {
         setCustomFormulaHistories(JSON.parse(savedHistory));
-      } catch (e) {}
+      } catch (e) { }
     }
   }, []);
 
@@ -391,7 +392,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     setEditingFormula(formula);
     setEditingTokens(parseFormulaToTokens(formula.expression || ''));
     setEditingChangeLog('');
-    
+
     // Parse effective date or default to today
     let initDate = new Date().toISOString().split('T')[0];
     if (formula.effectiveDate && formula.effectiveDate.includes('/')) {
@@ -576,7 +577,28 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     return historyList;
   }, [formIndicator]);
 
+  // Sorting state
+  const [sortField, setSortField] = useState<'code' | 'name' | null>('code');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'none'>('asc');
+
+  const handleToggleSort = (field: 'code' | 'name') => {
+    if (sortField === field) {
+      if (sortOrder === 'asc') setSortOrder('desc');
+      else if (sortOrder === 'desc') {
+        setSortOrder('none');
+        setSortField(null);
+      } else {
+        setSortOrder('asc');
+      }
+    } else {
+      setSortField(field);
+      setSortOrder('asc');
+    }
+  };
+
   // Advanced filters state
+  const [searchCode, setSearchCode] = useState('');
+  const [searchName, setSearchName] = useState('');
   const [searchText, setSearchText] = useState('');
   const [selectedPillar, setSelectedPillar] = useState<string>('');
   const [selectedTopic, setSelectedTopic] = useState<string>('');
@@ -695,7 +717,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
   // Filtered list
   const filteredIndicators = useMemo(() => {
-    return indicators.filter(item => {
+    let result = indicators.filter(item => {
       // 1. Department filter (from parent component props)
       if (departmentFilter) {
         const formDef = FORM_DEFINITIONS.find(fd => fd.id === item.sourceForm);
@@ -704,7 +726,21 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
         if (!matchDept) return false;
       }
 
-      // 2. Search keyword
+      // 2. Search Code
+      if (searchCode.trim()) {
+        const query = searchCode.trim().toLowerCase();
+        if (!item.code?.toLowerCase().includes(query)) return false;
+      }
+
+      // 3. Search Name (matching localized name and raw name)
+      if (searchName.trim()) {
+        const query = searchName.trim().toLowerCase();
+        const localizedName = getLocalizedIndicatorName(item.name, currentLang).toLowerCase();
+        const rawName = (item.name || '').toLowerCase();
+        if (!localizedName.includes(query) && !rawName.includes(query)) return false;
+      }
+
+      // Legacy Search keyword (if any)
       if (searchText) {
         const query = searchText.toLowerCase();
         const codeMatch = item.code?.toLowerCase().includes(query);
@@ -712,21 +748,21 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
         if (!codeMatch && !nameMatch) return false;
       }
 
-      // 3. Pillar
+      // 4. Pillar
       if (selectedPillar && item.pillar !== selectedPillar) return false;
 
-      // 4. Topic
+      // 5. Topic
       if (selectedTopic && item.topic !== selectedTopic) return false;
 
-      // 5. Department/Owner
+      // 6. Department/Owner
       if (selectedDept && item.department !== selectedDept) return false;
 
-      // 6. Program Tag
+      // 7. Program Tag
       if (selectedProgram) {
         if (!item.programs || !item.programs.includes(selectedProgram)) return false;
       }
 
-      // 7. Status
+      // 8. Status
       if (selectedStatus) {
         const filterActive = selectedStatus === 'active';
         if (item.isActive !== filterActive) return false;
@@ -734,7 +770,29 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
       return true;
     });
-  }, [indicators, searchText, selectedPillar, selectedTopic, selectedDept, selectedProgram, selectedStatus, departmentFilter]);
+
+    // Sort by Code or Name
+    if (sortField && sortOrder !== 'none') {
+      result = [...result].sort((a, b) => {
+        if (sortField === 'code') {
+          const codeA = a.code || '';
+          const codeB = b.code || '';
+          return sortOrder === 'asc'
+            ? codeA.localeCompare(codeB, undefined, { numeric: true, sensitivity: 'base' })
+            : codeB.localeCompare(codeA, undefined, { numeric: true, sensitivity: 'base' });
+        } else if (sortField === 'name') {
+          const nameA = getLocalizedIndicatorName(a.name, currentLang) || a.name || '';
+          const nameB = getLocalizedIndicatorName(b.name, currentLang) || b.name || '';
+          return sortOrder === 'asc'
+            ? nameA.localeCompare(nameB, undefined, { sensitivity: 'base' })
+            : nameB.localeCompare(nameA, undefined, { sensitivity: 'base' });
+        }
+        return 0;
+      });
+    }
+
+    return result;
+  }, [indicators, searchCode, searchName, searchText, selectedPillar, selectedTopic, selectedDept, selectedProgram, selectedStatus, departmentFilter, currentLang, sortField, sortOrder]);
 
   // Topic Options
   const topicOptions = useMemo(() => {
@@ -1129,7 +1187,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             </div>
             <div className="flex gap-2">
               <Button variant="ghost" onClick={handleBack}>Hủy bỏ</Button>
-              <Button variant="primary" onClick={handleSave}><Save size={16} className="mr-2" />Lưu thông tin</Button>
+              <Button variant="primary" onClick={handleSave}><Save size={16} className="mr-2" />Lưu</Button>
             </div>
           </div>
         </div>
@@ -1137,12 +1195,12 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
         <div className="flex-1 overflow-y-auto pr-2 pb-12 text-left space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* THÔNG TIN CHUNG */}
-            <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs">
+            <div className={`${Boolean(formIndicator.id) && !formIndicator.isStatic ? '' : 'lg:col-span-2'} bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs`}>
               <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-2 uppercase tracking-wider">Thông tin chung</h3>
               <Input label="Mã chỉ tiêu" value={formIndicator.code} onChange={(e) => setFormIndicator({ ...formIndicator, code: e.target.value })} placeholder="VD: GRI 305-1, Airline E-1" />
               <Input label="Tên chỉ tiêu (VI)" value={formIndicator.name} onChange={(e) => setFormIndicator({ ...formIndicator, name: e.target.value })} placeholder="VD: Phát thải Scope 1" />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Select
                   label="Trụ cột ESG"
                   value={formIndicator.pillar}
@@ -1156,169 +1214,116 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <Input label="Chủ đề (Topic)" value={formIndicator.topic || ''} onChange={(e) => setFormIndicator({ ...formIndicator, topic: e.target.value })} placeholder="VD: Khí nhà kính, Nhiên liệu SAF" />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <Input label="Đơn vị tính" value={formIndicator.unit || ''} onChange={(e) => setFormIndicator({ ...formIndicator, unit: e.target.value })} placeholder="VD: %, Tấn, Vụ" />
-                <Select
-                  label="Tần suất báo cáo"
-                  value={formIndicator.frequency || 'Hàng tháng'}
-                  onChange={(val) => setFormIndicator({ ...formIndicator, frequency: val })}
-                  options={[
-                    { label: 'Theo tháng', value: 'Hàng tháng' },
-                    { label: 'Theo quý', value: 'Hàng quý' },
-                    { label: 'Theo năm', value: 'Hàng năm' }
-                  ]}
-                />
-                <Select
-                  label="Trạng thái chỉ tiêu"
-                  value={formIndicator.isActive ? 'active' : 'inactive'}
-                  onChange={(val) => setFormIndicator({ ...formIndicator, isActive: val === 'active' })}
-                  options={[
-                    { label: 'Hoạt động', value: 'active' },
-                    { label: 'Ngừng hoạt động', value: 'inactive' }
-                  ]}
-                />
-              </div>
-              <div className="pt-3 border-t border-gray-200 space-y-4">
-                <label className="flex items-center gap-2 cursor-pointer text-sm font-bold text-gray-700">
-                  <input
-                    type="checkbox"
-                    checked={formIndicator.isStatic || false}
-                    onChange={(e) => setFormIndicator({ 
-                      ...formIndicator, 
-                      isStatic: e.target.checked,
-                      question: e.target.checked ? formIndicator.question : '',
-                      descriptionCondition: e.target.checked ? (formIndicator.descriptionCondition || 'No') : 'No',
-                      mainDisclosurePoints: e.target.checked ? formIndicator.mainDisclosurePoints : ''
-                    })}
-                    className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
-                  />
-                  <span>Chỉ tiêu tĩnh</span>
-                </label>
+              {/* 2 TRƯỜNG PHÂN VAI & TRÁCH NHIỆM (ĐẶT NGAY DƯỚI TRỤ CỘT VÀ CHỦ ĐỀ) */}
+              <Select
+                label="CQĐV Phụ trách"
+                value={formIndicator.department || ''}
+                onChange={(val) => setFormIndicator({ ...formIndicator, department: val })}
+                options={[
+                  { label: 'Ban Kỹ thuật (KT)', value: 'Ban Kỹ thuật' },
+                  { label: 'Ban Khai thác bay (KTB)', value: 'Ban Khai thác bay' },
+                  { label: 'Ban An toàn chất lượng (ATCL)', value: 'Ban An toàn chất lượng' },
+                  { label: 'Ban Dịch vụ hành khách (DVHK)', value: 'Ban Dịch vụ hành khách' },
+                  { label: 'Ban Tổ chức nhân lực (TCNL)', value: 'Ban Tổ chức nhân lực' },
+                  { label: 'Ban Công nghệ thông tin (CNTT)', value: 'Ban Công nghệ thông tin' },
+                  { label: 'Ban Kế hoạch phát triển (KHPT)', value: 'Ban Kế hoạch phát triển' },
+                  { label: 'Ban Truyền thông (TT)', value: 'Ban Truyền thông' }
+                ]}
+              />
 
-                {formIndicator.isStatic && (
-                  <div className="space-y-4 pl-4 border-l-2 border-vna-blue bg-blue-50/10 p-3 rounded-r-md animate-in fade-in slide-in-from-top-1 duration-200">
-                    <Input 
-                      label="Câu hỏi (Question)" 
-                      value={formIndicator.question || ''} 
-                      onChange={(e) => setFormIndicator({ ...formIndicator, question: e.target.value })} 
-                      placeholder="VD: Trong kỳ báo cáo, doanh nghiệp có xảy ra bất kỳ vụ việc..." 
-                    />
-
-                    <div className="flex flex-col gap-1.5">
-                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Điều kiện mô tả</span>
-                      <div className="flex gap-6 items-center bg-white border border-gray-250 p-2.5 rounded-lg w-fit">
-                        <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
-                          <input
-                            type="checkbox"
-                            checked={formIndicator.descriptionCondition === 'Yes'}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setFormIndicator({ ...formIndicator, descriptionCondition: 'Yes' });
-                              }
-                            }}
-                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
-                          />
-                          <span>{currentLang === 'en' ? 'Yes' : 'Có'}</span>
-                        </label>
-
-                        <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
-                          <input
-                            type="checkbox"
-                            checked={formIndicator.descriptionCondition === 'No'}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setFormIndicator({ ...formIndicator, descriptionCondition: 'No' });
-                              }
-                            }}
-                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
-                          />
-                          <span>{currentLang === 'en' ? 'No' : 'Không'}</span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="w-full">
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Mục chính cần công bố thuyết minh</label>
-                      <textarea
-                        value={formIndicator.mainDisclosurePoints || ''}
-                        onChange={(e) => setFormIndicator({ ...formIndicator, mainDisclosurePoints: e.target.value })}
-                        className="w-full min-h-[90px] border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-vna-blue/30 focus:border-vna-blue bg-white text-gray-800"
-                        placeholder="VD: - Tổng số và tính chất các sự cố...&#10;- Số lượng nhân sự bị xử lý..."
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="pt-3 border-t border-gray-200 space-y-4">
-                <Input label="Link Báo cáo" value={formIndicator.reportLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, reportLink: e.target.value })} placeholder="Nhập link embed báo cáo" />
-                <Input label="Link Metabase" value={formIndicator.metabaseLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, metabaseLink: e.target.value })} placeholder="Nhập link truy cập metabase" />
-              </div>
-            </div>
-
-            {/* TRÁCH NHIỆM & NHÃN CHƯƠNG TRÌNH */}
-            <div className="flex flex-col gap-6">
-              <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs">
-                <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-2 uppercase tracking-wider">Phân vai & Trách nhiệm</h3>
-
-                {/* Chọn Tổ ban phụ trách */}
-                <Select
-                  label="Tổ ban phụ trách chỉ tiêu"
-                  value={formIndicator.department || ''}
-                  onChange={(val) => setFormIndicator({ ...formIndicator, department: val })}
-                  options={[
-                    { label: 'Ban Kỹ thuật (KT)', value: 'Ban Kỹ thuật' },
-                    { label: 'Ban Khai thác bay (KTB)', value: 'Ban Khai thác bay' },
-                    { label: 'Ban An toàn chất lượng (ATCL)', value: 'Ban An toàn chất lượng' },
-                    { label: 'Ban Dịch vụ hành khách (DVHK)', value: 'Ban Dịch vụ hành khách' },
-                    { label: 'Ban Tổ chức nhân lực (TCNL)', value: 'Ban Tổ chức nhân lực' },
-                    { label: 'Ban Công nghệ thông tin (CNTT)', value: 'Ban Công nghệ thông tin' },
-                    { label: 'Ban Kế hoạch phát triển (KHPT)', value: 'Ban Kế hoạch phát triển' },
-                    { label: 'Ban Truyền thông (TT)', value: 'Ban Truyền thông' }
-                  ]}
-                />
-
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhãn chương trình áp dụng</label>
-                  <div className="flex gap-6 p-3 bg-white border border-gray-300 rounded-lg">
-                    {['CORSIA', 'EU ETS', 'UK ETS'].map(prog => {
-                      const isChecked = formIndicator.programs?.includes(prog) || false;
-                      return (
-                        <label key={prog} className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => {
-                              let newProgs = [...(formIndicator.programs || [])];
-                              if (isChecked) {
-                                newProgs = newProgs.filter(p => p !== prog);
-                              } else {
-                                newProgs.push(prog);
-                              }
-                              setFormIndicator({ ...formIndicator, programs: newProgs });
-                            }}
-                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
-                          />
-                          {prog}
-                        </label>
-                      );
-                    })}
-                  </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhãn chương trình áp dụng</label>
+                <div className="flex flex-wrap gap-6 p-3 bg-white border border-gray-300 rounded-lg">
+                  {['CORSIA', 'EU ETS', 'UK ETS'].map(prog => {
+                    const isChecked = formIndicator.programs?.includes(prog) || false;
+                    return (
+                      <label key={prog} className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => {
+                            let newProgs = [...(formIndicator.programs || [])];
+                            if (isChecked) {
+                              newProgs = newProgs.filter(p => p !== prog);
+                            } else {
+                              newProgs.push(prog);
+                            }
+                            setFormIndicator({ ...formIndicator, programs: newProgs });
+                          }}
+                          className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                        />
+                        {prog}
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* BLOCK GÁN BIỂU MẪU DỮ LIỆU ĐẦU VÀO (COMBOBOX MULTIPLE SELECT KÈM SEARCH) */}
+              {/* Trạng thái chỉ tiêu */}
+              <Select
+                label="Trạng thái chỉ tiêu"
+                value={formIndicator.isActive ? 'active' : 'inactive'}
+                onChange={(val) => setFormIndicator({ ...formIndicator, isActive: val === 'active' })}
+                options={[
+                  { label: 'Hoạt động', value: 'active' },
+                  { label: 'Ngừng hoạt động', value: 'inactive' }
+                ]}
+              />
+
+              {/* Hình thức báo cáo */}
+              <Select
+                label="Hình thức báo cáo"
+                value={formIndicator.isStatic ? 'TEXT' : 'NUMERIC'}
+                onChange={(val) => {
+                  const isText = val === 'TEXT';
+                  setFormIndicator({
+                    ...formIndicator,
+                    reportType: isText ? 'TEXT' : 'NUMERIC',
+                    isStatic: isText,
+                    unit: isText ? 'Văn bản' : (formIndicator.unit === 'Văn bản' ? '' : formIndicator.unit),
+                    question: isText ? (formIndicator.question || '') : '',
+                    descriptionCondition: isText ? (formIndicator.descriptionCondition || 'No') : 'No',
+                    mainDisclosurePoints: isText ? (formIndicator.mainDisclosurePoints || '') : ''
+                  });
+                }}
+                options={[
+                  { label: 'Số liệu', value: 'NUMERIC' },
+                  { label: 'Nội dung văn bản', value: 'TEXT' }
+                ]}
+              />
+
+              {/* 1. NẾU LÀ "SỐ LIỆU": HIỂN THỊ ĐƠN VỊ TÍNH, TẦN SUẤT BÁO CÁO, CHỌN BIỂU MẪU THU THẬP SỐ LIỆU, LINK BÁO CÁO, LINK METABASE */}
               {!formIndicator.isStatic && (
-                <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs text-left relative">
-                  <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                    <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Liên kết gán Biểu mẫu dữ liệu đầu vào</h3>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase">
-                      {(formIndicator.assignedForms || []).length} được gán
-                    </span>
+                <div className="space-y-4 pt-2 border-t border-gray-200 animate-in fade-in duration-200">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Input
+                      label="Đơn vị tính"
+                      value={formIndicator.unit === 'Văn bản' ? '' : (formIndicator.unit || '')}
+                      onChange={(e) => setFormIndicator({ ...formIndicator, unit: e.target.value })}
+                      placeholder="VD: %, Tấn, Vụ, Tấn-km..."
+                    />
+                    <Select
+                      label="Tần suất báo cáo"
+                      value={formIndicator.frequency || 'Hàng tháng'}
+                      onChange={(val) => setFormIndicator({ ...formIndicator, frequency: val })}
+                      options={[
+                        { label: 'Theo tháng', value: 'Hàng tháng' },
+                        { label: 'Theo quý', value: 'Hàng quý' },
+                        { label: 'Theo năm', value: 'Hàng năm' }
+                      ]}
+                    />
                   </div>
 
-                  <div className="relative">
-                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn biểu mẫu thu thập số liệu</label>
+                  {/* CHỌN BIỂU MẪU THU THẬP SỐ LIỆU */}
+                  <div className="relative text-left">
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Chọn biểu mẫu nhập liệu
+                      </label>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase">
+                        {(formIndicator.assignedForms || []).length} được gán
+                      </span>
+                    </div>
 
                     {/* Combobox Input Trigger */}
                     <div
@@ -1435,11 +1440,76 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                       </div>
                     )}
                   </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Input label="Link Báo cáo" value={formIndicator.reportLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, reportLink: e.target.value })} placeholder="Nhập link embed báo cáo" />
+                    <Input label="Link Metabase" value={formIndicator.metabaseLink || ''} onChange={(e) => setFormIndicator({ ...formIndicator, metabaseLink: e.target.value })} placeholder="Nhập link truy cập metabase" />
+                  </div>
                 </div>
               )}
 
-              {/* CÔNG THỨC TÍNH TOÁN */}
-              {(appliedFormulas.length > 0 || formIndicator.metabaseLink || formIndicator.unit) && (
+              {/* 2. NẾU LÀ "NỘI DUNG VĂN BẢN": HIỂN THỊ CÂU HỎI, ĐIỀU KIỆN MÔ TẢ, MỤC CHÍNH CẦN CÔNG BỐ THUYẾT MINH */}
+              {formIndicator.isStatic && (
+                <div className="space-y-4 pt-3 border-t border-gray-200 animate-in fade-in duration-200">
+                  <div className="space-y-4 pl-4 border-l-2 border-vna-blue bg-blue-50/10 p-3 rounded-r-md">
+                    <Input
+                      label="Câu hỏi (Question)"
+                      value={formIndicator.question || ''}
+                      onChange={(e) => setFormIndicator({ ...formIndicator, question: e.target.value })}
+                      placeholder="VD: Trong kỳ báo cáo, doanh nghiệp có xảy ra bất kỳ vụ việc..."
+                    />
+
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Điều kiện mô tả</span>
+                      <div className="flex gap-6 items-center bg-white border border-gray-250 p-2.5 rounded-lg w-fit">
+                        <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
+                          <input
+                            type="checkbox"
+                            checked={formIndicator.descriptionCondition === 'Yes'}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormIndicator({ ...formIndicator, descriptionCondition: 'Yes' });
+                              }
+                            }}
+                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                          />
+                          <span>{currentLang === 'en' ? 'Yes' : 'Có'}</span>
+                        </label>
+
+                        <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
+                          <input
+                            type="checkbox"
+                            checked={formIndicator.descriptionCondition === 'No'}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormIndicator({ ...formIndicator, descriptionCondition: 'No' });
+                              }
+                            }}
+                            className="w-4 h-4 text-vna-blue rounded border-gray-300 focus:ring-vna-blue cursor-pointer"
+                          />
+                          <span>{currentLang === 'en' ? 'No' : 'Không'}</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Nội dung yêu cầu</label>
+                      <textarea
+                        value={formIndicator.mainDisclosurePoints || ''}
+                        onChange={(e) => setFormIndicator({ ...formIndicator, mainDisclosurePoints: e.target.value })}
+                        className="w-full min-h-[90px] border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-vna-blue/30 focus:border-vna-blue bg-white text-gray-800"
+                        placeholder="VD: - Tổng số và tính chất các sự cố...&#10;- Số lượng nhân sự bị xử lý..."
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* CỘT PHẢI: CÔNG THỨC TÍNH TOÁN (Chỉ hiển thị khi chỉnh sửa chỉ tiêu số liệu) */}
+            <div className="flex flex-col gap-6">
+              {/* CÔNG THỨC TÍNH TOÁN (Chỉ hiển thị khi chỉnh sửa chỉ tiêu số liệu) */}
+              {Boolean(formIndicator.id) && !formIndicator.isStatic && (appliedFormulas.length > 0 || formIndicator.metabaseLink || formIndicator.unit) && (
                 <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs text-left">
                   <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
                     <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-1.5">
@@ -1459,7 +1529,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono">v{f.version}</span>
                               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 uppercase">{f.type === 'Calculation' ? 'Tính toán' : 'Mô phỏng'}</span>
                             </div>
-                            
+
                             {/* BUTTON CHỈNH SỬA CÔNG THỨC */}
                             <button
                               type="button"
@@ -1507,7 +1577,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
           </div>
 
           <div className="bg-gray-50/50 p-5 rounded-lg border border-gray-200 shadow-2xs text-left">
-            <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-4 uppercase tracking-wider">Mô tả & Định nghĩa chi tiết</h3>
+            <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-4 uppercase tracking-wider">Mô tả</h3>
             <textarea
               value={formIndicator.introduction || ''}
               onChange={(e) => setFormIndicator({ ...formIndicator, introduction: e.target.value })}
@@ -1516,93 +1586,94 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             />
           </div>
 
-          {/* LỊCH SỬ CÔNG THỨC TÍNH TOÁN */}
-          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm text-left mt-6">
-            <div className="flex items-center gap-2 border-b border-gray-200 pb-3 mb-4">
-              <History className="text-vna-blue" size={18} />
-              <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Lịch sử công thức tính toán</h3>
-            </div>
-            
-            {formulaHistory.length === 0 ? (
-              <div className="p-6 text-center text-gray-500 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-                <Info size={24} className="mx-auto text-gray-400 mb-2" />
-                <p className="text-sm font-semibold">Không tìm thấy lịch sử công thức tính toán cho chỉ tiêu này.</p>
-                <p className="text-xs text-gray-400 mt-1">Chỉ tiêu này là định tính (Thuyết minh) hoặc chưa được thiết lập công thức tính toán.</p>
+          {/* LỊCH SỬ CÔNG THỨC TÍNH TOÁN (Chỉ hiển thị khi chỉnh sửa chỉ tiêu số liệu) */}
+          {Boolean(formIndicator.id) && !formIndicator.isStatic && (
+            <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm text-left mt-6">
+              <div className="flex items-center gap-2 border-b border-gray-200 pb-3 mb-4">
+                <History className="text-vna-blue" size={18} />
+                <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider">Lịch sử công thức tính toán</h3>
               </div>
-            ) : (
-              <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-3xs">
-                <table className="w-full text-left border-collapse text-xs">
-                  <thead>
-                    <tr className="bg-gray-50/60 border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider text-[10px]">
-                      <th className="p-3 w-16 text-center">Phiên bản</th>
-                      <th className="p-3 w-72">Biểu thức công thức</th>
-                      <th className="p-3">Mô tả thay đổi / Lý do cập nhật</th>
-                      <th className="p-3 w-48 text-center">Thời gian áp dụng</th>
-                      <th className="p-3 w-36">Người cập nhật</th>
-                      <th className="p-3 w-28 text-center">Trạng thái</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-150 bg-white">
-                    {formulaHistory.map((item, index) => (
-                      <tr key={index} className="hover:bg-slate-50/30 transition-colors">
-                        <td className="p-3 text-center font-bold text-slate-800">
-                          <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[10px]">
-                            {item.version}
-                          </span>
-                        </td>
-                        <td className="p-3 font-mono text-[11px] text-gray-700 select-all bg-slate-50/50">
-                          {item.expression}
-                        </td>
-                        <td className="p-3 text-gray-600 font-medium">
-                          {item.changeLog}
-                        </td>
-                        <td className="p-3 text-center text-gray-500 font-semibold">
-                          <div className="flex items-center justify-center gap-1">
-                            <Calendar size={12} className="text-gray-400" />
-                            <span>{item.appliedFrom}</span>
-                            <span className="text-gray-300">→</span>
-                            <span className={item.appliedTo === 'Hiện tại' ? 'text-vna-blue font-bold' : ''}>
-                              {item.appliedTo}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="p-3 text-gray-500 font-medium">
-                          <div className="flex flex-col gap-0.5">
-                            <div className="flex items-center gap-1 font-semibold text-slate-700">
-                              <User size={12} className="text-gray-400" />
-                              <span>{item.updatedBy}</span>
-                            </div>
-                            <div className="flex items-center gap-1 text-[10px] text-gray-400">
-                              <Clock size={11} className="text-gray-300" />
-                              <span>{item.updatedAt}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="p-3 text-center whitespace-nowrap">
-                          {item.status === 'Active' ? (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/30">
-                              <Check size={10} /> Đang áp dụng
-                            </span>
-                          ) : item.status === 'Scheduled' ? (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                              <Clock size={10} /> Sắp áp dụng ({item.appliedFrom})
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-50 text-gray-400 border border-gray-200/30">
-                              Hết hiệu lực
-                            </span>
-                          )}
-                        </td>
+
+              {formulaHistory.length === 0 ? (
+                <div className="p-6 text-center text-gray-500 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                  <Info size={24} className="mx-auto text-gray-400 mb-2" />
+                  <p className="text-sm font-semibold">Không tìm thấy lịch sử công thức tính toán cho chỉ tiêu này.</p>
+                  <p className="text-xs text-gray-400 mt-1">Chỉ tiêu này là định tính (Thuyết minh) hoặc chưa được thiết lập công thức tính toán.</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-3xs">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="bg-gray-50/60 border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider text-[10px]">
+                        <th className="p-3 w-16 text-center">Phiên bản</th>
+                        <th className="p-3 w-72">Biểu thức công thức</th>
+                        <th className="p-3">Mô tả thay đổi / Lý do cập nhật</th>
+                        <th className="p-3 w-48 text-center">Thời gian áp dụng</th>
+                        <th className="p-3 w-36">Người cập nhật</th>
+                        <th className="p-3 w-28 text-center">Trạng thái</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-
-
+                    </thead>
+                    <tbody className="divide-y divide-gray-150 bg-white">
+                      {formulaHistory.map((item, index) => (
+                        <tr key={index} className="hover:bg-slate-50/30 transition-colors">
+                          <td className="p-3 text-center font-bold text-slate-800">
+                            <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[10px]">
+                              {item.version}
+                            </span>
+                          </td>
+                          <td className="p-3 font-mono text-[11px] text-gray-700 select-all bg-slate-50/50">
+                            {item.expression}
+                          </td>
+                          <td className="p-3 text-gray-600 font-medium">
+                            {item.changeLog}
+                          </td>
+                          <td className="p-3 text-center text-gray-500 font-semibold">
+                            <div className="flex items-center justify-center gap-1">
+                              <Calendar size={12} className="text-gray-400" />
+                              <span>{item.appliedFrom}</span>
+                              <span className="text-gray-300">→</span>
+                              <span className={item.appliedTo === 'Hiện tại' ? 'text-vna-blue font-bold' : ''}>
+                                {item.appliedTo}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="p-3 text-gray-500 font-medium">
+                            <div className="flex flex-col gap-0.5">
+                              <div className="flex items-center gap-1 font-semibold text-slate-700">
+                                <User size={12} className="text-gray-400" />
+                                <span>{item.updatedBy}</span>
+                              </div>
+                              <div className="flex items-center gap-1 text-[10px] text-gray-400">
+                                <Clock size={11} className="text-gray-300" />
+                                <span>{item.updatedAt}</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="p-3 text-center whitespace-nowrap">
+                            {item.status === 'Active' ? (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/30">
+                                <Check size={10} /> Đang áp dụng
+                              </span>
+                            ) : item.status === 'Scheduled' ? (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                <Clock size={10} /> Sắp áp dụng ({item.appliedFrom})
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-50 text-gray-400 border border-gray-200/30">
+                                Hết hiệu lực
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          )}
         </div>
+
         {/* MODAL CHỈNH SỬA HỆ SỐ CÔNG THỨC */}
         {editingFormula && (
           <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
@@ -1765,83 +1836,18 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
   return (
     <div className="bg-white p-6 rounded-lg hover:shadow-md transition-shadow duration-300 border border-gray-100 min-h-[calc(100vh-120px)] flex flex-col animate-in fade-in duration-300">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 border-b border-gray-100 pb-4">
-        <div className="text-left">
-          <h2 className="text-xl font-bold text-vna-blue">Danh mục Chỉ tiêu ESG</h2>
-          <p className="text-sm text-black/45 mt-1">Danh sách chỉ tiêu phân bổ tại các form nhập liệu của tổ ban</p>
+      {/* Top Actions & Count Bar */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+        <div className="text-xs font-semibold text-gray-500">
+          {/* {currentLang === 'vi' ? `Tổng số: ${filteredIndicators.length} chỉ tiêu` : `Total: ${filteredIndicators.length} indicators`} */}
         </div>
-        <div className="flex flex-wrap gap-2 shrink-0">
-          {/* <Button variant="outline" onClick={() => setIsImportOpen(true)} className="cursor-pointer font-bold">
-            <Upload size={16} className="mr-1.5" /> Nhập Excel
-          </Button> */}
-          <Button variant="outline" onClick={handleExportExcel} className="cursor-pointer font-bold">
-            <Download size={16} className="mr-1.5" /> Xuất Excel
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <Button variant="outline" onClick={handleExportExcel} className="cursor-pointer font-bold text-xs">
+            <Download size={15} className="mr-1.5" /> {currentLang === 'vi' ? 'Xuất Excel' : 'Export Excel'}
           </Button>
-          <Button onClick={handleAddNew} className="shadow-md cursor-pointer font-bold">
-            <Plus size={16} className="mr-1.5" /> Thêm chỉ tiêu
+          <Button onClick={handleAddNew} className="shadow-xs cursor-pointer font-bold text-xs">
+            <Plus size={15} className="mr-1.5" /> {currentLang === 'vi' ? 'Thêm mới' : 'Add new'}
           </Button>
-        </div>
-      </div>
-
-      {/* Advanced Filters Block */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200 items-end text-left shadow-xs">
-        <div className="md:col-span-2">
-          <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Từ khóa</label>
-          <div className="relative">
-            <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
-            <input
-              type="text"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Tìm kiếm mã hoặc tên..."
-              className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm bg-white"
-            />
-          </div>
-        </div>
-
-        <div>
-          <Select
-            label="Trụ cột"
-            options={[
-              { label: 'Tất cả', value: '' },
-              { label: 'Môi trường (E)', value: Pillar.ENVIRONMENT },
-              { label: 'Xã hội (S)', value: Pillar.SOCIAL },
-              { label: 'Quản trị (G)', value: Pillar.GOVERNANCE }
-            ]}
-            value={selectedPillar}
-            onChange={setSelectedPillar}
-          />
-        </div>
-
-        <div>
-          <Select
-            label="Chủ đề (Topic)"
-            options={[{ label: 'Tất cả', value: '' }, ...topicOptions]}
-            value={selectedTopic}
-            onChange={setSelectedTopic}
-          />
-        </div>
-
-        <div>
-          <Select
-            label="Đơn vị phụ trách"
-            options={[{ label: 'Tất cả', value: '' }, ...deptOptions]}
-            value={selectedDept}
-            onChange={setSelectedDept}
-          />
-        </div>
-
-        <div>
-          <Select
-            label="Trạng thái"
-            options={[
-              { label: 'Tất cả', value: '' },
-              { label: 'Hiệu lực', value: 'active' },
-              { label: 'Ngưng áp dụng', value: 'inactive' }
-            ]}
-            value={selectedStatus}
-            onChange={setSelectedStatus}
-          />
         </div>
       </div>
 
@@ -1850,15 +1856,157 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
         <table className="w-full text-left border-collapse text-sm min-w-[1000px]">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="py-3 px-4 font-semibold text-gray-700 w-12 text-center whitespace-nowrap">STT</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-28 whitespace-nowrap">Mã chỉ tiêu</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-72 whitespace-nowrap">Tên chỉ tiêu</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-28 text-center whitespace-nowrap">Trụ cột</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-36 whitespace-nowrap">Chủ đề</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-20 text-center whitespace-nowrap">Đơn vị đo</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-40 whitespace-nowrap">Đơn vị phụ trách</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-28 text-center whitespace-nowrap">Trạng thái</th>
-              <th className="py-3 px-4 font-semibold text-gray-700 w-24 text-center whitespace-nowrap">Thao tác</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-12 text-center whitespace-nowrap">STT</th>
+              <th
+                onClick={() => handleToggleSort('code')}
+                className="py-3 px-3 font-semibold text-gray-700 w-36 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100 transition-colors"
+                title={currentLang === 'vi' ? 'Nhấn để sắp xếp theo Mã chỉ tiêu' : 'Click to sort by Code'}
+              >
+                <div className="flex items-center gap-1.5 justify-between">
+                  <span>{currentLang === 'vi' ? 'Mã chỉ tiêu' : 'Code'}</span>
+                  <span className="text-gray-400">
+                    {sortField === 'code' && sortOrder === 'asc' ? <ArrowUp size={14} className="text-vna-blue font-bold" /> :
+                      sortField === 'code' && sortOrder === 'desc' ? <ArrowDown size={14} className="text-vna-blue font-bold" /> :
+                        <ArrowUpDown size={14} className="opacity-40" />}
+                  </span>
+                </div>
+              </th>
+              <th
+                onClick={() => handleToggleSort('name')}
+                className="py-3 px-3 font-semibold text-gray-700 min-w-[240px] whitespace-nowrap cursor-pointer select-none hover:bg-gray-100 transition-colors"
+                title={currentLang === 'vi' ? 'Nhấn để sắp xếp theo Tên chỉ tiêu' : 'Click to sort by Indicator Name'}
+              >
+                <div className="flex items-center gap-1.5 justify-between">
+                  <span>{currentLang === 'vi' ? 'Tên chỉ tiêu' : 'Indicator Name'}</span>
+                  <span className="text-gray-400">
+                    {sortField === 'name' && sortOrder === 'asc' ? <ArrowUp size={14} className="text-vna-blue font-bold" /> :
+                      sortField === 'name' && sortOrder === 'desc' ? <ArrowDown size={14} className="text-vna-blue font-bold" /> :
+                        <ArrowUpDown size={14} className="opacity-40" />}
+                  </span>
+                </div>
+              </th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-36 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Trụ cột' : 'Pillar'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-40 whitespace-nowrap">{currentLang === 'vi' ? 'Chủ đề' : 'Topic'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-24 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Đơn vị đo' : 'Unit'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-44 whitespace-nowrap">{currentLang === 'vi' ? 'Đơn vị phụ trách' : 'Department'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-28 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Trạng thái' : 'Status'}</th>
+              <th className="py-3 px-3 font-semibold text-gray-700 w-24 text-center whitespace-nowrap">{currentLang === 'vi' ? 'Thao tác' : 'Actions'}</th>
+            </tr>
+
+            {/* COLUMN FILTER ROW */}
+            <tr className="bg-blue-50/70 border-b border-gray-200">
+              {/* 1. STT Spacer */}
+              <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+              {/* 2. Filter Code */}
+              <th className="py-2 px-2 text-left">
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchCode}
+                    onChange={(e) => setSearchCode(e.target.value)}
+                    placeholder={currentLang === 'vi' ? 'Lọc mã...' : 'Filter code...'}
+                    className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                  />
+                  {searchCode && (
+                    <button onClick={() => setSearchCode('')} className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                  )}
+                </div>
+              </th>
+
+              {/* 3. Filter Name */}
+              <th className="py-2 px-2 text-left">
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchName}
+                    onChange={(e) => setSearchName(e.target.value)}
+                    placeholder={currentLang === 'vi' ? 'Lọc tên chỉ tiêu...' : 'Filter name...'}
+                    className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                  />
+                  {searchName && (
+                    <button onClick={() => setSearchName('')} className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                  )}
+                </div>
+              </th>
+
+              {/* 4. Filter Pillar */}
+              <th className="py-2 px-2 text-center">
+                <select
+                  value={selectedPillar}
+                  onChange={(e) => setSelectedPillar(e.target.value)}
+                  className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                >
+                  <option value="">{currentLang === 'vi' ? 'Tất cả trụ cột' : 'All Pillars'}</option>
+                  <option value={Pillar.ENVIRONMENT}>{currentLang === 'vi' ? 'Môi trường (E)' : 'Environment (E)'}</option>
+                  <option value={Pillar.SOCIAL}>{currentLang === 'vi' ? 'Xã hội (S)' : 'Social (S)'}</option>
+                  <option value={Pillar.GOVERNANCE}>{currentLang === 'vi' ? 'Quản trị (G)' : 'Governance (G)'}</option>
+                </select>
+              </th>
+
+              {/* 5. Filter Topic */}
+              <th className="py-2 px-2 text-left">
+                <select
+                  value={selectedTopic}
+                  onChange={(e) => setSelectedTopic(e.target.value)}
+                  className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                >
+                  <option value="">{currentLang === 'vi' ? 'Tất cả chủ đề' : 'All Topics'}</option>
+                  {topicOptions.map(t => (
+                    <option key={t.value} value={t.value}>{t.label}</option>
+                  ))}
+                </select>
+              </th>
+
+              {/* 6. Filter Unit Spacer */}
+              <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+              {/* 7. Filter Department */}
+              <th className="py-2 px-2 text-left">
+                <select
+                  value={selectedDept}
+                  onChange={(e) => setSelectedDept(e.target.value)}
+                  className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                >
+                  <option value="">{currentLang === 'vi' ? 'Tất cả đơn vị' : 'All Depts'}</option>
+                  {deptOptions.map(d => (
+                    <option key={d.value} value={d.value}>{d.label}</option>
+                  ))}
+                </select>
+              </th>
+
+              {/* 8. Filter Status */}
+              <th className="py-2 px-2 text-center">
+                <select
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
+                  className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                >
+                  <option value="">{currentLang === 'vi' ? 'Tất cả' : 'All'}</option>
+                  <option value="active">{currentLang === 'vi' ? 'Hiệu lực' : 'Active'}</option>
+                  <option value="inactive">{currentLang === 'vi' ? 'Ngưng áp dụng' : 'Inactive'}</option>
+                </select>
+              </th>
+
+              {/* 9. Clear Filter Action */}
+              <th className="py-2 px-2 text-center">
+                {(searchCode || searchName || selectedPillar || selectedTopic || selectedDept || selectedStatus) && (
+                  <button
+                    onClick={() => {
+                      setSearchCode('');
+                      setSearchName('');
+                      setSelectedPillar('');
+                      setSelectedTopic('');
+                      setSelectedDept('');
+                      setSelectedStatus('');
+                    }}
+                    className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-1 py-0.5 rounded hover:bg-red-50"
+                    title={currentLang === 'vi' ? 'Xóa tất cả bộ lọc' : 'Clear all filters'}
+                  >
+                    {currentLang === 'vi' ? 'Xóa lọc' : 'Clear'}
+                  </button>
+                )}
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">

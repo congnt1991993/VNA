@@ -145,11 +145,7 @@ export const EsgReportPage: React.FC = () => {
       {/* MÀN HÌNH DANH SÁCH YÊU CẦU */}
       {view === 'LIST' && (
         <>
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-vna-blue">Quản lý Đợt thu thập Báo cáo ESG</h1>
-              <p className="text-black/45 text-sm mt-1">Ban Truyền thông & KHPT yêu cầu và đôn đốc các Khối/Ban nộp báo cáo thường niên</p>
-            </div>
+          <div className="flex justify-end items-center">
             <Button variant="primary" onClick={() => setIsCreateModalOpen(true)}>
               <Plus size={16} className="mr-2" />
               Tạo Yêu cầu mới
@@ -236,7 +232,7 @@ export const EsgReportPage: React.FC = () => {
             </Button>
             <div>
               <h1 className="text-2xl font-bold text-vna-blue">{selectedCampaign.title}</h1>
-              <p className="text-black/45 text-sm mt-1">Chi tiết đôn đốc nộp báo cáo năm {selectedCampaign.year}</p>
+              
             </div>
             <div className="ml-auto">
               {selectedCampaign.status === 'IN_PROGRESS' && (

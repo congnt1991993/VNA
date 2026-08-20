@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Button } from './UI';
-import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search, Clock } from 'lucide-react';
+import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search, Clock, Eye, X, ArrowRightLeft, Edit3 } from 'lucide-react';
 
 import kpiRules from './NetzeroGRI_KPI_Rules.json';
 
@@ -317,20 +317,53 @@ const getFormName = (code: string) => {
 
 interface UnifiedDataEntryFormProps {
   department: string;
-  effectivePeriod: string;
+  effectivePeriod?: string;
+  targetIndicatorCode?: string;
+  hideSidebar?: boolean;
   onBack: () => void;
-  onSave: () => void;
+  onSave: (period?: string) => void;
   isNewPeriod?: boolean;
 }
 
 export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
   department,
   effectivePeriod: rawEffectivePeriod,
+  targetIndicatorCode,
+  hideSidebar = false,
   onBack,
   onSave,
   isNewPeriod,
 }) => {
-  const effectivePeriod = rawEffectivePeriod || `Năm ${new Date().getFullYear()}`;
+  const [filterYear, setFilterYear] = useState<string>(() => {
+    if (rawEffectivePeriod) {
+      const match = rawEffectivePeriod.match(/\b(20\d{2})\b/);
+      if (match) return match[1];
+    }
+    return '2026';
+  });
+
+  const [filterQuarter, setFilterQuarter] = useState<string>('ALL');
+
+  const [filterMonth, setFilterMonth] = useState<string>(() => {
+    if (rawEffectivePeriod) {
+      const match = rawEffectivePeriod.match(/Tháng\s*(\d{1,2})/i);
+      if (match) return `Tháng ${match[1].padStart(2, '0')}`;
+    }
+    return 'ALL';
+  });
+
+  const effectivePeriod = useMemo(() => {
+    let parts = [];
+    if (filterMonth !== 'ALL') {
+      parts.push(filterMonth);
+    } else if (filterQuarter !== 'ALL') {
+      parts.push(filterQuarter === 'Q1' ? 'Quý 1' : filterQuarter === 'Q2' ? 'Quý 2' : filterQuarter === 'Q3' ? 'Quý 3' : 'Quý 4');
+    }
+    if (filterYear !== 'ALL') {
+      parts.push(`Năm ${filterYear}`);
+    }
+    return parts.length > 0 ? parts.join('/') : 'Năm 2026';
+  }, [filterYear, filterQuarter, filterMonth]);
   const [activeSec, setActiveSec] = useState<string>('');
   const [activeSubTab, setActiveSubTab] = useState<string>('TAB_1');
   const [activeMainTab, setActiveMainTab] = useState<'DATA' | 'PLAN'>('DATA');
@@ -348,6 +381,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     return () => window.removeEventListener('vna_language_changed', handleLangChange);
   }, []);
   const [formData, setFormData] = useState<Record<string, any>>({});
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveSubTab('TAB_1');
@@ -356,6 +390,9 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
 
   // Get indicators for this department from localStorage
   const indicators: string[] = React.useMemo(() => {
+    if (targetIndicatorCode) {
+      return [targetIndicatorCode];
+    }
     const savedDeptsStr = localStorage.getItem('vna_esg_departments');
     if (savedDeptsStr) {
       try {
@@ -383,7 +420,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
       'Ban Truyền thông': ["Airline F-1", "GRI 417-3"],
     };
     return fallback[department] || [];
-  }, [department]);
+  }, [department, targetIndicatorCode]);
 
   // Load name and pillar details for each indicator
   const indicatorDetails = React.useMemo(() => {
@@ -410,7 +447,9 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
 
   // Set default active tab and hide parent page headers/tabs when editing
   useEffect(() => {
-    if (indicators.length > 0) {
+    if (targetIndicatorCode) {
+      setActiveSec(targetIndicatorCode);
+    } else if (indicators.length > 0) {
       setActiveSec(indicators[0]);
     }
 
@@ -732,34 +771,76 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     });
   }, [indicatorDetails, searchText]);
 
+  const [selectedAuditLog, setSelectedAuditLog] = useState<any | null>(null);
+
   const mockAuditLogs = React.useMemo(() => {
     const logs: any[] = [];
     const periodYear = effectivePeriod.includes('2026') ? '2026' : '2025';
-    
+
     indicatorDetails.forEach((ind, index) => {
       const formName = getFormName(ind.code);
-      
+
+      // Snapshot data of the previous state (bản cũ trước khi thay đổi)
+      let oldSnapshotRows = [
+        { field: 'Dòng 1 - Số liệu thực hiện kỳ', value: '42,500', unit: ind.unit || 'Tấn', note: 'Dữ liệu đối soát đợt 1' },
+        { field: 'Dòng 2 - Số liệu vận hành bổ sung', value: '110', unit: ind.unit || 'Tấn', note: 'Số liệu sơ bộ từ đơn vị' }
+      ];
+
+      if (ind.code === 'GRI 302-1') {
+        oldSnapshotRows = [
+          { field: 'Tổng tiêu thụ nhiên liệu Jet A1', value: '42,500', unit: 'Tấn', note: 'Số liệu ghi nhận trước đợt kiểm toán bay' },
+          { field: 'Nhiên liệu hàng không bền vững (SAF)', value: '110', unit: 'Tấn', note: 'Chưa tính chuyến bay thử nghiệm' },
+          { field: 'Xăng xe sân đỗ (Ground Operations)', value: '125', unit: 'm³', note: 'Theo hóa đơn kỳ 1' }
+        ];
+      } else if (ind.code === 'Airline E-1') {
+        oldSnapshotRows = [
+          { field: 'Tỷ lệ tàu bay đạt chuẩn Chapter 4/14 ICAO', value: '98.5', unit: '%', note: 'Trước khi tiếp nhận 2 tàu bay A321neo mới' }
+        ];
+      } else if (ind.code === 'GRI 401-1') {
+        oldSnapshotRows = [
+          { field: 'Số lao động tuyển mới trong kỳ', value: '30', unit: 'Người', note: 'Số liệu tuyển dụng đợt 1' },
+          { field: 'Số lượng lao động nghỉ việc tự nguyện', value: '15', unit: 'Người', note: 'Chưa rà soát hồ sơ xin rút đơn' }
+        ];
+      } else if (ind.code === 'GRI 204-1') {
+        oldSnapshotRows = [
+          { field: 'Tổng tỷ lệ chi tiêu cho nhà cung cấp nội địa', value: '72.0', unit: '%', note: 'Chưa ký bổ sung hợp đồng nhiên liệu mới' }
+        ];
+      } else if (ind.code.startsWith('GRI 205') || ind.code.startsWith('GRI 418') || ind.code.startsWith('GRI 2-')) {
+        oldSnapshotRows = [
+          { field: 'Câu hỏi kiểm nghiệm hiện trạng (Yes/No)', value: 'No (Không phát sinh vi phạm)', unit: 'Trạng thái', note: 'Đã thẩm định' },
+          { field: 'Nội dung thuyết minh chi tiết', value: 'Trong kỳ báo cáo, doanh nghiệp không phát sinh bất kỳ trường hợp nào vi phạm pháp luật hoặc quy chuẩn nội bộ.', unit: 'Văn bản', note: 'Nội dung bản thảo ban đầu' }
+        ];
+      }
+
+      // Version v2.0 (Previous revision before current)
       logs.push({
-        id: `LOG-UPD-${ind.code}`,
+        id: `LOG-UPD-${ind.code}-2`,
+        version: 'v2.0',
         indicatorCode: ind.code,
         indicatorName: ind.name,
         formName: formName,
         user: index % 2 === 0 ? 'ns_vna@vietnamairlines.com' : 'tckt@vietnamairlines.com',
         timestamp: `18/05/${periodYear} 10:${30 + index}`,
-        actionType: 'Cập nhật'
+        actionType: 'Cập nhật',
+        snapshotDescription: `Bản ghi dữ liệu tại phiên bản v2.0 trước khi cập nhật số liệu mới nhất`,
+        snapshotData: oldSnapshotRows
       });
-      
+
+      // Version v1.0 (Baseline / Creation)
       logs.push({
-        id: `LOG-CRE-${ind.code}`,
+        id: `LOG-CRE-${ind.code}-1`,
+        version: 'v1.0',
         indicatorCode: ind.code,
         indicatorName: ind.name,
         formName: formName,
         user: 'sys_sync@vietnamairlines.com',
         timestamp: `10/05/${periodYear} 08:00`,
-        actionType: 'Khởi tạo'
+        actionType: 'Khởi tạo',
+        snapshotDescription: `Bản ghi dữ liệu gốc (Baseline) tại thời điểm khởi tạo hệ thống`,
+        snapshotData: oldSnapshotRows.map(r => ({ ...r, value: '0 (Chưa có dữ liệu)', note: 'Bản trắng khởi tạo hệ thống' }))
       });
     });
-    
+
     return logs;
   }, [indicatorDetails, effectivePeriod]);
 
@@ -769,46 +850,135 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
         <div className="border-b border-gray-150 px-5 py-4 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-2">
             <span className="text-vna-blue flex items-center"><Clock size={18} /></span>
-            <h3 className="font-bold text-gray-800 text-base">Lịch sử thay đổi dữ liệu (Audit Log)</h3>
+            <h3 className="font-bold text-gray-800 text-base">Lịch sử thay đổi</h3>
           </div>
           <span className="text-xs bg-blue-50 text-vna-blue px-2.5 py-1 rounded-full border border-blue-100 font-semibold">
-            {mockAuditLogs.length} phiên bản
+            {mockAuditLogs.length} bản ghi
           </span>
         </div>
+
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 text-left">
             <thead className="bg-vna-blue/5 text-vna-blue">
               <tr className="text-xs uppercase font-bold text-gray-700">
                 <th className="py-3 px-4 border-b border-blue-100 w-12 text-center">STT</th>
-                <th className="py-3 px-4 border-b border-blue-100 min-w-[200px]">Tên chỉ tiêu</th>
-                <th className="py-3 px-4 border-b border-blue-100 min-w-[180px]">Tên biểu</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[160px] text-center">Thời gian thay đổi</th>
+                <th className="py-3 px-4 border-b border-blue-100 min-w-[220px]">Tên biểu</th>
                 <th className="py-3 px-4 border-b border-blue-100 min-w-[200px]">Tài khoản thay đổi</th>
-                <th className="py-3 px-4 border-b border-blue-100 min-w-[150px] text-center">Thời gian thay đổi</th>
-                <th className="py-3 px-4 border-b border-blue-100 min-w-[120px] text-center">Trạng thái</th>
+                <th className="py-3 px-4 border-b border-blue-100 w-28 text-center"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 text-sm text-gray-750">
               {mockAuditLogs.map((log, index) => (
-                <tr key={log.id} className="hover:bg-blue-50/50 transition-colors">
+                <tr key={log.id} className="hover:bg-blue-50/40 transition-colors">
                   <td className="py-3 px-4 text-center text-black/45 font-medium">{index + 1}</td>
-                  <td className="py-3 px-4 font-semibold text-black/85">{log.indicatorCode} - {log.indicatorName}</td>
-                  <td className="py-3 px-4 text-gray-600">{log.formName}</td>
-                  <td className="py-3 px-4 text-gray-700 font-medium">{log.user}</td>
-                  <td className="py-3 px-4 text-center text-gray-600 font-mono text-xs">{log.timestamp}</td>
+                  <td className="py-3 px-4 text-center text-gray-600 font-mono text-xs font-medium">{log.timestamp}</td>
+                  <td className="py-3 px-4 text-gray-700 font-medium">{log.formName}</td>
+                  <td className="py-3 px-4 text-xs text-gray-600 font-medium">{log.user}</td>
                   <td className="py-3 px-4 text-center">
-                    <span className={`px-2.5 py-1 rounded text-xs font-semibold border ${
-                      log.actionType === 'Khởi tạo'
-                        ? 'bg-green-50 text-green-700 border-green-200'
-                        : 'bg-amber-50 text-amber-700 border-amber-200'
-                    }`}>
-                      {log.actionType}
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedAuditLog(log)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold text-vna-blue hover:text-white hover:bg-vna-blue rounded-md border border-vna-blue/30 transition-all cursor-pointer shadow-2xs"
+                      title="Xem bản dữ liệu cũ trước khi thay đổi"
+                    >
+                      <Eye size={13} />
+                      <span>Xem</span>
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
+        {/* MODAL XEM BẢN GHI DỮ LIỆU CŨ TRƯỚC KHI THAY ĐỔI (SNAPSHOT MODAL) */}
+        {selectedAuditLog && (
+          <div
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setSelectedAuditLog(null);
+            }}
+            className="fixed inset-0 z-[99999] bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
+          >
+            <div className="relative bg-white rounded-2xl shadow-2xl max-w-3xl w-full border border-gray-200 overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
+
+              {/* Clean Top Bar with Title and Prominent Close X */}
+              <div className="px-6 py-4 border-b border-gray-150 flex items-center justify-between bg-gray-50/70">
+                <div className="flex items-center gap-2.5">
+                  {/* <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-blue-100 text-vna-blue border border-blue-200">
+                    {selectedAuditLog.version}
+                  </span> */}
+                  <h3 className="text-sm font-bold text-gray-800">
+                    {selectedAuditLog.formName}
+                  </h3>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedAuditLog(null)}
+                  className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-200/80 transition-colors cursor-pointer"
+                  title="Đóng (X)"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-6 overflow-y-auto space-y-4">
+                <div>
+                  {/* <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                    <span>Số liệu ghi nhận tại phiên bản {selectedAuditLog.version}:</span>
+                    <span className="text-[11px] font-normal text-gray-400">Trạng thái trước lần cập nhật kế tiếp</span>
+                  </h4> */}
+
+                  <div className="border border-gray-200 rounded-xl overflow-hidden shadow-2xs">
+                    <table className="w-full text-left text-xs border-collapse">
+                      <thead className="bg-gray-50 border-b border-gray-200">
+                        <tr className="font-bold text-gray-600 uppercase text-[11px]">
+                          <th className="py-2.5 px-4 w-1/2">Chỉ mục / Trường dữ liệu</th>
+                          <th className="py-2.5 px-4 w-1/4 text-center">Giá trị ghi nhận</th>
+                          <th className="py-2.5 px-4 w-1/4">Đơn vị tính</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-150">
+                        {selectedAuditLog.snapshotData && selectedAuditLog.snapshotData.map((row: any, idx: number) => (
+                          <tr key={idx} className="hover:bg-slate-50/50">
+                            <td className="py-3 px-4 font-semibold text-gray-800">
+                              <div>{row.field}</div>
+
+                            </td>
+                            <td className="py-3 px-4 text-center bg-blue-50/20 font-mono font-bold text-vna-blue text-sm">
+                              {row.value || '—'}
+                            </td>
+                            <td className="py-3 px-4 text-gray-600 font-medium">
+                              <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-700 text-xs font-semibold">
+                                {row.unit}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              {/* <div className="bg-gray-50 border-t border-gray-200 px-6 py-3.5 flex justify-between items-center">
+                <span className="text-xs text-gray-500 font-medium">
+                  Phiên bản đối soát lưu trữ hệ thống VNA ESG
+                </span>
+                <Button
+                  variant="primary"
+                  onClick={() => setSelectedAuditLog(null)}
+                  className="px-5 py-1.5 text-xs font-bold h-9"
+                >
+                  Đóng
+                </Button>
+              </div> */}
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -817,607 +987,689 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
     <div className="space-y-6">
       <div className="flex gap-6 min-h-[75vh] text-left animate-in fade-in duration-300">
 
-      {/* Sidebar: CHỈ TIÊU ĐƯỢC PHÂN CÔNG */}
-      <div className="w-80 bg-white rounded-xl border border-gray-200 p-5 shrink-0 flex flex-col h-[calc(100vh-140px)] sticky top-20 shadow-sm">
-        <h3 className="font-extrabold text-sm text-gray-800 uppercase tracking-wide">CHỈ TIÊU ĐƯỢC PHÂN CÔNG</h3>
-        <p className="text-xs text-gray-400 mt-1 mb-3 font-semibold">Chọn chỉ tiêu để nhập liệu</p>
+        {!hideSidebar && (
+          <div className="w-80 bg-white rounded-xl border border-gray-200 p-5 shrink-0 flex flex-col h-[calc(100vh-140px)] sticky top-20 shadow-sm">
+            <h3 className="font-extrabold text-sm text-gray-800 uppercase tracking-wide">CHỈ TIÊU ĐƯỢC PHÂN CÔNG</h3>
+            <p className="text-xs text-gray-400 mt-1 mb-3 font-semibold">Chọn chỉ tiêu để nhập liệu</p>
 
-        {/* Search box */}
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            placeholder="Tìm kiếm mã hoặc tên chỉ tiêu..."
-            className="w-full pl-9 pr-4 py-2 border border-gray-350 hover:border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-vna-blue/30 text-xs font-semibold bg-gray-50/20"
-          />
-        </div>
-
-        <div className="flex-1 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
-          {filteredIndicators.length === 0 ? (
-            <div className="text-center text-xs text-gray-400 italic py-6">
-              Không tìm thấy chỉ tiêu
+            {/* Search box */}
+            <div className="relative mb-4">
+              <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
+              <input
+                type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="Tìm kiếm mã hoặc tên chỉ tiêu..."
+                className="w-full pl-9 pr-4 py-2 border border-gray-350 hover:border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-vna-blue/30 text-xs font-semibold bg-gray-50/20"
+              />
             </div>
-          ) : (
-            filteredIndicators.map(ind => {
-              const sheetCount = (ind.code === 'GRI 302-1' || ind.code === 'GRI 204-1') ? 2 : 1;
-              const isActive = activeSec === ind.code;
 
-              return (
-                <button
-                  key={ind.code}
-                  onClick={() => scrollToSection(ind.code)}
-                  className={`w-full p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer shadow-xs hover:border-vna-blue/50 ${isActive
-                      ? 'border-vna-blue ring-1 ring-vna-blue/10 bg-blue-50/10'
-                      : 'border-gray-200 bg-white hover:bg-gray-50/50'
-                    }`}
-                >
-                  <span className="text-[10px] font-bold text-gray-400 block tracking-wider uppercase mb-1">{ind.code}</span>
-                  <span className="font-bold text-gray-800 text-sm block leading-tight">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</span>
-                  <span className="text-[10px] text-gray-400 font-semibold mt-2 flex items-center gap-1">
-                    <FileSpreadsheet size={12} /> {sheetCount} {sheetCount > 1 ? 'Sheets' : 'Sheet'}
-                  </span>
-                </button>
-              );
-            })
-          )}
-        </div>
-      </div>
+            <div className="flex-1 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
+              {filteredIndicators.length === 0 ? (
+                <div className="text-center text-xs text-gray-400 italic py-6">
+                  Không tìm thấy chỉ tiêu
+                </div>
+              ) : (
+                filteredIndicators.map(ind => {
+                  const sheetCount = (ind.code === 'GRI 302-1' || ind.code === 'GRI 204-1') ? 2 : 1;
+                  const isActive = activeSec === ind.code;
 
-      {/* Main Content Area */}
-      <div className="flex-1 bg-white rounded-xl border border-gray-200 p-6 shadow-sm min-h-[70vh] flex flex-col relative">
+                  return (
+                    <button
+                      key={ind.code}
+                      onClick={() => scrollToSection(ind.code)}
+                      className={`w-full p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer shadow-xs hover:border-vna-blue/50 ${isActive
+                        ? 'border-vna-blue ring-1 ring-vna-blue/10 bg-blue-50/10'
+                        : 'border-gray-200 bg-white hover:bg-gray-50/50'
+                        }`}
+                    >
+                      <span className="text-[10px] font-bold text-gray-400 block tracking-wider uppercase mb-1">{ind.code}</span>
+                      <span className="font-bold text-gray-800 text-sm block leading-tight">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</span>
+                      <span className="text-[10px] text-gray-400 font-semibold mt-2 flex items-center gap-1">
+                        <FileSpreadsheet size={12} /> {sheetCount} {sheetCount > 1 ? 'Sheets' : 'Sheet'}
+                      </span>
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        )}
 
-        {/* Header toolbar */}
-        {indicatorDetails.map(ind => {
-          if (ind.code !== activeSec) return null;
-          const hasTabs = ind.code === 'GRI 302-1' || ind.code === 'GRI 204-1';
-          const dataKey = hasTabs ? `${ind.code}_${activeSubTab}` : ind.code;
-          const rows = formData[dataKey] || [];
+        {/* Main Content Area */}
+        <div className="flex-1 bg-white rounded-xl border border-gray-200 p-6 shadow-sm min-h-[70vh] flex flex-col relative">
 
-          return (
-            <div key={ind.code} className="flex-1 flex flex-col">
+          {/* Header toolbar */}
+          {indicatorDetails.map(ind => {
+            if (ind.code !== activeSec) return null;
+            const hasTabs = ind.code === 'GRI 302-1' || ind.code === 'GRI 204-1';
+            const dataKey = hasTabs ? `${ind.code}_${activeSubTab}` : ind.code;
+            const rows = formData[dataKey] || [];
 
-              {/* Header with Title and Save Button */}
-              <div className="flex justify-between items-start border-b border-gray-150 pb-5 mb-5 gap-4">
-                <div className="flex items-center gap-3">
-                  <button onClick={onBack} className="p-2 -ml-2 cursor-pointer hover:bg-gray-100 rounded-full transition-colors text-gray-500 hover:text-gray-800">
-                    <ArrowLeft size={20} />
-                  </button>
-                  <div>
-                    <h2 className="text-lg font-black text-vna-blue">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</h2>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-xs text-gray-500 font-bold">Kỳ báo cáo:</span>
-                      <select className="border border-gray-300 rounded px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/20 outline-none">
-                        <option>{effectivePeriod}</option>
-                      </select>
+            return (
+              <div key={ind.code} className="flex-1 flex flex-col">
+
+                {/* Header with Title and Save Button */}
+                <div className="flex justify-between items-start border-b border-gray-150 pb-5 mb-5 gap-4">
+                  <div className="flex items-center gap-3">
+                    <button onClick={onBack} className="p-2 -ml-2 cursor-pointer hover:bg-gray-100 rounded-full transition-colors text-gray-500 hover:text-gray-800">
+                      <ArrowLeft size={20} />
+                    </button>
+                    <div>
+                      <h2 className="text-lg font-black text-vna-blue">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</h2>
+                      <div className="flex flex-wrap items-center gap-3 mt-2.5">
+                        {/* Filter Năm */}
+                        <div className="flex items-center gap-1.5">
+                          {/* <span className="text-xs text-gray-500 font-semibold">Năm:</span> */}
+                          <select
+                            value={filterYear}
+                            onChange={(e) => setFilterYear(e.target.value)}
+                            className="border border-gray-300 rounded-md px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/30 outline-none cursor-pointer hover:border-gray-400 transition-colors"
+                          >
+                            <option value="ALL">Tất cả năm</option>
+                            {['2026', '2025', '2024', '2023', '2022'].map(y => (
+                              <option key={y} value={y}>Năm {y}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Filter Quý */}
+                        <div className="flex items-center gap-1.5">
+                          {/* <span className="text-xs text-gray-500 font-semibold">Quý:</span> */}
+                          <select
+                            value={filterQuarter}
+                            onChange={(e) => {
+                              const q = e.target.value;
+                              setFilterQuarter(q);
+                              if (q !== 'ALL') {
+                                setFilterMonth('ALL');
+                              }
+                            }}
+                            className="border border-gray-300 rounded-md px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/30 outline-none cursor-pointer hover:border-gray-400 transition-colors"
+                          >
+                            <option value="ALL">Tất cả quý</option>
+                            <option value="Q1">Quý 1</option>
+                            <option value="Q2">Quý 2</option>
+                            <option value="Q3">Quý 3</option>
+                            <option value="Q4">Quý 4</option>
+                          </select>
+                        </div>
+
+                        {/* Filter Tháng */}
+                        <div className="flex items-center gap-1.5">
+                          {/* <span className="text-xs text-gray-500 font-semibold">Tháng:</span> */}
+                          <select
+                            value={filterMonth}
+                            onChange={(e) => {
+                              const m = e.target.value;
+                              setFilterMonth(m);
+                              if (m !== 'ALL') {
+                                setFilterQuarter('ALL');
+                              }
+                            }}
+                            className="border border-gray-300 rounded-md px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/30 outline-none cursor-pointer hover:border-gray-400 transition-colors"
+                          >
+                            <option value="ALL">Tất cả tháng</option>
+                            {Array.from({ length: 12 }, (_, i) => {
+                              const mStr = `Tháng ${String(i + 1).padStart(2, '0')}`;
+                              return (
+                                <option key={mStr} value={mStr}>{mStr}</option>
+                              );
+                            })}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" onClick={onBack} className="text-xs py-1.5 h-9 font-bold">Hủy bỏ</Button>
-                  {rows.length > 0 && (
-                    <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 text-xs h-9 font-bold flex items-center gap-1.5">
-                      <FileSpreadsheet size={16} className="text-emerald-600" /> Nhập Excel (Import)
-                    </Button>
-                  )}
-                </div>
-              </div>
+                  <div className="flex gap-2 items-center">
+                    {isEditing && (
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsEditing(false)}
+                        className="text-xs py-1.5 h-9 font-bold"
+                      >
+                        Hủy
+                      </Button>
+                    )}
 
-              {/* TAB SELECTOR LỚN (Đã ẩn tab kế hoạch vì KPI được quản lý tập trung tại mục Quản lý KPI) */}
-              {(() => {
-                const showPlanTab = false;
-                if (!showPlanTab) return null;
-                
-                return (
-                  <div className="flex border-b border-gray-200 mb-5 gap-2 animate-in fade-in duration-200">
-                    <button
-                      type="button"
-                      onClick={() => setActiveMainTab('DATA')}
-                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
-                        activeMainTab === 'DATA'
-                          ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
-                          : 'border-transparent text-gray-400 hover:text-gray-600'
-                      }`}
-                    >
-                      Số liệu thực hiện
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveMainTab('PLAN')}
-                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
-                        activeMainTab === 'PLAN'
-                          ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
-                          : 'border-transparent text-gray-400 hover:text-gray-600'
-                      }`}
-                    >
-                      Kế hoạch thực hiện
-                    </button>
+                    {!isEditing ? (
+                      <Button
+                        variant="primary"
+                        onClick={() => setIsEditing(true)}
+                        className="text-xs py-1.5 h-9 font-bold flex items-center gap-1.5 shadow-sm bg-vna-blue hover:bg-vna-blue/90 text-white cursor-pointer"
+                      >
+                        <Edit3 size={15} /> Chỉnh sửa
+                      </Button>
+                    ) : (
+                      <>
+                        {rows.length > 0 && (
+                          <Button
+                            variant="outline"
+                            className="border-gray-300 text-gray-700 hover:bg-gray-50 text-xs h-9 font-bold flex items-center gap-1.5"
+                          >
+                            <FileSpreadsheet size={16} className="text-emerald-600" /> Nhập Excel
+                          </Button>
+                        )}
+                        <Button
+                          variant="primary"
+                          onClick={() => {
+                            onSave(effectivePeriod);
+                            setIsEditing(false);
+                          }}
+                          className="text-xs py-1.5 h-9 font-bold flex items-center gap-1.5 shadow-sm bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                        >
+                          <Save size={16} /> Lưu
+                        </Button>
+                      </>
+                    )}
                   </div>
-                );
-              })()}
-
-              {/* Sub-tabs / Sheets Selectors if any - only display if indicator has more than 1 form/sheet AND we are in DATA tab */}
-              {activeMainTab === 'DATA' && ind.code === 'GRI 302-1' && (
-                <div className="flex border-b border-gray-200 mb-5 gap-1 animate-in fade-in duration-200">
-                  <button
-                    onClick={() => setActiveSubTab('TAB_1')}
-                    className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
-                      activeSubTab === 'TAB_1'
-                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
-                        : 'border-transparent text-gray-400 hover:text-gray-600'
-                    }`}
-                  >
-                    Nhiên liệu Jet A1
-                  </button>
-                  <button
-                    onClick={() => setActiveSubTab('TAB_2')}
-                    className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
-                      activeSubTab === 'TAB_2'
-                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
-                        : 'border-transparent text-gray-400 hover:text-gray-600'
-                    }`}
-                  >
-                    Phát thải CO2 (CORSIA)
-                  </button>
                 </div>
-              )}
 
-              {activeMainTab === 'DATA' && ind.code === 'GRI 204-1' && (
-                <div className="flex border-b border-gray-200 mb-5 gap-1 animate-in fade-in duration-200">
-                  <button
-                    onClick={() => setActiveSubTab('TAB_1')}
-                    className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
-                      activeSubTab === 'TAB_1'
-                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
-                        : 'border-transparent text-gray-400 hover:text-gray-600'
-                    }`}
-                  >
-                    Danh sách nhà cung cấp
-                  </button>
-                  <button
-                    onClick={() => setActiveSubTab('TAB_2')}
-                    className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
-                      activeSubTab === 'TAB_2'
-                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
-                        : 'border-transparent text-gray-400 hover:text-gray-600'
-                    }`}
-                  >
-                    Tỷ lệ chi tiêu (Cũ)
-                  </button>
-                </div>
-              )}
+                {/* TAB SELECTOR LỚN (Đã ẩn tab kế hoạch vì KPI được quản lý tập trung tại mục Quản lý KPI) */}
+                {(() => {
+                  const showPlanTab = false;
+                  if (!showPlanTab) return null;
 
-              {/* FORM KẾ HOẠCH THỰC HIỆN (Render dưới dạng bảng Excel đồng nhất) */}
-              {(() => {
-                const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
-                const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
-                if (showPlanTab && activeMainTab === 'PLAN') {
                   return (
-                    <div className="overflow-x-auto rounded-lg border border-gray-200 flex-1 animate-in fade-in duration-200">
-                      <table className="w-full text-left border-collapse text-xs min-w-[800px]">
-                        <thead>
-                          <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-650 font-bold">
-                            <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
-                            <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-left">Chỉ tiêu kế hoạch / mục tiêu</th>
-                            <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-center w-64">Giá trị Kế hoạch (Target)</th>
-                            <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-center w-64">Giá trị Mục tiêu (Goal)</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                          <tr className="hover:bg-blue-50/20 transition-colors">
-                            <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
-                              Dòng 1
-                            </td>
-                            <td className="p-3 border border-gray-200 font-semibold text-gray-800">
-                              Kế hoạch và Mục tiêu (KPI) cần đạt của chỉ tiêu
-                            </td>
-                            <td className="p-2 border border-gray-200 text-center">
-                              <input
-                                type="number"
-                                placeholder="Nhập KH..."
-                                value={formData[`${ind.code}_PLAN_TARGET`] || ''}
-                                onChange={(e) => setFormData(prev => ({ ...prev, [`${ind.code}_PLAN_TARGET`]: e.target.value }))}
-                                className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 text-center"
-                              />
-                            </td>
-                            <td className="p-2 border border-gray-200 text-center">
-                              <input
-                                type="number"
-                                placeholder="Nhập mục tiêu..."
-                                value={formData[`${ind.code}_PLAN_GOAL`] || ''}
-                                onChange={(e) => setFormData(prev => ({ ...prev, [`${ind.code}_PLAN_GOAL`]: e.target.value }))}
-                                className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 text-center"
-                              />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div className="flex border-b border-gray-200 mb-5 gap-2 animate-in fade-in duration-200">
+                      <button
+                        type="button"
+                        onClick={() => setActiveMainTab('DATA')}
+                        className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${activeMainTab === 'DATA'
+                          ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                          : 'border-transparent text-gray-400 hover:text-gray-600'
+                          }`}
+                      >
+                        Số liệu thực hiện
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveMainTab('PLAN')}
+                        className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${activeMainTab === 'PLAN'
+                          ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                          : 'border-transparent text-gray-400 hover:text-gray-600'
+                          }`}
+                      >
+                        Kế hoạch thực hiện
+                      </button>
                     </div>
                   );
-                }
-                return null;
-              })()}
+                })()}
 
-              {/* Table rendering or Text Multiple Line rendering (Ẩn nếu đang ở tab PLAN) */}
-              {(() => {
-                const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
-                const showPlanTab = !!(rule && rule.hasKpi && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource !== undefined && rule.kpiSource !== null && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '')));
-                const isHidden = showPlanTab && activeMainTab === 'PLAN';
-                return (
-                  <div className={`overflow-x-auto rounded-lg border border-gray-200 flex-1 ${isHidden ? 'hidden' : ''}`}>
-                {!Array.isArray(rows) || rows.length === 0 ? (
-                  (() => {
-                    const mapping = GOV_INDICATOR_MAPPINGS[ind.code];
-                    if (mapping) {
-                      const currentVal = formData[ind.code + '_STATUS'] === undefined 
-                        ? mapping.status 
-                        : formData[ind.code + '_STATUS'];
-                      const showTextArea = currentVal === mapping.status;
-                      const textKey = ind.code + '_' + inputLang;
-                      // Fallback value for legacy compatibility
-                      const currentText = formData[textKey] !== undefined 
-                        ? formData[textKey] 
-                        : (inputLang === 'VI' ? (formData[ind.code] || mapping.defaultVnaTextVi) : mapping.defaultVnaTextEn);
+                {/* Sub-tabs / Sheets Selectors if any - only display if indicator has more than 1 form/sheet AND we are in DATA tab */}
+                {activeMainTab === 'DATA' && ind.code === 'GRI 302-1' && (
+                  <div className="flex border-b border-gray-200 mb-5 gap-1 animate-in fade-in duration-200">
+                    <button
+                      onClick={() => setActiveSubTab('TAB_1')}
+                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${activeSubTab === 'TAB_1'
+                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                        }`}
+                    >
+                      Nhiên liệu Jet A1
+                    </button>
+                    <button
+                      onClick={() => setActiveSubTab('TAB_2')}
+                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${activeSubTab === 'TAB_2'
+                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                        }`}
+                    >
+                      Phát thải CO2 (CORSIA)
+                    </button>
+                  </div>
+                )}
 
-                      return (
-                        <div className="p-6 flex flex-col gap-6 animate-in fade-in duration-300">
-                          {/* Language Switch Button */}
-                          <div className="flex justify-end gap-2 -mb-2">
-                            <button
-                              type="button"
-                              onClick={() => setInputLang('VI')}
-                              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                                inputLang === 'VI'
-                                  ? 'bg-vna-blue text-white shadow-sm'
-                                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                              }`}
-                            >
-                              Tiếng Việt (VI)
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setInputLang('EN')}
-                              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                                inputLang === 'EN'
-                                  ? 'bg-vna-blue text-white shadow-sm'
-                                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                              }`}
-                            >
-                              English (EN)
-                            </button>
-                          </div>
+                {activeMainTab === 'DATA' && ind.code === 'GRI 204-1' && (
+                  <div className="flex border-b border-gray-200 mb-5 gap-1 animate-in fade-in duration-200">
+                    <button
+                      onClick={() => setActiveSubTab('TAB_1')}
+                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${activeSubTab === 'TAB_1'
+                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                        }`}
+                    >
+                      Danh sách nhà cung cấp
+                    </button>
+                    <button
+                      onClick={() => setActiveSubTab('TAB_2')}
+                      className={`px-4 py-2 border-b-2 text-xs font-bold transition-all duration-200 cursor-pointer ${activeSubTab === 'TAB_2'
+                        ? 'border-vna-blue text-vna-blue bg-blue-50/10 rounded-t-lg shadow-sm'
+                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                        }`}
+                    >
+                      Tỷ lệ chi tiêu (Cũ)
+                    </button>
+                  </div>
+                )}
 
-                          {/* Question Selector Card */}
-                          <div className="bg-slate-50 border border-gray-200 p-5 rounded-2xl">
-                            <span className="text-[10px] font-black text-vna-gold uppercase tracking-wider block mb-1">
-                              {inputLang === 'VI' ? 'Câu hỏi kiểm nghiệm hiện trạng (Có/Không)' : 'Current state verification question (Yes/No)'}
-                            </span>
-                            <h4 className="text-sm font-bold text-slate-800 leading-relaxed mb-4">
-                              {inputLang === 'VI' ? mapping.questionVi : mapping.questionEn}
-                            </h4>
-                            
-                            <div className="flex gap-4">
-                              {['Yes', 'No'].map((option) => (
-                                <label 
-                                  key={option} 
-                                  className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
-                                    currentVal === option 
-                                      ? 'bg-vna-blue text-white border-vna-blue shadow-sm' 
-                                      : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
-                                  }`}
-                                >
-                                  <input 
-                                    type="radio" 
-                                    name={`status-${ind.code}`}
-                                    value={option}
-                                    checked={currentVal === option}
-                                    onChange={() => {
-                                      setFormData(prev => ({ 
-                                        ...prev, 
-                                        [`${ind.code}_STATUS`]: option,
-                                        [ind.code]: option === mapping.status ? (prev[ind.code] || mapping.defaultVnaTextVi) : '',
-                                        [ind.code + '_VI']: option === mapping.status ? (prev[ind.code + '_VI'] || mapping.defaultVnaTextVi) : '',
-                                        [ind.code + '_EN']: option === mapping.status ? (prev[ind.code + '_EN'] || mapping.defaultVnaTextEn) : ''
-                                      }));
-                                    }}
-                                    className="hidden"
-                                  />
-                                  <span>
-                                    {inputLang === 'VI' 
-                                      ? (option === 'Yes' ? 'Có' : 'Không') 
-                                      : (option === 'Yes' ? 'Yes' : 'No')}
-                                  </span>
-                                </label>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Textarea or Warning */}
-                          {showTextArea ? (
-                            <div className="space-y-4 animate-in slide-in-from-top-2 duration-200">
-                              <div className="bg-amber-50/50 border border-amber-200 p-4 rounded-xl text-xs text-amber-800">
-                                <span className="font-extrabold uppercase tracking-wide block mb-1.5 text-[10px]">
-                                  {inputLang === 'VI' ? 'Các mục chính cần công bố thuyết minh (Hướng dẫn GRI):' : 'Key points to disclose (GRI Guidelines):'}
-                                </span>
-                                <div className="font-semibold whitespace-pre-line leading-relaxed">
-                                  {inputLang === 'VI' ? mapping.mainPointsVi : mapping.mainPointsEn}
-                                </div>
-                              </div>
-
-                              <div className="flex flex-col gap-2">
-                                <label className="block text-xs font-black text-gray-500 uppercase tracking-wider">
-                                  {inputLang === 'VI' ? 'Nội dung thuyết minh (Rich Text / Thuyết minh Báo cáo VNA)' : 'Disclosure content (Rich Text / VNA Disclosure Report)'}
-                                </label>
-                                <textarea
-                                  rows={12}
-                                  value={String(currentText || '')}
-                                  onChange={(e) => setFormData(prev => ({ 
-                                    ...prev, 
-                                    [textKey]: e.target.value,
-                                    ...(inputLang === 'VI' ? { [ind.code]: e.target.value } : {})
-                                  }))}
-                                  placeholder={inputLang === 'VI' ? `Nhập thông tin thuyết minh chi tiết cho chỉ tiêu ${ind.code}...` : `Enter detailed disclosure explanation for indicator ${ind.code}...`}
-                                  className="w-full text-sm font-semibold p-4 rounded-xl outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 leading-relaxed"
-                                />
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="bg-gray-50 border border-gray-200/80 p-6 rounded-2xl text-center text-xs font-bold text-gray-500 py-8 animate-in fade-in duration-200">
-                              {inputLang === 'VI' ? (
-                                <>
-                                  ⚠️ Hiện trạng được chọn là &quot;{currentVal === 'Yes' ? 'Có' : 'Không'}&quot; (Trái với cấu hình Hiện trạng VNA &quot;{mapping.status === 'Yes' ? 'Có' : 'Không'}&quot;).
-                                  <div className="font-medium text-gray-400 mt-2">
-                                    Hệ thống tự động ẩn phần soạn thảo thuyết minh văn bản cho chỉ tiêu {ind.code}.
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  ⚠️ Selected state is &quot;{currentVal}&quot; (Opposite of VNA expected state &quot;{mapping.status}&quot;).
-                                  <div className="font-medium text-gray-400 mt-2">
-                                    The system automatically hides the disclosure composing area for indicator {ind.code}.
-                                  </div>
-                                </>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    }
-
-                    // Fallback for default text indicator
+                {/* FORM KẾ HOẠCH THỰC HIỆN (Render dưới dạng bảng Excel đồng nhất) */}
+                {(() => {
+                  const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
+                  const showPlanTab = rule && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '');
+                  if (showPlanTab && activeMainTab === 'PLAN') {
                     return (
-                      <div className="p-5 flex flex-col gap-2 animate-in fade-in duration-200">
-                        <label className="block text-xs font-bold text-gray-500 uppercase">Nội dung báo cáo định tính (Text Multiple Line)</label>
-                        <textarea
-                          rows={12}
-                          value={String(formData[ind.code] || '')}
-                          onChange={(e) => setFormData(prev => ({ ...prev, [ind.code]: e.target.value }))}
-                          placeholder={`Nhập thông tin thuyết minh chi tiết hoặc số liệu báo cáo định tính cho chỉ tiêu ${ind.code}...`}
-                          className="w-full text-sm font-semibold p-4 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800"
-                        />
-                      </div>
-                    );
-                  })()
-                ) : (
-                  <table className="w-full text-left border-collapse text-xs min-w-[800px]">
-                    <thead>
-                      <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-655 font-bold">
-                        <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
-                        {rows[0] && typeof rows[0] === 'object' && Object.keys(rows[0]).map(key => {
-                          let colLabel = key;
-                          if (key === 'name') {
-                            colLabel = (ind.code === 'GRI 204-1') ? 'Tên nhà cung cấp' : 'Tên chỉ tiêu / Đối tượng';
-                          }
-                          else if (key === 'energy') colLabel = 'Loại năng lượng / Tiêu thụ';
-                          else if (key === 'value') colLabel = 'Lượng thực tế';
-                          else if (key === 'unit') colLabel = 'Đơn vị';
-                          else if (key === 'co2_source') colLabel = 'Nguồn phát thải CO2';
-                          else if (key === 'countryType') colLabel = 'Quốc gia';
-                          else if (key === 'contractFrom') colLabel = 'Hợp đồng từ';
-                          else if (key === 'contractTo') colLabel = 'Hợp đồng đến';
-                          else if (key === 'hasSustCommitment') colLabel = 'Cam kết PTBV?';
-                          else if (key === 'sustEffectiveDate') colLabel = 'Ngày cam kết hiệu lực';
-                          else if (key === 'sustDescription') colLabel = 'Mô tả cam kết phát triển bền vững';
-                          else if (key === 'measure') colLabel = 'Chỉ tiêu tiết kiệm / Giảm thiểu';
-                          else if (key === 'saved') colLabel = 'Thực tế tiết kiệm (kg)';
-                          else if (key === 'target') colLabel = 'Chỉ tiêu mục tiêu';
-                          else if (key === 'source') colLabel = 'Nguồn phát thải / Cấp nước';
-                          else if (key === 'co2') colLabel = 'Phát thải CO2 (Tấn)';
-                          else if (key === 'method') colLabel = 'Phương pháp tính / Đo';
-                          else if (key === 'type') colLabel = 'Kiểu loại / Loại sự cố';
-                          else if (key === 'intensity') colLabel = 'Cường độ thực tế';
-                          else if (key === 'reduced') colLabel = 'Lượng giảm thực tế (tCO2e)';
-                          else if (key === 'gas') colLabel = 'Khí thải phát sinh';
-                          else if (key === 'weight') colLabel = 'Khối lượng (Tấn)';
-                          else if (key === 'reg') colLabel = 'Số đăng ký TB';
-                          else if (key === 'cert') colLabel = 'Chứng chỉ tiếng ồn';
-                          else if (key === 'chapter') colLabel = 'Hệ số CORSIA';
-                          else if (key === 'date') colLabel = 'Ngày cấp/Ngày xảy ra';
-                          else if (key === 'noise') colLabel = 'Tiếng ồn';
-                          else if (key === 'flightType') colLabel = 'Phạm vi khai thác';
-                          else if (key === 'emissions') colLabel = 'Khối lượng phát thải (tCO2)';
-                          else if (key === 'safety') colLabel = 'Chỉ số an toàn lao động';
-                          else if (key === 'actual') colLabel = 'Lượng thực tế / Số vụ';
-                          else if (key === 'ltifr') colLabel = 'Tỷ lệ tần suất LTIFR';
-                          else if (key === 'icao') colLabel = 'Mã ICAO Sân bay';
-                          else if (key === 'start') colLabel = 'Ngày bắt đầu';
-                          else if (key === 'end') colLabel = 'Ngày kết thúc';
-                          else if (key === 'plan') colLabel = 'SAF kế hoạch (Tấn)';
-                          else if (key === 'mandated') colLabel = 'Tỷ lệ SAF yêu cầu (%)';
-                          else if (key === 'total') colLabel = 'Tổng nhiên liệu nạp (Tấn)';
-                          else if (key === 'jeta1') colLabel = 'Jet A-1 thực tế (Tấn)';
-                          else if (key === 'supplier') colLabel = 'Nhà cung cấp';
-                          else if (key === 'batch') colLabel = 'Số lô (Batch)';
-                          else if (key === 'amount') colLabel = 'SAF thực nạp (Tấn)';
-                          else if (key === 'reduction') colLabel = 'Tỷ lệ giảm phát thải';
-                          else if (key === 'system') colLabel = 'Hệ thống ETS';
-                          else if (key === 'allowance') colLabel = 'Hạn ngạch cấp miễn phí (tCO2)';
-                          else if (key === 'purchase') colLabel = 'Lượng tín chỉ mua (tCO2)';
-                          else if (key === 'price') colLabel = 'Đơn giá mua (USD)';
-                          else if (key === 'cost') colLabel = 'Tổng chi phí (USD)';
-                          else if (key === 'tier') colLabel = 'Phân khúc khách hàng';
-                          else if (key === 'satisfaction') colLabel = 'Điểm thực tế (NPS / Điểm số)';
-                          else if (key === 'count') colLabel = 'Tổng số lượng phản hồi';
-                          else if (key === 'complaints') colLabel = 'Số vụ khiếu nại';
-                          else if (key === 'leaks') colLabel = 'Số vụ mất dữ liệu';
-                          else if (key === 'solutions') colLabel = 'Biện pháp khắc phục';
-                          else if (key === 'zone') colLabel = 'Khu vực / Mục đích tiêu thụ';
-                          else if (key === 'npsDom') colLabel = 'NPS nội địa';
-                          else if (key === 'npsInt') colLabel = 'NPS quốc tế';
-                          else if (key === 'address') colLabel = 'Địa chỉ / Sân bay';
-                          else if (key === 'country') colLabel = 'Quốc gia';
-                          else if (key === 'domain') colLabel = 'Lĩnh vực hợp đồng';
-                          else if (key === 'code') colLabel = 'Mã sự cố';
-                          else if (key === 'status') colLabel = 'Trạng thái xử lý';
-                          else if (key === 'solution') colLabel = 'Biện pháp giải quyết';
-                          else if (key === 'category') colLabel = 'Danh mục / Suất ăn';
-                          else if (key === 'standard') colLabel = 'Tiêu chuẩn chất lượng';
-                          else if (key === 'audited') colLabel = 'Tỷ lệ đã đánh giá (%)';
-                          else if (key === 'cases') colLabel = 'Số vụ vi phạm';
-                          else if (key === 'authority') colLabel = 'Cơ quan xử lý';
-                          else if (key === 'action') colLabel = 'Hành động khắc phục';
-                          else if (key === 'group') colLabel = 'Khối nhân viên / Nhóm';
-                          else if (key === 'overall') colLabel = 'Hài lòng tổng thể';
-                          else if (key === 'work') colLabel = 'Điều kiện làm việc';
-                          else if (key === 'training') colLabel = 'Đào tạo & Thăng tiến';
-                          else if (key === 'manager') colLabel = 'Cấp trên trực tiếp';
-                          else if (key === 'income') colLabel = 'Thu nhập';
-                          else if (key === 'role') colLabel = 'Nhóm chức danh';
-                          else if (key === 'wage') colLabel = 'Mức lương khởi điểm (VNĐ)';
-                          else if (key === 'minRegion') colLabel = 'Mức tối thiểu vùng (VNĐ)';
-                          else if (key === 'ratio') colLabel = 'Tỷ lệ so sánh';
-                          else if (key === 'scope') colLabel = 'Phạm vi quản lý';
-                          else if (key === 'local') colLabel = 'Tỷ lệ Lãnh đạo bản địa (%)';
-                          else if (key === 'foreign') colLabel = 'Tỷ lệ Lãnh đạo nước ngoài (%)';
-                          else if (key === 'cause') colLabel = 'Nguyên nhân xảy ra';
-                          else if (key === 'deadCases') colLabel = 'Số vụ có tử vong';
-                          else if (key === 'victims') colLabel = 'Số người bị nạn';
-                          else if (key === 'deaths') colLabel = 'Số người tử vong';
-                          else if (key === 'heavyInjures') colLabel = 'Số người chấn thương nặng';
-                          else if (key === 'metric') colLabel = 'Chỉ số nhân sự';
-                          else if (key === 'indicator') colLabel = 'Mục quản trị ESG';
-                          else if (key === 'level') colLabel = 'Mức độ tuân thủ';
-                          else if (key === 'notes') colLabel = 'Ghi chú';
-                          else if (key === 'dept') colLabel = 'Đơn vị phụ trách';
-                          else if (key === 'hours') colLabel = 'Tổng số giờ';
-                          else if (key === 'participants') colLabel = 'Số người tham gia';
-                          else if (key === 'fined') colLabel = 'Bị xử phạt';
-                          else if (key === 'warned') colLabel = 'Bị cảnh cáo';
-                          else if (key === 'ruleViolated') colLabel = 'Vi phạm quy tắc';
-                          else if (key === 'details') colLabel = 'Chi tiết xử lý';
-
-                          return (
-                            <th key={key} className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20">
-                              {colLabel}
-                            </th>
-                          );
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {rows.map((row: any, rIdx: number) => (
-                        <tr key={rIdx} className="hover:bg-blue-50/20 transition-colors">
-                          <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
-                            Dòng {rIdx + 1}
-                          </td>
-                          {row && typeof row === 'object' && Object.entries(row).map(([field, val]) => {
-                            const isReadOnly = field === 'jeta1' || field === 'ratio' || field === 'cost';
-                            let displayValue = String(val);
-
-                            if (ind.code === 'GRI 302-1' && activeSubTab === 'TAB_1') {
-                              if (field === 'value') {
-                                if (rIdx === 0) displayValue = '47400';
-                                else if (rIdx === 1) displayValue = '44872';
-                              }
-                            }
-
-                            // Custom inputs for GRI 204-1 TAB_1
-                            if (ind.code === 'GRI 204-1' && activeSubTab === 'TAB_1') {
-                              if (field === 'countryType') {
-                                return (
-                                  <td key={field} className="p-2 border border-gray-200 min-w-[150px]">
-                                    <select
-                                      value={displayValue}
-                                      onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                      className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                    >
-                                      <option value="VN">NCC Việt Nam</option>
-                                      <option value="Foreign">NCC nước ngoài</option>
-                                    </select>
-                                  </td>
-                                );
-                              }
-                              if (field === 'hasSustCommitment') {
-                                return (
-                                  <td key={field} className="p-2 border border-gray-200 min-w-[110px]">
-                                    <select
-                                      value={displayValue}
-                                      onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                      className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                    >
-                                      <option value="Có">Có</option>
-                                      <option value="Không">Không</option>
-                                    </select>
-                                  </td>
-                                );
-                              }
-                              if (field === 'contractFrom' || field === 'contractTo' || field === 'sustEffectiveDate') {
-                                return (
-                                  <td key={field} className="p-2 border border-gray-200 min-w-[145px]">
-                                    <input
-                                      type="date"
-                                      value={displayValue}
-                                      onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                      className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                    />
-                                  </td>
-                                );
-                              }
-                              if (field === 'sustDescription') {
-                                return (
-                                  <td key={field} className="p-2 border border-gray-200 min-w-[280px]">
-                                    <textarea
-                                      rows={2}
-                                      value={displayValue}
-                                      onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                      className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                      placeholder="Nhập chi tiết các điều khoản cam kết..."
-                                    />
-                                  </td>
-                                );
-                              }
-                            }
-
-                            return (
-                              <td key={field} className="p-2 border border-gray-200">
+                      <div className="overflow-x-auto rounded-lg border border-gray-200 flex-1 animate-in fade-in duration-200">
+                        <table className="w-full text-left border-collapse text-xs min-w-[800px]">
+                          <thead>
+                            <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-650 font-bold">
+                              <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
+                              <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-left">Chỉ tiêu kế hoạch / mục tiêu</th>
+                              <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-center w-64">Giá trị Kế hoạch (Target)</th>
+                              <th className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20 text-center w-64">Giá trị Mục tiêu (Goal)</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            <tr className="hover:bg-blue-50/20 transition-colors">
+                              <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
+                                Dòng 1
+                              </td>
+                              <td className="p-3 border border-gray-200 font-semibold text-gray-800">
+                                Kế hoạch và Mục tiêu (KPI) cần đạt của chỉ tiêu
+                              </td>
+                              <td className="p-2 border border-gray-200 text-center">
                                 <input
-                                  type="text"
-                                  value={displayValue}
-                                  readOnly={isReadOnly}
-                                  onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                  className={`w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border focus:ring-1 focus:ring-vna-blue/30 ${isReadOnly
-                                      ? 'bg-gray-100 text-gray-500 border-transparent cursor-not-allowed'
-                                      : 'bg-white text-gray-800 border-gray-200 hover:border-gray-300'
-                                    }`}
+                                  type="number"
+                                  placeholder="Nhập KH..."
+                                  value={formData[`${ind.code}_PLAN_TARGET`] || ''}
+                                  onChange={(e) => setFormData(prev => ({ ...prev, [`${ind.code}_PLAN_TARGET`]: e.target.value }))}
+                                  className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 text-center"
                                 />
                               </td>
+                              <td className="p-2 border border-gray-200 text-center">
+                                <input
+                                  type="number"
+                                  placeholder="Nhập mục tiêu..."
+                                  value={formData[`${ind.code}_PLAN_GOAL`] || ''}
+                                  onChange={(e) => setFormData(prev => ({ ...prev, [`${ind.code}_PLAN_GOAL`]: e.target.value }))}
+                                  className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 text-center"
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+
+                {/* Table rendering or Text Multiple Line rendering (Ẩn nếu đang ở tab PLAN) */}
+                {(() => {
+                  const rule = (kpiRules as Record<string, { hasKpi: string; kpiSource: string }>)[ind.code];
+                  const showPlanTab = !!(rule && rule.hasKpi && rule.hasKpi.trim().toLowerCase() === 'yes' && (rule.kpiSource !== undefined && rule.kpiSource !== null && (rule.kpiSource.trim() === 'Nhập thủ công' || rule.kpiSource.trim() === '')));
+                  const isHidden = showPlanTab && activeMainTab === 'PLAN';
+                  return (
+                    <div className={`overflow-x-auto rounded-lg border border-gray-200 flex-1 ${isHidden ? 'hidden' : ''}`}>
+                      {!Array.isArray(rows) || rows.length === 0 ? (
+                        (() => {
+                          const mapping = GOV_INDICATOR_MAPPINGS[ind.code];
+                          if (mapping) {
+                            const currentVal = formData[ind.code + '_STATUS'] === undefined
+                              ? mapping.status
+                              : formData[ind.code + '_STATUS'];
+                            const showTextArea = currentVal === mapping.status;
+                            const textKey = ind.code + '_' + inputLang;
+                            // Fallback value for legacy compatibility
+                            const currentText = formData[textKey] !== undefined
+                              ? formData[textKey]
+                              : (inputLang === 'VI' ? (formData[ind.code] || mapping.defaultVnaTextVi) : mapping.defaultVnaTextEn);
+
+                            return (
+                              <div className="p-6 flex flex-col gap-6 animate-in fade-in duration-300">
+                                {/* Language Switch Button */}
+                                <div className="flex justify-end gap-2 -mb-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => setInputLang('VI')}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${inputLang === 'VI'
+                                      ? 'bg-vna-blue text-white shadow-sm'
+                                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                      }`}
+                                  >
+                                    Tiếng Việt (VI)
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setInputLang('EN')}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${inputLang === 'EN'
+                                      ? 'bg-vna-blue text-white shadow-sm'
+                                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                      }`}
+                                  >
+                                    English (EN)
+                                  </button>
+                                </div>
+
+                                {/* Question Selector Card */}
+                                <div className="bg-slate-50 border border-gray-200 p-5 rounded-2xl">
+                                  <span className="text-[10px] font-black text-vna-gold uppercase tracking-wider block mb-1">
+                                    {inputLang === 'VI' ? 'Câu hỏi kiểm nghiệm hiện trạng (Có/Không)' : 'Current state verification question (Yes/No)'}
+                                  </span>
+                                  <h4 className="text-sm font-bold text-slate-800 leading-relaxed mb-4">
+                                    {inputLang === 'VI' ? mapping.questionVi : mapping.questionEn}
+                                  </h4>
+
+                                  <div className="flex gap-4">
+                                    {['Yes', 'No'].map((option) => (
+                                      <label
+                                        key={option}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-bold cursor-pointer transition-all ${currentVal === option
+                                          ? 'bg-vna-blue text-white border-vna-blue shadow-sm'
+                                          : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                                          }`}
+                                      >
+                                        <input
+                                          type="radio"
+                                          name={`status-${ind.code}`}
+                                          value={option}
+                                          checked={currentVal === option}
+                                          onChange={() => {
+                                            setFormData(prev => ({
+                                              ...prev,
+                                              [`${ind.code}_STATUS`]: option,
+                                              [ind.code]: option === mapping.status ? (prev[ind.code] || mapping.defaultVnaTextVi) : '',
+                                              [ind.code + '_VI']: option === mapping.status ? (prev[ind.code + '_VI'] || mapping.defaultVnaTextVi) : '',
+                                              [ind.code + '_EN']: option === mapping.status ? (prev[ind.code + '_EN'] || mapping.defaultVnaTextEn) : ''
+                                            }));
+                                          }}
+                                          className="hidden"
+                                        />
+                                        <span>
+                                          {inputLang === 'VI'
+                                            ? (option === 'Yes' ? 'Có' : 'Không')
+                                            : (option === 'Yes' ? 'Yes' : 'No')}
+                                        </span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* Textarea or Warning */}
+                                {showTextArea ? (
+                                  <div className="space-y-4 animate-in slide-in-from-top-2 duration-200">
+                                    <div className="bg-amber-50/50 border border-amber-200 p-4 rounded-xl text-xs text-amber-800">
+                                      <span className="font-extrabold uppercase tracking-wide block mb-1.5 text-[10px]">
+                                        {inputLang === 'VI' ? 'Các mục chính cần công bố thuyết minh (Hướng dẫn GRI):' : 'Key points to disclose (GRI Guidelines):'}
+                                      </span>
+                                      <div className="font-semibold whitespace-pre-line leading-relaxed">
+                                        {inputLang === 'VI' ? mapping.mainPointsVi : mapping.mainPointsEn}
+                                      </div>
+                                    </div>
+
+                                    <div className="flex flex-col gap-2">
+                                      <label className="block text-xs font-black text-gray-500 uppercase tracking-wider">
+                                        {inputLang === 'VI' ? 'Nội dung thuyết minh (Rich Text / Thuyết minh Báo cáo VNA)' : 'Disclosure content (Rich Text / VNA Disclosure Report)'}
+                                      </label>
+                                      <textarea
+                                        rows={12}
+                                        value={String(currentText || '')}
+                                        onChange={(e) => setFormData(prev => ({
+                                          ...prev,
+                                          [textKey]: e.target.value,
+                                          ...(inputLang === 'VI' ? { [ind.code]: e.target.value } : {})
+                                        }))}
+                                        placeholder={inputLang === 'VI' ? `Nhập thông tin thuyết minh chi tiết cho chỉ tiêu ${ind.code}...` : `Enter detailed disclosure explanation for indicator ${ind.code}...`}
+                                        className="w-full text-sm font-semibold p-4 rounded-xl outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800 leading-relaxed"
+                                      />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="bg-gray-50 border border-gray-200/80 p-6 rounded-2xl text-center text-xs font-bold text-gray-500 py-8 animate-in fade-in duration-200">
+                                    {inputLang === 'VI' ? (
+                                      <>
+                                        ⚠️ Hiện trạng được chọn là &quot;{currentVal === 'Yes' ? 'Có' : 'Không'}&quot; (Trái với cấu hình Hiện trạng VNA &quot;{mapping.status === 'Yes' ? 'Có' : 'Không'}&quot;).
+                                        <div className="font-medium text-gray-400 mt-2">
+                                          Hệ thống tự động ẩn phần soạn thảo thuyết minh văn bản cho chỉ tiêu {ind.code}.
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <>
+                                        ⚠️ Selected state is &quot;{currentVal}&quot; (Opposite of VNA expected state &quot;{mapping.status}&quot;).
+                                        <div className="font-medium text-gray-400 mt-2">
+                                          The system automatically hides the disclosure composing area for indicator {ind.code}.
+                                        </div>
+                                      </>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
                             );
-                          })}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
+                          }
+
+                          // Fallback for default text indicator
+                          return (
+                            <div className="p-5 flex flex-col gap-2 animate-in fade-in duration-200">
+                              <label className="block text-xs font-bold text-gray-500 uppercase">Nội dung báo cáo định tính (Text Multiple Line)</label>
+                              <textarea
+                                rows={12}
+                                value={String(formData[ind.code] || '')}
+                                onChange={(e) => setFormData(prev => ({ ...prev, [ind.code]: e.target.value }))}
+                                placeholder={`Nhập thông tin thuyết minh chi tiết hoặc số liệu báo cáo định tính cho chỉ tiêu ${ind.code}...`}
+                                className="w-full text-sm font-semibold p-4 rounded outline-none border border-gray-200 hover:border-gray-300 focus:ring-1 focus:ring-vna-blue/30 bg-white text-gray-800"
+                              />
+                            </div>
+                          );
+                        })()
+                      ) : (
+                        <table className="w-full text-left border-collapse text-xs min-w-[800px]">
+                          <thead>
+                            <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-655 font-bold">
+                              <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
+                              {rows[0] && typeof rows[0] === 'object' && Object.keys(rows[0]).map(key => {
+                                let colLabel = key;
+                                if (key === 'name') {
+                                  colLabel = (ind.code === 'GRI 204-1') ? 'Tên nhà cung cấp' : 'Tên chỉ tiêu / Đối tượng';
+                                }
+                                else if (key === 'energy') colLabel = 'Loại năng lượng / Tiêu thụ';
+                                else if (key === 'value') colLabel = 'Lượng thực tế';
+                                else if (key === 'unit') colLabel = 'Đơn vị';
+                                else if (key === 'co2_source') colLabel = 'Nguồn phát thải CO2';
+                                else if (key === 'countryType') colLabel = 'Quốc gia';
+                                else if (key === 'contractFrom') colLabel = 'Hợp đồng từ';
+                                else if (key === 'contractTo') colLabel = 'Hợp đồng đến';
+                                else if (key === 'hasSustCommitment') colLabel = 'Cam kết PTBV?';
+                                else if (key === 'sustEffectiveDate') colLabel = 'Ngày cam kết hiệu lực';
+                                else if (key === 'sustDescription') colLabel = 'Mô tả cam kết phát triển bền vững';
+                                else if (key === 'measure') colLabel = 'Chỉ tiêu tiết kiệm / Giảm thiểu';
+                                else if (key === 'saved') colLabel = 'Thực tế tiết kiệm (kg)';
+                                else if (key === 'target') colLabel = 'Chỉ tiêu mục tiêu';
+                                else if (key === 'source') colLabel = 'Nguồn phát thải / Cấp nước';
+                                else if (key === 'co2') colLabel = 'Phát thải CO2 (Tấn)';
+                                else if (key === 'method') colLabel = 'Phương pháp tính / Đo';
+                                else if (key === 'type') colLabel = 'Kiểu loại / Loại sự cố';
+                                else if (key === 'intensity') colLabel = 'Cường độ thực tế';
+                                else if (key === 'reduced') colLabel = 'Lượng giảm thực tế (tCO2e)';
+                                else if (key === 'gas') colLabel = 'Khí thải phát sinh';
+                                else if (key === 'weight') colLabel = 'Khối lượng (Tấn)';
+                                else if (key === 'reg') colLabel = 'Số đăng ký TB';
+                                else if (key === 'cert') colLabel = 'Chứng chỉ tiếng ồn';
+                                else if (key === 'chapter') colLabel = 'Hệ số CORSIA';
+                                else if (key === 'date') colLabel = 'Ngày cấp/Ngày xảy ra';
+                                else if (key === 'noise') colLabel = 'Tiếng ồn';
+                                else if (key === 'flightType') colLabel = 'Phạm vi khai thác';
+                                else if (key === 'emissions') colLabel = 'Khối lượng phát thải (tCO2)';
+                                else if (key === 'safety') colLabel = 'Chỉ số an toàn lao động';
+                                else if (key === 'actual') colLabel = 'Lượng thực tế / Số vụ';
+                                else if (key === 'ltifr') colLabel = 'Tỷ lệ tần suất LTIFR';
+                                else if (key === 'icao') colLabel = 'Mã ICAO Sân bay';
+                                else if (key === 'start') colLabel = 'Ngày bắt đầu';
+                                else if (key === 'end') colLabel = 'Ngày kết thúc';
+                                else if (key === 'plan') colLabel = 'SAF kế hoạch (Tấn)';
+                                else if (key === 'mandated') colLabel = 'Tỷ lệ SAF yêu cầu (%)';
+                                else if (key === 'total') colLabel = 'Tổng nhiên liệu nạp (Tấn)';
+                                else if (key === 'jeta1') colLabel = 'Jet A-1 thực tế (Tấn)';
+                                else if (key === 'supplier') colLabel = 'Nhà cung cấp';
+                                else if (key === 'batch') colLabel = 'Số lô (Batch)';
+                                else if (key === 'amount') colLabel = 'SAF thực nạp (Tấn)';
+                                else if (key === 'reduction') colLabel = 'Tỷ lệ giảm phát thải';
+                                else if (key === 'system') colLabel = 'Hệ thống ETS';
+                                else if (key === 'allowance') colLabel = 'Hạn ngạch cấp miễn phí (tCO2)';
+                                else if (key === 'purchase') colLabel = 'Lượng tín chỉ mua (tCO2)';
+                                else if (key === 'price') colLabel = 'Đơn giá mua (USD)';
+                                else if (key === 'cost') colLabel = 'Tổng chi phí (USD)';
+                                else if (key === 'tier') colLabel = 'Phân khúc khách hàng';
+                                else if (key === 'satisfaction') colLabel = 'Điểm thực tế (NPS / Điểm số)';
+                                else if (key === 'count') colLabel = 'Tổng số lượng phản hồi';
+                                else if (key === 'complaints') colLabel = 'Số vụ khiếu nại';
+                                else if (key === 'leaks') colLabel = 'Số vụ mất dữ liệu';
+                                else if (key === 'solutions') colLabel = 'Biện pháp khắc phục';
+                                else if (key === 'zone') colLabel = 'Khu vực / Mục đích tiêu thụ';
+                                else if (key === 'npsDom') colLabel = 'NPS nội địa';
+                                else if (key === 'npsInt') colLabel = 'NPS quốc tế';
+                                else if (key === 'address') colLabel = 'Địa chỉ / Sân bay';
+                                else if (key === 'country') colLabel = 'Quốc gia';
+                                else if (key === 'domain') colLabel = 'Lĩnh vực hợp đồng';
+                                else if (key === 'code') colLabel = 'Mã sự cố';
+                                else if (key === 'status') colLabel = 'Trạng thái xử lý';
+                                else if (key === 'solution') colLabel = 'Biện pháp giải quyết';
+                                else if (key === 'category') colLabel = 'Danh mục / Suất ăn';
+                                else if (key === 'standard') colLabel = 'Tiêu chuẩn chất lượng';
+                                else if (key === 'audited') colLabel = 'Tỷ lệ đã đánh giá (%)';
+                                else if (key === 'cases') colLabel = 'Số vụ vi phạm';
+                                else if (key === 'authority') colLabel = 'Cơ quan xử lý';
+                                else if (key === 'action') colLabel = 'Hành động khắc phục';
+                                else if (key === 'group') colLabel = 'Khối nhân viên / Nhóm';
+                                else if (key === 'overall') colLabel = 'Hài lòng tổng thể';
+                                else if (key === 'work') colLabel = 'Điều kiện làm việc';
+                                else if (key === 'training') colLabel = 'Đào tạo & Thăng tiến';
+                                else if (key === 'manager') colLabel = 'Cấp trên trực tiếp';
+                                else if (key === 'income') colLabel = 'Thu nhập';
+                                else if (key === 'role') colLabel = 'Nhóm chức danh';
+                                else if (key === 'wage') colLabel = 'Mức lương khởi điểm (VNĐ)';
+                                else if (key === 'minRegion') colLabel = 'Mức tối thiểu vùng (VNĐ)';
+                                else if (key === 'ratio') colLabel = 'Tỷ lệ so sánh';
+                                else if (key === 'scope') colLabel = 'Phạm vi quản lý';
+                                else if (key === 'local') colLabel = 'Tỷ lệ Lãnh đạo bản địa (%)';
+                                else if (key === 'foreign') colLabel = 'Tỷ lệ Lãnh đạo nước ngoài (%)';
+                                else if (key === 'cause') colLabel = 'Nguyên nhân xảy ra';
+                                else if (key === 'deadCases') colLabel = 'Số vụ có tử vong';
+                                else if (key === 'victims') colLabel = 'Số người bị nạn';
+                                else if (key === 'deaths') colLabel = 'Số người tử vong';
+                                else if (key === 'heavyInjures') colLabel = 'Số người chấn thương nặng';
+                                else if (key === 'metric') colLabel = 'Chỉ số nhân sự';
+                                else if (key === 'indicator') colLabel = 'Mục quản trị ESG';
+                                else if (key === 'level') colLabel = 'Mức độ tuân thủ';
+                                else if (key === 'notes') colLabel = 'Ghi chú';
+                                else if (key === 'dept') colLabel = 'Đơn vị phụ trách';
+                                else if (key === 'hours') colLabel = 'Tổng số giờ';
+                                else if (key === 'participants') colLabel = 'Số người tham gia';
+                                else if (key === 'fined') colLabel = 'Bị xử phạt';
+                                else if (key === 'warned') colLabel = 'Bị cảnh cáo';
+                                else if (key === 'ruleViolated') colLabel = 'Vi phạm quy tắc';
+                                else if (key === 'details') colLabel = 'Chi tiết xử lý';
+
+                                return (
+                                  <th key={key} className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20">
+                                    {colLabel}
+                                  </th>
+                                );
+                              })}
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {rows.map((row: any, rIdx: number) => (
+                              <tr key={rIdx} className="hover:bg-blue-50/20 transition-colors">
+                                <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
+                                  Dòng {rIdx + 1}
+                                </td>
+                                {row && typeof row === 'object' && Object.entries(row).map(([field, val]) => {
+                                  const isReadOnly = field === 'jeta1' || field === 'ratio' || field === 'cost';
+                                  let displayValue = String(val);
+
+                                  if (ind.code === 'GRI 302-1' && activeSubTab === 'TAB_1') {
+                                    if (field === 'value') {
+                                      if (rIdx === 0) displayValue = '47400';
+                                      else if (rIdx === 1) displayValue = '44872';
+                                    }
+                                  }
+
+                                  // Custom inputs for GRI 204-1 TAB_1
+                                  if (ind.code === 'GRI 204-1' && activeSubTab === 'TAB_1') {
+                                    if (field === 'countryType') {
+                                      return (
+                                        <td key={field} className="p-2 border border-gray-200 min-w-[150px]">
+                                          <select
+                                            value={displayValue}
+                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
+                                            className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
+                                          >
+                                            <option value="VN">NCC Việt Nam</option>
+                                            <option value="Foreign">NCC nước ngoài</option>
+                                          </select>
+                                        </td>
+                                      );
+                                    }
+                                    if (field === 'hasSustCommitment') {
+                                      return (
+                                        <td key={field} className="p-2 border border-gray-200 min-w-[110px]">
+                                          <select
+                                            value={displayValue}
+                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
+                                            className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
+                                          >
+                                            <option value="Có">Có</option>
+                                            <option value="Không">Không</option>
+                                          </select>
+                                        </td>
+                                      );
+                                    }
+                                    if (field === 'contractFrom' || field === 'contractTo' || field === 'sustEffectiveDate') {
+                                      return (
+                                        <td key={field} className="p-2 border border-gray-200 min-w-[145px]">
+                                          <input
+                                            type="date"
+                                            value={displayValue}
+                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
+                                            className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
+                                          />
+                                        </td>
+                                      );
+                                    }
+                                    if (field === 'sustDescription') {
+                                      return (
+                                        <td key={field} className="p-2 border border-gray-200 min-w-[280px]">
+                                          <textarea
+                                            rows={2}
+                                            value={displayValue}
+                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
+                                            className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
+                                            placeholder="Nhập chi tiết các điều khoản cam kết..."
+                                          />
+                                        </td>
+                                      );
+                                    }
+                                  }
+
+                                  return (
+                                    <td key={field} className="p-2 border border-gray-200">
+                                      <input
+                                        type="text"
+                                        value={displayValue}
+                                        readOnly={isReadOnly}
+                                        onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
+                                        className={`w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border focus:ring-1 focus:ring-vna-blue/30 ${isReadOnly
+                                          ? 'bg-gray-100 text-gray-500 border-transparent cursor-not-allowed'
+                                          : 'bg-white text-gray-800 border-gray-200 hover:border-gray-300'
+                                          }`}
+                                      />
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             );
-          })()}
+          })}
         </div>
-          );
-        })}
       </div>
-    </div>
-    {renderAuditLogTable()}
+      {renderAuditLogTable()}
     </div>
   );
 };

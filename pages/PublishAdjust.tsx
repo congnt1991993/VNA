@@ -970,7 +970,7 @@ export const PublishAdjustPage: React.FC = () => {
                       <span>Cấu hình kỳ báo cáo ({selectedSubChart.frequency || 'Hàng tháng'})</span>
                     </h3> */}
                     <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
-                      <span className="text-xs text-gray-500 font-bold">Năm công bố:</span>
+                      <span className="text-xs text-gray-500 font-bold">Năm</span>
                       <select
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}

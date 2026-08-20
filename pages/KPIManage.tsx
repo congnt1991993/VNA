@@ -1,15 +1,61 @@
+// Helper function to extract VI/EN name from bilingual indicator strings
+const getLocalizedIndicatorName = (name?: string, lang: 'vi' | 'en' = 'vi'): string => {
+  if (!name) return '';
+  if (name.includes('/')) {
+    const parts = name.split('/').map(p => p.trim());
+    if (parts.length >= 2) {
+      // In data/indicators_main_list.json: parts[0] is English, parts[1] is Vietnamese
+      return lang === 'vi' ? (parts[1] || parts[0]) : (parts[0] || parts[1]);
+    }
+  }
+  const parenMatch = name.match(/^(.*?)\s*\((.*?)\)$/);
+  if (parenMatch) {
+    const enPart = parenMatch[1].trim();
+    const viPart = parenMatch[2].trim();
+    return lang === 'vi' ? (viPart || enPart) : (enPart || viPart);
+  }
+  return name;
+};
+
+// Helper function to get KPI name according to selected system language
+const getKpiDisplayName = (kpi: KPIItem, lang: 'vi' | 'en' = 'vi'): string => {
+  if (lang === 'vi') {
+    // When Vietnamese is selected:
+    if (kpi.name) {
+      if (kpi.name.includes('/')) {
+        return getLocalizedIndicatorName(kpi.name, 'vi');
+      }
+      return kpi.name;
+    }
+    return kpi.subName ? getLocalizedIndicatorName(kpi.subName, 'vi') : '';
+  } else {
+    // When English is selected:
+    if (kpi.subName && kpi.subName.trim()) {
+      return kpi.subName.trim();
+    }
+    if (kpi.name) {
+      if (kpi.name.includes('/')) {
+        return getLocalizedIndicatorName(kpi.name, 'en');
+      }
+      return kpi.name;
+    }
+    return '';
+  }
+};
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Card, Button, Input, Select, Badge, Toast, Modal } from '../components/UI';
-import { 
-  Plus, 
-  Search, 
-  Edit2, 
-  Trash2, 
-  CheckCircle, 
-  XCircle, 
-  Eye, 
-  User, 
-  Clock, 
+import {
+  Plus,
+  Search,
+  Edit2,
+  Trash2,
+  CheckCircle,
+  XCircle,
+  Eye,
+  User,
+  Clock,
+  History,
   Filter,
   FileText,
   AlertTriangle,
@@ -22,6 +68,8 @@ import {
   Sparkles,
   Award,
   ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
   Calendar
 } from 'lucide-react';
 import { useAccess } from '../components/AccessContext';
@@ -90,6 +138,26 @@ const INITIAL_KPIS: KPIItem[] = [
     endDate: "2026-12-31"
   },
   {
+    id: 112,
+    code: "KPI-SAF-01",
+    indicatorCode: "Airline E-1",
+    name: "Sự cố bắt buộc phải báo cáo",
+    subName: "Mandatory occurrence reporting (MOR)",
+    unit: "Số vụ việc/1,000 chuyến bay",
+    plan: "2.00",
+    actual: "1.95",
+    progress: 90,
+    progressText: "-2.5%",
+    isPass: true,
+    dept: "Ban An toàn chất lượng (Ban ATCL)",
+    deptId: "DEPT-002",
+    creator: "Trần Văn Nam (Chuyên viên)",
+    frequency: "Năm",
+    direction: "desc",
+    startDate: "2025-01-01",
+    endDate: "2025-12-31"
+  },
+  {
     id: 13,
     code: "KPI-SAF-02",
     indicatorCode: "9",
@@ -110,11 +178,51 @@ const INITIAL_KPIS: KPIItem[] = [
     endDate: "2026-12-31"
   },
   {
+    id: 113,
+    code: "KPI-SAF-02",
+    indicatorCode: "9",
+    name: "Tai nạn mức A /10,000 chuyến bay",
+    subName: "Level A accidents per 10k flights",
+    unit: "Số vụ việc/10,000 cb",
+    plan: "4.00",
+    actual: "3.10",
+    progress: 75,
+    progressText: "-22.5%",
+    isPass: true,
+    dept: "Ban An toàn chất lượng (Ban ATCL)",
+    deptId: "DEPT-002",
+    creator: "Trần Văn Nam (Chuyên viên)",
+    frequency: "Năm",
+    direction: "desc",
+    startDate: "2025-01-01",
+    endDate: "2025-12-31"
+  },
+  {
     id: 14,
     code: "KPI-OPS-01",
     indicatorCode: "GRI 302-1",
-    name: "Tiêu thụ năng lượng khai thác bay",
-    subName: "Energy consumption within organization",
+    name: "Tiêu thụ năng lượng khai thác bay (Kỳ 2)",
+    subName: "Energy consumption within organization (H2)",
+    unit: "TJ",
+    plan: "15500",
+    actual: "15100",
+    progress: 98,
+    progressText: "-2.6%",
+    isPass: true,
+    dept: "Tổ Khai thác (TTĐHKT)",
+    deptId: "DEPT-001",
+    creator: "Nguyễn Văn Hùng (Chuyên viên)",
+    frequency: "Quý",
+    direction: "desc",
+    startDate: "2026-07-01",
+    endDate: "2026-12-31"
+  },
+  {
+    id: 114,
+    code: "KPI-OPS-01",
+    indicatorCode: "GRI 302-1",
+    name: "Tiêu thụ năng lượng khai thác bay (Kỳ 1)",
+    subName: "Energy consumption within organization (H1)",
     unit: "TJ",
     plan: "15400",
     actual: "14950",
@@ -128,6 +236,26 @@ const INITIAL_KPIS: KPIItem[] = [
     direction: "desc",
     startDate: "2026-01-01",
     endDate: "2026-06-30"
+  },
+  {
+    id: 214,
+    code: "KPI-OPS-01",
+    indicatorCode: "GRI 302-1",
+    name: "Tiêu thụ năng lượng khai thác bay 2025",
+    subName: "Energy consumption within organization 2025",
+    unit: "TJ",
+    plan: "16000",
+    actual: "15800",
+    progress: 95,
+    progressText: "-1.25%",
+    isPass: true,
+    dept: "Tổ Khai thác (TTĐHKT)",
+    deptId: "DEPT-001",
+    creator: "Nguyễn Văn Hùng (Chuyên viên)",
+    frequency: "Năm",
+    direction: "desc",
+    startDate: "2025-01-01",
+    endDate: "2025-12-31"
   },
   {
     id: 15,
@@ -150,6 +278,26 @@ const INITIAL_KPIS: KPIItem[] = [
     endDate: "2026-12-31"
   },
   {
+    id: 115,
+    code: "KPI-ENV-01",
+    indicatorCode: "4",
+    name: "Cường độ phát thải CO2 (2025)",
+    subName: "CO2 Emission Intensity (2025)",
+    unit: "gCO2/RTK",
+    plan: "780",
+    actual: "775",
+    progress: 100,
+    progressText: "-0.6%",
+    isPass: true,
+    dept: "Tổ Kỹ thuật (Ban QLVT)",
+    deptId: "DEPT-003",
+    creator: "Phạm Hoàng Nam (Chuyên viên)",
+    frequency: "Năm",
+    direction: "desc",
+    startDate: "2025-01-01",
+    endDate: "2025-12-31"
+  },
+  {
     id: 16,
     code: "KPI-ENV-02",
     indicatorCode: "5",
@@ -168,6 +316,26 @@ const INITIAL_KPIS: KPIItem[] = [
     direction: "asc",
     startDate: "2026-01-01",
     endDate: "2026-12-31"
+  },
+  {
+    id: 116,
+    code: "KPI-ENV-02",
+    indicatorCode: "5",
+    name: "Tỷ lệ pha trộn SAF thực tế (2025)",
+    subName: "Actual SAF blending ratio (2025)",
+    unit: "%",
+    plan: "3.0",
+    actual: "3.2",
+    progress: 106,
+    progressText: "+6.7%",
+    isPass: true,
+    dept: "Tổ Kỹ thuật (Ban QLVT)",
+    deptId: "DEPT-003",
+    creator: "Nguyễn Hoàng Anh (Chuyên viên)",
+    frequency: "Năm",
+    direction: "asc",
+    startDate: "2025-01-01",
+    endDate: "2025-12-31"
   },
   {
     id: 17,
@@ -345,17 +513,50 @@ const isVietnamese = (text: string) => {
 
 export const KPIManagePage: React.FC = () => {
   const { currentUser, isAdmin } = useAccess();
-  
+  const [currentLang, setCurrentLang] = useState<'vi' | 'en'>(
+    () => (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi'
+  );
+
+  useEffect(() => {
+    const handleLangChange = () => {
+      setCurrentLang((localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi');
+    };
+    window.addEventListener('vna_language_changed', handleLangChange);
+    return () => window.removeEventListener('vna_language_changed', handleLangChange);
+  }, []);
+
   const [departments, setDepartments] = useState<Department[]>([]);
   const [indicators, setIndicators] = useState<any[]>([]);
   const [kpis, setKpis] = useState<KPIItem[]>([]);
-  
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDeptFilter, setSelectedDeptFilter] = useState('');
   const [filterStartDate, setFilterStartDate] = useState('');
   const [filterEndDate, setFilterEndDate] = useState('');
   const [collapsedDepts, setCollapsedDepts] = useState<Record<string, boolean>>({});
-  
+
+  // Column Filters for KPI Table
+  const [searchIndicatorCode, setSearchIndicatorCode] = useState('');
+  const [searchKpiName, setSearchKpiName] = useState('');
+  const [searchDeadline, setSearchDeadline] = useState('');
+  const [searchEvaluation, setSearchEvaluation] = useState('');
+
+  // Column Sorting
+  const [sortField, setSortField] = useState<'indicatorCode' | 'name' | null>(null);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
+
+  const handleToggleSort = (field: 'indicatorCode' | 'name') => {
+    if (sortField !== field) {
+      setSortField(field);
+      setSortOrder('asc');
+    } else if (sortOrder === 'asc') {
+      setSortOrder('desc');
+    } else {
+      setSortField(null);
+      setSortOrder(null);
+    }
+  };
+
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<'add' | 'edit'>('add');
@@ -382,6 +583,7 @@ export const KPIManagePage: React.FC = () => {
 
   // Popup detail states
   const [popupType, setPopupType] = useState<'all' | 'inactive' | 'failed' | null>(null);
+  const [historyModalTarget, setHistoryModalTarget] = useState<{ kpi?: KPIItem; indicatorCode?: string; indObj?: any; deptItem: Department } | null>(null);
 
   // Load Departments & Indicators from LocalStorage
   useEffect(() => {
@@ -414,7 +616,13 @@ export const KPIManagePage: React.FC = () => {
     const savedKpis = localStorage.getItem('vna_esg_kpis');
     if (savedKpis) {
       try {
-        setKpis(JSON.parse(savedKpis));
+        const parsed = JSON.parse(savedKpis);
+        if (!Array.isArray(parsed) || parsed.length < INITIAL_KPIS.length) {
+          localStorage.setItem('vna_esg_kpis', JSON.stringify(INITIAL_KPIS));
+          setKpis(INITIAL_KPIS);
+        } else {
+          setKpis(parsed);
+        }
       } catch (e) {
         setKpis(INITIAL_KPIS);
       }
@@ -700,37 +908,50 @@ export const KPIManagePage: React.FC = () => {
     }
   };
 
-  // Filtered departments based on search term
+  // Filtered departments based on search term and column filters
   const displayDepartments = useMemo(() => {
     return departments.filter(d => {
       const matchesDeptFilter = !selectedDeptFilter || d.id === selectedDeptFilter || d.name === selectedDeptFilter;
-      
+
       const hasMatchingKpi = kpis.some(k => {
         const isDeptMatch = k.dept === d.name || k.deptId === d.id;
-        const matchesSearch = !searchTerm || 
-          k.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          k.code.toLowerCase().includes(searchTerm.toLowerCase());
-        
-        const matchesStartDate = !filterStartDate || !k.endDate || k.endDate >= filterStartDate;
-        const matchesEndDate = !filterEndDate || !k.startDate || k.startDate <= filterEndDate;
-        
-        return isDeptMatch && matchesSearch && matchesStartDate && matchesEndDate;
+        const isActive = isKpiActive(k.startDate, k.endDate);
+        if (!isActive) return false;
+
+        const matchesCode = !searchIndicatorCode || (k.indicatorCode || '').toLowerCase().includes(searchIndicatorCode.toLowerCase());
+        const kpiDisplayName = getKpiDisplayName(k, currentLang).toLowerCase();
+        const matchesName = !searchKpiName || kpiDisplayName.includes(searchKpiName.toLowerCase()) || (k.name || '').toLowerCase().includes(searchKpiName.toLowerCase());
+        const matchesDeadline = !searchDeadline || (k.startDate || '').includes(searchDeadline) || (k.endDate || '').includes(searchDeadline) || formatDate(k.startDate).includes(searchDeadline) || formatDate(k.endDate).includes(searchDeadline);
+        const matchesEval = !searchEvaluation || (searchEvaluation === 'PASS' && k.isPass) || (searchEvaluation === 'FAIL' && !k.isPass);
+
+        return isDeptMatch && matchesCode && matchesName && matchesDeadline && matchesEval;
       });
 
-      const matchesSearchName = !searchTerm || d.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const hasMatchingUnconfigured = (d.indicatorIds || []).some(codeId => {
+        const ind = indicatorMap.get(codeId);
+        const matchesCode = !searchIndicatorCode || codeId.toLowerCase().includes(searchIndicatorCode.toLowerCase());
+        const indName = ind ? getLocalizedIndicatorName(ind.name, currentLang).toLowerCase() : '';
+        const matchesName = !searchKpiName || indName.includes(searchKpiName.toLowerCase()) || codeId.toLowerCase().includes(searchKpiName.toLowerCase());
+        const matchesDeadline = !searchDeadline;
+        const matchesEval = !searchEvaluation || searchEvaluation === 'UNCONFIGURED';
 
-      return matchesDeptFilter && (matchesSearchName || hasMatchingKpi);
+        return matchesCode && matchesName && matchesDeadline && matchesEval;
+      });
+
+      const hasAnyFilter = Boolean(searchIndicatorCode || searchKpiName || searchDeadline || searchEvaluation);
+
+      return matchesDeptFilter && (!hasAnyFilter || hasMatchingKpi || hasMatchingUnconfigured);
     });
-  }, [departments, searchTerm, selectedDeptFilter, kpis, filterStartDate, filterEndDate]);
+  }, [departments, selectedDeptFilter, kpis, searchIndicatorCode, searchKpiName, searchDeadline, searchEvaluation, currentLang, indicatorMap]);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       {/* Edit/Add Modal */}
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         title={modalType === 'add' ? `Thiết lập KPI Chỉ tiêu mới (${dept})` : "Cập nhật KPI chỉ tiêu"}
         size="lg"
         footer={
@@ -754,9 +975,9 @@ export const KPIManagePage: React.FC = () => {
           {activeTargetDept && activeTargetDept.indicatorIds.length > 0 && (
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Chọn Chỉ tiêu được gán vào Ban này:
+                Chỉ tiêu:
               </label>
-              <select 
+              <select
                 value={indicatorCode}
                 onChange={(e) => handleSelectIndicator(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue text-sm font-medium bg-white"
@@ -796,9 +1017,9 @@ export const KPIManagePage: React.FC = () => {
           ) : (
             <Input label="Mã KPI" value={code} onChange={(e) => setCode(e.target.value)} placeholder="VD: KPI-ENV-01" required />
           )}
-          <Select 
-            label="Kỳ báo cáo" 
-            value={frequency} 
+          <Select
+            label="Kỳ báo cáo"
+            value={frequency}
             onChange={(val) => setFrequency(val)}
             options={[
               { label: 'Tháng', value: 'Tháng' },
@@ -814,7 +1035,7 @@ export const KPIManagePage: React.FC = () => {
           </div>
           <Input label="Đơn vị tính" value={unit} onChange={(e) => setUnit(e.target.value)} placeholder="VD: %, tấn, gCO2/RTK" required />
           <Input label="Chỉ tiêu Kế hoạch (Target)" value={plan} onChange={(e) => setPlan(e.target.value)} placeholder="VD: 100" />
-          
+
           <Input label="Ngày bắt đầu áp dụng" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
           <Input label="Ngày kết thúc áp dụng" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
 
@@ -825,24 +1046,24 @@ export const KPIManagePage: React.FC = () => {
             </label>
             <div className="flex flex-col gap-2">
               <label className="flex items-start gap-2 text-xs font-medium cursor-pointer text-gray-700">
-                <input 
-                  type="radio" 
-                  name="direction" 
-                  checked={direction === 'asc'} 
-                  onChange={() => setDirection('asc')} 
-                  className="mt-0.5 w-4 h-4 text-vna-blue focus:ring-vna-blue" 
+                <input
+                  type="radio"
+                  name="direction"
+                  checked={direction === 'asc'}
+                  onChange={() => setDirection('asc')}
+                  className="mt-0.5 w-4 h-4 text-vna-blue focus:ring-vna-blue"
                 />
                 <div>
                   <span className="font-bold text-vna-blue">Càng lớn càng tốt (Chiều Thuận):</span> ĐẠT khi Giá trị thực hiện &ge; Chỉ tiêu mục tiêu. (Ví dụ: Doanh thu, Tỷ lệ pha trộn SAF, NPS, Quy trình đào tạo...)
                 </div>
               </label>
               <label className="flex items-start gap-2 text-xs font-medium cursor-pointer text-gray-700 mt-1">
-                <input 
-                  type="radio" 
-                  name="direction" 
-                  checked={direction === 'desc'} 
-                  onChange={() => setDirection('desc')} 
-                  className="mt-0.5 w-4 h-4 text-vna-blue focus:ring-vna-blue" 
+                <input
+                  type="radio"
+                  name="direction"
+                  checked={direction === 'desc'}
+                  onChange={() => setDirection('desc')}
+                  className="mt-0.5 w-4 h-4 text-vna-blue focus:ring-vna-blue"
                 />
                 <div>
                   <span className="font-bold text-amber-600">Càng nhỏ càng tốt (Chiều Nghịch):</span> ĐẠT khi Giá trị thực hiện &le; Chỉ tiêu mục tiêu. (Ví dụ: Phát thải CO2, Số vụ việc tai nạn, Sự cố an toàn...)
@@ -853,7 +1074,7 @@ export const KPIManagePage: React.FC = () => {
 
           <Input label="Giá trị Thực hiện (Nhập từ hệ thống)" value={actual} disabled placeholder="VD: 95" className="bg-gray-100/70 opacity-80 cursor-not-allowed font-semibold text-gray-650" />
           <Input label="Tiến độ hoàn thành (%) (Tự động)" type="number" min="0" max="100" value={progress} disabled className="bg-gray-100/70 opacity-80 cursor-not-allowed font-semibold text-gray-650" />
-          
+
           <div className="flex items-center gap-4 pt-6 pl-2">
             <label className="text-sm font-bold text-gray-700">Đánh giá (Tự động):</label>
             <label className="flex items-center gap-1.5 text-sm font-medium opacity-80 cursor-not-allowed">
@@ -869,6 +1090,147 @@ export const KPIManagePage: React.FC = () => {
           </div>
         </div>
       </Modal>
+
+
+      {/* KPI HISTORY MODAL */}
+      {historyModalTarget && (
+        <Modal
+          isOpen={!!historyModalTarget}
+          onClose={() => setHistoryModalTarget(null)}
+          title="Lịch sử Thiết lập & Thực hiện theo Mã KPI"
+          size="lg"
+          footer={
+            <div className="flex justify-between items-center w-full">
+              <span className="text-xs text-gray-500 italic">
+                * Bao gồm tất cả các kỳ báo cáo đang có hiệu lực và đã hết hiệu lực của mã KPI này.
+              </span>
+              <Button variant="primary" onClick={() => setHistoryModalTarget(null)}>
+                Đóng
+              </Button>
+            </div>
+          }
+        >
+          {(() => {
+            const { kpi, indicatorCode, indObj, deptItem } = historyModalTarget;
+            const targetCode = indicatorCode || kpi?.indicatorCode;
+            const targetDept = deptItem.name;
+            const indInfo = indObj || (targetCode ? indicatorMap.get(targetCode) : null);
+            const indicatorName = kpi?.name || indInfo?.name || targetCode;
+
+            // Fetch all records belonging to this department and indicator / KPI
+            const allMatchingRecords = kpis.filter(k => {
+              const isDept = k.dept === targetDept || k.deptId === deptItem.id;
+              const isInd = targetCode && (k.indicatorCode === targetCode || k.code === kpi?.code);
+              return isDept && isInd;
+            }).sort((a, b) => (b.startDate || '').localeCompare(a.startDate || ''));
+
+            return (
+              <div className="space-y-4 text-left">
+                {/* Header Summary Card */}
+                <div className="p-3.5 bg-blue-50/50 border border-blue-150 rounded-xl flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-mono text-xs font-bold text-vna-blue bg-white px-2 py-0.5 rounded border border-blue-200">
+                        {targetCode || kpi?.code || '--'}
+                      </span>
+                      <h4 className="font-bold text-gray-800 text-sm">{indicatorName}</h4>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                      <span>Đơn vị: <strong>{targetDept}</strong></span>
+                      <span>•</span>
+                      <span>ĐVT: <strong>{kpi?.unit || indInfo?.unit || '%'}</strong></span>
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs font-bold text-gray-600 bg-white px-2.5 py-1 rounded-full border border-gray-200 shadow-2xs">
+                      Tổng {allMatchingRecords.length} kỳ ghi nhận
+                    </span>
+                  </div>
+                </div>
+
+                {/* History Table */}
+                <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="bg-gray-100/80 border-b border-gray-200 font-bold text-gray-600 uppercase tracking-wider text-[11px]">
+                        <th className="py-2.5 px-3 text-center w-[6%]">STT</th>
+                        <th className="py-2.5 px-3 w-[22%]">KỲ ÁP DỤNG / THỜI HẠN</th>
+                        <th className="py-2.5 px-3 text-center w-[12%]">KẾ HOẠCH</th>
+                        <th className="py-2.5 px-3 text-center w-[12%]">THỰC HIỆN</th>
+                        <th className="py-2.5 px-3 w-[22%]">TIẾN ĐỘ & ĐÁNH GIÁ</th>
+                        <th className="py-2.5 px-3 w-[14%]">NGƯỜI LẬP</th>
+                        <th className="py-2.5 px-3 text-center w-[12%]">TRẠNG THÁI</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 bg-white">
+                      {allMatchingRecords.length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="py-8 text-center text-gray-400 italic">
+                            Chưa có dữ liệu kỳ lịch sử nào được ghi nhận cho mã KPI này.
+                          </td>
+                        </tr>
+                      ) : (
+                        allMatchingRecords.map((rec, rIdx) => {
+                          const active = isKpiActive(rec.startDate, rec.endDate);
+                          return (
+                            <tr key={rec.id} className={active ? 'bg-blue-50/20 font-medium' : 'hover:bg-gray-50'}>
+                              <td className="py-2.5 px-3 text-center text-gray-500 font-bold">{rIdx + 1}</td>
+                              <td className="py-2.5 px-3">
+                                <div className="font-semibold text-gray-800 flex items-center gap-1">
+                                  <Calendar size={12} className="text-gray-400" />
+                                  <span>{formatDate(rec.startDate)} - {formatDate(rec.endDate)}</span>
+                                </div>
+                                <div className="text-[10px] text-gray-400 font-mono mt-0.5">Tần suất: {rec.frequency || 'Năm'}</div>
+                              </td>
+                              <td className="py-2.5 px-3 text-center font-bold text-gray-700">
+                                {rec.plan || '--'} {rec.unit}
+                              </td>
+                              <td className="py-2.5 px-3 text-center font-bold text-gray-900">
+                                {rec.actual || '--'} {rec.unit}
+                              </td>
+                              <td className="py-2.5 px-3">
+                                <div className="flex items-center justify-between gap-1 mb-1">
+                                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${rec.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'
+                                    }`}>
+                                    {rec.isPass ? 'ĐẠT' : 'CHƯA ĐẠT'}
+                                  </span>
+                                  <span className={`text-[11px] font-bold ${rec.isPass ? 'text-emerald-600' : 'text-red-600'}`}>
+                                    {rec.progressText}
+                                  </span>
+                                </div>
+                                <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                  <div
+                                    className={`h-1.5 rounded-full ${rec.isPass ? 'bg-emerald-500' : 'bg-red-500'}`}
+                                    style={{ width: `${Math.min(Math.max(rec.progress, 0), 100)}%` }}
+                                  ></div>
+                                </div>
+                              </td>
+                              <td className="py-2.5 px-3 text-gray-600">
+                                <span className="truncate block max-w-[120px]" title={rec.creator}>{rec.creator || '--'}</span>
+                              </td>
+                              <td className="py-2.5 px-3 text-center">
+                                {active ? (
+                                  <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-200">
+                                    <CheckCircle size={10} /> Đang hiệu lực
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-500 text-[10px] font-medium px-2 py-0.5 rounded border border-gray-200">
+                                    <Clock size={10} /> Hết hiệu lực
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })()}
+        </Modal>
+      )}
 
       {/* Drill-down Popup Modal */}
       {popupType && (
@@ -917,140 +1279,49 @@ export const KPIManagePage: React.FC = () => {
         </Modal>
       )}
 
-      {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-vna-blue tracking-tight">Quản lý KPI & Chỉ tiêu Tổ Ban</h1>
-            {isAdmin ? (
-              <span className="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-xs px-2.5 py-1 rounded-full font-bold border border-amber-200">
-                <ShieldCheck size={14} /> Quyền Quản trị viên (Toàn hệ thống)
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-1 bg-blue-50 text-vna-blue text-xs px-2.5 py-1 rounded-full font-bold border border-blue-200">
-                <User size={14} /> Ban: {currentUser.department || 'Nhân viên'}
-              </span>
-            )}
-          </div>
-          <p className="text-black/50 text-sm mt-1">
-            Thiết lập chỉ tiêu Kế hoạch và phân quyền quản lý KPI theo từng Tổ ban / Phòng ban chuyên trách
-          </p>
-        </div>
-      </div>
-
       {/* 3 Clickable KPI Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div 
+        <div
           onClick={() => setPopupType('all')}
           className="bg-white p-5 rounded-xl border border-gray-200 border-l-4 border-l-blue-500 hover:shadow-md cursor-pointer transition-all duration-200"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Tổng số KPI đã thiết lập</span>
-            <div className="bg-blue-50 p-2 rounded-lg text-blue-500"><Award size={18} /></div>
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Tổng số KPI</span>
+            {/* <div className="bg-blue-50 p-2 rounded-lg text-blue-500"><Award size={18} /></div> */}
           </div>
           <div className="mt-3 flex items-baseline gap-1.5">
             <span className="text-3xl font-bold text-gray-700 leading-none">{totalCount}</span>
-            <span className="text-sm font-semibold text-gray-400">chỉ tiêu</span>
+            {/* <span className="text-sm font-semibold text-gray-400">chỉ tiêu</span> */}
           </div>
-          <p className="text-xs text-gray-400 mt-2">Xem danh sách toàn bộ chỉ tiêu KPI đã thiết lập</p>
+          {/* <p className="text-xs text-gray-400 mt-2">Xem danh sách toàn bộ chỉ tiêu KPI đã thiết lập</p> */}
         </div>
 
-        <div 
+        <div
           onClick={() => setPopupType('inactive')}
           className="bg-white p-5 rounded-xl border border-gray-200 border-l-4 border-l-amber-500 hover:shadow-md cursor-pointer transition-all duration-200"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">KPI chưa nộp thực tế</span>
-            <div className="bg-amber-50 p-2 rounded-lg text-amber-500"><FileText size={18} /></div>
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Chưa có KPI</span>
+            {/* <div className="bg-amber-50 p-2 rounded-lg text-amber-500"><FileText size={18} /></div> */}
           </div>
           <div className="mt-3">
             <span className="text-3xl font-bold text-amber-600 leading-none">{inactiveCount}</span>
           </div>
-          <p className="text-xs text-gray-400 mt-4">Xem danh sách chỉ tiêu chưa hoàn thành cập nhật thực hiện</p>
+          {/* <p className="text-xs text-gray-400 mt-4">Xem danh sách chỉ tiêu chưa hoàn thành cập nhật thực hiện</p> */}
         </div>
 
-        <div 
+        <div
           onClick={() => setPopupType('failed')}
           className="bg-white p-5 rounded-xl border border-gray-200 border-l-4 border-l-red-500 hover:shadow-md cursor-pointer transition-all duration-200"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">KPI chưa đạt mục tiêu</span>
-            <div className="bg-red-50 p-2 rounded-lg text-red-500"><AlertTriangle size={18} /></div>
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">KPI chưa đạt</span>
+            {/* <div className="bg-red-50 p-2 rounded-lg text-red-500"><AlertTriangle size={18} /></div> */}
           </div>
           <div className="mt-3">
             <span className="text-3xl font-bold text-red-650 leading-none">{failedCount}</span>
           </div>
-          <p className="text-xs text-gray-400 mt-4">Xem danh sách thực hiện dưới chỉ tiêu kế hoạch</p>
-        </div>
-      </div>
-
-      {/* Control & Filter Header */}
-      <div className="flex flex-wrap gap-4 items-center justify-between bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="relative min-w-[280px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-            <input 
-              type="text"
-              placeholder="Tìm kiếm Tổ ban hoặc Mã / Tên KPI..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-vna-blue bg-white text-sm"
-            />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-500">Lọc Tổ ban:</span>
-            <select 
-              value={selectedDeptFilter} 
-              onChange={(e) => setSelectedDeptFilter(e.target.value)} 
-              className="text-sm font-bold text-vna-navy border border-gray-300 rounded-md px-3 py-2 bg-white cursor-pointer focus:ring-1 focus:ring-vna-blue outline-none"
-            >
-              <option value="">-- Tất cả các Tổ Ban ({departments.length}) --</option>
-              {departments.map(d => (
-                <option key={d.id} value={d.id}>
-                  {d.name} ({d.indicatorIds.length} chỉ tiêu gán)
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Date range filters */}
-          <div className="flex items-center gap-2 border-l border-gray-200 pl-4">
-            <span className="text-sm font-medium text-gray-500">Từ ngày:</span>
-            <input 
-              type="date"
-              value={filterStartDate}
-              onChange={(e) => setFilterStartDate(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-1.5 bg-white text-sm outline-none focus:ring-1 focus:ring-vna-blue"
-            />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-500">Đến ngày:</span>
-            <input 
-              type="date"
-              value={filterEndDate}
-              onChange={(e) => setFilterEndDate(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-1.5 bg-white text-sm outline-none focus:ring-1 focus:ring-vna-blue"
-            />
-          </div>
-
-          {(filterStartDate || filterEndDate) && (
-            <Button 
-              variant="outline" 
-              onClick={() => {
-                setFilterStartDate('');
-                setFilterEndDate('');
-              }}
-              className="text-xs py-1.5 px-3"
-            >
-              Xóa lọc ngày
-            </Button>
-          )}
-        </div>
-
-        <div className="text-xs text-gray-500 flex items-center gap-2">
-          <span>* Các chỉ tiêu được gán động từ chức năng **Quản lý Ban / Đơn vị**</span>
+          {/* <p className="text-xs text-gray-400 mt-4">Xem danh sách thực hiện dưới chỉ tiêu kế hoạch</p> */}
         </div>
       </div>
 
@@ -1060,26 +1331,44 @@ export const KPIManagePage: React.FC = () => {
           const isUserDept = canUserManageDept(deptItem.name);
           const isCollapsed = !!collapsedDepts[deptItem.id];
 
-          // Filter KPIs assigned to this department and matching search + date criteria
-          const deptKpis = kpis.filter(k => {
-            const isDeptMatch = k.dept === deptItem.name || k.deptId === deptItem.id;
-            const matchesSearch = !searchTerm || 
-              k.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              k.code.toLowerCase().includes(searchTerm.toLowerCase());
-            
-            const matchesStartDate = !filterStartDate || !k.endDate || k.endDate >= filterStartDate;
-            const matchesEndDate = !filterEndDate || !k.startDate || k.startDate <= filterEndDate;
-            
-            return isDeptMatch && matchesSearch && matchesStartDate && matchesEndDate;
-          });
-
           // Get assigned indicators list from department config
           const assignedIndicatorCodes = deptItem.indicatorIds || [];
+
+          // Filter KPIs assigned to this department and matching search criteria
+          // Chỉ hiển thị các KPI đang có hiệu lực trong bảng chính của từng Ban
+          let deptKpis = kpis.filter(k => {
+            const isDeptMatch = k.dept === deptItem.name || k.deptId === deptItem.id;
+            const isActive = isKpiActive(k.startDate, k.endDate);
+            if (!isActive || !isDeptMatch) return false;
+
+            const matchesCode = !searchIndicatorCode || (k.indicatorCode || '').toLowerCase().includes(searchIndicatorCode.toLowerCase());
+            const kpiDisplayName = getKpiDisplayName(k, currentLang).toLowerCase();
+            const matchesName = !searchKpiName || kpiDisplayName.includes(searchKpiName.toLowerCase()) || (k.name || '').toLowerCase().includes(searchKpiName.toLowerCase());
+            const matchesDeadline = !searchDeadline || (k.startDate || '').includes(searchDeadline) || (k.endDate || '').includes(searchDeadline) || formatDate(k.startDate).includes(searchDeadline) || formatDate(k.endDate).includes(searchDeadline);
+            const matchesEval = !searchEvaluation || (searchEvaluation === 'PASS' && k.isPass) || (searchEvaluation === 'FAIL' && !k.isPass);
+
+            return matchesCode && matchesName && matchesDeadline && matchesEval;
+          });
+
+          // Apply Sorting to deptKpis
+          if (sortField === 'indicatorCode') {
+            deptKpis = [...deptKpis].sort((a, b) => {
+              const codeA = a.indicatorCode || '';
+              const codeB = b.indicatorCode || '';
+              return sortOrder === 'asc' ? codeA.localeCompare(codeB) : codeB.localeCompare(codeA);
+            });
+          } else if (sortField === 'name') {
+            deptKpis = [...deptKpis].sort((a, b) => {
+              const nameA = getKpiDisplayName(a, currentLang) || '';
+              const nameB = getKpiDisplayName(b, currentLang) || '';
+              return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            });
+          }
 
           return (
             <Card key={deptItem.id} className="p-0 overflow-hidden border border-gray-200 bg-white shadow-sm transition-all">
               {/* Department Group Header */}
-              <div 
+              <div
                 className={`p-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3 cursor-pointer ${isUserDept ? 'bg-blue-50/50' : 'bg-gray-50/70'
                   }`}
                 onClick={() => toggleDeptCollapse(deptItem.id)}
@@ -1097,7 +1386,7 @@ export const KPIManagePage: React.FC = () => {
                       <span className="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full font-semibold">
                         {assignedIndicatorCodes.length} chỉ tiêu gán
                       </span>
-                      {isUserDept ? (
+                      {/* {isUserDept ? (
                         <span className="bg-emerald-100 text-emerald-800 text-[11px] px-2 py-0.5 rounded font-bold flex items-center gap-1">
                           <CheckCircle size={12} /> Được phép thiết lập KPI
                         </span>
@@ -1105,34 +1394,34 @@ export const KPIManagePage: React.FC = () => {
                         <span className="bg-gray-100 text-gray-500 text-[11px] px-2 py-0.5 rounded font-medium flex items-center gap-1">
                           <Lock size={12} /> Chỉ đọc (Khác Ban)
                         </span>
-                      )}
+                      )} */}
                     </div>
                     <p className="text-xs text-gray-500 mt-0.5">
-                      Mã đơn vị: <span className="font-mono font-semibold">{deptItem.id}</span> • Đã lập {deptKpis.length}/{assignedIndicatorCodes.length} chỉ tiêu KPI
+                      • Đã lập {deptKpis.length}/{assignedIndicatorCodes.length} chỉ tiêu KPI
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+                {/* <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
                   {isUserDept ? (
-                    <Button 
-                      variant="primary" 
+                    <Button
+                      variant="primary"
                       onClick={() => handleAddNewForDept(deptItem)}
                       className="text-xs py-1.5 shadow-sm"
                     >
                       <Plus size={14} className="mr-1" /> Thiết lập KPI mới
                     </Button>
                   ) : (
-                    <Button 
-                      variant="outline" 
-                      disabled 
+                    <Button
+                      variant="outline"
+                      disabled
                       className="text-xs py-1.5 opacity-60 cursor-not-allowed"
                       title="Chỉ thành viên phòng ban hoặc Admin mới được phép thêm KPI cho Ban này"
                     >
                       <Lock size={12} className="mr-1" /> Khóa thao tác
                     </Button>
                   )}
-                </div>
+                </div> */}
               </div>
 
               {/* Department Table Body */}
@@ -1142,14 +1431,141 @@ export const KPIManagePage: React.FC = () => {
                     <thead>
                       <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
                         <th className="py-3 px-4 text-center w-[4%]">STT</th>
-                        <th className="py-3 px-4 w-[28%]">MÃ KPI, TÊN CHỈ TIÊU & THỜI HẠN</th>
-                        <th className="py-3 px-4 w-[12%]">MÃ CHỈ TIÊU GỐC</th>
-                        <th className="py-3 px-4 w-[10%]">ĐƠN VỊ TÍNH</th>
-                        <th className="py-3 px-4 text-center w-[10%]">KẾ HOẠCH (TARGET)</th>
-                        <th className="py-3 px-4 text-center w-[10%]">THỰC HIỆN</th>
-                        <th className="py-3 px-4 w-[15%]">TIẾN ĐỘ THỰC HIỆN</th>
-                        <th className="py-3 px-4 text-center w-[10%]">ĐÁNH GIÁ</th>
-                        <th className="py-3 px-4 text-center w-[10%]">THAO TÁC</th>
+
+                        {/* Cột Mã chỉ tiêu gốc - Có Sắp xếp Sort */}
+                        <th
+                          onClick={() => handleToggleSort('indicatorCode')}
+                          className="py-3 px-4 w-[12%] cursor-pointer select-none hover:bg-gray-100 transition-colors"
+                          title={currentLang === 'vi' ? 'Nhấn để sắp xếp theo Mã chỉ tiêu' : 'Click to sort by Indicator Code'}
+                        >
+                          <div className="flex items-center justify-between gap-1">
+                            <span>{currentLang === 'vi' ? 'MÃ CHỈ TIÊU GỐC' : 'INDICATOR CODE'}</span>
+                            <span className="text-gray-400">
+                              {sortField === 'indicatorCode' && sortOrder === 'asc' ? <ArrowUp size={14} className="text-vna-blue font-bold" /> :
+                                sortField === 'indicatorCode' && sortOrder === 'desc' ? <ArrowDown size={14} className="text-vna-blue font-bold" /> :
+                                  <ArrowUpDown size={14} className="opacity-40" />}
+                            </span>
+                          </div>
+                        </th>
+
+                        {/* Cột Tên KPI - Có Sắp xếp Sort */}
+                        <th
+                          onClick={() => handleToggleSort('name')}
+                          className="py-3 px-4 w-[22%] cursor-pointer select-none hover:bg-gray-100 transition-colors"
+                          title={currentLang === 'vi' ? 'Nhấn để sắp xếp theo Tên KPI' : 'Click to sort by KPI Name'}
+                        >
+                          <div className="flex items-center justify-between gap-1">
+                            <span>{currentLang === 'vi' ? 'TÊN KPI THEO MÃ KPI TƯƠNG ỨNG' : 'KPI NAME BY CODE'}</span>
+                            <span className="text-gray-400">
+                              {sortField === 'name' && sortOrder === 'asc' ? <ArrowUp size={14} className="text-vna-blue font-bold" /> :
+                                sortField === 'name' && sortOrder === 'desc' ? <ArrowDown size={14} className="text-vna-blue font-bold" /> :
+                                  <ArrowUpDown size={14} className="opacity-40" />}
+                            </span>
+                          </div>
+                        </th>
+
+                        <th className="py-3 px-4 w-[13%]">{currentLang === 'vi' ? 'THỜI HẠN' : 'PERIOD'}</th>
+                        <th className="py-3 px-4 w-[8%]">{currentLang === 'vi' ? 'ĐƠN VỊ TÍNH' : 'UNIT'}</th>
+                        <th className="py-3 px-4 text-center w-[9%]">{currentLang === 'vi' ? 'KẾ HOẠCH (TARGET)' : 'TARGET'}</th>
+                        <th className="py-3 px-4 text-center w-[9%]">{currentLang === 'vi' ? 'THỰC HIỆN' : 'ACTUAL'}</th>
+                        <th className="py-3 px-4 w-[16%]">{currentLang === 'vi' ? 'TIẾN ĐỘ & ĐÁNH GIÁ' : 'PROGRESS & EVALUATION'}</th>
+                        <th className="py-3 px-4 text-center w-[7%]">{currentLang === 'vi' ? 'THAO TÁC' : 'ACTIONS'}</th>
+                      </tr>
+
+                      {/* HÀNG BỘ LỌC CỘT (COLUMN FILTER ROW) */}
+                      <tr className="bg-blue-50/70 border-b border-gray-200">
+                        {/* 1. STT Spacer */}
+                        <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                        {/* 2. Lọc Mã chỉ tiêu */}
+                        <th className="py-2 px-2 text-left">
+                          <div className="relative">
+                            <input
+                              type="text"
+                              value={searchIndicatorCode}
+                              onChange={(e) => setSearchIndicatorCode(e.target.value)}
+                              placeholder={currentLang === 'vi' ? 'Lọc mã...' : 'Filter code...'}
+                              className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                            />
+                            {searchIndicatorCode && (
+                              <button onClick={() => setSearchIndicatorCode('')} className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                            )}
+                          </div>
+                        </th>
+
+                        {/* 3. Lọc Tên KPI */}
+                        <th className="py-2 px-2 text-left">
+                          <div className="relative">
+                            <input
+                              type="text"
+                              value={searchKpiName}
+                              onChange={(e) => setSearchKpiName(e.target.value)}
+                              placeholder={currentLang === 'vi' ? 'Lọc tên KPI...' : 'Filter name...'}
+                              className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                            />
+                            {searchKpiName && (
+                              <button onClick={() => setSearchKpiName('')} className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                            )}
+                          </div>
+                        </th>
+
+                        {/* 4. Lọc Thời hạn */}
+                        <th className="py-2 px-2 text-left">
+                          <div className="relative">
+                            <input
+                              type="text"
+                              value={searchDeadline}
+                              onChange={(e) => setSearchDeadline(e.target.value)}
+                              placeholder={currentLang === 'vi' ? 'Lọc ngày/năm...' : 'Filter date...'}
+                              className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                            />
+                            {searchDeadline && (
+                              <button onClick={() => setSearchDeadline('')} className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                            )}
+                          </div>
+                        </th>
+
+                        {/* 5. Đơn vị tính Spacer */}
+                        <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                        {/* 6. Kế hoạch Spacer */}
+                        <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                        {/* 7. Thực hiện Spacer */}
+                        <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                        {/* 8. Lọc Đánh giá */}
+                        <th className="py-2 px-2 text-center">
+                          <select
+                            value={searchEvaluation}
+                            onChange={(e) => setSearchEvaluation(e.target.value)}
+                            className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-1.5 py-1 text-gray-800 outline-none focus:border-vna-blue"
+                          >
+                            <option value="">{currentLang === 'vi' ? 'Tất cả' : 'All'}</option>
+                            <option value="PASS">{currentLang === 'vi' ? 'ĐẠT' : 'PASS'}</option>
+                            <option value="FAIL">{currentLang === 'vi' ? 'CHƯA ĐẠT' : 'FAIL'}</option>
+                            <option value="UNCONFIGURED">{currentLang === 'vi' ? 'Chưa thiết lập' : 'Unconfigured'}</option>
+                          </select>
+                        </th>
+
+                        {/* 9. Nút Xóa Lọc */}
+                        <th className="py-2 px-2 text-center">
+                          {(searchIndicatorCode || searchKpiName || searchDeadline || searchEvaluation) && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSearchIndicatorCode('');
+                                setSearchKpiName('');
+                                setSearchDeadline('');
+                                setSearchEvaluation('');
+                              }}
+                              className="text-[11px] font-bold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded transition-colors"
+                              title="Xóa tất cả bộ lọc"
+                            >
+                              {currentLang === 'vi' ? 'Xóa lọc' : 'Clear'}
+                            </button>
+                          )}
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 bg-white">
@@ -1157,35 +1573,6 @@ export const KPIManagePage: React.FC = () => {
                       {deptKpis.map((kpi, idx) => (
                         <tr key={kpi.id} className="hover:bg-gray-50/70 transition-colors">
                           <td className="py-3.5 px-4 text-center text-gray-500 font-medium">{idx + 1}</td>
-                          <td className="py-3.5 px-4">
-                            <div className="font-bold text-vna-blue text-xs flex items-center gap-1.5 flex-wrap">
-                              {kpi.code}
-                              {kpi.direction === 'desc' ? (
-                                <span className="bg-amber-50 text-amber-700 text-[10px] px-1 rounded font-normal border border-amber-100">
-                                  Càng nhỏ càng tốt
-                                </span>
-                              ) : (
-                                <span className="bg-blue-50 text-vna-blue text-[10px] px-1 rounded font-normal border border-blue-100">
-                                  Càng lớn càng tốt
-                                </span>
-                              )}
-                              {isKpiActive(kpi.startDate, kpi.endDate) ? (
-                                <span className="bg-emerald-50 text-emerald-700 text-[10px] px-1 rounded font-medium border border-emerald-100 animate-pulse">
-                                  Đang hiệu lực
-                                </span>
-                              ) : (
-                                <span className="bg-red-50 text-red-700 text-[10px] px-1 rounded font-medium border border-red-100">
-                                  Hết hiệu lực
-                                </span>
-                              )}
-                            </div>
-                            <div className="font-semibold text-gray-900 mt-0.5">{kpi.name}</div>
-                            {kpi.subName && <div className="text-[11px] text-gray-400 mt-0.5">{kpi.subName}</div>}
-                            <div className="text-[11px] text-gray-500 mt-1 flex items-center gap-1">
-                              <Calendar size={12} className="text-gray-400 shrink-0" />
-                              <span>Áp dụng: {formatDate(kpi.startDate)} - {formatDate(kpi.endDate)}</span>
-                            </div>
-                          </td>
                           <td className="py-3.5 px-4">
                             {kpi.indicatorCode ? (
                               <span className="font-mono text-xs font-bold text-gray-700 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">
@@ -1195,45 +1582,72 @@ export const KPIManagePage: React.FC = () => {
                               <span className="text-xs text-gray-400">--</span>
                             )}
                           </td>
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              {kpi.direction === 'desc' ? (
+                                <span className="bg-amber-50 text-amber-700 text-[10px] px-1.5 py-0.5 rounded font-medium border border-amber-100">
+                                  {currentLang === 'vi' ? 'Càng nhỏ càng tốt' : 'Smaller is better'}
+                                </span>
+                              ) : (
+                                <span className="bg-blue-50 text-vna-blue text-[10px] px-1.5 py-0.5 rounded font-medium border border-blue-100">
+                                  {currentLang === 'vi' ? 'Càng lớn càng tốt' : 'Higher is better'}
+                                </span>
+                              )}
+                            </div>
+                            <div className="font-semibold text-gray-900 mt-1">
+                              {getKpiDisplayName(kpi, currentLang)}
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <div className="text-xs text-gray-600 font-medium flex items-center gap-1.5 whitespace-nowrap">
+                              <Calendar size={13} className="text-vna-blue shrink-0" />
+                              <span>{formatDate(kpi.startDate)} - {formatDate(kpi.endDate)}</span>
+                            </div>
+                          </td>
                           <td className="py-3.5 px-4 text-gray-600 font-medium text-xs">{kpi.unit}</td>
                           <td className="py-3.5 px-4 text-center font-bold text-gray-800">{kpi.plan || '--'}</td>
                           <td className="py-3.5 px-4 text-center font-bold text-gray-900">{kpi.actual || '--'}</td>
-                          <td className="py-3.5 px-4">
-                            <div className="flex justify-between items-center mb-1 text-xs">
-                              <span className="text-gray-500 text-[11px]">
-                                {kpi.isPass ? 'Đạt tiến độ' : 'Chậm tiến độ'}
+                          <td className="py-3.5 px-4 min-w-[150px]">
+                            <div className="flex items-center justify-between gap-2 mb-1.5">
+                              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${kpi.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'
+                                }`}>
+                                {kpi.isPass ? 'ĐẠT' : 'CHƯA ĐẠT'}
                               </span>
-                              <span className={`font-bold ${kpi.isPass ? 'text-emerald-600' : 'text-red-650'}`}>
+                              <span className={`text-xs font-bold ${kpi.isPass ? 'text-emerald-600' : 'text-red-600'}`}>
                                 {kpi.progressText}
                               </span>
                             </div>
-                            <div className="w-full bg-gray-100 rounded-full h-1.5">
-                              <div 
-                                className={`h-1.5 rounded-full ${kpi.isPass ? 'bg-emerald-500' : 'bg-red-500'}`}
-                                style={{ width: `${Math.min(kpi.progress, 100)}%` }}
+                            <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                              <div
+                                className={`h-1.5 rounded-full transition-all duration-300 ${kpi.isPass ? 'bg-emerald-500' : 'bg-red-500'}`}
+                                style={{ width: `${Math.min(Math.max(kpi.progress, 0), 100)}%` }}
                               ></div>
                             </div>
                           </td>
                           <td className="py-3.5 px-4 text-center">
-                            <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold ${kpi.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-red-50 text-red-700 border border-red-100'
-                              }`}>
-                              {kpi.isPass ? 'ĐẠT' : 'CHƯA ĐẠT'}
-                            </span>
-                          </td>
-                          <td className="py-3.5 px-4 text-center">
                             <div className="flex items-center justify-center gap-1">
+                              {/* Nút Xem lịch sử theo mã KPI */}
+                              <button
+                                type="button"
+                                onClick={() => setHistoryModalTarget({ kpi, indicatorCode: kpi.indicatorCode, deptItem })}
+                                className="p-1.5 text-gray-500 hover:text-vna-blue hover:bg-blue-50 rounded-md transition-colors"
+                                title="Xem lịch sử theo mã KPI"
+                              >
+                                <Clock size={16} />
+                              </button>
+
                               {isUserDept ? (
                                 <>
-                                  <button 
+                                  <button
                                     onClick={() => handleEdit(kpi)}
-                                    className="p-1.5 text-vna-blue hover:bg-blue-50 rounded-md transition-colors" 
+                                    className="p-1.5 text-vna-blue hover:bg-blue-50 rounded-md transition-colors"
                                     title="Chỉnh sửa KPI chỉ tiêu"
                                   >
                                     <Edit2 size={16} />
                                   </button>
-                                  <button 
+                                  <button
                                     onClick={() => handleDelete(kpi.id, deptItem.name)}
-                                    className="p-1.5 text-red-500 hover:bg-red-50 rounded-md transition-colors" 
+                                    className="p-1.5 text-red-500 hover:bg-red-50 rounded-md transition-colors"
                                     title="Xóa KPI"
                                   >
                                     <Trash2 size={16} />
@@ -1249,9 +1663,18 @@ export const KPIManagePage: React.FC = () => {
                         </tr>
                       ))}
 
-                      {/* Display unconfigured indicators assigned to this department - only if date filters are empty */}
-                      {!filterStartDate && !filterEndDate && assignedIndicatorCodes
+                      {/* Display unconfigured indicators assigned to this department */}
+                      {assignedIndicatorCodes
                         .filter(codeId => !deptKpis.some(k => k.indicatorCode === codeId))
+                        .filter(codeId => {
+                          const indObj = indicatorMap.get(codeId);
+                          const matchesCode = !searchIndicatorCode || codeId.toLowerCase().includes(searchIndicatorCode.toLowerCase());
+                          const indName = indObj ? getLocalizedIndicatorName(indObj.name, currentLang).toLowerCase() : '';
+                          const matchesName = !searchKpiName || indName.includes(searchKpiName.toLowerCase()) || codeId.toLowerCase().includes(searchKpiName.toLowerCase());
+                          const matchesDeadline = !searchDeadline;
+                          const matchesEval = !searchEvaluation || searchEvaluation === 'UNCONFIGURED';
+                          return matchesCode && matchesName && matchesDeadline && matchesEval;
+                        })
                         .map((codeId, idx) => {
                           const indObj = indicatorMap.get(codeId);
                           return (
@@ -1260,51 +1683,73 @@ export const KPIManagePage: React.FC = () => {
                                 {deptKpis.length + idx + 1}
                               </td>
                               <td className="py-3.5 px-4">
-                                <div className="font-semibold text-gray-600 text-xs italic">Chưa thiết lập KPI</div>
-                                <div className="font-medium text-gray-800 mt-0.5">{indObj?.name || codeId}</div>
-                              </td>
-                              <td className="py-3.5 px-4">
                                 <span className="font-mono text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
                                   {codeId}
                                 </span>
                               </td>
+                              <td className="py-3.5 px-4">
+                                <div className="font-semibold text-gray-600 text-xs italic">
+                                  {currentLang === 'vi' ? 'Chưa thiết lập KPI' : 'KPI Not Configured'}
+                                </div>
+                                <div className="font-medium text-gray-800 mt-0.5">
+                                  {indObj ? getLocalizedIndicatorName(indObj.name, currentLang) : codeId}
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-4 text-xs text-gray-400 italic">
+                                --
+                              </td>
                               <td className="py-3.5 px-4 text-gray-500 text-xs">{indObj?.unit || '%'}</td>
                               <td className="py-3.5 px-4 text-center text-gray-400 italic">Chưa lập</td>
                               <td className="py-3.5 px-4 text-center text-gray-400 italic">--</td>
-                              <td className="py-3.5 px-4 text-gray-400 text-xs italic">Chưa nộp</td>
                               <td className="py-3.5 px-4 text-center">
-                                <span className="text-xs text-gray-400 font-medium">Chưa có</span>
+                                <span className="text-xs text-gray-400 italic">Chưa có dữ liệu</span>
                               </td>
                               <td className="py-3.5 px-4 text-center">
-                                {isUserDept ? (
-                                  <Button 
-                                    variant="secondary" 
-                                    onClick={() => {
-                                      setActiveTargetDept(deptItem);
-                                      setDept(deptItem.name);
-                                      handleSelectIndicator(codeId);
-                                      setCode(`KPI-${deptItem.id.replace('DEPT-', '')}-${Math.floor(10 + Math.random() * 90)}`);
-                                      setPlan('100');
-                                      setActual('--');
-                                      setProgress(0);
-                                      setProgressText('Chưa nộp');
-                                      setIsPass(true);
-                                      setCreator(`${currentUser.name} (${currentUser.department || 'Chuyên viên'})`);
-                                      setFrequency('Năm');
-                                      setDirection('asc');
-                                      setStartDate('2026-01-01');
-                                      setEndDate('2026-12-31');
-                                      setSelectedKpi(null);
-                                      setModalType('add');
-                                      setIsModalOpen(true);
-                                    }}
-                                    className="text-[11px] py-1 px-2 h.7 shadow-2xs"
+                                <div className="flex items-center justify-center gap-1">
+                                  {/* Nút xem lịch sử theo mã KPI */}
+                                  <button
+                                    type="button"
+                                    onClick={() => setHistoryModalTarget({ indicatorCode: codeId, indObj, deptItem })}
+                                    className="p-1.5 text-gray-500 hover:text-vna-blue hover:bg-blue-50 rounded-md transition-colors"
+                                    title="Xem lịch sử theo mã KPI"
                                   >
-                                    + Thiết lập KPI
-                                  </Button>
-                                ) : (
-                                  <span className="text-xs text-gray-400 italic">Khóa</span>
-                                )}
+                                    <Clock size={16} />
+                                  </button>
+
+                                  {/* Nút thiết lập KPI mới bằng icon Plus */}
+                                  {isUserDept ? (
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setActiveTargetDept(deptItem);
+                                        setDept(deptItem.name);
+                                        handleSelectIndicator(codeId);
+                                        setCode(`KPI-${deptItem.id.replace('DEPT-', '')}-${Math.floor(10 + Math.random() * 90)}`);
+                                        setPlan('100');
+                                        setActual('--');
+                                        setProgress(0);
+                                        setProgressText('Chưa nộp');
+                                        setIsPass(true);
+                                        setCreator(`${currentUser.name} (${currentUser.department || 'Chuyên viên'})`);
+                                        setFrequency('Năm');
+                                        setDirection('asc');
+                                        setStartDate('2026-01-01');
+                                        setEndDate('2026-12-31');
+                                        setSelectedKpi(null);
+                                        setModalType('add');
+                                        setIsModalOpen(true);
+                                      }}
+                                      className="p-1.5 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-md transition-colors"
+                                      title="Thiết lập KPI mới cho chỉ tiêu này"
+                                    >
+                                      <Plus size={16} />
+                                    </button>
+                                  ) : (
+                                    <span className="text-xs text-gray-400 flex items-center gap-1">
+                                      <Lock size={12} />
+                                    </span>
+                                  )}
+                                </div>
                               </td>
                             </tr>
                           );
@@ -1313,7 +1758,7 @@ export const KPIManagePage: React.FC = () => {
                       {deptKpis.length === 0 && (assignedIndicatorCodes.length === 0 || filterStartDate || filterEndDate) && (
                         <tr>
                           <td colSpan={9} className="py-6 text-center text-gray-400 text-xs font-medium">
-                            {filterStartDate || filterEndDate 
+                            {filterStartDate || filterEndDate
                               ? "Không tìm thấy KPI nào hoạt động trong khoảng thời gian đã chọn."
                               : "Ban này chưa có chỉ tiêu nào được gán trong chức năng Quản lý Ban / Đơn vị."}
                           </td>

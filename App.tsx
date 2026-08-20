@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MainLayout } from './components/Layout';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { DataEntryWorkspace } from './components/DataEntryWorkspace';
+import { IndicatorDataEntryWorkspace } from './components/IndicatorDataEntryWorkspace';
 import { ExecutiveDashboard } from './pages/ExecutiveDashboard';
 import { EsgReportPage } from './pages/EsgReport';
 import { DashboardPage } from './pages/Dashboard';
@@ -147,7 +147,7 @@ const App: React.FC = () => {
       case 'dashboard-gov':
         return <ExecutiveDashboard />;
       case 'data-entry':
-        return <DataEntryWorkspace />;
+        return <IndicatorDataEntryWorkspace />;
       case 'kpi-manage':
         return <KPIManagePage />;
       
