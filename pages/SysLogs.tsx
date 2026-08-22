@@ -109,14 +109,7 @@ export const SysLogsPage: React.FC = () => {
 
   return (
     <div className="space-y-6 text-left animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-vna-blue tracking-tight flex items-center gap-2">
-            <Shield className="text-vna-blue" size={26} /> Quản lý log hệ thống
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">Xem nhật ký thay đổi thông tin chi tiết của từng chức năng thuộc danh mục quản trị</p>
-        </div>
-      </div>
+
 
       {/* Advanced Filters */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-xs">

@@ -150,20 +150,7 @@ export const DataSourcesPage: React.FC = () => {
   return (
     <div className="bg-white p-6 rounded-lg hover:shadow-md transition-shadow duration-300 border border-gray-100 min-h-[calc(100vh-120px)] flex flex-col animate-in fade-in duration-300">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-vna-blue flex items-center gap-2">
-            Quản lý Nguồn Dữ liệu
-          </h2>
-          <p className="text-sm text-black/45 mt-1">Theo dõi trạng thái kết nối và cấu hình các hệ thống nguồn ESG</p>
-        </div>
-        <div>
-           <Button variant="outline" onClick={handleRefresh} className="text-vna-blue border-vna-blue hover:bg-blue-50">
-              <RefreshCw size={16} /> Làm mới
-           </Button>
-        </div>
-      </div>
+
 
       {/* Filters */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6 bg-white p-4 rounded-lg border border-gray-200 items-end">
@@ -221,15 +208,15 @@ export const DataSourcesPage: React.FC = () => {
       <div className="overflow-visible rounded-lg border border-gray-200 flex-1 min-h-[400px]">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-vna-blue text-white">
-              <th className="py-3 px-4 font-semibold text-sm w-16 text-center rounded-tl-lg">STT</th>
-              <th className="py-3 px-4 font-semibold text-sm w-32">Mã nguồn</th>
-              <th className="py-3 px-4 font-semibold text-sm w-1/3">Tên hệ thống nguồn</th>
-              <th className="py-3 px-4 font-semibold text-sm w-32">Giao thức</th>
-              <th className="py-3 px-4 font-semibold text-sm w-40">Trạng thái</th>
-              <th className="py-3 px-4 font-semibold text-sm">Tần suất</th>
-              <th className="py-3 px-4 font-semibold text-sm">Cập nhật cuối</th>
-              <th className="py-3 px-4 font-semibold text-sm w-44 text-center rounded-tr-lg">Hành động</th>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-16 text-center">STT</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-32">Mã nguồn</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-1/3">Tên hệ thống nguồn</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-32">Giao thức</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-40">Trạng thái</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700">Tần suất</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700">Cập nhật cuối</th>
+              <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-44 text-center">Hành động</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">

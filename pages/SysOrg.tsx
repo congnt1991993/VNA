@@ -494,20 +494,9 @@ export const SysOrgPage: React.FC = () => {
         </div>
       </Modal>
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 border-b border-gray-100 pb-4 text-left">
-        <div>
-          <h2 className="text-xl font-bold text-vna-blue">Quản lý Người dùng</h2>
-          <p className="text-sm text-black/45 mt-1">Quản lý danh sách tài khoản đăng nhập và gán quyền trên hệ thống</p>
-        </div>
-        <Button variant="primary" onClick={() => handleOpenModal('add')} className="shadow-md cursor-pointer font-bold flex items-center gap-1.5">
-          <Plus size={16} />
-          Thêm người dùng
-        </Button>
-      </div>
-
-      {/* Advanced Filters Block */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200 items-end text-left shadow-xs">
-        <div className="md:col-span-3">
+      {/* Advanced Filters Block & Action */}
+      <div className="flex flex-col sm:flex-row items-end gap-4 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200 text-left shadow-xs">
+        <div className="flex-1 w-full">
           <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Từ khóa</label>
           <div className="relative">
             <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
@@ -520,6 +509,10 @@ export const SysOrgPage: React.FC = () => {
             />
           </div>
         </div>
+        <Button variant="primary" onClick={() => handleOpenModal('add')} className="shadow-md cursor-pointer font-bold flex items-center gap-1.5 h-[38px] shrink-0">
+          <Plus size={16} />
+          Thêm người dùng
+        </Button>
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-gray-200 flex-1 min-h-[400px] text-left">

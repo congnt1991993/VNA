@@ -15,7 +15,7 @@ import {
   Search, Sliders, Database, Leaf, Users, ShieldCheck,
   Clock, ArrowLeft, FileText, CheckCircle, Save, Filter,
   RotateCcw, Info, Globe, Activity, ShieldAlert, ChevronDown, ChevronRight,
-  History, Calendar, User
+  History, Calendar, User, Copy, Check, Sparkles, BookOpen, AlertCircle, Edit3
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 import { Pillar } from '../types';
@@ -32,6 +32,7 @@ interface AdjustmentHistoryItem {
   adjustedBy: string;
   adjustedAt: string;
   reason?: string;
+  isText?: boolean;
 }
 
 interface AdjustmentItem {
@@ -42,13 +43,36 @@ interface AdjustmentItem {
   reason: string;
   updatedAt: string;
   updatedBy: string;
+  isText?: boolean;
 }
+
+interface SubChart {
+  code: string;
+  name: string;
+  unit: string;
+  source: string;
+  frequency: string;
+  isText?: boolean;
+}
+
+// Helper to determine if an indicator is qualitative / text-based
+export const isTextIndicator = (indicator: any): boolean => {
+  if (!indicator) return false;
+  if (indicator.unit === 'Văn bản' || indicator.unit === 'Báo cáo' || indicator.unit === 'Đặc tả' || !indicator.unit) return true;
+  if (indicator.introduction && indicator.introduction.includes('(text only')) return true;
+  const textCodes = [
+    'GRI 2-9', 'GRI 2-10', 'GRI 2-11', 'GRI 2-12', 'GRI 2-13', 'GRI 2-15',
+    'GRI 2-23', 'GRI 2-24', 'GRI 2-26', 'GRI 2-27', 'GRI 2-28', 'GRI 2-29', 'GRI 2-30',
+    'GRI 3-3', 'GRI 401-2', 'GRI 403-4', 'GRI 403-10', 'GRI 406-1', 'GRI 414-1', 'GRI 418-1',
+    'Airline G-1', 'Airline S-1', 'Airline E-2'
+  ];
+  return textCodes.some(c => indicator.code?.includes(c));
+};
 
 // Helper to extract localized name from "English / Vietnamese" or "English (Vietnamese)"
 const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): string => {
   if (!name) return '';
 
-  // Format with slash: "English / Vietnamese" or "English/Vietnamese"
   if (name.includes('/')) {
     const parts = name.split('/').map(p => p.trim());
     if (parts.length >= 2) {
@@ -56,7 +80,6 @@ const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): stri
     }
   }
 
-  // Format with parentheses: "English (Vietnamese)"
   const parenMatch = name.match(/^(.*?)\s*\((.*?)\)$/);
   if (parenMatch) {
     const enPart = parenMatch[1].trim();
@@ -67,15 +90,15 @@ const getLocalizedIndicatorName = (name: string, lang: 'vi' | 'en' = 'vi'): stri
   return name;
 };
 
-// Helper to determine the dynamic periods based on indicator frequency and selected year (Newest to Oldest)
+// Helper to determine dynamic periods based on indicator frequency and selected year
 const getIndicatorPeriods = (indicator: any, year: string): string[] => {
   if (!indicator) return [];
-  const freq = indicator.frequency || 'Hàng tháng';
+  const freq = indicator.frequency || 'Hàng năm';
 
   if (freq.includes('quý') || freq.includes('Quý')) {
     return [`Quý 4/${year}`, `Quý 3/${year}`, `Quý 2/${year}`, `Quý 1/${year}`];
   }
-  if (freq.includes('năm') || freq.includes('Năm')) {
+  if (freq.includes('năm') || freq.includes('Năm') || isTextIndicator(indicator)) {
     return [`Năm ${year}`];
   }
   if (freq.includes('bán niên') || freq.includes('Bán niên') || freq.includes('Bán Niên')) {
@@ -87,7 +110,7 @@ const getIndicatorPeriods = (indicator: any, year: string): string[] => {
   });
 };
 
-// Helper to determine the origin source of indicators
+// Helper to determine origin source
 const getIndicatorSource = (code: string, unit: string): string => {
   if (code.includes('GRI 302-1') || code.includes('GRI 302-4') || code.includes('GRI 305-1')) {
     return 'Form Nhập liệu (Chuyên viên Ban Kỹ thuật)';
@@ -104,19 +127,50 @@ const getIndicatorSource = (code: string, unit: string): string => {
   if (code.includes('GRI 303-3') || code.includes('GRI 303-5')) {
     return 'Form Nhập liệu (Tổ Dịch vụ)';
   }
+  if (code.includes('GRI 2-9') || code.includes('GRI 2-10') || code.includes('GRI 2-15') || code.includes('GRI 2-23')) {
+    return 'Báo cáo thuyết minh (Tổ Thư ký & Ban Pháp chế)';
+  }
+  if (code.includes('GRI 2-27') || code.includes('Airline E-1')) {
+    return 'Báo cáo định kỳ (Ban An toàn Chất lượng - ATCL)';
+  }
   return 'Hệ thống tích hợp TCT (SAP/ERP Integration)';
 };
 
-// Helper to generate deterministic actual values for indicators (simulate real database numbers)
+// Helper to generate deterministic actual values for numeric OR text indicators
 const getSystemRealValue = (code: string, period: string, unit: string): string => {
   const isPercentage = unit === '%';
-  const isQualitative = unit === 'Văn bản' || unit === 'Báo cáo' || unit === 'Đặc tả' || !unit;
+  const isQualitative = unit === 'Văn bản' || unit === 'Báo cáo' || unit === 'Đặc tả' || !unit || code.includes('-TEXT') || code.includes('DESC') || code.includes('POLICY') || code.includes('COMPLIANCE');
 
   if (isQualitative) {
-    return 'Đạt tiêu chuẩn công bố thuyết minh năm 2026.';
+    const yearStr = period.includes('/') ? period.split('/')[1] : period.replace('Năm ', '') || '2026';
+    if (code.includes('2-23-POLICY') || code.includes('2-23')) {
+      return `Tổng công ty Hàng không Việt Nam (Vietnam Airlines) cam kết tuân thủ đầy đủ các chuẩn mực đạo đức kinh doanh quốc tế, bảo đảm an toàn bay tuyệt đối, trách nhiệm xã hội và bảo vệ môi trường trong toàn bộ chuỗi cung ứng hàng không.\n\nVietnam Airlines nghiêm cấm mọi hình thức hối lộ, tham nhũng và đối xử bất bình đẳng. Chính sách này được phổ biến rộng rãi đến 100% cán bộ nhân viên và đối tác thông qua Bộ Quy tắc ứng xử kinh doanh (Code of Conduct) được rà soát định kỳ hàng năm.`;
+    }
+    if (code.includes('2-23-HUMANRIGHTS')) {
+      return `Vietnam Airlines cam kết bảo vệ quyền con người theo Tuyên ngôn Quốc tế Nhân quyền và các công ước cốt lõi của ILO.\n\nTổng công ty tuyệt đối không sử dụng lao động trẻ em, không cưỡng bức lao động, bảo đảm môi trường làm việc an toàn, văn minh và tôn trọng quyền tự do hiệp hội, thương lượng tập thể của người lao động.`;
+    }
+    if (code.includes('2-27') || code.includes('COMPLIANCE')) {
+      return `Trong kỳ báo cáo năm ${yearStr}, Vietnam Airlines không ghi nhận bất kỳ vụ việc vi phạm nghiêm trọng nào liên quan đến pháp luật môi trường, an toàn khai thác bay hoặc các quy định chống độc quyền dẫn đến việc bị xử phạt tài chính lớn hoặc đình chỉ hoạt động.`;
+    }
+    if (code.includes('2-9')) {
+      return `Cơ cấu quản trị của Vietnam Airlines gồm Đại hội đồng cổ đông, Hội đồng quản trị (HĐQT), Ban Kiểm soát và Ban Tổng Giám đốc.\n\nHĐQT bao gồm các thành viên độc lập, thành viên không điều hành và đại diện vốn nhà nước, có trách nhiệm phê duyệt chiến lược Net Zero 2050 và định kỳ giám sát các mục tiêu phát triển bền vững ESG.`;
+    }
+    if (code.includes('2-10')) {
+      return `Quy trình đề cử và bầu chọn thành viên HĐQT, Ban Kiểm soát được thực hiện minh bạch theo Luật Doanh nghiệp và Điều lệ Tổng công ty. Tiêu chí lựa chọn chú trọng năng lực chuyên môn hàng không, tư duy quản trị rủi ro ESG và tính đa dạng về giới tính, kinh nghiệm.`;
+    }
+    if (code.includes('2-15')) {
+      return `Tổng công ty ban hành Quy chế phòng ngừa xung đột lợi ích áp dụng cho toàn thể thành viên HĐQT, Ban Giám đốc và cán bộ quản lý các cấp. Định kỳ hàng năm, các nhân sự chủ chốt có trách nhiệm kê khai lợi ích liên quan và không tham gia biểu quyết trong các giao dịch có phát sinh quyền lợi cá nhân.`;
+    }
+    if (code.includes('3-3')) {
+      return `Vietnam Airlines xác định các chủ đề ESG trọng yếu (gồm Phát thải & SAF, An toàn bay, Phát triển nguồn nhân lực và Quản trị minh bạch) thông qua quá trình đối thoại định kỳ với cổ đông, hành khách, tổ chức quốc tế (IATA, ICAO) và cơ quan quản lý nhà nước.`;
+    }
+    if (code.includes('406-1')) {
+      return `Trong năm ${yearStr}, Vietnam Airlines không ghi nhận bất kỳ khiếu nại hay sự cố phân biệt đối xử nào dựa trên giới tính, tôn giáo, chủng tộc hoặc nguồn gốc dân tộc. Tổng công ty duy trì đường dây nóng bảo mật (Whistleblower Hotline) để tiếp nhận và giải quyết kịp thời mọi phản ánh.`;
+    }
+    return `Nội dung thuyết minh công bố chính thức cho chỉ tiêu ${code} trong kỳ ${period}. Dữ liệu được tổng hợp và xác thực từ các phòng ban phụ trách theo đúng tiêu chuẩn báo cáo phát triển bền vững GRI Standards.`;
   }
 
-  // Parse month number
+  // Parse month/quarter number for numeric indicators
   let mVal = 1;
   const mMatch = period.match(/Tháng (\d+)/);
   const qMatch = period.match(/Quý (\d+)/);
@@ -135,81 +189,122 @@ const getSystemRealValue = (code: string, period: string, unit: string): string 
   const codeHash = code.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
 
   if (isPercentage) {
-    // Return a percentage like 92.4% with some month variation
     const base = 90 + (codeHash % 8);
     const val = base + ((mVal * 7) % 3) + ((mVal * 3) % 2) / 10;
     return `${Math.min(val, 100).toFixed(1)}%`;
   } else {
-    // Return a absolute number
     const base = 1000 + (codeHash % 12) * 500;
     const val = base + (mVal * 120) - (mVal * mVal * 5);
     return Math.round(val).toLocaleString();
   }
 };
 
-interface SubChart {
-  code: string;
-  name: string;
-  unit: string;
-  source: string;
-  frequency: string;
-}
-
 const getIndicatorSubCharts = (indicator: any): SubChart[] => {
   if (!indicator) return [];
   const code = indicator.code;
   const unit = indicator.unit || 'Tấn';
-  const freq = indicator.frequency || 'Hàng tháng';
+  const freq = indicator.frequency || (isTextIndicator(indicator) ? 'Hàng năm' : 'Hàng tháng');
 
+  // NUMERIC INDICATORS
   if (code === 'GRI 302-1') {
     return [
-      { code: 'GRI 302-1-JETA1', name: 'Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
-      { code: 'GRI 302-1-SAF', name: 'Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
+      { code: 'GRI 302-1-JETA1', name: 'Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq, isText: false },
+      { code: 'GRI 302-1-SAF', name: 'Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq, isText: false }
     ];
   }
 
   if (code === 'GRI 305-4') {
     return [
-      { code: 'GRI 305-4-ACTUAL', name: 'Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
+      { code: 'GRI 305-4-ACTUAL', name: 'Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm', isText: false }
     ];
   }
 
   if (code === 'GRI 404-2') {
     return [
-      { code: 'GRI 404-2-HQ', name: 'Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-OPS', name: 'Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-TECH', name: 'Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-SERVICE', name: 'Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-COMMERCE', name: 'Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+      { code: 'GRI 404-2-HQ', name: 'Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 404-2-OPS', name: 'Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 404-2-TECH', name: 'Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 404-2-SERVICE', name: 'Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 404-2-COMMERCE', name: 'Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false }
     ];
   }
 
   if (code === 'Airline B-1') {
     return [
-      { code: 'AIRLINE-B1-NPS', name: 'Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
+      { code: 'AIRLINE-B1-NPS', name: 'Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý', isText: false }
     ];
   }
 
   if (code === 'GRI 2-7') {
     return [
-      { code: 'GRI 2-7-PILOTS', name: 'Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-CABIN', name: 'Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-TECH', name: 'Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-GROUND', name: 'Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+      { code: 'GRI 2-7-PILOTS', name: 'Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 2-7-CABIN', name: 'Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 2-7-TECH', name: 'Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false },
+      { code: 'GRI 2-7-GROUND', name: 'Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq, isText: false }
+    ];
+  }
+
+  // QUALITATIVE / TEXT INDICATORS
+  if (code === 'GRI 2-23') {
+    return [
+      { code: 'GRI-2-23-POLICY', name: 'Cam kết chính sách ứng xử kinh doanh', unit: 'Văn bản', source: 'Form Nhập liệu (Tổ Thư ký & Pháp chế)', frequency: freq, isText: true },
+      { code: 'GRI-2-23-HUMANRIGHTS', name: 'Thuyết minh cam kết tôn trọng quyền con người', unit: 'Văn bản', source: 'Form Nhập liệu (Ban TCNL & Pháp chế)', frequency: freq, isText: true }
+    ];
+  }
+
+  if (code === 'GRI 2-27') {
+    return [
+      { code: 'GRI-2-27-COMPLIANCE', name: 'Báo cáo tình hình tuân thủ luật pháp và quy định', unit: 'Văn bản', source: 'Form Nhập liệu (Ban ATCL & Pháp chế)', frequency: freq, isText: true }
     ];
   }
 
   if (code === 'GRI 2-9') {
     return [
-      { code: 'GRI 2-9-IND', name: 'Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
-      { code: 'GRI 2-9-EXEC', name: 'Thành phần Hội đồng Điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
-      { code: 'GRI 2-9-NONEXEC', name: 'Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
+      { code: 'GRI-2-9-DESC', name: 'Thuyết minh cơ cấu và thành phần quản trị', unit: 'Văn bản', source: 'Nhập thủ công (Tổ Thư ký)', frequency: freq, isText: true }
     ];
   }
 
-  // Default sub-chart for other indicators
+  if (code === 'GRI 2-10') {
+    return [
+      { code: 'GRI-2-10-DESC', name: 'Quy trình đề cử, lựa chọn lãnh đạo cấp cao', unit: 'Văn bản', source: 'Nhập thủ công (Tổ Thư ký)', frequency: freq, isText: true }
+    ];
+  }
+
+  if (code === 'GRI 2-15') {
+    return [
+      { code: 'GRI-2-15-DESC', name: 'Quy chế kiểm soát và phòng ngừa xung đột lợi ích', unit: 'Văn bản', source: 'Nhập thủ công (Tổ Thư ký & Ban Kiểm soát)', frequency: freq, isText: true }
+    ];
+  }
+
+  if (code === 'GRI 3-3') {
+    return [
+      { code: 'GRI-3-3-DESC', name: 'Báo cáo phương pháp quản lý các chủ đề ESG trọng yếu', unit: 'Văn bản', source: 'Form Nhập liệu (Ban Kế hoạch phát triển)', frequency: freq, isText: true }
+    ];
+  }
+
+  if (code === 'GRI 406-1') {
+    return [
+      { code: 'GRI-406-1-DESC', name: 'Thuyết minh kiểm soát không phân biệt đối xử', unit: 'Văn bản', source: 'Form Nhập liệu (Ban TCNL)', frequency: freq, isText: true }
+    ];
+  }
+
+  // Default text indicator
+  if (isTextIndicator(indicator)) {
+    return [
+      {
+        code: `${code}-TEXT`,
+        name: `Thuyết minh văn bản ${getLocalizedIndicatorName(indicator.name, 'vi')}`,
+        unit: 'Văn bản',
+        source: indicator.department ? `Báo cáo thuyết minh (${indicator.department})` : 'Form Nhập liệu Thuyết minh',
+        frequency: freq,
+        isText: true
+      }
+    ];
+  }
+
+  // Default numeric subchart
   return [
-    { code: `${code}-SUB1`, name: `Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
+    { code: `${code}-SUB1`, name: `Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq, isText: false }
   ];
 };
 
@@ -221,6 +316,7 @@ export const PublishAdjustPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterPillar, setFilterPillar] = useState('');
   const [filterPublish, setFilterPublish] = useState(''); // '' (Tất cả), 'published' (Công bố), 'unpublished' (Không công bố)
+  const [filterType, setFilterType] = useState(''); // '' (Tất cả định dạng), 'numeric' (Biểu đồ số liệu), 'text' (Văn bản / Thuyết minh)
   const [selectedYear, setSelectedYear] = useState('2026');
   const [currentLang, setCurrentLang] = useState<'vi' | 'en'>(
     () => (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi'
@@ -250,7 +346,8 @@ export const PublishAdjustPage: React.FC = () => {
       adjustedValue: '4,615',
       adjustedBy: 'Nguyễn Văn Hải (Admin)',
       adjustedAt: '18/08/2026 16:30',
-      reason: 'Đối soát số liệu theo biên bản kiểm toán IATA ASRH'
+      reason: 'Đối soát số liệu theo biên bản kiểm toán IATA ASRH',
+      isText: false
     },
     {
       id: 'HIST-VNA002',
@@ -262,31 +359,21 @@ export const PublishAdjustPage: React.FC = () => {
       adjustedValue: '4,710',
       adjustedBy: 'Trần Thu Trang (Ban Kỹ thuật)',
       adjustedAt: '15/08/2026 14:15',
-      reason: 'Chuẩn hóa định mức tiêu hao sau kiểm định tàu bay A350'
+      reason: 'Chuẩn hóa định mức tiêu hao sau kiểm định tàu bay A350',
+      isText: false
     },
     {
       id: 'HIST-VNA003',
-      indicatorCode: 'GRI 302-1',
-      chartCode: 'GRI 302-1-SAF',
-      chartName: 'Tiêu thụ Nhiên liệu SAF pha trộn',
-      period: 'Quý 4/2026',
-      originalValue: '120',
-      adjustedValue: '125',
-      adjustedBy: 'Nguyễn Minh Hải (Admin)',
-      adjustedAt: '12/08/2026 09:45',
-      reason: 'Bổ sung khối lượng nạp thử nghiệm đường bay quốc tế'
-    },
-    {
-      id: 'HIST-VNA004',
-      indicatorCode: 'GRI 305-4',
-      chartCode: 'GRI 305-4-REAL',
-      chartName: 'Cường độ phát thải CO2 thực tế',
-      period: 'Tháng 10/2026',
-      originalValue: '785.4',
-      adjustedValue: '772.0',
-      adjustedBy: 'Nguyễn Văn Hải (Admin)',
-      adjustedAt: '05/08/2026 10:20',
-      reason: 'Áp dụng hệ số chuyển đổi ICAO mới nhất'
+      indicatorCode: 'GRI 2-23',
+      chartCode: 'GRI-2-23-POLICY',
+      chartName: 'Cam kết chính sách ứng xử kinh doanh',
+      period: 'Năm 2026',
+      originalValue: 'Vietnam Airlines cam kết thực hiện đúng các quy định pháp luật hiện hành và tiêu chuẩn của IATA.',
+      adjustedValue: 'Tổng công ty Hàng không Việt Nam (Vietnam Airlines) cam kết tuân thủ đầy đủ các chuẩn mực đạo đức kinh doanh quốc tế, bảo đảm an toàn bay tuyệt đối, trách nhiệm xã hội và bảo vệ môi trường trong toàn bộ chuỗi cung ứng hàng không.',
+      adjustedBy: 'Phạm Minh Đức (Tổ Thư ký)',
+      adjustedAt: '10/08/2026 11:30',
+      reason: 'Biên tập chuẩn hóa văn phong công bố Báo cáo thường niên ESG 2026',
+      isText: true
     }
   ], []);
 
@@ -301,6 +388,7 @@ export const PublishAdjustPage: React.FC = () => {
     }
     return INITIAL_MOCK_HISTORY;
   });
+
   // Chart-level publish status & description state
   const [isChartPublished, setIsChartPublished] = useState(true);
   const [chartDescription, setChartDescription] = useState('');
@@ -326,7 +414,6 @@ export const PublishAdjustPage: React.FC = () => {
   const [editStates, setEditStates] = useState<Record<string, { isOverride: boolean; overrideValue: string; reason: string }>>({});
 
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
-
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   // Measure right column height to sync left card height pixel-perfectly
@@ -356,12 +443,17 @@ export const PublishAdjustPage: React.FC = () => {
       observer.disconnect();
       window.removeEventListener('resize', updateHeight);
     };
-  }, [selectedIndicator, selectedSubChart, selectedYear, isChartPublished, adjustments]);
+  }, [selectedIndicator, selectedSubChart, selectedYear, isChartPublished, adjustments, filterType]);
 
   const currentPeriods = useMemo(() => getIndicatorPeriods(selectedIndicator, selectedYear), [selectedIndicator, selectedYear]);
 
+  const isCurrentSubChartText = useMemo(() => {
+    if (!selectedSubChart) return false;
+    return selectedSubChart.isText || selectedSubChart.unit === 'Văn bản' || (selectedIndicator && isTextIndicator(selectedIndicator));
+  }, [selectedSubChart, selectedIndicator]);
+
   const previewChartData = useMemo(() => {
-    if (!selectedSubChart) return [];
+    if (!selectedSubChart || isCurrentSubChartText) return [];
 
     const chronologicalPeriods = [...currentPeriods].reverse();
     return chronologicalPeriods.map(p => {
@@ -394,11 +486,10 @@ export const PublishAdjustPage: React.FC = () => {
         'Số liệu điều chỉnh': adjustedVal
       };
     });
-  }, [selectedSubChart, currentPeriods, editStates]);
+  }, [selectedSubChart, currentPeriods, editStates, isCurrentSubChartText]);
 
-  // Load data
+  // Load initial data
   useEffect(() => {
-    // Load indicators
     const savedInds = localStorage.getItem('vna_esg_indicators');
     if (savedInds) {
       try {
@@ -410,7 +501,6 @@ export const PublishAdjustPage: React.FC = () => {
       setIndicators(MOCK_INDICATORS_JSON);
     }
 
-    // Load adjustments
     const savedAdjs = localStorage.getItem('vna_publish_adjustments');
     if (savedAdjs) {
       try {
@@ -484,7 +574,7 @@ export const PublishAdjustPage: React.FC = () => {
       setIsChartPublished(true);
     }
 
-    // Load chart description
+    // Load chart/text description
     const key = `${selectedSubChart.code}_${selectedYear}`;
     const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
     if (savedDescriptions) {
@@ -512,23 +602,29 @@ export const PublishAdjustPage: React.FC = () => {
         !filterPillar ||
         ind.pillar.toLowerCase() === filterPillar.toLowerCase();
 
+      const isText = isTextIndicator(ind);
+      let matchesType = true;
+      if (filterType === 'numeric') {
+        matchesType = !isText;
+      } else if (filterType === 'text') {
+        matchesType = isText;
+      }
+
       let matchesPublish = true;
       if (filterPublish) {
         const subCharts = getIndicatorSubCharts(ind);
         if (filterPublish === 'published') {
-          // Keep if at least one sub-chart is published (default is true if not false)
           matchesPublish = subCharts.some(sc => publishedChartStatuses[sc.code] !== false);
         } else if (filterPublish === 'unpublished') {
-          // Keep if at least one sub-chart is NOT published
           matchesPublish = subCharts.some(sc => publishedChartStatuses[sc.code] === false);
         }
       }
 
-      return matchesSearch && matchesPillar && matchesPublish;
+      return matchesSearch && matchesPillar && matchesPublish && matchesType;
     });
-  }, [indicators, searchQuery, filterPillar, filterPublish, publishedChartStatuses]);
+  }, [indicators, searchQuery, filterPillar, filterPublish, filterType, publishedChartStatuses]);
 
-  // Check if an indicator has any active overrides under any of its sub-charts
+  // Check if an indicator has any active overrides
   const getIndicatorStatus = (ind: any) => {
     const subCharts = getIndicatorSubCharts(ind);
     const subCodes = subCharts.map(sc => sc.code);
@@ -544,23 +640,6 @@ export const PublishAdjustPage: React.FC = () => {
       a => a.indicatorCode === subCode && a.isOverride
     );
     return hasActive ? 'adjusted' : 'default';
-  };
-
-  // Toggle override state for a period
-  const handleToggleOverride = (period: string) => {
-    if (!selectedSubChart) return;
-    setEditStates(prev => {
-      const current = prev[period];
-      return {
-        ...prev,
-        [period]: {
-          ...current,
-          isOverride: !current.isOverride,
-          // Prefill with system real value if empty
-          overrideValue: current.overrideValue || getSystemRealValue(selectedSubChart.code, period, selectedSubChart.unit)
-        }
-      };
-    });
   };
 
   // Update value for a period
@@ -585,13 +664,11 @@ export const PublishAdjustPage: React.FC = () => {
     }));
   };
 
-
-
   // Save changes
   const handleSave = () => {
     if (!selectedSubChart || !selectedIndicator) return;
 
-    // Filter out old entries for this sub-chart AND selected year to avoid wiping out other years
+    // Filter out old entries for this sub-chart AND selected year
     const filteredAdjustments = adjustments.filter(
       a => !(a.indicatorCode === selectedSubChart.code && a.period.endsWith(selectedYear))
     );
@@ -613,7 +690,8 @@ export const PublishAdjustPage: React.FC = () => {
           overrideValue: state.overrideValue.trim(),
           reason: state.reason,
           updatedAt: nowStr,
-          updatedBy: 'Nguyễn Văn Hải (Admin)'
+          updatedBy: 'Nguyễn Văn Hải (Admin)',
+          isText: isCurrentSubChartText
         });
       }
     });
@@ -625,7 +703,7 @@ export const PublishAdjustPage: React.FC = () => {
     localStorage.setItem('vna_publish_chart_status', JSON.stringify(statuses));
     setPublishedChartStatuses(statuses);
 
-    // Save chart description
+    // Save chart / text description
     const key = `${selectedSubChart.code}_${selectedYear}`;
     const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
     const descMap = savedDescriptions ? JSON.parse(savedDescriptions) : {};
@@ -651,7 +729,8 @@ export const PublishAdjustPage: React.FC = () => {
         adjustedValue: ent.overrideValue,
         adjustedBy: 'Nguyễn Văn Hải (Admin)',
         adjustedAt: nowStr,
-        reason: ent.reason
+        reason: ent.reason,
+        isText: isCurrentSubChartText
       }));
 
       setAdjustHistory(prev => {
@@ -672,14 +751,14 @@ export const PublishAdjustPage: React.FC = () => {
         user: 'hai.nm@vietnamairlines.com',
         userName: 'Nguyễn Minh Hải',
         role: 'Quản trị viên',
-        featureName: 'Dữ liệu công bố đối ngoại',
-        actionDetails: `Ghi đè số liệu biểu đồ [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period} thành "${ent.overrideValue}". Lý do: ${ent.reason || 'Không ghi chú'}`
+        featureName: isCurrentSubChartText ? 'Điều chỉnh văn bản thuyết minh công bố' : 'Dữ liệu số liệu công bố đối ngoại',
+        actionDetails: isCurrentSubChartText
+          ? `Điều chỉnh nội dung thuyết minh [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period}. Lý do: ${ent.reason || 'Biên tập chuẩn hóa'}`
+          : `Ghi đè số liệu biểu đồ [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period} thành "${ent.overrideValue}". Lý do: ${ent.reason || 'Không ghi chú'}`
       });
     });
 
-    localStorage.setItem('vna_system_logs', JSON.stringify(logsList.slice(0, 100))); // Keep last 100 logs
-
-    // Dispatch HMR custom event to alert other listening components
+    localStorage.setItem('vna_system_logs', JSON.stringify(logsList.slice(0, 100)));
     window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
 
     setToast({
@@ -688,44 +767,9 @@ export const PublishAdjustPage: React.FC = () => {
     });
   };
 
-  // Reset current selections
-  const handleResetCurrent = () => {
-    if (!selectedSubChart) return;
-
-    const clearedStates: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
-    currentPeriods.forEach(p => {
-      const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
-      clearedStates[p] = {
-        isOverride: false,
-        overrideValue: realValue,
-        reason: ''
-      };
-    });
-    setEditStates(clearedStates);
-    setIsChartPublished(true);
-    setToast({
-      message: 'Đã hoàn tác các thay đổi trên giao diện. Bấm Lưu để xác nhận.',
-      type: 'info'
-    });
-  };
-
   return (
     <div className="flex flex-col gap-6 text-left">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-
-      {/* HEADER */}
-      {/* <div className="bg-white border border-gray-200 px-6 py-4 rounded-xl shadow-xs flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-vna-blue">Điều chỉnh dữ liệu công bố</h1>
-          <p className="text-black/45 text-sm mt-0.5">
-            Thiết lập và kiểm soát số liệu đối ngoại phục vụ xuất bản báo cáo thường niên ESG và hiển thị biểu đồ tổng
-          </p>
-        </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-vna-blue text-xs font-bold">
-          <Globe size={14} />
-          <span>VNA Disclosure Control</span>
-        </div>
-      </div> */}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT COLUMN: INDICATOR LIST (col-span-4) */}
@@ -734,17 +778,16 @@ export const PublishAdjustPage: React.FC = () => {
             style={rightColHeight ? { height: `${rightColHeight}px` } : { minHeight: '820px' }}
             className="bg-white rounded-lg border border-gray-250 p-5 flex flex-col gap-4 overflow-hidden shadow-2xs hover:shadow-md transition-shadow duration-300"
           >
-            {/* SEARCH & FILTER */}
+            {/* SEARCH & FILTERS */}
             <div className="flex flex-col gap-2.5 shrink-0">
               <div className="relative">
                 <Input
-                  type="text"
-                  placeholder="Tìm mã hoặc tên chỉ tiêu..."
+                  placeholder="Tìm kiếm mã, tên chỉ tiêu..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-8 text-xs bg-white py-1.5"
+                  className="pl-9 text-xs"
                 />
-                <Search size={14} className="absolute left-2.5 top-2.5 text-gray-400" />
+                <Search size={14} className="absolute left-3 top-3 text-gray-400" />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
@@ -761,16 +804,27 @@ export const PublishAdjustPage: React.FC = () => {
                 />
 
                 <Select
-                  value={filterPublish}
-                  onChange={setFilterPublish}
+                  value={filterType}
+                  onChange={setFilterType}
                   options={[
-                    { label: 'Tất cả trạng thái', value: '' },
-                    { label: 'Đang công bố', value: 'published' },
-                    { label: 'Không công bố', value: 'unpublished' },
+                    { label: 'Tất cả định dạng', value: '' },
+                    { label: '📊 Số liệu (Biểu đồ)', value: 'numeric' },
+                    { label: '📝 Văn bản (Định tính)', value: 'text' },
                   ]}
                   className="text-xs font-semibold"
                 />
               </div>
+
+              <Select
+                value={filterPublish}
+                onChange={setFilterPublish}
+                options={[
+                  { label: 'Tất cả trạng thái công bố', value: '' },
+                  { label: 'Đang công bố', value: 'published' },
+                  { label: 'Không công bố', value: 'unpublished' },
+                ]}
+                className="text-xs font-semibold"
+              />
             </div>
 
             {/* UNIFIED TABLE CONTAINER (HEADER + LIST) */}
@@ -788,6 +842,7 @@ export const PublishAdjustPage: React.FC = () => {
                   const isExpanded = !!expandedIndicators[ind.code];
                   const status = getIndicatorStatus(ind);
                   const subCharts = getIndicatorSubCharts(ind);
+                  const isIndText = isTextIndicator(ind);
 
                   return (
                     <div key={ind.code} className="flex flex-col">
@@ -812,7 +867,9 @@ export const PublishAdjustPage: React.FC = () => {
                           <span className="text-gray-400 shrink-0">
                             {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                           </span>
-                          <span className="text-[10px] font-black px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-mono shrink-0">
+                          <span className={`text-[10px] font-black px-1.5 py-0.5 rounded font-mono shrink-0 flex items-center gap-1 ${isIndText ? 'bg-amber-100/70 text-amber-900 border border-amber-250' : 'bg-gray-100 text-gray-700'
+                            }`}>
+                            {isIndText ? <FileText size={10} className="text-amber-600" /> : <Activity size={10} className="text-vna-blue" />}
                             {ind.code}
                           </span>
                           <span className="text-xs font-bold text-gray-800 truncate" title={getLocalizedIndicatorName(ind.name, currentLang)}>
@@ -829,7 +886,7 @@ export const PublishAdjustPage: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* SUB-CHARTS EXPANDED LIST */}
+                      {/* SUB-ITEMS EXPANDED LIST */}
                       {isExpanded && (
                         <div className="bg-slate-50/40 border-l-2 border-slate-300 divide-y divide-gray-100">
                           {subCharts
@@ -847,7 +904,7 @@ export const PublishAdjustPage: React.FC = () => {
                                 <div
                                   key={sub.code}
                                   onClick={(e) => {
-                                    e.stopPropagation(); // Avoid toggling collapse
+                                    e.stopPropagation();
                                     setSelectedIndicator(ind);
                                     setSelectedSubChart(sub);
                                   }}
@@ -857,29 +914,32 @@ export const PublishAdjustPage: React.FC = () => {
                                     }`}
                                 >
                                   <div className="flex-1 pr-2 min-w-0 flex items-center gap-1.5 flex-wrap">
-                                    <span className={`text-xs font-semibold ${!isPub ? 'line-through text-gray-400' : 'text-gray-700'}`}>
-                                      {sub.name.replace(/^Biểu đồ\s*\d+\s*:\s*/i, '')}
+                                    {sub.isText ? (
+                                      <FileText size={12} className="text-amber-600 shrink-0" />
+                                    ) : (
+                                      <Activity size={12} className="text-vna-blue shrink-0" />
+                                    )}
+                                    <span className={`text-xs font-semibold ${!isPub ? 'text-gray-400' : 'text-gray-800'}`}>
+                                      {sub.name}
                                     </span>
                                     {subStatus === 'adjusted' && (
-                                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-amber-100 text-amber-800 border border-amber-200 shrink-0">
-                                        Đã sửa
-                                      </span>
+                                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" title="Có số liệu điều chỉnh"></span>
                                     )}
                                   </div>
 
-                                  <div className="w-16 flex justify-center items-center shrink-0 pr-1">
-                                    {/* Switch Button Công bố */}
+                                  <div className="flex items-center shrink-0 pr-1" onClick={(e) => e.stopPropagation()}>
                                     <button
                                       type="button"
                                       role="switch"
                                       aria-checked={isPub}
                                       onClick={(e) => handleToggleSubChartPublish(sub.code, e)}
-                                      className={`relative inline-flex h-5 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${isPub ? 'bg-emerald-500 hover:bg-emerald-600 shadow-2xs' : 'bg-gray-300 hover:bg-gray-400'
+                                      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors duration-200 ease-in-out focus:outline-none ${isPub ? 'bg-[#005f6e]' : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
-                                      title={isPub ? "Đang công bố (Click để tắt)" : "Không công bố (Click để bật)"}
+                                      title={isPub ? 'Đang công bố (Bấm để tắt)' : 'Đã ẩn khỏi công bố (Bấm để bật)'}
                                     >
                                       <span
-                                        className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${isPub ? 'translate-x-6' : 'translate-x-0'
+                                        aria-hidden="true"
+                                        className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${isPub ? 'translate-x-4' : 'translate-x-0'
                                           }`}
                                       />
                                     </button>
@@ -894,8 +954,8 @@ export const PublishAdjustPage: React.FC = () => {
                 })}
 
                 {filteredIndicators.length === 0 && (
-                  <div className="py-8 text-center text-gray-400 italic text-xs">
-                    Không tìm thấy chỉ tiêu phù hợp.
+                  <div className="p-8 text-center text-gray-400 text-xs italic">
+                    Không tìm thấy chỉ tiêu nào phù hợp điều kiện lọc.
                   </div>
                 )}
               </div>
@@ -903,231 +963,257 @@ export const PublishAdjustPage: React.FC = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: OVERRIDE CONFIG (col-span-8) */}
-        <div ref={rightColRef} className="lg:col-span-8">
-          {!selectedIndicator || !selectedSubChart ? (
-            <Card className="p-12 border border-gray-250 text-center flex flex-col items-center justify-center min-h-[450px]">
-              <Database size={48} className="text-gray-300 mb-4 stroke-1 animate-pulse" />
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wide">
-                Chưa chọn biểu đồ cấu hình
-              </h3>
-              <p className="text-xs text-gray-400 mt-1 max-w-sm">
-                Vui lòng chọn một biểu đồ thành phần ở danh sách bên trái để thiết lập các số liệu ghi đè phục vụ công bố đối ngoại.
+        {/* RIGHT COLUMN: DETAIL EDIT FORM (col-span-8) */}
+        <div ref={rightColRef} className="lg:col-span-8 flex flex-col gap-6">
+          {!selectedSubChart || !selectedIndicator ? (
+            <Card className="p-12 text-center text-gray-400 border border-gray-250 flex flex-col items-center justify-center min-h-[500px] shadow-2xs">
+              <Sliders size={48} className="text-gray-300 mb-4 stroke-1" />
+              <h3 className="text-base font-bold text-gray-700 mb-1">Chưa chọn chỉ tiêu điều chỉnh</h3>
+              <p className="text-xs text-gray-500 max-w-sm">
+                Vui lòng chọn một chỉ tiêu số liệu hoặc chỉ tiêu văn bản ở danh sách bên trái để tiến hành điều chỉnh nội dung công bố.
               </p>
             </Card>
           ) : (
             <div className="flex flex-col gap-6">
-              {/* INDICATOR HEADER CARD */}
-              {/* <Card className="p-5 border border-gray-250 bg-gradient-to-r from-slate-50 to-white flex flex-col gap-4">
-                <div className="flex justify-between items-start gap-4">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-xs font-bold px-2 py-0.5 bg-blue-100 text-vna-blue border border-blue-200 rounded font-mono">
-                        {selectedSubChart.code}
-                      </span>
-                      <PillarBadge pillar={selectedIndicator.pillar} />
-                      <Badge variant="secondary" className="font-semibold text-[10px]">
-                        Nguồn: {selectedSubChart.source}
-                      </Badge>
-                    </div>
-                    <h2 className="text-lg font-bold text-vna-blue">{selectedSubChart.name}</h2>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 border-t border-gray-200 pt-4 text-xs">
-                  <div>
-                    <span className="text-gray-400 font-medium">Đơn vị chủ trì:</span>
-                    <div className="font-bold text-gray-800 mt-0.5">{selectedIndicator.department || '—'}</div>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 font-medium">Đơn vị tính:</span>
-                    <div className="font-bold text-gray-800 mt-0.5">{selectedSubChart.unit || '—'}</div>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 font-medium">Tần suất báo cáo:</span>
-                    <div className="font-bold text-vna-blue mt-0.5">{selectedSubChart.frequency || 'Hàng tháng'}</div>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 font-medium">Chỉ tiêu tổng:</span>
-                    <div className="font-bold text-gray-850 mt-0.5 truncate" title={selectedIndicator.name}>
+              {/* TOP DETAIL CARD */}
+              <Card className="p-5 border border-gray-250 flex flex-col gap-4 shadow-2xs">
+                {/* INDICATOR & SUBCHART HEADER */}
+                <div className="flex flex-col gap-3.5 border-b border-gray-200 pb-4">
+                  {/* ROW 1: INDICATOR CODE & NAME */}
+                  <div className="flex items-start sm:items-center gap-2.5">
+                    <span className="text-xs font-bold font-mono px-2.5 py-1 bg-gray-100 text-gray-800 rounded border border-gray-200 shrink-0 mt-0.5 sm:mt-0">
                       {selectedIndicator.code}
-                    </div>
+                    </span>
+                    <h2 className="text-base font-bold text-gray-900 leading-snug break-words">
+                      {selectedSubChart.name}
+                    </h2>
                   </div>
-                </div>
-              </Card> */}
 
-              {/* OVERRIDES LIST CONTAINER */}
-              <Card className="p-5 border border-gray-250 flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-b border-gray-150 pb-2.5">
-                  <div className="flex flex-wrap items-center gap-3">
-                    {/* <h3 className="text-sm font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
-                      <Clock size={16} />
-                      <span>Cấu hình kỳ báo cáo ({selectedSubChart.frequency || 'Hàng tháng'})</span>
-                    </h3> */}
-                    <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
-                      <span className="text-xs text-gray-500 font-bold">Năm</span>
-                      <select
+                  {/* ROW 2: ACTION TOOLBAR */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-50 px-3.5 py-2 rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-2">
+                      <label className="text-xs font-bold text-gray-700 whitespace-nowrap">Năm báo cáo:</label>
+                      <Select
                         value={selectedYear}
-                        onChange={(e) => setSelectedYear(e.target.value)}
-                        className="text-xs font-black border border-gray-300 rounded-md px-2 py-0.5 bg-white text-vna-blue focus:outline-none focus:ring-1 focus:ring-vna-blue cursor-pointer"
-                      >
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                      </select>
+                        onChange={setSelectedYear}
+                        options={[
+                          { label: '2026', value: '2026' },
+                          { label: '2025', value: '2025' },
+                          { label: '2024', value: '2024' },
+                        ]}
+                        className="w-28 text-xs font-bold bg-white"
+                      />
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Button
-                      variant="outline"
-                      onClick={() => setIsPreviewOpen(true)}
-                      className="text-xs py-1.5 px-3 border border-gray-300 text-gray-700 bg-white cursor-pointer flex items-center gap-1.5"
-                    >
-                      <Activity size={13} className="text-vna-blue" />
-                      <span>Xem trước</span>
-                    </Button>
-                    {/* <Button
-                      variant="outline"
-                      onClick={handleResetCurrent}
-                      className="text-xs py-1.5 px-3 border border-gray-300 text-gray-700 bg-white cursor-pointer flex items-center gap-1.5"
-                    >
-                      <RotateCcw size={13} />
-                      <span>Đặt lại</span>
-                    </Button> */}
-                    <Button
-                      variant="primary"
-                      onClick={handleSave}
-                      className="text-xs py-1.5 px-4 bg-vna-blue text-white cursor-pointer flex items-center gap-1.5 font-bold"
-                    >
-                      <Save size={14} />
-                      <span>Lưu</span>
-                    </Button>
+
+                    <div className="flex items-center gap-2.5">
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsPreviewOpen(true)}
+                        className="text-xs py-1.5 px-3.5 border border-gray-300 text-gray-700 bg-white cursor-pointer flex items-center gap-1.5 font-semibold shadow-2xs hover:bg-slate-100"
+                      >
+                        {isCurrentSubChartText ? <BookOpen size={14} className="text-amber-600" /> : <Activity size={14} className="text-vna-blue" />}
+                        <span>Xem trước</span>
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={handleSave}
+                        className="text-xs py-1.5 px-4 bg-vna-blue text-white cursor-pointer flex items-center gap-1.5 font-bold shadow-xs hover:bg-[#004d5a]"
+                      >
+                        <Save size={14} />
+                        <span>Lưu</span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
 
-                {/* WARNING BANNER FOR UNPUBLISHED CHART */}
-                {!isChartPublished && (
-                  <div className="bg-amber-50 border border-amber-250 text-amber-800 p-3.5 rounded-xl flex items-start gap-3 text-xs font-bold shadow-2xs mb-3">
-                    <Info size={16} className="text-amber-600 shrink-0 mt-0.5" />
-                    <div>
-                      <span>Toàn bộ số liệu của biểu đồ thành phần này đang được thiết lập là </span>
-                      <span className="text-red-700 uppercase font-black bg-red-50 border border-red-200 px-1.5 py-0.5 rounded">Không công bố</span>
-                      <span>. Dữ liệu sẽ tạm thời ẩn khỏi Executive Dashboard và BI Reports.</span>
-                    </div>
-                  </div>
-                )}
+                {/* === CASE 1: TEXT / QUALITATIVE INDICATOR EDITOR === */}
+                {isCurrentSubChartText ? (
+                  <div className="flex flex-col gap-4">
+                    {currentPeriods.map(p => {
+                      const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
+                      const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
+                      const isOverridden = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
 
-                {/* SCROLLABLE TABLE OF PERIODS */}
-                <div className={`overflow-x-auto border rounded-xl max-h-[520px] transition-all duration-300 ${isChartPublished
-                  ? 'border-gray-200'
-                  : 'border-amber-200 bg-gray-50/30 opacity-85'
-                  }`}>
-                  <table className="w-full text-left border-collapse min-w-[650px]">
-                    <thead>
-                      <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold text-gray-600 uppercase tracking-wider sticky top-0 z-10 shadow-xs">
-                        <th className="p-3.5 pl-4">Kỳ</th>
-                        <th className="p-3.5 w-44">Số liệu gốc</th>
-                        <th className="p-3.5 w-44">Điều chỉnh</th>
-                        <th className="p-3.5 pr-4">Lý do</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-150 text-xs">
-                      {currentPeriods.map(p => {
-                        const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
-                        const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
-                        const sourceText = selectedSubChart.source;
-                        const isText = selectedSubChart.unit === 'Văn bản' || selectedSubChart.unit === 'Báo cáo' || !selectedSubChart.unit;
-                        const isOverridden = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
+                      return (
+                        <div key={p} className="flex flex-col gap-4">
+                          {/* VERTICAL STACKED TEXT EDITING STUDIO */}
+                          <div className="flex flex-col gap-4 w-full">
+                            {/* 1. ORIGINAL SYSTEM TEXT (FULL WIDTH) */}
+                            <div className="flex flex-col gap-2.5 p-4 bg-slate-50/90 rounded-xl border border-gray-250 text-left shadow-2xs">
+                              <div className="flex flex-wrap items-center justify-between border-b border-gray-200 pb-2.5 gap-2">
+                                <div className="flex items-center gap-2">
+                                  <Database size={15} className="text-gray-600" />
+                                  <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
+                                    Nội dung gốc
+                                  </span>
+                                  {/* <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-gray-200 text-gray-700 rounded">
+                                    Chỉ đọc ({p})
+                                  </span> */}
+                                </div>
 
-                        return (
-                          <tr
-                            key={p}
-                            className={`transition-colors hover:bg-slate-50/50 ${isOverridden ? 'bg-amber-50/15' : ''
-                              }`}
-                          >
-                            {/* Period name */}
-                            <td className="p-3 pl-4 font-bold text-gray-800 text-sm whitespace-nowrap">
-                              <div className="flex items-center gap-1.5">
-                                <Activity size={14} className="text-vna-blue shrink-0" />
-                                <span className={!isChartPublished ? 'text-gray-400 line-through decoration-gray-400/50' : ''}>
-                                  {p}
-                                </span>
+                                <div className="flex items-center gap-3">
+                                  {/* <span className="text-[11px] text-gray-500 truncate max-w-[280px]" title={selectedSubChart.source}>
+                                    Nguồn: {selectedSubChart.source}
+                                  </span> */}
+                                  <button
+                                    type="button"
+                                    onClick={() => handleValueChange(p, realValue)}
+                                    className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 bg-white border border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white rounded-md shadow-2xs transition-all cursor-pointer"
+                                    title="Sao chép nội dung gốc xuống khung biên tập bên dưới"
+                                  >
+                                    <Copy size={12} />
+                                    <span>Sao chép sang ô sửa bên dưới</span>
+                                  </button>
+                                </div>
                               </div>
-                            </td>
 
-                            {/* System real value */}
-                            <td className="p-3">
-                              <div className="flex flex-col gap-0.5">
-                                <span className={`font-mono text-sm font-bold truncate ${isText ? 'text-gray-500 italic font-sans' : 'text-gray-850'}`}>
-                                  {realValue}
-                                </span>
-                                {/* <span className="text-[9px] text-gray-400 truncate max-w-[170px]" title={sourceText}>
-                                  Nguồn: {sourceText}
-                                </span> */}
+                              <div className="w-full bg-white p-4 rounded-lg border border-gray-200 min-h-[110px] max-h-[300px] overflow-y-auto text-xs text-gray-750 leading-relaxed whitespace-pre-line shadow-2xs select-text">
+                                {realValue}
                               </div>
-                            </td>
+                            </div>
 
-                            {/* New override value input */}
-                            <td className="p-3">
-                              <input
-                                type="text"
+                            {/* 2. ADJUSTED PUBLICATION TEXT (FULL WIDTH) */}
+                            <div className="flex flex-col gap-2.5 p-4 bg-slate-50/90 rounded-xl border border-gray-250 text-left shadow-2xs">
+                              <div className="flex flex-wrap items-center justify-between border-b border-gray-200 pb-2.5 gap-2">
+                                <div className="flex items-center gap-2">
+                                  <Edit3 size={15} className="text-gray-600" />
+                                  <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
+                                    Nội dung điều chỉnh công bố
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs text-gray-500">
+                                  <span className="font-medium text-gray-600">{state.overrideValue?.split(/\s+/).filter(Boolean).length || 0} từ</span>
+                                  <span className="text-gray-300">•</span>
+                                  <span className="font-mono text-[11px] bg-white px-2 py-0.5 rounded border border-gray-200 text-gray-600 font-semibold">{state.overrideValue?.length || 0} ký tự</span>
+                                </div>
+                              </div>
+
+                              <textarea
+                                rows={8}
                                 value={state.overrideValue}
                                 onChange={(e) => handleValueChange(p, e.target.value)}
-                                placeholder="Số mới..."
-                                className={`w-full text-xs font-bold font-mono px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${isOverridden
-                                  ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
-                                  : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
-                                  }`}
+                                placeholder="Nhập nội dung biên tập, chuẩn hóa câu chữ hoặc thuyết minh đầy đủ để xuất bản ra website và báo cáo ESG..."
+                                className="w-full bg-white p-4 rounded-lg border border-gray-200 text-xs text-gray-900 leading-relaxed shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#005f6e]/30 focus:border-[#005f6e] resize-y min-h-[140px]"
                               />
-                            </td>
+                            </div>
+                          </div>
 
-                            {/* Adjustment reason input */}
-                            <td className="p-3 pr-4">
-                              <input
-                                type="text"
-                                value={state.reason}
-                                onChange={(e) => handleReasonChange(p, e.target.value)}
-                                placeholder="Nhập lý do điều chỉnh..."
-                                className={`w-full text-xs px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${isOverridden
-                                  ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
-                                  : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
-                                  }`}
-                              />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
+                          {/* REASON FOR TEXT ADJUSTMENT */}
+                          <div className="p-3.5 bg-gray-50/70 rounded-xl border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <label className="text-xs font-bold text-gray-700 whitespace-nowrap shrink-0">
+                              Lý do điều chỉnh / Ghi chú kiểm toán:
+                            </label>
+                            <input
+                              type="text"
+                              value={state.reason}
+                              onChange={(e) => handleReasonChange(p, e.target.value)}
+                              placeholder="Ví dụ: Rút gọn để đưa vào báo cáo thường niên, Chuẩn hóa thuật ngữ theo GRI 2-23..."
+                              className="w-full text-xs px-3 py-1.5 border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-vna-blue"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  /* === CASE 2: NUMERIC INDICATOR PERIODS TABLE === */
+                  <div className={`overflow-x-auto border rounded-xl max-h-[520px] transition-all duration-300 ${isChartPublished
+                    ? 'border-gray-200'
+                    : 'border-amber-200 bg-gray-50/30 opacity-85'
+                    }`}>
+                    <table className="w-full text-left border-collapse min-w-[650px]">
+                      <thead>
+                        <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold text-gray-600 uppercase tracking-wider sticky top-0 z-10 shadow-xs">
+                          <th className="p-3.5 pl-4">Kỳ</th>
+                          <th className="p-3.5 w-44">Số liệu gốc</th>
+                          <th className="p-3.5 w-44">Điều chỉnh</th>
+                          <th className="p-3.5 pr-4">Lý do</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-150 text-xs">
+                        {currentPeriods.map(p => {
+                          const state = editStates[p] || { isOverride: false, overrideValue: '', reason: '' };
+                          const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
+                          const isOverridden = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
+
+                          return (
+                            <tr
+                              key={p}
+                              className={`transition-colors hover:bg-slate-50/50 ${isOverridden ? 'bg-amber-50/15' : ''
+                                }`}
+                            >
+                              <td className="p-3 pl-4 font-bold text-gray-800 text-sm whitespace-nowrap">
+                                <div className="flex items-center gap-1.5">
+                                  <Activity size={14} className="text-vna-blue shrink-0" />
+                                  <span className={!isChartPublished ? 'text-gray-400' : 'text-gray-800'}>
+                                    {p}
+                                  </span>
+                                </div>
+                              </td>
+
+                              <td className="p-3">
+                                <div className="flex flex-col gap-0.5">
+                                  <span className="font-mono text-sm font-bold truncate text-gray-850">
+                                    {realValue}
+                                  </span>
+                                </div>
+                              </td>
+
+                              <td className="p-3">
+                                <input
+                                  type="text"
+                                  value={state.overrideValue}
+                                  onChange={(e) => handleValueChange(p, e.target.value)}
+                                  placeholder="Số mới..."
+                                  className={`w-full text-xs font-bold font-mono px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${isOverridden
+                                    ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
+                                    : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
+                                    }`}
+                                />
+                              </td>
+
+                              <td className="p-3 pr-4">
+                                <input
+                                  type="text"
+                                  value={state.reason}
+                                  onChange={(e) => handleReasonChange(p, e.target.value)}
+                                  placeholder="Nhập lý do điều chỉnh..."
+                                  className={`w-full text-xs px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-1 ${isOverridden
+                                    ? 'bg-amber-50/10 border-amber-300 text-gray-850 shadow-xs focus:ring-amber-500'
+                                    : 'bg-white border-gray-200 text-gray-800 focus:ring-vna-blue'
+                                    }`}
+                                />
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </Card>
 
-              {/* CHART DESCRIPTION CARD */}
-              <Card className="p-5 border border-gray-250 flex flex-col gap-3">
+              {/* DESCRIPTION / NARRATIVE CARD */}
+              <Card className="p-5 border border-gray-250 flex flex-col gap-3 shadow-2xs">
                 <div className="flex items-center justify-between border-b border-gray-150 pb-2.5">
                   <h3 className="text-xs font-bold text-vna-blue uppercase tracking-wider flex items-center gap-2">
                     <FileText size={15} />
-                    <span>Mô tả / Thuyết minh biểu đồ</span>
+                    <span>{isCurrentSubChartText ? 'Ghi chú biên tập / Thuyết minh bổ sung' : 'Mô tả / Thuyết minh biểu đồ'}</span>
                   </h3>
-                  {/* <span className="text-[11px] text-gray-400 font-medium">
-                    {selectedSubChart.name}
-                  </span> */}
                 </div>
                 <div className="flex flex-col gap-2">
                   <textarea
                     rows={4}
                     value={chartDescription}
                     onChange={(e) => setChartDescription(e.target.value)}
-                    placeholder="Nhập phần mô tả, bối cảnh số liệu, phân tích xu hướng hoặc ghi chú thuyết minh cho toàn bộ biểu đồ này..."
+                    placeholder={
+                      isCurrentSubChartText
+                        ? 'Nhập ghi chú bổ sung, trích dẫn tài liệu pháp lý hoặc thuyết minh tổng hợp cho chỉ tiêu văn bản này...'
+                        : 'Nhập phần mô tả, bối cảnh số liệu, phân tích xu hướng hoặc ghi chú thuyết minh cho toàn bộ biểu đồ này...'
+                    }
                     className="w-full text-xs p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-vna-blue bg-white text-gray-800 resize-y leading-relaxed shadow-2xs"
                   />
-                  <div className="flex justify-between items-center text-[11px] text-gray-400 pt-0.5">
-                    {/* <span>Thuyết minh này sẽ được đồng bộ và xuất bản cùng biểu đồ trên Executive Dashboard và Báo cáo ESG.</span> */}
-                    {/* <span className="font-mono text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
-                      {chartDescription.length} ký tự
-                    </span> */}
-                  </div>
                 </div>
               </Card>
             </div>
@@ -1135,7 +1221,7 @@ export const PublishAdjustPage: React.FC = () => {
         </div>
       </div>
 
-      {/* KHỐI LỊCH SỬ ĐIỀU CHỈNH SỐ LIỆU (DƯỚI CÙNG MÀN HÌNH) */}
+      {/* KHỐI LỊCH SỬ ĐIỀU CHỈNH DỮ LIỆU */}
       <Card className="p-5 border border-gray-250 flex flex-col gap-3.5 shadow-2xs">
         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-gray-150 pb-3">
           <div className="flex items-center gap-2.5">
@@ -1152,7 +1238,7 @@ export const PublishAdjustPage: React.FC = () => {
                     <strong className="text-gray-800">{selectedSubChart.name}</strong> ({selectedIndicator?.code})
                   </span>
                 ) : (
-                  <span>Chọn một biểu đồ ở danh sách phía trên để xem lịch sử điều chỉnh chi tiết.</span>
+                  <span>Chọn một chỉ tiêu ở danh sách phía trên để xem lịch sử điều chỉnh chi tiết.</span>
                 )}
               </p>
             </div>
@@ -1169,11 +1255,11 @@ export const PublishAdjustPage: React.FC = () => {
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
-                <th className="py-2.5 px-4 w-44">Kỳ</th>
-                <th className="py-2.5 px-4 w-40">Số liệu gốc</th>
-                <th className="py-2.5 px-4 w-40">Điều chỉnh</th>
-                <th className="py-2.5 px-4">Người điều chỉnh</th>
-                <th className="py-2.5 px-4 w-48 text-right pr-6">Thời gian</th>
+                <th className="py-2.5 px-4 w-32">Kỳ</th>
+                <th className="py-2.5 px-4 min-w-[200px]">Nội dung gốc</th>
+                <th className="py-2.5 px-4 min-w-[220px]">Nội dung điều chỉnh</th>
+                <th className="py-2.5 px-4 w-44">Người điều chỉnh</th>
+                <th className="py-2.5 px-4 w-44 text-right pr-6">Thời gian</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 bg-white">
@@ -1186,7 +1272,7 @@ export const PublishAdjustPage: React.FC = () => {
                   return (
                     <tr>
                       <td colSpan={5} className="py-8 text-center text-gray-400 italic">
-                        Chưa có lịch sử điều chỉnh số liệu nào được ghi nhận cho biểu đồ này.
+                        Chưa có lịch sử điều chỉnh nào được ghi nhận cho mục này.
                       </td>
                     </tr>
                   );
@@ -1198,24 +1284,21 @@ export const PublishAdjustPage: React.FC = () => {
                       <Calendar size={13} className="text-gray-400 shrink-0" />
                       <span>{item.period}</span>
                     </td>
-                    <td className="py-3 px-4 font-mono text-gray-500">
-                      {item.originalValue} {selectedSubChart?.unit || ''}
+                    <td className="py-3 px-4 text-gray-600">
+                      <p className="line-clamp-2 text-[11px] leading-relaxed" title={item.originalValue}>
+                        {item.originalValue}
+                      </p>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono font-bold text-vna-blue bg-blue-50/80 px-2 py-0.5 rounded border border-blue-200/70">
-                        {item.adjustedValue} {selectedSubChart?.unit || ''}
-                      </span>
+                      <p className="line-clamp-2 text-[11px] font-medium text-vna-blue bg-blue-50/60 p-1.5 rounded border border-blue-200/60 leading-relaxed" title={item.adjustedValue}>
+                        {item.adjustedValue}
+                      </p>
                     </td>
                     <td className="py-3 px-4 text-gray-700">
                       <div className="flex items-center gap-1.5">
                         <User size={13} className="text-gray-400 shrink-0" />
                         <span className="font-medium">{item.adjustedBy}</span>
                       </div>
-                      {/* {item.reason && (
-                        <div className="text-[10px] text-gray-400 italic mt-0.5 truncate max-w-md">
-                          {item.reason}
-                        </div>
-                      )} */}
                     </td>
                     <td className="py-3 px-4 font-mono text-[11px] text-gray-500 text-right pr-6">
                       <div className="inline-flex items-center gap-1.5">
@@ -1231,38 +1314,76 @@ export const PublishAdjustPage: React.FC = () => {
         </div>
       </Card>
 
-      {/* CHART PREVIEW MODAL */}
+      {/* PREVIEW MODAL (NUMERIC OR TEXT) */}
       <Modal
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
-        title={`${selectedSubChart?.name}`}
+        title={isCurrentSubChartText ? `Ấn phẩm công bố: ${selectedSubChart?.name}` : `Biểu đồ công bố: ${selectedSubChart?.name}`}
         size="lg"
       >
-        <div className="p-4 space-y-4 text-left">
-          <div className="h-[350px] bg-slate-50 p-4 rounded-xl border border-gray-200">
-            <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={previewChartData} margin={{ top: 15, right: 10, left: -15, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-                <XAxis dataKey="periodLabel" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} unit={selectedSubChart?.unit === '%' ? '%' : ''} />
-                <Tooltip
-                  contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
-                  labelFormatter={(label, items) => items[0]?.payload?.fullName || label}
-                />
-                <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: 12 }} />
-                <Bar dataKey="Số liệu gốc" fill="#9ca3af" opacity={0.35} radius={[4, 4, 0, 0]} />
-                <Line type="monotone" dataKey="Số liệu điều chỉnh" stroke="#005f73" strokeWidth={3} activeDot={{ r: 6 }} dot={{ r: 4 }} />
-              </ComposedChart>
-            </ResponsiveContainer>
+        <div className="p-5 space-y-4 text-left">
+          {/* HEADER IN PREVIEW */}
+          <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold font-mono px-2 py-0.5 bg-gray-100 text-gray-800 rounded border border-gray-200">
+                {selectedIndicator?.code}
+              </span>
+              <PillarBadge pillar={selectedIndicator?.pillar} />
+              <span className="text-xs text-gray-500">Năm {selectedYear}</span>
+            </div>
+            <Badge variant={isChartPublished ? 'success' : 'danger'}>
+              {isChartPublished ? 'Trạng thái: Công bố' : 'Trạng thái: Tạm ẩn'}
+            </Badge>
           </div>
 
-          {chartDescription && (
-            <div className="bg-blue-50/60 border border-blue-200 rounded-xl p-3.5 text-xs text-gray-700">
-              <div className="font-bold text-vna-blue mb-1 flex items-center gap-1.5">
-                <FileText size={14} />
-                <span>Mô tả / Thuyết minh biểu đồ:</span>
+          {isCurrentSubChartText ? (
+            /* TEXT PUBLICATION PREVIEW */
+            <div className="bg-slate-50/70 p-5 rounded-xl border border-gray-200 space-y-4">
+              <div className="flex items-center gap-2 text-vna-blue">
+                <BookOpen size={18} />
+                <h4 className="text-sm font-bold text-gray-900">{selectedSubChart?.name}</h4>
               </div>
-              <p className="whitespace-pre-line leading-relaxed text-gray-800">{chartDescription}</p>
+
+              <div className="bg-white p-4.5 rounded-lg border border-gray-200 shadow-2xs text-xs text-gray-800 leading-relaxed whitespace-pre-line font-normal">
+                {editStates[`Năm ${selectedYear}`]?.overrideValue || getSystemRealValue(selectedSubChart?.code, `Năm ${selectedYear}`, selectedSubChart?.unit)}
+              </div>
+
+              {chartDescription && (
+                <div className="bg-blue-50/60 border border-blue-200 rounded-lg p-3 text-xs text-gray-700">
+                  <span className="font-bold text-vna-blue block mb-1">Thuyết minh bổ sung:</span>
+                  <p className="whitespace-pre-line leading-relaxed">{chartDescription}</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* NUMERIC CHART PREVIEW */
+            <div className="space-y-4">
+              <div className="h-[350px] bg-slate-50 p-4 rounded-xl border border-gray-200">
+                <ResponsiveContainer width="100%" height="100%">
+                  <ComposedChart data={previewChartData} margin={{ top: 15, right: 10, left: -15, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                    <XAxis dataKey="periodLabel" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} unit={selectedSubChart?.unit === '%' ? '%' : ''} />
+                    <Tooltip
+                      contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
+                      labelFormatter={(label, items) => items[0]?.payload?.fullName || label}
+                    />
+                    <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: 12 }} />
+                    <Bar dataKey="Số liệu gốc" fill="#9ca3af" opacity={0.35} radius={[4, 4, 0, 0]} />
+                    <Line type="monotone" dataKey="Số liệu điều chỉnh" stroke="#005f73" strokeWidth={3} activeDot={{ r: 6 }} dot={{ r: 4 }} />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+
+              {chartDescription && (
+                <div className="bg-blue-50/60 border border-blue-200 rounded-xl p-3.5 text-xs text-gray-700">
+                  <div className="font-bold text-vna-blue mb-1 flex items-center gap-1.5">
+                    <FileText size={14} />
+                    <span>Mô tả / Thuyết minh biểu đồ:</span>
+                  </div>
+                  <p className="whitespace-pre-line leading-relaxed text-gray-800">{chartDescription}</p>
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -455,30 +455,27 @@ export const SysRolesPage: React.FC = () => {
         </div>
       </Modal>
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 border-b border-gray-100 pb-4 text-left">
-        <div>
-          <h2 className="text-xl font-bold text-vna-blue">Quản lý Nhóm quyền & Vai trò</h2>
-          <p className="text-sm text-black/45 mt-1">Tách biệt quyền truy cập tính năng, phạm vi form nhập liệu và chỉ tiêu ESG</p>
-        </div>
-        <Button variant="primary" onClick={() => setIsAddModalOpen(true)} className="shadow-md cursor-pointer font-bold flex items-center gap-1.5">
-          <Plus size={16} /> Thêm nhóm quyền
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4 text-left">
         <div className="flex h-[680px] flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 bg-gray-50 p-4">
-            <div className="relative"><Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" /><Input className="pl-10" placeholder="Tìm nhóm quyền..." /></div>
+          <div className="border-b border-gray-200 bg-gray-50 p-3.5 space-y-2.5">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">Nhóm quyền & Vai trò</span>
+              <Button variant="primary" size="sm" onClick={() => setIsAddModalOpen(true)} className="shadow-xs cursor-pointer font-bold flex items-center gap-1 text-xs py-1 px-2.5">
+                <Plus size={14} /> Thêm mới
+              </Button>
+            </div>
+            <div className="relative">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Input className="pl-9 text-xs h-9" placeholder="Tìm nhóm quyền..." />
+            </div>
           </div>
           <div className="flex-1 space-y-1 overflow-y-auto p-2">
             {roles.map(role => (
-              <button key={role.id} onClick={() => setSelectedRoleId(role.id)} className={`w-full rounded-lg border p-3 text-left transition-colors ${selectedRole.id === role.id ? 'border-blue-200 bg-blue-50' : 'border-transparent hover:bg-gray-50'}`}>
-                <div className="flex items-start justify-between gap-2">
-                  <span className={`font-semibold ${selectedRole.id === role.id ? 'text-vna-blue' : 'text-gray-800'}`}>{role.name}</span>
+              <button key={role.id} onClick={() => setSelectedRoleId(role.id)} className={`w-full rounded-lg border p-3 text-left transition-colors cursor-pointer ${selectedRole.id === role.id ? 'border-blue-200 bg-blue-50' : 'border-transparent hover:bg-gray-50'}`}>
+                <div className="flex items-center justify-between gap-2">
+                  <span className={`font-semibold text-sm ${selectedRole.id === role.id ? 'text-vna-blue' : 'text-gray-800'}`}>{role.name}</span>
                   <Badge variant={role.id === 'ROLE_ADMIN' ? 'warning' : 'secondary'}>{role.formGrants.filter(grant => grant.view).length} form</Badge>
                 </div>
-                <p className="mt-1 text-xs text-gray-500">{role.description}</p>
-                <p className="mt-2 font-mono text-[10px] text-gray-400">{role.id}</p>
               </button>
             ))}
           </div>
@@ -489,7 +486,7 @@ export const SysRolesPage: React.FC = () => {
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <div className="flex items-center gap-2"><ShieldCheck size={19} className="text-vna-gold" /><h2 className="font-bold text-gray-800">{selectedRole.name}</h2></div>
-                {isAdminRole && <p className="mt-1 text-xs text-amber-700">Nhóm hệ thống: luôn có toàn quyền và không thể giới hạn form.</p>}
+                {/* {isAdminRole && <p className="mt-1 text-xs text-amber-700">Nhóm hệ thống: luôn có toàn quyền và không thể giới hạn form.</p>} */}
               </div>
               <Button variant="primary" size="sm" onClick={() => setToast({ message: 'Đã lưu cấu hình nhóm quyền thành công.', type: 'success' })}><Save size={16} /> Lưu thay đổi</Button>
             </div>

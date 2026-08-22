@@ -141,58 +141,80 @@ export const DocumentsPage: React.FC = () => {
 
     // 1. LIST VIEW
     const renderList = () => (
-        <div className="flex-1 flex flex-col animate-in fade-in duration-300">
-            <div className="flex justify-end items-center mb-6">
-                <Button onClick={handleAddNew} className="shadow-lg">
-                    <Plus size={18} /> Thêm tài liệu
+        <div className="flex-1 flex flex-col animate-in fade-in duration-300 text-left">
+            <div className="flex justify-end items-center mb-4">
+                <Button onClick={handleAddNew} className="shadow-md cursor-pointer font-bold flex items-center gap-1.5">
+                    <Plus size={16} /> Thêm tài liệu
                 </Button>
             </div>
 
-            {/* Styled Filters (Matches IndicatorsPage style) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 mb-6 bg-white p-4 rounded-lg border border-gray-200 items-end">
-                <div className="md:col-span-5 relative">
-                    <label className="block text-xs font-semibold text-black/45 mb-1 ml-1">Từ khóa</label>
-                    <div className="relative">
-                        <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
-                        <input
-                            type="text"
-                            placeholder="Tìm theo tên, mã tài liệu..."
-                            value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
-                            className="w-full px-3 py-2 pl-9 border border-gray-300 rounded-md text-sm focus:ring-1 focus:ring-vna-blue outline-none"
-                        />
-                    </div>
-                </div>
-                <div className="md:col-span-4">
-                    <Select
-                        label="Phạm vi"
-                        options={[{ label: 'Tất cả phạm vi', value: '' }, { label: 'Công bố (Public)', value: 'public' }, { label: 'Nội bộ (Internal)', value: 'internal' }]}
-                        value={filterScope}
-                        onChange={setFilterScope}
-                        placeholder="Tất cả phạm vi"
-                    />
-                </div>
-                <div className="md:col-span-3">
-                    <Select
-                        label="Định dạng"
-                        options={[{ label: 'Tất cả định dạng', value: '' }, { label: 'PDF', value: 'PDF' }, { label: 'Excel', value: 'Excel' }, { label: 'Word', value: 'Word' }]}
-                        value={filterType}
-                        onChange={setFilterType}
-                        placeholder="Tất cả định dạng"
-                    />
-                </div>
-            </div>
+            <div className="overflow-hidden rounded-xl border border-gray-200 flex-1 shadow-xs bg-white">
+                <table className="w-full text-left border-collapse">
+                    <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                            <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-14 text-center">STT</th>
+                            <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 min-w-[280px]">Thông tin Tài liệu</th>
+                            <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-44">Phạm vi</th>
+                            <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-52">Người đăng</th>
+                            <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-36">Ngày đăng</th>
+                            <th className="py-3.5 px-4 font-semibold text-sm text-gray-700 w-24 text-center">Thao tác</th>
+                        </tr>
 
-            <div className="overflow-hidden rounded-lg border border-gray-200 flex-1">
-                <table className="w-full text-left">
-                    <thead className="bg-vna-blue text-white">
-                        <tr>
-                            <th className="p-4 font-semibold text-sm w-12 text-center">STT</th>
-                            <th className="p-4 font-semibold text-sm">Thông tin Tài liệu</th>
-                            <th className="p-4 font-semibold text-sm">Phạm vi</th>
-                            <th className="p-4 font-semibold text-sm">Người đăng</th>
-                            <th className="p-4 font-semibold text-sm">Ngày đăng</th>
-                            <th className="p-4 font-semibold text-sm w-24"></th> {/* Empty header for Actions */}
+                        {/* COLUMN FILTER ROW */}
+                        <tr className="bg-blue-50/70 border-b border-gray-200">
+                            {/* 1. STT Spacer */}
+                            <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                            {/* 2. Filter Document Info */}
+                            <th className="py-2 px-3 text-left">
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        value={searchText}
+                                        onChange={(e) => setSearchText(e.target.value)}
+                                        placeholder="Lọc tên, mã tài liệu..."
+                                        className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2.5 py-1 text-gray-800 outline-none focus:border-vna-blue shadow-2xs"
+                                    />
+                                    {searchText && (
+                                        <button onClick={() => setSearchText('')} className="absolute right-2 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                                    )}
+                                </div>
+                            </th>
+
+                            {/* 3. Filter Scope */}
+                            <th className="py-2 px-3 text-left">
+                                <select
+                                    value={filterScope}
+                                    onChange={(e) => setFilterScope(e.target.value)}
+                                    className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-vna-blue shadow-2xs"
+                                >
+                                    <option value="">Tất cả phạm vi</option>
+                                    <option value="public">Công bố (Public)</option>
+                                    <option value="internal">Nội bộ (Internal)</option>
+                                </select>
+                            </th>
+
+                            {/* 4. Filter Uploader Spacer */}
+                            <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                            {/* 5. Filter Date Spacer */}
+                            <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                            {/* 6. Clear Filter Action */}
+                            <th className="py-2 px-2 text-center">
+                                {(searchText || filterScope) && (
+                                    <button
+                                        onClick={() => {
+                                            setSearchText('');
+                                            setFilterScope('');
+                                        }}
+                                        className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-1 py-0.5 rounded hover:bg-red-50"
+                                        title="Xóa tất cả bộ lọc"
+                                    >
+                                        Xóa lọc
+                                    </button>
+                                )}
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 bg-white">

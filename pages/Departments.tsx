@@ -168,19 +168,9 @@ export const DepartmentsPage: React.FC = () => {
     <div className="space-y-6">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 border-b border-gray-100 pb-4 text-left">
-        <div>
-          <h2 className="text-xl font-bold text-vna-blue">Quản lý Ban / Đơn vị</h2>
-          <p className="text-sm text-black/45 mt-1">Quản lý cơ cấu các ban của VNA, phân bổ chỉ tiêu ESG quản lý và liên thông người dùng</p>
-        </div>
-        <Button variant="primary" onClick={handleOpenAddModal} className="shadow-md cursor-pointer font-bold flex items-center gap-1.5">
-          <Plus size={16} /> Thêm mới Ban
-        </Button>
-      </div>
-
-      {/* Advanced Filters Block */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200 items-end text-left shadow-xs">
-        <div className="md:col-span-2">
+      {/* Advanced Filters Block & Action */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200 items-end text-left shadow-xs">
+        <div className="md:col-span-6">
           <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Từ khóa</label>
           <div className="relative">
             <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
@@ -193,13 +183,18 @@ export const DepartmentsPage: React.FC = () => {
             />
           </div>
         </div>
-        <div>
+        <div className="md:col-span-3">
           <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Trạng thái</label>
           <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-full">
             <option value="">Tất cả trạng thái</option>
             <option value="active">Hoạt động (Active)</option>
             <option value="deactive">Tạm dừng (Deactive)</option>
           </Select>
+        </div>
+        <div className="md:col-span-3 flex justify-end">
+          <Button variant="primary" onClick={handleOpenAddModal} className="shadow-md cursor-pointer font-bold flex items-center gap-1.5 w-full md:w-auto h-[38px] justify-center shrink-0">
+            <Plus size={16} /> Thêm mới Ban
+          </Button>
         </div>
       </div>
 

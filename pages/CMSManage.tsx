@@ -36,60 +36,95 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
 
   if (code === 'GRI 302-1') {
     return [
-      { code: 'GRI 302-1-JETA1', name: 'Biểu đồ 1: Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
-      { code: 'GRI 302-1-SAF', name: 'Biểu đồ 2: Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
+      { code: 'GRI 302-1-JETA1', name: 'Tiêu thụ Jet A-1 Đội bay', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq },
+      { code: 'GRI 302-1-SAF', name: 'Tiêu thụ Nhiên liệu SAF pha trộn', unit: 'Tấn', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: freq }
     ];
   }
 
   if (code === 'GRI 305-4') {
     return [
-      { code: 'GRI 305-4-ACTUAL', name: 'Biểu đồ 1: Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
+      { code: 'GRI 305-4-ACTUAL', name: 'Cường độ phát thải CO2 thực tế', unit: 'Tấn CO2/100 RTK', source: 'Form Nhập liệu (Ban Kỹ thuật)', frequency: 'Hàng năm' }
     ];
   }
 
   if (code === 'GRI 404-2') {
     return [
-      { code: 'GRI 404-2-HQ', name: 'Biểu đồ 1: Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-OPS', name: 'Biểu đồ 2: Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-TECH', name: 'Biểu đồ 3: Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-SERVICE', name: 'Biểu đồ 4: Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 404-2-COMMERCE', name: 'Biểu đồ 5: Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+      { code: 'GRI 404-2-HQ', name: 'Giờ đào tạo trung bình Khối Cơ quan', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-OPS', name: 'Giờ đào tạo trung bình Khối Khai thác', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-TECH', name: 'Giờ đào tạo trung bình Khối Kỹ thuật', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-SERVICE', name: 'Giờ đào tạo trung bình Khối Dịch vụ', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 404-2-COMMERCE', name: 'Giờ đào tạo trung bình Khối Thương mại', unit: 'Giờ', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
     ];
   }
 
   if (code === 'Airline B-1') {
     return [
-      { code: 'AIRLINE-B1-NPS', name: 'Biểu đồ 1: Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
+      { code: 'AIRLINE-B1-NPS', name: 'Biến động chỉ số Net Promoter Score', unit: 'Điểm', source: 'Hệ thống đối ngoại (Qualtrics API)', frequency: 'Hàng quý' }
     ];
   }
 
   if (code === 'GRI 2-7') {
     return [
-      { code: 'GRI 2-7-PILOTS', name: 'Biểu đồ 1: Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-CABIN', name: 'Biểu đồ 2: Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-TECH', name: 'Biểu đồ 3: Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
-      { code: 'GRI 2-7-GROUND', name: 'Biểu đồ 4: Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
+      { code: 'GRI 2-7-PILOTS', name: 'Cơ cấu - Đội ngũ Phi công', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-CABIN', name: 'Cơ cấu - Đội ngũ Tiếp viên', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-TECH', name: 'Cơ cấu - Kỹ sư Kỹ thuật', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq },
+      { code: 'GRI 2-7-GROUND', name: 'Cơ cấu - Nhân viên Mặt đất & CQ', unit: '%', source: 'Form Nhập liệu (Ban Tổ chức nhân lực)', frequency: freq }
     ];
   }
 
   if (code === 'GRI 2-9') {
     return [
-      { code: 'GRI 2-9-IND', name: 'Biểu đồ 1: Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
-      { code: 'GRI 2-9-EXEC', name: 'Biểu đồ 2: Thành phần Hội đồng Điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
-      { code: 'GRI 2-9-NONEXEC', name: 'Biểu đồ 3: Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
+      { code: 'GRI 2-9-IND', name: 'Thành phần Hội đồng Độc lập', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
+      { code: 'GRI 2-9-EXEC', name: 'Thành phần Hội đồng Điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' },
+      { code: 'GRI 2-9-NONEXEC', name: 'Thành phần Hội đồng Không điều hành', unit: 'Thành viên', source: 'Nhập thủ công (Tổ Thư ký)', frequency: 'Hàng năm' }
     ];
   }
 
   return [
-    { code: `${code}-SUB1`, name: `Biểu đồ 1: Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
+    { code: `${code}-SUB1`, name: `Thống kê số liệu ${indicator.name}`, unit: unit, source: getIndicatorSource(code, unit), frequency: freq }
   ];
 };
-import { Card, Button, Input, Badge, Table, Toast } from '../components/UI';
+import { Card, Button, Input, Badge, Table, Toast, Modal } from '../components/UI';
 import {
-  LayoutDashboard, Newspaper, FileText, Upload, Save, RefreshCw, Eye, EyeOff, Edit, Plus, CheckCircle, XCircle,
+  LayoutDashboard, BarChart2, Newspaper, FileText, Upload, Save, RefreshCw, Eye, EyeOff, Edit, Edit2, Plus, CheckCircle, XCircle,
   Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
+
+
+const DEFAULT_CHART_DESCRIPTIONS: Record<string, string> = {
+  // Môi trường (Environment)
+  'GRI 302-1-JETA1': 'Theo dõi tổng lượng tiêu thụ nhiên liệu bay truyền thống (Jet A-1) của toàn đội tàu bay Vietnam Airlines trên mạng đường bay nội địa và quốc tế, phản ánh hiệu quả các chương trình tiết kiệm nhiên liệu và tối ưu kế hoạch bay.',
+  'GRI 302-1-SAF': 'Thống kê sản lượng nhiên liệu hàng không bền vững (SAF) được nạp thử nghiệm và ứng dụng định kỳ theo lộ trình giảm phát thải khí nhà kính và chuyển dịch năng lượng xanh của Hãng.',
+  'GRI 305-4-ACTUAL': 'Chỉ số cường độ phát thải CO2 trên mỗi đơn vị luân chuyển hành khách và hàng hóa (RTK), đo lường mức độ phát thải trung bình và hiệu suất khai thác xanh của đội tàu bay thế hệ mới A350/B787/A321neo.',
+  'GRI 305-1-SUB1': 'Tổng lượng phát thải khí nhà kính trực tiếp (Scope 1) phát sinh chủ yếu từ hoạt động đốt cháy nhiên liệu của động cơ tàu bay và phương tiện cơ giới mặt đất.',
+  'GRI 305-2-SUB1': 'Lượng phát thải khí nhà kính gián tiếp (Scope 2) từ tiêu thụ điện năng tại các tòa nhà văn phòng, nhà ga, trung tâm điều hành và xưởng bảo dưỡng kỹ thuật.',
+  'GRI 305-3-SUB1': 'Ước tính phát thải khí nhà kính gián tiếp khác (Scope 3) từ chuỗi cung ứng suất ăn, dịch vụ mặt đất thuê ngoài và đi lại công tác của cán bộ nhân viên.',
+  'GRI 303-5-SUB1': 'Tổng lượng nước tiêu thụ phục vụ công tác kỹ thuật, vệ sinh tàu bay và sinh hoạt tại các cơ sở mặt đất của Tổng công ty.',
+  'GRI 306-3-SUB1': 'Khối lượng và tỷ lệ phân loại, tái chế rác thải rắn phát sinh trên các chuyến bay và tại các khu vực làm việc mặt đất.',
+
+  // Xã hội (Social)
+  'AIRLINE-B1-NPS': 'Chỉ số hài lòng và mức độ sẵn sàng giới thiệu của khách hàng (Net Promoter Score) qua các khảo sát độc lập trên toàn mạng bay năm 2024 - 2025, phản ánh chất lượng dịch vụ 4 sao tiêu chuẩn quốc tế SkyTrax.',
+  'GRI 404-2-HQ': 'Thời lượng huấn luyện, đào tạo chuyên môn và nâng cao năng lực quản trị dành cho cán bộ nhân viên thuộc Khối Cơ quan Tổng công ty.',
+  'GRI 404-2-OPS': 'Tổng số giờ huấn luyện an toàn bay định kỳ, quy trình tác nghiệp tiêu chuẩn và diễn tập ứng phó tình huống khẩn cấp cho lực lượng phi công và tiếp viên.',
+  'GRI 404-2-TECH': 'Chương trình đào tạo kỹ thuật định kỳ, chứng chỉ bảo dưỡng tàu bay quốc tế và chuyển giao công nghệ cho đội ngũ kỹ sư bảo dưỡng kỹ thuật.',
+  'GRI 404-2-SERVICE': 'Khóa đào tạo văn hóa dịch vụ nâng tầm, kỹ năng chăm sóc khách hàng và quy chuẩn dịch vụ hành khách chuyên nghiệp.',
+  'GRI 404-2-COMMERCE': 'Huấn luyện kỹ năng thương mại hàng không, quản trị doanh thu và phát triển thị trường hàng không bền vững.',
+  'GRI 401-1-SUB1': 'Tỷ lệ tuyển dụng mới và tỷ lệ biến động nhân sự định kỳ theo từng nhóm tuổi, giới tính và đơn vị công tác.',
+  'GRI 403-9-SUB1': 'Thống kê tỷ lệ sự cố tai nạn lao động và các biện pháp bảo hộ, cải thiện điều kiện làm việc cho người lao động toàn Tổng công ty.',
+  'GRI 405-1-SUB1': 'Cơ cấu đa dạng lực lượng lao động theo giới tính, độ tuổi và tỷ lệ nữ giới đảm nhiệm các vị trí quản lý lãnh đạo.',
+
+  // Quản trị (Governance)
+  'GRI 2-7-PILOTS': 'Cơ cấu tỷ lệ đội ngũ người lái tàu bay (Cơ trưởng, Cơ phó) được phân bổ theo quốc tịch, độ tuổi và thâm niên công tác.',
+  'GRI 2-7-CABIN': 'Thống kê lực lượng tiếp viên hàng không phục vụ trên các dòng tàu bay thân rộng và thân hẹp của Vietnam Airlines.',
+  'GRI 2-7-TECH': 'Tỷ lệ cơ cấu kỹ sư, nhân viên bảo dưỡng tàu bay có chứng chỉ quốc tế đang làm việc tại các trung tâm bảo dưỡng.',
+  'GRI 2-7-GROUND': 'Phân bổ nhân sự khối mặt đất, phục vụ hành khách tại các sân bay căn cứ và các ban chuyên môn cơ quan.',
+  'GRI 2-9-IND': 'Số lượng và tỷ lệ thành viên độc lập trong Hội đồng Quản trị nhằm đảm bảo tính minh bạch, khách quan trong các quyết sách chiến lược.',
+  'GRI 2-9-EXEC': 'Thành phần thành viên Hội đồng Điều hành trực tiếp chỉ đạo và điều hành hoạt động sản xuất kinh doanh thường nhật của Tổng công ty.',
+  'GRI 2-9-NONEXEC': 'Thành phần thành viên không điều hành tham gia giám sát các tiểu ban kiểm toán, quản trị rủi ro và nhân sự.',
+  'GRI 205-2-SUB1': 'Tỷ lệ cán bộ nhân viên hoàn thành khóa đào tạo tuân thủ đạo đức kinh doanh và phổ biến chính sách phòng chống tham nhũng.',
+  'GRI 418-1-SUB1': 'Số lượng sự cố liên quan đến an toàn an ninh thông tin và bảo mật dữ liệu khách hàng theo tiêu chuẩn ISO 27001 và Nghị định 13/2023/NĐ-CP.'
+};
 
 interface PillarReportItem {
   id: string;
@@ -273,18 +308,80 @@ export const CMSManagePage: React.FC = () => {
   const [previewPage, setPreviewPage] = useState<'home' | 'detail'>('home');
   const [previewPillarId, setPreviewPillarId] = useState<'environment' | 'social' | 'governance'>('environment');
   const [showPreview, setShowPreview] = useState(false);
-  const [previewingChart, setPreviewingChart] = useState<SubChart | null>(null);
+  const [previewingChart, setPreviewingChart] = useState<any | null>(null);
 
-  // Load published chart status from localStorage
+  // Sync published statuses and descriptions from localStorage (saved by PublishAdjust page)
   const [publishedChartStatuses, setPublishedChartStatuses] = useState<Record<string, boolean>>({});
+  const [chartDescriptions, setChartDescriptions] = useState<Record<string, string>>(() => {
+    try {
+      const savedDesc = localStorage.getItem('vna_chart_publish_descriptions');
+      if (savedDesc) {
+        return { ...DEFAULT_CHART_DESCRIPTIONS, ...JSON.parse(savedDesc) };
+      }
+    } catch (e) { }
+    return { ...DEFAULT_CHART_DESCRIPTIONS };
+  });
+  const [expandedDescMap, setExpandedDescMap] = useState<Record<string, boolean>>({});
+  const [editingChartForDesc, setEditingChartForDesc] = useState<any | null>(null);
+  const [editingDescInput, setEditingDescInput] = useState<string>('');
+  const [searchChartCode, setSearchChartCode] = useState<string>('');
+  const [searchChartName, setSearchChartName] = useState<string>('');
+
+  const getSubChartDescription = (sub: any) => {
+    return chartDescriptions[`${sub.indicatorCode}_${sub.code}`] ||
+      chartDescriptions[sub.code] ||
+      sub.description ||
+      DEFAULT_CHART_DESCRIPTIONS[sub.code] ||
+      DEFAULT_CHART_DESCRIPTIONS[`${sub.indicatorCode}-SUB1`] ||
+      DEFAULT_CHART_DESCRIPTIONS[sub.indicatorCode] ||
+      `Số liệu thống kê và diễn biến phân tích định kỳ chỉ tiêu ${sub.name}, phản ánh các cam kết và tiến độ phát triển bền vững của Vietnam Airlines.`;
+  };
+
+  const handleOpenEditDesc = (sub: any) => {
+    const currentDesc = getSubChartDescription(sub);
+    setEditingChartForDesc(sub);
+    setEditingDescInput(currentDesc);
+  };
+
+  const handleSaveDesc = () => {
+    if (!editingChartForDesc) return;
+    const subCode = editingChartForDesc.code;
+    const indCode = editingChartForDesc.indicatorCode || '';
+    const newDesc = editingDescInput.trim();
+
+    const updated = {
+      ...chartDescriptions,
+      [subCode]: newDesc,
+      [`${indCode}_${subCode}`]: newDesc
+    };
+
+    setChartDescriptions(updated);
+    try {
+      localStorage.setItem('vna_chart_publish_descriptions', JSON.stringify(updated));
+      window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
+    } catch (e) {
+      console.error('Failed to save chart descriptions', e);
+    }
+
+    setToast({ message: `Đã cập nhật mô tả cho biểu đồ "${editingChartForDesc.name}" thành công!`, type: 'success' });
+    setEditingChartForDesc(null);
+  };
 
   useEffect(() => {
     const handleSync = () => {
-      const saved = localStorage.getItem('vna_publish_chart_status');
-      if (saved) {
+      const savedStatus = localStorage.getItem('vna_publish_chart_status');
+      if (savedStatus) {
         try {
-          setPublishedChartStatuses(JSON.parse(saved));
+          setPublishedChartStatuses(JSON.parse(savedStatus));
         } catch (e) { }
+      }
+      const savedDesc = localStorage.getItem('vna_chart_publish_descriptions');
+      if (savedDesc) {
+        try {
+          setChartDescriptions(prev => ({ ...DEFAULT_CHART_DESCRIPTIONS, ...prev, ...JSON.parse(savedDesc) }));
+        } catch (e) { }
+      } else {
+        setChartDescriptions(prev => ({ ...DEFAULT_CHART_DESCRIPTIONS, ...prev }));
       }
     };
     handleSync();
@@ -312,13 +409,29 @@ export const CMSManagePage: React.FC = () => {
       subCharts.forEach(sub => {
         const isPublished = publishedChartStatuses[sub.code] !== false;
         if (isPublished) {
-          allSubCharts.push(sub);
+          const desc = chartDescriptions[`${ind.code}_${sub.code}`] || chartDescriptions[sub.code] || '';
+          allSubCharts.push({
+            ...sub,
+            indicatorCode: ind.code,
+            indicatorName: ind.name,
+            description: desc
+          });
         }
       });
     });
 
     return allSubCharts;
-  }, [selectedPillarId, pillars, publishedChartStatuses]);
+  }, [selectedPillarId, pillars, publishedChartStatuses, chartDescriptions]);
+
+  const filteredPublishedSubCharts = useMemo(() => {
+    return publishedSubChartsForPillar.filter(sub => {
+      const codeStr = (sub.indicatorCode || sub.code || '').toLowerCase();
+      const nameStr = (sub.name || '').toLowerCase();
+      const matchesCode = !searchChartCode || codeStr.includes(searchChartCode.toLowerCase());
+      const matchesName = !searchChartName || nameStr.includes(searchChartName.toLowerCase());
+      return matchesCode && matchesName;
+    });
+  }, [publishedSubChartsForPillar, searchChartCode, searchChartName]);
 
   // Helper map for fast indicator lookup by ID/Code
   const indicatorMap = useMemo(() => {
@@ -1284,6 +1397,21 @@ export const CMSManagePage: React.FC = () => {
                         <h4 className="font-bold text-sm text-gray-800">2. Cấu hình Bài viết chi tiết Trụ cột (Pillar Details)</h4>
                       </div>
 
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-gray-700 mb-1">Hình ảnh đại diện</label>
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="https://example.com/image.jpg"
+                            value={activePillar.newsThumbnail}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setPillars(pillars.map(p => p.id === activePillar.id ? { ...p, newsThumbnail: val } : p));
+                            }}
+                          />
+                          <Button variant="outline" className="shrink-0"><Upload size={14} /></Button>
+                        </div>
+                      </div>
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-xs font-bold text-gray-700 mb-1">Mã định danh Trụ cột</label>
@@ -1306,7 +1434,7 @@ export const CMSManagePage: React.FC = () => {
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung "Định nghĩa / Giải thích chuyên môn"</label>
+                          <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung Định nghĩa chuyên môn</label>
                           <textarea
                             rows={3}
                             placeholder="Trả lời câu hỏi: Trụ cột này là gì đối với Vietnam Airlines?"
@@ -1322,7 +1450,7 @@ export const CMSManagePage: React.FC = () => {
                           />
                         </div>
 
-                        <div className="md:col-span-2">
+                        {/* <div className="md:col-span-2">
                           <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung "Cơ chế tuân thủ / Thực tiễn hành động"</label>
                           <textarea
                             rows={3}
@@ -1337,10 +1465,10 @@ export const CMSManagePage: React.FC = () => {
                               } : p));
                             }}
                           />
-                        </div>
+                        </div> */}
 
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung "Mục tiêu tương lai" (Lộ trình Net Zero 2030, 2050)</label>
+                          <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung bài viết</label>
                           <textarea
                             rows={2}
                             placeholder="Định hướng và mục tiêu chiến lược VNA hướng tới..."
@@ -1356,7 +1484,7 @@ export const CMSManagePage: React.FC = () => {
                           />
                         </div>
 
-                        <div>
+                        {/* <div>
                           <label className="block text-xs font-bold text-gray-700 mb-1">Tên tài liệu đính kèm (Tùy chọn)</label>
                           <Input
                             placeholder="Ví dụ: Chính sách bảo vệ môi trường VNA.pdf"
@@ -1369,9 +1497,9 @@ export const CMSManagePage: React.FC = () => {
                               } : p));
                             }}
                           />
-                        </div>
+                        </div> */}
 
-                        <div>
+                        {/* <div>
                           <label className="block text-xs font-bold text-gray-700 mb-1">Link tài liệu đính kèm (URL)</label>
                           <Input
                             placeholder="https://vietnamairlines.com/pdf/policy.pdf"
@@ -1381,7 +1509,7 @@ export const CMSManagePage: React.FC = () => {
                               setPillars(pillars.map(p => p.id === activePillar.id ? { ...p, attachmentUrl: val } : p));
                             }}
                           />
-                        </div>
+                        </div> */}
 
                         {/* <div className="md:col-span-2">
                           <label className="block text-xs font-bold text-gray-700 mb-1">Đường dẫn Biểu đồ (Dữ liệu hình ảnh - Tùy chọn)</label>
@@ -1551,59 +1679,175 @@ export const CMSManagePage: React.FC = () => {
                           </div>
                         </div>
 
-                        {/* PREVIEW OF PUBLISHED CHARTS (CARD VIEW WITH PREVIEW BUTTON) */}
-                        <div className="md:col-span-2 bg-[#f8fafc] p-4.5 rounded-xl border border-dashed border-[#005f6e]/30 mt-3 space-y-3.5 shadow-2xs">
-                          <div className="flex justify-between items-center border-b border-gray-200 pb-2">
+                        {/* DANH SÁCH BIỂU ĐỒ ĐÃ CÔNG BỐ (DẠNG BẢNG TỐI GIẢN) */}
+                        <div className="md:col-span-2 bg-white rounded-xl border border-gray-200 mt-3 shadow-2xs overflow-hidden">
+                          <div className="p-3.5 bg-gray-50/70 border-b border-gray-200 flex justify-between items-center">
                             <span className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
                               <Eye size={14} className="text-[#005f6e]" />
-                              Danh sách biểu đồ đã công bố (Có thể xem trước)
+                              Biểu đồ yêu cầu công bố
                             </span>
-                            <Badge variant="primary" className="text-[10px] font-bold bg-[#005f6e]/10 text-[#005f6e] border-none">
-                              {publishedSubChartsForPillar.length} Biểu đồ
-                            </Badge>
+                            <span className="text-[11px] bg-blue-50 text-[#005f6e] px-2.5 py-0.5 rounded-full border border-blue-100 font-bold font-mono">
+                              {publishedSubChartsForPillar.length} biểu đồ
+                            </span>
                           </div>
 
                           {publishedSubChartsForPillar.length === 0 ? (
-                            <p className="text-[11px] text-gray-400 italic">Không có biểu đồ nào được công bố dưới trụ cột này trong mục Điều chỉnh số liệu công bố.</p>
+                            <div className="p-6 text-center text-xs text-gray-400 italic">
+                              Không có biểu đồ nào được công bố dưới trụ cột này trong mục Điều chỉnh số liệu công bố.
+                            </div>
                           ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                              {publishedSubChartsForPillar.map(sub => (
-                                <div key={sub.code} className="bg-white p-3.5 rounded-xl border border-gray-200 hover:border-[#005f6e]/40 transition-all shadow-3xs flex flex-col justify-between gap-3">
-                                  <div>
-                                    <div className="flex justify-between items-start gap-2 mb-1.5">
-                                      <span className="text-[10px] font-bold px-2 py-0.5 bg-blue-50 text-[#005f6e] border border-blue-100 rounded font-mono">
-                                        {sub.code}
-                                      </span>
-                                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-green-50 text-green-700 border border-green-200">
-                                        Đang công bố
-                                      </span>
-                                    </div>
-                                    <h5 className="text-xs font-bold text-gray-800 line-clamp-2 leading-tight" title={sub.name}>
-                                      {sub.name}
-                                    </h5>
-                                    <div className="flex items-center gap-2 mt-2 text-[10px] text-gray-400 font-medium">
-                                      <span>ĐVT: <strong className="text-gray-600">{sub.unit}</strong></span>
-                                      <span>•</span>
-                                      <span>Tần suất: <strong className="text-gray-600">{sub.frequency}</strong></span>
-                                    </div>
-                                  </div>
+                            <div className="overflow-x-auto">
+                              <table className="min-w-full divide-y divide-gray-200 text-left">
+                                <thead className="bg-gray-50/80 text-gray-700">
+                                  <tr className="text-xs uppercase font-bold">
+                                    <th className="py-3 px-4 w-12 text-center">STT</th>
+                                    <th className="py-3 px-4 w-44 whitespace-nowrap">Mã chỉ tiêu</th>
+                                    <th className="py-3 px-4 min-w-[220px]">Tên biểu đồ</th>
+                                    <th className="py-3 px-4 min-w-[280px]">Mô tả biểu đồ</th>
+                                    <th className="py-3 px-4 w-28 text-center">Thao tác</th>
+                                  </tr>
 
-                                  <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
-                                    <span className="text-[9px] text-gray-400 truncate max-w-[120px]" title={sub.source}>
-                                      {sub.source}
-                                    </span>
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() => setPreviewingChart(sub)}
-                                      className="text-xs py-1 px-2.5 h-7 border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-semibold flex items-center gap-1 shrink-0 cursor-pointer"
-                                    >
-                                      <Eye size={12} />
-                                      <span>Xem trước</span>
-                                    </Button>
-                                  </div>
-                                </div>
-                              ))}
+                                  {/* COLUMN FILTER ROW */}
+                                  <tr className="bg-blue-50/70 border-b border-gray-200">
+                                    {/* 1. STT Spacer */}
+                                    <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                                    {/* 2. Filter Indicator Code */}
+                                    <th className="py-2 px-3 text-left">
+                                      <div className="relative">
+                                        <input
+                                          type="text"
+                                          value={searchChartCode}
+                                          onChange={(e) => setSearchChartCode(e.target.value)}
+                                          placeholder="Lọc mã..."
+                                          className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2.5 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                                        />
+                                        {searchChartCode && (
+                                          <button onClick={() => setSearchChartCode('')} className="absolute right-2 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                                        )}
+                                      </div>
+                                    </th>
+
+                                    {/* 3. Filter Chart Name */}
+                                    <th className="py-2 px-3 text-left">
+                                      <div className="relative">
+                                        <input
+                                          type="text"
+                                          value={searchChartName}
+                                          onChange={(e) => setSearchChartName(e.target.value)}
+                                          placeholder="Lọc tên biểu đồ..."
+                                          className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2.5 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                                        />
+                                        {searchChartName && (
+                                          <button onClick={() => setSearchChartName('')} className="absolute right-2 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                                        )}
+                                      </div>
+                                    </th>
+
+                                    {/* 4. Description Spacer */}
+                                    <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
+
+                                    {/* 5. Clear Filter Action */}
+                                    <th className="py-2 px-2 text-center">
+                                      {(searchChartCode || searchChartName) && (
+                                        <button
+                                          onClick={() => {
+                                            setSearchChartCode('');
+                                            setSearchChartName('');
+                                          }}
+                                          className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-1 py-0.5 rounded hover:bg-red-50"
+                                          title="Xóa tất cả bộ lọc"
+                                        >
+                                          Xóa lọc
+                                        </button>
+                                      )}
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100 text-xs text-gray-700">
+                                  {filteredPublishedSubCharts.map((sub, index) => {
+                                    const desc = getSubChartDescription(sub);
+                                    return (
+                                      <tr key={sub.code} className="hover:bg-blue-50/30 transition-colors group">
+                                        <td className="py-3 px-4 text-center text-black/45 font-medium">{index + 1}</td>
+                                        <td className="py-3 px-4">
+                                          <span className="text-[11px] font-bold font-mono px-2 py-0.5 bg-gray-100 text-gray-800 rounded border border-gray-200 whitespace-nowrap">
+                                            {sub.indicatorCode || sub.code}
+                                          </span>
+                                        </td>
+                                        <td className="py-3 px-4 font-semibold text-gray-900">
+                                          {sub.name}
+                                        </td>
+                                        <td className="py-3 px-4 text-gray-600 min-w-[280px] max-w-[420px]">
+                                          <div className="space-y-1.5">
+                                            <p
+                                              className={`leading-relaxed whitespace-pre-line text-[11px] text-gray-750 ${expandedDescMap[sub.code] ? '' : 'line-clamp-2'
+                                                }`}
+                                              title={expandedDescMap[sub.code] ? undefined : desc}
+                                            >
+                                              {desc}
+                                            </p>
+                                            <div className="flex items-center gap-3">
+                                              {desc.length > 90 && (
+                                                <button
+                                                  type="button"
+                                                  onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setExpandedDescMap(prev => ({
+                                                      ...prev,
+                                                      [sub.code]: !prev[sub.code]
+                                                    }));
+                                                  }}
+                                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-[#005f6e] hover:underline cursor-pointer py-0.5"
+                                                >
+                                                  {expandedDescMap[sub.code] ? '▲ Thu gọn' : '▼ Xem thêm'}
+                                                </button>
+                                              )}
+                                              {/* <button
+                                                type="button"
+                                                onClick={() => handleOpenEditDesc(sub)}
+                                                className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 hover:text-amber-800 hover:underline cursor-pointer py-0.5"
+                                              >
+                                                <Edit2 size={11} /> Sửa mô tả
+                                              </button> */}
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td className="py-3 px-4 text-center">
+                                          <div className="flex items-center justify-center gap-1.5">
+                                            {/* <Button
+                                              variant="outline"
+                                              size="sm"
+                                              onClick={() => handleOpenEditDesc(sub)}
+                                              className="text-[11px] py-1 px-2 h-7.5 border-amber-300 text-amber-800 hover:bg-amber-50 font-semibold flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs transition-all"
+                                              title="Chỉnh sửa mô tả biểu đồ"
+                                            >
+                                              <Edit2 size={12} />
+                                              <span>Sửa</span>
+                                            </Button> */}
+                                            <Button
+                                              variant="outline"
+                                              size="sm"
+                                              onClick={() => setPreviewingChart(sub)}
+                                              className="p-1.5 h-7.5 w-7.5 border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg"
+                                              title="Xem biểu đồ"
+                                            >
+                                              <BarChart2 size={15} />
+                                            </Button>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                  {filteredPublishedSubCharts.length === 0 && (
+                                    <tr>
+                                      <td colSpan={5} className="py-8 text-center text-xs text-gray-400 italic">
+                                        Không tìm thấy biểu đồ nào phù hợp với bộ lọc
+                                      </td>
+                                    </tr>
+                                  )}
+                                </tbody>
+                              </table>
                             </div>
                           )}
                         </div>
@@ -1616,6 +1860,63 @@ export const CMSManagePage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Modal Chỉnh sửa Mô tả Biểu đồ */}
+      {editingChartForDesc && (
+        <Modal
+          isOpen={true}
+          onClose={() => setEditingChartForDesc(null)}
+          title="Chỉnh sửa Mô tả Biểu đồ Công bố"
+          size="lg"
+          footer={
+            <div className="flex justify-end gap-2 w-full">
+              <Button variant="outline" onClick={() => setEditingChartForDesc(null)}>
+                Hủy bỏ
+              </Button>
+              <Button variant="primary" onClick={handleSaveDesc} className="flex items-center gap-1.5 font-bold shadow-xs">
+                <Save size={16} /> Lưu mô tả
+              </Button>
+            </div>
+          }
+        >
+          <div className="space-y-4 text-left">
+            <div className="p-3.5 bg-blue-50/70 rounded-xl border border-blue-100 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+              <div>
+                <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Tên biểu đồ</p>
+                <p className="text-sm font-bold text-vna-blue mt-0.5">{editingChartForDesc.name}</p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-xs font-bold font-mono px-2.5 py-1 bg-white text-gray-800 rounded border border-blue-200 shadow-2xs">
+                  {editingChartForDesc.indicatorCode || editingChartForDesc.code}
+                </span>
+                <Badge variant="primary">{editingChartForDesc.frequency || 'Hàng tháng'}</Badge>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide">
+                  Nội dung thuyết minh / Mô tả biểu đồ <span className="text-red-500">*</span>
+                </label>
+                <span className="text-[11px] text-gray-400 font-mono">
+                  {editingDescInput.length} ký tự
+                </span>
+              </div>
+              <textarea
+                value={editingDescInput}
+                onChange={(e) => setEditingDescInput(e.target.value)}
+                placeholder="Nhập nội dung thuyết minh, ý nghĩa, bối cảnh dữ liệu hoặc phân tích số liệu biểu đồ này..."
+                className="w-full h-36 p-3 text-xs text-gray-800 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005f6e]/30 focus:border-[#005f6e] leading-relaxed transition-all resize-y"
+                autoFocus
+              />
+              <p className="text-[11px] text-gray-500 mt-1.5 italic">
+                💡 Mô tả này sẽ được hiển thị đồng bộ trên Website công bố phát triển bền vững và phân hệ Điều chỉnh số liệu công bố.
+              </p>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       {/* Preview Modal */}
       {showPreview && (
         <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
@@ -2134,6 +2435,18 @@ export const CMSManagePage: React.FC = () => {
                   chartType={previewingChart.code.includes('SAF') ? 'doughnut' : 'line'}
                 />
               </div>
+
+              {/* Hiển thị mô tả / thuyết minh của biểu đồ nếu có */}
+              {(() => {
+                const desc = previewingChart.description || chartDescriptions[`${previewingChart.indicatorCode}_${previewingChart.code}`] || chartDescriptions[previewingChart.code];
+                if (!desc) return null;
+                return (
+                  <div className="bg-blue-50/50 p-3.5 rounded-xl border border-blue-100 text-xs text-gray-700">
+                    <span className="font-bold text-[#005f6e] block mb-1">Mô tả / Thuyết minh biểu đồ:</span>
+                    <p className="whitespace-pre-line leading-relaxed">{desc}</p>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Footer */}
