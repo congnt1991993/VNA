@@ -376,36 +376,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
           </div>
         );
       case 'governance':
-        return (
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="font-bold text-slate-800">{isEn ? 'Compliance & Safety Index' : 'Chỉ số Tuân thủ & An toàn'}</h4>
-                <span className="text-xs font-semibold text-vna-blue bg-blue-50 px-3 py-1 rounded-full">{isEn ? '100% Met' : '100% Đạt'}</span>
-              </div>
-              <SafetyScoreChart />
-              <p className="text-xs text-gray-500 mt-2 text-center">{isEn ? 'Periodic evaluation results 2024' : 'Kết quả đánh giá định kỳ 2024'}</p>
-            </div>
-            {/* Metric Card instead of chart for variety */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center">
-              <h4 className="font-bold text-slate-800 mb-6">{isEn ? 'Board of Directors Structure' : 'Cơ cấu Hội đồng quản trị'}</h4>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                  <span className="text-sm font-medium text-gray-700">{isEn ? 'Independent Members' : 'Thành viên độc lập'}</span>
-                  <span className="font-bold text-vna-blue">33%</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                  <span className="text-sm font-medium text-gray-700">{isEn ? 'Female Members' : 'Thành viên nữ'}</span>
-                  <span className="font-bold text-vna-blue">25%</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                  <span className="text-sm font-medium text-gray-700">{isEn ? 'Executive Members' : 'Thành viên điều hành'}</span>
-                  <span className="font-bold text-vna-blue">42%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+        return null;
       default:
         return null;
     }
@@ -582,7 +553,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
               {renderDashboard()}
 
               {/* Text / Narrative Indicators Section */}
-              <div className="pt-6 border-t border-gray-200/80">
+              <div className={pillarId !== 'governance' ? "pt-6 border-t border-gray-200/80" : ""}>
                 <div className="flex items-center justify-between gap-3 mb-5">
                   <div className="flex items-center gap-2.5">
                     {/* <div className="p-2 bg-blue-100/70 text-vna-blue rounded-lg">
