@@ -761,6 +761,111 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
   };
 
   const [searchText, setSearchText] = useState<string>('');
+  const [tableColumnFilters, setTableColumnFilters] = useState<Record<string, string>>({});
+
+  const getColumnLabel = (key: string, indCode: string): string => {
+    if (key === 'name') {
+      return (indCode === 'GRI 204-1') ? 'Tên nhà cung cấp' : 'Tên chỉ tiêu / Đối tượng';
+    }
+    if (key === 'energy') return 'Loại năng lượng / Tiêu thụ';
+    if (key === 'value') return 'Lượng thực tế';
+    if (key === 'unit') return 'Đơn vị';
+    if (key === 'co2_source') return 'Nguồn phát thải CO2';
+    if (key === 'countryType') return 'Quốc gia';
+    if (key === 'contractFrom') return 'Hợp đồng từ';
+    if (key === 'contractTo') return 'Hợp đồng đến';
+    if (key === 'hasSustCommitment') return 'Cam kết PTBV?';
+    if (key === 'sustEffectiveDate') return 'Ngày cam kết hiệu lực';
+    if (key === 'sustDescription') return 'Mô tả cam kết phát triển bền vững';
+    if (key === 'measure') return 'Chỉ tiêu tiết kiệm / Giảm thiểu';
+    if (key === 'saved') return 'Thực tế tiết kiệm (kg)';
+    if (key === 'target') return 'Chỉ tiêu mục tiêu';
+    if (key === 'source') return 'Nguồn phát thải / Cấp nước';
+    if (key === 'co2') return 'Phát thải CO2 (Tấn)';
+    if (key === 'method') return 'Phương pháp tính / Đo';
+    if (key === 'type') return 'Kiểu loại / Loại sự cố';
+    if (key === 'intensity') return 'Cường độ thực tế';
+    if (key === 'reduced') return 'Lượng giảm thực tế (tCO2e)';
+    if (key === 'gas') return 'Khí thải phát sinh';
+    if (key === 'weight') return 'Khối lượng (Tấn)';
+    if (key === 'reg') return 'Số đăng ký TB';
+    if (key === 'cert') return 'Chứng chỉ tiếng ồn';
+    if (key === 'chapter') return 'Hệ số CORSIA';
+    if (key === 'date') return 'Ngày cấp/Ngày xảy ra';
+    if (key === 'noise') return 'Tiếng ồn';
+    if (key === 'flightType') return 'Phạm vi khai thác';
+    if (key === 'emissions') return 'Khối lượng phát thải (tCO2)';
+    if (key === 'safety') return 'Chỉ số an toàn lao động';
+    if (key === 'actual') return 'Lượng thực tế / Số vụ';
+    if (key === 'ltifr') return 'Tỷ lệ tần suất LTIFR';
+    if (key === 'icao') return 'Mã ICAO Sân bay';
+    if (key === 'start') return 'Ngày bắt đầu';
+    if (key === 'end') return 'Ngày kết thúc';
+    if (key === 'plan') return 'SAF kế hoạch (Tấn)';
+    if (key === 'mandated') return 'Tỷ lệ SAF yêu cầu (%)';
+    if (key === 'total') return 'Tổng nhiên liệu nạp (Tấn)';
+    if (key === 'jeta1') return 'Jet A-1 thực tế (Tấn)';
+    if (key === 'supplier') return 'Nhà cung cấp';
+    if (key === 'batch') return 'Số lô (Batch)';
+    if (key === 'amount') return 'SAF thực nạp (Tấn)';
+    if (key === 'reduction') return 'Tỷ lệ giảm phát thải';
+    if (key === 'system') return 'Hệ thống ETS';
+    if (key === 'allowance') return 'Hạn ngạch cấp miễn phí (tCO2)';
+    if (key === 'purchase') return 'Lượng tín chỉ mua (tCO2)';
+    if (key === 'price') return 'Đơn giá mua (USD)';
+    if (key === 'cost') return 'Tổng chi phí (USD)';
+    if (key === 'tier') return 'Phân khúc khách hàng';
+    if (key === 'satisfaction') return 'Điểm thực tế (NPS / Điểm số)';
+    if (key === 'count') return 'Tổng số lượng phản hồi';
+    if (key === 'complaints') return 'Số vụ khiếu nại';
+    if (key === 'leaks') return 'Số vụ mất dữ liệu';
+    if (key === 'solutions') return 'Biện pháp khắc phục';
+    if (key === 'zone') return 'Khu vực / Mục đích tiêu thụ';
+    if (key === 'npsDom') return 'NPS nội địa';
+    if (key === 'npsInt') return 'NPS quốc tế';
+    if (key === 'address') return 'Địa chỉ / Sân bay';
+    if (key === 'country') return 'Quốc gia';
+    if (key === 'domain') return 'Lĩnh vực hợp đồng';
+    if (key === 'code') return 'Mã sự cố';
+    if (key === 'status') return 'Trạng thái xử lý';
+    if (key === 'solution') return 'Biện pháp giải quyết';
+    if (key === 'category') return 'Danh mục / Suất ăn';
+    if (key === 'standard') return 'Tiêu chuẩn chất lượng';
+    if (key === 'audited') return 'Tỷ lệ đã đánh giá (%)';
+    if (key === 'cases') return 'Số vụ vi phạm';
+    if (key === 'authority') return 'Cơ quan xử lý';
+    if (key === 'action') return 'Hành động khắc phục';
+    if (key === 'group') return 'Khối nhân viên / Nhóm';
+    if (key === 'overall') return 'Hài lòng tổng thể';
+    if (key === 'work') return 'Điều kiện làm việc';
+    if (key === 'training') return 'Đào tạo & Thăng tiến';
+    if (key === 'manager') return 'Cấp trên trực tiếp';
+    if (key === 'income') return 'Thu nhập';
+    if (key === 'role') return 'Nhóm chức danh';
+    if (key === 'wage') return 'Mức lương khởi điểm (VNĐ)';
+    if (key === 'minRegion') return 'Mức tối thiểu vùng (VNĐ)';
+    if (key === 'ratio') return 'Tỷ lệ so sánh';
+    if (key === 'scope') return 'Phạm vi quản lý';
+    if (key === 'local') return 'Tỷ lệ Lãnh đạo bản địa (%)';
+    if (key === 'foreign') return 'Tỷ lệ Lãnh đạo nước ngoài (%)';
+    if (key === 'cause') return 'Nguyên nhân xảy ra';
+    if (key === 'deadCases') return 'Số vụ có tử vong';
+    if (key === 'victims') return 'Số người bị nạn';
+    if (key === 'deaths') return 'Số người tử vong';
+    if (key === 'heavyInjures') return 'Số người chấn thương nặng';
+    if (key === 'metric') return 'Chỉ số nhân sự';
+    if (key === 'indicator') return 'Mục quản trị ESG';
+    if (key === 'level') return 'Mức độ tuân thủ';
+    if (key === 'notes') return 'Ghi chú';
+    if (key === 'dept') return 'Đơn vị phụ trách';
+    if (key === 'hours') return 'Tổng số giờ';
+    if (key === 'participants') return 'Số người tham gia';
+    if (key === 'fined') return 'Bị xử phạt';
+    if (key === 'warned') return 'Bị cảnh cáo';
+    if (key === 'ruleViolated') return 'Vi phạm quy tắc';
+    if (key === 'details') return 'Chi tiết xử lý';
+    return key;
+  };
 
   const filteredIndicators = React.useMemo(() => {
     return indicatorDetails.filter(ind => {
@@ -1057,68 +1162,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                     </button>
                     <div>
                       <h2 className="text-lg font-black text-vna-blue">{getLocalizedIndicatorName(ind.name, inputLang === 'EN' ? 'en' : 'vi')}</h2>
-                      <div className="flex flex-wrap items-center gap-3 mt-2.5">
-                        {/* Filter Năm */}
-                        <div className="flex items-center gap-1.5">
-                          {/* <span className="text-xs text-gray-500 font-semibold">Năm:</span> */}
-                          <select
-                            value={filterYear}
-                            onChange={(e) => setFilterYear(e.target.value)}
-                            className="border border-gray-300 rounded-md px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/30 outline-none cursor-pointer hover:border-gray-400 transition-colors"
-                          >
-                            <option value="ALL">Tất cả năm</option>
-                            {['2026', '2025', '2024', '2023', '2022'].map(y => (
-                              <option key={y} value={y}>Năm {y}</option>
-                            ))}
-                          </select>
-                        </div>
 
-                        {/* Filter Quý */}
-                        <div className="flex items-center gap-1.5">
-                          {/* <span className="text-xs text-gray-500 font-semibold">Quý:</span> */}
-                          <select
-                            value={filterQuarter}
-                            onChange={(e) => {
-                              const q = e.target.value;
-                              setFilterQuarter(q);
-                              if (q !== 'ALL') {
-                                setFilterMonth('ALL');
-                              }
-                            }}
-                            className="border border-gray-300 rounded-md px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/30 outline-none cursor-pointer hover:border-gray-400 transition-colors"
-                          >
-                            <option value="ALL">Tất cả quý</option>
-                            <option value="Q1">Quý 1</option>
-                            <option value="Q2">Quý 2</option>
-                            <option value="Q3">Quý 3</option>
-                            <option value="Q4">Quý 4</option>
-                          </select>
-                        </div>
-
-                        {/* Filter Tháng */}
-                        <div className="flex items-center gap-1.5">
-                          {/* <span className="text-xs text-gray-500 font-semibold">Tháng:</span> */}
-                          <select
-                            value={filterMonth}
-                            onChange={(e) => {
-                              const m = e.target.value;
-                              setFilterMonth(m);
-                              if (m !== 'ALL') {
-                                setFilterQuarter('ALL');
-                              }
-                            }}
-                            className="border border-gray-300 rounded-md px-2.5 py-1 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/30 outline-none cursor-pointer hover:border-gray-400 transition-colors"
-                          >
-                            <option value="ALL">Tất cả tháng</option>
-                            {Array.from({ length: 12 }, (_, i) => {
-                              const mStr = `Tháng ${String(i + 1).padStart(2, '0')}`;
-                              return (
-                                <option key={mStr} value={mStr}>{mStr}</option>
-                              );
-                            })}
-                          </select>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div className="flex gap-2 items-center">
@@ -1451,216 +1495,238 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                             </div>
                           );
                         })()
-                      ) : (
-                        <table className="w-full text-left border-collapse text-xs min-w-[800px]">
-                          <thead>
-                            <tr className="bg-gray-50/70 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-655 font-bold">
-                              <th className="p-3 border border-gray-200 w-12 text-center">Th..</th>
-                              {rows[0] && typeof rows[0] === 'object' && Object.keys(rows[0]).map(key => {
-                                let colLabel = key;
-                                if (key === 'name') {
-                                  colLabel = (ind.code === 'GRI 204-1') ? 'Tên nhà cung cấp' : 'Tên chỉ tiêu / Đối tượng';
-                                }
-                                else if (key === 'energy') colLabel = 'Loại năng lượng / Tiêu thụ';
-                                else if (key === 'value') colLabel = 'Lượng thực tế';
-                                else if (key === 'unit') colLabel = 'Đơn vị';
-                                else if (key === 'co2_source') colLabel = 'Nguồn phát thải CO2';
-                                else if (key === 'countryType') colLabel = 'Quốc gia';
-                                else if (key === 'contractFrom') colLabel = 'Hợp đồng từ';
-                                else if (key === 'contractTo') colLabel = 'Hợp đồng đến';
-                                else if (key === 'hasSustCommitment') colLabel = 'Cam kết PTBV?';
-                                else if (key === 'sustEffectiveDate') colLabel = 'Ngày cam kết hiệu lực';
-                                else if (key === 'sustDescription') colLabel = 'Mô tả cam kết phát triển bền vững';
-                                else if (key === 'measure') colLabel = 'Chỉ tiêu tiết kiệm / Giảm thiểu';
-                                else if (key === 'saved') colLabel = 'Thực tế tiết kiệm (kg)';
-                                else if (key === 'target') colLabel = 'Chỉ tiêu mục tiêu';
-                                else if (key === 'source') colLabel = 'Nguồn phát thải / Cấp nước';
-                                else if (key === 'co2') colLabel = 'Phát thải CO2 (Tấn)';
-                                else if (key === 'method') colLabel = 'Phương pháp tính / Đo';
-                                else if (key === 'type') colLabel = 'Kiểu loại / Loại sự cố';
-                                else if (key === 'intensity') colLabel = 'Cường độ thực tế';
-                                else if (key === 'reduced') colLabel = 'Lượng giảm thực tế (tCO2e)';
-                                else if (key === 'gas') colLabel = 'Khí thải phát sinh';
-                                else if (key === 'weight') colLabel = 'Khối lượng (Tấn)';
-                                else if (key === 'reg') colLabel = 'Số đăng ký TB';
-                                else if (key === 'cert') colLabel = 'Chứng chỉ tiếng ồn';
-                                else if (key === 'chapter') colLabel = 'Hệ số CORSIA';
-                                else if (key === 'date') colLabel = 'Ngày cấp/Ngày xảy ra';
-                                else if (key === 'noise') colLabel = 'Tiếng ồn';
-                                else if (key === 'flightType') colLabel = 'Phạm vi khai thác';
-                                else if (key === 'emissions') colLabel = 'Khối lượng phát thải (tCO2)';
-                                else if (key === 'safety') colLabel = 'Chỉ số an toàn lao động';
-                                else if (key === 'actual') colLabel = 'Lượng thực tế / Số vụ';
-                                else if (key === 'ltifr') colLabel = 'Tỷ lệ tần suất LTIFR';
-                                else if (key === 'icao') colLabel = 'Mã ICAO Sân bay';
-                                else if (key === 'start') colLabel = 'Ngày bắt đầu';
-                                else if (key === 'end') colLabel = 'Ngày kết thúc';
-                                else if (key === 'plan') colLabel = 'SAF kế hoạch (Tấn)';
-                                else if (key === 'mandated') colLabel = 'Tỷ lệ SAF yêu cầu (%)';
-                                else if (key === 'total') colLabel = 'Tổng nhiên liệu nạp (Tấn)';
-                                else if (key === 'jeta1') colLabel = 'Jet A-1 thực tế (Tấn)';
-                                else if (key === 'supplier') colLabel = 'Nhà cung cấp';
-                                else if (key === 'batch') colLabel = 'Số lô (Batch)';
-                                else if (key === 'amount') colLabel = 'SAF thực nạp (Tấn)';
-                                else if (key === 'reduction') colLabel = 'Tỷ lệ giảm phát thải';
-                                else if (key === 'system') colLabel = 'Hệ thống ETS';
-                                else if (key === 'allowance') colLabel = 'Hạn ngạch cấp miễn phí (tCO2)';
-                                else if (key === 'purchase') colLabel = 'Lượng tín chỉ mua (tCO2)';
-                                else if (key === 'price') colLabel = 'Đơn giá mua (USD)';
-                                else if (key === 'cost') colLabel = 'Tổng chi phí (USD)';
-                                else if (key === 'tier') colLabel = 'Phân khúc khách hàng';
-                                else if (key === 'satisfaction') colLabel = 'Điểm thực tế (NPS / Điểm số)';
-                                else if (key === 'count') colLabel = 'Tổng số lượng phản hồi';
-                                else if (key === 'complaints') colLabel = 'Số vụ khiếu nại';
-                                else if (key === 'leaks') colLabel = 'Số vụ mất dữ liệu';
-                                else if (key === 'solutions') colLabel = 'Biện pháp khắc phục';
-                                else if (key === 'zone') colLabel = 'Khu vực / Mục đích tiêu thụ';
-                                else if (key === 'npsDom') colLabel = 'NPS nội địa';
-                                else if (key === 'npsInt') colLabel = 'NPS quốc tế';
-                                else if (key === 'address') colLabel = 'Địa chỉ / Sân bay';
-                                else if (key === 'country') colLabel = 'Quốc gia';
-                                else if (key === 'domain') colLabel = 'Lĩnh vực hợp đồng';
-                                else if (key === 'code') colLabel = 'Mã sự cố';
-                                else if (key === 'status') colLabel = 'Trạng thái xử lý';
-                                else if (key === 'solution') colLabel = 'Biện pháp giải quyết';
-                                else if (key === 'category') colLabel = 'Danh mục / Suất ăn';
-                                else if (key === 'standard') colLabel = 'Tiêu chuẩn chất lượng';
-                                else if (key === 'audited') colLabel = 'Tỷ lệ đã đánh giá (%)';
-                                else if (key === 'cases') colLabel = 'Số vụ vi phạm';
-                                else if (key === 'authority') colLabel = 'Cơ quan xử lý';
-                                else if (key === 'action') colLabel = 'Hành động khắc phục';
-                                else if (key === 'group') colLabel = 'Khối nhân viên / Nhóm';
-                                else if (key === 'overall') colLabel = 'Hài lòng tổng thể';
-                                else if (key === 'work') colLabel = 'Điều kiện làm việc';
-                                else if (key === 'training') colLabel = 'Đào tạo & Thăng tiến';
-                                else if (key === 'manager') colLabel = 'Cấp trên trực tiếp';
-                                else if (key === 'income') colLabel = 'Thu nhập';
-                                else if (key === 'role') colLabel = 'Nhóm chức danh';
-                                else if (key === 'wage') colLabel = 'Mức lương khởi điểm (VNĐ)';
-                                else if (key === 'minRegion') colLabel = 'Mức tối thiểu vùng (VNĐ)';
-                                else if (key === 'ratio') colLabel = 'Tỷ lệ so sánh';
-                                else if (key === 'scope') colLabel = 'Phạm vi quản lý';
-                                else if (key === 'local') colLabel = 'Tỷ lệ Lãnh đạo bản địa (%)';
-                                else if (key === 'foreign') colLabel = 'Tỷ lệ Lãnh đạo nước ngoài (%)';
-                                else if (key === 'cause') colLabel = 'Nguyên nhân xảy ra';
-                                else if (key === 'deadCases') colLabel = 'Số vụ có tử vong';
-                                else if (key === 'victims') colLabel = 'Số người bị nạn';
-                                else if (key === 'deaths') colLabel = 'Số người tử vong';
-                                else if (key === 'heavyInjures') colLabel = 'Số người chấn thương nặng';
-                                else if (key === 'metric') colLabel = 'Chỉ số nhân sự';
-                                else if (key === 'indicator') colLabel = 'Mục quản trị ESG';
-                                else if (key === 'level') colLabel = 'Mức độ tuân thủ';
-                                else if (key === 'notes') colLabel = 'Ghi chú';
-                                else if (key === 'dept') colLabel = 'Đơn vị phụ trách';
-                                else if (key === 'hours') colLabel = 'Tổng số giờ';
-                                else if (key === 'participants') colLabel = 'Số người tham gia';
-                                else if (key === 'fined') colLabel = 'Bị xử phạt';
-                                else if (key === 'warned') colLabel = 'Bị cảnh cáo';
-                                else if (key === 'ruleViolated') colLabel = 'Vi phạm quy tắc';
-                                else if (key === 'details') colLabel = 'Chi tiết xử lý';
+                      ) : (() => {
+                        const rawRowKeys = rows[0] && typeof rows[0] === 'object' ? Object.keys(rows[0]) : [];
+                        const filteredRowsWithIdx = rows
+                          .map((row: any, originalIndex: number) => ({ row, originalIndex }))
+                          .filter(({ row, originalIndex }) => {
+                            // Filter STT / Dòng
+                            if (tableColumnFilters['_stt'] && tableColumnFilters['_stt'].trim()) {
+                              const query = tableColumnFilters['_stt'].toLowerCase().trim();
+                              const sttStr = `${originalIndex + 1} dòng ${originalIndex + 1}`;
+                              if (!sttStr.includes(query)) return false;
+                            }
 
-                                return (
-                                  <th key={key} className="p-3 border border-gray-200 font-semibold text-gray-700 bg-gray-55/20">
-                                    {colLabel}
-                                  </th>
-                                );
-                              })}
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-gray-200">
-                            {rows.map((row: any, rIdx: number) => (
-                              <tr key={rIdx} className="hover:bg-blue-50/20 transition-colors">
-                                <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
-                                  Dòng {rIdx + 1}
-                                </td>
-                                {row && typeof row === 'object' && Object.entries(row).map(([field, val]) => {
-                                  const isReadOnly = field === 'jeta1' || field === 'ratio' || field === 'cost';
-                                  let displayValue = String(val);
+                            // Filter each column key
+                            for (const [key, filterVal] of Object.entries(tableColumnFilters)) {
+                              if (key === '_stt' || !filterVal || !filterVal.trim()) continue;
+                              const query = filterVal.toLowerCase().trim();
+                              let cellVal = String(row[key] ?? '').toLowerCase();
 
-                                  if (ind.code === 'GRI 302-1' && activeSubTab === 'TAB_1') {
-                                    if (field === 'value') {
-                                      if (rIdx === 0) displayValue = '47400';
-                                      else if (rIdx === 1) displayValue = '44872';
-                                    }
-                                  }
+                              if (key === 'countryType') {
+                                if (cellVal === 'vn') cellVal = 'ncc việt nam vn';
+                                else if (cellVal === 'foreign') cellVal = 'ncc nước ngoài foreign';
+                              }
 
-                                  // Custom inputs for GRI 204-1 TAB_1
-                                  if (ind.code === 'GRI 204-1' && activeSubTab === 'TAB_1') {
-                                    if (field === 'countryType') {
-                                      return (
-                                        <td key={field} className="p-2 border border-gray-200 min-w-[150px]">
-                                          <select
-                                            value={displayValue}
-                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                            className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                          >
-                                            <option value="VN">NCC Việt Nam</option>
-                                            <option value="Foreign">NCC nước ngoài</option>
-                                          </select>
-                                        </td>
-                                      );
-                                    }
-                                    if (field === 'hasSustCommitment') {
-                                      return (
-                                        <td key={field} className="p-2 border border-gray-200 min-w-[110px]">
-                                          <select
-                                            value={displayValue}
-                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                            className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                          >
-                                            <option value="Có">Có</option>
-                                            <option value="Không">Không</option>
-                                          </select>
-                                        </td>
-                                      );
-                                    }
-                                    if (field === 'contractFrom' || field === 'contractTo' || field === 'sustEffectiveDate') {
-                                      return (
-                                        <td key={field} className="p-2 border border-gray-200 min-w-[145px]">
-                                          <input
-                                            type="date"
-                                            value={displayValue}
-                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                            className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                          />
-                                        </td>
-                                      );
-                                    }
-                                    if (field === 'sustDescription') {
-                                      return (
-                                        <td key={field} className="p-2 border border-gray-200 min-w-[280px]">
-                                          <textarea
-                                            rows={2}
-                                            value={displayValue}
-                                            onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                            className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30"
-                                            placeholder="Nhập chi tiết các điều khoản cam kết..."
-                                          />
-                                        </td>
-                                      );
-                                    }
-                                  }
+                              if (!cellVal.includes(query)) return false;
+                            }
+                            return true;
+                          });
 
-                                  return (
-                                    <td key={field} className="p-2 border border-gray-200">
+                        const hasActiveFilters = Object.values(tableColumnFilters).some(v => v && v.trim().length > 0);
+
+                        return (
+                          <div className="flex flex-col flex-1">
+                            {/* Filter Summary Bar if active */}
+                            {hasActiveFilters && (
+                              <div className="px-4 py-2 bg-blue-50/80 border-b border-blue-100 flex items-center justify-between text-xs text-vna-blue font-semibold">
+                                <div className="flex items-center gap-2">
+                                  <span className="w-2 h-2 rounded-full bg-vna-blue animate-pulse"></span>
+                                  <span>Đang lọc: {filteredRowsWithIdx.length} / {rows.length} dòng dữ liệu</span>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => setTableColumnFilters({})}
+                                  className="text-[11px] font-bold text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-colors cursor-pointer"
+                                >
+                                  ✕ Xóa tất cả bộ lọc cột
+                                </button>
+                              </div>
+                            )}
+
+                            <table className="w-full text-left border-collapse text-xs min-w-[800px]">
+                              <thead>
+                                {/* 1. HEADER ROW */}
+                                <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] uppercase tracking-wide text-gray-700 font-bold">
+                                  <th className="p-3 border border-gray-200 w-16 text-center">Thứ tự</th>
+                                  {rawRowKeys.map(key => {
+                                    const colLabel = getColumnLabel(key, ind.code);
+                                    return (
+                                      <th key={key} className="p-3 border border-gray-200 font-bold text-gray-700 bg-gray-50">
+                                        {colLabel}
+                                      </th>
+                                    );
+                                  })}
+                                </tr>
+
+                                {/* 2. COLUMN FILTER ROW */}
+                                <tr className="bg-blue-50/70 border-b border-gray-200">
+                                  {/* Filter STT */}
+                                  <th className="p-1.5 border border-gray-200 text-center w-16">
+                                    <div className="relative">
                                       <input
                                         type="text"
-                                        value={displayValue}
-                                        readOnly={isReadOnly}
-                                        onChange={(e) => handleCellChange(ind.code, rIdx, field, e.target.value)}
-                                        className={`w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border focus:ring-1 focus:ring-vna-blue/30 ${isReadOnly
-                                          ? 'bg-gray-100 text-gray-500 border-transparent cursor-not-allowed'
-                                          : 'bg-white text-gray-800 border-gray-200 hover:border-gray-300'
-                                          }`}
+                                        value={tableColumnFilters['_stt'] || ''}
+                                        onChange={(e) => setTableColumnFilters(prev => ({ ...prev, _stt: e.target.value }))}
+                                        placeholder="Lọc..."
+                                        className="w-full text-[11px] font-normal bg-white border border-gray-300 rounded px-1 py-1 text-gray-800 outline-none focus:border-vna-blue text-center shadow-2xs"
                                       />
+                                      {tableColumnFilters['_stt'] && (
+                                        <button
+                                          type="button"
+                                          onClick={() => setTableColumnFilters(prev => ({ ...prev, _stt: '' }))}
+                                          className="absolute right-1 top-1 text-gray-400 hover:text-gray-600 text-[10px] leading-none"
+                                        >
+                                          ✕
+                                        </button>
+                                      )}
+                                    </div>
+                                  </th>
+
+                                  {/* Filter each column key */}
+                                  {rawRowKeys.map(key => {
+                                    const colLabel = getColumnLabel(key, ind.code);
+                                    const currentFilterVal = tableColumnFilters[key] || '';
+                                    return (
+                                      <th key={key} className="p-1.5 border border-gray-200 font-normal min-w-[120px]">
+                                        <div className="relative">
+                                          <input
+                                            type="text"
+                                            value={currentFilterVal}
+                                            onChange={(e) => setTableColumnFilters(prev => ({ ...prev, [key]: e.target.value }))}
+                                            placeholder={`Lọc ${colLabel}...`}
+                                            className="w-full text-[11px] font-normal bg-white border border-gray-300 rounded px-2 py-1 pr-5 text-gray-800 outline-none focus:border-vna-blue shadow-2xs"
+                                          />
+                                          {currentFilterVal && (
+                                            <button
+                                              type="button"
+                                              onClick={() => setTableColumnFilters(prev => ({ ...prev, [key]: '' }))}
+                                              className="absolute right-1.5 top-1.5 text-gray-400 hover:text-gray-600 text-[11px] font-bold"
+                                            >
+                                              ✕
+                                            </button>
+                                          )}
+                                        </div>
+                                      </th>
+                                    );
+                                  })}
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-200">
+                                {filteredRowsWithIdx.length === 0 ? (
+                                  <tr>
+                                    <td colSpan={rawRowKeys.length + 1} className="p-8 text-center text-gray-400 italic bg-gray-50/30">
+                                      <div className="space-y-2.5">
+                                        <div>Không tìm thấy dòng dữ liệu nào khớp với bộ lọc cột.</div>
+                                        {hasActiveFilters && (
+                                          <button
+                                            type="button"
+                                            onClick={() => setTableColumnFilters({})}
+                                            className="text-xs font-bold text-vna-blue hover:underline bg-blue-50 px-3 py-1 rounded-md border border-blue-200 cursor-pointer shadow-2xs"
+                                          >
+                                            Xóa tất cả bộ lọc cột
+                                          </button>
+                                        )}
+                                      </div>
                                     </td>
-                                  );
-                                })}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      )}
+                                  </tr>
+                                ) : (
+                                  filteredRowsWithIdx.map(({ row, originalIndex }) => (
+                                    <tr key={originalIndex} className="hover:bg-blue-50/20 transition-colors">
+                                      <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
+                                        Dòng {originalIndex + 1}
+                                      </td>
+                                      {row && typeof row === 'object' && Object.entries(row).map(([field, val]) => {
+                                        const isReadOnly = field === 'jeta1' || field === 'ratio' || field === 'cost';
+                                        let displayValue = String(val);
+
+                                        if (ind.code === 'GRI 302-1' && activeSubTab === 'TAB_1') {
+                                          if (field === 'value') {
+                                            if (originalIndex === 0) displayValue = '47400';
+                                            else if (originalIndex === 1) displayValue = '44872';
+                                          }
+                                        }
+
+                                        // Custom inputs for GRI 204-1 TAB_1
+                                        if (ind.code === 'GRI 204-1' && activeSubTab === 'TAB_1') {
+                                          if (field === 'countryType') {
+                                            return (
+                                              <td key={field} className="p-2 border border-gray-200 min-w-[150px]">
+                                                <select
+                                                  value={displayValue}
+                                                  onChange={(e) => handleCellChange(ind.code, originalIndex, field, e.target.value)}
+                                                  className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30 shadow-2xs"
+                                                >
+                                                  <option value="VN">NCC Việt Nam</option>
+                                                  <option value="Foreign">NCC nước ngoài</option>
+                                                </select>
+                                              </td>
+                                            );
+                                          }
+                                          if (field === 'hasSustCommitment') {
+                                            return (
+                                              <td key={field} className="p-2 border border-gray-200 min-w-[110px]">
+                                                <select
+                                                  value={displayValue}
+                                                  onChange={(e) => handleCellChange(ind.code, originalIndex, field, e.target.value)}
+                                                  className="w-full text-xs font-bold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30 shadow-2xs"
+                                                >
+                                                  <option value="Có">Có</option>
+                                                  <option value="Không">Không</option>
+                                                </select>
+                                              </td>
+                                            );
+                                          }
+                                          if (field === 'contractFrom' || field === 'contractTo' || field === 'sustEffectiveDate') {
+                                            return (
+                                              <td key={field} className="p-2 border border-gray-200 min-w-[145px]">
+                                                <input
+                                                  type="date"
+                                                  value={displayValue}
+                                                  onChange={(e) => handleCellChange(ind.code, originalIndex, field, e.target.value)}
+                                                  className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30 shadow-2xs"
+                                                />
+                                              </td>
+                                            );
+                                          }
+                                          if (field === 'sustDescription') {
+                                            return (
+                                              <td key={field} className="p-2 border border-gray-200 min-w-[280px]">
+                                                <textarea
+                                                  rows={2}
+                                                  value={displayValue}
+                                                  onChange={(e) => handleCellChange(ind.code, originalIndex, field, e.target.value)}
+                                                  className="w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border border-gray-200 bg-white text-gray-800 focus:ring-1 focus:ring-vna-blue/30 shadow-2xs"
+                                                  placeholder="Nhập chi tiết các điều khoản cam kết..."
+                                                />
+                                              </td>
+                                            );
+                                          }
+                                        }
+
+                                        return (
+                                          <td key={field} className="p-2 border border-gray-200">
+                                            <input
+                                              type="text"
+                                              value={displayValue}
+                                              readOnly={isReadOnly}
+                                              onChange={(e) => handleCellChange(ind.code, originalIndex, field, e.target.value)}
+                                              className={`w-full text-xs font-semibold px-2 py-1.5 rounded outline-none border focus:ring-1 focus:ring-vna-blue/30 ${isReadOnly
+                                                ? 'bg-gray-100 text-gray-500 border-transparent cursor-not-allowed'
+                                                : 'bg-white text-gray-800 border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            />
+                                          </td>
+                                        );
+                                      })}
+                                    </tr>
+                                  ))
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
+                      })()}
                     </div>
                   );
                 })()}

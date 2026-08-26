@@ -8,7 +8,6 @@ import ReportArchive from './components/ReportArchive';
 import ESGReports from './components/ESGReports';
 import IntroductionPage from './components/IntroductionPage';
 import NewsSection from './components/NewsSection';
-import { EmissionsChart, SocialImpactChart } from './components/Charts';
 import { HERO_DATA } from './constants';
 import { Logo } from './components/Logo';
 import { ArrowDown, Facebook, Twitter, Linkedin, Youtube, Mail, Phone, MapPin } from 'lucide-react';
