@@ -21,6 +21,148 @@ import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 import { Pillar } from '../types';
 
 // --- TYPES ---
+export interface ChartVersionItem {
+  id: string;
+  versionNumber: string;
+  versionName: string;
+  chartCode: string;
+  indicatorCode: string;
+  year: string;
+  isPublished: boolean;
+  createdAt: string;
+  createdBy: string;
+  note?: string;
+  description?: string;
+  dataOverrides: Record<string, { isOverride: boolean; overrideValue: string; reason: string }>;
+}
+
+const INITIAL_CHART_VERSIONS: ChartVersionItem[] = [
+  // --- GRI 302-1-JETA1 (2026) ---
+  {
+    id: 'ver-jeta1-v1',
+    versionNumber: 'v1.0',
+    versionName: 'Dữ liệu gốc hệ thống SAP/ERP',
+    chartCode: 'GRI 302-1-JETA1',
+    indicatorCode: 'GRI 302-1',
+    year: '2026',
+    isPublished: false,
+    createdAt: '15/07/2026 08:30',
+    createdBy: 'Hệ thống tự động (SAP Integration)',
+    note: 'Dữ liệu gốc đồng bộ ban đầu',
+    description: 'Biểu đồ tiêu thụ nhiên liệu bay Jet A-1 toàn mạng bay của Vietnam Airlines trong năm 2026.',
+    dataOverrides: {}
+  },
+  {
+    id: 'ver-jeta1-v2',
+    versionNumber: 'v1.1',
+    versionName: 'Hiệu chỉnh định mức tiêu hao A350',
+    chartCode: 'GRI 302-1-JETA1',
+    indicatorCode: 'GRI 302-1',
+    year: '2026',
+    isPublished: false,
+    createdAt: '15/08/2026 14:15',
+    createdBy: 'Trần Thu Trang (Ban Kỹ thuật)',
+    note: 'Chuẩn hóa định mức tiêu hao sau kiểm định tàu bay A350',
+    description: 'Biểu đồ tiêu thụ nhiên liệu Jet A-1 đã được đối soát định mức tiêu hao nhiên liệu theo tiêu chuẩn kỹ thuật.',
+    dataOverrides: {
+      'Tháng 11/2026': { isOverride: true, overrideValue: '4,710', reason: 'Hiệu chỉnh định mức A350' },
+      'Tháng 12/2026': { isOverride: true, overrideValue: '4,850', reason: 'Đối soát số liệu bay quốc tế' }
+    }
+  },
+  {
+    id: 'ver-jeta1-v3',
+    versionNumber: 'v2.0',
+    versionName: 'Bản kiểm toán IATA ASRH phê duyệt',
+    chartCode: 'GRI 302-1-JETA1',
+    indicatorCode: 'GRI 302-1',
+    year: '2026',
+    isPublished: true,
+    createdAt: '22/08/2026 10:00',
+    createdBy: 'Nguyễn Văn Hải (Admin)',
+    note: 'Bản chính thức công bố đối ngoại theo báo cáo kiểm toán IATA ASRH',
+    description: 'Số liệu chính thức công bố đối ngoại trên cổng thông tin Net Zero 2050 và Báo cáo Phát triển bền vững năm 2026.',
+    dataOverrides: {
+      'Tháng 10/2026': { isOverride: true, overrideValue: '4,690', reason: 'Số liệu kiểm toán IATA ASRH' },
+      'Tháng 11/2026': { isOverride: true, overrideValue: '4,710', reason: 'Số liệu kiểm toán IATA ASRH' },
+      'Tháng 12/2026': { isOverride: true, overrideValue: '4,860', reason: 'Số liệu kiểm toán IATA ASRH' }
+    }
+  },
+
+  // --- Airline E-1-SUB1 (2026) ---
+  {
+    id: 'ver-saf01-v1',
+    versionNumber: 'v1.0',
+    versionName: 'Dữ liệu sơ bộ ban An toàn chất lượng',
+    chartCode: 'Airline E-1-SUB1',
+    indicatorCode: 'Airline E-1',
+    year: '2026',
+    isPublished: false,
+    createdAt: '10/08/2026 09:00',
+    createdBy: 'Trần Văn Nam (Ban ATCL)',
+    note: 'Bản thống kê sự cố ban đầu',
+    description: 'Tỷ lệ sự cố bắt buộc phải báo cáo (MOR) trên 1,000 chuyến bay.',
+    dataOverrides: {}
+  },
+  {
+    id: 'ver-saf01-v2',
+    versionNumber: 'v1.1',
+    versionName: 'Bản chuẩn hóa công bố Website ESG',
+    chartCode: 'Airline E-1-SUB1',
+    indicatorCode: 'Airline E-1',
+    year: '2026',
+    isPublished: true,
+    createdAt: '18/08/2026 16:30',
+    createdBy: 'Nguyễn Văn Hải (Admin)',
+    note: 'Chuẩn hóa số liệu công bố thường niên',
+    description: 'Bản số liệu chính thức được phê duyệt công bố cho các tổ chức quốc tế và báo cáo thường niên.',
+    dataOverrides: {
+      'Tháng 12/2026': { isOverride: true, overrideValue: '4,615', reason: 'Đối soát số liệu theo biên bản kiểm toán IATA ASRH' }
+    }
+  },
+
+  // --- GRI-2-23-POLICY (2026) ---
+  {
+    id: 'ver-g223-v1',
+    versionNumber: 'v1.0',
+    versionName: 'Bản dự thảo thuyết minh ban đầu',
+    chartCode: 'GRI-2-23-POLICY',
+    indicatorCode: 'GRI 2-23',
+    year: '2026',
+    isPublished: false,
+    createdAt: '01/08/2026 08:00',
+    createdBy: 'Tổ Thư ký & Ban Pháp chế',
+    note: 'Bản thảo chính sách nội bộ',
+    description: 'Ghi chú nội bộ cho phần chính sách ứng xử kinh doanh.',
+    dataOverrides: {
+      'Năm 2026': {
+        isOverride: true,
+        overrideValue: 'Vietnam Airlines cam kết thực hiện đúng các quy định pháp luật hiện hành và tiêu chuẩn của IATA về an toàn bay và đạo đức kinh doanh.',
+        reason: 'Bản thảo ban đầu'
+      }
+    }
+  },
+  {
+    id: 'ver-g223-v2',
+    versionNumber: 'v2.0',
+    versionName: 'Bản chuẩn hóa theo GRI Standards 2026',
+    chartCode: 'GRI-2-23-POLICY',
+    indicatorCode: 'GRI 2-23',
+    year: '2026',
+    isPublished: true,
+    createdAt: '10/08/2026 11:30',
+    createdBy: 'Phạm Minh Đức (Tổ Thư ký)',
+    note: 'Biên tập chuẩn hóa văn phong công bố Báo cáo thường niên ESG 2026',
+    description: 'Nội dung thuyết minh chính thức công bố trên Báo cáo Phát triển Bền vững.',
+    dataOverrides: {
+      'Năm 2026': {
+        isOverride: true,
+        overrideValue: 'Tổng công ty Hàng không Việt Nam (Vietnam Airlines) cam kết tuân thủ đầy đủ các chuẩn mực đạo đức kinh doanh quốc tế, bảo đảm an toàn bay tuyệt đối, trách nhiệm xã hội và bảo vệ môi trường trong toàn bộ chuỗi cung ứng hàng không.\n\nVietnam Airlines nghiêm cấm mọi hình thức hối lộ, tham nhũng và đối xử bất bình đẳng. Chính sách này được phổ biến rộng rãi đến 100% cán bộ nhân viên và đối tác thông qua Bộ Quy tắc ứng xử kinh doanh (Code of Conduct) được rà soát định kỳ hàng năm.',
+        reason: 'Biên tập chuẩn hóa văn phong công bố Báo cáo thường niên ESG 2026'
+      }
+    }
+  }
+];
+
 interface AdjustmentHistoryItem {
   id: string;
   indicatorCode: string;
@@ -407,8 +549,239 @@ export const PublishAdjustPage: React.FC = () => {
     return () => window.removeEventListener('vna_publish_adjustments_updated', handleSync);
   }, []);
 
+  const currentPeriods = useMemo(() => getIndicatorPeriods(selectedIndicator, selectedYear), [selectedIndicator, selectedYear]);
+
+  const isCurrentSubChartText = useMemo(() => {
+    if (!selectedSubChart) return false;
+    return selectedSubChart.isText || selectedSubChart.unit === 'Văn bản' || (selectedIndicator && isTextIndicator(selectedIndicator));
+  }, [selectedSubChart, selectedIndicator]);
+
   // Adjustments state (flat array stored in localStorage)
   const [adjustments, setAdjustments] = useState<AdjustmentItem[]>([]);
+
+  // --- CHART VERSIONS SYSTEM STATE ---
+  const [chartVersions, setChartVersions] = useState<ChartVersionItem[]>(() => {
+    const saved = localStorage.getItem('vna_chart_versions');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        return INITIAL_CHART_VERSIONS;
+      }
+    }
+    return INITIAL_CHART_VERSIONS;
+  });
+
+  const saveChartVersionsToStorage = (versions: ChartVersionItem[]) => {
+    setChartVersions(versions);
+    localStorage.setItem('vna_chart_versions', JSON.stringify(versions));
+  };
+
+  const [activeVersionId, setActiveVersionId] = useState<string | null>(null);
+  const [isNewVersionModalOpen, setIsNewVersionModalOpen] = useState(false);
+  const [newVerNumber, setNewVerNumber] = useState('');
+  const [newVerName, setNewVerName] = useState('');
+  const [newVerNote, setNewVerNote] = useState('');
+  const [newVerSetPublished, setNewVerSetPublished] = useState(true);
+
+  // Filter versions for the currently selected sub-chart and year
+  const currentChartVersions = useMemo(() => {
+    if (!selectedSubChart) return [];
+    return chartVersions.filter(
+      v => v.chartCode === selectedSubChart.code && v.year === selectedYear
+    );
+  }, [chartVersions, selectedSubChart, selectedYear]);
+
+  // Active version being viewed
+  const activeVersion = useMemo(() => {
+    if (!selectedSubChart) return null;
+    if (activeVersionId) {
+      const found = currentChartVersions.find(v => v.id === activeVersionId);
+      if (found) return found;
+    }
+    // Default to published version or first version
+    const published = currentChartVersions.find(v => v.isPublished);
+    return published || currentChartVersions[currentChartVersions.length - 1] || null;
+  }, [currentChartVersions, activeVersionId, selectedSubChart]);
+
+  // Sync activeVersionId when subchart or year changes
+  useEffect(() => {
+    if (currentChartVersions.length > 0) {
+      const published = currentChartVersions.find(v => v.isPublished);
+      setActiveVersionId(published ? published.id : currentChartVersions[currentChartVersions.length - 1].id);
+    } else if (selectedSubChart) {
+      // Auto create initial v1.0 version if none exists
+      const initialVer: ChartVersionItem = {
+        id: `ver-${selectedSubChart.code}-${selectedYear}-v1-${Date.now()}`,
+        versionNumber: 'v1.0',
+        versionName: 'Dữ liệu gốc ban đầu',
+        chartCode: selectedSubChart.code,
+        indicatorCode: selectedIndicator?.code || '',
+        year: selectedYear,
+        isPublished: true,
+        createdAt: new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
+        createdBy: 'Hệ thống tự động',
+        note: 'Phiên bản khởi tạo tự động',
+        description: chartDescription || '',
+        dataOverrides: {}
+      };
+      const updated = [...chartVersions, initialVer];
+      saveChartVersionsToStorage(updated);
+      setActiveVersionId(initialVer.id);
+    } else {
+      setActiveVersionId(null);
+    }
+  }, [selectedSubChart?.code, selectedYear]);
+
+  // Helper to toggle a version as the ONLY published version of this chart
+  const handleSetVersionPublished = (versionId: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!selectedSubChart) return;
+
+    const updated = chartVersions.map(v => {
+      if (v.chartCode === selectedSubChart.code && v.year === selectedYear) {
+        return {
+          ...v,
+          isPublished: v.id === versionId
+        };
+      }
+      return v;
+    });
+
+    saveChartVersionsToStorage(updated);
+
+    // Sync to published status
+    const targetVer = updated.find(v => v.id === versionId);
+    if (targetVer) {
+      const savedStatus = localStorage.getItem('vna_publish_chart_status');
+      const statuses = savedStatus ? JSON.parse(savedStatus) : {};
+      statuses[selectedSubChart.code] = true;
+      localStorage.setItem('vna_publish_chart_status', JSON.stringify(statuses));
+      setPublishedChartStatuses(statuses);
+      setIsChartPublished(true);
+
+      // Sync overrides from this published version into adjustments
+      const filtered = adjustments.filter(
+        a => !(a.indicatorCode === selectedSubChart.code && a.period.endsWith(selectedYear))
+      );
+      const newEntries: AdjustmentItem[] = Object.keys(targetVer.dataOverrides).map(p => ({
+        indicatorCode: selectedSubChart.code,
+        period: p,
+        isOverride: true,
+        overrideValue: targetVer.dataOverrides[p].overrideValue,
+        reason: targetVer.dataOverrides[p].reason || `Phiên bản ${targetVer.versionNumber}`,
+        updatedAt: targetVer.createdAt,
+        updatedBy: targetVer.createdBy,
+        isText: isCurrentSubChartText
+      }));
+
+      const finalAdj = [...filtered, ...newEntries];
+      localStorage.setItem('vna_publish_adjustments', JSON.stringify(finalAdj));
+      setAdjustments(finalAdj);
+
+      window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
+      setToast({
+        message: `Đã kích hoạt phiên bản [${targetVer.versionNumber} - ${targetVer.versionName}] làm bản công bố chính thức!`,
+        type: 'success'
+      });
+    }
+  };
+
+  // Create a new version
+  const handleCreateNewVersion = () => {
+    if (!selectedSubChart || !selectedIndicator) return;
+
+    const verNum = newVerNumber.trim() || `v${currentChartVersions.length + 1}.0`;
+    const verName = newVerName.trim() || `Bản cập nhật số liệu ${verNum}`;
+    const nowStr = new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+
+    // Capture current working editStates
+    const capturedOverrides: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
+    Object.keys(editStates).forEach(p => {
+      const st = editStates[p];
+      const realVal = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
+      if (st.overrideValue && st.overrideValue.trim() !== realVal.trim()) {
+        capturedOverrides[p] = {
+          isOverride: true,
+          overrideValue: st.overrideValue.trim(),
+          reason: st.reason || ''
+        };
+      }
+    });
+
+    const newVerId = `ver-${selectedSubChart.code}-${selectedYear}-${Date.now()}`;
+
+    let updatedList = chartVersions.map(v => {
+      if (newVerSetPublished && v.chartCode === selectedSubChart.code && v.year === selectedYear) {
+        return { ...v, isPublished: false };
+      }
+      return v;
+    });
+
+    const newVersionItem: ChartVersionItem = {
+      id: newVerId,
+      versionNumber: verNum,
+      versionName: verName,
+      chartCode: selectedSubChart.code,
+      indicatorCode: selectedIndicator.code,
+      year: selectedYear,
+      isPublished: newVerSetPublished,
+      createdAt: nowStr,
+      createdBy: 'Nguyễn Văn Hải (Admin)',
+      note: newVerNote.trim(),
+      description: chartDescription,
+      dataOverrides: capturedOverrides
+    };
+
+    updatedList.push(newVersionItem);
+    saveChartVersionsToStorage(updatedList);
+    setActiveVersionId(newVerId);
+    setIsNewVersionModalOpen(false);
+
+    if (newVerSetPublished) {
+      handleSetVersionPublished(newVerId);
+    }
+
+    setToast({
+      message: `Đã tạo thành công phiên bản mới [${verNum} - ${verName}]!`,
+      type: 'success'
+    });
+  };
+
+  // Update editStates when activeVersion changes
+  useEffect(() => {
+    if (!selectedSubChart) {
+      setEditStates({});
+      return;
+    }
+
+    const states: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
+
+    currentPeriods.forEach(p => {
+      if (activeVersion && activeVersion.dataOverrides[p]) {
+        const ov = activeVersion.dataOverrides[p];
+        states[p] = {
+          isOverride: true,
+          overrideValue: ov.overrideValue,
+          reason: ov.reason || ''
+        };
+      } else {
+        const realValue = getSystemRealValue(selectedSubChart.code, p, selectedSubChart.unit);
+        states[p] = {
+          isOverride: false,
+          overrideValue: realValue,
+          reason: ''
+        };
+      }
+    });
+
+    setEditStates(states);
+
+    if (activeVersion && activeVersion.description !== undefined) {
+      setChartDescription(activeVersion.description);
+    }
+  }, [activeVersion?.id, selectedSubChart, currentPeriods]);
+
 
   // Detail form edit state (for the selected indicator)
   const [editStates, setEditStates] = useState<Record<string, { isOverride: boolean; overrideValue: string; reason: string }>>({});
@@ -445,12 +818,7 @@ export const PublishAdjustPage: React.FC = () => {
     };
   }, [selectedIndicator, selectedSubChart, selectedYear, isChartPublished, adjustments, filterType]);
 
-  const currentPeriods = useMemo(() => getIndicatorPeriods(selectedIndicator, selectedYear), [selectedIndicator, selectedYear]);
 
-  const isCurrentSubChartText = useMemo(() => {
-    if (!selectedSubChart) return false;
-    return selectedSubChart.isText || selectedSubChart.unit === 'Văn bản' || (selectedIndicator && isTextIndicator(selectedIndicator));
-  }, [selectedSubChart, selectedIndicator]);
 
   const previewChartData = useMemo(() => {
     if (!selectedSubChart || isCurrentSubChartText) return [];
@@ -664,25 +1032,26 @@ export const PublishAdjustPage: React.FC = () => {
     }));
   };
 
-  // Save changes
+  // Save changes to the currently active version
   const handleSave = () => {
     if (!selectedSubChart || !selectedIndicator) return;
 
-    // Filter out old entries for this sub-chart AND selected year
-    const filteredAdjustments = adjustments.filter(
-      a => !(a.indicatorCode === selectedSubChart.code && a.period.endsWith(selectedYear))
-    );
-
     const nowStr = new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    const newOverrides: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
     const newEntries: AdjustmentItem[] = [];
 
-    // Construct new entries
+    // Construct new overrides
     Object.keys(editStates).forEach(period => {
       const state = editStates[period];
       const realValue = getSystemRealValue(selectedSubChart.code, period, selectedSubChart.unit);
 
       const isValueDifferent = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
       if (isValueDifferent) {
+        newOverrides[period] = {
+          isOverride: true,
+          overrideValue: state.overrideValue.trim(),
+          reason: state.reason || ''
+        };
         newEntries.push({
           indicatorCode: selectedSubChart.code,
           period,
@@ -696,26 +1065,43 @@ export const PublishAdjustPage: React.FC = () => {
       }
     });
 
-    // Save chart-level publish status
-    const savedStatus = localStorage.getItem('vna_publish_chart_status');
-    const statuses = savedStatus ? JSON.parse(savedStatus) : {};
-    statuses[selectedSubChart.code] = isChartPublished;
-    localStorage.setItem('vna_publish_chart_status', JSON.stringify(statuses));
-    setPublishedChartStatuses(statuses);
+    // Update active version in chartVersions list
+    const currentVerId = activeVersion?.id;
+    let targetVerNum = 'v1.0';
 
-    // Save chart / text description
-    const key = `${selectedSubChart.code}_${selectedYear}`;
-    const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
-    const descMap = savedDescriptions ? JSON.parse(savedDescriptions) : {};
-    descMap[key] = chartDescription;
-    descMap[selectedSubChart.code] = chartDescription;
-    localStorage.setItem('vna_chart_publish_descriptions', JSON.stringify(descMap));
+    const updatedVersions = chartVersions.map(v => {
+      if (v.id === currentVerId) {
+        targetVerNum = v.versionNumber;
+        return {
+          ...v,
+          description: chartDescription,
+          dataOverrides: newOverrides,
+          createdAt: nowStr,
+          createdBy: 'Nguyễn Văn Hải (Admin)'
+        };
+      }
+      return v;
+    });
 
-    const finalAdjustments = [...filteredAdjustments, ...newEntries];
+    saveChartVersionsToStorage(updatedVersions);
 
-    // Save to localStorage
-    localStorage.setItem('vna_publish_adjustments', JSON.stringify(finalAdjustments));
-    setAdjustments(finalAdjustments);
+    // If the currently edited version is the published version, sync to active public data
+    if (activeVersion?.isPublished) {
+      const filteredAdjustments = adjustments.filter(
+        a => !(a.indicatorCode === selectedSubChart.code && a.period.endsWith(selectedYear))
+      );
+      const finalAdjustments = [...filteredAdjustments, ...newEntries];
+      localStorage.setItem('vna_publish_adjustments', JSON.stringify(finalAdjustments));
+      setAdjustments(finalAdjustments);
+
+      // Save description
+      const key = `${selectedSubChart.code}_${selectedYear}`;
+      const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
+      const descMap = savedDescriptions ? JSON.parse(savedDescriptions) : {};
+      descMap[key] = chartDescription;
+      descMap[selectedSubChart.code] = chartDescription;
+      localStorage.setItem('vna_chart_publish_descriptions', JSON.stringify(descMap));
+    }
 
     // Save adjustment history entries
     if (newEntries.length > 0) {
@@ -753,8 +1139,8 @@ export const PublishAdjustPage: React.FC = () => {
         role: 'Quản trị viên',
         featureName: isCurrentSubChartText ? 'Điều chỉnh văn bản thuyết minh công bố' : 'Dữ liệu số liệu công bố đối ngoại',
         actionDetails: isCurrentSubChartText
-          ? `Điều chỉnh nội dung thuyết minh [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period}. Lý do: ${ent.reason || 'Biên tập chuẩn hóa'}`
-          : `Ghi đè số liệu biểu đồ [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period} thành "${ent.overrideValue}". Lý do: ${ent.reason || 'Không ghi chú'}`
+          ? `Cập nhật phiên bản [${targetVerNum}] thuyết minh [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period}. Lý do: ${ent.reason || 'Biên tập chuẩn hóa'}`
+          : `Cập nhật phiên bản [${targetVerNum}] số liệu biểu đồ [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period} thành "${ent.overrideValue}". Lý do: ${ent.reason || 'Hiệu chỉnh phiên bản'}`
       });
     });
 
@@ -762,7 +1148,7 @@ export const PublishAdjustPage: React.FC = () => {
     window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
 
     setToast({
-      message: `Đã lưu cấu hình dữ liệu công bố cho chỉ tiêu ${selectedIndicator.code} thành công!`,
+      message: `Đã lưu dữ liệu điều chỉnh vào phiên bản [${targetVerNum}] thành công!`,
       type: 'success'
     });
   };
@@ -990,22 +1376,56 @@ export const PublishAdjustPage: React.FC = () => {
                   </div>
 
                   {/* ROW 2: ACTION TOOLBAR */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-50 px-3.5 py-2 rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-2">
-                      <label className="text-xs font-bold text-gray-700 whitespace-nowrap">Năm báo cáo:</label>
-                      <Select
-                        value={selectedYear}
-                        onChange={setSelectedYear}
-                        options={[
-                          { label: '2026', value: '2026' },
-                          { label: '2025', value: '2025' },
-                          { label: '2024', value: '2024' },
-                        ]}
-                        className="w-28 text-xs font-bold bg-white"
-                      />
+                  <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-50 px-3.5 py-2.5 rounded-lg border border-gray-200">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <label className="text-xs font-bold text-gray-700 whitespace-nowrap">Năm báo cáo:</label>
+                        <Select
+                          value={selectedYear}
+                          onChange={setSelectedYear}
+                          options={[
+                            { label: '2026', value: '2026' },
+                            { label: '2025', value: '2025' },
+                            { label: '2024', value: '2024' },
+                          ]}
+                          className="w-28 text-xs font-bold bg-white"
+                        />
+                      </div>
+
+                      {/* Active Version Tag */}
+                      {/* <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-md border border-gray-200 text-xs shadow-2xs">
+                        <span className="text-gray-500 font-medium">Đang chỉnh sửa:</span>
+                        <span className="font-mono font-black text-vna-blue bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
+                          {activeVersion?.versionNumber || 'v1.0'}
+                        </span>
+                        <span className="font-semibold text-gray-800 line-clamp-1 max-w-[200px]" title={activeVersion?.versionName}>
+                          - {activeVersion?.versionName}
+                        </span>
+                        {activeVersion?.isPublished && (
+                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 ml-1">
+                            ✓ Đang công bố
+                          </span>
+                        )}
+                      </div> */}
                     </div>
 
                     <div className="flex items-center gap-2.5">
+                      {/* <Button
+                        variant="outline"
+                        onClick={() => {
+                          setNewVerNumber(`v${currentChartVersions.length + 1}.0`);
+                          setNewVerName(`Bản hiệu chỉnh số liệu ${selectedYear}`);
+                          setNewVerNote('');
+                          setNewVerSetPublished(true);
+                          setIsNewVersionModalOpen(true);
+                        }}
+                        className="text-xs py-1.5 px-3 border border-emerald-600/30 text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100 hover:text-emerald-800 cursor-pointer flex items-center gap-1.5 font-bold shadow-2xs transition-colors"
+                        title="Tạo phiên bản mới từ dữ liệu đang nhập"
+                      >
+                        <Sparkles size={13} className="text-emerald-600" />
+                        <span>+ Tạo version mới</span>
+                      </Button> */}
+
                       <Button
                         variant="outline"
                         onClick={() => setIsPreviewOpen(true)}
@@ -1014,10 +1434,12 @@ export const PublishAdjustPage: React.FC = () => {
                         {isCurrentSubChartText ? <BookOpen size={14} className="text-amber-600" /> : <Activity size={14} className="text-vna-blue" />}
                         <span>Xem trước</span>
                       </Button>
+
                       <Button
                         variant="primary"
                         onClick={handleSave}
                         className="text-xs py-1.5 px-4 bg-vna-blue text-white cursor-pointer flex items-center gap-1.5 font-bold shadow-xs hover:bg-[#004d5a]"
+                        title="Lưu số liệu vào phiên bản đang xem"
                       >
                         <Save size={14} />
                         <span>Lưu</span>
@@ -1046,15 +1468,9 @@ export const PublishAdjustPage: React.FC = () => {
                                   <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
                                     Nội dung gốc
                                   </span>
-                                  {/* <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-gray-200 text-gray-700 rounded">
-                                    Chỉ đọc ({p})
-                                  </span> */}
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                  {/* <span className="text-[11px] text-gray-500 truncate max-w-[280px]" title={selectedSubChart.source}>
-                                    Nguồn: {selectedSubChart.source}
-                                  </span> */}
                                   <button
                                     type="button"
                                     onClick={() => handleValueChange(p, realValue)}
@@ -1078,7 +1494,7 @@ export const PublishAdjustPage: React.FC = () => {
                                 <div className="flex items-center gap-2">
                                   <Edit3 size={15} className="text-gray-600" />
                                   <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
-                                    Nội dung điều chỉnh công bố
+                                    Nội dung điều chỉnh công bố (Phiên bản {activeVersion?.versionNumber || 'v1.0'})
                                   </span>
                                 </div>
 
@@ -1127,7 +1543,7 @@ export const PublishAdjustPage: React.FC = () => {
                         <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold text-gray-600 uppercase tracking-wider sticky top-0 z-10 shadow-xs">
                           <th className="p-3.5 pl-4">Kỳ</th>
                           <th className="p-3.5 w-44">Số liệu gốc</th>
-                          <th className="p-3.5 w-44">Điều chỉnh</th>
+                          <th className="p-3.5 w-44">Điều chỉnh ({activeVersion?.versionNumber || 'v1.0'})</th>
                           <th className="p-3.5 pr-4">Lý do</th>
                         </tr>
                       </thead>
@@ -1194,6 +1610,128 @@ export const PublishAdjustPage: React.FC = () => {
                 )}
               </Card>
 
+              {/* === BẢNG DANH SÁCH VERSION (ĐẶT PHÍA DƯỚI BẢNG ĐIỀU CHỈNH) === */}
+              <Card className="p-5 border border-gray-250 flex flex-col gap-3.5 shadow-2xs">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-150 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 bg-blue-50 text-vna-blue rounded-lg border border-blue-200">
+                      <History size={17} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-xs font-bold text-vna-blue uppercase tracking-wider">
+                          Danh sách Phiên bản
+                        </h3>
+                        <Badge variant="secondary" className="font-mono text-[10px]">
+                          {currentChartVersions.length} phiên bản
+                        </Badge>
+                      </div>
+                      {/* <p className="text-[11px] text-gray-500 mt-0.5">
+                        Mỗi biểu đồ chỉ có <strong>1 version duy nhất</strong> được kích hoạt công bố. Bạn có thể bấm vào dòng để chuyển sang xem và điều chỉnh số liệu của version đó.
+                      </p> */}
+                    </div>
+                  </div>
+
+                  {/* <Button
+                    variant="outline"
+                    onClick={() => {
+                      setNewVerNumber(`v${currentChartVersions.length + 1}.0`);
+                      setNewVerName(`Bản hiệu chỉnh số liệu ${selectedYear}`);
+                      setNewVerNote('');
+                      setNewVerSetPublished(true);
+                      setIsNewVersionModalOpen(true);
+                    }}
+                    className="text-xs py-1.5 px-3 border border-emerald-600/30 text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100 hover:text-emerald-800 cursor-pointer flex items-center gap-1.5 font-bold shadow-2xs transition-colors"
+                  >
+                    <Sparkles size={13} className="text-emerald-600" />
+                    <span>+ Tạo version mới</span>
+                  </Button> */}
+                </div>
+
+                {/* TABLE OF VERSIONS */}
+                <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                  <table className="w-full text-left text-xs border-collapse min-w-[750px]">
+                    <thead>
+                      <tr className="bg-slate-50 border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+                        <th className="py-2.5 px-3 w-10 text-center">STT</th>
+                        <th className="py-2.5 px-3 w-20 text-center">VERSION</th>
+                        <th className="py-2.5 px-4 w-36">THỜI GIAN</th>
+                        <th className="py-2.5 px-4 w-40">NGƯỜI THỰC HIỆN</th>
+                        <th className="py-2.5 px-4 w-40 text-center">TRẠNG THÁI CÔNG BỐ</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 bg-white">
+                      {currentChartVersions.map((ver, idx) => {
+                        const isViewing = activeVersion?.id === ver.id;
+                        const hasOverridesCount = Object.keys(ver.dataOverrides || {}).length;
+
+                        return (
+                          <tr
+                            key={ver.id}
+                            onClick={() => setActiveVersionId(ver.id)}
+                            className={`transition-colors cursor-pointer ${isViewing
+                              ? 'bg-blue-50/60 border-l-4 border-l-vna-blue'
+                              : 'hover:bg-slate-50/80'
+                              }`}
+                          >
+                            {/* 1. STT */}
+                            <td className="py-3 px-3 text-center text-gray-500 font-medium">
+                              {idx + 1}
+                            </td>
+
+                            {/* 2. Version */}
+                            <td className="py-3 px-3 text-center font-mono">
+                              <span className={`font-black text-xs px-2 py-0.5 rounded shadow-2xs ${isViewing
+                                ? 'bg-vna-blue text-white'
+                                : 'bg-gray-100 text-gray-800 border border-gray-200'
+                                }`}>
+                                {ver.versionNumber}
+                              </span>
+                            </td>
+
+                            {/* 3. Thời gian */}
+                            <td className="py-3 px-4 font-mono text-[11px] text-gray-500">
+                              <div className="flex items-center gap-1">
+                                <Clock size={12} className="text-gray-400 shrink-0" />
+                                <span>{ver.createdAt}</span>
+                              </div>
+                            </td>
+
+                            {/* 4. Người tạo */}
+                            <td className="py-3 px-4 text-gray-700">
+                              <div className="flex items-center gap-1.5">
+                                <User size={13} className="text-gray-400 shrink-0" />
+                                <span className="font-medium text-xs truncate">{ver.createdBy}</span>
+                              </div>
+                            </td>
+
+                            {/* 5. Trạng thái công bố */}
+                            <td className="py-3 px-4 text-center" onClick={(e) => e.stopPropagation()}>
+                              {ver.isPublished ? (
+                                <div className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 text-xs font-bold shadow-2xs">
+                                  <CheckCircle size={13} className="text-emerald-600" />
+                                  <span>ĐANG CÔNG BỐ</span>
+                                </div>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={(e) => handleSetVersionPublished(ver.id, e)}
+                                  className="text-xs font-semibold px-2.5 py-1 bg-slate-50 hover:bg-emerald-600 hover:text-white border border-gray-300 text-gray-700 rounded-md shadow-2xs transition-colors cursor-pointer"
+                                  title="Kích hoạt version này để công bố ra ngoài website (thay thế version cũ)"
+                                >
+                                  Công bố version này
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+
+
               {/* DESCRIPTION / NARRATIVE CARD */}
               <Card className="p-5 border border-gray-250 flex flex-col gap-3 shadow-2xs">
                 <div className="flex items-center justify-between border-b border-gray-150 pb-2.5">
@@ -1201,6 +1739,9 @@ export const PublishAdjustPage: React.FC = () => {
                     <FileText size={15} />
                     <span>{isCurrentSubChartText ? 'Ghi chú biên tập / Thuyết minh bổ sung' : 'Mô tả / Thuyết minh biểu đồ'}</span>
                   </h3>
+                  <span className="text-[11px] text-gray-500 font-mono">
+                    Áp dụng cho: <strong>{activeVersion?.versionNumber || 'v1.0'}</strong>
+                  </span>
                 </div>
                 <div className="flex flex-col gap-2">
                   <textarea
@@ -1215,104 +1756,11 @@ export const PublishAdjustPage: React.FC = () => {
                     className="w-full text-xs p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-vna-blue bg-white text-gray-800 resize-y leading-relaxed shadow-2xs"
                   />
                 </div>
-              </Card>
-            </div>
+              </Card>            </div>
           )}
         </div>
       </div>
 
-      {/* KHỐI LỊCH SỬ ĐIỀU CHỈNH DỮ LIỆU */}
-      <Card className="p-5 border border-gray-250 flex flex-col gap-3.5 shadow-2xs">
-        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-gray-150 pb-3">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-blue-50 text-vna-blue rounded-lg border border-blue-200/50">
-              <History size={17} />
-            </div>
-            <div>
-              <h3 className="text-xs font-bold text-vna-blue uppercase tracking-wider">
-                Lịch sử điều chỉnh
-              </h3>
-              <p className="text-[11px] text-gray-500">
-                {selectedSubChart ? (
-                  <span>
-                    <strong className="text-gray-800">{selectedSubChart.name}</strong> ({selectedIndicator?.code})
-                  </span>
-                ) : (
-                  <span>Chọn một chỉ tiêu ở danh sách phía trên để xem lịch sử điều chỉnh chi tiết.</span>
-                )}
-              </p>
-            </div>
-          </div>
-          {selectedSubChart && (
-            <Badge variant="secondary" className="font-mono text-[10px] w-fit">
-              {adjustHistory.filter(h => h.chartCode === selectedSubChart.code).length} bản ghi
-            </Badge>
-          )}
-        </div>
-
-        {/* BẢNG DANH SÁCH LỊCH SỬ */}
-        <div className="overflow-x-auto border border-gray-200 rounded-lg">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="bg-slate-50 border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
-                <th className="py-2.5 px-4 w-32">Kỳ</th>
-                <th className="py-2.5 px-4 min-w-[200px]">Nội dung gốc</th>
-                <th className="py-2.5 px-4 min-w-[220px]">Nội dung điều chỉnh</th>
-                <th className="py-2.5 px-4 w-44">Người điều chỉnh</th>
-                <th className="py-2.5 px-4 w-44 text-right pr-6">Thời gian</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 bg-white">
-              {(() => {
-                const chartHistory = selectedSubChart
-                  ? adjustHistory.filter(h => h.chartCode === selectedSubChart.code)
-                  : adjustHistory;
-
-                if (chartHistory.length === 0) {
-                  return (
-                    <tr>
-                      <td colSpan={5} className="py-8 text-center text-gray-400 italic">
-                        Chưa có lịch sử điều chỉnh nào được ghi nhận cho mục này.
-                      </td>
-                    </tr>
-                  );
-                }
-
-                return chartHistory.map(item => (
-                  <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-3 px-4 font-semibold text-gray-800 flex items-center gap-1.5">
-                      <Calendar size={13} className="text-gray-400 shrink-0" />
-                      <span>{item.period}</span>
-                    </td>
-                    <td className="py-3 px-4 text-gray-600">
-                      <p className="line-clamp-2 text-[11px] leading-relaxed" title={item.originalValue}>
-                        {item.originalValue}
-                      </p>
-                    </td>
-                    <td className="py-3 px-4">
-                      <p className="line-clamp-2 text-[11px] font-medium text-vna-blue bg-blue-50/60 p-1.5 rounded border border-blue-200/60 leading-relaxed" title={item.adjustedValue}>
-                        {item.adjustedValue}
-                      </p>
-                    </td>
-                    <td className="py-3 px-4 text-gray-700">
-                      <div className="flex items-center gap-1.5">
-                        <User size={13} className="text-gray-400 shrink-0" />
-                        <span className="font-medium">{item.adjustedBy}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 font-mono text-[11px] text-gray-500 text-right pr-6">
-                      <div className="inline-flex items-center gap-1.5">
-                        <Clock size={13} className="text-gray-400 shrink-0" />
-                        <span>{item.adjustedAt}</span>
-                      </div>
-                    </td>
-                  </tr>
-                ));
-              })()}
-            </tbody>
-          </table>
-        </div>
-      </Card>
 
       {/* PREVIEW MODAL (NUMERIC OR TEXT) */}
       <Modal
