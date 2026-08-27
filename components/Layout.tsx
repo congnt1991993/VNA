@@ -88,14 +88,20 @@ const MENU_ITEMS: MenuItem[] = [
     ]
   },
   // 5. PHÂN TÍCH & CHIẾN LƯỢC
+  // {
+  //   id: 'strategy',
+  //   label: 'PHÂN TÍCH & CHIẾN LƯỢC',
+  //   icon: <Activity size={20} />,
+  //   children: [
+  //     { id: 'netzero', label: 'Mô phỏng kịch bản Net Zero', target: 'netzero-simulation' },
+  //   ]
+  // },
+  // 6. MÔ PHỎNG KỊCH BẢN NET ZERO 2 (DANH MỤC LỚN)
   {
-    id: 'strategy',
-    label: 'PHÂN TÍCH & CHIẾN LƯỢC',
+    id: 'netzero-v2',
+    label: 'MÔ PHỎNG KỊCH BẢN',
     icon: <TrendingUp size={20} />,
-    children: [
-      { id: 'netzero', label: 'Mô phỏng kịch bản Net Zero', target: 'netzero-simulation' },
-      { id: 'netzero-v2', label: 'Mô phỏng kịch bản Net Zero 2', target: 'netzero-simulation-v2' },
-    ]
+    target: 'netzero-simulation-v2'
   },
   // 6. CÀI ĐẶT HỆ THỐNG
   {
@@ -122,9 +128,9 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'publish-adjust': { vi: 'Điều chỉnh số liệu công bố', en: 'Disclosure Data Adjustment' },
   'documents': { vi: 'Kho tài liệu PTBV', en: 'General Sustainability Docs' },
   'cms-manage': { vi: 'CMS', en: 'CMS ESG Website' },
-  'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },
-  'netzero': { vi: 'Mô phỏng kịch bản Net Zero', en: 'Net Zero Simulation' },
-  'netzero-v2': { vi: 'Mô phỏng kịch bản Net Zero 2', en: 'Net Zero Simulation 2' },
+  // 'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },
+  // 'netzero': { vi: 'Mô phỏng kịch bản Net Zero', en: 'Net Zero Simulation' },
+  'netzero-v2': { vi: 'MÔ PHỎNG KỊCH BẢN', en: 'NET ZERO SIMULATION 2' },
   'kpi-manage': { vi: 'QUẢN LÝ KPI', en: 'KPI TARGET MANAGEMENT' },
   'kpi-manage-sub': { vi: 'Quản lý KPI', en: 'KPI Target Management' },
   'system-settings': { vi: 'CÀI ĐẶT HỆ THỐNG', en: 'SYSTEM SETTINGS' },

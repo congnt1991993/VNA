@@ -1459,7 +1459,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                       placeholder="VD: Trong kỳ báo cáo, doanh nghiệp có xảy ra bất kỳ vụ việc..."
                     />
 
-                    <div className="flex flex-col gap-1.5">
+                    {/* <div className="flex flex-col gap-1.5">
                       <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Điều kiện mô tả</span>
                       <div className="flex gap-6 items-center bg-white border border-gray-250 p-2.5 rounded-lg w-fit">
                         <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-700">
@@ -1490,10 +1490,10 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                           <span>{currentLang === 'en' ? 'No' : 'Không'}</span>
                         </label>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="w-full">
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Nội dung yêu cầu</label>
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">yêu cầu của GRI/ASRH</label>
                       <textarea
                         value={formIndicator.mainDisclosurePoints || ''}
                         onChange={(e) => setFormIndicator({ ...formIndicator, mainDisclosurePoints: e.target.value })}

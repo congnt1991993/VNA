@@ -912,7 +912,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
         ];
       } else if (ind.code.startsWith('GRI 205') || ind.code.startsWith('GRI 418') || ind.code.startsWith('GRI 2-')) {
         oldSnapshotRows = [
-          { field: 'Câu hỏi kiểm nghiệm hiện trạng (Yes/No)', value: 'No (Không phát sinh vi phạm)', unit: 'Trạng thái', note: 'Đã thẩm định' },
+          { field: 'Câu hỏi', value: 'No (Không phát sinh vi phạm)', unit: 'Trạng thái', note: 'Đã thẩm định' },
           { field: 'Nội dung thuyết minh chi tiết', value: 'Trong kỳ báo cáo, doanh nghiệp không phát sinh bất kỳ trường hợp nào vi phạm pháp luật hoặc quy chuẩn nội bộ.', unit: 'Văn bản', note: 'Nội dung bản thảo ban đầu' }
         ];
       }
@@ -1388,7 +1388,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                                 {/* Question Selector Card */}
                                 <div className="bg-slate-50 border border-gray-200 p-5 rounded-2xl">
                                   <span className="text-[10px] font-black text-vna-gold uppercase tracking-wider block mb-1">
-                                    {inputLang === 'VI' ? 'Câu hỏi kiểm nghiệm hiện trạng (Có/Không)' : 'Current state verification question (Yes/No)'}
+                                    {inputLang === 'VI' ? 'Câu hỏi' : 'Current state verification question (Yes/No)'}
                                   </span>
                                   <h4 className="text-sm font-bold text-slate-800 leading-relaxed mb-4">
                                     {inputLang === 'VI' ? mapping.questionVi : mapping.questionEn}
@@ -1421,8 +1421,8 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                                         />
                                         <span>
                                           {inputLang === 'VI'
-                                            ? (option === 'Yes' ? 'Có' : 'Không')
-                                            : (option === 'Yes' ? 'Yes' : 'No')}
+                                            ? (option === 'Yes' ? 'Đáp ứng' : 'Không đáp ứng')
+                                            : (option === 'Yes' ? 'Compliant' : 'Non-compliant')}
                                         </span>
                                       </label>
                                     ))}
@@ -1434,7 +1434,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                                   <div className="space-y-4 animate-in slide-in-from-top-2 duration-200">
                                     <div className="bg-amber-50/50 border border-amber-200 p-4 rounded-xl text-xs text-amber-800">
                                       <span className="font-extrabold uppercase tracking-wide block mb-1.5 text-[10px]">
-                                        {inputLang === 'VI' ? 'Các mục chính cần công bố thuyết minh (Hướng dẫn GRI):' : 'Key points to disclose (GRI Guidelines):'}
+                                        {inputLang === 'VI' ? 'Yêu cầu của GRI/ASRH:' : 'Key points to disclose (GRI Guidelines):'}
                                       </span>
                                       <div className="font-semibold whitespace-pre-line leading-relaxed">
                                         {inputLang === 'VI' ? mapping.mainPointsVi : mapping.mainPointsEn}
@@ -1443,7 +1443,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
 
                                     <div className="flex flex-col gap-2">
                                       <label className="block text-xs font-black text-gray-500 uppercase tracking-wider">
-                                        {inputLang === 'VI' ? 'Nội dung thuyết minh (Rich Text / Thuyết minh Báo cáo VNA)' : 'Disclosure content (Rich Text / VNA Disclosure Report)'}
+                                        {inputLang === 'VI' ? 'Nội dung thuyết minh nội bộ' : 'Disclosure content (Rich Text / VNA Disclosure Report)'}
                                       </label>
                                       <textarea
                                         rows={12}
@@ -1462,7 +1462,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                                   <div className="bg-gray-50 border border-gray-200/80 p-6 rounded-2xl text-center text-xs font-bold text-gray-500 py-8 animate-in fade-in duration-200">
                                     {inputLang === 'VI' ? (
                                       <>
-                                        ⚠️ Hiện trạng được chọn là &quot;{currentVal === 'Yes' ? 'Có' : 'Không'}&quot; (Trái với cấu hình Hiện trạng VNA &quot;{mapping.status === 'Yes' ? 'Có' : 'Không'}&quot;).
+                                        ⚠️ Hiện trạng được chọn là &quot;{currentVal === 'Yes' ? 'Đáp ứng' : 'Không đáp ứng'}&quot; (Trái với cấu hình Hiện trạng VNA &quot;{mapping.status === 'Yes' ? 'Đáp ứng' : 'Không đáp ứng'}&quot;).
                                         <div className="font-medium text-gray-400 mt-2">
                                           Hệ thống tự động ẩn phần soạn thảo thuyết minh văn bản cho chỉ tiêu {ind.code}.
                                         </div>

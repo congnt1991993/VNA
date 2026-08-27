@@ -913,7 +913,7 @@ export const KPIManagePage: React.FC = () => {
     try {
       const saved = localStorage.getItem('vna_esg_kpi_audit_logs');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch (e) { }
     return INITIAL_KPI_AUDIT_LOGS;
   });
 
@@ -926,7 +926,7 @@ export const KPIManagePage: React.FC = () => {
     const now = new Date();
     const pad = (n: number) => n.toString().padStart(2, '0');
     const timestampStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-    
+
     const newLog: KPIAuditLogItem = {
       ...logItem,
       id: `log-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
@@ -1910,7 +1910,7 @@ export const KPIManagePage: React.FC = () => {
           footer={
             <div className="flex justify-between items-center w-full">
               <span className="text-xs text-gray-500 font-medium">
-                * Ghi lại toàn bộ lịch sử thiết lập mới, chỉnh sửa kế hoạch và cấu hình chỉ tiêu KPI.
+                {/* * Ghi lại toàn bộ lịch sử thiết lập mới, chỉnh sửa kế hoạch và cấu hình chỉ tiêu KPI. */}
               </span>
               <Button variant="primary" onClick={() => setIsAuditModalOpen(false)}>
                 {currentLang === 'vi' ? 'Đóng' : 'Close'}
@@ -1925,16 +1925,14 @@ export const KPIManagePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAuditTab('year')}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded-md font-bold text-xs transition-all cursor-pointer ${
-                    auditTab === 'year'
-                      ? 'bg-white text-vna-blue shadow-xs'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-1.5 rounded-md font-bold text-xs transition-all cursor-pointer ${auditTab === 'year'
+                    ? 'bg-white text-vna-blue shadow-xs'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                    }`}
                 >
                   <span>{currentLang === 'vi' ? 'Lịch sử KPI Năm' : 'Annual Audit Log'}</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-                    auditTab === 'year' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
-                  }`}>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${auditTab === 'year' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
+                    }`}>
                     {kpiAuditLogs.filter(l => l.scope === 'year').length}
                   </span>
                 </button>
@@ -1942,16 +1940,14 @@ export const KPIManagePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAuditTab('month')}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded-md font-bold text-xs transition-all cursor-pointer ${
-                    auditTab === 'month'
-                      ? 'bg-white text-vna-blue shadow-xs'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-1.5 rounded-md font-bold text-xs transition-all cursor-pointer ${auditTab === 'month'
+                    ? 'bg-white text-vna-blue shadow-xs'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                    }`}
                 >
                   <span>{currentLang === 'vi' ? 'Lịch sử KPI Tháng' : 'Monthly Audit Log'}</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-                    auditTab === 'month' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
-                  }`}>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${auditTab === 'month' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
+                    }`}>
                     {kpiAuditLogs.filter(l => l.scope === 'month').length}
                   </span>
                 </button>
@@ -1973,7 +1969,7 @@ export const KPIManagePage: React.FC = () => {
                   )}
                 </div>
 
-                <select
+                {/* <select
                   value={auditActionFilter}
                   onChange={(e) => setAuditActionFilter(e.target.value)}
                   className="px-2.5 py-1.5 bg-white border border-gray-300 rounded-md text-xs font-semibold outline-none focus:border-vna-blue cursor-pointer shadow-2xs"
@@ -1983,7 +1979,7 @@ export const KPIManagePage: React.FC = () => {
                   <option value="CREATE">Thiết lập mới</option>
                   <option value="CONFIG">Cấu hình chỉ tiêu</option>
                   <option value="DELETE">Xóa</option>
-                </select>
+                </select> */}
               </div>
             </div>
 
@@ -1995,9 +1991,9 @@ export const KPIManagePage: React.FC = () => {
                     <th className="py-2.5 px-3 text-center w-[4%] bg-gray-100">STT</th>
                     <th className="py-2.5 px-3 w-[13%] bg-gray-100">THỜI GIAN</th>
                     <th className="py-2.5 px-3 w-[16%] bg-gray-100">NGƯỜI THỰC HIỆN</th>
-                    <th className="py-2.5 px-3 w-[13%] bg-gray-100">HÀNH ĐỘNG</th>
+                    {/* <th className="py-2.5 px-3 w-[13%] bg-gray-100">HÀNH ĐỘNG</th> */}
                     <th className="py-2.5 px-3 w-[10%] bg-gray-100">MÃ CHỈ TIÊU</th>
-                    <th className="py-2.5 px-3 w-[16%] bg-gray-100">TỔ BAN / TÊN KPI</th>
+                    <th className="py-2.5 px-3 w-[16%] bg-gray-100">TÊN KPI</th>
                     <th className="py-2.5 px-3 w-[28%] bg-gray-100">MÔ TẢ THAY ĐỔI</th>
                   </tr>
                 </thead>
@@ -2047,25 +2043,24 @@ export const KPIManagePage: React.FC = () => {
                             <div className="font-bold text-gray-900 leading-tight">
                               {log.userName}
                             </div>
-                            <div className="text-[10px] text-gray-500 font-medium mt-0.5">
+                            {/* <div className="text-[10px] text-gray-500 font-medium mt-0.5">
                               {log.department}
-                            </div>
+                            </div> */}
                           </td>
 
                           {/* 4. Hành động */}
-                          <td className="py-2.5 px-3">
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${
-                              log.actionType === 'CREATE'
-                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                : log.actionType === 'UPDATE_PLAN'
+                          {/* <td className="py-2.5 px-3">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${log.actionType === 'CREATE'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              : log.actionType === 'UPDATE_PLAN'
                                 ? 'bg-blue-50 text-vna-blue border-blue-200'
                                 : log.actionType === 'CONFIG'
-                                ? 'bg-amber-50 text-amber-700 border-amber-200'
-                                : 'bg-red-50 text-red-700 border-red-200'
-                            }`}>
+                                  ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                  : 'bg-red-50 text-red-700 border-red-200'
+                              }`}>
                               {log.actionLabel}
                             </span>
-                          </td>
+                          </td> */}
 
                           {/* 5. Mã chỉ tiêu */}
                           <td className="py-2.5 px-3">
@@ -2079,9 +2074,9 @@ export const KPIManagePage: React.FC = () => {
                             <div className="font-semibold text-gray-800 leading-tight">
                               {log.kpiName}
                             </div>
-                            <div className="text-[10px] text-gray-500 font-medium">
+                            {/* <div className="text-[10px] text-gray-500 font-medium">
                               {log.deptName}
-                            </div>
+                            </div> */}
                           </td>
 
                           {/* 7. Mô tả thay đổi */}
@@ -2365,13 +2360,13 @@ export const KPIManagePage: React.FC = () => {
       {/* Top Year Selection Toolbar with Cấu hình Button */}
       <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-blue-50 text-vna-blue rounded-lg border border-blue-100 flex items-center justify-center shadow-2xs">
+          {/* <div className="p-2.5 bg-blue-50 text-vna-blue rounded-lg border border-blue-100 flex items-center justify-center shadow-2xs">
             <Calendar size={20} />
-          </div>
+          </div> */}
           <div>
-            <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+            {/* <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider">
               {currentLang === 'vi' ? 'Năm kế hoạch' : 'KPI Planning Year'}
-            </label>
+            </label> */}
             <div className="flex items-center gap-2.5 mt-0.5">
               <select
                 value={selectedYear}
@@ -2450,35 +2445,31 @@ export const KPIManagePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('year')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md font-bold text-xs transition-all cursor-pointer ${
-              activeTab === 'year'
-                ? 'bg-white text-vna-blue shadow-xs'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md font-bold text-xs transition-all cursor-pointer ${activeTab === 'year'
+              ? 'bg-white text-vna-blue shadow-xs'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+              }`}
           >
             <span>{currentLang === 'vi' ? 'Năm' : 'Annual View (All)'}</span>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-              activeTab === 'year' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
-            }`}>
+            {/* <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${activeTab === 'year' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
+              }`}>
               {allKpiRows.length}
-            </span>
+            </span> */}
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('month')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md font-bold text-xs transition-all cursor-pointer ${
-              activeTab === 'month'
-                ? 'bg-white text-vna-blue shadow-xs'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md font-bold text-xs transition-all cursor-pointer ${activeTab === 'month'
+              ? 'bg-white text-vna-blue shadow-xs'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+              }`}
           >
             <span>{currentLang === 'vi' ? 'Tháng' : 'Monthly View'}</span>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-              activeTab === 'month' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
-            }`}>
+            {/* <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${activeTab === 'month' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
+              }`}>
               {allKpiRows.filter(r => r.frequency === 'Tháng').length}
-            </span>
+            </span> */}
           </button>
         </div>
 
@@ -2583,7 +2574,7 @@ export const KPIManagePage: React.FC = () => {
                 <th className="py-3 px-3 w-[5%]">{currentLang === 'vi' ? 'ĐVT' : 'UNIT'}</th>
                 <th className="py-3 px-3 text-center w-[8%]">{currentLang === 'vi' ? 'KẾ HOẠCH' : 'TARGET'}</th>
                 <th className="py-3 px-3 text-center w-[8%]">{currentLang === 'vi' ? 'THỰC HIỆN' : 'ACTUAL'}</th>
-                
+
                 {/* 1. Đánh giá đứng trước */}
                 <th className="py-3 px-3 w-[12%]">{currentLang === 'vi' ? 'ĐÁNH GIÁ' : 'EVALUATION'}</th>
 
@@ -2721,22 +2712,20 @@ export const KPIManagePage: React.FC = () => {
                               setCollapsedKpiMonths(prev => ({ ...prev, [kpi.id]: !prev[kpi.id] }));
                             }
                           }}
-                          className={`transition-all ${
-                            canExpandMonths
-                              ? 'cursor-pointer hover:bg-blue-50/50 group select-none ' + (isCollapsed ? 'bg-white' : 'bg-blue-50/15')
-                              : 'hover:bg-gray-50/70'
-                          }`}
+                          className={`transition-all ${canExpandMonths
+                            ? 'cursor-pointer hover:bg-blue-50/50 group select-none ' + (isCollapsed ? 'bg-white' : 'bg-blue-50/15')
+                            : 'hover:bg-gray-50/70'
+                            }`}
                           title={canExpandMonths ? (isCollapsed ? 'Nhấn vào dòng để mở rộng 12 tháng chi tiết' : 'Nhấn vào dòng để thu gọn 12 tháng') : undefined}
                         >
                           {/* 1. STT & Chevron */}
                           <td className="py-3.5 px-4 text-center text-gray-500 font-medium">
                             <div className="flex items-center justify-center gap-1.5">
                               {canExpandMonths && (
-                                <span className={`w-5 h-5 rounded-full flex items-center justify-center transition-all duration-200 border shadow-2xs ${
-                                  isCollapsed
-                                    ? 'text-vna-blue bg-blue-50 border-blue-200 group-hover:bg-blue-100 group-hover:scale-110'
-                                    : 'text-white bg-vna-blue border-vna-blue rotate-90 scale-105'
-                                }`}>
+                                <span className={`w-5 h-5 rounded-full flex items-center justify-center transition-all duration-200 border shadow-2xs ${isCollapsed
+                                  ? 'text-vna-blue bg-blue-50 border-blue-200 group-hover:bg-blue-100 group-hover:scale-110'
+                                  : 'text-white bg-vna-blue border-vna-blue rotate-90 scale-105'
+                                  }`}>
                                   <ChevronRight size={12} />
                                 </span>
                               )}
@@ -2806,9 +2795,8 @@ export const KPIManagePage: React.FC = () => {
                           {/* 8. Đánh giá (Đứng trước Cùng kỳ) */}
                           <td className="py-3.5 px-3 min-w-[140px]">
                             <div className="flex items-center justify-between gap-2 mb-1.5">
-                              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${
-                                row.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'
-                              }`}>
+                              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${row.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'
+                                }`}>
                                 {row.isPass ? 'ĐẠT' : 'CHƯA ĐẠT'}
                               </span>
                               <span className={`text-xs font-bold ${row.isPass ? 'text-emerald-600' : 'text-red-600'}`}>
@@ -2845,11 +2833,10 @@ export const KPIManagePage: React.FC = () => {
                                 return (
                                   <div className="flex flex-col items-center justify-center">
                                     <span
-                                      className={`inline-flex items-center gap-0.5 font-bold text-xs px-1.5 py-0.5 rounded shadow-2xs ${
-                                        isPositive
-                                          ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
-                                          : 'text-amber-700 bg-amber-50 border border-amber-200'
-                                      }`}
+                                      className={`inline-flex items-center gap-0.5 font-bold text-xs px-1.5 py-0.5 rounded shadow-2xs ${isPositive
+                                        ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                                        : 'text-amber-700 bg-amber-50 border border-amber-200'
+                                        }`}
                                       title={`Cùng kỳ năm ${parseInt(selectedYear, 10) - 1}: ${yoy.prevActual}`}
                                     >
                                       {isPositive ? <ArrowUp size={11} className="shrink-0" /> : <ArrowDown size={11} className="shrink-0" />}
@@ -2934,9 +2921,8 @@ export const KPIManagePage: React.FC = () => {
                               <td className="py-2.5 px-3 min-w-[140px]">
                                 <div>
                                   <div className="flex items-center justify-between gap-2 mb-1">
-                                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                                      prog.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'
-                                    }`}>
+                                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${prog.isPass ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'
+                                      }`}>
                                       {prog.isPass ? 'ĐẠT' : 'CHƯA ĐẠT'}
                                     </span>
                                     <span className={`text-xs font-bold ${prog.isPass ? 'text-emerald-600' : 'text-red-600'}`}>
@@ -3009,7 +2995,7 @@ export const KPIManagePage: React.FC = () => {
                         </td>
 
                         <td className="py-3.5 px-4 text-center text-gray-400 italic">--</td>
-                        
+
                         {/* Đánh giá */}
                         <td className="py-3.5 px-4 text-center">
                           <span className="text-xs text-gray-400 italic">Chưa có dữ liệu</span>
