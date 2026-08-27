@@ -87,7 +87,7 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
 import { Card, Button, Input, Badge, Table, Toast, Modal } from '../components/UI';
 import {
   LayoutDashboard, BarChart2, Newspaper, FileText, Upload, Save, RefreshCw, Eye, EyeOff, Edit, Edit2, Plus, CheckCircle, XCircle,
-  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical
+  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical, Layers, Inbox
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -400,13 +400,21 @@ export const CMSManagePage: React.FC = () => {
       governance: 'Governance'
     };
     const targetPillarName = targetPillarMap[activePillar.id];
-    const pillarInds = MOCK_INDICATORS_JSON.filter(ind => ind.pillar === targetPillarName);
+    const pillarInds = MOCK_INDICATORS_JSON.filter(ind => {
+      if (ind.pillar !== targetPillarName) return false;
+      // Filter out indicators that do not have a valid code or are "Chưa có mã"
+      if (!ind.code || ind.code === 'Chưa có mã' || ind.code.toLowerCase().includes('chưa có mã')) return false;
+      return true;
+    });
 
     // Extract all subcharts and filter by published status
     const allSubCharts: any[] = [];
     pillarInds.forEach(ind => {
       const subCharts = getIndicatorSubCharts(ind);
       subCharts.forEach(sub => {
+        // Exclude unassigned/un-coded subcharts
+        if (!sub.code || sub.code.includes('Chưa có mã')) return;
+
         const isPublished = publishedChartStatuses[sub.code] !== false;
         if (isPublished) {
           const desc = chartDescriptions[`${ind.code}_${sub.code}`] || chartDescriptions[sub.code] || '';
@@ -423,15 +431,29 @@ export const CMSManagePage: React.FC = () => {
     return allSubCharts;
   }, [selectedPillarId, pillars, publishedChartStatuses, chartDescriptions]);
 
-  const filteredPublishedSubCharts = useMemo(() => {
+  // Backlog pool: only items NOT yet added to Sprint (detailReports)
+  const availableBacklogSubCharts = useMemo(() => {
+    const activePillar = pillars.find(p => p.id === selectedPillarId);
+    const sprintReportValues = new Set((activePillar?.detailReports || []).map(r => r.value));
+
     return publishedSubChartsForPillar.filter(sub => {
+      // Exclude if already in Sprint
+      if (sprintReportValues.has(sub.code) || sprintReportValues.has(sub.indicatorCode)) {
+        return false;
+      }
+      return true;
+    });
+  }, [publishedSubChartsForPillar, selectedPillarId, pillars]);
+
+  const filteredPublishedSubCharts = useMemo(() => {
+    return availableBacklogSubCharts.filter(sub => {
       const codeStr = (sub.indicatorCode || sub.code || '').toLowerCase();
       const nameStr = (sub.name || '').toLowerCase();
       const matchesCode = !searchChartCode || codeStr.includes(searchChartCode.toLowerCase());
       const matchesName = !searchChartName || nameStr.includes(searchChartName.toLowerCase());
       return matchesCode && matchesName;
     });
-  }, [publishedSubChartsForPillar, searchChartCode, searchChartName]);
+  }, [availableBacklogSubCharts, searchChartCode, searchChartName]);
 
   // Helper map for fast indicator lookup by ID/Code
   const indicatorMap = useMemo(() => {
@@ -505,9 +527,46 @@ export const CMSManagePage: React.FC = () => {
     }));
   };
 
-  // Drag and Drop state & helpers for attached reports
+  // Drag and Drop state & helpers for attached reports (Jira Sprint & Backlog)
   const [draggedReport, setDraggedReport] = useState<{ section: 'news' | 'detail'; index: number } | null>(null);
   const [dragOverReport, setDragOverReport] = useState<{ section: 'news' | 'detail'; index: number } | null>(null);
+  const [draggedBacklogItem, setDraggedBacklogItem] = useState<any | null>(null);
+  const [isDragOverSprintZone, setIsDragOverSprintZone] = useState(false);
+
+  // Helper to add a chart/indicator from Backlog into Sprint (detailReports)
+  const addBacklogItemToSprint = (pillarId: string, sub: any, insertIndex?: number) => {
+    const isInd = sub.isText || sub.unit === 'Văn bản';
+    const newReportItem: ReportItem = {
+      id: `rep-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      type: isInd ? 'indicator' : 'chart',
+      value: sub.code || sub.indicatorCode
+    };
+
+    setPillars(pillars.map(p => {
+      if (p.id === pillarId) {
+        const currentList = [...(p.detailReports || [])];
+        const exists = currentList.some(item => item.value === newReportItem.value);
+        if (exists) {
+          setToast({ message: `Biểu đồ "${sub.name}" đã có trong Trang chi tiết!`, type: 'info' });
+          return p;
+        }
+
+        if (insertIndex !== undefined && insertIndex >= 0) {
+          currentList.splice(insertIndex, 0, newReportItem);
+        } else {
+          currentList.push(newReportItem);
+        }
+
+        return {
+          ...p,
+          detailReports: currentList
+        };
+      }
+      return p;
+    }));
+
+    setToast({ message: `Đã đính kèm "${sub.name}" vào Trang chi tiết (Sprint)!`, type: 'success' });
+  };
 
   const reorderReportRow = (pillarId: string, section: 'news' | 'detail', fromIndex: number, toIndex: number) => {
     if (fromIndex === toIndex) return;
@@ -1526,269 +1585,371 @@ export const CMSManagePage: React.FC = () => {
                           </div>
                         </div> */}
 
-                        {/* Report config sub-section for Section 2 with Drag & Drop */}
-                        <div className="md:col-span-2 bg-gray-50/50 p-4 rounded-xl border border-gray-200 mt-2 space-y-3">
-                          <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                            <span className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                              <Target size={14} className="text-[#005f6e]" />
-                              Cấu hình báo cáo đính kèm Trang chi tiết (Biểu đồ / Chỉ tiêu)
-                            </span>
-                            <span className="text-[10px] text-gray-400 font-medium italic flex items-center gap-1">
-                              <GripVertical size={12} /> Kéo thả để đổi thứ tự
-                            </span>
-                          </div>
-
-                          {(!activePillar.detailReports || activePillar.detailReports.length === 0) ? (
-                            <p className="text-[11px] text-gray-400 italic">Chưa có báo cáo đính kèm nào được cấu hình cho Trang chi tiết.</p>
-                          ) : (
-                            <div className="space-y-2.5">
-                              {activePillar.detailReports.map((report, idx) => {
-                                const isDragging = draggedReport?.section === 'detail' && draggedReport?.index === idx;
-                                const isDragOver = dragOverReport?.section === 'detail' && dragOverReport?.index === idx;
-
-                                return (
-                                  <div
-                                    key={report.id}
-                                    draggable
-                                    onDragStart={(e) => {
-                                      e.dataTransfer.setData('text/plain', idx.toString());
-                                      e.dataTransfer.effectAllowed = 'move';
-                                      setDraggedReport({ section: 'detail', index: idx });
-                                    }}
-                                    onDragOver={(e) => {
-                                      e.preventDefault();
-                                      e.dataTransfer.dropEffect = 'move';
-                                      if (dragOverReport?.index !== idx || dragOverReport?.section !== 'detail') {
-                                        setDragOverReport({ section: 'detail', index: idx });
-                                      }
-                                    }}
-                                    onDragLeave={() => {
-                                      if (dragOverReport?.index === idx) {
-                                        setDragOverReport(null);
-                                      }
-                                    }}
-                                    onDrop={(e) => {
-                                      e.preventDefault();
-                                      if (draggedReport && draggedReport.section === 'detail') {
-                                        reorderReportRow(activePillar.id, 'detail', draggedReport.index, idx);
-                                      }
-                                      setDraggedReport(null);
-                                      setDragOverReport(null);
-                                    }}
-                                    onDragEnd={() => {
-                                      setDraggedReport(null);
-                                      setDragOverReport(null);
-                                    }}
-                                    className={`flex flex-wrap md:flex-nowrap items-center gap-2 bg-white p-2.5 rounded-xl border transition-all ${isDragging
-                                      ? 'opacity-40 border-dashed border-[#005f6e] bg-blue-50/20 scale-[0.99]'
-                                      : isDragOver
-                                        ? 'border-t-2 border-t-[#005f6e] bg-blue-50/10 shadow-md'
-                                        : 'border-gray-200 shadow-3xs hover:border-gray-300'
-                                      }`}
-                                  >
-                                    {/* Drag handle */}
-                                    <div
-                                      className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded transition-colors shrink-0"
-                                      title="Kéo thả để sắp xếp vị trí"
-                                    >
-                                      <GripVertical size={16} />
-                                    </div>
-
-                                    <div className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shrink-0 font-mono">
-                                      #{idx + 1}
-                                    </div>
-
-                                    <div className="w-full md:w-36 shrink-0">
-                                      <select
-                                        value={report.type}
-                                        onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'type', e.target.value as 'chart' | 'indicator')}
-                                        className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg focus:ring-[#005f6e] focus:border-[#005f6e] text-xs font-semibold bg-gray-50 text-gray-700"
-                                      >
-                                        <option value="chart">Biểu đồ</option>
-                                        <option value="indicator">Chỉ tiêu</option>
-                                      </select>
-                                    </div>
-
-                                    <div className="flex-1 min-w-[200px]">
-                                      {report.type === 'chart' ? (
-                                        <Input
-                                          placeholder="Nhập link embed biểu đồ (URL)..."
-                                          value={report.value}
-                                          onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'value', e.target.value)}
-                                          className="text-xs"
-                                        />
-                                      ) : (
-                                        <select
-                                          value={report.value}
-                                          onChange={(e) => updateReportRow(activePillar.id, 'detail', report.id, 'value', e.target.value)}
-                                          className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-[#005f6e] focus:border-[#005f6e] text-xs bg-white text-gray-800"
-                                        >
-                                          <option value="">-- Chọn chỉ tiêu ({activePillar.code}) --</option>
-                                          {getPillarIndicators(activePillar.id).map(ind => (
-                                            <option key={ind.code} value={ind.code}>
-                                              [{ind.code}] {ind.name}
-                                            </option>
-                                          ))}
-                                        </select>
-                                      )}
-                                    </div>
-
-                                    {/* Move up / Move down & Delete */}
-                                    <div className="flex items-center gap-0.5 shrink-0">
-                                      <button
-                                        type="button"
-                                        disabled={idx === 0}
-                                        onClick={() => moveReportRow(activePillar.id, 'detail', idx, 'up')}
-                                        className="p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer"
-                                        title="Chuyển lên trên"
-                                      >
-                                        <ChevronUp size={15} />
-                                      </button>
-                                      <button
-                                        type="button"
-                                        disabled={idx === activePillar.detailReports.length - 1}
-                                        onClick={() => moveReportRow(activePillar.id, 'detail', idx, 'down')}
-                                        className="p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer"
-                                        title="Chuyển xuống dưới"
-                                      >
-                                        <ChevronDown size={15} />
-                                      </button>
-                                      <Button
-                                        variant="ghost"
-                                        onClick={() => deleteReportRow(activePillar.id, 'detail', report.id)}
-                                        className="text-red-500 hover:bg-red-50 p-1.5 h-8 w-8 rounded-md shrink-0 flex items-center justify-center border border-transparent cursor-pointer"
-                                        title="Xóa dòng"
-                                      >
-                                        <Trash2 size={15} />
-                                      </Button>
-                                    </div>
+                        {/* === JIRA STYLE SPRINT & BACKLOG FOR TRANG CHI TIẾT (CLEAN TABLE) === */}
+                        <div className="md:col-span-2 space-y-5 mt-2">
+                          {/* 1. SPRINT ZONE: CẤU HÌNH BÁO CÁO ĐÍNH KÈM TRANG CHI TIẾT (SPRINT) */}
+                          <div
+                            onDragOver={(e) => {
+                              e.preventDefault();
+                              e.dataTransfer.dropEffect = 'move';
+                              if (!isDragOverSprintZone) setIsDragOverSprintZone(true);
+                            }}
+                            onDragLeave={() => {
+                              setIsDragOverSprintZone(false);
+                            }}
+                            onDrop={(e) => {
+                              e.preventDefault();
+                              setIsDragOverSprintZone(false);
+                              if (draggedBacklogItem) {
+                                addBacklogItemToSprint(activePillar.id, draggedBacklogItem);
+                                setDraggedBacklogItem(null);
+                              }
+                            }}
+                            className={`bg-white rounded-xl border transition-all shadow-2xs overflow-hidden ${
+                              isDragOverSprintZone
+                                ? 'border-[#005f6e] ring-2 ring-[#005f6e]/30 bg-blue-50/20'
+                                : 'border-gray-250'
+                            }`}
+                          >
+                            {/* SPRINT HEADER */}
+                            <div className="p-3.5 bg-gradient-to-r from-slate-50 to-blue-50/40 border-b border-gray-200 flex flex-wrap justify-between items-center gap-2">
+                              <div className="flex items-center gap-2.5">
+                                <div className="p-2 bg-[#005f6e]/10 text-[#005f6e] rounded-lg border border-[#005f6e]/20">
+                                  <Layers size={16} />
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
+                                      Cấu hình báo cáo đính kèm Trang chi tiết
+                                    </span>
+                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#005f6e] text-white font-mono shadow-2xs">
+                                      {(activePillar.detailReports || []).length} mục xuất bản
+                                    </span>
                                   </div>
-                                );
-                              })}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] text-gray-400 font-medium italic flex items-center gap-1">
+                                  <GripVertical size={12} /> Kéo thả đổi thứ tự
+                                </span>
+                              </div>
                             </div>
-                          )}
 
-                          <div className="pt-2">
-                            <Button
-                              variant="outline"
-                              onClick={() => addReportRow(activePillar.id, 'detail')}
-                              className="text-xs py-1.5 px-3 h-8 border-dashed border-[#005f6e] text-[#005f6e] hover:bg-[#005f6e]/5 font-bold flex items-center justify-center w-full sm:w-auto cursor-pointer"
-                            >
-                              <Plus size={14} className="mr-1" /> Thêm báo cáo
-                            </Button>
-                          </div>
-                        </div>
+                            {/* SPRINT TABLE */}
+                            {(!activePillar.detailReports || activePillar.detailReports.length === 0) ? (
+                              <div className="p-8 text-center bg-gray-50/60 flex flex-col items-center justify-center gap-2 border-b border-gray-100">
+                                <Inbox size={32} className="text-gray-300 stroke-1" />
+                                <p className="text-xs font-semibold text-gray-600">
+                                  Chưa có biểu đồ nào được đính kèm vào Trang chi tiết
+                                </p>
+                                <p className="text-[11px] text-gray-400 max-w-md">
+                                  Hãy kéo thả các thẻ biểu đồ từ <strong>Biểu đồ yêu cầu công bố (Backlog)</strong> bên dưới lên khu vực này.
+                                </p>
+                              </div>
+                            ) : (
+                              <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200 text-left border-collapse min-w-[750px]">
+                                  <thead className="bg-gray-50/90 text-gray-700 border-b border-gray-200">
+                                    <tr className="text-[11px] font-bold uppercase tracking-wider">
+                                      <th className="py-2.5 px-3 w-14 text-center shrink-0">STT</th>
+                                      <th className="py-2.5 px-3 w-36 whitespace-nowrap shrink-0">MÃ CHỈ TIÊU</th>
+                                      <th className="py-2.5 px-3 w-60 min-w-[200px]">TÊN BIỂU ĐỒ</th>
+                                      <th className="py-2.5 px-4 min-w-[300px]">MÔ TẢ BIỂU ĐỒ</th>
+                                      <th className="py-2.5 px-3 w-28 text-center shrink-0">THAO TÁC</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-gray-150 bg-white text-xs">
+                                    {activePillar.detailReports.map((report, idx) => {
+                                      const isDragging = draggedReport?.section === 'detail' && draggedReport?.index === idx;
+                                      const isDragOver = dragOverReport?.section === 'detail' && dragOverReport?.index === idx;
 
-                        {/* DANH SÁCH BIỂU ĐỒ ĐÃ CÔNG BỐ (DẠNG BẢNG TỐI GIẢN) */}
-                        <div className="md:col-span-2 bg-white rounded-xl border border-gray-200 mt-3 shadow-2xs overflow-hidden">
-                          <div className="p-3.5 bg-gray-50/70 border-b border-gray-200 flex justify-between items-center">
-                            <span className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                              <Eye size={14} className="text-[#005f6e]" />
-                              Biểu đồ yêu cầu công bố
-                            </span>
-                            <span className="text-[11px] bg-blue-50 text-[#005f6e] px-2.5 py-0.5 rounded-full border border-blue-100 font-bold font-mono">
-                              {publishedSubChartsForPillar.length} biểu đồ
-                            </span>
-                          </div>
+                                      // Find matching published subchart info
+                                      const matchingSub = publishedSubChartsForPillar.find(s => s.code === report.value || s.indicatorCode === report.value);
+                                      const indInfo = indicatorMap.get(report.value) || (matchingSub ? { code: matchingSub.indicatorCode, name: matchingSub.name } : null);
+                                      const chartName = matchingSub?.name || (report.type === 'chart' ? (report.value.startsWith('http') ? 'Biểu đồ đính kèm (URL)' : report.value) : (indInfo?.name || report.value));
+                                      const chartCode = matchingSub?.indicatorCode || indInfo?.code || (report.type === 'indicator' ? report.value : (matchingSub?.code || 'Chưa có mã'));
+                                      const desc = matchingSub ? getSubChartDescription(matchingSub) : 'Biểu đồ được cấu hình xuất bản trên trang chi tiết.';
 
-                          {publishedSubChartsForPillar.length === 0 ? (
-                            <div className="p-6 text-center text-xs text-gray-400 italic">
-                              Không có biểu đồ nào được công bố dưới trụ cột này trong mục Điều chỉnh số liệu công bố.
-                            </div>
-                          ) : (
-                            <div className="overflow-x-auto">
-                              <table className="min-w-full divide-y divide-gray-200 text-left">
-                                <thead className="bg-gray-50/80 text-gray-700">
-                                  <tr className="text-xs uppercase font-bold">
-                                    <th className="py-3 px-4 w-12 text-center">STT</th>
-                                    <th className="py-3 px-4 w-44 whitespace-nowrap">Mã chỉ tiêu</th>
-                                    <th className="py-3 px-4 min-w-[220px]">Tên biểu đồ</th>
-                                    <th className="py-3 px-4 min-w-[280px]">Mô tả biểu đồ</th>
-                                    <th className="py-3 px-4 w-28 text-center">Thao tác</th>
-                                  </tr>
-
-                                  {/* COLUMN FILTER ROW */}
-                                  <tr className="bg-blue-50/70 border-b border-gray-200">
-                                    {/* 1. STT Spacer */}
-                                    <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
-
-                                    {/* 2. Filter Indicator Code */}
-                                    <th className="py-2 px-3 text-left">
-                                      <div className="relative">
-                                        <input
-                                          type="text"
-                                          value={searchChartCode}
-                                          onChange={(e) => setSearchChartCode(e.target.value)}
-                                          placeholder="Lọc mã..."
-                                          className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2.5 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
-                                        />
-                                        {searchChartCode && (
-                                          <button onClick={() => setSearchChartCode('')} className="absolute right-2 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
-                                        )}
-                                      </div>
-                                    </th>
-
-                                    {/* 3. Filter Chart Name */}
-                                    <th className="py-2 px-3 text-left">
-                                      <div className="relative">
-                                        <input
-                                          type="text"
-                                          value={searchChartName}
-                                          onChange={(e) => setSearchChartName(e.target.value)}
-                                          placeholder="Lọc tên biểu đồ..."
-                                          className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2.5 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
-                                        />
-                                        {searchChartName && (
-                                          <button onClick={() => setSearchChartName('')} className="absolute right-2 top-1 text-gray-400 hover:text-gray-600 text-xs">✕</button>
-                                        )}
-                                      </div>
-                                    </th>
-
-                                    {/* 4. Description Spacer */}
-                                    <th className="py-2 px-2 text-center text-gray-400 font-normal text-xs">—</th>
-
-                                    {/* 5. Clear Filter Action */}
-                                    <th className="py-2 px-2 text-center">
-                                      {(searchChartCode || searchChartName) && (
-                                        <button
-                                          onClick={() => {
-                                            setSearchChartCode('');
-                                            setSearchChartName('');
+                                      return (
+                                        <tr
+                                          key={report.id}
+                                          draggable
+                                          onDragStart={(e) => {
+                                            e.dataTransfer.setData('text/plain', idx.toString());
+                                            e.dataTransfer.effectAllowed = 'move';
+                                            setDraggedReport({ section: 'detail', index: idx });
                                           }}
-                                          className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-1 py-0.5 rounded hover:bg-red-50"
-                                          title="Xóa tất cả bộ lọc"
+                                          onDragOver={(e) => {
+                                            e.preventDefault();
+                                            e.dataTransfer.dropEffect = 'move';
+                                            if (dragOverReport?.index !== idx || dragOverReport?.section !== 'detail') {
+                                              setDragOverReport({ section: 'detail', index: idx });
+                                            }
+                                          }}
+                                          onDragLeave={() => {
+                                            if (dragOverReport?.index === idx) {
+                                              setDragOverReport(null);
+                                            }
+                                          }}
+                                          onDrop={(e) => {
+                                            e.preventDefault();
+                                            if (draggedReport && draggedReport.section === 'detail') {
+                                              reorderReportRow(activePillar.id, 'detail', draggedReport.index, idx);
+                                            } else if (draggedBacklogItem) {
+                                              addBacklogItemToSprint(activePillar.id, draggedBacklogItem, idx);
+                                              setDraggedBacklogItem(null);
+                                            }
+                                            setDraggedReport(null);
+                                            setDragOverReport(null);
+                                          }}
+                                          onDragEnd={() => {
+                                            setDraggedReport(null);
+                                            setDragOverReport(null);
+                                            setDraggedBacklogItem(null);
+                                          }}
+                                          className={`transition-colors ${
+                                            isDragging
+                                              ? 'opacity-40 bg-blue-50/40'
+                                              : isDragOver
+                                                ? 'border-t-2 border-t-[#005f6e] bg-blue-50/20'
+                                                : 'hover:bg-slate-50/70'
+                                          }`}
                                         >
-                                          Xóa lọc
-                                        </button>
-                                      )}
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100 text-xs text-gray-700">
-                                  {filteredPublishedSubCharts.map((sub, index) => {
-                                    const desc = getSubChartDescription(sub);
-                                    return (
-                                      <tr key={sub.code} className="hover:bg-blue-50/30 transition-colors group">
-                                        <td className="py-3 px-4 text-center text-black/45 font-medium">{index + 1}</td>
-                                        <td className="py-3 px-4">
-                                          <span className="text-[11px] font-bold font-mono px-2 py-0.5 bg-gray-100 text-gray-800 rounded border border-gray-200 whitespace-nowrap">
-                                            {sub.indicatorCode || sub.code}
-                                          </span>
-                                        </td>
-                                        <td className="py-3 px-4 font-semibold text-gray-900">
-                                          {sub.name}
-                                        </td>
-                                        <td className="py-3 px-4 text-gray-600 min-w-[280px] max-w-[420px]">
-                                          <div className="space-y-1.5">
+                                          {/* 1. STT & DRAG HANDLE */}
+                                          <td className="py-3 px-3 text-center">
+                                            <div className="flex items-center justify-center gap-1 text-gray-500">
+                                              <div
+                                                className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 rounded transition-colors"
+                                                title="Kéo thả để sắp xếp vị trí"
+                                              >
+                                                <GripVertical size={15} />
+                                              </div>
+                                              <span className="font-mono font-bold text-gray-700">#{idx + 1}</span>
+                                            </div>
+                                          </td>
+
+                                          {/* 2. MÃ CHỈ TIÊU */}
+                                          <td className="py-3 px-3">
+                                            <span className="text-[11px] font-bold font-mono px-2 py-0.5 bg-gray-100 text-gray-800 rounded border border-gray-200 whitespace-nowrap shadow-2xs inline-block">
+                                              {chartCode}
+                                            </span>
+                                          </td>
+
+                                          {/* 3. TÊN BIỂU ĐỒ */}
+                                          <td className="py-3 px-3 font-bold text-gray-900 leading-snug">
+                                            {chartName}
+                                          </td>
+
+                                          {/* 4. MÔ TẢ BIỂU ĐỒ (CỘT RIÊNG) */}
+                                          <td className="py-3 px-4 text-gray-700 text-xs leading-relaxed">
                                             <p
-                                              className={`leading-relaxed whitespace-pre-line text-[11px] text-gray-750 ${expandedDescMap[sub.code] ? '' : 'line-clamp-2'
-                                                }`}
+                                              className={`whitespace-pre-line text-[11px] ${
+                                                expandedDescMap[chartCode] ? '' : 'line-clamp-2'
+                                              }`}
+                                              title={expandedDescMap[chartCode] ? undefined : desc}
+                                            >
+                                              {desc}
+                                            </p>
+                                            <div className="flex items-center gap-2 mt-1">
+                                              {desc.length > 80 && (
+                                                <button
+                                                  type="button"
+                                                  onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setExpandedDescMap(prev => ({
+                                                      ...prev,
+                                                      [chartCode]: !prev[chartCode]
+                                                    }));
+                                                  }}
+                                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-[#005f6e] hover:underline cursor-pointer"
+                                                >
+                                                  {expandedDescMap[chartCode] ? '▲ Thu gọn' : '▼ Xem thêm'}
+                                                </button>
+                                              )}
+                                              <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                  e.stopPropagation();
+                                                  handleOpenEditDesc(matchingSub || { code: report.value, name: chartName, indicatorCode: chartCode });
+                                                }}
+                                                className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 hover:text-amber-800 hover:underline cursor-pointer ml-1"
+                                                title="Chỉnh sửa mô tả cho biểu đồ này"
+                                              >
+                                                Sửa mô tả
+                                              </button>
+                                            </div>
+                                          </td>
+
+                                          {/* 5. THAO TÁC */}
+                                          <td className="py-3 px-3 text-center">
+                                            <div className="flex items-center justify-center gap-2">
+                                              {matchingSub && (
+                                                <Button
+                                                  variant="outline"
+                                                  size="sm"
+                                                  onClick={() => setPreviewingChart(matchingSub)}
+                                                  className="p-1.5 h-7.5 w-7.5 border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg"
+                                                  title="Xem biểu đồ"
+                                                >
+                                                  <BarChart2 size={14} />
+                                                </Button>
+                                              )}
+
+                                              <Button
+                                                variant="ghost"
+                                                onClick={() => deleteReportRow(activePillar.id, 'detail', report.id)}
+                                                className="text-red-500 hover:bg-red-50 p-1.5 h-7.5 w-7.5 rounded-lg shrink-0 flex items-center justify-center border border-transparent cursor-pointer"
+                                                title="Gỡ khỏi Trang chi tiết"
+                                              >
+                                                <Trash2 size={14} />
+                                              </Button>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* 2. BACKLOG ZONE: BIỂU ĐỒ YÊU CẦU CÔNG BỐ (BACKLOG POOL) */}
+                          <div className="bg-white rounded-xl border border-gray-250 shadow-2xs overflow-hidden">
+                            {/* BACKLOG HEADER */}
+                            <div className="p-3.5 bg-gray-50/80 border-b border-gray-200 flex flex-wrap justify-between items-center gap-2">
+                              <div className="flex items-center gap-2.5">
+                                <div className="p-2 bg-amber-500/10 text-amber-700 rounded-lg border border-amber-500/20">
+                                  <Inbox size={16} />
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
+                                      Biểu đồ yêu cầu công bố (Backlog)
+                                    </span>
+                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200 font-mono shadow-2xs">
+                                      {availableBacklogSubCharts.length} biểu đồ sẵn sàng
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* FILTER ROW IN BACKLOG */}
+                            <div className="p-3 bg-blue-50/40 border-b border-gray-200 flex flex-wrap items-center gap-3">
+                              <div className="flex-1 min-w-[160px] relative">
+                                <input
+                                  type="text"
+                                  value={searchChartCode}
+                                  onChange={(e) => setSearchChartCode(e.target.value)}
+                                  placeholder="🔍 Lọc theo mã chỉ tiêu..."
+                                  className="w-full text-xs font-normal bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                                />
+                                {searchChartCode && (
+                                  <button onClick={() => setSearchChartCode('')} className="absolute right-2.5 top-1.5 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                                )}
+                              </div>
+
+                              <div className="flex-[2] min-w-[200px] relative">
+                                <input
+                                  type="text"
+                                  value={searchChartName}
+                                  onChange={(e) => setSearchChartName(e.target.value)}
+                                  placeholder="🔍 Lọc theo tên biểu đồ..."
+                                  className="w-full text-xs font-normal bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                                />
+                                {searchChartName && (
+                                  <button onClick={() => setSearchChartName('')} className="absolute right-2.5 top-1.5 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+                                )}
+                              </div>
+
+                              {(searchChartCode || searchChartName) && (
+                                <button
+                                  onClick={() => {
+                                    setSearchChartCode('');
+                                    setSearchChartName('');
+                                  }}
+                                  className="text-xs font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-2 py-1 rounded hover:bg-red-50"
+                                >
+                                  Xóa lọc
+                                </button>
+                              )}
+                            </div>
+
+                            {/* BACKLOG TABLE */}
+                            <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
+                              {filteredPublishedSubCharts.length === 0 ? (
+                                <div className="p-8 text-center text-xs text-gray-400 italic">
+                                  Không tìm thấy biểu đồ nào phù hợp trong Backlog.
+                                </div>
+                              ) : (
+                                <table className="min-w-full divide-y divide-gray-200 text-left border-collapse min-w-[750px]">
+                                  <thead className="bg-gray-50/90 text-gray-700 sticky top-0 z-10 border-b border-gray-200 shadow-3xs">
+                                    <tr className="text-[11px] font-bold uppercase tracking-wider">
+                                      <th className="py-2.5 px-3 w-14 text-center shrink-0">STT</th>
+                                      <th className="py-2.5 px-3 w-36 whitespace-nowrap shrink-0">MÃ CHỈ TIÊU</th>
+                                      <th className="py-2.5 px-3 w-60 min-w-[200px]">TÊN BIỂU ĐỒ</th>
+                                      <th className="py-2.5 px-4 min-w-[300px]">MÔ TẢ BIỂU ĐỒ</th>
+                                      <th className="py-2.5 px-3 w-28 text-center shrink-0">THAO TÁC</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-gray-150 bg-white text-xs">
+                                    {filteredPublishedSubCharts.map((sub, index) => {
+                                      const desc = getSubChartDescription(sub);
+                                      const displayCode = sub.indicatorCode || sub.code || 'Chưa có mã';
+
+                                      return (
+                                        <tr
+                                          key={sub.code}
+                                          draggable
+                                          onDragStart={(e) => {
+                                            e.dataTransfer.setData('text/plain', sub.code);
+                                            e.dataTransfer.effectAllowed = 'move';
+                                            setDraggedBacklogItem(sub);
+                                          }}
+                                          onDragEnd={() => {
+                                            setDraggedBacklogItem(null);
+                                          }}
+                                          className="hover:bg-blue-50/30 cursor-grab active:cursor-grabbing transition-colors group"
+                                        >
+                                          {/* 1. STT & DRAG HANDLE */}
+                                          <td className="py-3 px-3 text-center">
+                                            <div className="flex items-center justify-center gap-1 text-gray-500">
+                                              <div
+                                                className="p-1 rounded text-gray-400 hover:text-[#005f6e] hover:bg-gray-100 transition-colors"
+                                                title="Kéo thả lên Sprint phía trên"
+                                              >
+                                                <GripVertical size={15} />
+                                              </div>
+                                              <span className="font-mono font-bold text-gray-700">#{index + 1}</span>
+                                            </div>
+                                          </td>
+
+                                          {/* 2. MÃ CHỈ TIÊU */}
+                                          <td className="py-3 px-3">
+                                            <span className="text-[11px] font-bold font-mono px-2 py-0.5 bg-gray-100 text-gray-800 rounded border border-gray-200 whitespace-nowrap shadow-2xs inline-block">
+                                              {displayCode}
+                                            </span>
+                                          </td>
+
+                                          {/* 3. TÊN BIỂU ĐỒ */}
+                                          <td className="py-3 px-3 font-bold text-gray-900 leading-snug">
+                                            {sub.name}
+                                          </td>
+
+                                          {/* 4. MÔ TẢ BIỂU ĐỒ (CỘT RIÊNG) */}
+                                          <td className="py-3 px-4 text-gray-700 text-xs leading-relaxed">
+                                            <p
+                                              className={`whitespace-pre-line text-[11px] ${
+                                                expandedDescMap[sub.code] ? '' : 'line-clamp-2'
+                                              }`}
                                               title={expandedDescMap[sub.code] ? undefined : desc}
                                             >
                                               {desc}
                                             </p>
-                                            <div className="flex items-center gap-3">
-                                              {desc.length > 90 && (
+                                            <div className="flex items-center gap-2 mt-1">
+                                              {desc.length > 80 && (
                                                 <button
                                                   type="button"
                                                   onClick={(e) => {
@@ -1798,58 +1959,56 @@ export const CMSManagePage: React.FC = () => {
                                                       [sub.code]: !prev[sub.code]
                                                     }));
                                                   }}
-                                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-[#005f6e] hover:underline cursor-pointer py-0.5"
+                                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-[#005f6e] hover:underline cursor-pointer"
                                                 >
                                                   {expandedDescMap[sub.code] ? '▲ Thu gọn' : '▼ Xem thêm'}
                                                 </button>
                                               )}
-                                              {/* <button
+                                              <button
                                                 type="button"
-                                                onClick={() => handleOpenEditDesc(sub)}
-                                                className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 hover:text-amber-800 hover:underline cursor-pointer py-0.5"
+                                                onClick={(e) => {
+                                                  e.stopPropagation();
+                                                  handleOpenEditDesc(sub);
+                                                }}
+                                                className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 hover:text-amber-800 hover:underline cursor-pointer ml-1"
+                                                title="Chỉnh sửa mô tả cho biểu đồ này"
                                               >
-                                                <Edit2 size={11} /> Sửa mô tả
-                                              </button> */}
+                                                Sửa mô tả
+                                              </button>
                                             </div>
-                                          </div>
-                                        </td>
-                                        <td className="py-3 px-4 text-center">
-                                          <div className="flex items-center justify-center gap-1.5">
-                                            {/* <Button
-                                              variant="outline"
-                                              size="sm"
-                                              onClick={() => handleOpenEditDesc(sub)}
-                                              className="text-[11px] py-1 px-2 h-7.5 border-amber-300 text-amber-800 hover:bg-amber-50 font-semibold flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs transition-all"
-                                              title="Chỉnh sửa mô tả biểu đồ"
-                                            >
-                                              <Edit2 size={12} />
-                                              <span>Sửa</span>
-                                            </Button> */}
-                                            <Button
-                                              variant="outline"
-                                              size="sm"
-                                              onClick={() => setPreviewingChart(sub)}
-                                              className="p-1.5 h-7.5 w-7.5 border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg"
-                                              title="Xem biểu đồ"
-                                            >
-                                              <BarChart2 size={15} />
-                                            </Button>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    );
-                                  })}
-                                  {filteredPublishedSubCharts.length === 0 && (
-                                    <tr>
-                                      <td colSpan={5} className="py-8 text-center text-xs text-gray-400 italic">
-                                        Không tìm thấy biểu đồ nào phù hợp với bộ lọc
-                                      </td>
-                                    </tr>
-                                  )}
-                                </tbody>
-                              </table>
+                                          </td>
+
+                                          {/* 5. THAO TÁC */}
+                                          <td className="py-3 px-3 text-center">
+                                            <div className="flex items-center justify-center gap-2">
+                                              <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => setPreviewingChart(sub)}
+                                                className="p-1.5 h-7.5 w-7.5 border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg"
+                                                title="Xem trước biểu đồ"
+                                              >
+                                                <BarChart2 size={14} />
+                                              </Button>
+
+                                              <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => addBacklogItemToSprint(activePillar.id, sub)}
+                                                className="text-xs py-1 px-2.5 h-7.5 border-emerald-600/30 text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100 hover:text-emerald-800 font-bold flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs transition-all"
+                                              >
+                                                <Plus size={13} />
+                                              </Button>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
+                              )}
                             </div>
-                          )}
+                          </div>
                         </div>
                       </div>
                     </Card>
