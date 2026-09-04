@@ -1197,8 +1197,8 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             {/* THÔNG TIN CHUNG */}
             <div className={`${Boolean(formIndicator.id) && !formIndicator.isStatic ? '' : 'lg:col-span-2'} bg-gray-50/50 p-5 rounded-lg border border-gray-200 space-y-4 shadow-2xs`}>
               <h3 className="text-sm font-bold text-vna-blue border-b border-gray-200 pb-2 mb-2 uppercase tracking-wider">Thông tin chung</h3>
-              <Input label="Mã chỉ tiêu" value={formIndicator.code} onChange={(e) => setFormIndicator({ ...formIndicator, code: e.target.value })} placeholder="VD: GRI 305-1, Airline E-1" />
-              <Input label="Tên chỉ tiêu (VI)" value={formIndicator.name} onChange={(e) => setFormIndicator({ ...formIndicator, name: e.target.value })} placeholder="VD: Phát thải Scope 1" />
+              <Input label="Mã chỉ tiêu*" value={formIndicator.code} onChange={(e) => setFormIndicator({ ...formIndicator, code: e.target.value })} placeholder="VD: GRI 305-1, Airline E-1" />
+              <Input label="Tên chỉ tiêu*" value={formIndicator.name} onChange={(e) => setFormIndicator({ ...formIndicator, name: e.target.value })} placeholder="VD: Phát thải Scope 1" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Select
@@ -1232,7 +1232,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               />
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhãn chương trình áp dụng</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nhãn chương trình áp dụng</label>
                 <div className="flex flex-wrap gap-6 p-3 bg-white border border-gray-300 rounded-lg">
                   {['CORSIA', 'EU ETS', 'UK ETS'].map(prog => {
                     const isChecked = formIndicator.programs?.includes(prog) || false;
@@ -1316,11 +1316,11 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
                   {/* CHỌN BIỂU MẪU THU THẬP SỐ LIỆU */}
                   <div className="relative text-left">
-                    <div className="flex justify-between items-center mb-1.5">
-                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="block text-sm font-medium text-gray-700">
                         Chọn biểu mẫu nhập liệu
                       </label>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-800">
                         {(formIndicator.assignedForms || []).length} được gán
                       </span>
                     </div>
@@ -1453,7 +1453,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <div className="space-y-4 pt-3 border-t border-gray-200 animate-in fade-in duration-200">
                   <div className="space-y-4 pl-4 border-l-2 border-vna-blue bg-blue-50/10 p-3 rounded-r-md">
                     <Input
-                      label="Câu hỏi (Question)"
+                      label="Câu hỏi*"
                       value={formIndicator.question || ''}
                       onChange={(e) => setFormIndicator({ ...formIndicator, question: e.target.value })}
                       placeholder="VD: Trong kỳ báo cáo, doanh nghiệp có xảy ra bất kỳ vụ việc..."
@@ -1493,7 +1493,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                     </div> */}
 
                     <div className="w-full">
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">yêu cầu của GRI/ASRH</label>
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">yêu cầu của GRI/ASRH*</label>
                       <textarea
                         value={formIndicator.mainDisclosurePoints || ''}
                         onChange={(e) => setFormIndicator({ ...formIndicator, mainDisclosurePoints: e.target.value })}
@@ -1678,44 +1678,20 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
         {editingFormula && (
           <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 shadow-2xl border border-gray-200">
-              {/* Header */}
-              <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50/80">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-amber-50 text-amber-700 border border-amber-200">
-                    <Calculator size={18} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-vna-blue font-mono">{editingFormula.code}</span>
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-vna-blue border border-blue-200 rounded font-mono">
-                        Phiên bản hiện tại: v{editingFormula.version}
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-bold text-gray-800 mt-0.5">Chỉnh sửa hệ số công thức tính toán</h3>
-                  </div>
-                </div>
+              {/* Close Button Row */}
+              <div className="flex justify-end p-3 pb-0">
                 <button
                   type="button"
                   onClick={() => setEditingFormula(null)}
-                  className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer"
+                  className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+                  title="Đóng"
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
               </div>
 
               {/* Body */}
               <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto text-left">
-                {/* Guidance banner */}
-                <div className="p-3.5 bg-blue-50/60 border border-blue-200 rounded-xl flex items-start gap-2.5 text-xs text-gray-700">
-                  <ShieldAlert size={16} className="text-vna-blue shrink-0 mt-0.5" />
-                  <div className="space-y-1">
-                    <p className="font-bold text-vna-blue">Quy tắc chỉnh sửa hệ số công thức:</p>
-                    <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-gray-600">
-                      <li><strong className="text-amber-800">Hệ số số học có sẵn (✏️ Cho phép sửa):</strong> Bạn có thể trực tiếp thay đổi giá trị của các hệ số có sẵn trong công thức (hệ số phát thải, tỷ lệ quy đổi...).</li>
-                      <li><strong className="text-gray-800">Trường dữ liệu DB, Toán tử & Cấu trúc (🔒 Cố định):</strong> Khóa cố định toàn bộ các trường DB, toán tử (+, -, ×, ÷) và cấu trúc biểu thức để bảo toàn tính toàn vẹn dữ liệu.</li>
-                    </ul>
-                  </div>
-                </div>
 
                 {/* Interactive Token Board */}
                 <div className="space-y-2">
@@ -2093,44 +2069,20 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
       {editingFormula && (
         <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[120] flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 shadow-2xl border border-gray-200">
-            {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50/80">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-lg bg-amber-50 text-amber-700 border border-amber-200">
-                  <Calculator size={18} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-vna-blue font-mono">{editingFormula.code}</span>
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-vna-blue border border-blue-200 rounded font-mono">
-                      Phiên bản hiện tại: v{editingFormula.version}
-                    </span>
-                  </div>
-                  <h3 className="text-sm font-bold text-gray-800 mt-0.5">Chỉnh sửa hệ số công thức tính toán</h3>
-                </div>
-              </div>
+            {/* Close Button Row */}
+            <div className="flex justify-end p-3 pb-0">
               <button
                 type="button"
                 onClick={() => setEditingFormula(null)}
-                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer"
+                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+                title="Đóng"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 
             {/* Body */}
             <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto text-left">
-              {/* Guidance banner */}
-              <div className="p-3 bg-blue-50/60 border border-blue-200 rounded-xl flex items-start gap-2.5 text-xs text-gray-700">
-                <ShieldAlert size={16} className="text-vna-blue shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                  <p className="font-bold text-vna-blue">Quy tắc bảo vệ dữ liệu công thức:</p>
-                  <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-gray-600">
-                    <li><strong className="text-gray-800">Trường dữ liệu từ DB (🔒 Khóa):</strong> Được bảo vệ cố định theo cấu trúc bảng cơ sở dữ liệu, không cho phép chỉnh sửa.</li>
-                    <li><strong className="text-amber-800">Hệ số số học (✏️ Mở):</strong> Bạn có thể trực tiếp thay đổi các hệ số quy đổi, định mức hoặc tỷ lệ %.</li>
-                  </ul>
-                </div>
-              </div>
 
               {/* Interactive Token Board */}
               <div className="space-y-2">

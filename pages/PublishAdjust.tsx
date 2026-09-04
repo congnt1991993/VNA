@@ -21,6 +21,24 @@ import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 import { Pillar } from '../types';
 
 // --- TYPES ---
+const formatUserAccount = (rawUser: string): string => {
+  if (!rawUser) return 'admin';
+  if (rawUser.includes('@')) {
+    return rawUser.split('@')[0];
+  }
+  if (rawUser.includes('Hải') || rawUser.includes('Admin')) return 'hai.nv';
+  if (rawUser.includes('Trang')) return 'trang.tt';
+  if (rawUser.includes('Nam')) return 'nam.tv';
+  if (rawUser.includes('Đức')) return 'duc.pm';
+  if (rawUser.includes('Tuấn')) return 'tuan.lm';
+  if (rawUser.includes('Hùng')) return 'hung.nv';
+  if (rawUser.includes('Hệ thống') || rawUser.includes('SAP')) return 'system';
+  if (rawUser.includes('Thư ký') || rawUser.includes('Pháp chế')) return 'legal.sec';
+  return rawUser;
+};
+
+export type VersionPublishState = 'active' | 'deactive';
+
 export interface ChartVersionItem {
   id: string;
   versionNumber: string;
@@ -29,6 +47,7 @@ export interface ChartVersionItem {
   indicatorCode: string;
   year: string;
   isPublished: boolean;
+  publishStatus?: VersionPublishState;
   createdAt: string;
   createdBy: string;
   note?: string;
@@ -46,6 +65,7 @@ const INITIAL_CHART_VERSIONS: ChartVersionItem[] = [
     indicatorCode: 'GRI 302-1',
     year: '2026',
     isPublished: false,
+    publishStatus: 'draft',
     createdAt: '15/07/2026 08:30',
     createdBy: 'Hệ thống tự động (SAP Integration)',
     note: 'Dữ liệu gốc đồng bộ ban đầu',
@@ -60,6 +80,7 @@ const INITIAL_CHART_VERSIONS: ChartVersionItem[] = [
     indicatorCode: 'GRI 302-1',
     year: '2026',
     isPublished: false,
+    publishStatus: 'draft',
     createdAt: '15/08/2026 14:15',
     createdBy: 'Trần Thu Trang (Ban Kỹ thuật)',
     note: 'Chuẩn hóa định mức tiêu hao sau kiểm định tàu bay A350',
@@ -77,6 +98,7 @@ const INITIAL_CHART_VERSIONS: ChartVersionItem[] = [
     indicatorCode: 'GRI 302-1',
     year: '2026',
     isPublished: true,
+    publishStatus: 'pending_publish',
     createdAt: '22/08/2026 10:00',
     createdBy: 'Nguyễn Văn Hải (Admin)',
     note: 'Bản chính thức công bố đối ngoại theo báo cáo kiểm toán IATA ASRH',
@@ -97,6 +119,7 @@ const INITIAL_CHART_VERSIONS: ChartVersionItem[] = [
     indicatorCode: 'Airline E-1',
     year: '2026',
     isPublished: false,
+    publishStatus: 'draft',
     createdAt: '10/08/2026 09:00',
     createdBy: 'Trần Văn Nam (Ban ATCL)',
     note: 'Bản thống kê sự cố ban đầu',
@@ -111,6 +134,7 @@ const INITIAL_CHART_VERSIONS: ChartVersionItem[] = [
     indicatorCode: 'Airline E-1',
     year: '2026',
     isPublished: true,
+    publishStatus: 'pending_publish',
     createdAt: '18/08/2026 16:30',
     createdBy: 'Nguyễn Văn Hải (Admin)',
     note: 'Chuẩn hóa số liệu công bố thường niên',
@@ -473,8 +497,75 @@ export const PublishAdjustPage: React.FC = () => {
     return () => window.removeEventListener('vna_language_changed', handleLangChange);
   }, []);
 
-  // Global publish statuses map
+  // Global publish statuses map & CMS Pillars sync
+  const getVersionPublishState = (ver: ChartVersionItem): 'active' | 'deactive' => {
+    if (ver.publishStatus === 'active' || ver.isPublished === true) return 'active';
+    return 'deactive';
+  };
+
   const [publishedChartStatuses, setPublishedChartStatuses] = useState<Record<string, boolean>>({});
+  const [cmsPillars, setCmsPillars] = useState<any[]>(() => {
+    try {
+      const saved = localStorage.getItem('vna_cms_pillars');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return [
+      {
+        id: 'environment',
+        detailReports: [
+          { id: 'env-detail-1', type: 'chart', value: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=400&auto=format&fit=crop' },
+          { id: 'env-detail-2', type: 'indicator', value: 'GRI 305-1' }
+        ]
+      },
+      {
+        id: 'social',
+        detailReports: [
+          { id: 'soc-detail-1', type: 'chart', value: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop' },
+          { id: 'soc-detail-2', type: 'indicator', value: 'GRI 403-9' }
+        ]
+      },
+      {
+        id: 'governance',
+        detailReports: [
+          { id: 'gov-detail-1', type: 'chart', value: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400&auto=format&fit=crop' },
+          { id: 'gov-detail-2', type: 'indicator', value: 'GRI 2-7' }
+        ]
+      }
+    ];
+  });
+
+  // Helper to determine 3-state publication status: 'published' | 'submitted' | 'draft'
+  const getSubChartPublishState = (subCode: string, indCode?: string): 'published' | 'submitted' | 'draft' => {
+    // 1. CÔNG BỐ: Present in CMS detailReports (Sprint)
+    const isAttachedToCms = cmsPillars.some((p: any) =>
+      (p.detailReports || []).some((r: any) => r.value === subCode || (indCode && r.value === indCode))
+    );
+    if (isAttachedToCms) {
+      return 'published';
+    }
+
+    // 2. ĐÃ GỬI: User has published an active version in PublishAdjust
+    const chartVers = chartVersions.filter((v: any) => v.chartCode === subCode || (indCode && v.indicatorCode === indCode));
+    const hasPublishedVersion = chartVers.some((v: any) => v.isPublished === true);
+
+    if (hasPublishedVersion) {
+      return 'submitted';
+    }
+
+    // 3. NHÁP: No active version selected
+    return 'draft';
+  };
+
+  const getIndicatorPublishState = (ind: any): 'published' | 'submitted' | 'draft' => {
+    const subCharts = getIndicatorSubCharts(ind);
+    if (subCharts.length === 0) {
+      return getSubChartPublishState(ind.code, ind.code);
+    }
+    const states = subCharts.map(s => getSubChartPublishState(s.code, ind.code));
+    if (states.includes('published')) return 'published';
+    if (states.includes('submitted')) return 'submitted';
+    return 'draft';
+  };
 
   // Adjustment History state
   const INITIAL_MOCK_HISTORY: AdjustmentHistoryItem[] = useMemo(() => [
@@ -542,6 +633,18 @@ export const PublishAdjustPage: React.FC = () => {
         try {
           setPublishedChartStatuses(JSON.parse(savedStatus));
         } catch (e) { }
+      }
+      const savedPillars = localStorage.getItem('vna_cms_pillars');
+      if (savedPillars) {
+        try {
+          setCmsPillars(JSON.parse(savedPillars));
+        } catch (e) {}
+      }
+      const savedVersions = localStorage.getItem('vna_chart_versions');
+      if (savedVersions) {
+        try {
+          setChartVersions(JSON.parse(savedVersions));
+        } catch (e) {}
       }
     };
     handleSync();
@@ -618,7 +721,7 @@ export const PublishAdjustPage: React.FC = () => {
         chartCode: selectedSubChart.code,
         indicatorCode: selectedIndicator?.code || '',
         year: selectedYear,
-        isPublished: true,
+        isPublished: false,
         createdAt: new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
         createdBy: 'Hệ thống tự động',
         note: 'Phiên bản khởi tạo tự động',
@@ -633,16 +736,24 @@ export const PublishAdjustPage: React.FC = () => {
     }
   }, [selectedSubChart?.code, selectedYear]);
 
-  // Helper to toggle a version as the ONLY published version of this chart
-  const handleSetVersionPublished = (versionId: string, e?: React.MouseEvent) => {
+  // 1. Đề nghị công bố (Chuyển sang Active)
+  const handlePublishVersion = (versionId: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (!selectedSubChart) return;
 
     const updated = chartVersions.map(v => {
       if (v.chartCode === selectedSubChart.code && v.year === selectedYear) {
+        if (v.id === versionId) {
+          return {
+            ...v,
+            publishStatus: 'active' as const,
+            isPublished: true
+          };
+        }
         return {
           ...v,
-          isPublished: v.id === versionId
+          publishStatus: 'deactive' as const,
+          isPublished: false
         };
       }
       return v;
@@ -650,7 +761,6 @@ export const PublishAdjustPage: React.FC = () => {
 
     saveChartVersionsToStorage(updated);
 
-    // Sync to published status
     const targetVer = updated.find(v => v.id === versionId);
     if (targetVer) {
       const savedStatus = localStorage.getItem('vna_publish_chart_status');
@@ -681,10 +791,56 @@ export const PublishAdjustPage: React.FC = () => {
 
       window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
       setToast({
-        message: `Đã kích hoạt phiên bản [${targetVer.versionNumber} - ${targetVer.versionName}] làm bản công bố chính thức!`,
+        message: `Đã kích hoạt phiên bản [${targetVer.versionNumber} - ${targetVer.versionName}] sang trạng thái Active!`,
         type: 'success'
       });
     }
+  };
+
+  // 2. Đề nghị gỡ công bố (Chuyển sang Deactive)
+  const handleUnpublishVersion = (versionId: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!selectedSubChart) return;
+
+    const updated = chartVersions.map(v => {
+      if (v.id === versionId) {
+        return {
+          ...v,
+          publishStatus: 'deactive' as const,
+          isPublished: false
+        };
+      }
+      return v;
+    });
+
+    saveChartVersionsToStorage(updated);
+
+    const savedStatus = localStorage.getItem('vna_publish_chart_status');
+    const statuses = savedStatus ? JSON.parse(savedStatus) : {};
+    statuses[selectedSubChart.code] = false;
+    localStorage.setItem('vna_publish_chart_status', JSON.stringify(statuses));
+    setPublishedChartStatuses(statuses);
+    setIsChartPublished(false);
+
+    // If present in CMS detailReports, remove it
+    try {
+      const savedPillars = localStorage.getItem('vna_cms_pillars');
+      if (savedPillars) {
+        const pillarsList = JSON.parse(savedPillars);
+        const updatedPillars = pillarsList.map((p: any) => ({
+          ...p,
+          detailReports: (p.detailReports || []).filter((r: any) => r.value !== selectedSubChart.code && r.value !== selectedIndicator?.code)
+        }));
+        localStorage.setItem('vna_cms_pillars', JSON.stringify(updatedPillars));
+        setCmsPillars(updatedPillars);
+      }
+    } catch (err) {}
+
+    window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
+    setToast({
+      message: 'Đã chuyển phiên bản sang trạng thái Deactive!',
+      type: 'info'
+    });
   };
 
   // Create a new version
@@ -1032,20 +1188,120 @@ export const PublishAdjustPage: React.FC = () => {
     }));
   };
 
-  // Save changes to the currently active version
-  const handleSave = () => {
+// Helper tính toán phiên bản tiếp theo (Semantic Versioning)
+const calculateNextVersions = (currentVerStr: string) => {
+  const clean = (currentVerStr || 'v1.0').replace(/[^0-9.]/g, '');
+  const parts = clean.split('.');
+  const major = parseInt(parts[0] || '1', 10);
+  const minor = parseInt(parts[1] || '0', 10);
+  const nextMinor = `v${major}.${minor + 1}`;
+  const nextMajor = `v${major + 1}.0`;
+  return {
+    current: currentVerStr || 'v1.0',
+    nextMinor,
+    nextMajor
+  };
+};
+
+  // 1. Kiểm tra trước khi mở popup nhập version
+  const [versionOptions, setVersionOptions] = useState<{ current: string; nextMinor: string; nextMajor: string }>({
+    current: 'v1.0',
+    nextMinor: 'v1.1',
+    nextMajor: 'v2.0'
+  });
+  const [versionType, setVersionType] = useState<'minor' | 'major' | 'custom'>('minor');
+
+  const handleInitiateSave = () => {
     if (!selectedSubChart || !selectedIndicator) return;
 
+    const newOverrides: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
+
+    // Construct new overrides and detect changes
+    let hasModifiedValues = false;
+    currentPeriods.forEach(period => {
+      const state = editStates[period];
+      if (!state) return;
+      const realValue = getSystemRealValue(selectedSubChart.code, period, selectedSubChart.unit);
+
+      const isValueDifferent = Boolean(state.overrideValue && state.overrideValue.trim() !== realValue.trim());
+      if (isValueDifferent) {
+        hasModifiedValues = true;
+        newOverrides[period] = {
+          isOverride: true,
+          overrideValue: state.overrideValue.trim(),
+          reason: state.reason || ''
+        };
+      }
+    });
+
+    // Check if description was changed
+    const origDesc = activeVersion?.description || '';
+    const isDescChanged = Boolean(chartDescription && chartDescription.trim() !== origDesc.trim());
+
+    // Compare with current active version's existing overrides
+    if (activeVersion && Object.keys(newOverrides).length > 0) {
+      const activeOverrides = activeVersion.dataOverrides || {};
+      const sameKeyCount = Object.keys(newOverrides).length === Object.keys(activeOverrides).length;
+      const allIdentical = sameKeyCount && Object.keys(newOverrides).every(k =>
+        activeOverrides[k] &&
+        activeOverrides[k].overrideValue === newOverrides[k].overrideValue &&
+        (activeOverrides[k].reason || '') === (newOverrides[k].reason || '')
+      );
+      if (allIdentical && !isDescChanged) {
+        hasModifiedValues = false;
+      }
+    }
+
+    // If no adjustments made, show error notification as requested
+    if (!hasModifiedValues && Object.keys(newOverrides).length === 0 && !isDescChanged) {
+      setToast({
+        message: 'Bạn không điều chỉnh số liệu mới nên không thể lưu!',
+        type: 'error'
+      });
+      return;
+    }
+
+    // Tính toán version hiện tại và gợi ý Semantic Versioning
+    const currentVerStr = activeVersion?.versionNumber || (currentChartVersions.length > 0 ? currentChartVersions[currentChartVersions.length - 1].versionNumber : 'v1.0');
+    const calculated = calculateNextVersions(currentVerStr);
+
+    setVersionOptions(calculated);
+    setVersionType('minor'); // Mặc định chọn Minor update (v1.1)
+    setNewVerNumber(calculated.nextMinor);
+    setNewVerName(`Bản hiệu chỉnh số liệu ${calculated.nextMinor}`);
+    setNewVerNote('');
+    setNewVerSetPublished(false);
+    setIsNewVersionModalOpen(true);
+  };
+
+  // 2. Xác nhận lưu phiên bản mới sau khi người dùng nhập version
+  const handleConfirmSaveVersion = () => {
+    if (!selectedSubChart || !selectedIndicator) return;
+
+    const trimmedVer = newVerNumber.trim();
+    if (!trimmedVer) {
+      setToast({
+        message: 'Vui lòng nhập số phiên bản (Ví dụ: v1.1, v2.0, v3.0)!',
+        type: 'error'
+      });
+      return;
+    }
+
+    const formattedVer = trimmedVer.startsWith('v') || trimmedVer.startsWith('V')
+      ? trimmedVer.toLowerCase()
+      : `v${trimmedVer}`;
+
+    const finalVerName = newVerName.trim() || `Bản hiệu chỉnh số liệu ${formattedVer}`;
     const nowStr = new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
     const newOverrides: Record<string, { isOverride: boolean; overrideValue: string; reason: string }> = {};
     const newEntries: AdjustmentItem[] = [];
 
-    // Construct new overrides
-    Object.keys(editStates).forEach(period => {
+    currentPeriods.forEach(period => {
       const state = editStates[period];
+      if (!state) return;
       const realValue = getSystemRealValue(selectedSubChart.code, period, selectedSubChart.unit);
 
-      const isValueDifferent = state.overrideValue && state.overrideValue.trim() !== realValue.trim();
+      const isValueDifferent = Boolean(state.overrideValue && state.overrideValue.trim() !== realValue.trim());
       if (isValueDifferent) {
         newOverrides[period] = {
           isOverride: true,
@@ -1059,49 +1315,42 @@ export const PublishAdjustPage: React.FC = () => {
           overrideValue: state.overrideValue.trim(),
           reason: state.reason,
           updatedAt: nowStr,
-          updatedBy: 'Nguyễn Văn Hải (Admin)',
+          updatedBy: 'hai.nv',
           isText: isCurrentSubChartText
         });
       }
     });
 
-    // Update active version in chartVersions list
-    const currentVerId = activeVersion?.id;
-    let targetVerNum = 'v1.0';
+    const newVerId = `ver-${selectedSubChart.code}-${selectedYear}-${Date.now()}`;
 
-    const updatedVersions = chartVersions.map(v => {
-      if (v.id === currentVerId) {
-        targetVerNum = v.versionNumber;
-        return {
-          ...v,
-          description: chartDescription,
-          dataOverrides: newOverrides,
-          createdAt: nowStr,
-          createdBy: 'Nguyễn Văn Hải (Admin)'
-        };
+    // Nếu người dùng chọn kích hoạt làm bản công bố chính thức
+    let updatedList = chartVersions.map(v => {
+      if (newVerSetPublished && v.chartCode === selectedSubChart.code && v.year === selectedYear) {
+        return { ...v, isPublished: false, publishStatus: 'deactive' as VersionPublishState };
       }
       return v;
     });
 
-    saveChartVersionsToStorage(updatedVersions);
+    const newVersionItem: ChartVersionItem = {
+      id: newVerId,
+      versionNumber: formattedVer,
+      versionName: finalVerName,
+      chartCode: selectedSubChart.code,
+      indicatorCode: selectedIndicator.code,
+      year: selectedYear,
+      isPublished: newVerSetPublished,
+      publishStatus: newVerSetPublished ? 'active' : 'deactive',
+      createdAt: nowStr,
+      createdBy: 'Nguyễn Văn Hải (Admin)',
+      note: newVerNote.trim() || 'Tạo khi lưu điều chỉnh số liệu',
+      description: chartDescription,
+      dataOverrides: newOverrides
+    };
 
-    // If the currently edited version is the published version, sync to active public data
-    if (activeVersion?.isPublished) {
-      const filteredAdjustments = adjustments.filter(
-        a => !(a.indicatorCode === selectedSubChart.code && a.period.endsWith(selectedYear))
-      );
-      const finalAdjustments = [...filteredAdjustments, ...newEntries];
-      localStorage.setItem('vna_publish_adjustments', JSON.stringify(finalAdjustments));
-      setAdjustments(finalAdjustments);
-
-      // Save description
-      const key = `${selectedSubChart.code}_${selectedYear}`;
-      const savedDescriptions = localStorage.getItem('vna_chart_publish_descriptions');
-      const descMap = savedDescriptions ? JSON.parse(savedDescriptions) : {};
-      descMap[key] = chartDescription;
-      descMap[selectedSubChart.code] = chartDescription;
-      localStorage.setItem('vna_chart_publish_descriptions', JSON.stringify(descMap));
-    }
+    updatedList.push(newVersionItem);
+    saveChartVersionsToStorage(updatedList);
+    setActiveVersionId(newVerId);
+    setIsNewVersionModalOpen(false);
 
     // Save adjustment history entries
     if (newEntries.length > 0) {
@@ -1113,9 +1362,9 @@ export const PublishAdjustPage: React.FC = () => {
         period: ent.period,
         originalValue: getSystemRealValue(selectedSubChart.code, ent.period, selectedSubChart.unit),
         adjustedValue: ent.overrideValue,
-        adjustedBy: 'Nguyễn Văn Hải (Admin)',
+        adjustedBy: 'hai.nv',
         adjustedAt: nowStr,
-        reason: ent.reason,
+        reason: ent.reason || '',
         isText: isCurrentSubChartText
       }));
 
@@ -1139,8 +1388,8 @@ export const PublishAdjustPage: React.FC = () => {
         role: 'Quản trị viên',
         featureName: isCurrentSubChartText ? 'Điều chỉnh văn bản thuyết minh công bố' : 'Dữ liệu số liệu công bố đối ngoại',
         actionDetails: isCurrentSubChartText
-          ? `Cập nhật phiên bản [${targetVerNum}] thuyết minh [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period}. Lý do: ${ent.reason || 'Biên tập chuẩn hóa'}`
-          : `Cập nhật phiên bản [${targetVerNum}] số liệu biểu đồ [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period} thành "${ent.overrideValue}". Lý do: ${ent.reason || 'Hiệu chỉnh phiên bản'}`
+          ? `Tạo phiên bản mới [${formattedVer}] thuyết minh [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period}. Lý do: ${ent.reason || 'Biên tập chuẩn hóa'}`
+          : `Tạo phiên bản mới [${formattedVer}] số liệu biểu đồ [${selectedSubChart.name}] (Chỉ tiêu [${selectedIndicator.code}]) kỳ ${ent.period} thành "${ent.overrideValue}". Lý do: ${ent.reason || 'Hiệu chỉnh số liệu'}`
       });
     });
 
@@ -1148,7 +1397,7 @@ export const PublishAdjustPage: React.FC = () => {
     window.dispatchEvent(new Event('vna_publish_adjustments_updated'));
 
     setToast({
-      message: `Đã lưu dữ liệu điều chỉnh vào phiên bản [${targetVerNum}] thành công!`,
+      message: `Đã tạo và lưu phiên bản mới [${formattedVer} - ${finalVerName}] thành công!`,
       type: 'success'
     });
   };
@@ -1205,9 +1454,10 @@ export const PublishAdjustPage: React.FC = () => {
                 value={filterPublish}
                 onChange={setFilterPublish}
                 options={[
-                  { label: 'Tất cả trạng thái công bố', value: '' },
-                  { label: 'Đang công bố', value: 'published' },
-                  { label: 'Không công bố', value: 'unpublished' },
+                  { label: 'Tất cả trạng thái', value: '' },
+                  { label: 'Công bố', value: 'published' },
+                  { label: 'Đã gửi', value: 'submitted' },
+                  { label: 'Nháp', value: 'draft' },
                 ]}
                 className="text-xs font-semibold"
               />
@@ -1217,8 +1467,8 @@ export const PublishAdjustPage: React.FC = () => {
             <div className="border border-gray-200 rounded-lg overflow-hidden flex flex-col flex-1 min-h-0 -mt-1 shadow-2xs">
               {/* TABLE HEADER */}
               <div className="flex items-center justify-between bg-slate-50 border-b border-gray-200 px-3.5 py-2 text-[11px] font-bold text-gray-600 uppercase tracking-wider select-none shrink-0">
-                <span className="pl-1">Chỉ tiêu</span>
-                <span className="w-16 text-center pr-1">Công bố</span>
+                <span className="pl-1">Chỉ tiêu / Biểu đồ</span>
+                <span className="w-20 text-center pr-1">Trạng thái</span>
               </div>
 
               {/* LIST */}
@@ -1263,12 +1513,29 @@ export const PublishAdjustPage: React.FC = () => {
                           </span>
                         </div>
 
-                        <div className="w-16 flex justify-center items-center shrink-0 pr-1">
-                          {status === 'adjusted' && (
-                            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-250">
-                              Đã sửa
-                            </span>
-                          )}
+                        <div className="w-20 flex justify-center items-center shrink-0 pr-1">
+                          {(() => {
+                            const indState = getIndicatorPublishState(ind);
+                            if (indState === 'published') {
+                              return (
+                                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
+                                  Công bố
+                                </span>
+                              );
+                            }
+                            if (indState === 'submitted') {
+                              return (
+                                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-vna-blue border border-blue-200 shadow-2xs">
+                                  Đã gửi
+                                </span>
+                              );
+                            }
+                            return (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs">
+                                Nháp
+                              </span>
+                            );
+                          })()}
                         </div>
                       </div>
 
@@ -1278,13 +1545,12 @@ export const PublishAdjustPage: React.FC = () => {
                           {subCharts
                             .filter(sub => {
                               if (!filterPublish) return true;
-                              const isPub = publishedChartStatuses[sub.code] !== false;
-                              return filterPublish === 'published' ? isPub : !isPub;
+                              return getSubChartPublishState(sub.code, ind.code) === filterPublish;
                             })
                             .map(sub => {
                               const isSubSelected = selectedSubChart?.code === sub.code;
                               const subStatus = getSubChartStatus(sub.code);
-                              const isPub = publishedChartStatuses[sub.code] !== false;
+                              const subState = getSubChartPublishState(sub.code, ind.code);
 
                               return (
                                 <div
@@ -1305,7 +1571,7 @@ export const PublishAdjustPage: React.FC = () => {
                                     ) : (
                                       <Activity size={12} className="text-vna-blue shrink-0" />
                                     )}
-                                    <span className={`text-xs font-semibold ${!isPub ? 'text-gray-400' : 'text-gray-800'}`}>
+                                    <span className={`text-xs font-semibold ${subState === 'draft' ? 'text-gray-500' : 'text-gray-800'}`}>
                                       {sub.name}
                                     </span>
                                     {subStatus === 'adjusted' && (
@@ -1313,22 +1579,22 @@ export const PublishAdjustPage: React.FC = () => {
                                     )}
                                   </div>
 
-                                  <div className="flex items-center shrink-0 pr-1" onClick={(e) => e.stopPropagation()}>
-                                    <button
-                                      type="button"
-                                      role="switch"
-                                      aria-checked={isPub}
-                                      onClick={(e) => handleToggleSubChartPublish(sub.code, e)}
-                                      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors duration-200 ease-in-out focus:outline-none ${isPub ? 'bg-[#005f6e]' : 'bg-gray-300 hover:bg-gray-400'
-                                        }`}
-                                      title={isPub ? 'Đang công bố (Bấm để tắt)' : 'Đã ẩn khỏi công bố (Bấm để bật)'}
-                                    >
-                                      <span
-                                        aria-hidden="true"
-                                        className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${isPub ? 'translate-x-4' : 'translate-x-0'
-                                          }`}
-                                      />
-                                    </button>
+                                  <div className="w-20 flex justify-center items-center shrink-0 pr-1">
+                                    {subState === 'published' && (
+                                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
+                                        Công bố
+                                      </span>
+                                    )}
+                                    {subState === 'submitted' && (
+                                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-vna-blue border border-blue-200 shadow-2xs">
+                                        Đã gửi
+                                      </span>
+                                    )}
+                                    {subState === 'draft' && (
+                                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs">
+                                        Nháp
+                                      </span>
+                                    )}
                                   </div>
                                 </div>
                               );
@@ -1437,9 +1703,9 @@ export const PublishAdjustPage: React.FC = () => {
 
                       <Button
                         variant="primary"
-                        onClick={handleSave}
+                        onClick={handleInitiateSave}
                         className="text-xs py-1.5 px-4 bg-vna-blue text-white cursor-pointer flex items-center gap-1.5 font-bold shadow-xs hover:bg-[#004d5a]"
-                        title="Lưu số liệu vào phiên bản đang xem"
+                        title="Lưu số liệu thành phiên bản mới"
                       >
                         <Save size={14} />
                         <span>Lưu</span>
@@ -1653,17 +1919,18 @@ export const PublishAdjustPage: React.FC = () => {
                   <table className="w-full text-left text-xs border-collapse min-w-[750px]">
                     <thead>
                       <tr className="bg-slate-50 border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
-                        <th className="py-2.5 px-3 w-10 text-center">STT</th>
-                        <th className="py-2.5 px-3 w-20 text-center">VERSION</th>
+                        <th className="py-2.5 px-3 w-12 text-center">STT</th>
+                        <th className="py-2.5 px-3 w-24 text-center">VERSION</th>
                         <th className="py-2.5 px-4 w-36">THỜI GIAN</th>
-                        <th className="py-2.5 px-4 w-40">NGƯỜI THỰC HIỆN</th>
-                        <th className="py-2.5 px-4 w-40 text-center">TRẠNG THÁI CÔNG BỐ</th>
+                        <th className="py-2.5 px-4 w-36">NGƯỜI THỰC HIỆN</th>
+                        <th className="py-2.5 px-4 w-44 text-center">TRẠNG THÁI CÔNG BỐ</th>
+                        <th className="py-2.5 px-4 w-28 text-center">THAO TÁC</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 bg-white">
                       {currentChartVersions.map((ver, idx) => {
                         const isViewing = activeVersion?.id === ver.id;
-                        const hasOverridesCount = Object.keys(ver.dataOverrides || {}).length;
+                        const vStatus = getVersionPublishState(ver);
 
                         return (
                           <tr
@@ -1681,7 +1948,7 @@ export const PublishAdjustPage: React.FC = () => {
 
                             {/* 2. Version */}
                             <td className="py-3 px-3 text-center font-mono">
-                              <span className={`font-black text-xs px-2 py-0.5 rounded shadow-2xs ${isViewing
+                              <span className={`font-black text-xs px-2.5 py-1 rounded shadow-2xs ${isViewing
                                 ? 'bg-vna-blue text-white'
                                 : 'bg-gray-100 text-gray-800 border border-gray-200'
                                 }`}>
@@ -1690,37 +1957,57 @@ export const PublishAdjustPage: React.FC = () => {
                             </td>
 
                             {/* 3. Thời gian */}
-                            <td className="py-3 px-4 font-mono text-[11px] text-gray-500">
-                              <div className="flex items-center gap-1">
+                            <td className="py-3 px-4 font-mono text-[11px] text-gray-600">
+                              <div className="flex items-center gap-1.5">
                                 <Clock size={12} className="text-gray-400 shrink-0" />
                                 <span>{ver.createdAt}</span>
                               </div>
                             </td>
 
-                            {/* 4. Người tạo */}
-                            <td className="py-3 px-4 text-gray-700">
+                            {/* 4. Người thực hiện (Username không đuôi @) */}
+                            <td className="py-3 px-4 text-gray-800 font-mono text-xs font-bold">
                               <div className="flex items-center gap-1.5">
                                 <User size={13} className="text-gray-400 shrink-0" />
-                                <span className="font-medium text-xs truncate">{ver.createdBy}</span>
+                                <span>{formatUserAccount(ver.createdBy)}</span>
                               </div>
                             </td>
 
-                            {/* 5. Trạng thái công bố */}
+                            {/* 5. Trạng thái công bố: Active / Deactive */}
                             <td className="py-3 px-4 text-center" onClick={(e) => e.stopPropagation()}>
-                              {ver.isPublished ? (
-                                <div className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 text-xs font-bold shadow-2xs">
-                                  <CheckCircle size={13} className="text-emerald-600" />
-                                  <span>ĐANG CÔNG BỐ</span>
-                                </div>
+                              {vStatus === 'active' ? (
+                                <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 text-xs font-bold shadow-2xs">
+                                  <CheckCircle size={13} className="text-emerald-600 shrink-0" />
+                                  <span>Active</span>
+                                </span>
                               ) : (
-                                <button
-                                  type="button"
-                                  onClick={(e) => handleSetVersionPublished(ver.id, e)}
-                                  className="text-xs font-semibold px-2.5 py-1 bg-slate-50 hover:bg-emerald-600 hover:text-white border border-gray-300 text-gray-700 rounded-md shadow-2xs transition-colors cursor-pointer"
-                                  title="Kích hoạt version này để công bố ra ngoài website (thay thế version cũ)"
+                                <span className="inline-flex items-center px-2.5 py-1 rounded-md border border-gray-200 bg-gray-100 text-gray-500 text-xs font-bold shadow-2xs">
+                                  <span>Deactive</span>
+                                </span>
+                              )}
+                            </td>
+
+                            {/* 6. Thao tác: Đề nghị công bố / Đề nghị gỡ công bố */}
+                            <td className="py-3 px-4 text-center" onClick={(e) => e.stopPropagation()}>
+                              {vStatus === 'active' ? (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={(e) => handleUnpublishVersion(ver.id, e)}
+                                  className="text-xs py-1.5 px-3 border-amber-400 text-amber-800 bg-amber-50/80 hover:bg-amber-100 font-bold shadow-2xs transition-all cursor-pointer rounded-md whitespace-nowrap"
+                                  title="Đề nghị gỡ công bố phiên bản này"
                                 >
-                                  Công bố version này
-                                </button>
+                                  Đề nghị gỡ công bố
+                                </Button>
+                              ) : (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={(e) => handlePublishVersion(ver.id, e)}
+                                  className="text-xs py-1.5 px-3 border-emerald-500 text-emerald-800 bg-emerald-50/80 hover:bg-emerald-600 hover:text-white font-bold shadow-2xs transition-all cursor-pointer rounded-md whitespace-nowrap"
+                                  title="Đề nghị công bố phiên bản này"
+                                >
+                                  Đề nghị công bố
+                                </Button>
                               )}
                             </td>
                           </tr>
@@ -1761,6 +2048,112 @@ export const PublishAdjustPage: React.FC = () => {
         </div>
       </div>
 
+
+
+      {/* MODAL LƯU PHIÊN BẢN THEO PHƯƠNG ÁN 1: SEMANTIC VERSIONING PRESETS */}
+      <Modal
+        isOpen={isNewVersionModalOpen}
+        onClose={() => setIsNewVersionModalOpen(false)}
+        title="Lưu phiên bản điều chỉnh mới"
+        size="md"
+      >
+        <div className="p-5 space-y-4 text-left">
+          {/* Thông tin ngữ cảnh & Version hiện tại */}
+          <div className="p-3 bg-slate-50 border border-gray-200 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-vna-blue font-mono px-2 py-0.5 bg-blue-50 border border-blue-200 rounded">
+                {selectedSubChart?.code}
+              </span>
+              <span className="font-semibold text-gray-800">{selectedSubChart?.name}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-gray-500 text-[11px]">Bản hiện tại:</span>
+              <span className="font-bold text-slate-700 font-mono px-2 py-0.5 bg-gray-200/80 rounded">
+                {versionOptions.current}
+              </span>
+            </div>
+          </div>
+
+          {/* 1. HAI THẺ LỰA CHỌN NHANH (QUICK PRESETS) */}
+          <div>
+            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">
+              Chọn mức độ thay đổi phiên bản:
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Thẻ 1: Minor Update */}
+              <div
+                onClick={() => {
+                  setVersionType('minor');
+                  setNewVerNumber(versionOptions.nextMinor);
+                }}
+                className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                  versionType === 'minor'
+                    ? 'border-vna-blue bg-blue-50/50 shadow-sm ring-1 ring-vna-blue'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                    <span>Chỉnh sửa nhỏ</span>
+                  </span>
+                  <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-blue-100 text-vna-blue">
+                    {versionOptions.nextMinor}
+                  </span>
+                </div>
+                <p className="text-[11px] text-gray-500 leading-snug">
+                  Hiệu chỉnh số lẻ, đối soát định mức kỹ thuật hoặc cập nhật nhỏ.
+                </p>
+              </div>
+
+              {/* Thẻ 2: Major Update */}
+              <div
+                onClick={() => {
+                  setVersionType('major');
+                  setNewVerNumber(versionOptions.nextMajor);
+                }}
+                className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                  versionType === 'major'
+                    ? 'border-emerald-600 bg-emerald-50/50 shadow-sm ring-1 ring-emerald-600'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>Bản chính thức mới</span>
+                  </span>
+                  <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                    {versionOptions.nextMajor}
+                  </span>
+                </div>
+                <p className="text-[11px] text-gray-500 leading-snug">
+                  Chốt kỳ báo cáo năm/quý, sau kiểm toán IATA hoặc thay đổi lớn.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Action buttons */}
+          <div className="pt-4 border-t border-gray-200 flex justify-end gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setIsNewVersionModalOpen(false)}
+              className="text-xs px-4 py-2"
+            >
+              Hủy
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleConfirmSaveVersion}
+              className="text-xs px-5 py-2 bg-vna-blue text-white font-bold flex items-center gap-1.5 shadow-md hover:bg-[#004d5a]"
+            >
+              <Save size={14} />
+              <span>Lưu phiên bản [{newVerNumber || '...'}]</span>
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       {/* PREVIEW MODAL (NUMERIC OR TEXT) */}
       <Modal

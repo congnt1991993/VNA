@@ -503,25 +503,14 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
                             />
                           </div>
 
-                          {/* PHẦN TÊN BIỂU ĐỒ VÀ MÔ TẢ BIỂU ĐỒ DƯỚI BIỂU ĐỒ (LẤY TỪ CMS) */}
-                          <div className="pt-3 border-t border-gray-200/90 space-y-2.5 bg-white/95 p-4 rounded-xl border border-gray-200 shadow-3xs text-left">
-                            <div className="flex items-center justify-center text-center gap-1.5 pb-2 border-b border-gray-150">
-                              <span className="text-xs font-bold text-vna-blue">
-                                {sub.name}
-                              </span>
+                          {/* PHẦN MÔ TẢ BIỂU ĐỒ DƯỚI BIỂU ĐỒ (LẤY TỪ CMS) */}
+                          {sub.description && (
+                            <div className="pt-3 border-t border-gray-200/90 bg-white/95 p-4 rounded-xl border border-gray-200 shadow-3xs text-left">
+                              <p className="text-xs text-gray-700 leading-relaxed text-justify">
+                                {sub.description}
+                              </p>
                             </div>
-
-                            {sub.description && (
-                              <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-1.5 pt-0.5">
-                                {/* <span className="text-xs font-bold text-slate-900 shrink-0">
-                                  {isEn ? 'Description:' : 'Mô tả biểu đồ:'}
-                                </span> */}
-                                <p className="text-xs text-gray-700 leading-relaxed text-justify">
-                                  {sub.description}
-                                </p>
-                              </div>
-                            )}
-                          </div>
+                          )}
                         </div>
                       );
                     })}

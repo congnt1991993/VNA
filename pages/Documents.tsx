@@ -48,8 +48,29 @@ export const DocumentsPage: React.FC = () => {
         code: '', name: '', type: 'PDF', isPublic: false, description: '', tags: []
     });
 
+// Helper tính toán phiên bản tiếp theo cho tài liệu (Semantic Versioning)
+const calculateNextDocVersions = (currentVerStr: string) => {
+    const clean = (currentVerStr || '1.0').replace(/[^0-9.]/g, '');
+    const parts = clean.split('.');
+    const major = parseInt(parts[0] || '1', 10);
+    const minor = parseInt(parts[1] || '0', 10);
+    const nextMinor = `${major}.${minor + 1}`;
+    const nextMajor = `${major + 1}.0`;
+    return {
+        current: clean || '1.0',
+        nextMinor,
+        nextMajor
+    };
+};
+
     // Edit Form State (Initialized when entering Edit mode)
     const [editDocForm, setEditDocForm] = useState<Document | null>(null);
+    const [docVersionOptions, setDocVersionOptions] = useState<{ current: string; nextMinor: string; nextMajor: string }>({
+        current: '1.0',
+        nextMinor: '1.1',
+        nextMajor: '2.0'
+    });
+    const [docVersionType, setDocVersionType] = useState<'minor' | 'major'>('minor');
 
     // --- HANDLERS ---
 
@@ -94,7 +115,13 @@ export const DocumentsPage: React.FC = () => {
 
     const handleEditClick = () => {
         if (selectedDoc) {
-            setEditDocForm({ ...selectedDoc });
+            const calculated = calculateNextDocVersions(selectedDoc.version || '1.0');
+            setDocVersionOptions(calculated);
+            setDocVersionType('minor');
+            setEditDocForm({ 
+                ...selectedDoc,
+                version: calculated.nextMinor 
+            });
             setViewMode('EDIT');
         }
     };
@@ -444,6 +471,75 @@ export const DocumentsPage: React.FC = () => {
                             value={editDocForm.description}
                             onChange={(e) => setEditDocForm({ ...editDocForm, description: e.target.value })}
                         />
+
+                        {/* PHIÊN BẢN TÀI LIỆU (SEMANTIC VERSIONING) */}
+                        <div className="p-4 bg-slate-50/80 rounded-xl border border-gray-200 space-y-3">
+                            <div className="flex items-center justify-between">
+                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide">
+                                    Cập nhật phiên bản tài liệu (Version)
+                                </label>
+                                <div className="flex items-center gap-1.5">
+                                    <span className="text-[11px] text-gray-500">Bản hiện tại:</span>
+                                    <span className="font-bold text-slate-700 font-mono text-xs px-2 py-0.5 bg-gray-200/80 rounded">
+                                        v{docVersionOptions.current}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {/* Thẻ 1: Minor Update */}
+                                <div
+                                    onClick={() => {
+                                        setDocVersionType('minor');
+                                        setEditDocForm(prev => prev ? ({ ...prev, version: docVersionOptions.nextMinor }) : null);
+                                    }}
+                                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                                        docVersionType === 'minor'
+                                            ? 'border-vna-blue bg-blue-50/60 shadow-xs ring-1 ring-vna-blue'
+                                            : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1.5">
+                                        <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                                            <span>Chỉnh sửa nhỏ</span>
+                                        </span>
+                                        <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-blue-100 text-vna-blue">
+                                            v{docVersionOptions.nextMinor}
+                                        </span>
+                                    </div>
+                                    <p className="text-[11px] text-gray-500 leading-snug">
+                                        Hiệu chỉnh câu chữ, đính chính phụ lục hoặc cập nhật nhỏ.
+                                    </p>
+                                </div>
+
+                                {/* Thẻ 2: Major Update */}
+                                <div
+                                    onClick={() => {
+                                        setDocVersionType('major');
+                                        setEditDocForm(prev => prev ? ({ ...prev, version: docVersionOptions.nextMajor }) : null);
+                                    }}
+                                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                                        docVersionType === 'major'
+                                            ? 'border-emerald-600 bg-emerald-50/60 shadow-xs ring-1 ring-emerald-600'
+                                            : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1.5">
+                                        <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                                            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                            <span>Bản chính thức mới</span>
+                                        </span>
+                                        <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                                            v{docVersionOptions.nextMajor}
+                                        </span>
+                                    </div>
+                                    <p className="text-[11px] text-gray-500 leading-snug">
+                                        Ban hành tài liệu mới thay thế hoặc qua phê duyệt cấp TCT.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Phạm vi công bố</label>

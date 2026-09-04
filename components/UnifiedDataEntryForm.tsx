@@ -1306,7 +1306,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                           <tbody className="divide-y divide-gray-200">
                             <tr className="hover:bg-blue-50/20 transition-colors">
                               <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
-                                Dòng 1
+                                1
                               </td>
                               <td className="p-3 border border-gray-200 font-semibold text-gray-800">
                                 Kế hoạch và Mục tiêu (KPI) cần đạt của chỉ tiêu
@@ -1634,7 +1634,7 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                                   filteredRowsWithIdx.map(({ row, originalIndex }) => (
                                     <tr key={originalIndex} className="hover:bg-blue-50/20 transition-colors">
                                       <td className="p-3 border border-gray-200 text-center font-bold text-gray-500 bg-gray-50/10 w-16">
-                                        Dòng {originalIndex + 1}
+                                        {originalIndex + 1}
                                       </td>
                                       {row && typeof row === 'object' && Object.entries(row).map(([field, val]) => {
                                         const isReadOnly = field === 'jeta1' || field === 'ratio' || field === 'cost';

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, Button, Badge, Table, Input, Modal, Toast } from '../components/UI';
-import { FileText, Upload, Clock, CheckCircle, Send, Plus, ChevronLeft, Building2, UploadCloud, Download, AlertCircle } from 'lucide-react';
+import { FileText, Upload, Clock, CheckCircle, Send, Plus, ChevronLeft, Building2, UploadCloud, Download, AlertCircle, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 
 const DEPARTMENTS = [
   'Khối Kỹ thuật', 'Khối Khai thác', 'Khối Dịch vụ', 'Ban ATCL', 'Đoàn bay', 'Đoàn tiếp viên', 'Ban Nhân sự', 'Trung tâm BSV'
@@ -12,6 +12,24 @@ export const EsgReportPage: React.FC = () => {
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
+
+  // Sorting & Column-level filter states
+  const [sortField, setSortField] = useState<'title' | 'createdAt' | 'deadline' | 'status' | null>(null);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'none'>('none');
+  const [filterTitle, setFilterTitle] = useState('');
+  const [filterCreatedAt, setFilterCreatedAt] = useState('');
+  const [filterDeadline, setFilterDeadline] = useState('');
+  const [filterStatus, setFilterStatus] = useState('ALL');
+
+  const handleSort = (field: 'title' | 'createdAt' | 'deadline' | 'status') => {
+    if (sortField === field) {
+      setSortOrder(prev => prev === 'asc' ? 'desc' : prev === 'desc' ? 'none' : 'asc');
+      if (sortOrder === 'desc') setSortField(null);
+    } else {
+      setSortField(field);
+      setSortOrder('asc');
+    }
+  };
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
 
   // States for new campaign form
@@ -101,6 +119,58 @@ export const EsgReportPage: React.FC = () => {
     }
   ]);
 
+  const filteredCampaigns = useMemo(() => {
+    let result = campaigns.filter(camp => {
+      const isOverdue = camp.status === 'IN_PROGRESS' && new Date() > new Date(camp.deadline);
+
+      if (filterTitle.trim() && !camp.title.toLowerCase().includes(filterTitle.toLowerCase().trim())) {
+        return false;
+      }
+      if (filterCreatedAt.trim() && !camp.createdAt.toLowerCase().includes(filterCreatedAt.toLowerCase().trim())) {
+        return false;
+      }
+      if (filterDeadline.trim()) {
+        const deadlineFormatted = new Date(camp.deadline).toLocaleDateString('vi-VN');
+        if (!deadlineFormatted.includes(filterDeadline.trim()) && !camp.deadline.includes(filterDeadline.trim())) {
+          return false;
+        }
+      }
+      if (filterStatus && filterStatus !== 'ALL') {
+        if (filterStatus === 'OVERDUE' && !isOverdue) return false;
+        if (filterStatus === 'IN_PROGRESS' && (camp.status !== 'IN_PROGRESS' || isOverdue)) return false;
+        if (filterStatus === 'COMPLETED' && camp.status !== 'COMPLETED') return false;
+      }
+      return true;
+    });
+
+    if (sortField && sortOrder !== 'none') {
+      result = [...result].sort((a, b) => {
+        let comp = 0;
+        if (sortField === 'title') {
+          comp = a.title.localeCompare(b.title);
+        } else if (sortField === 'createdAt') {
+          const parseDate = (d: string) => {
+            const [day, month, year] = d.split('/').map(Number);
+            return new Date(year, month - 1, day).getTime();
+          };
+          comp = parseDate(a.createdAt) - parseDate(b.createdAt);
+        } else if (sortField === 'deadline') {
+          comp = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+        } else if (sortField === 'status') {
+          const getStatusRank = (c: any) => {
+            if (c.status === 'COMPLETED') return 3;
+            if (c.status === 'IN_PROGRESS' && new Date() > new Date(c.deadline)) return 1;
+            return 2;
+          };
+          comp = getStatusRank(a) - getStatusRank(b);
+        }
+        return sortOrder === 'asc' ? comp : -comp;
+      });
+    }
+
+    return result;
+  }, [campaigns, filterTitle, filterCreatedAt, filterDeadline, filterStatus, sortField, sortOrder]);
+
   const handleCreateRequest = () => {
     const newCamp = {
       id: newCampaignId,
@@ -154,21 +224,213 @@ export const EsgReportPage: React.FC = () => {
 
           <Card className="p-0">
             <Table>
-              <thead>
-                <tr>
-                  <th className="px-4 py-3">Mã đợt báo cáo</th>
-                  <th className="px-4 py-3">Tên Yêu cầu / Đợt thu thập</th>
-                  <th className="px-4 py-3 text-center">Năm BC</th>
-                  <th className="px-4 py-3">Đợt báo cáo</th>
-                  <th className="px-4 py-3">Ngày tạo</th>
-                  <th className="px-4 py-3">Hạn nộp</th>
-                  <th className="px-4 py-3">Tiến độ nộp</th>
-                  <th className="px-4 py-3">Trạng thái</th>
-                  <th className="px-4 py-3 text-right">Thao tác</th>
+              <thead className="bg-gray-50/90 text-gray-700 border-b border-gray-200">
+                {/* ROW 1: TÊN CỘT VÀ SẮP XẾP (SORT) */}
+                <tr className="text-xs font-semibold">
+                  <th className="px-4 py-3 w-32 shrink-0">Mã đợt báo cáo</th>
+                  <th
+                    onClick={() => handleSort('title')}
+                    className="px-4 py-3 min-w-[260px] cursor-pointer hover:bg-gray-100/70 select-none transition-colors"
+                    title="Nhấn để sắp xếp theo Tên yêu cầu"
+                  >
+                    <div className="flex items-center justify-between gap-1.5">
+                      <span>Tên Yêu cầu / Đợt thu thập</span>
+                      <span className="text-gray-400">
+                        {sortField === 'title' && sortOrder === 'asc' ? (
+                          <ArrowUp size={13} className="text-[#005f6e] font-bold" />
+                        ) : sortField === 'title' && sortOrder === 'desc' ? (
+                          <ArrowDown size={13} className="text-[#005f6e] font-bold" />
+                        ) : (
+                          <ArrowUpDown size={13} className="opacity-50" />
+                        )}
+                      </span>
+                    </div>
+                  </th>
+                  <th className="px-4 py-3 text-center w-20 shrink-0">Năm BC</th>
+                  <th className="px-4 py-3 w-32 shrink-0">Đợt báo cáo</th>
+                  <th
+                    onClick={() => handleSort('createdAt')}
+                    className="px-4 py-3 w-32 shrink-0 cursor-pointer hover:bg-gray-100/70 select-none transition-colors"
+                    title="Nhấn để sắp xếp theo Ngày tạo"
+                  >
+                    <div className="flex items-center justify-between gap-1.5">
+                      <span>Ngày tạo</span>
+                      <span className="text-gray-400">
+                        {sortField === 'createdAt' && sortOrder === 'asc' ? (
+                          <ArrowUp size={13} className="text-[#005f6e] font-bold" />
+                        ) : sortField === 'createdAt' && sortOrder === 'desc' ? (
+                          <ArrowDown size={13} className="text-[#005f6e] font-bold" />
+                        ) : (
+                          <ArrowUpDown size={13} className="opacity-50" />
+                        )}
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => handleSort('deadline')}
+                    className="px-4 py-3 w-36 shrink-0 cursor-pointer hover:bg-gray-100/70 select-none transition-colors"
+                    title="Nhấn để sắp xếp theo Hạn nộp"
+                  >
+                    <div className="flex items-center justify-between gap-1.5">
+                      <span>Hạn nộp</span>
+                      <span className="text-gray-400">
+                        {sortField === 'deadline' && sortOrder === 'asc' ? (
+                          <ArrowUp size={13} className="text-[#005f6e] font-bold" />
+                        ) : sortField === 'deadline' && sortOrder === 'desc' ? (
+                          <ArrowDown size={13} className="text-[#005f6e] font-bold" />
+                        ) : (
+                          <ArrowUpDown size={13} className="opacity-50" />
+                        )}
+                      </span>
+                    </div>
+                  </th>
+                  <th className="px-4 py-3 w-40 shrink-0">Tiến độ nộp</th>
+                  <th
+                    onClick={() => handleSort('status')}
+                    className="px-4 py-3 w-36 shrink-0 cursor-pointer hover:bg-gray-100/70 select-none transition-colors"
+                    title="Nhấn để sắp xếp theo Trạng thái"
+                  >
+                    <div className="flex items-center justify-between gap-1.5">
+                      <span>Trạng thái</span>
+                      <span className="text-gray-400">
+                        {sortField === 'status' && sortOrder === 'asc' ? (
+                          <ArrowUp size={13} className="text-[#005f6e] font-bold" />
+                        ) : sortField === 'status' && sortOrder === 'desc' ? (
+                          <ArrowDown size={13} className="text-[#005f6e] font-bold" />
+                        ) : (
+                          <ArrowUpDown size={13} className="opacity-50" />
+                        )}
+                      </span>
+                    </div>
+                  </th>
+                  <th className="px-4 py-3 text-right w-24 shrink-0">Thao tác</th>
+                </tr>
+
+                {/* ROW 2: DÒNG LỌC CHUYÊN DỤNG (COLUMN FILTER ROW) */}
+                <tr className="bg-blue-50/70 border-t border-b border-gray-200">
+                  {/* 1. Mã đợt báo cáo Spacer */}
+                  <th className="py-2 px-3 text-center text-gray-400 font-normal text-xs">—</th>
+
+                  {/* 2. Filter Tên yêu cầu */}
+                  <th className="py-2 px-3 text-left">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={filterTitle}
+                        onChange={(e) => setFilterTitle(e.target.value)}
+                        placeholder="Lọc tên yêu cầu..."
+                        className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                      />
+                      {filterTitle && (
+                        <button
+                          type="button"
+                          onClick={() => setFilterTitle('')}
+                          className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </th>
+
+                  {/* 3. Năm BC Spacer */}
+                  <th className="py-2 px-3 text-center text-gray-400 font-normal text-xs">—</th>
+
+                  {/* 4. Đợt báo cáo Spacer */}
+                  <th className="py-2 px-3 text-center text-gray-400 font-normal text-xs">—</th>
+
+                  {/* 5. Filter Ngày tạo */}
+                  <th className="py-2 px-3 text-left">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={filterCreatedAt}
+                        onChange={(e) => setFilterCreatedAt(e.target.value)}
+                        placeholder="Lọc ngày tạo..."
+                        className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                      />
+                      {filterCreatedAt && (
+                        <button
+                          type="button"
+                          onClick={() => setFilterCreatedAt('')}
+                          className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </th>
+
+                  {/* 6. Filter Hạn nộp */}
+                  <th className="py-2 px-3 text-left">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={filterDeadline}
+                        onChange={(e) => setFilterDeadline(e.target.value)}
+                        placeholder="Lọc hạn nộp..."
+                        className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs"
+                      />
+                      {filterDeadline && (
+                        <button
+                          type="button"
+                          onClick={() => setFilterDeadline('')}
+                          className="absolute right-1.5 top-1 text-gray-400 hover:text-gray-600 text-xs cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </th>
+
+                  {/* 7. Tiến độ nộp Spacer */}
+                  <th className="py-2 px-3 text-center text-gray-400 font-normal text-xs">—</th>
+
+                  {/* 8. Filter Trạng thái */}
+                  <th className="py-2 px-3 text-left">
+                    <select
+                      value={filterStatus}
+                      onChange={(e) => setFilterStatus(e.target.value)}
+                      className="w-full text-xs font-normal bg-white border border-gray-300 rounded px-2 py-1 text-gray-800 outline-none focus:border-[#005f6e] shadow-2xs cursor-pointer"
+                    >
+                      <option value="ALL">Tất cả</option>
+                      <option value="IN_PROGRESS">Đang thu thập</option>
+                      <option value="OVERDUE">Quá hạn nộp</option>
+                      <option value="COMPLETED">Đã kết thúc</option>
+                    </select>
+                  </th>
+
+                  {/* 9. Thao tác / Xóa lọc */}
+                  <th className="py-2 px-3 text-right">
+                    {(filterTitle || filterCreatedAt || filterDeadline || filterStatus !== 'ALL') ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFilterTitle('');
+                          setFilterCreatedAt('');
+                          setFilterDeadline('');
+                          setFilterStatus('ALL');
+                        }}
+                        className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer"
+                        title="Xóa tất cả bộ lọc"
+                      >
+                        Xóa lọc
+                      </button>
+                    ) : (
+                      <span className="text-gray-400 font-normal text-xs">—</span>
+                    )}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {campaigns.map(camp => {
+                {filteredCampaigns.length === 0 ? (
+                  <tr>
+                    <td colSpan={9} className="py-12 text-center text-xs text-gray-400 italic font-semibold">
+                      Không tìm thấy đợt thu thập báo cáo nào phù hợp với bộ lọc tìm kiếm.
+                    </td>
+                  </tr>
+                ) : (
+                  filteredCampaigns.map(camp => {
                   const isOverdue = camp.status === 'IN_PROGRESS' && new Date() > new Date(camp.deadline);
                   return (
                     <tr key={camp.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => { setSelectedCampaign(camp); setView('DETAIL'); }}>
@@ -216,7 +478,7 @@ export const EsgReportPage: React.FC = () => {
                       </td>
                     </tr>
                   );
-                })}
+                }))}
               </tbody>
             </Table>
           </Card>

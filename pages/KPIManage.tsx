@@ -136,12 +136,32 @@ interface KPIAuditLogItem {
   changeDetails: string;
 }
 
+const formatUserAccount = (rawUser: string): string => {
+  if (!rawUser) return 'admin';
+  if (rawUser.includes('@')) {
+    return rawUser.split('@')[0];
+  }
+  if (rawUser.includes('Trần Văn Nam')) return 'nam.tv';
+  if (rawUser.includes('Nguyễn Văn Hùng')) return 'hung.nv';
+  if (rawUser.includes('Quản trị viên') || rawUser.includes('Hệ thống')) return 'admin';
+  if (rawUser.includes('Lê Minh Tuấn')) return 'tuan.lm';
+  if (rawUser.includes('Nguyễn Văn Nam')) return 'nam.nv';
+  if (rawUser.includes('Trần Thị Hà')) return 'ha.tt';
+  if (rawUser.includes('Nguyễn Hoàng Anh')) return 'anh.nh';
+  if (rawUser.includes('Lê Thị Thuỷ')) return 'thuy.lt';
+  if (rawUser.includes('Trần Thanh Sơn')) return 'son.tt';
+  if (rawUser.includes('Phạm Thuỳ Linh')) return 'linh.pt';
+  if (rawUser.includes('Nguyễn Minh Hải')) return 'hai.nm';
+  if (rawUser.includes('Vũ Quốc Khánh')) return 'khanh.vq';
+  return rawUser;
+};
+
 const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   // --- Tab Năm ---
   {
     id: 'log-y-1',
     timestamp: '2026-08-26 14:15:30',
-    userName: 'Trần Văn Nam (Chuyên viên)',
+    userName: 'nam.tv',
     department: 'Ban An toàn chất lượng (Ban ATCL)',
     scope: 'year',
     actionType: 'UPDATE_PLAN',
@@ -154,7 +174,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-y-2',
     timestamp: '2026-08-25 10:40:12',
-    userName: 'Nguyễn Văn Hùng (Chuyên viên)',
+    userName: 'hung.nv',
     department: 'Tổ Khai thác (TTĐHKT)',
     scope: 'year',
     actionType: 'CREATE',
@@ -167,7 +187,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-y-3',
     timestamp: '2026-08-24 09:20:05',
-    userName: 'Quản trị viên ESG (Hệ thống)',
+    userName: 'admin',
     department: 'Ban ESG & PTBV',
     scope: 'year',
     actionType: 'CONFIG',
@@ -180,7 +200,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-y-4',
     timestamp: '2026-08-22 16:05:44',
-    userName: 'Lê Minh Tuấn (Chuyên viên)',
+    userName: 'tuan.lm',
     department: 'Ban Tổ chức Nhân lực',
     scope: 'year',
     actionType: 'UPDATE_PLAN',
@@ -193,7 +213,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-y-5',
     timestamp: '2026-08-20 08:30:19',
-    userName: 'Quản trị viên ESG (Hệ thống)',
+    userName: 'admin',
     department: 'Ban ESG & PTBV',
     scope: 'year',
     actionType: 'CONFIG',
@@ -208,7 +228,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-m-1',
     timestamp: '2026-08-26 15:20:00',
-    userName: 'Trần Văn Nam (Chuyên viên)',
+    userName: 'nam.tv',
     department: 'Ban An toàn chất lượng (Ban ATCL)',
     scope: 'month',
     actionType: 'UPDATE_PLAN',
@@ -234,7 +254,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-m-3',
     timestamp: '2026-08-24 14:00:10',
-    userName: 'Quản trị viên ESG (Hệ thống)',
+    userName: 'admin',
     department: 'Ban ESG & PTBV',
     scope: 'month',
     actionType: 'CONFIG',
@@ -247,7 +267,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-m-4',
     timestamp: '2026-08-23 09:45:33',
-    userName: 'Trần Văn Nam (Chuyên viên)',
+    userName: 'nam.tv',
     department: 'Ban An toàn chất lượng (Ban ATCL)',
     scope: 'month',
     actionType: 'CREATE',
@@ -260,7 +280,7 @@ const INITIAL_KPI_AUDIT_LOGS: KPIAuditLogItem[] = [
   {
     id: 'log-m-5',
     timestamp: '2026-08-22 15:30:18',
-    userName: 'Quản trị viên ESG (Hệ thống)',
+    userName: 'admin',
     department: 'Ban ESG & PTBV',
     scope: 'month',
     actionType: 'CONFIG',
@@ -912,7 +932,13 @@ export const KPIManagePage: React.FC = () => {
   const [kpiAuditLogs, setKpiAuditLogs] = useState<KPIAuditLogItem[]>(() => {
     try {
       const saved = localStorage.getItem('vna_esg_kpi_audit_logs');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed: KPIAuditLogItem[] = JSON.parse(saved);
+        return parsed.map(log => ({
+          ...log,
+          userName: formatUserAccount(log.userName)
+        }));
+      }
     } catch (e) { }
     return INITIAL_KPI_AUDIT_LOGS;
   });
@@ -955,8 +981,9 @@ export const KPIManagePage: React.FC = () => {
   const handleSaveInlineEdit = () => {
     saveKpis(kpis);
     setIsInlineEditMode(false);
+    const accountName = currentUser.email ? currentUser.email.split('@')[0] : (currentUser.id || 'admin');
     addAuditLog({
-      userName: `${currentUser.name} (${currentUser.department || 'Chuyên viên'})`,
+      userName: accountName,
       department: currentUser.department || 'Ban ESG',
       scope: activeTab,
       actionType: 'UPDATE_PLAN',
@@ -1931,10 +1958,10 @@ export const KPIManagePage: React.FC = () => {
                     }`}
                 >
                   <span>{currentLang === 'vi' ? 'Lịch sử KPI Năm' : 'Annual Audit Log'}</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${auditTab === 'year' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
+                  {/* <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${auditTab === 'year' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
                     }`}>
                     {kpiAuditLogs.filter(l => l.scope === 'year').length}
-                  </span>
+                  </span> */}
                 </button>
 
                 <button
@@ -1946,10 +1973,10 @@ export const KPIManagePage: React.FC = () => {
                     }`}
                 >
                   <span>{currentLang === 'vi' ? 'Lịch sử KPI Tháng' : 'Monthly Audit Log'}</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${auditTab === 'month' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
+                  {/* <span className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${auditTab === 'month' ? 'bg-blue-50 text-vna-blue border border-blue-200' : 'bg-gray-200 text-gray-700'
                     }`}>
                     {kpiAuditLogs.filter(l => l.scope === 'month').length}
-                  </span>
+                  </span> */}
                 </button>
               </div>
 
@@ -2040,12 +2067,9 @@ export const KPIManagePage: React.FC = () => {
 
                           {/* 3. Người thực hiện */}
                           <td className="py-2.5 px-3">
-                            <div className="font-bold text-gray-900 leading-tight">
-                              {log.userName}
+                            <div className="font-bold font-mono text-xs text-gray-900 leading-tight">
+                              {formatUserAccount(log.userName)}
                             </div>
-                            {/* <div className="text-[10px] text-gray-500 font-medium mt-0.5">
-                              {log.department}
-                            </div> */}
                           </td>
 
                           {/* 4. Hành động */}

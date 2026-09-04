@@ -17,7 +17,7 @@ export const PILLAR_DATA: PillarContent[] = [
     image: "/vna-images/moitruong.jpg",
     metrics: [
       { label: "Giảm CO2", value: "15%", unit: "so với 2019", description: "Hiệu quả sử dụng nhiên liệu" },
-      { label: "Lộ trình sử dụng SAF", value: "SAF", unit: "Mục tiêu 2030", description: "Tỷ lệ nhiên liệu bền vững trong tổng tiêu thụ", type: "chart" }
+      { label: "Tỷ lệ sử dụng SAF", value: "20%", unit: "Mục tiêu 2030", description: "Tỷ lệ nhiên liệu bền vững trong tổng tiêu thụ" }
     ],
     compliances: ["CORSIA (ICAO)", "EU ETS (Châu Âu)", "UK ETS (Vương quốc Anh)"],
     color: 'vna-blue'
@@ -59,7 +59,7 @@ export const PILLAR_DATA_EN: PillarContent[] = [
     image: "/vna-images/moitruong.jpg",
     metrics: [
       { label: "CO2 Reduction", value: "15%", unit: "vs 2019", description: "Fuel efficiency" },
-      { label: "SAF Roadmap", value: "SAF", unit: "Target 2030", description: "Sustainable fuel ratio in total consumption", type: "chart" }
+      { label: "SAF Usage Target", value: "20%", unit: "Target 2030", description: "Sustainable fuel ratio in total consumption" }
     ],
     compliances: ["CORSIA (ICAO)", "EU ETS (Europe)", "UK ETS (United Kingdom)"],
     color: 'vna-blue'
