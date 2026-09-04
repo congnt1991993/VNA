@@ -470,6 +470,13 @@ const getYoYComparison = (
   };
 };
 
+const TAB_METABASE_URLS: Record<'ALL' | 'E' | 'S' | 'G', string> = {
+  ALL: 'https://gateway-netzero.vna.vn/metabase/public/dashboard/86caf38f-b030-4551-a9c7-1e8566644fd0',
+  E: 'https://gateway-netzero.vna.vn/metabase/public/dashboard/64412d30-5f03-4adc-8969-02a8b6630f02',
+  S: 'https://gateway-netzero.vna.vn/metabase/public/dashboard/37b51364-1acc-4339-9f87-9099a2ad65cf',
+  G: 'https://gateway-netzero.vna.vn/metabase/public/dashboard/fad7a5e1-6722-4064-9eca-2f9210014f88',
+};
+
 export const ExecutiveDashboard: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<'vi' | 'en'>(
     () => (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi'
@@ -941,15 +948,7 @@ export const ExecutiveDashboard: React.FC = () => {
       <div className="w-full shrink-0 border-b border-gray-200 bg-white flex flex-col">
         <div className="bg-gray-50 px-6 py-3 flex justify-end border-b border-gray-100 items-center">
           <a
-            href={
-              activeTab === 'ALL'
-                ? "https://metabase-dev.aequitas.dev/public/dashboard/2a2b9fc1-4b4b-4f8b-826f-849454d4cb4f"
-                : activeTab === 'E'
-                  ? "https://metabase-dev.aequitas.dev/public/dashboard/4a607d49-be70-4076-ac19-b1b3e23b62fc"
-                  : activeTab === 'S'
-                    ? "https://metabase-dev.aequitas.dev/public/dashboard/2b3d4ca2-9f29-4654-a004-a9495a3f4490"
-                    : "https://metabase-dev.aequitas.dev/public/dashboard/c957b987-cb19-418d-8d28-be840864b522"
-            }
+            href={TAB_METABASE_URLS[activeTab]}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2 text-xs sm:text-sm font-bold text-white bg-[#005f6e] hover:bg-[#004b57] rounded-md transition-all shadow-md hover:shadow-lg active:scale-98 duration-200"
@@ -960,15 +959,7 @@ export const ExecutiveDashboard: React.FC = () => {
         </div>
         <div className="h-[1350px] w-full bg-white">
           <iframe
-            src={
-              activeTab === 'ALL'
-                ? "https://metabase-dev.aequitas.dev/public/dashboard/2a2b9fc1-4b4b-4f8b-826f-849454d4cb4f"
-                : activeTab === 'E'
-                  ? "https://metabase-dev.aequitas.dev/public/dashboard/4a607d49-be70-4076-ac19-b1b3e23b62fc"
-                  : activeTab === 'S'
-                    ? "https://metabase-dev.aequitas.dev/public/dashboard/2b3d4ca2-9f29-4654-a004-a9495a3f4490"
-                    : "https://metabase-dev.aequitas.dev/public/dashboard/c957b987-cb19-418d-8d28-be840864b522"
-            }
+            src={TAB_METABASE_URLS[activeTab]}
             frameBorder="0"
             width="100%"
             height="100%"

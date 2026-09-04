@@ -32,8 +32,7 @@ const Navigation: React.FC<NavigationProps> = ({ onNavigate, activeSection, onLo
     { label: t('nav.overview'), id: 'overview' },
     { label: t('nav.esg_strategy'), id: 'pillars' },
     { label: t('nav.news'), id: 'news' },
-    { label: t('nav.reports'), id: 'reports' },
-    { label: t('nav.about'), id: 'about' }
+    { label: t('nav.reports'), id: 'reports' }
   ];
 
   const toggleLanguage = () => {
