@@ -1,15 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Button, Card, Input, Select, StatusChip } from '../components/UI';
-import { 
-  TrendingUp, Leaf, Plane, DollarSign, RefreshCw, Download, Plus, 
-  Trash2, Edit3, Save, CheckCircle2, AlertTriangle, ShieldCheck, 
+import {
+  TrendingUp, Leaf, Plane, DollarSign, RefreshCw, Download, Plus,
+  Trash2, Edit3, Save, CheckCircle2, AlertTriangle, ShieldCheck,
   Sparkles, Layers, Sliders, BarChart3, HelpCircle, ArrowRight, X, Copy, Check,
   FileSpreadsheet, Award, Info, FileText, ArrowUpRight, Settings2, SlidersHorizontal,
-  RotateCcw, TrendingDown
+  RotateCcw, TrendingDown, Database, Globe, Percent, BookmarkCheck, FolderOpen, List, History, CheckCheck
 } from 'lucide-react';
-import { 
-  BarChart, Bar, LineChart, Line, XAxis, YAxis, 
-  CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell 
+import {
+  BarChart, Bar, LineChart, Line, XAxis, YAxis,
+  CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell
 } from 'recharts';
 
 // --- INTERFACES ---
@@ -30,13 +30,39 @@ export interface SafBatch {
   assignedScheme: 'EU_ETS' | 'UK_ETS' | 'CORSIA' | 'UNASSIGNED';
 }
 
+// Saved Scenario Interface
+export interface SavedScenarioItem {
+  id: string;
+  name: string;
+  savedAt: string;
+  period: string;
+  allocationMode: 'ledger' | 'manual';
+  batches: SafBatch[];
+  marketParams: MarketParams;
+  manualConfig?: {
+    totalSaf: number;
+    allocEu: number;
+    allocUk: number;
+    allocCorsia: number;
+  };
+  metrics: {
+    totalAllocatedSaf: number;
+    co2Saved: number;
+    totalCredits: number;
+    totalCost: number;
+  };
+}
+
 export interface MarketParams {
   priceEuEts: number; // EUR / tCO2 (Hạn ngạch EUA)
   priceUkEts: number; // EUR / tCO2 (Hạn ngạch UKA quy đổi)
   priceCorsia: number; // EUR / tCO2 (Tín chỉ CORSIA quy đổi)
-  obligationEuEts: number; // Nghĩa vụ nợ gốc phát thải EU ETS (tCO2)
-  obligationUkEts: number; // Nghĩa vụ nợ gốc phát thải UK ETS (tCO2)
-  obligationCorsia: number; // Nghĩa vụ nợ gốc phát thải CORSIA (tCO2)
+  obligationEuEts: number; // Phát thải CO2 năm hiện tại EU ETS (tCO2)
+  obligationUkEts: number; // Phát thải CO2 năm hiện tại UK ETS (tCO2)
+  obligationCorsia: number; // Phát thải CO2 năm hiện tại CORSIA (tCO2)
+  freeAllowanceEuEts: number; // Hạn ngạch: Số tấn CO2 được miễn giảm (EU ETS)
+  freeAllowanceUkEts: number; // Hạn ngạch: Số tấn CO2 được miễn giảm (UK ETS)
+  corsiaGrowthRate: number; // Tỷ lệ tăng trưởng ngành (%): Tỷ lệ tăng phát thải so với năm baseline
 }
 
 // Initial Mock Batches
@@ -137,9 +163,12 @@ const DEFAULT_MARKET_PARAMS: MarketParams = {
   priceEuEts: 76.5, // 76.5 EUR / tCO2
   priceUkEts: 58.0, // 58.0 EUR / tCO2
   priceCorsia: 22.5, // 22.5 EUR / tCO2 ($24.5 USD)
-  obligationEuEts: 28500, // 28,500 tCO2 nợ gốc
-  obligationUkEts: 9200,  // 9,200 tCO2 nợ gốc
-  obligationCorsia: 48000 // 48,000 tCO2 nợ gốc
+  obligationEuEts: 28500, // Phát thải năm hiện tại EU ETS (tCO2)
+  obligationUkEts: 9200,  // Phát thải năm hiện tại UK ETS (tCO2)
+  obligationCorsia: 48000, // Phát thải năm hiện tại CORSIA (tCO2)
+  freeAllowanceEuEts: 5200, // Hạn ngạch miễn giảm EU ETS: 5,200 tCO2
+  freeAllowanceUkEts: 1100, // Hạn ngạch miễn giảm UK ETS: 1,100 tCO2
+  corsiaGrowthRate: 15.0 // Tỷ lệ tăng trưởng ngành CORSIA: 15.0%
 };
 
 export const NetZeroV2Page: React.FC = () => {
@@ -156,11 +185,11 @@ export const NetZeroV2Page: React.FC = () => {
   }, []);
 
   // Main state
-  const [reportPeriod, setReportPeriod] = useState<string>('Năm 2026 (Quý 1)');
+  const [reportPeriod, setReportPeriod] = useState<string>('Năm 2026');
   const [marketParams, setMarketParams] = useState<MarketParams>(() => {
     const saved = localStorage.getItem('vna_netzero_v2_market');
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) {}
+      try { return JSON.parse(saved); } catch (e) { }
     }
     return DEFAULT_MARKET_PARAMS;
   });
@@ -168,12 +197,106 @@ export const NetZeroV2Page: React.FC = () => {
   const [batches, setBatches] = useState<SafBatch[]>(() => {
     const saved = localStorage.getItem('vna_netzero_v2_batches');
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) {}
+      try { return JSON.parse(saved); } catch (e) { }
     }
     return INITIAL_BATCHES;
   });
 
+  // Saved Scenarios State & Modal
+  const [isScenarioListModalOpen, setIsScenarioListModalOpen] = useState(false);
+  const [scenarioNameInput, setScenarioNameInput] = useState('');
+  const [isSaveNameModalOpen, setIsSaveNameModalOpen] = useState(false);
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenarioItem[]>(() => {
+    const saved = localStorage.getItem('vna_saved_scenarios_list');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) { }
+    }
+    return [
+      {
+        id: 'sc-1',
+        name: 'Kịch bản Cơ sở 2026 (Ưu tiên EU ETS)',
+        savedAt: '05/09/2026 09:30',
+        period: 'Năm 2026',
+        allocationMode: 'ledger',
+        batches: INITIAL_BATCHES,
+        marketParams: DEFAULT_MARKET_PARAMS,
+        metrics: {
+          totalAllocatedSaf: 6400,
+          co2Saved: 16605,
+          totalCredits: 69095,
+          totalCost: 3101699
+        }
+      },
+      {
+        id: 'sc-2',
+        name: 'Kịch bản Giá Carbon Cao (Stress test +30%)',
+        savedAt: '06/09/2026 14:15',
+        period: 'Năm 2026',
+        allocationMode: 'ledger',
+        batches: INITIAL_BATCHES,
+        marketParams: {
+          ...DEFAULT_MARKET_PARAMS,
+          priceEuEts: 99.5,
+          priceUkEts: 75.0,
+          priceCorsia: 32.0
+        },
+        metrics: {
+          totalAllocatedSaf: 6400,
+          co2Saved: 16605,
+          totalCredits: 69095,
+          totalCost: 3914500
+        }
+      },
+      {
+        id: 'sc-3',
+        name: 'Kịch bản Tự nguyện Phân bổ SAF 8,000T (Manual)',
+        savedAt: '07/09/2026 11:00',
+        period: 'Năm 2026',
+        allocationMode: 'manual',
+        batches: INITIAL_BATCHES,
+        marketParams: DEFAULT_MARKET_PARAMS,
+        manualConfig: {
+          totalSaf: 8000,
+          allocEu: 4500,
+          allocUk: 1500,
+          allocCorsia: 2000
+        },
+        metrics: {
+          totalAllocatedSaf: 8000,
+          co2Saved: 20760,
+          totalCredits: 64940,
+          totalCost: 2680450
+        }
+      }
+    ];
+  });
+
   const [activeTab, setActiveTab] = useState<'allocation' | 'comparison' | 'verifier'>('allocation');
+  const [allocationMode, setAllocationMode] = useState<'ledger' | 'manual'>('ledger');
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  // Selected scenario IDs to compare (defaults to all saved scenarios)
+  const [selectedScenarioIdsForCompare, setSelectedScenarioIdsForCompare] = useState<string[]>(['CURRENT', 'sc-1', 'sc-2', 'sc-3']);
+  const [isSelectScenariosPickerOpen, setIsSelectScenariosPickerOpen] = useState(false);
+  const [tempSelectedScenarioIds, setTempSelectedScenarioIds] = useState<string[]>(['CURRENT', 'sc-1', 'sc-2', 'sc-3']);
+  const [searchScenarioQuery, setSearchScenarioQuery] = useState('');
+
+
+  const [manualSafTonnes, setManualSafTonnes] = useState<number>(5000);
+  const [manualAllocEu, setManualAllocEu] = useState<number>(3200);
+  const [manualAllocUk, setManualAllocUk] = useState<number>(1000);
+  const [manualAllocCorsia, setManualAllocCorsia] = useState<number>(800);
+
+  const handleAutoOptimizeManual = () => {
+    let rem = manualSafTonnes;
+    const euTarget = Math.min(rem, Math.ceil(marketParams.obligationEuEts / 2.62));
+    rem -= euTarget;
+    const ukTarget = Math.min(rem, Math.ceil(marketParams.obligationUkEts / 2.58));
+    rem -= ukTarget;
+    const corsiaTarget = rem;
+    setManualAllocEu(euTarget);
+    setManualAllocUk(ukTarget);
+    setManualAllocCorsia(corsiaTarget);
+  };
   const [saveToast, setSaveToast] = useState(false);
   const [isNewBatchModalOpen, setIsNewBatchModalOpen] = useState(false);
   const [isAdjustParamsDrawerOpen, setIsAdjustParamsDrawerOpen] = useState(true);
@@ -218,20 +341,28 @@ export const NetZeroV2Page: React.FC = () => {
       }
     });
 
-    const residualEuCo2 = Math.max(0, params.obligationEuEts - co2EuSaved);
-    const residualUkCo2 = Math.max(0, params.obligationUkEts - co2UkSaved);
-    const residualCorsiaCo2 = Math.max(0, params.obligationCorsia - co2CorsiaSaved);
+    // Hạn ngạch miễn giảm: EU ETS & UK ETS
+    const freeEu = params.freeAllowanceEuEts ?? 5200;
+    const freeUk = params.freeAllowanceUkEts ?? 1100;
+    // Nghĩa vụ CORSIA: Phát thải năm hiện tại * Tỷ lệ tăng trưởng ngành (%)
+    const growthRate = (params.corsiaGrowthRate ?? 15.0) / 100;
+    const corsiaObligationFromGrowth = Math.round(params.obligationCorsia * growthRate);
+
+    // Lượng CO2 còn lại phải mua tín chỉ sau khi trừ hạn ngạch miễn giảm và lượng giảm từ SAF (1 tCO2 = 1 Tín chỉ)
+    const residualEuCo2 = Math.max(0, params.obligationEuEts - freeEu - co2EuSaved);
+    const residualUkCo2 = Math.max(0, params.obligationUkEts - freeUk - co2UkSaved);
+    const residualCorsiaCo2 = Math.max(0, corsiaObligationFromGrowth - co2CorsiaSaved);
 
     const costEu = Math.round(residualEuCo2 * params.priceEuEts);
     const costUk = Math.round(residualUkCo2 * params.priceUkEts);
     const costCorsia = Math.round(residualCorsiaCo2 * params.priceCorsia);
     const totalCost = costEu + costUk + costCorsia;
 
-    // Gross Cost without SAF
+    // Gross Cost without SAF (chi phí khi chưa nạp SAF)
     const grossCost = Math.round(
-      params.obligationEuEts * params.priceEuEts +
-      params.obligationUkEts * params.priceUkEts +
-      params.obligationCorsia * params.priceCorsia
+      Math.max(0, params.obligationEuEts - freeEu) * params.priceEuEts +
+      Math.max(0, params.obligationUkEts - freeUk) * params.priceUkEts +
+      corsiaObligationFromGrowth * params.priceCorsia
     );
 
     const totalSavedVsGross = grossCost - totalCost;
@@ -251,14 +382,119 @@ export const NetZeroV2Page: React.FC = () => {
       costCorsia,
       totalCost,
       grossCost,
-      totalSavedVsGross
+      totalSavedVsGross,
+      freeEu,
+      freeUk,
+      corsiaObligationFromGrowth
     };
   };
 
+  // Effective batches for calculation based on allocation mode (Ledger vs Manual)
+  const activeBatches = useMemo(() => {
+    if (allocationMode === 'ledger') {
+      return batches;
+    }
+    const list: SafBatch[] = [];
+    if (manualAllocEu > 0) {
+      list.push({
+        id: 'manual-eu',
+        batchNo: 'SAF-MANUAL-EU',
+        deliveryDate: '2026',
+        airportCode: 'EU',
+        airportName: 'Các cảng hàng không EU (ReFuelEU)',
+        region: 'EU',
+        supplier: 'Nhập tay (Manual Input)',
+        supplierVat: 'VNA-SAF-EU',
+        tonnes: manualAllocEu,
+        lifecycleEmission: 16.0,
+        co2SavedPerTonne: 2.62,
+        eligibleSchemes: ['EU_ETS'],
+        assignedScheme: 'EU_ETS'
+      });
+    }
+    if (manualAllocUk > 0) {
+      list.push({
+        id: 'manual-uk',
+        batchNo: 'SAF-MANUAL-UK',
+        deliveryDate: '2026',
+        airportCode: 'UK',
+        airportName: 'Các cảng hàng không UK',
+        region: 'UK',
+        supplier: 'Nhập tay (Manual Input)',
+        supplierVat: 'VNA-SAF-UK',
+        tonnes: manualAllocUk,
+        lifecycleEmission: 17.0,
+        co2SavedPerTonne: 2.58,
+        eligibleSchemes: ['UK_ETS'],
+        assignedScheme: 'UK_ETS'
+      });
+    }
+    if (manualAllocCorsia > 0) {
+      list.push({
+        id: 'manual-corsia',
+        batchNo: 'SAF-MANUAL-CORSIA',
+        deliveryDate: '2026',
+        airportCode: 'CORSIA',
+        airportName: 'Các chặng bay quốc tế CORSIA',
+        region: 'NON_EU',
+        supplier: 'Nhập tay (Manual Input)',
+        supplierVat: 'VNA-SAF-CORSIA',
+        tonnes: manualAllocCorsia,
+        lifecycleEmission: 18.0,
+        co2SavedPerTonne: 2.55,
+        eligibleSchemes: ['CORSIA'],
+        assignedScheme: 'CORSIA'
+      });
+    }
+    return list;
+  }, [allocationMode, batches, manualAllocEu, manualAllocUk, manualAllocCorsia]);
+
   // Current user's allocation metrics
   const currentMetrics = useMemo(() => {
-    return calculateMetricsForBatches(batches, marketParams);
-  }, [batches, marketParams]);
+    return calculateMetricsForBatches(activeBatches, marketParams);
+  }, [activeBatches, marketParams]);
+
+  // Executive KPI Metrics (3 Cards at the bottom of the page)
+  const executiveKpiMetrics = useMemo(() => {
+    const totalAllocatedSaf = currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes;
+    const safCostPerTonne = 2450;
+    const jetA1CostPerTonne = 850;
+
+    const safCost = totalAllocatedSaf * safCostPerTonne;
+    const totalCreditCost = currentMetrics.totalCost;
+    const totalScenarioCost = safCost + totalCreditCost;
+
+    const totalGrossEmission = marketParams.obligationEuEts + marketParams.obligationUkEts + marketParams.obligationCorsia;
+    const totalFree = (marketParams.freeAllowanceEuEts ?? 5200) + (marketParams.freeAllowanceUkEts ?? 1100);
+    const totalCo2Saved = currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved;
+    const co2Remaining = currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2;
+
+    // Baseline calculation (Jet A-1 100%, 0 SAF, avoiding ReFuelEU penalties)
+    const baselineFuelCost = totalAllocatedSaf * jetA1CostPerTonne;
+    const baselineCreditEu = Math.max(0, marketParams.obligationEuEts - (marketParams.freeAllowanceEuEts ?? 5200)) * marketParams.priceEuEts;
+    const baselineCreditUk = Math.max(0, marketParams.obligationUkEts - (marketParams.freeAllowanceUkEts ?? 1100)) * marketParams.priceUkEts;
+    const growthRate = (marketParams.corsiaGrowthRate ?? 15.0) / 100;
+    const baselineCreditCorsia = Math.round(marketParams.obligationCorsia * growthRate) * marketParams.priceCorsia;
+    const refuelEuPenaltyAvoided = currentMetrics.safEuTonnes * 1200;
+    const totalBaselineCost = baselineFuelCost + baselineCreditEu + baselineCreditUk + baselineCreditCorsia + refuelEuPenaltyAvoided;
+
+    const netSavings = totalBaselineCost - totalScenarioCost;
+    const savingsPercentage = totalBaselineCost > 0 ? (netSavings / totalBaselineCost) * 100 : 0;
+
+    return {
+      totalAllocatedSaf,
+      safCost,
+      totalCreditCost,
+      totalScenarioCost,
+      totalGrossEmission,
+      totalFree,
+      totalCo2Saved,
+      co2Remaining,
+      totalBaselineCost,
+      netSavings,
+      savingsPercentage
+    };
+  }, [currentMetrics, marketParams]);
 
   // Strategy 1: Prioritize EU ETS (EU batches -> EU ETS, UK -> UK ETS, others -> CORSIA)
   const strategyEuPriority = useMemo(() => {
@@ -294,9 +530,10 @@ export const NetZeroV2Page: React.FC = () => {
 
   // Strategy 3: Smart Greedy Optimizer (Prioritize highest price until obligation is zero, then next highest)
   const strategyOptimal = useMemo(() => {
-    let remainingEuCap = marketParams.obligationEuEts;
-    let remainingUkCap = marketParams.obligationUkEts;
-    let remainingCorsiaCap = marketParams.obligationCorsia;
+    let remainingEuCap = Math.max(0, marketParams.obligationEuEts - (marketParams.freeAllowanceEuEts ?? 5200));
+    let remainingUkCap = Math.max(0, marketParams.obligationUkEts - (marketParams.freeAllowanceUkEts ?? 1100));
+    const growthRate = (marketParams.corsiaGrowthRate ?? 15.0) / 100;
+    let remainingCorsiaCap = Math.round(marketParams.obligationCorsia * growthRate);
 
     const assigned: SafBatch[] = batches.map(b => {
       const co2 = Math.round(b.tonnes * b.co2SavedPerTonne);
@@ -383,6 +620,78 @@ export const NetZeroV2Page: React.FC = () => {
   const handleApplyStrategy = (stratBatches: SafBatch[]) => {
     setBatches(stratBatches);
     localStorage.setItem('vna_netzero_v2_batches', JSON.stringify(stratBatches));
+    setSaveToast(true);
+    setTimeout(() => setSaveToast(false), 2500);
+  };
+
+  // Load a saved scenario
+  const handleLoadScenario = (scenario: SavedScenarioItem) => {
+    setReportPeriod(scenario.period);
+    setMarketParams(scenario.marketParams);
+    setBatches(scenario.batches);
+    setAllocationMode(scenario.allocationMode);
+    if (scenario.manualConfig) {
+      setManualSafTonnes(scenario.manualConfig.totalSaf);
+      setManualAllocEu(scenario.manualConfig.allocEu);
+      setManualAllocUk(scenario.manualConfig.allocUk);
+      setManualAllocCorsia(scenario.manualConfig.allocCorsia);
+    }
+    localStorage.setItem('vna_netzero_v2_batches', JSON.stringify(scenario.batches));
+    localStorage.setItem('vna_netzero_v2_market', JSON.stringify(scenario.marketParams));
+    setIsScenarioListModalOpen(false);
+    setSaveToast(true);
+    setTimeout(() => setSaveToast(false), 2500);
+  };
+
+  // Delete a saved scenario
+  const handleDeleteScenario = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (confirm('Bạn có chắc chắn muốn xóa kịch bản này khỏi danh sách đã lưu?')) {
+      const updated = savedScenarios.filter(s => s.id !== id);
+      setSavedScenarios(updated);
+      localStorage.setItem('vna_saved_scenarios_list', JSON.stringify(updated));
+    }
+  };
+
+  // Save current scenario with custom name
+  const handleConfirmSaveScenario = () => {
+    const finalName = scenarioNameInput.trim() || `Kịch bản ${reportPeriod} (${new Date().toLocaleDateString('vi-VN')} ${new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })})`;
+    const totalSaf = allocationMode === 'ledger'
+      ? (currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes)
+      : (manualAllocEu + manualAllocUk + manualAllocCorsia);
+    const co2Saved = currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved;
+    const totalCredits = currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2;
+
+    const newScenario: SavedScenarioItem = {
+      id: `sc-${Date.now()}`,
+      name: finalName,
+      savedAt: new Date().toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      period: reportPeriod,
+      allocationMode: allocationMode,
+      batches: batches,
+      marketParams: marketParams,
+      manualConfig: allocationMode === 'manual' ? {
+        totalSaf: manualSafTonnes,
+        allocEu: manualAllocEu,
+        allocUk: manualAllocUk,
+        allocCorsia: manualAllocCorsia
+      } : undefined,
+      metrics: {
+        totalAllocatedSaf: totalSaf,
+        co2Saved: co2Saved,
+        totalCredits: totalCredits,
+        totalCost: currentMetrics.totalCost
+      }
+    };
+
+    const updated = [newScenario, ...savedScenarios];
+    setSavedScenarios(updated);
+    localStorage.setItem('vna_saved_scenarios_list', JSON.stringify(updated));
+    localStorage.setItem('vna_netzero_v2_batches', JSON.stringify(batches));
+    localStorage.setItem('vna_netzero_v2_market', JSON.stringify(marketParams));
+
+    setIsSaveNameModalOpen(false);
+    setScenarioNameInput('');
     setSaveToast(true);
     setTimeout(() => setSaveToast(false), 2500);
   };
@@ -477,7 +786,7 @@ export const NetZeroV2Page: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300 pb-12 font-sans">
-      
+
       {/* Toast Notification */}
       {saveToast && (
         <div className="fixed top-20 right-6 z-50 bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-2 animate-in slide-in-from-top duration-200">
@@ -488,225 +797,382 @@ export const NetZeroV2Page: React.FC = () => {
         </div>
       )}
 
-      {/* TOP HEADER */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-xs flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-vna-blue/10 text-vna-blue flex items-center justify-center font-black">
-              <Sparkles size={22} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-black text-vna-navy">
-                  {currentLang === 'vi' 
-                    ? 'Mô phỏng Kịch bản Net Zero 2: Tối ưu Phân bổ SAF & Đền bù Carbon' 
-                    : 'Net Zero Scenario 2: SAF Claim & Carbon Offset Optimization'}
-                </h1>
-                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  REAL-TIME SIMULATOR
-                </span>
-              </div>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {currentLang === 'vi'
-                  ? 'Tùy chỉnh linh hoạt đơn giá thị trường, sản lượng nạp SAF và nghĩa vụ phát thải để tự động mô phỏng chi phí tối ưu theo thời gian thực'
-                  : 'Flexibly adjust market prices, SAF batch quantities, and emissions obligations to simulate optimal compliance costs in real-time'}
-              </p>
-            </div>
-          </div>
+      {/* TOP ACTIONS TOOLBAR (NO TITLE, BUTTONS ONLY) */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold text-gray-500">Năm mô phỏng:</span>
+          <select
+            value={reportPeriod}
+            onChange={(e) => setReportPeriod(e.target.value)}
+            className="border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/20 outline-none cursor-pointer"
+          >
+            <option value="Năm 2026">Năm 2026</option>
+            <option value="Năm 2025">Năm 2025</option>
+            <option value="Năm 2027">Năm 2027</option>
+            <option value="Năm 2028">Năm 2028</option>
+            <option value="Năm 2030">Năm 2030</option>
+          </select>
         </div>
 
-        {/* Top Actions */}
+        {/* Top Action Buttons */}
         <div className="flex items-center gap-2.5 flex-wrap">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-500">Kỳ mô phỏng:</span>
-            <select 
-              value={reportPeriod}
-              onChange={(e) => setReportPeriod(e.target.value)}
-              className="border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/20 outline-none"
-            >
-              <option value="Năm 2026 (Quý 1)">Năm 2026 (Quý 1)</option>
-              <option value="Năm 2026 (Cả năm)">Năm 2026 (Cả năm)</option>
-              <option value="Năm 2025 (Chính thức)">Năm 2025 (Chính thức)</option>
-            </select>
-          </div>
-
-          <Button 
+          {/* <Button
             onClick={() => setIsAdjustParamsDrawerOpen(!isAdjustParamsDrawerOpen)}
             variant="outline"
-            className={`text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 ${
-              isAdjustParamsDrawerOpen ? 'bg-blue-50 text-vna-blue border-vna-blue' : 'text-gray-700 border-gray-300'
-            }`}
+            className={`text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer ${isAdjustParamsDrawerOpen ? 'bg-blue-50 text-vna-blue border-vna-blue' : 'text-gray-700 border-gray-300'
+              }`}
           >
             <SlidersHorizontal size={15} />
             {isAdjustParamsDrawerOpen ? 'Ẩn bộ chỉnh chỉ số' : 'Điều chỉnh chỉ số đầu vào'}
+          </Button> */}
+
+          <Button
+            onClick={() => setIsScenarioListModalOpen(true)}
+            variant="outline"
+            className="border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer bg-white"
+          >
+            <BookmarkCheck size={15} className="text-vna-blue" />
+            {currentLang === 'vi' ? 'Danh sách kịch bản' : 'Saved Scenarios'}
+            <span className="ml-1 px-1.5 py-0.2 bg-blue-50 text-vna-blue text-[10px] font-black rounded-full border border-blue-200">
+              {savedScenarios.length}
+            </span>
           </Button>
 
-          <Button 
+          <Button
+            onClick={() => setIsCompareModalOpen(true)}
+            className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer"
+          >
+            <BarChart3 size={15} /> {currentLang === 'vi' ? 'So sánh kịch bản' : 'Compare Scenarios'}
+          </Button>
+
+          {/* <Button
             onClick={() => handleApplyStrategy(strategyOptimal.batches)}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-xs"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer"
           >
             <Sparkles size={15} /> {currentLang === 'vi' ? 'Tự động Tối ưu (Smart Optimizer)' : 'Smart Optimize'}
-          </Button>
+          </Button> */}
 
-          <Button 
-            onClick={handleSaveCurrent}
-            variant="outline"
-            className="border-vna-blue text-vna-blue hover:bg-blue-50 text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5"
-          >
-            <Save size={15} /> {currentLang === 'vi' ? 'Lưu kịch bản' : 'Save'}
-          </Button>
+
         </div>
       </div>
 
       {/* REAL-TIME INTERACTIVE INPUT ADJUSTMENT PANEL */}
       {isAdjustParamsDrawerOpen && (
-        <div className="bg-white rounded-2xl border-2 border-vna-blue/30 p-5 shadow-sm space-y-4 animate-in slide-in-from-top duration-200">
+        <div className="bg-white rounded-2xl border-2 border-vna-blue/30 p-5 shadow-xs space-y-4 animate-in slide-in-from-top duration-200">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-3">
             <div className="flex items-center gap-2">
               <Settings2 size={18} className="text-vna-blue" />
               <div>
                 <h3 className="text-sm font-black text-vna-navy">
-                  Bảng Điều khiển Chỉ số Đầu vào Thời gian thực (Real-time Input Adjuster)
+                  TÍN CHỈ CO2
                 </h3>
-                <p className="text-[11px] text-gray-400">Thay đổi các tham số dưới đây sẽ tự động cập nhật lại toàn bộ ma trận tính toán và biểu đồ ngay lập tức</p>
+                {/* <p className="text-[11px] text-gray-400">Thay đổi các tham số dưới đây sẽ tự động cập nhật lại toàn bộ ma trận tính toán và biểu đồ ngay lập tức</p> */}
               </div>
             </div>
 
             {/* Quick Price Preset Buttons */}
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-bold text-gray-400">Kịch bản giá nhanh:</span>
-              <button 
+              {/* <span className="text-[11px] font-bold text-gray-400">Kịch bản giá nhanh:</span> */}
+              {/* <button
                 onClick={() => applyPricePreset('HIGH')}
                 className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 flex items-center gap-1 cursor-pointer"
               >
                 <TrendingUp size={12} /> Giá cao (+30%)
-              </button>
-              <button 
+              </button> */}
+              {/* <button
                 onClick={() => applyPricePreset('LOW')}
                 className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-blue-50 text-vna-blue hover:bg-blue-100 border border-blue-200 flex items-center gap-1 cursor-pointer"
               >
                 <TrendingDown size={12} /> Giá thấp (-20%)
-              </button>
-              <button 
+              </button> */}
+              {/* <button
                 onClick={() => applyPricePreset('DEFAULT')}
                 className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 flex items-center gap-1 cursor-pointer"
               >
                 <RotateCcw size={12} /> Mặc định
-              </button>
+              </button> */}
             </div>
           </div>
 
-          {/* Interactive Sliders & Inputs Grid */}
+          {/* Interactive Inputs Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
-            
+
             {/* 1. EU ETS Group */}
-            <div className="space-y-3 bg-blue-50/40 p-4 rounded-xl border border-blue-100/80">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-vna-blue flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-vna-blue"></span> EU ETS (Châu Âu)
+            <div className="space-y-3 bg-blue-50/40 p-4 rounded-xl border border-blue-100/80 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between pb-1 border-b border-blue-100">
+                  <span className="text-xs font-black text-vna-blue flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-vna-blue"></span> EU ETS (Châu Âu)
+                  </span>
+                  <span className="text-xs font-black text-vna-blue bg-white px-2 py-0.5 rounded border border-blue-200">
+                    {marketParams.priceEuEts} € / EUA
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Đơn giá tín chỉ EUA:
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      value={marketParams.priceEuEts}
+                      onChange={(e) => handleUpdateMarketParam('priceEuEts', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-14 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-vna-blue"
+                      placeholder="Nhập đơn giá..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      € / tCO₂
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Phát thải CO₂ năm hiện tại:
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="500"
+                      min="0"
+                      value={marketParams.obligationEuEts}
+                      onChange={(e) => handleUpdateMarketParam('obligationEuEts', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-12 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-vna-blue"
+                      placeholder="Nhập số tấn CO₂..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      tCO₂
+                    </span>
+                  </div>
+                </div>
+
+                {/* HẠN NGẠCH MIỄN GIẢM EU ETS */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[11px] text-gray-700 font-bold flex items-center gap-1">
+                      <span>Hạn ngạch:</span>
+                    </label>
+                    <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
+                      Miễn trừ
+                    </span>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="100"
+                      min="0"
+                      value={marketParams.freeAllowanceEuEts ?? 5200}
+                      onChange={(e) => handleUpdateMarketParam('freeAllowanceEuEts', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-blue-200 rounded-lg px-3 py-1.5 pr-12 text-xs font-bold text-blue-900 bg-white focus:outline-hidden focus:border-vna-blue"
+                      placeholder="Số tấn CO₂ được miễn giảm..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-blue-400 pointer-events-none">
+                      tCO₂
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    Số tấn CO₂ được cấp miễn phí theo quy định ReFuelEU/EU ETS
+                  </p>
+                </div>
+              </div>
+
+              {/* Tóm tắt nợ thực tế EU ETS */}
+              <div className="mt-3 pt-2.5 border-t border-blue-100 flex items-center justify-between text-xs bg-white/70 p-2 rounded-lg">
+                <span className="text-gray-600 font-medium">Tổng phát thải CO2 sau miễn giảm:</span>
+                <span className="font-black text-vna-navy">
+                  {Math.max(0, marketParams.obligationEuEts - (marketParams.freeAllowanceEuEts ?? 5200)).toLocaleString()} tCO₂
                 </span>
-                <span className="text-xs font-black text-vna-blue">{marketParams.priceEuEts} € / tCO₂</span>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-[11px] text-gray-600 mb-1 font-semibold">
-                  <span>Đơn giá hạn ngạch EUA:</span>
-                  <span className="font-bold text-gray-900">{marketParams.priceEuEts} €</span>
-                </div>
-                <input 
-                  type="range" min="40" max="150" step="0.5"
-                  value={marketParams.priceEuEts}
-                  onChange={(e) => handleUpdateMarketParam('priceEuEts', parseFloat(e.target.value))}
-                  className="w-full accent-vna-blue cursor-pointer h-1.5 bg-gray-200 rounded-lg"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-[11px] text-gray-600 mb-1 font-semibold">
-                  <span>Nghĩa vụ phát thải nợ gốc (tCO₂):</span>
-                  <span className="font-bold text-gray-900">{marketParams.obligationEuEts.toLocaleString()} tCO₂</span>
-                </div>
-                <input 
-                  type="number"
-                  step="500"
-                  value={marketParams.obligationEuEts}
-                  onChange={(e) => handleUpdateMarketParam('obligationEuEts', parseFloat(e.target.value) || 0)}
-                  className="w-full border border-gray-300 rounded-lg px-2.5 py-1 text-xs font-bold text-gray-800 bg-white"
-                />
               </div>
             </div>
 
             {/* 2. UK ETS Group */}
-            <div className="space-y-3 bg-indigo-50/40 p-4 rounded-xl border border-indigo-100/80">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-indigo-700 flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-indigo-600"></span> UK ETS (Vương quốc Anh)
+            <div className="space-y-3 bg-indigo-50/40 p-4 rounded-xl border border-indigo-100/80 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between pb-1 border-b border-indigo-100">
+                  <span className="text-xs font-black text-indigo-700 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span> UK ETS (Vương quốc Anh)
+                  </span>
+                  <span className="text-xs font-black text-indigo-700 bg-white px-2 py-0.5 rounded border border-indigo-200">
+                    {marketParams.priceUkEts} € / UKA
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Đơn giá tín chỉ UKA:
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      value={marketParams.priceUkEts}
+                      onChange={(e) => handleUpdateMarketParam('priceUkEts', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-14 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-indigo-600"
+                      placeholder="Nhập đơn giá..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      € / tCO₂
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Phát thải CO₂ năm hiện tại:
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="500"
+                      min="0"
+                      value={marketParams.obligationUkEts}
+                      onChange={(e) => handleUpdateMarketParam('obligationUkEts', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-12 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-indigo-600"
+                      placeholder="Nhập số tấn CO₂..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      tCO₂
+                    </span>
+                  </div>
+                </div>
+
+                {/* HẠN NGẠCH MIỄN GIẢM UK ETS */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[11px] text-gray-700 font-bold flex items-center gap-1">
+                      <span>Hạn ngạch:</span>
+                    </label>
+                    <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded border border-indigo-200">
+                      Miễn trừ
+                    </span>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="100"
+                      min="0"
+                      value={marketParams.freeAllowanceUkEts ?? 1100}
+                      onChange={(e) => handleUpdateMarketParam('freeAllowanceUkEts', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-indigo-200 rounded-lg px-3 py-1.5 pr-12 text-xs font-bold text-indigo-950 bg-white focus:outline-hidden focus:border-indigo-600"
+                      placeholder="Số tấn CO₂ được miễn giảm..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-indigo-400 pointer-events-none">
+                      tCO₂
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    Số tấn CO₂ được cấp miễn phí theo quy chế UK ETS
+                  </p>
+                </div>
+              </div>
+
+              {/* Tóm tắt nợ thực tế UK ETS */}
+              <div className="mt-3 pt-2.5 border-t border-indigo-100 flex items-center justify-between text-xs bg-white/70 p-2 rounded-lg">
+                <span className="text-gray-600 font-medium">Tổng phát thải CO2 sau miễn giảm:</span>
+                <span className="font-black text-vna-navy">
+                  {Math.max(0, marketParams.obligationUkEts - (marketParams.freeAllowanceUkEts ?? 1100)).toLocaleString()} tCO₂
                 </span>
-                <span className="text-xs font-black text-indigo-700">{marketParams.priceUkEts} € / tCO₂</span>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-[11px] text-gray-600 mb-1 font-semibold">
-                  <span>Đơn giá hạn ngạch UKA:</span>
-                  <span className="font-bold text-gray-900">{marketParams.priceUkEts} €</span>
-                </div>
-                <input 
-                  type="range" min="20" max="120" step="0.5"
-                  value={marketParams.priceUkEts}
-                  onChange={(e) => handleUpdateMarketParam('priceUkEts', parseFloat(e.target.value))}
-                  className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 rounded-lg"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-[11px] text-gray-600 mb-1 font-semibold">
-                  <span>Nghĩa vụ phát thải nợ gốc (tCO₂):</span>
-                  <span className="font-bold text-gray-900">{marketParams.obligationUkEts.toLocaleString()} tCO₂</span>
-                </div>
-                <input 
-                  type="number"
-                  step="500"
-                  value={marketParams.obligationUkEts}
-                  onChange={(e) => handleUpdateMarketParam('obligationUkEts', parseFloat(e.target.value) || 0)}
-                  className="w-full border border-gray-300 rounded-lg px-2.5 py-1 text-xs font-bold text-gray-800 bg-white"
-                />
               </div>
             </div>
 
             {/* 3. CORSIA Group */}
-            <div className="space-y-3 bg-emerald-50/40 p-4 rounded-xl border border-emerald-100/80">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-emerald-800 flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600"></span> CORSIA (Toàn cầu)
+            <div className="space-y-3 bg-emerald-50/40 p-4 rounded-xl border border-emerald-100/80 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between pb-1 border-b border-emerald-100">
+                  <span className="text-xs font-black text-emerald-800 flex items-center gap-1.5">
+                    <Globe size={14} className="text-emerald-600" /> CORSIA (Toàn cầu)
+                  </span>
+                  <span className="text-xs font-black text-emerald-700 bg-white px-2 py-0.5 rounded border border-emerald-200">
+                    {marketParams.priceCorsia} € / CEU
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Đơn giá tín chỉ CORSIA (CEU):
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      value={marketParams.priceCorsia}
+                      onChange={(e) => handleUpdateMarketParam('priceCorsia', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-14 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-emerald-600"
+                      placeholder="Nhập đơn giá..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      € / tCO₂
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Phát thải CO₂ năm hiện tại:
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="1000"
+                      min="0"
+                      value={marketParams.obligationCorsia}
+                      onChange={(e) => handleUpdateMarketParam('obligationCorsia', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-12 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-emerald-600"
+                      placeholder="Nhập số tấn CO₂..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      tCO₂
+                    </span>
+                  </div>
+                </div>
+
+                {/* TỶ LỆ TĂNG TRƯỞNG NGÀNH CORSIA */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[11px] text-gray-700 font-bold flex items-center gap-1">
+                      <span>Tỷ lệ tăng trưởng ngành:</span>
+                    </label>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                      CORSIA Rule
+                    </span>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      max="100"
+                      value={marketParams.corsiaGrowthRate ?? 15.0}
+                      onChange={(e) => handleUpdateMarketParam('corsiaGrowthRate', parseFloat(e.target.value) || 0)}
+                      className="w-full border border-emerald-200 rounded-lg px-3 py-1.5 pr-10 text-xs font-bold text-emerald-950 bg-white focus:outline-hidden focus:border-emerald-600"
+                      placeholder="Nhập tỷ lệ %..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-emerald-600 pointer-events-none">
+                      %
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    Tỷ lệ tăng lượng phát thải CO₂ của năm hiện tại so với năm baseline (2019/2020)
+                  </p>
+                </div>
+              </div>
+
+              {/* Tóm tắt nghiệp vụ CORSIA: Phát thải * Tỷ lệ = Tín chỉ cần mua */}
+              <div className="mt-3 pt-2.5 border-t border-emerald-100 flex items-center justify-between text-xs bg-white/70 p-2 rounded-lg">
+                <div>
+                  <span className="text-gray-600 font-medium block">Số tín chỉ cần mua:</span>
+                  <span className="text-[10px] text-gray-400 font-semibold">
+                    ({marketParams.obligationCorsia.toLocaleString()} t × {marketParams.corsiaGrowthRate ?? 15}%)
+                  </span>
+                </div>
+                <span className="font-black text-emerald-800 text-sm">
+                  {Math.round(marketParams.obligationCorsia * ((marketParams.corsiaGrowthRate ?? 15.0) / 100)).toLocaleString()} tín chỉ
                 </span>
-                <span className="text-xs font-black text-emerald-700">{marketParams.priceCorsia} € / tCO₂</span>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-[11px] text-gray-600 mb-1 font-semibold">
-                  <span>Đơn giá tín chỉ CORSIA (CEU):</span>
-                  <span className="font-bold text-gray-900">{marketParams.priceCorsia} €</span>
-                </div>
-                <input 
-                  type="range" min="10" max="80" step="0.5"
-                  value={marketParams.priceCorsia}
-                  onChange={(e) => handleUpdateMarketParam('priceCorsia', parseFloat(e.target.value))}
-                  className="w-full accent-emerald-600 cursor-pointer h-1.5 bg-gray-200 rounded-lg"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-[11px] text-gray-600 mb-1 font-semibold">
-                  <span>Nghĩa vụ phát thải nợ gốc (tCO₂):</span>
-                  <span className="font-bold text-gray-900">{marketParams.obligationCorsia.toLocaleString()} tCO₂</span>
-                </div>
-                <input 
-                  type="number"
-                  step="1000"
-                  value={marketParams.obligationCorsia}
-                  onChange={(e) => handleUpdateMarketParam('obligationCorsia', parseFloat(e.target.value) || 0)}
-                  className="w-full border border-gray-300 rounded-lg px-2.5 py-1 text-xs font-bold text-gray-800 bg-white"
-                />
               </div>
             </div>
 
@@ -714,204 +1180,66 @@ export const NetZeroV2Page: React.FC = () => {
         </div>
       )}
 
-      {/* RECOMMENDATION BANNER */}
-      <div className="bg-gradient-to-r from-emerald-900 via-[#00556e] to-[#004b61] text-white p-5 rounded-2xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="bg-amber-400 text-gray-950 font-black text-[10px] px-2 py-0.5 rounded uppercase tracking-wider">
-              Khuyến nghị của Hệ thống
-            </span>
-            <span className="text-xs text-white/75 font-semibold">Tự động tính toán theo các chỉ số đầu vào</span>
-          </div>
-          <h3 className="text-base font-bold text-white">
-            {currentLang === 'vi'
-              ? `Áp dụng Phương án Tối ưu giúp tiết kiệm ${(strategyOptimal.metrics.totalSavedVsGross - strategyCorsiaPriority.metrics.totalSavedVsGross).toLocaleString()} € so với kê khai thông thường!`
-              : `Applying Smart Optimization saves ${(strategyOptimal.metrics.totalSavedVsGross - strategyCorsiaPriority.metrics.totalSavedVsGross).toLocaleString()} € compared to standard allocation!`}
-          </h3>
-          <p className="text-xs text-white/80 leading-relaxed max-w-3xl">
-            Dựa trên đơn giá thị trường đang thiết lập (EU ETS: {marketParams.priceEuEts} € &gt; UK ETS: {marketParams.priceUkEts} € &gt; CORSIA: {marketParams.priceCorsia} €), hệ thống tự động giải thuật phân bổ tối ưu từng lô SAF để giảm thiểu chi phí bù trừ.
-          </p>
-        </div>
+      {/* SAF ALLOCATION & CLAIM SCENARIO (WITH 2 TABS: LEDGER & MANUAL) */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden">
 
-        <div className="flex items-center gap-3 shrink-0">
-          <div className="bg-white/10 backdrop-blur-xs border border-white/20 px-4 py-2.5 rounded-xl text-right">
-            <span className="text-[10px] text-white/70 block uppercase font-bold">Tổng chi phí sau tối ưu</span>
-            <span className="text-lg font-black text-amber-300">
-              {strategyOptimal.metrics.totalCost.toLocaleString()} €
-            </span>
-          </div>
-          <Button 
-            onClick={() => handleApplyStrategy(strategyOptimal.batches)}
-            className="bg-amber-400 hover:bg-amber-300 text-gray-950 font-black text-xs px-4 py-3 rounded-xl shadow-md cursor-pointer"
-          >
-            Áp dụng phương án này
-          </Button>
-        </div>
-      </div>
-
-      {/* MARKET STATUS OVERVIEW CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        {/* EU ETS Card */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-xs relative overflow-hidden">
-          <div className="flex items-center justify-between mb-3">
+        {/* Card Header with 2 Tabs */}
+        <div className="p-4 sm:p-5 border-b border-gray-200 bg-gray-50/70 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-vna-blue flex items-center justify-center font-bold text-xs">
-                EU
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-vna-navy">EU ETS (Châu Âu)</h4>
-                <span className="text-[10px] text-gray-400">Hạn ngạch phát thải EUA</span>
-              </div>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <h3 className="text-sm sm:text-base font-black text-vna-navy uppercase tracking-wide">
+                Phân bổ Lô SAF
+              </h3>
             </div>
-            <span className="text-xs font-black text-vna-blue bg-blue-50 px-2 py-1 rounded-md border border-blue-200">
-              {marketParams.priceEuEts} € / tCO₂
-            </span>
+            {/* <p className="text-xs text-gray-500 mt-1">
+              {allocationMode === 'ledger'
+                ? 'Điều phối các lô SAF thực tế từ kho số Ledger vào các cơ chế thị trường để bù đắp nghĩa vụ nợ carbon.'
+                : 'Nhập tổng lượng SAF sẵn có và trực tiếp phân bổ số tấn cho từng cơ chế thị trường (EU ETS, UK ETS, CORSIA).'}
+            </p> */}
           </div>
 
-          <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-100 text-xs">
-            <div>
-              <span className="text-[10px] text-gray-400 block font-bold">Nghĩa vụ nợ gốc</span>
-              <span className="font-extrabold text-gray-900">{marketParams.obligationEuEts.toLocaleString()} tCO₂</span>
-            </div>
-            <div>
-              <span className="text-[10px] text-emerald-600 block font-bold">SAF giảm trừ</span>
-              <span className="font-extrabold text-emerald-600">-{currentMetrics.co2EuSaved.toLocaleString()} tCO₂</span>
-            </div>
-          </div>
+          {/* 2 Tabs Switcher */}
+          {/* <div className="flex bg-gray-200/80 p-1 rounded-xl gap-1 self-start md:self-auto shadow-inner">
+            <button
+              onClick={() => setAllocationMode('ledger')}
+              className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${allocationMode === 'ledger'
+                ? 'bg-white text-vna-blue shadow-xs'
+                : 'text-gray-600 hover:text-gray-900'
+                }`}
+            >
+              <Database size={15} />
+              Tab 1: Số liệu lấy từ kho Ledger
+            </button>
 
-          <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs">
-            <span className="text-gray-500 font-semibold">Phải mua đền bù còn lại:</span>
-            <span className="font-black text-vna-blue">{currentMetrics.residualEuCo2.toLocaleString()} tCO₂ ({currentMetrics.costEu.toLocaleString()} €)</span>
-          </div>
+            <button
+              onClick={() => setAllocationMode('manual')}
+              className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${allocationMode === 'manual'
+                ? 'bg-white text-vna-blue shadow-xs'
+                : 'text-gray-600 hover:text-gray-900'
+                }`}
+            >
+              <Sliders size={15} />
+              Tab 2: Nhập tay
+            </button>
+          </div> */}
         </div>
 
-        {/* UK ETS Card */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-xs relative overflow-hidden">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">
-                UK
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-vna-navy">UK ETS (Vương quốc Anh)</h4>
-                <span className="text-[10px] text-gray-400">Hạn ngạch phát thải UKA</span>
-              </div>
-            </div>
-            <span className="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
-              {marketParams.priceUkEts} € / tCO₂
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-100 text-xs">
-            <div>
-              <span className="text-[10px] text-gray-400 block font-bold">Nghĩa vụ nợ gốc</span>
-              <span className="font-extrabold text-gray-900">{marketParams.obligationUkEts.toLocaleString()} tCO₂</span>
-            </div>
-            <div>
-              <span className="text-[10px] text-emerald-600 block font-bold">SAF giảm trừ</span>
-              <span className="font-extrabold text-emerald-600">-{currentMetrics.co2UkSaved.toLocaleString()} tCO₂</span>
-            </div>
-          </div>
-
-          <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs">
-            <span className="text-gray-500 font-semibold">Phải mua đền bù còn lại:</span>
-            <span className="font-black text-indigo-600">{currentMetrics.residualUkCo2.toLocaleString()} tCO₂ ({currentMetrics.costUk.toLocaleString()} €)</span>
-          </div>
-        </div>
-
-        {/* CORSIA Card */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-xs relative overflow-hidden">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">
-                ICAO
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-vna-navy">CORSIA (Toàn cầu)</h4>
-                <span className="text-[10px] text-gray-400">Tín chỉ quốc tế CEU Units</span>
-              </div>
-            </div>
-            <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200">
-              {marketParams.priceCorsia} € / tCO₂
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-100 text-xs">
-            <div>
-              <span className="text-[10px] text-gray-400 block font-bold">Nghĩa vụ nợ gốc</span>
-              <span className="font-extrabold text-gray-900">{marketParams.obligationCorsia.toLocaleString()} tCO₂</span>
-            </div>
-            <div>
-              <span className="text-[10px] text-emerald-600 block font-bold">SAF giảm trừ</span>
-              <span className="font-extrabold text-emerald-600">-{currentMetrics.co2CorsiaSaved.toLocaleString()} tCO₂</span>
-            </div>
-          </div>
-
-          <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs">
-            <span className="text-gray-500 font-semibold">Phải mua đền bù còn lại:</span>
-            <span className="font-black text-emerald-700">{currentMetrics.residualCorsiaCo2.toLocaleString()} tCO₂ ({currentMetrics.costCorsia.toLocaleString()} €)</span>
-          </div>
-        </div>
-
-      </div>
-
-      {/* NAVIGATION TABS */}
-      <div className="flex border-b border-gray-200 gap-6 text-sm font-bold text-gray-500">
-        <button
-          onClick={() => setActiveTab('allocation')}
-          className={`pb-3 flex items-center gap-2 cursor-pointer transition-colors ${
-            activeTab === 'allocation' 
-              ? 'border-b-2 border-vna-blue text-vna-blue' 
-              : 'hover:text-gray-800'
-          }`}
-        >
-          <Layers size={16} />
-          {currentLang === 'vi' ? 'Ma trận Phân bổ Lô SAF (SAF Claim Matrix)' : 'SAF Claim Matrix'}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('comparison')}
-          className={`pb-3 flex items-center gap-2 cursor-pointer transition-colors ${
-            activeTab === 'comparison' 
-              ? 'border-b-2 border-vna-blue text-vna-blue' 
-              : 'hover:text-gray-800'
-          }`}
-        >
-          <BarChart3 size={16} />
-          {currentLang === 'vi' ? 'So sánh Kịch bản & Chi phí Tiết kiệm' : 'Scenario & Cost Comparison'}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('verifier')}
-          className={`pb-3 flex items-center gap-2 cursor-pointer transition-colors ${
-            activeTab === 'verifier' 
-              ? 'border-b-2 border-vna-blue text-vna-blue' 
-              : 'hover:text-gray-800'
-          }`}
-        >
-          <FileText size={16} />
-          {currentLang === 'vi' ? 'Báo cáo Xác minh Verifier (Declaration)' : 'Verifier Declaration Report'}
-        </button>
-      </div>
-
-      {/* TAB 1: SAF CLAIM MATRIX & BATCHES WITH INLINE EDITING */}
-      {activeTab === 'allocation' && (
-        <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden">
-            
+        {/* TAB 1 CONTENT: LEDGER DATA (PRESERVE EXISTING DESIGN) */}
+        {allocationMode === 'ledger' && (
+          <div>
             <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h3 className="text-sm font-black text-vna-navy uppercase tracking-wide">
+                {/* <h3 className="text-sm font-black text-vna-navy uppercase tracking-wide">
                   Danh sách Lô Nhiên liệu SAF & Lựa chọn Cơ chế Kê khai (Claim)
-                </h3>
-                <p className="text-xs text-gray-500 mt-0.5">
+                </h3> */}
+                {/* <p className="text-xs text-gray-500 mt-0.5">
                   💡 Bạn có thể <strong>sửa trực tiếp số tấn SAF</strong> trên từng dòng để xem sự thay đổi chi phí ngay lập tức.
-                </p>
+                </p> */}
               </div>
 
               <div className="flex items-center gap-2">
-                <Button 
+                <Button
                   onClick={() => setIsNewBatchModalOpen(true)}
                   className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1"
                 >
@@ -937,7 +1265,7 @@ export const NetZeroV2Page: React.FC = () => {
                 <tbody className="divide-y divide-gray-100">
                   {batches.map(batch => {
                     const co2Saved = Math.round(batch.tonnes * batch.co2SavedPerTonne);
-                    
+
                     return (
                       <tr key={batch.id} className="hover:bg-blue-50/20 transition-colors">
                         <td className="py-3 px-4">
@@ -963,7 +1291,7 @@ export const NetZeroV2Page: React.FC = () => {
                         {/* Inline Editable SAF Tonnes */}
                         <td className="py-3 px-4 text-center">
                           <div className="inline-flex items-center gap-1">
-                            <input 
+                            <input
                               type="number"
                               step="50"
                               value={batch.tonnes}
@@ -989,52 +1317,35 @@ export const NetZeroV2Page: React.FC = () => {
                           </div>
                         </td>
 
-                        {/* Assignment Selector */}
+                        {/* Assignment Selector: Modern Combobox / Select */}
                         <td className="py-3 px-4 text-center">
-                          <div className="inline-flex rounded-lg border border-gray-200 bg-gray-50 p-0.5 shadow-2xs">
-                            {batch.eligibleSchemes.includes('EU_ETS') && (
-                              <button
-                                onClick={() => handleAssignBatch(batch.id, 'EU_ETS')}
-                                className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
-                                  batch.assignedScheme === 'EU_ETS' 
-                                    ? 'bg-vna-blue text-white shadow-xs' 
-                                    : 'text-gray-600 hover:text-gray-900'
+                          <div className="inline-block relative min-w-[130px]">
+                            <select
+                              value={batch.assignedScheme}
+                              onChange={(e) => handleAssignBatch(batch.id, e.target.value as SafBatch['assignedScheme'])}
+                              className={`w-full text-xs font-black rounded-xl px-3 py-1.5 border appearance-none cursor-pointer outline-none transition-all pr-8 shadow-2xs ${batch.assignedScheme === 'EU_ETS'
+                                ? 'bg-blue-50/80 text-vna-blue border-blue-200 focus:ring-1 focus:ring-vna-blue'
+                                : batch.assignedScheme === 'UK_ETS'
+                                  ? 'bg-indigo-50/80 text-indigo-700 border-indigo-200 focus:ring-1 focus:ring-indigo-600'
+                                  : 'bg-emerald-50/80 text-emerald-800 border-emerald-200 focus:ring-1 focus:ring-emerald-600'
                                 }`}
-                              >
-                                EU ETS
-                              </button>
-                            )}
-
-                            {batch.eligibleSchemes.includes('UK_ETS') && (
-                              <button
-                                onClick={() => handleAssignBatch(batch.id, 'UK_ETS')}
-                                className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
-                                  batch.assignedScheme === 'UK_ETS' 
-                                    ? 'bg-indigo-600 text-white shadow-xs' 
-                                    : 'text-gray-600 hover:text-gray-900'
-                                }`}
-                              >
-                                UK ETS
-                              </button>
-                            )}
-
-                            {batch.eligibleSchemes.includes('CORSIA') && (
-                              <button
-                                onClick={() => handleAssignBatch(batch.id, 'CORSIA')}
-                                className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
-                                  batch.assignedScheme === 'CORSIA' 
-                                    ? 'bg-emerald-600 text-white shadow-xs' 
-                                    : 'text-gray-600 hover:text-gray-900'
-                                }`}
-                              >
-                                CORSIA
-                              </button>
-                            )}
+                            >
+                              {batch.eligibleSchemes.map((scheme) => (
+                                <option key={scheme} value={scheme} className="font-bold text-gray-800 bg-white">
+                                  {scheme === 'EU_ETS' ? 'EU ETS' : scheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA'}
+                                </option>
+                              ))}
+                            </select>
+                            <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                              </svg>
+                            </div>
                           </div>
                         </td>
 
                         <td className="py-3 px-4 text-center">
-                          <button 
+                          <button
                             onClick={() => handleDeleteBatch(batch.id)}
                             className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
                             title="Xóa lô này"
@@ -1052,7 +1363,7 @@ export const NetZeroV2Page: React.FC = () => {
             {/* Matrix Summary Footer */}
             <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
               <div className="flex items-center gap-6 font-bold text-gray-700 flex-wrap">
-                <span>Tổng SAF: <strong className="text-gray-900">{batches.reduce((a,b)=>a+b.tonnes,0).toLocaleString()} tấn</strong></span>
+                <span>Tổng SAF: <strong className="text-gray-900">{batches.reduce((a, b) => a + b.tonnes, 0).toLocaleString()} tấn</strong></span>
                 <span>Claim cho EU: <strong className="text-vna-blue">{currentMetrics.safEuTonnes.toLocaleString()} tấn</strong></span>
                 <span>Claim cho UK: <strong className="text-indigo-600">{currentMetrics.safUkTonnes.toLocaleString()} tấn</strong></span>
                 <span>Claim cho CORSIA: <strong className="text-emerald-600">{currentMetrics.safCorsiaTonnes.toLocaleString()} tấn</strong></span>
@@ -1065,261 +1376,1290 @@ export const NetZeroV2Page: React.FC = () => {
                 </span>
               </div>
             </div>
-
           </div>
-        </div>
-      )}
+        )}
 
-      {/* TAB 2: SCENARIO & COST COMPARISON */}
-      {activeTab === 'comparison' && (
-        <div className="space-y-6">
-          
-          {/* 3 Strategy Comparison Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            {/* Strategy 1 */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-black px-2 py-0.5 rounded bg-blue-50 text-vna-blue border border-blue-200 uppercase">
-                    Phương án 1
-                  </span>
-                  <span className="text-xs font-bold text-gray-400">Ưu tiên EU ETS</span>
+        {/* TAB 2 CONTENT: MANUAL SAF ALLOCATION */}
+        {allocationMode === 'manual' && (
+          <div className="p-5 sm:p-6 space-y-6">
+
+            {/* Top Config Row: Total SAF Input & Quick Helper */}
+            <div className="bg-gradient-to-r from-blue-50/50 via-slate-50 to-emerald-50/40 rounded-2xl p-5 border border-blue-100/80">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                <div className="max-w-xl">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-0.5 rounded-full bg-blue-100 text-vna-blue text-[10px] font-black uppercase tracking-wider">
+                      Nhập tay trực tiếp
+                    </span>
+                    <h4 className="text-sm font-black text-vna-navy">
+                      1. Tổng Lượng Nhiên liệu SAF Khả dụng (Available SAF Volume)
+                    </h4>
+                  </div>
+                  <p className="text-xs text-gray-600">
+                    Nhập tổng số tấn SAF của toàn hãng hàng không muốn đưa vào giả lập. Hệ thống sẽ cho phép phân bổ linh hoạt vào từng cơ chế thị trường bên dưới.
+                  </p>
+
+                  {/* Preset quick buttons */}
+                  <div className="flex items-center gap-2 mt-3 text-xs">
+                    <span className="text-gray-500 font-semibold text-[11px]">Gợi ý nhanh:</span>
+                    {[2000, 5000, 8000, 12000, 20000].map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => {
+                          setManualSafTonnes(t);
+                          const euTarget = Math.min(t, Math.round(marketParams.obligationEuEts / 2.60));
+                          const rem1 = Math.max(0, t - euTarget);
+                          const ukTarget = Math.min(rem1, Math.round(marketParams.obligationUkEts / 2.60));
+                          const rem2 = Math.max(0, rem1 - ukTarget);
+                          setManualAllocEu(euTarget);
+                          setManualAllocUk(ukTarget);
+                          setManualAllocCorsia(rem2);
+                        }}
+                        className={`px-2.5 py-1 rounded-md text-[11px] font-bold border transition-colors cursor-pointer ${manualSafTonnes === t
+                          ? 'bg-vna-blue text-white border-vna-blue'
+                          : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
+                          }`}
+                      >
+                        {t.toLocaleString()} tấn
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <h4 className="text-sm font-bold text-vna-navy">{strategyEuPriority.name}</h4>
-                <p className="text-xs text-gray-500 mt-1">{strategyEuPriority.description}</p>
-                
-                <div className="mt-4 space-y-2 text-xs pt-3 border-t border-gray-100">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí EU ETS:</span>
-                    <span className="font-bold text-gray-800">{strategyEuPriority.metrics.costEu.toLocaleString()} €</span>
+
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-xs flex items-center gap-3">
+                    <div>
+                      <span className="text-[10px] font-bold text-gray-400 uppercase block">Tổng lượng SAF nhập</span>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <input
+                          type="number"
+                          step="100"
+                          min="0"
+                          value={manualSafTonnes}
+                          onChange={(e) => {
+                            const val = Math.max(0, parseFloat(e.target.value) || 0);
+                            setManualSafTonnes(val);
+                          }}
+                          className="w-28 text-lg font-black text-vna-navy focus:outline-hidden border-b-2 border-vna-blue pb-0.5 bg-transparent"
+                        />
+                        <span className="text-xs font-bold text-gray-500">tấn</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí CORSIA:</span>
-                    <span className="font-bold text-gray-800">{strategyEuPriority.metrics.costCorsia.toLocaleString()} €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí UK ETS:</span>
-                    <span className="font-bold text-gray-800">{strategyEuPriority.metrics.costUk.toLocaleString()} €</span>
-                  </div>
+
+                  <Button
+                    onClick={handleAutoOptimizeManual}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black px-4 py-3 rounded-xl flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                  >
+                    <Sparkles size={16} /> Tự động Tối ưu chi phí
+                  </Button>
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-gray-100">
-                <div className="flex justify-between items-baseline mb-3">
-                  <span className="text-xs font-bold text-gray-700">Tổng chi phí:</span>
-                  <span className="text-lg font-black text-vna-navy">{strategyEuPriority.metrics.totalCost.toLocaleString()} €</span>
-                </div>
-                <Button 
-                  onClick={() => handleApplyStrategy(strategyEuPriority.batches)}
-                  variant="outline"
-                  className="w-full text-xs font-bold text-vna-blue border-vna-blue/40 hover:bg-blue-50 py-1.5"
-                >
-                  Áp dụng phương án này
-                </Button>
-              </div>
-            </div>
+              {/* Status balance & progress bar */}
+              <div className="mt-5 pt-4 border-t border-blue-100/80">
+                {(() => {
+                  const allocatedTotal = manualAllocEu + manualAllocUk + manualAllocCorsia;
+                  const unallocated = manualSafTonnes - allocatedTotal;
+                  const pctEu = manualSafTonnes > 0 ? (manualAllocEu / manualSafTonnes) * 100 : 0;
+                  const pctUk = manualSafTonnes > 0 ? (manualAllocUk / manualSafTonnes) * 100 : 0;
+                  const pctCorsia = manualSafTonnes > 0 ? (manualAllocCorsia / manualSafTonnes) * 100 : 0;
+                  const isOver = allocatedTotal > manualSafTonnes;
 
-            {/* Strategy 2 */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-black px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">
-                    Phương án 2
-                  </span>
-                  <span className="text-xs font-bold text-gray-400">Ưu tiên CORSIA</span>
-                </div>
-                <h4 className="text-sm font-bold text-vna-navy">{strategyCorsiaPriority.name}</h4>
-                <p className="text-xs text-gray-500 mt-1">{strategyCorsiaPriority.description}</p>
-                
-                <div className="mt-4 space-y-2 text-xs pt-3 border-t border-gray-100">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí EU ETS:</span>
-                    <span className="font-bold text-gray-800">{strategyCorsiaPriority.metrics.costEu.toLocaleString()} €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí CORSIA:</span>
-                    <span className="font-bold text-gray-800">{strategyCorsiaPriority.metrics.costCorsia.toLocaleString()} €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí UK ETS:</span>
-                    <span className="font-bold text-gray-800">{strategyCorsiaPriority.metrics.costUk.toLocaleString()} €</span>
-                  </div>
-                </div>
-              </div>
+                  return (
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center justify-between text-xs font-bold gap-2">
+                        <div className="flex items-center gap-4">
+                          <span className="text-gray-700">
+                            Đã phân bổ: <strong className={isOver ? 'text-rose-600' : 'text-vna-navy'}>{allocatedTotal.toLocaleString()}</strong> / {manualSafTonnes.toLocaleString()} tấn ({manualSafTonnes > 0 ? Math.round((allocatedTotal / manualSafTonnes) * 100) : 0}%)
+                          </span>
+                          <span className={unallocated >= 0 ? 'text-emerald-700' : 'text-rose-600'}>
+                            {unallocated >= 0 ? `Còn dư chưa phân bổ: ${unallocated.toLocaleString()} tấn` : `⚠️ Vượt quá tổng SAF: ${Math.abs(unallocated).toLocaleString()} tấn`}
+                          </span>
+                        </div>
 
-              <div className="mt-4 pt-3 border-t border-gray-100">
-                <div className="flex justify-between items-baseline mb-3">
-                  <span className="text-xs font-bold text-gray-700">Tổng chi phí:</span>
-                  <span className="text-lg font-black text-rose-600">{strategyCorsiaPriority.metrics.totalCost.toLocaleString()} €</span>
-                </div>
-                <Button 
-                  onClick={() => handleApplyStrategy(strategyCorsiaPriority.batches)}
-                  variant="outline"
-                  className="w-full text-xs font-bold text-gray-700 border-gray-300 hover:bg-gray-50 py-1.5"
-                >
-                  Áp dụng phương án này
-                </Button>
-              </div>
-            </div>
+                        <div className="flex items-center gap-3 text-[11px]">
+                          <span className="flex items-center gap-1">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#006885]"></span> EU ETS ({Math.round(pctEu)}%)
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#4f46e5]"></span> UK ETS ({Math.round(pctUk)}%)
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span> CORSIA ({Math.round(pctCorsia)}%)
+                          </span>
+                        </div>
+                      </div>
 
-            {/* Strategy 3 (Optimal) */}
-            <div className="bg-white rounded-2xl border-2 border-emerald-600 p-5 shadow-md flex flex-col justify-between relative ring-2 ring-emerald-500/20 bg-emerald-50/10">
-              <div className="absolute -top-3 right-4 bg-emerald-600 text-white font-black text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
-                TIẾT KIỆM NHẤT ⭐
-              </div>
+                      {/* Visual Multi-Segment Bar */}
+                      <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden flex">
+                        <div style={{ width: `${Math.min(100, pctEu)}%` }} className="bg-[#006885] transition-all duration-300" title={`EU ETS: ${manualAllocEu.toLocaleString()} t`} />
+                        <div style={{ width: `${Math.min(100 - pctEu, pctUk)}%` }} className="bg-[#4f46e5] transition-all duration-300" title={`UK ETS: ${manualAllocUk.toLocaleString()} t`} />
+                        <div style={{ width: `${Math.min(100 - pctEu - pctUk, pctCorsia)}%` }} className="bg-[#10b981] transition-all duration-300" title={`CORSIA: ${manualAllocCorsia.toLocaleString()} t`} />
+                      </div>
 
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-black px-2 py-0.5 rounded bg-emerald-600 text-white uppercase">
-                    Phương án Tối ưu
-                  </span>
-                  <span className="text-xs font-bold text-emerald-700">AI Optimizer</span>
-                </div>
-                <h4 className="text-sm font-bold text-emerald-950">{strategyOptimal.name}</h4>
-                <p className="text-xs text-gray-500 mt-1">{strategyOptimal.description}</p>
-                
-                <div className="mt-4 space-y-2 text-xs pt-3 border-t border-emerald-100">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí EU ETS:</span>
-                    <span className="font-bold text-gray-800">{strategyOptimal.metrics.costEu.toLocaleString()} €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí CORSIA:</span>
-                    <span className="font-bold text-gray-800">{strategyOptimal.metrics.costCorsia.toLocaleString()} €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Chi phí UK ETS:</span>
-                    <span className="font-bold text-gray-800">{strategyOptimal.metrics.costUk.toLocaleString()} €</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-emerald-100">
-                <div className="flex justify-between items-baseline mb-3">
-                  <span className="text-xs font-bold text-emerald-900">Tổng chi phí:</span>
-                  <span className="text-xl font-black text-emerald-700">{strategyOptimal.metrics.totalCost.toLocaleString()} €</span>
-                </div>
-                <Button 
-                  onClick={() => handleApplyStrategy(strategyOptimal.batches)}
-                  className="w-full text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white py-2 shadow-xs cursor-pointer"
-                >
-                  <Check size={14} className="mr-1" /> Áp dụng Phương án Tối ưu
-                </Button>
+                      {isOver && (
+                        <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs font-semibold flex items-center gap-2 mt-2">
+                          <AlertTriangle size={15} className="shrink-0" />
+                          <span>Tổng lượng phân bổ cho các cơ chế đang vượt quá tổng lượng SAF khả dụng. Hãy điều chỉnh giảm ở các ô bên dưới hoặc tăng tổng lượng SAF.</span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
 
-          </div>
-
-          {/* Comparison Bar Chart */}
-          <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
-            <div className="border-b border-gray-100 pb-3 mb-4">
-              <h3 className="text-sm font-black text-vna-navy">
-                Biểu đồ So sánh Tổng Chi phí Mua Hạn ngạch Đền bù Carbon (Nghìn EUR)
-              </h3>
-              <p className="text-xs text-gray-500 mt-0.5">Đối chiếu chi phí mua hạn ngạch theo từng phương án phân bổ SAF</p>
-            </div>
-
-            <div className="h-[340px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={comparisonChartData} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                  <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} tickLine={false} />
-                  <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} tickFormatter={(val) => `${val}k €`} />
-                  <Tooltip 
-                    formatter={(val: any, name: string) => [`${val.toLocaleString()}k €`, name]}
-                    contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '12px' }}
-                  />
-                  <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                  <Bar dataKey="costEu" name="EU ETS" stackId="a" fill="#006885" />
-                  <Bar dataKey="costUk" name="UK ETS" stackId="a" fill="#4f46e5" />
-                  <Bar dataKey="costCorsia" name="CORSIA" stackId="a" fill="#10b981" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-        </div>
-      )}
-
-      {/* TAB 3: VERIFIER DECLARATION REPORT */}
-      {activeTab === 'verifier' && (
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-gray-200 pb-4">
+            {/* 3 Mechanisms Allocation Cards */}
             <div>
-              <h3 className="text-base font-black text-vna-navy">
-                Báo cáo Giải trình Kê khai SAF & Chống Trùng lặp (Verifier Declaration)
-              </h3>
-              <p className="text-xs text-gray-500 mt-1">
-                Văn bản pháp lý phục vụ đơn vị kiểm toán xác minh độc lập (Independent Verifier) chứng minh tuân thủ quy định EU ETS / CORSIA.
-              </p>
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-sm font-black text-vna-navy">
+                  2. Phân bổ Tấn Nhiên liệu SAF cho Từng Cơ chế Thị trường
+                </h4>
+                <span className="text-xs text-gray-500">Kéo thanh trượt hoặc nhập số tấn tương ứng</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                {/* 1. EU ETS */}
+                <div className="bg-white rounded-2xl border-2 border-blue-200 p-5 shadow-xs flex flex-col justify-between hover:border-vna-blue transition-all">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-blue-50 text-vna-blue flex items-center justify-center font-bold text-xs">
+                          EU
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-black text-vna-navy">Cơ chế EU ETS</h5>
+                          <span className="text-[10px] text-gray-400 font-semibold">Châu Âu (Hạn ngạch EUA)</span>
+                        </div>
+                      </div>
+                      <span className="text-xs font-black text-vna-blue bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">
+                        {marketParams.priceEuEts} € / tCO₂
+                      </span>
+                    </div>
+
+                    <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 mb-4">
+                      <div className="flex justify-between text-gray-600">
+                        <span>Nghĩa vụ nợ gốc:</span>
+                        <strong className="text-gray-900">{marketParams.obligationEuEts.toLocaleString()} tCO₂</strong>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>SAF cần để bù 100%:</span>
+                        <strong className="text-vna-blue">~{Math.round(marketParams.obligationEuEts / 2.60).toLocaleString()} tấn</strong>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs font-bold text-gray-700">
+                        <label>Khối lượng SAF phân bổ:</label>
+                        <span className="text-vna-blue font-black">{manualAllocEu.toLocaleString()} tấn</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          step="50"
+                          min="0"
+                          max={manualSafTonnes}
+                          value={manualAllocEu}
+                          onChange={(e) => setManualAllocEu(Math.max(0, parseFloat(e.target.value) || 0))}
+                          className="w-full border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-black text-gray-800 focus:outline-hidden focus:border-vna-blue bg-white"
+                        />
+                        <span className="text-xs font-bold text-gray-500">tấn</span>
+                      </div>
+
+                      <input
+                        type="range"
+                        min="0"
+                        max={Math.max(manualSafTonnes, 5000)}
+                        step="50"
+                        value={manualAllocEu}
+                        onChange={(e) => setManualAllocEu(parseFloat(e.target.value) || 0)}
+                        className="w-full accent-vna-blue cursor-pointer"
+                      />
+
+                      <div className="flex items-center justify-between text-[11px] pt-1">
+                        <button
+                          onClick={() => setManualAllocEu(0)}
+                          className="text-gray-400 hover:text-gray-700 underline cursor-pointer"
+                        >
+                          Về 0
+                        </button>
+                        <button
+                          onClick={() => setManualAllocEu(Math.min(manualSafTonnes, Math.round(marketParams.obligationEuEts / 2.60)))}
+                          className="text-vna-blue hover:underline font-bold cursor-pointer"
+                        >
+                          Bù 100% nợ EU
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 text-xs space-y-1.5 bg-blue-50/30 -mx-5 -mb-5 p-4 rounded-b-2xl">
+                    <div className="flex justify-between text-gray-600">
+                      <span>CO₂ giảm trừ (2.60x):</span>
+                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocEu * 2.60).toLocaleString()} tCO₂</span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Tiết kiệm chi phí đền bù:</span>
+                      <span className="font-black text-vna-blue">+{Math.round(manualAllocEu * 2.60 * marketParams.priceEuEts).toLocaleString()} €</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. UK ETS */}
+                <div className="bg-white rounded-2xl border-2 border-indigo-200 p-5 shadow-xs flex flex-col justify-between hover:border-indigo-500 transition-all">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-xs">
+                          UK
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-black text-vna-navy">Cơ chế UK ETS</h5>
+                          <span className="text-[10px] text-gray-400 font-semibold">Vương quốc Anh (Hạn ngạch UKA)</span>
+                        </div>
+                      </div>
+                      <span className="text-xs font-black text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
+                        {marketParams.priceUkEts} € / tCO₂
+                      </span>
+                    </div>
+
+                    <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 mb-4">
+                      <div className="flex justify-between text-gray-600">
+                        <span>Nghĩa vụ nợ gốc:</span>
+                        <strong className="text-gray-900">{marketParams.obligationUkEts.toLocaleString()} tCO₂</strong>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>SAF cần để bù 100%:</span>
+                        <strong className="text-indigo-600">~{Math.round(marketParams.obligationUkEts / 2.60).toLocaleString()} tấn</strong>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs font-bold text-gray-700">
+                        <label>Khối lượng SAF phân bổ:</label>
+                        <span className="text-indigo-700 font-black">{manualAllocUk.toLocaleString()} tấn</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          step="50"
+                          min="0"
+                          max={manualSafTonnes}
+                          value={manualAllocUk}
+                          onChange={(e) => setManualAllocUk(Math.max(0, parseFloat(e.target.value) || 0))}
+                          className="w-full border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-black text-gray-800 focus:outline-hidden focus:border-indigo-500 bg-white"
+                        />
+                        <span className="text-xs font-bold text-gray-500">tấn</span>
+                      </div>
+
+                      <input
+                        type="range"
+                        min="0"
+                        max={Math.max(manualSafTonnes, 5000)}
+                        step="50"
+                        value={manualAllocUk}
+                        onChange={(e) => setManualAllocUk(parseFloat(e.target.value) || 0)}
+                        className="w-full accent-indigo-600 cursor-pointer"
+                      />
+
+                      <div className="flex items-center justify-between text-[11px] pt-1">
+                        <button
+                          onClick={() => setManualAllocUk(0)}
+                          className="text-gray-400 hover:text-gray-700 underline cursor-pointer"
+                        >
+                          Về 0
+                        </button>
+                        <button
+                          onClick={() => setManualAllocUk(Math.min(manualSafTonnes, Math.round(marketParams.obligationUkEts / 2.60)))}
+                          className="text-indigo-600 hover:underline font-bold cursor-pointer"
+                        >
+                          Bù 100% nợ UK
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 text-xs space-y-1.5 bg-indigo-50/30 -mx-5 -mb-5 p-4 rounded-b-2xl">
+                    <div className="flex justify-between text-gray-600">
+                      <span>CO₂ giảm trừ (2.60x):</span>
+                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocUk * 2.60).toLocaleString()} tCO₂</span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Tiết kiệm chi phí đền bù:</span>
+                      <span className="font-black text-indigo-700">+{Math.round(manualAllocUk * 2.60 * marketParams.priceUkEts).toLocaleString()} €</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. CORSIA */}
+                <div className="bg-white rounded-2xl border-2 border-emerald-200 p-5 shadow-xs flex flex-col justify-between hover:border-emerald-500 transition-all">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs">
+                          <Globe size={16} />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-black text-vna-navy">Cơ chế CORSIA</h5>
+                          <span className="text-[10px] text-gray-400 font-semibold">Chuyến bay quốc tế toàn cầu</span>
+                        </div>
+                      </div>
+                      <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                        {marketParams.priceCorsia} € / tCO₂
+                      </span>
+                    </div>
+
+                    <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 mb-4">
+                      <div className="flex justify-between text-gray-600">
+                        <span>Nghĩa vụ nợ gốc:</span>
+                        <strong className="text-gray-900">{marketParams.obligationCorsia.toLocaleString()} tCO₂</strong>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>SAF cần để bù 100%:</span>
+                        <strong className="text-emerald-700">~{Math.round(marketParams.obligationCorsia / 2.55).toLocaleString()} tấn</strong>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs font-bold text-gray-700">
+                        <label>Khối lượng SAF phân bổ:</label>
+                        <span className="text-emerald-700 font-black">{manualAllocCorsia.toLocaleString()} tấn</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          step="50"
+                          min="0"
+                          max={manualSafTonnes}
+                          value={manualAllocCorsia}
+                          onChange={(e) => setManualAllocCorsia(Math.max(0, parseFloat(e.target.value) || 0))}
+                          className="w-full border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-black text-gray-800 focus:outline-hidden focus:border-emerald-500 bg-white"
+                        />
+                        <span className="text-xs font-bold text-gray-500">tấn</span>
+                      </div>
+
+                      <input
+                        type="range"
+                        min="0"
+                        max={Math.max(manualSafTonnes, 5000)}
+                        step="50"
+                        value={manualAllocCorsia}
+                        onChange={(e) => setManualAllocCorsia(parseFloat(e.target.value) || 0)}
+                        className="w-full accent-emerald-600 cursor-pointer"
+                      />
+
+                      <div className="flex items-center justify-between text-[11px] pt-1">
+                        <button
+                          onClick={() => setManualAllocCorsia(0)}
+                          className="text-gray-400 hover:text-gray-700 underline cursor-pointer"
+                        >
+                          Về 0
+                        </button>
+                        <button
+                          onClick={() => setManualAllocCorsia(Math.max(0, manualSafTonnes - manualAllocEu - manualAllocUk))}
+                          className="text-emerald-700 hover:underline font-bold cursor-pointer"
+                        >
+                          Dồn phần còn lại vào CORSIA
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 text-xs space-y-1.5 bg-emerald-50/30 -mx-5 -mb-5 p-4 rounded-b-2xl">
+                    <div className="flex justify-between text-gray-600">
+                      <span>CO₂ giảm trừ (2.55x):</span>
+                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocCorsia * 2.55).toLocaleString()} tCO₂</span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Tiết kiệm chi phí đền bù:</span>
+                      <span className="font-black text-emerald-700">+{Math.round(manualAllocCorsia * 2.55 * marketParams.priceCorsia).toLocaleString()} €</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
-            <Button 
-              onClick={() => alert('Đang xuất hồ sơ giải trình Verifier (PDF/A đính kèm chữ ký số)...')}
-              className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5"
-            >
-              <Download size={15} /> Xuất Báo cáo Verifier (PDF)
-            </Button>
+
+            {/* Manual Summary Bar */}
+            <div className="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex flex-wrap items-center gap-4 text-gray-600">
+                <span>Tổng SAF phân bổ: <strong className="text-gray-900">{(manualAllocEu + manualAllocUk + manualAllocCorsia).toLocaleString()} tấn</strong></span>
+                <span>Claim EU: <strong className="text-vna-blue">{manualAllocEu.toLocaleString()} tấn</strong></span>
+                <span>Claim UK: <strong className="text-indigo-600">{manualAllocUk.toLocaleString()} tấn</strong></span>
+                <span>Claim CORSIA: <strong className="text-emerald-600">{manualAllocCorsia.toLocaleString()} tấn</strong></span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="text-gray-500 font-semibold">Tổng chi phí mua đền bù còn lại:</span>
+                <span className="text-base font-black text-vna-blue">
+                  {currentMetrics.totalCost.toLocaleString()} €
+                </span>
+              </div>
+            </div>
+
+          </div>
+        )}
+
+      </div>
+
+
+      {/* TWO KEY FINANCIAL & ESG KPI CARDS (CO2 OFFSET/CREDITS & CHI PHÍ TUÂN THỦ - TỔNG & CHI TIẾT TỐI GIẢN) */}
+      <div className="space-y-3 pt-2">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-black text-vna-navy uppercase tracking-wide">
+              Chỉ số Hiệu quả Tài chính & Bù trừ Phát thải Toàn Hãng
+            </h3>
+            <p className="text-xs text-gray-500">
+              Tổng hợp khối lượng CO₂ giảm thiểu, số tín chỉ cần bù đắp và chi phí tuân thủ theo kịch bản phân bổ hiện tại
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          {/* KPI CARD 1: CO2 OFFSET & GIẢM THIỂU + TÍN CHỈ CO2 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-200 shadow-xs relative overflow-hidden group hover:border-emerald-500 transition-all flex flex-col justify-between">
+            <div>
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    1. CO₂ Offset & Giảm thiểu
+                  </p>
+                  <h3 className="text-2xl font-black text-emerald-700 mt-1">
+                    {executiveKpiMetrics.totalCo2Saved.toLocaleString()} <span className="text-sm font-bold text-gray-500">tCO₂</span>
+                  </h3>
+                  <p className="text-[11px] text-gray-500 mt-0.5">
+                    Chỉ số tuân thủ báo cáo ESG quốc tế
+                  </p>
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                  <Leaf size={22} />
+                </div>
+              </div>
+
+              {/* TỔNG PHÁT THẢI BẢNG CŨ */}
+              <div className="mt-4 pt-3 border-t border-gray-100 space-y-1.5 text-xs text-gray-600">
+                <div className="flex justify-between items-center">
+                  <span>• Tổng phát thải nợ gốc:</span>
+                  <span className="font-bold text-gray-800">{executiveKpiMetrics.totalGrossEmission.toLocaleString()} tCO₂</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>• Hạn ngạch miễn phí (Free):</span>
+                  <span className="font-bold text-blue-600">-{executiveKpiMetrics.totalFree.toLocaleString()} tCO₂</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>• CO₂ giảm do nạp SAF:</span>
+                  <span className="font-bold text-emerald-600">-{executiveKpiMetrics.totalCo2Saved.toLocaleString()} tCO₂</span>
+                </div>
+                <div className="flex justify-between items-center font-bold text-gray-900 pt-1 border-t border-gray-100">
+                  <span className="text-amber-700">• CO₂ còn lại phải mua tín chỉ:</span>
+                  <span className="text-amber-700 font-black">{executiveKpiMetrics.co2Remaining.toLocaleString()} tCO₂</span>
+                </div>
+              </div>
+
+              {/* PHẦN CHI TIẾT TỐI GIẢN: SỐ TÍN CHỈ PHẢI MUA (1 tCO2 = 1 Tín chỉ) */}
+              <div className="mt-3.5 pt-3 border-t border-dashed border-gray-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide">
+                    Số tín chỉ CO₂ phải mua (Rule 1:1):
+                  </span>
+                  <span className="text-xs font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                    {(currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2).toLocaleString()} tín chỉ
+                  </span>
+                </div>
+
+                <div className="space-y-1 text-xs text-gray-600 pl-2 border-l-2 border-amber-200">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">• EU ETS (EUA):</span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.residualEuCo2.toLocaleString()} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">• UK ETS (UKA):</span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.residualUkCo2.toLocaleString()} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">• CORSIA (CEU):</span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.residualCorsiaCo2.toLocaleString()} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Declaration Preview Box */}
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 space-y-4 text-xs text-gray-800 font-serif leading-relaxed">
-            <div className="text-center space-y-1 border-b border-gray-200 pb-4">
-              <h4 className="text-sm font-black uppercase text-vna-navy font-sans tracking-wide">
-                TỔNG CÔNG TY HÀNG KHÔNG VIỆT NAM (VIETNAM AIRLINES JSC)
-              </h4>
-              <p className="text-[11px] text-gray-600 font-sans">Ban An toàn chất lượng & Đội Quản lý Phát thải ESG</p>
-              <h3 className="text-base font-bold text-gray-900 pt-2 font-sans">
-                TỜ KHAI PHÂN BỔ NHIÊN LIỆU HÀNG KHÔNG BỀN VỮNG (SAF DECLARATION OF COMPLIANCE)
-              </h3>
-              <p className="text-xs text-gray-500 font-sans">Kỳ báo cáo: {reportPeriod}</p>
+          {/* KPI CARD 2: TỔNG CHI PHÍ TUÂN THỦ + CHI TIẾT CHI PHÍ MUA TÍN CHỈ */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-200 shadow-xs relative overflow-hidden group hover:border-vna-blue transition-all flex flex-col justify-between">
+            <div>
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    2. Tổng Chi phí Tuân thủ
+                  </p>
+                  <h3 className="text-2xl font-black text-vna-navy mt-1">
+                    {(executiveKpiMetrics.totalScenarioCost / 1000000).toFixed(2)}M €
+                  </h3>
+                  <p className="text-[11px] text-gray-500 mt-0.5">
+                    ≈ ${(executiveKpiMetrics.totalScenarioCost * 1.08 / 1000000).toFixed(2)}M USD
+                  </p>
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-blue-50 text-vna-blue flex items-center justify-center shrink-0">
+                  <DollarSign size={22} />
+                </div>
+              </div>
+
+              {/* TỔNG CHI PHÍ BẢNG CŨ */}
+              <div className="mt-4 pt-3 border-t border-gray-100 space-y-1.5 text-xs">
+                <div className="flex justify-between items-center text-gray-600">
+                  <span>• Mua SAF ({executiveKpiMetrics.totalAllocatedSaf.toLocaleString()} tấn):</span>
+                  <span className="font-bold text-gray-800">{(executiveKpiMetrics.safCost / 1000000).toFixed(2)}M €</span>
+                </div>
+                <div className="flex justify-between items-center text-gray-600">
+                  <span>• Mua tín chỉ CO₂ còn lại:</span>
+                  <span className="font-bold text-gray-800">{(executiveKpiMetrics.totalCreditCost / 1000000).toFixed(2)}M €</span>
+                </div>
+                <div className="flex justify-between items-center text-gray-600 pt-1 border-t border-gray-100 font-semibold">
+                  <span>• Chi phí Baseline không tối ưu:</span>
+                  <span className="font-bold text-gray-500 line-through">{(executiveKpiMetrics.totalBaselineCost / 1000000).toFixed(2)}M €</span>
+                </div>
+              </div>
+
+              {/* PHẦN CHI TIẾT TỐI GIẢN: CHI PHÍ MUA TÍN CHỈ DỰ KIẾN THEO CƠ CHẾ */}
+              <div className="mt-3.5 pt-3 border-t border-dashed border-gray-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide">
+                    Chi phí mua tín chỉ dự kiến:
+                  </span>
+                  <span className="text-xs font-black text-vna-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                    {currentMetrics.totalCost.toLocaleString()} €
+                  </span>
+                </div>
+
+                <div className="space-y-1 text-xs text-gray-600 pl-2 border-l-2 border-blue-200">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">• EU ETS ({marketParams.priceEuEts} €/EUA):</span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.costEu.toLocaleString()} €</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">• UK ETS ({marketParams.priceUkEts} €/UKA):</span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.costUk.toLocaleString()} €</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">• CORSIA ({marketParams.priceCorsia} €/CEU):</span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.costCorsia.toLocaleString()} €</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* BOTTOM ACTION BAR - DANH SÁCH & LƯU KỊCH BẢN */}
+        <div className="pt-4 flex items-center justify-between border-t border-gray-200">
+          {/* <Button
+            onClick={() => setIsScenarioListModalOpen(true)}
+            variant="outline"
+            className="border-gray-300 text-gray-700 hover:bg-gray-100 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 cursor-pointer bg-white"
+          >
+            <BookmarkCheck size={16} className="text-vna-blue" />
+            {currentLang === 'vi' ? 'Xem Danh sách kịch bản' : 'View Saved Scenarios'}
+            <span className="px-2 py-0.5 bg-blue-50 text-vna-blue text-xs font-black rounded-full border border-blue-200">
+              {savedScenarios.length}
+            </span>
+          </Button> */}
+
+          <Button
+            onClick={() => {
+              setScenarioNameInput(`Kịch bản ${reportPeriod} (${new Date().toLocaleDateString('vi-VN')} ${new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })})`);
+              setIsSaveNameModalOpen(true);
+            }}
+            className="bg-vna-blue hover:bg-[#00556e] text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"
+          >
+            <Save size={18} />
+            {currentLang === 'vi' ? 'Lưu kịch bản' : 'Save Scenario'}
+          </Button>
+        </div>
+      </div>
+
+      {/* SCENARIO COMPARISON MODAL */}
+      {isCompareModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl border border-gray-200 shadow-2xl w-full max-w-7xl max-h-[92vh] flex flex-col overflow-hidden relative animate-in zoom-in-95 duration-200">
+
+            {/* Modal Header */}
+            <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/70 sticky top-0 z-20">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 text-vna-blue flex items-center justify-center font-bold">
+                  <BarChart3 size={22} />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-vna-navy">
+                    So sánh Các Phương án & Kịch bản Phân bổ SAF
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    Lựa chọn các kịch bản trong danh sách để đối chiếu chi phí tuân thủ, số tín chỉ CO₂ cần mua và hiệu quả bù trừ
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setIsCompareModalOpen(false)}
+                className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
             </div>
 
-            <div className="space-y-2 font-sans text-xs">
-              <p><strong>1. Cam kết Chống Kê khai Trùng lặp (Non-Double Counting Declaration):</strong></p>
-              <p className="text-gray-600 pl-4">
-                Vietnam Airlines cam kết toàn bộ <strong>{batches.reduce((a,b)=>a+b.tonnes,0).toLocaleString()} tấn SAF</strong> nạp trong kỳ chỉ được khai báo duy nhất cho một trong các cơ chế (EU ETS, UK ETS hoặc CORSIA) theo đúng bảng phân bổ đính kèm, không có bất kỳ khối lượng nào bị trùng lặp.
-              </p>
+            {/* Modal Sub-Header: SCENARIO SELECTION TOOLBAR WITH DEDICATED BUTTON & CHIPS */}
+            <div className="px-6 py-3 bg-gray-50/80 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Button
+                  onClick={() => {
+                    setTempSelectedScenarioIds([...selectedScenarioIdsForCompare]);
+                    setSearchScenarioQuery('');
+                    setIsSelectScenariosPickerOpen(true);
+                  }}
+                  className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-black px-4 py-2 rounded-xl flex items-center gap-2 shadow-xs cursor-pointer"
+                >
+                  <SlidersHorizontal size={15} />
+                  <span>Chọn kịch bản so sánh</span>
+                  <span className="bg-white/20 text-white px-2 py-0.5 rounded-full text-[11px] font-black">
+                    {selectedScenarioIdsForCompare.length}
+                  </span>
+                </Button>
+
+                <div className="hidden sm:flex items-center gap-1.5 text-gray-500 text-xs">
+                  <span>Đang đối chiếu <strong>{selectedScenarioIdsForCompare.length} kịch bản</strong>:</span>
+                </div>
+
+                {/* Preview Selected Chips */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {selectedScenarioIdsForCompare.includes('CURRENT') && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gray-200/80 text-gray-800 text-[11px] font-bold">
+                      Hiện tại
+                    </span>
+                  )}
+                  {savedScenarios
+                    .filter((sc) => selectedScenarioIdsForCompare.includes(sc.id))
+                    .slice(0, 3)
+                    .map((sc) => (
+                      <span
+                        key={sc.id}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-vna-blue border border-blue-200 text-[11px] font-bold max-w-[180px] truncate"
+                        title={sc.name}
+                      >
+                        {sc.name}
+                      </span>
+                    ))}
+                  {selectedScenarioIdsForCompare.filter((id) => id !== 'CURRENT').length > 3 && (
+                    <span className="px-2 py-1 rounded-lg bg-gray-100 text-gray-600 text-[11px] font-bold">
+                      +{selectedScenarioIdsForCompare.filter((id) => id !== 'CURRENT').length - 3} kịch bản khác
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="text-gray-400 italic text-[11px] hidden md:inline">
+                  * Nhấp "Chọn kịch bản so sánh" để tìm kiếm, chọn hoặc bỏ bớt kịch bản
+                </span>
+              </div>
             </div>
 
-            <div className="space-y-2 font-sans text-xs pt-2">
-              <p><strong>2. Tổng hợp Khối lượng Kê khai theo từng Cơ chế:</strong></p>
-              <div className="grid grid-cols-3 gap-4 pl-4">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <span className="text-gray-500 font-bold block">EU ETS Claim:</span>
-                  <span className="text-sm font-black text-vna-blue">{currentMetrics.safEuTonnes.toLocaleString()} tấn ({currentMetrics.co2EuSaved.toLocaleString()} tCO₂)</span>
-                </div>
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <span className="text-gray-500 font-bold block">UK ETS Claim:</span>
-                  <span className="text-sm font-black text-indigo-600">{currentMetrics.safUkTonnes.toLocaleString()} tấn ({currentMetrics.co2UkSaved.toLocaleString()} tCO₂)</span>
-                </div>
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <span className="text-gray-500 font-bold block">CORSIA Claim:</span>
-                  <span className="text-sm font-black text-emerald-600">{currentMetrics.safCorsiaTonnes.toLocaleString()} tấn ({currentMetrics.co2CorsiaSaved.toLocaleString()} tCO₂)</span>
+            {/* Modal Scrollable Content: Dynamic Comparison Matrix Table */}
+            <div className="p-6 overflow-y-auto space-y-6">
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs text-left border-collapse min-w-[800px]">
+                    <thead>
+                      <tr className="border-b border-gray-200 bg-gray-50/90 text-gray-700">
+                        <th className="py-4 px-4 font-bold text-gray-500 uppercase tracking-wider text-[11px] w-[230px] bg-gray-100/60 sticky left-0 z-10">
+                          Tiêu chí So sánh
+                        </th>
+
+                        {/* Dynamic Columns for Selected Scenarios */}
+                        {(() => {
+                          // Build scenario objects
+                          const columns = [];
+
+                          if (selectedScenarioIdsForCompare.includes('CURRENT')) {
+                            columns.push({
+                              id: 'CURRENT',
+                              name: 'Phương án Hiện tại',
+                              badge: 'Đang cấu hình',
+                              badgeColor: 'bg-gray-200 text-gray-700',
+                              subtext: 'Theo cấu hình đang chỉnh sửa',
+                              period: reportPeriod,
+                              allocationMode: allocationMode,
+                              metrics: {
+                                totalCost: currentMetrics.totalCost,
+                                grossCost: currentMetrics.grossCost,
+                                totalSavedVsGross: currentMetrics.totalSavedVsGross,
+                                costEu: currentMetrics.costEu,
+                                costUk: currentMetrics.costUk,
+                                costCorsia: currentMetrics.costCorsia,
+                                safEuTonnes: currentMetrics.safEuTonnes,
+                                safUkTonnes: currentMetrics.safUkTonnes,
+                                safCorsiaTonnes: currentMetrics.safCorsiaTonnes,
+                                totalSaf: currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes,
+                                co2EuSaved: currentMetrics.co2EuSaved,
+                                co2UkSaved: currentMetrics.co2UkSaved,
+                                co2CorsiaSaved: currentMetrics.co2CorsiaSaved,
+                                totalCo2Saved: currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved,
+                                residualEuCo2: currentMetrics.residualEuCo2,
+                                residualUkCo2: currentMetrics.residualUkCo2,
+                                residualCorsiaCo2: currentMetrics.residualCorsiaCo2,
+                                totalResidualCredits: currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2
+                              },
+                              onApply: null
+                            });
+                          }
+
+                          savedScenarios.forEach((sc) => {
+                            if (selectedScenarioIdsForCompare.includes(sc.id)) {
+                              const calcM = calculateMetricsForBatches(sc.batches, sc.marketParams);
+                              columns.push({
+                                id: sc.id,
+                                name: sc.name,
+                                badge: sc.period,
+                                badgeColor: 'bg-blue-50 text-vna-blue border border-blue-200',
+                                subtext: `${sc.allocationMode === 'ledger' ? 'Kho Ledger' : 'Nhập tay'} • ${sc.savedAt}`,
+                                period: sc.period,
+                                allocationMode: sc.allocationMode,
+                                metrics: {
+                                  totalCost: calcM.totalCost,
+                                  grossCost: calcM.grossCost,
+                                  totalSavedVsGross: calcM.totalSavedVsGross,
+                                  costEu: calcM.costEu,
+                                  costUk: calcM.costUk,
+                                  costCorsia: calcM.costCorsia,
+                                  safEuTonnes: calcM.safEuTonnes,
+                                  safUkTonnes: calcM.safUkTonnes,
+                                  safCorsiaTonnes: calcM.safCorsiaTonnes,
+                                  totalSaf: calcM.safEuTonnes + calcM.safUkTonnes + calcM.safCorsiaTonnes,
+                                  co2EuSaved: calcM.co2EuSaved,
+                                  co2UkSaved: calcM.co2UkSaved,
+                                  co2CorsiaSaved: calcM.co2CorsiaSaved,
+                                  totalCo2Saved: calcM.co2EuSaved + calcM.co2UkSaved + calcM.co2CorsiaSaved,
+                                  residualEuCo2: calcM.residualEuCo2,
+                                  residualUkCo2: calcM.residualUkCo2,
+                                  residualCorsiaCo2: calcM.residualCorsiaCo2,
+                                  totalResidualCredits: calcM.residualEuCo2 + calcM.residualUkCo2 + calcM.residualCorsiaCo2
+                                },
+                                onApply: () => handleLoadScenario(sc)
+                              });
+                            }
+                          });
+
+                          return columns.map((col) => (
+                            <th key={col.id} className="py-4 px-4 font-bold text-center border-l border-gray-200 min-w-[210px]">
+                              <div className="flex flex-col items-center gap-1">
+                                <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase ${col.badgeColor}`}>
+                                  {col.badge}
+                                </span>
+                                <span className="text-xs font-black text-vna-navy line-clamp-1" title={col.name}>
+                                  {col.name}
+                                </span>
+                                <span className="text-[10px] text-gray-400 font-medium">
+                                  {col.subtext}
+                                </span>
+                              </div>
+                            </th>
+                          ));
+                        })()}
+                      </tr>
+                    </thead>
+
+                    <tbody className="divide-y divide-gray-200 font-sans">
+                      {(() => {
+                        // Precalculate columns again for the body
+                        const cols: any[] = [];
+                        if (selectedScenarioIdsForCompare.includes('CURRENT')) {
+                          cols.push({
+                            id: 'CURRENT',
+                            isCurrent: true,
+                            name: 'Phương án Hiện tại',
+                            metrics: {
+                              totalCost: currentMetrics.totalCost,
+                              grossCost: currentMetrics.grossCost,
+                              totalSavedVsGross: currentMetrics.totalSavedVsGross,
+                              costEu: currentMetrics.costEu,
+                              costUk: currentMetrics.costUk,
+                              costCorsia: currentMetrics.costCorsia,
+                              safEuTonnes: currentMetrics.safEuTonnes,
+                              safUkTonnes: currentMetrics.safUkTonnes,
+                              safCorsiaTonnes: currentMetrics.safCorsiaTonnes,
+                              totalSaf: currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes,
+                              co2EuSaved: currentMetrics.co2EuSaved,
+                              co2UkSaved: currentMetrics.co2UkSaved,
+                              co2CorsiaSaved: currentMetrics.co2CorsiaSaved,
+                              totalCo2Saved: currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved,
+                              residualEuCo2: currentMetrics.residualEuCo2,
+                              residualUkCo2: currentMetrics.residualUkCo2,
+                              residualCorsiaCo2: currentMetrics.residualCorsiaCo2,
+                              totalResidualCredits: currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2
+                            },
+                            onApply: null
+                          });
+                        }
+
+                        savedScenarios.forEach((sc) => {
+                          if (selectedScenarioIdsForCompare.includes(sc.id)) {
+                            const calcM = calculateMetricsForBatches(sc.batches, sc.marketParams);
+                            cols.push({
+                              id: sc.id,
+                              isCurrent: false,
+                              name: sc.name,
+                              metrics: {
+                                totalCost: calcM.totalCost,
+                                grossCost: calcM.grossCost,
+                                totalSavedVsGross: calcM.totalSavedVsGross,
+                                costEu: calcM.costEu,
+                                costUk: calcM.costUk,
+                                costCorsia: calcM.costCorsia,
+                                safEuTonnes: calcM.safEuTonnes,
+                                safUkTonnes: calcM.safUkTonnes,
+                                safCorsiaTonnes: calcM.safCorsiaTonnes,
+                                totalSaf: calcM.safEuTonnes + calcM.safUkTonnes + calcM.safCorsiaTonnes,
+                                co2EuSaved: calcM.co2EuSaved,
+                                co2UkSaved: calcM.co2UkSaved,
+                                co2CorsiaSaved: calcM.co2CorsiaSaved,
+                                totalCo2Saved: calcM.co2EuSaved + calcM.co2UkSaved + calcM.co2CorsiaSaved,
+                                residualEuCo2: calcM.residualEuCo2,
+                                residualUkCo2: calcM.residualUkCo2,
+                                residualCorsiaCo2: calcM.residualCorsiaCo2,
+                                totalResidualCredits: calcM.residualEuCo2 + calcM.residualUkCo2 + calcM.residualCorsiaCo2
+                              },
+                              onApply: () => handleLoadScenario(sc)
+                            });
+                          }
+                        });
+
+                        return (
+                          <>
+                            {/* SECTION 1: TỔNG CHI PHÍ & TIẾT KIỆM */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                1. Tổng Chi phí Đền bù & Tiết kiệm
+                              </td>
+                            </tr>
+
+                            {/* Row: Tổng Chi phí Mua Đền bù */}
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-3 px-4 font-bold text-gray-800 sticky left-0 bg-white shadow-2xs">
+                                Tổng chi phí mua đền bù còn lại (€)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-3 px-4 text-center border-l border-gray-200">
+                                  <span className="text-sm font-black text-vna-navy">
+                                    {c.metrics.totalCost.toLocaleString()} €
+                                  </span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* Row: Tiết kiệm so với không dùng SAF */}
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Tiết kiệm so với không nạp SAF
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold text-emerald-700">
+                                  +{c.metrics.totalSavedVsGross.toLocaleString()} €
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* Row: Chênh lệch so với Hiện tại */}
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Chênh lệch chi phí so với Hiện tại
+                              </td>
+                              {cols.map((c) => {
+                                if (c.isCurrent) {
+                                  return (
+                                    <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold text-gray-400">
+                                      (Gốc so sánh)
+                                    </td>
+                                  );
+                                }
+                                const diff = c.metrics.totalCost - currentMetrics.totalCost;
+                                return (
+                                  <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold">
+                                    {diff === 0 ? (
+                                      <span className="text-gray-400">Bằng nhau</span>
+                                    ) : diff < 0 ? (
+                                      <span className="text-emerald-700">Tiết kiệm {Math.abs(diff).toLocaleString()} €</span>
+                                    ) : (
+                                      <span className="text-rose-600">Cao hơn +{diff.toLocaleString()} €</span>
+                                    )}
+                                  </td>
+                                );
+                              })}
+                            </tr>
+
+                            {/* SECTION 2: SỐ TÍN CHỈ CO2 PHẢI MUA */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                2. Nhu cầu Mua Tín chỉ Carbon (Rule 1 tCO₂ = 1 Tín chỉ)
+                              </td>
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-bold text-gray-800 sticky left-0 bg-white">
+                                Tổng số tín chỉ phải mua (Tín chỉ)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-black text-amber-800">
+                                  {c.metrics.totalResidualCredits.toLocaleString()} tín chỉ
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white">
+                                • Tín chỉ EU ETS (EUA)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
+                                  {c.metrics.residualEuCo2.toLocaleString()} EUA
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white">
+                                • Tín chỉ UK ETS (UKA)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
+                                  {c.metrics.residualUkCo2.toLocaleString()} UKA
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white">
+                                • Tín chỉ CORSIA (CEU)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
+                                  {c.metrics.residualCorsiaCo2.toLocaleString()} CEU
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* SECTION 3: CHI TIẾT CHI PHÍ THEO CƠ CHẾ */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                3. Chi tiết Chi phí Mua Tín chỉ Từng Cơ chế (€)
+                              </td>
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Chi phí mua EUA (EU ETS)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
+                                  {c.metrics.costEu.toLocaleString()} €
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Chi phí mua UKA (UK ETS)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
+                                  {c.metrics.costUk.toLocaleString()} €
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Chi phí mua CEU (CORSIA)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
+                                  {c.metrics.costCorsia.toLocaleString()} €
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* SECTION 4: KHỐI LƯỢNG SAF VÀ CO2 GIẢM TRỪ */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                4. Khối lượng SAF & Lượng CO₂ Giảm thiểu
+                              </td>
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Tổng lượng SAF phân bổ
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-vna-blue">
+                                  {c.metrics.totalSaf.toLocaleString()} tấn
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                Tổng CO₂ giảm trừ toàn hãng
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-emerald-700">
+                                  {c.metrics.totalCo2Saved.toLocaleString()} tCO₂
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* SECTION 5: THAO TÁC ÁP DỤNG */}
+                            <tr className="bg-gray-50 font-bold border-t-2 border-gray-200">
+                              <td className="py-4 px-4 font-black text-gray-800 uppercase tracking-wider text-[11px] sticky left-0 bg-gray-50">
+                                Thao tác áp dụng
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-4 px-4 text-center border-l border-gray-200">
+                                  {c.isCurrent ? (
+                                    <span className="inline-flex items-center gap-1 text-xs font-bold text-vna-blue bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-200">
+                                      <Check size={14} /> Đang áp dụng
+                                    </span>
+                                  ) : (
+                                    <Button
+                                      onClick={() => {
+                                        c.onApply();
+                                        setIsCompareModalOpen(false);
+                                      }}
+                                      className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-xs cursor-pointer flex items-center justify-center gap-1.5 mx-auto"
+                                    >
+                                      <Check size={14} /> Áp dụng kịch bản này
+                                    </Button>
+                                  )}
+                                </td>
+                              ))}
+                            </tr>
+                          </>
+                        );
+                      })()}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-gray-200 flex justify-between font-sans text-xs text-gray-600">
-              <div>
-                <p><strong>Người lập biểu:</strong></p>
-                <p className="mt-8 font-bold text-gray-900">Ban Kế hoạch Phát triển - Tổ Quản lý ESG</p>
+            {/* MODAL / DIALOG CHỌN DANH SÁCH KỊCH BẢN SO SÁNH */}
+            {isSelectScenariosPickerOpen && (
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-xs z-30 flex items-center justify-center p-4 animate-in fade-in duration-150">
+                <div className="bg-white rounded-2xl border border-gray-200 shadow-2xl w-full max-w-xl max-h-[80vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-150">
+
+                  {/* Picker Header */}
+                  <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/80">
+                    <div>
+                      <h4 className="text-sm font-black text-vna-navy">
+                        Chọn Kịch Bản Để Đưa Vào Bảng So Sánh
+                      </h4>
+                      <p className="text-[11px] text-gray-500 mt-0.5">
+                        Tích chọn các kịch bản bạn muốn so sánh đối chiếu cùng lúc (tối thiểu 1 kịch bản)
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setIsSelectScenariosPickerOpen(false)}
+                      className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+
+                  {/* Search and Quick Selection Actions */}
+                  <div className="p-3.5 border-b border-gray-100 bg-white space-y-2.5">
+                    <input
+                      type="text"
+                      value={searchScenarioQuery}
+                      onChange={(e) => setSearchScenarioQuery(e.target.value)}
+                      placeholder="Tìm kiếm theo tên kịch bản, năm mô phỏng hoặc hình thức phân bổ..."
+                      className="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 outline-none focus:border-vna-blue focus:ring-1 focus:ring-vna-blue/20"
+                    />
+
+                    <div className="flex items-center justify-between text-xs pt-0.5">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setTempSelectedScenarioIds(['CURRENT', ...savedScenarios.map(s => s.id)])}
+                          className="text-vna-blue hover:underline font-bold text-xs cursor-pointer"
+                        >
+                          Chọn tất cả ({savedScenarios.length + 1})
+                        </button>
+                        <span className="text-gray-300">•</span>
+                        <button
+                          onClick={() => setTempSelectedScenarioIds(['CURRENT'])}
+                          className="text-gray-500 hover:underline font-semibold text-xs cursor-pointer"
+                        >
+                          Chỉ chọn Hiện tại
+                        </button>
+                      </div>
+
+                      <span className="text-gray-500 text-[11px]">
+                        Đã chọn: <strong className="text-vna-blue">{tempSelectedScenarioIds.length}</strong> kịch bản
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Picker List View */}
+                  <div className="p-4 overflow-y-auto space-y-2.5 max-h-[380px]">
+
+                    {/* Item 1: Kịch bản Hiện tại (Đang cấu hình) */}
+                    {('phương án hiện tại đang cấu hình'.includes(searchScenarioQuery.toLowerCase()) || searchScenarioQuery === '') && (
+                      <label className={`p-3 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all ${tempSelectedScenarioIds.includes('CURRENT')
+                        ? 'bg-blue-50/60 border-vna-blue shadow-2xs'
+                        : 'bg-white border-gray-200 hover:bg-gray-50'
+                        }`}>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            checked={tempSelectedScenarioIds.includes('CURRENT')}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setTempSelectedScenarioIds([...tempSelectedScenarioIds, 'CURRENT']);
+                              } else {
+                                if (tempSelectedScenarioIds.length > 1) {
+                                  setTempSelectedScenarioIds(tempSelectedScenarioIds.filter(id => id !== 'CURRENT'));
+                                }
+                              }
+                            }}
+                            className="rounded accent-vna-blue cursor-pointer w-4 h-4"
+                          />
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-xs text-vna-navy">Phương án Hiện tại</span>
+                              <span className="px-2 py-0.2 rounded bg-gray-200 text-gray-700 text-[10px] font-bold">Đang cấu hình</span>
+                              <span className="px-2 py-0.2 rounded bg-blue-50 text-vna-blue text-[10px] font-bold">{reportPeriod}</span>
+                            </div>
+                            <p className="text-[11px] text-gray-500 mt-0.5">
+                              SAF: {(currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes).toLocaleString()} tấn • CO₂ giảm: {(currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved).toLocaleString()} tCO₂ • Chi phí: {currentMetrics.totalCost.toLocaleString()} €
+                            </p>
+                          </div>
+                        </div>
+                      </label>
+                    )}
+
+                    {/* Saved Scenarios List */}
+                    {savedScenarios
+                      .filter(sc =>
+                        sc.name.toLowerCase().includes(searchScenarioQuery.toLowerCase()) ||
+                        sc.period.toLowerCase().includes(searchScenarioQuery.toLowerCase()) ||
+                        (sc.allocationMode === 'ledger' ? 'kho ledger' : 'nhập tay').includes(searchScenarioQuery.toLowerCase())
+                      )
+                      .map((sc) => {
+                        const isChecked = tempSelectedScenarioIds.includes(sc.id);
+                        return (
+                          <label
+                            key={sc.id}
+                            className={`p-3 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all ${isChecked
+                              ? 'bg-blue-50/60 border-vna-blue shadow-2xs'
+                              : 'bg-white border-gray-200 hover:bg-gray-50'
+                              }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <input
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setTempSelectedScenarioIds([...tempSelectedScenarioIds, sc.id]);
+                                  } else {
+                                    if (tempSelectedScenarioIds.length > 1) {
+                                      setTempSelectedScenarioIds(tempSelectedScenarioIds.filter(id => id !== sc.id));
+                                    }
+                                  }
+                                }}
+                                className="rounded accent-vna-blue cursor-pointer w-4 h-4"
+                              />
+                              <div>
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span className="font-bold text-xs text-vna-navy">{sc.name}</span>
+                                  <span className="px-2 py-0.2 rounded bg-blue-50 text-vna-blue text-[10px] font-bold border border-blue-100">{sc.period}</span>
+                                  <span className="px-2 py-0.2 rounded bg-gray-100 text-gray-600 text-[10px] font-bold">
+                                    {sc.allocationMode === 'ledger' ? 'Kho Ledger' : 'Nhập tay'}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-gray-500 mt-0.5">
+                                  SAF: {sc.metrics.totalAllocatedSaf.toLocaleString()} tấn • CO₂ giảm: {sc.metrics.co2Saved.toLocaleString()} tCO₂ • Tín chỉ: {sc.metrics.totalCredits.toLocaleString()} • Chi phí: {sc.metrics.totalCost.toLocaleString()} €
+                                </p>
+                              </div>
+                            </div>
+                          </label>
+                        );
+                      })}
+
+                    {savedScenarios.filter(sc => sc.name.toLowerCase().includes(searchScenarioQuery.toLowerCase())).length === 0 && searchScenarioQuery !== '' && (
+                      <div className="text-center py-6 text-gray-400 text-xs">
+                        Không tìm thấy kịch bản phù hợp với từ khóa "{searchScenarioQuery}"
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Picker Footer */}
+                  <div className="p-3.5 border-t border-gray-100 bg-gray-50/80 flex items-center justify-between text-xs">
+                    <span className="text-gray-500">
+                      Tối thiểu 1 kịch bản để hiển thị bảng
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        onClick={() => setIsSelectScenariosPickerOpen(false)}
+                        variant="outline"
+                        className="px-3.5 py-1.5 text-xs font-bold rounded-xl border-gray-300 cursor-pointer"
+                      >
+                        Hủy
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setSelectedScenarioIdsForCompare(tempSelectedScenarioIds);
+                          setIsSelectScenariosPickerOpen(false);
+                        }}
+                        className="bg-vna-blue hover:bg-[#00556e] text-white px-4 py-1.5 text-xs font-bold rounded-xl shadow-xs cursor-pointer"
+                      >
+                        Áp dụng ({tempSelectedScenarioIds.length})
+                      </Button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-              <div className="text-right">
-                <p><strong>Đại diện Thẩm quyền phê duyệt:</strong></p>
-                <p className="mt-8 font-bold text-gray-900">Phó Tổng Giám đốc phụ trách Kỹ thuật & Khai thác</p>
-              </div>
+            )}
+
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex items-center justify-between">
+              <span className="text-xs text-gray-500 italic">
+                * Tích chọn hoặc bỏ chọn các kịch bản ở thanh công cụ phía trên để tùy chỉnh bảng đối chiếu. Bấm &quot;Áp dụng kịch bản này&quot; để tải kịch bản vào mô phỏng.
+              </span>
+              <Button
+                onClick={() => setIsCompareModalOpen(false)}
+                className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-5 py-2 cursor-pointer"
+              >
+                Đóng cửa sổ
+              </Button>
             </div>
 
           </div>
         </div>
       )}
+
 
       {/* CREATE NEW BATCH MODAL */}
       {isNewBatchModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
           <div className="bg-white rounded-2xl border border-gray-200 shadow-2xl w-full max-w-lg p-6 relative animate-in zoom-in-95 duration-200">
-            <button 
+            <button
               onClick={() => setIsNewBatchModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100"
             >
@@ -1334,7 +2674,7 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Mã Lô (Batch Number):</label>
-                  <Input 
+                  <Input
                     value={newBatch.batchNo}
                     onChange={(e) => setNewBatch({ ...newBatch, batchNo: e.target.value })}
                     placeholder="VD: SAF-2026-EU-04"
@@ -1342,7 +2682,7 @@ export const NetZeroV2Page: React.FC = () => {
                 </div>
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Ngày nạp (Delivery Date):</label>
-                  <Input 
+                  <Input
                     type="date"
                     value={newBatch.deliveryDate}
                     onChange={(e) => setNewBatch({ ...newBatch, deliveryDate: e.target.value })}
@@ -1353,7 +2693,7 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Sân bay nạp:</label>
-                  <select 
+                  <select
                     value={newBatch.airportCode}
                     onChange={(e) => {
                       const code = e.target.value;
@@ -1375,7 +2715,7 @@ export const NetZeroV2Page: React.FC = () => {
                 </div>
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Khối lượng SAF (tấn):</label>
-                  <Input 
+                  <Input
                     type="number"
                     value={newBatch.tonnes}
                     onChange={(e) => setNewBatch({ ...newBatch, tonnes: parseFloat(e.target.value) || 0 })}
@@ -1386,7 +2726,7 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Nhà cung cấp:</label>
-                  <Input 
+                  <Input
                     value={newBatch.supplier}
                     onChange={(e) => setNewBatch({ ...newBatch, supplier: e.target.value })}
                     placeholder="VD: TotalEnergies"
@@ -1394,7 +2734,7 @@ export const NetZeroV2Page: React.FC = () => {
                 </div>
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Số VAT Nhà cung cấp:</label>
-                  <Input 
+                  <Input
                     value={newBatch.supplierVat}
                     onChange={(e) => setNewBatch({ ...newBatch, supplierVat: e.target.value })}
                     placeholder="VD: FR84542051580"
@@ -1405,7 +2745,7 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Phát thải vòng đời (gCO2eq/MJ):</label>
-                  <Input 
+                  <Input
                     type="number"
                     value={newBatch.lifecycleEmission}
                     onChange={(e) => setNewBatch({ ...newBatch, lifecycleEmission: parseFloat(e.target.value) || 16.5 })}
@@ -1413,7 +2753,7 @@ export const NetZeroV2Page: React.FC = () => {
                 </div>
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">CO₂ giảm trừ / tấn SAF:</label>
-                  <Input 
+                  <Input
                     type="number"
                     step="0.01"
                     value={newBatch.co2SavedPerTonne}
@@ -1427,6 +2767,190 @@ export const NetZeroV2Page: React.FC = () => {
               <Button variant="ghost" onClick={() => setIsNewBatchModalOpen(false)} className="text-xs">Hủy</Button>
               <Button onClick={handleAddNewBatch} className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-4">
                 Thêm vào ma trận
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DANH SÁCH KỊCH BẢN ĐÃ LƯU */}
+      {isScenarioListModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl border border-gray-200 shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden relative animate-in zoom-in-95 duration-200">
+
+            {/* Modal Header */}
+            <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/70 sticky top-0 z-10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 text-vna-blue flex items-center justify-center font-bold">
+                  <BookmarkCheck size={22} />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-vna-navy">
+                    Danh Sách Kịch Bản Đã Lưu
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    Chọn kịch bản để tải lên bảng mô phỏng, tiếp tục chỉnh sửa phân bổ hoặc cập nhật tham số thị trường
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setIsScenarioListModalOpen(false)}
+                className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Body: Scenarios List */}
+            <div className="p-6 overflow-y-auto space-y-4 max-h-[calc(90vh-140px)]">
+              {savedScenarios.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <BookmarkCheck size={40} className="mx-auto mb-3 opacity-30" />
+                  <p className="font-bold text-sm">Chưa có kịch bản nào được lưu</p>
+                  <p className="text-xs mt-1">Hãy thiết lập thông số mô phỏng và ấn "Lưu kịch bản" ở dưới màn hình.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-3.5">
+                  {savedScenarios.map((sc) => (
+                    <div
+                      key={sc.id}
+                      onClick={() => handleLoadScenario(sc)}
+                      className="p-4 rounded-2xl border border-gray-200 hover:border-vna-blue/80 hover:shadow-md transition-all bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer group relative overflow-hidden"
+                    >
+                      <div className="space-y-1.5 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h4 className="font-black text-sm text-vna-navy group-hover:text-vna-blue transition-colors">
+                            {sc.name}
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-vna-blue border border-blue-100">
+                            {sc.period}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-gray-100 text-gray-600">
+                            {sc.allocationMode === 'ledger' ? 'Kho Ledger' : 'Nhập tay'}
+                          </span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 pt-1">
+                          <span>SAF: <strong className="text-gray-800 font-bold">{sc.metrics.totalAllocatedSaf.toLocaleString()} tấn</strong></span>
+                          <span>•</span>
+                          <span>CO₂ giảm: <strong className="text-emerald-600 font-bold">{sc.metrics.co2Saved.toLocaleString()} tCO₂</strong></span>
+                          <span>•</span>
+                          <span>Tín chỉ bù đắp: <strong className="text-amber-700 font-bold">{sc.metrics.totalCredits.toLocaleString()}</strong></span>
+                          <span>•</span>
+                          <span>Chi phí bù đắp: <strong className="text-vna-navy font-black">{sc.metrics.totalCost.toLocaleString()} €</strong></span>
+                        </div>
+
+                        <p className="text-[11px] text-gray-400">
+                          Thời gian lưu: {sc.savedAt}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0">
+                        <button
+                          onClick={() => handleLoadScenario(sc)}
+                          className="px-4 py-2 bg-blue-50 hover:bg-vna-blue hover:text-white text-vna-blue font-bold text-xs rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        >
+                          <FolderOpen size={14} /> Mở chỉnh sửa
+                        </button>
+                        <button
+                          onClick={(e) => handleDeleteScenario(sc.id, e)}
+                          title="Xóa kịch bản"
+                          className="p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-gray-100 bg-gray-50/70 flex items-center justify-between text-xs">
+              <span className="text-gray-500">
+                Tổng cộng <strong>{savedScenarios.length} kịch bản</strong> đã lưu trong hệ thống
+              </span>
+              <Button
+                onClick={() => setIsScenarioListModalOpen(false)}
+                variant="outline"
+                className="px-4 py-2 text-xs font-bold rounded-xl border-gray-300 cursor-pointer"
+              >
+                Đóng
+              </Button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* MODAL LƯU KỊCH BẢN VỚI TÊN TÙY CHỌN */}
+      {isSaveNameModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl border border-gray-200 shadow-2xl w-full max-w-md p-6 space-y-4 animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-vna-blue flex items-center justify-center font-bold">
+                  <Save size={18} />
+                </div>
+                <h3 className="text-sm font-black text-vna-navy">Lưu Kịch Bản Mô Phỏng</h3>
+              </div>
+              <button
+                onClick={() => setIsSaveNameModalOpen(false)}
+                className="p-1 rounded-full text-gray-400 hover:text-gray-700 cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="block font-bold text-gray-700 mb-1">
+                  Tên kịch bản:
+                </label>
+                <input
+                  type="text"
+                  value={scenarioNameInput}
+                  onChange={(e) => setScenarioNameInput(e.target.value)}
+                  placeholder="Nhập tên kịch bản..."
+                  className="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-gray-800 outline-none focus:border-vna-blue focus:ring-1 focus:ring-vna-blue/20"
+                />
+              </div>
+
+              <div className="p-3 bg-gray-50 rounded-xl space-y-1 text-[11px] text-gray-600">
+                <div className="flex justify-between">
+                  <span>Năm mô phỏng:</span>
+                  <strong className="text-gray-900">{reportPeriod}</strong>
+                </div>
+                <div className="flex justify-between">
+                  <span>Hình thức phân bổ:</span>
+                  <strong className="text-gray-900">{allocationMode === 'ledger' ? 'Kho Ledger' : 'Nhập tay'}</strong>
+                </div>
+                <div className="flex justify-between">
+                  <span>Tổng nhu cầu tín chỉ CO₂:</span>
+                  <strong className="text-amber-700">{(currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2).toLocaleString()} tín chỉ</strong>
+                </div>
+                <div className="flex justify-between">
+                  <span>Tổng ngân sách tuân thủ:</span>
+                  <strong className="text-vna-navy">{(executiveKpiMetrics.totalScenarioCost / 1000000).toFixed(2)}M €</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
+              <Button
+                onClick={() => setIsSaveNameModalOpen(false)}
+                variant="outline"
+                className="px-4 py-2 text-xs font-bold rounded-xl border-gray-300 cursor-pointer"
+              >
+                Hủy
+              </Button>
+              <Button
+                onClick={handleConfirmSaveScenario}
+                className="bg-vna-blue hover:bg-[#00556e] text-white px-5 py-2 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                <Save size={15} /> Xác nhận Lưu
               </Button>
             </div>
           </div>

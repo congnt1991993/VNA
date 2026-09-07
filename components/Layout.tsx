@@ -104,13 +104,6 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <TrendingUp size={20} />,
     target: 'netzero-simulation-v2'
   },
-  // 7. GIẢI PHÁP MÔ PHỎNG NET ZERO (DANH MỤC MỚI)
-  {
-    id: 'netzero-solution',
-    label: 'MÔ PHỎNG NET ZERO',
-    icon: <Sparkles size={20} />,
-    target: 'netzero-solution'
-  },
   // 8. CÀI ĐẶT HỆ THỐNG
   {
     id: 'system-settings',

@@ -113,7 +113,7 @@ const INITIAL_SAF_LEDGER: SafLedgerBatch[] = [
 
 export const NetZeroSolutionPage: React.FC = () => {
   // --- 1. PERIOD & VIEW STATE ---
-  const [reportPeriod, setReportPeriod] = useState<string>('Tháng 05/2026');
+  const [reportPeriod, setReportPeriod] = useState<string>('Năm 2026');
   const [activeVisualTab, setActiveVisualTab] = useState<'sankey' | 'chart' | 'table'>('sankey');
 
   // --- 2. INPUT PARAMETERS ---
@@ -249,7 +249,7 @@ export const NetZeroSolutionPage: React.FC = () => {
   const [isApproveStep2Open, setIsApproveStep2Open] = useState<boolean>(false);
   const [approverName, setApproverName] = useState<string>('Nguyễn Văn A');
   const [approverTitle, setApproverTitle] = useState<string>('Phó Tổng Giám đốc phụ trách Kỹ thuật & Khai thác');
-  const [approvalNote, setApprovalNote] = useState<string>('Phê duyệt chốt phương án phân bổ SAF kỳ Tháng 05/2026');
+  const [approvalNote, setApprovalNote] = useState<string>('Phê duyệt chốt phương án phân bổ SAF kỳ Năm 2026');
 
   // --- 4. CALCULATION ENGINE ---
 
@@ -507,18 +507,19 @@ export const NetZeroSolutionPage: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-2.5">
-            {/* Period selector */}
+            {/* Year selector */}
             <div className="flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-200 text-xs">
-              <span className="text-gray-500 font-bold">Kỳ:</span>
+              <span className="text-gray-500 font-bold">Năm mô phỏng:</span>
               <select 
                 value={reportPeriod} 
                 onChange={(e) => setReportPeriod(e.target.value)}
                 className="bg-transparent font-bold text-gray-800 outline-hidden cursor-pointer"
               >
-                <option value="Tháng 05/2026">Tháng 05/2026</option>
-                <option value="Tháng 06/2026">Tháng 06/2026</option>
-                <option value="Quý 2/2026">Quý 2/2026</option>
-                <option value="Cả năm 2026">Cả năm 2026</option>
+                <option value="Năm 2026">Năm 2026</option>
+                <option value="Năm 2025">Năm 2025</option>
+                <option value="Năm 2027">Năm 2027</option>
+                <option value="Năm 2028">Năm 2028</option>
+                <option value="Năm 2030">Năm 2030</option>
               </select>
             </div>
 
