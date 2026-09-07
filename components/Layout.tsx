@@ -21,7 +21,8 @@ import {
   Menu,
   FileSpreadsheet,
   Check,
-  Target
+  Target,
+  Sparkles
 } from 'lucide-react';
 import { PageName } from '../types';
 import { VNALogo } from './Logo';
@@ -103,7 +104,14 @@ const MENU_ITEMS: MenuItem[] = [
     icon: <TrendingUp size={20} />,
     target: 'netzero-simulation-v2'
   },
-  // 6. CÀI ĐẶT HỆ THỐNG
+  // 7. GIẢI PHÁP MÔ PHỎNG NET ZERO (DANH MỤC MỚI)
+  {
+    id: 'netzero-solution',
+    label: 'MÔ PHỎNG NET ZERO',
+    icon: <Sparkles size={20} />,
+    target: 'netzero-solution'
+  },
+  // 8. CÀI ĐẶT HỆ THỐNG
   {
     id: 'system-settings',
     label: 'CÀI ĐẶT HỆ THỐNG',
@@ -131,6 +139,7 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   // 'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },
   // 'netzero': { vi: 'Mô phỏng kịch bản Net Zero', en: 'Net Zero Simulation' },
   'netzero-v2': { vi: 'MÔ PHỎNG KỊCH BẢN', en: 'NET ZERO SIMULATION 2' },
+  'netzero-solution': { vi: 'MÔ PHỎNG NET ZERO', en: 'NET ZERO SIMULATION' },
   'kpi-manage': { vi: 'QUẢN LÝ KPI', en: 'KPI TARGET MANAGEMENT' },
   'kpi-manage-sub': { vi: 'Quản lý KPI', en: 'KPI Target Management' },
   'system-settings': { vi: 'CÀI ĐẶT HỆ THỐNG', en: 'SYSTEM SETTINGS' },

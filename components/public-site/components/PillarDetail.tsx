@@ -599,7 +599,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2">
-                    <span>{isEn ? `Indicators List - ${themeConfig.pillarLabel}` : `Thông tin liên quan`}</span>
+                    <span>{isEn ? `Indicators List - ${themeConfig.pillarLabel}` : `Chỉ tiêu liên quan`}</span>
                   </h3>
                 </div>
               </div>

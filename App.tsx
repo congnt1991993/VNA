@@ -12,6 +12,7 @@ import { ReportsPage } from './pages/Reports';
 import { DocumentsPage } from './pages/Documents';
 import { NetZeroPage } from './pages/NetZero';
 import { NetZeroV2Page } from './pages/NetZeroV2';
+import { NetZeroSolutionPage } from './pages/NetZeroSolution';
 import { KPIPage } from './pages/KPI';
 import { DataSourcesPage } from './pages/DataSources';
 import { DataWarehouseRawPage } from './pages/DataWarehouseRaw';
@@ -197,6 +198,8 @@ const App: React.FC = () => {
         return <NetZeroPage mode="simulation" />;
       case 'netzero-simulation-v2':
         return <NetZeroV2Page />;
+      case 'netzero-solution':
+        return <NetZeroSolutionPage />;
       case 'netzero-comparison':
         return <NetZeroPage mode="comparison" />;
       case 'netzero-reports':
