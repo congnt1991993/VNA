@@ -1,11 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Button, Card, Input, Select, StatusChip } from '../components/UI';
 import {
   TrendingUp, Leaf, Plane, DollarSign, RefreshCw, Download, Plus,
   Trash2, Edit3, Save, CheckCircle2, AlertTriangle, ShieldCheck,
   Sparkles, Layers, Sliders, BarChart3, HelpCircle, ArrowRight, X, Copy, Check,
   FileSpreadsheet, Award, Info, FileText, ArrowUpRight, Settings2, SlidersHorizontal,
-  RotateCcw, TrendingDown, Database, Globe, Percent, BookmarkCheck, FolderOpen, List, History, CheckCheck
+  RotateCcw, TrendingDown, Database, Globe, Percent, BookmarkCheck, FolderOpen, List, History, CheckCheck,
+  Calendar, ChevronLeft, ChevronRight, ChevronDown
 } from 'lucide-react';
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis,
@@ -50,6 +51,7 @@ export interface SavedScenarioItem {
     co2Saved: number;
     totalCredits: number;
     totalCost: number;
+    totalCostVnd?: number;
   };
 }
 
@@ -57,6 +59,9 @@ export interface MarketParams {
   priceEuEts: number; // USD / tCO2 (Hạn ngạch EUA)
   priceUkEts: number; // USD / tCO2 (Hạn ngạch UKA quy đổi)
   priceCorsia: number; // USD / tCO2 (Tín chỉ CORSIA quy đổi)
+  rateEuEts?: number; // Tỷ giá quy đổi VND (EU ETS): VND / USD
+  rateUkEts?: number; // Tỷ giá quy đổi VND (UK ETS): VND / USD
+  rateCorsia?: number; // Tỷ giá quy đổi VND (CORSIA): VND / USD
   obligationEuEts: number; // Phát thải CO2 năm hiện tại EU ETS (tCO2)
   obligationUkEts: number; // Phát thải CO2 năm hiện tại UK ETS (tCO2)
   obligationCorsia: number; // Phát thải CO2 năm hiện tại CORSIA (tCO2)
@@ -69,19 +74,34 @@ export interface MarketParams {
 }
 
 /**
- * Định dạng số chuẩn:
- * - Số nguyên: Dấu ',' ngăn cách hàng nghìn trở lên (vd: 1,000, 28,500)
- * - Số thập phân: Dấu '.' ngăn cách phần thập phân (vd: 76.5, 2.62, 12.34)
+ * Hệ thống định dạng số đa ngôn ngữ:
+ * - Tiếng Việt: Hàng nghìn dấu '.', số thập phân dấu ',' (vd: 1.000, 28.500, 76,5)
+ * - Tiếng Anh: Hàng nghìn dấu ',', số thập phân dấu '.' (vd: 1,000, 28,500, 76.5)
  */
+const getSystemLang = (): 'vi' | 'en' => {
+  if (typeof window === 'undefined') return 'vi';
+  return (localStorage.getItem('vna_esg_lang') as 'vi' | 'en') || 'vi';
+};
+
 const formatNumber = (
   val: number | string | null | undefined,
-  maxDecimals?: number
+  maxDecimals?: number,
+  forcedLang?: 'vi' | 'en'
 ): string => {
   if (val === null || val === undefined || val === '') return '0';
-  const num = typeof val === 'string' ? parseFloat(val.replace(/,/g, '')) : val;
+  let num: number;
+  if (typeof val === 'string') {
+    const cleaned = val.replace(/s/g, '').replace(/,/g, '.');
+    num = parseFloat(cleaned);
+  } else {
+    num = val;
+  }
   if (isNaN(num)) return '0';
 
-  return num.toLocaleString('en-US', {
+  const lang = forcedLang || getSystemLang();
+  const locale = lang === 'en' ? 'en-US' : 'vi-VN';
+
+  return num.toLocaleString(locale, {
     maximumFractionDigits: maxDecimals !== undefined ? maxDecimals : 4,
   });
 };
@@ -94,39 +114,124 @@ const FormattedNumberInput: React.FC<{
   isDecimal?: boolean;
   min?: number;
   max?: number;
-}> = ({ value, onChange, className = '', placeholder = '', isDecimal = false, min, max }) => {
+  lang?: 'vi' | 'en';
+}> = ({ value, onChange, className = '', placeholder = '', isDecimal = false, min, max, lang }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [rawText, setRawText] = useState<string>('');
+  const [activeLang, setActiveLang] = useState<'vi' | 'en'>(
+    () => lang || getSystemLang()
+  );
+
+  useEffect(() => {
+    if (lang) {
+      setActiveLang(lang);
+    } else {
+      const handleLangChange = () => {
+        setActiveLang(getSystemLang());
+      };
+      window.addEventListener('vna_language_changed', handleLangChange);
+      return () => window.removeEventListener('vna_language_changed', handleLangChange);
+    }
+  }, [lang]);
 
   const displayString = useMemo(() => {
     if (value === undefined || value === null || isNaN(value)) return '';
-    return isDecimal ? String(value) : formatNumber(value);
-  }, [value, isDecimal]);
+    return formatNumber(value, isDecimal ? 4 : 0, activeLang);
+  }, [value, isDecimal, activeLang]);
 
-  const handleFocus = () => {
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
-    setRawText(value !== undefined && value !== null && !isNaN(value) ? String(value) : '');
+    if (value !== undefined && value !== null && !isNaN(value)) {
+      if (isDecimal) {
+        setRawText(activeLang === 'vi' ? String(value).replace('.', ',') : String(value));
+      } else {
+        setRawText(String(value));
+      }
+    } else {
+      setRawText('');
+    }
+    e.target.select();
+  };
+
+  const handleBeforeInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputEvent = e.nativeEvent as InputEvent;
+    if (inputEvent && inputEvent.data) {
+      if (isDecimal) {
+        if (!/^[0-9.,]+$/.test(inputEvent.data)) {
+          e.preventDefault();
+        }
+      } else {
+        if (!/^[0-9]+$/.test(inputEvent.data)) {
+          e.preventDefault();
+        }
+      }
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      e.key === 'Backspace' ||
+      e.key === 'Delete' ||
+      e.key === 'Tab' ||
+      e.key === 'Escape' ||
+      e.key === 'Enter' ||
+      e.key === 'ArrowLeft' ||
+      e.key === 'ArrowRight' ||
+      e.key === 'ArrowUp' ||
+      e.key === 'ArrowDown' ||
+      e.key === 'Home' ||
+      e.key === 'End' ||
+      e.ctrlKey ||
+      e.metaKey
+    ) {
+      return;
+    }
+
+    // Decimal separator
+    if (isDecimal && (e.key === '.' || e.key === ',')) {
+      if (rawText.includes('.') || rawText.includes(',')) {
+        e.preventDefault();
+      }
+      return;
+    }
+
+    if (!/^[0-9]$/.test(e.key)) {
+      e.preventDefault();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setRawText(val);
-    let cleaned = val.trim();
+    let val = e.target.value;
+
     if (isDecimal) {
-      if (cleaned.includes(',') && !cleaned.includes('.')) {
-        cleaned = cleaned.replace(',', '.');
+      if (activeLang === 'vi') {
+        val = val.replace(/./g, ',');
+        val = val.replace(/[^0-9,]/g, '');
+        const parts = val.split(',');
+        if (parts.length > 2) {
+          val = parts[0] + ',' + parts.slice(1).join('');
+        }
       } else {
-        cleaned = cleaned.replace(/,/g, '');
+        val = val.replace(/,/g, '.');
+        val = val.replace(/[^0-9.]/g, '');
+        const parts = val.split('.');
+        if (parts.length > 2) {
+          val = parts[0] + '.' + parts.slice(1).join('');
+        }
       }
     } else {
-      cleaned = cleaned.replace(/,/g, '');
+      val = val.replace(/D/g, '');
     }
 
-    if (cleaned === '' || cleaned === '-') {
+    setRawText(val);
+
+    if (val === '' || val === '.' || val === ',') {
       onChange(0);
       return;
     }
-    const num = isDecimal ? parseFloat(cleaned) : parseInt(cleaned, 10);
+
+    const normalizedVal = isDecimal ? val.replace(',', '.') : val;
+    const num = isDecimal ? parseFloat(normalizedVal) : parseInt(normalizedVal, 10);
     if (!isNaN(num)) {
       if (min !== undefined && num < min) return;
       if (max !== undefined && num > max) return;
@@ -134,8 +239,58 @@ const FormattedNumberInput: React.FC<{
     }
   };
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasteData = e.clipboardData.getData('text');
+    if (isDecimal) {
+      if (activeLang === 'vi') {
+        let cleaned = pasteData.trim();
+        if (cleaned.includes(',') && cleaned.includes('.')) {
+          cleaned = cleaned.replace(/./g, '');
+        } else if (cleaned.includes('.') && !cleaned.includes(',')) {
+          cleaned = cleaned.replace(/./g, ',');
+        }
+        cleaned = cleaned.replace(/[^0-9,]/g, '');
+        const parts = cleaned.split(',');
+        const formatted = parts.length > 2 ? parts[0] + ',' + parts.slice(1).join('') : cleaned;
+        if (formatted) {
+          e.preventDefault();
+          setRawText(formatted);
+          const num = parseFloat(formatted.replace(',', '.'));
+          if (!isNaN(num)) onChange(num);
+        }
+      } else {
+        let cleaned = pasteData.trim();
+        if (cleaned.includes(',') && cleaned.includes('.')) {
+          cleaned = cleaned.replace(/,/g, '');
+        } else if (cleaned.includes(',') && !cleaned.includes('.')) {
+          cleaned = cleaned.replace(/,/g, '.');
+        }
+        cleaned = cleaned.replace(/[^0-9.]/g, '');
+        const parts = cleaned.split('.');
+        const formatted = parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : cleaned;
+        if (formatted) {
+          e.preventDefault();
+          setRawText(formatted);
+          const num = parseFloat(formatted);
+          if (!isNaN(num)) onChange(num);
+        }
+      }
+    } else {
+      const cleaned = pasteData.replace(/D/g, '');
+      if (cleaned) {
+        e.preventDefault();
+        setRawText(cleaned);
+        const num = parseInt(cleaned, 10);
+        if (!isNaN(num)) onChange(num);
+      }
+    }
+  };
+
   const handleBlur = () => {
     setIsFocused(false);
+    if (rawText === '' || rawText === '.' || rawText === ',') {
+      onChange(0);
+    }
   };
 
   return (
@@ -143,12 +298,165 @@ const FormattedNumberInput: React.FC<{
       type="text"
       inputMode={isDecimal ? 'decimal' : 'numeric'}
       value={isFocused ? rawText : displayString}
+      onKeyDown={handleKeyDown}
+      onBeforeInput={handleBeforeInput}
       onChange={handleChange}
+      onPaste={handlePaste}
       onFocus={handleFocus}
       onBlur={handleBlur}
       className={className}
       placeholder={placeholder}
     />
+  );
+};
+
+/**
+ * Component YearPicker chọn năm trực quan cho Mô phỏng kịch bản
+ */
+const YearPicker: React.FC<{
+  value: string;
+  onChange: (val: string) => void;
+  className?: string;
+}> = ({ value, onChange, className = '' }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Trích xuất số năm từ chuỗi (vd: "Năm 2026" -> 2026)
+  const numericYear = useMemo(() => {
+    const match = value.match(/\d{4}/);
+    return match ? parseInt(match[0], 10) : 2026;
+  }, [value]);
+
+  // Năm bắt đầu cho lưới 12 năm (chu kỳ thập kỷ)
+  const [pageStartYear, setPageStartYear] = useState(() => {
+    return Math.floor(numericYear / 12) * 12;
+  });
+
+  useEffect(() => {
+    setPageStartYear(Math.floor(numericYear / 12) * 12);
+  }, [numericYear]);
+
+  // Đóng popover khi click ra ngoài
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const years = useMemo(() => {
+    return Array.from({ length: 12 }, (_, i) => pageStartYear + i);
+  }, [pageStartYear]);
+
+  const handleSelectYear = (y: number) => {
+    onChange(`Năm ${y}`);
+    setIsOpen(false);
+  };
+
+  const handlePrevRange = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPageStartYear(prev => prev - 12);
+  };
+
+  const handleNextRange = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPageStartYear(prev => prev + 12);
+  };
+
+  const currentActualYear = 2026;
+
+  return (
+    <div className={`relative inline-block ${className}`} ref={containerRef}>
+      {/* Nút kích hoạt YearPicker */}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-700 bg-white hover:border-vna-blue hover:text-vna-blue focus:ring-2 focus:ring-vna-blue/20 transition-all flex items-center gap-2 cursor-pointer shadow-2xs group"
+      >
+        <Calendar size={14} className="text-vna-blue shrink-0 group-hover:scale-110 transition-transform" />
+        <span>{value || `Năm ${numericYear}`}</span>
+        <ChevronDown size={13} className={`text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-vna-blue' : ''}`} />
+      </button>
+
+      {/* Popover chọn năm */}
+      {isOpen && (
+        <div className="absolute left-0 mt-1.5 z-50 bg-white rounded-2xl border border-gray-200 shadow-xl p-3.5 w-64 animate-in fade-in zoom-in-95 duration-150 font-sans">
+          {/* Header điều hướng dải năm */}
+          <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-gray-100">
+            <button
+              type="button"
+              onClick={handlePrevRange}
+              className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+              title="12 năm trước"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <span className="text-xs font-black text-vna-navy tracking-wide">
+              {pageStartYear} – {pageStartYear + 11}
+            </span>
+            <button
+              type="button"
+              onClick={handleNextRange}
+              className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+              title="12 năm sau"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+
+          {/* Lưới 12 năm */}
+          <div className="grid grid-cols-3 gap-1.5">
+            {years.map(y => {
+              const isSelected = y === numericYear;
+              const isCurrent = y === currentActualYear;
+              return (
+                <button
+                  key={y}
+                  type="button"
+                  onClick={() => handleSelectYear(y)}
+                  className={`py-2 px-1 text-xs rounded-xl font-bold transition-all cursor-pointer text-center relative ${isSelected
+                    ? 'bg-vna-blue text-white shadow-xs font-black'
+                    : isCurrent
+                      ? 'bg-blue-50/70 text-vna-blue border border-blue-200 hover:bg-blue-100'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-vna-navy'
+                    }`}
+                >
+                  {y}
+                  {isCurrent && !isSelected && (
+                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-vna-blue"></span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Footer phím tắt */}
+          <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+            <button
+              type="button"
+              onClick={() => handleSelectYear(currentActualYear)}
+              className="text-vna-blue font-bold hover:underline cursor-pointer flex items-center gap-1"
+            >
+              Năm hiện tại ({currentActualYear})
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-400 hover:text-gray-600 font-semibold cursor-pointer"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -381,6 +689,9 @@ const DEFAULT_MARKET_PARAMS: MarketParams = {
   priceEuEts: 76.5, // 76.5 USD / tCO2
   priceUkEts: 58.0, // 58.0 USD / tCO2
   priceCorsia: 22.5, // 22.5 USD / tCO2
+  rateEuEts: 25450, // 25,450 VND / USD
+  rateUkEts: 25450, // 25,450 VND / USD
+  rateCorsia: 25450, // 25,450 VND / USD
   obligationEuEts: 28500, // Phát thải năm hiện tại EU ETS (tCO2)
   obligationUkEts: 9200,  // Phát thải năm hiện tại UK ETS (tCO2)
   obligationCorsia: 48000, // Phát thải năm hiện tại CORSIA (tCO2)
@@ -405,13 +716,22 @@ export const NetZeroV2Page: React.FC = () => {
     return () => window.removeEventListener('vna_language_changed', handleLangChange);
   }, []);
 
+  const locale = currentLang === 'en' ? 'en-US' : 'vi-VN';
+
   // Main state
   const [reportPeriod, setReportPeriod] = useState<string>('Năm 2026');
   const [marketParams, setMarketParams] = useState<MarketParams>(() => {
     const saved = localStorage.getItem('vna_netzero_v2_market');
     if (saved) {
       try {
-        return { ...DEFAULT_MARKET_PARAMS, ...JSON.parse(saved) };
+        const parsed = JSON.parse(saved);
+        return {
+          ...DEFAULT_MARKET_PARAMS,
+          ...parsed,
+          rateEuEts: parsed.rateEuEts ?? DEFAULT_MARKET_PARAMS.rateEuEts,
+          rateUkEts: parsed.rateUkEts ?? DEFAULT_MARKET_PARAMS.rateUkEts,
+          rateCorsia: parsed.rateCorsia ?? DEFAULT_MARKET_PARAMS.rateCorsia
+        };
       } catch (e) { }
     }
     return DEFAULT_MARKET_PARAMS;
@@ -447,7 +767,8 @@ export const NetZeroV2Page: React.FC = () => {
           totalAllocatedSaf: 6400,
           co2Saved: 16605,
           totalCredits: 69095,
-          totalCost: 3101699
+          totalCost: 3101699,
+          totalCostVnd: 78938239550
         }
       },
       {
@@ -467,7 +788,8 @@ export const NetZeroV2Page: React.FC = () => {
           totalAllocatedSaf: 6400,
           co2Saved: 16605,
           totalCredits: 69095,
-          totalCost: 3914500
+          totalCost: 3914500,
+          totalCostVnd: 99624025000
         }
       },
       {
@@ -488,7 +810,8 @@ export const NetZeroV2Page: React.FC = () => {
           totalAllocatedSaf: 8000,
           co2Saved: 20760,
           totalCredits: 64940,
-          totalCost: 2680450
+          totalCost: 2680450,
+          totalCostVnd: 68217452500
         }
       }
     ];
@@ -584,19 +907,29 @@ export const NetZeroV2Page: React.FC = () => {
     const residualUkCo2 = Math.max(0, params.obligationUkEts - freeUk - co2UkSaved);
     const residualCorsiaCo2 = Math.max(0, corsiaTotalObligation - co2CorsiaSaved);
 
+    const rateEu = params.rateEuEts ?? 25450;
+    const rateUk = params.rateUkEts ?? 25450;
+    const rateCorsia = params.rateCorsia ?? 25450;
+
     const costEu = Math.round(residualEuCo2 * params.priceEuEts);
     const costUk = Math.round(residualUkCo2 * params.priceUkEts);
     const costCorsia = Math.round(residualCorsiaCo2 * params.priceCorsia);
     const totalCost = costEu + costUk + costCorsia;
 
-    // Gross Cost without SAF (chi phí khi chưa nạp SAF)
-    const grossCost = Math.round(
-      Math.max(0, params.obligationEuEts - freeEu) * params.priceEuEts +
-      Math.max(0, params.obligationUkEts - freeUk) * params.priceUkEts +
-      corsiaTotalObligation * params.priceCorsia
-    );
+    const costEuVnd = Math.round(costEu * rateEu);
+    const costUkVnd = Math.round(costUk * rateUk);
+    const costCorsiaVnd = Math.round(costCorsia * rateCorsia);
+    const totalCostVnd = costEuVnd + costUkVnd + costCorsiaVnd;
 
+    // Gross Cost without SAF (chi phí khi chưa nạp SAF)
+    const grossCostEu = Math.round(Math.max(0, params.obligationEuEts - freeEu) * params.priceEuEts);
+    const grossCostUk = Math.round(Math.max(0, params.obligationUkEts - freeUk) * params.priceUkEts);
+    const grossCostCorsia = Math.round(corsiaTotalObligation * params.priceCorsia);
+    const grossCost = grossCostEu + grossCostUk + grossCostCorsia;
+
+    const grossCostVnd = Math.round(grossCostEu * rateEu + grossCostUk * rateUk + grossCostCorsia * rateCorsia);
     const totalSavedVsGross = grossCost - totalCost;
+    const totalSavedVsGrossVnd = grossCostVnd - totalCostVnd;
 
     return {
       safEuTonnes,
@@ -611,9 +944,15 @@ export const NetZeroV2Page: React.FC = () => {
       costEu,
       costUk,
       costCorsia,
+      costEuVnd,
+      costUkVnd,
+      costCorsiaVnd,
       totalCost,
+      totalCostVnd,
       grossCost,
+      grossCostVnd,
       totalSavedVsGross,
+      totalSavedVsGrossVnd,
       freeEu,
       freeUk,
       corsiaObligationFromGrowth: corsiaTotalObligation,
@@ -692,9 +1031,28 @@ export const NetZeroV2Page: React.FC = () => {
     const safCostPerTonne = 2450;
     const jetA1CostPerTonne = 850;
 
-    const safCost = totalAllocatedSaf * safCostPerTonne;
+    const rateEu = marketParams.rateEuEts ?? 25450;
+    const rateUk = marketParams.rateUkEts ?? 25450;
+    const rateCorsia = marketParams.rateCorsia ?? 25450;
+    const defaultRate = 25450;
+
+    const safCostEu = currentMetrics.safEuTonnes * safCostPerTonne;
+    const safCostEuVnd = Math.round(safCostEu * rateEu);
+
+    const safCostUk = currentMetrics.safUkTonnes * safCostPerTonne;
+    const safCostUkVnd = Math.round(safCostUk * rateUk);
+
+    const safCostCorsia = currentMetrics.safCorsiaTonnes * safCostPerTonne;
+    const safCostCorsiaVnd = Math.round(safCostCorsia * rateCorsia);
+
+    const safCost = safCostEu + safCostUk + safCostCorsia;
+    const safCostVnd = safCostEuVnd + safCostUkVnd + safCostCorsiaVnd;
+
     const totalCreditCost = currentMetrics.totalCost;
+    const totalCreditCostVnd = currentMetrics.totalCostVnd;
+
     const totalScenarioCost = safCost + totalCreditCost;
+    const totalScenarioCostVnd = safCostVnd + totalCreditCostVnd;
 
     const totalGrossEmission = marketParams.obligationEuEts + marketParams.obligationUkEts + marketParams.obligationCorsia;
     const totalFree = (marketParams.freeAllowanceEuEts ?? 5200) + (marketParams.freeAllowanceUkEts ?? 1100);
@@ -703,6 +1061,7 @@ export const NetZeroV2Page: React.FC = () => {
 
     // Baseline calculation (Jet A-1 100%, 0 SAF, avoiding ReFuelEU penalties)
     const baselineFuelCost = totalAllocatedSaf * jetA1CostPerTonne;
+    const baselineFuelCostVnd = Math.round(baselineFuelCost * defaultRate);
     const baselineCreditEu = Math.max(0, marketParams.obligationEuEts - (marketParams.freeAllowanceEuEts ?? 5200)) * marketParams.priceEuEts;
     const baselineCreditUk = Math.max(0, marketParams.obligationUkEts - (marketParams.freeAllowanceUkEts ?? 1100)) * marketParams.priceUkEts;
     const corsiaGrowth = (marketParams.corsiaGrowthRate ?? 20.0) / 100;
@@ -713,21 +1072,34 @@ export const NetZeroV2Page: React.FC = () => {
     const baselineCreditCorsia = corsiaTotalOblig * marketParams.priceCorsia;
     const refuelEuPenaltyAvoided = currentMetrics.safEuTonnes * 1200;
     const totalBaselineCost = baselineFuelCost + baselineCreditEu + baselineCreditUk + baselineCreditCorsia + refuelEuPenaltyAvoided;
+    const totalBaselineCostVnd = baselineFuelCostVnd + Math.round(baselineCreditEu * rateEu) + Math.round(baselineCreditUk * rateUk) + Math.round(baselineCreditCorsia * rateCorsia) + Math.round(refuelEuPenaltyAvoided * rateEu);
 
     const netSavings = totalBaselineCost - totalScenarioCost;
+    const netSavingsVnd = totalBaselineCostVnd - totalScenarioCostVnd;
     const savingsPercentage = totalBaselineCost > 0 ? (netSavings / totalBaselineCost) * 100 : 0;
 
     return {
       totalAllocatedSaf,
       safCost,
+      safCostVnd,
+      safCostEu,
+      safCostEuVnd,
+      safCostUk,
+      safCostUkVnd,
+      safCostCorsia,
+      safCostCorsiaVnd,
       totalCreditCost,
+      totalCreditCostVnd,
       totalScenarioCost,
+      totalScenarioCostVnd,
       totalGrossEmission,
       totalFree,
       totalCo2Saved,
       co2Remaining,
       totalBaselineCost,
+      totalBaselineCostVnd,
       netSavings,
+      netSavingsVnd,
       savingsPercentage
     };
   }, [currentMetrics, marketParams]);
@@ -919,7 +1291,8 @@ export const NetZeroV2Page: React.FC = () => {
         totalAllocatedSaf: totalSaf,
         co2Saved: co2Saved,
         totalCredits: totalCredits,
-        totalCost: currentMetrics.totalCost
+        totalCost: currentMetrics.totalCost,
+        totalCostVnd: currentMetrics.totalCostVnd
       }
     };
 
@@ -1040,17 +1413,10 @@ export const NetZeroV2Page: React.FC = () => {
       <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-gray-500">Năm mô phỏng:</span>
-          <select
+          <YearPicker
             value={reportPeriod}
-            onChange={(e) => setReportPeriod(e.target.value)}
-            className="border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-700 bg-white focus:ring-1 focus:ring-vna-blue/20 outline-none cursor-pointer"
-          >
-            <option value="Năm 2030">Năm 2030</option>
-            <option value="Năm 2028">Năm 2028</option>
-            <option value="Năm 2027">Năm 2027</option>
-            <option value="Năm 2026">Năm 2026</option>
-            <option value="Năm 2025">Năm 2025</option>
-          </select>
+            onChange={(val) => setReportPeriod(val)}
+          />
         </div>
 
         {/* Top Action Buttons */}
@@ -1168,6 +1534,26 @@ export const NetZeroV2Page: React.FC = () => {
 
                 <div>
                   <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Tỷ giá quy đổi VND:
+                  </label>
+                  <div className="relative">
+                    <FormattedNumberInput
+                      value={marketParams.rateEuEts ?? 25450}
+                      onChange={(val) => handleUpdateMarketParam('rateEuEts', val)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-20 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-vna-blue"
+                      placeholder="Nhập tỷ giá..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      VND / USD
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    Giá quy đổi: <strong className="text-vna-blue">{formatNumber(Math.round(marketParams.priceEuEts * (marketParams.rateEuEts ?? 25450)))} VND</strong> / tCO₂
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
                     Tổng phát thải CO₂:
                   </label>
                   <div className="relative">
@@ -1214,7 +1600,7 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="mt-3 pt-2.5 border-t border-blue-100 flex items-center justify-between text-xs bg-white/70 p-2 rounded-lg">
                 <span className="text-gray-600 font-medium">Tổng phát thải CO2 sau miễn giảm:</span>
                 <span className="font-black text-vna-navy">
-                  {Math.max(0, marketParams.obligationEuEts - (marketParams.freeAllowanceEuEts ?? 5200)).toLocaleString('en-US')} tCO₂
+                  {Math.max(0, marketParams.obligationEuEts - (marketParams.freeAllowanceEuEts ?? 5200)).toLocaleString(locale)} tCO₂
                 </span>
               </div>
             </div>
@@ -1247,6 +1633,26 @@ export const NetZeroV2Page: React.FC = () => {
                       $ / tCO₂
                     </span>
                   </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Tỷ giá quy đổi VND:
+                  </label>
+                  <div className="relative">
+                    <FormattedNumberInput
+                      value={marketParams.rateUkEts ?? 25450}
+                      onChange={(val) => handleUpdateMarketParam('rateUkEts', val)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-20 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-indigo-600"
+                      placeholder="Nhập tỷ giá..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      VND / USD
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    Giá quy đổi: <strong className="text-indigo-700">{formatNumber(Math.round(marketParams.priceUkEts * (marketParams.rateUkEts ?? 25450)))} VND</strong> / tCO₂
+                  </p>
                 </div>
 
                 <div>
@@ -1297,7 +1703,7 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="mt-3 pt-2.5 border-t border-indigo-100 flex items-center justify-between text-xs bg-white/70 p-2 rounded-lg">
                 <span className="text-gray-600 font-medium">Tổng phát thải CO2 sau miễn giảm:</span>
                 <span className="font-black text-vna-navy">
-                  {Math.max(0, marketParams.obligationUkEts - (marketParams.freeAllowanceUkEts ?? 1100)).toLocaleString('en-US')} tCO₂
+                  {Math.max(0, marketParams.obligationUkEts - (marketParams.freeAllowanceUkEts ?? 1100)).toLocaleString(locale)} tCO₂
                 </span>
               </div>
             </div>
@@ -1330,6 +1736,26 @@ export const NetZeroV2Page: React.FC = () => {
                       $ / tCO₂
                     </span>
                   </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
+                    Tỷ giá quy đổi VND:
+                  </label>
+                  <div className="relative">
+                    <FormattedNumberInput
+                      value={marketParams.rateCorsia ?? 25450}
+                      onChange={(val) => handleUpdateMarketParam('rateCorsia', val)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-20 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-emerald-600"
+                      placeholder="Nhập tỷ giá..."
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
+                      VND / USD
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    Giá quy đổi: <strong className="text-emerald-700">{formatNumber(Math.round(marketParams.priceCorsia * (marketParams.rateCorsia ?? 25450)))} VND</strong> / tCO₂
+                  </p>
                 </div>
 
                 <div>
@@ -1424,7 +1850,7 @@ export const NetZeroV2Page: React.FC = () => {
                     <label className="text-[11px] text-gray-700 font-bold flex items-center gap-1">
                       <span>Baseline:</span>
                     </label>
-                    <span className="text-[10px] text-gray-500 font-mono">2019-2020</span>
+                    {/* <span className="text-[10px] text-gray-500 font-mono">2019-2020</span> */}
                   </div>
                   <div className="relative">
                     <FormattedNumberInput
@@ -1544,6 +1970,7 @@ export const NetZeroV2Page: React.FC = () => {
                   <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold">
                     <th className="py-3.5 px-4">Mã lô & Ngày nạp</th>
                     <th className="py-3.5 px-4">Sân bay xuất phát</th>
+                    <th className="py-3.5 px-4">Nhà cung cấp</th>
                     <th className="py-3.5 px-4 text-center">Khối lượng SAF (Tấn) ✍️</th>
                     <th className="py-3.5 px-4 text-right">CO₂ Giảm trừ</th>
                     <th className="py-3.5 px-4 text-center">Cơ chế Phân bổ (Gán Claim)</th>
@@ -1570,6 +1997,13 @@ export const NetZeroV2Page: React.FC = () => {
                           {/* <div className="text-[10px] text-gray-400 mt-0.5">Khu vực: {batch.region}</div> */}
                         </td>
 
+                        <td className="py-3 px-4">
+                          <div className="font-semibold text-gray-800">{batch.supplier || '—'}</div>
+                          {batch.supplierVat && (
+                            <div className="text-[10px] text-gray-400 font-mono">VAT: {batch.supplierVat}</div>
+                          )}
+                        </td>
+
                         {/* Inline Editable SAF Tonnes */}
                         <td className="py-3 px-4 text-center">
                           <div className="inline-flex items-center gap-1">
@@ -1583,7 +2017,7 @@ export const NetZeroV2Page: React.FC = () => {
                         </td>
 
                         <td className="py-3 px-4 text-right">
-                          <div className="font-black text-emerald-600">-{co2Saved.toLocaleString('en-US')} tCO₂</div>
+                          <div className="font-black text-emerald-600">-{co2Saved.toLocaleString(locale)} tCO₂</div>
                           <div className="text-[10px] text-gray-400">({batch.co2SavedPerTonne} t/tấn)</div>
                         </td>
 
@@ -1633,16 +2067,16 @@ export const NetZeroV2Page: React.FC = () => {
             {/* Matrix Summary Footer */}
             <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
               <div className="flex items-center gap-6 font-bold text-gray-700 flex-wrap">
-                <span>Tổng SAF: <strong className="text-gray-900">{batches.reduce((a, b) => a + b.tonnes, 0).toLocaleString('en-US')} tấn</strong></span>
-                <span>Claim cho EU: <strong className="text-vna-blue">{currentMetrics.safEuTonnes.toLocaleString('en-US')} tấn</strong></span>
-                <span>Claim cho UK: <strong className="text-indigo-600">{currentMetrics.safUkTonnes.toLocaleString('en-US')} tấn</strong></span>
-                <span>Claim cho CORSIA: <strong className="text-emerald-600">{currentMetrics.safCorsiaTonnes.toLocaleString('en-US')} tấn</strong></span>
+                <span>Tổng SAF: <strong className="text-gray-900">{batches.reduce((a, b) => a + b.tonnes, 0).toLocaleString(locale)} tấn</strong></span>
+                <span>Claim cho EU: <strong className="text-vna-blue">{currentMetrics.safEuTonnes.toLocaleString(locale)} tấn</strong></span>
+                <span>Claim cho UK: <strong className="text-indigo-600">{currentMetrics.safUkTonnes.toLocaleString(locale)} tấn</strong></span>
+                <span>Claim cho CORSIA: <strong className="text-emerald-600">{currentMetrics.safCorsiaTonnes.toLocaleString(locale)} tấn</strong></span>
               </div>
 
               <div className="flex items-center gap-3">
                 <span className="text-gray-500 font-semibold">Tổng CO₂ giảm trừ:</span>
                 <span className="text-base font-black text-emerald-600">
-                  -{executiveKpiMetrics.totalCo2Saved.toLocaleString('en-US')} tCO₂
+                  -{executiveKpiMetrics.totalCo2Saved.toLocaleString(locale)} tCO₂
                 </span>
               </div>
             </div>
@@ -1690,7 +2124,7 @@ export const NetZeroV2Page: React.FC = () => {
                           : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
                           }`}
                       >
-                        {t.toLocaleString('en-US')} tấn
+                        {t.toLocaleString(locale)} tấn
                       </button>
                     ))}
                   </div>
@@ -1701,15 +2135,10 @@ export const NetZeroV2Page: React.FC = () => {
                     <div>
                       <span className="text-[10px] font-bold text-gray-400 uppercase block">Tổng lượng SAF nhập</span>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <input
-                          type="number"
-                          step="100"
-                          min="0"
+                        <FormattedNumberInput
                           value={manualSafTonnes}
-                          onChange={(e) => {
-                            const val = Math.max(0, parseFloat(e.target.value) || 0);
-                            setManualSafTonnes(val);
-                          }}
+                          min={0}
+                          onChange={(val) => setManualSafTonnes(val)}
                           className="w-28 text-lg font-black text-vna-navy focus:outline-hidden border-b-2 border-vna-blue pb-0.5 bg-transparent"
                         />
                         <span className="text-xs font-bold text-gray-500">tấn</span>
@@ -1741,10 +2170,10 @@ export const NetZeroV2Page: React.FC = () => {
                       <div className="flex flex-wrap items-center justify-between text-xs font-bold gap-2">
                         <div className="flex items-center gap-4">
                           <span className="text-gray-700">
-                            Đã phân bổ: <strong className={isOver ? 'text-rose-600' : 'text-vna-navy'}>{allocatedTotal.toLocaleString('en-US')}</strong> / {manualSafTonnes.toLocaleString('en-US')} tấn ({manualSafTonnes > 0 ? Math.round((allocatedTotal / manualSafTonnes) * 100) : 0}%)
+                            Đã phân bổ: <strong className={isOver ? 'text-rose-600' : 'text-vna-navy'}>{allocatedTotal.toLocaleString(locale)}</strong> / {manualSafTonnes.toLocaleString(locale)} tấn ({manualSafTonnes > 0 ? Math.round((allocatedTotal / manualSafTonnes) * 100) : 0}%)
                           </span>
                           <span className={unallocated >= 0 ? 'text-emerald-700' : 'text-rose-600'}>
-                            {unallocated >= 0 ? `Còn dư chưa phân bổ: ${unallocated.toLocaleString('en-US')} tấn` : `⚠️ Vượt quá tổng SAF: ${Math.abs(unallocated).toLocaleString('en-US')} tấn`}
+                            {unallocated >= 0 ? `Còn dư chưa phân bổ: ${unallocated.toLocaleString(locale)} tấn` : `⚠️ Vượt quá tổng SAF: ${Math.abs(unallocated).toLocaleString(locale)} tấn`}
                           </span>
                         </div>
 
@@ -1763,9 +2192,9 @@ export const NetZeroV2Page: React.FC = () => {
 
                       {/* Visual Multi-Segment Bar */}
                       <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden flex">
-                        <div style={{ width: `${Math.min(100, pctEu)}%` }} className="bg-[#006885] transition-all duration-300" title={`EU ETS: ${manualAllocEu.toLocaleString('en-US')} t`} />
-                        <div style={{ width: `${Math.min(100 - pctEu, pctUk)}%` }} className="bg-[#4f46e5] transition-all duration-300" title={`UK ETS: ${manualAllocUk.toLocaleString('en-US')} t`} />
-                        <div style={{ width: `${Math.min(100 - pctEu - pctUk, pctCorsia)}%` }} className="bg-[#10b981] transition-all duration-300" title={`CORSIA: ${manualAllocCorsia.toLocaleString('en-US')} t`} />
+                        <div style={{ width: `${Math.min(100, pctEu)}%` }} className="bg-[#006885] transition-all duration-300" title={`EU ETS: ${manualAllocEu.toLocaleString(locale)} t`} />
+                        <div style={{ width: `${Math.min(100 - pctEu, pctUk)}%` }} className="bg-[#4f46e5] transition-all duration-300" title={`UK ETS: ${manualAllocUk.toLocaleString(locale)} t`} />
+                        <div style={{ width: `${Math.min(100 - pctEu - pctUk, pctCorsia)}%` }} className="bg-[#10b981] transition-all duration-300" title={`CORSIA: ${manualAllocCorsia.toLocaleString(locale)} t`} />
                       </div>
 
                       {isOver && (
@@ -1812,28 +2241,25 @@ export const NetZeroV2Page: React.FC = () => {
                     <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 mb-4">
                       <div className="flex justify-between text-gray-600">
                         <span>Nghĩa vụ nợ gốc:</span>
-                        <strong className="text-gray-900">{marketParams.obligationEuEts.toLocaleString('en-US')} tCO₂</strong>
+                        <strong className="text-gray-900">{marketParams.obligationEuEts.toLocaleString(locale)} tCO₂</strong>
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>SAF cần để bù 100%:</span>
-                        <strong className="text-vna-blue">~{Math.round(marketParams.obligationEuEts / 2.60).toLocaleString('en-US')} tấn</strong>
+                        <strong className="text-vna-blue">~{Math.round(marketParams.obligationEuEts / 2.60).toLocaleString(locale)} tấn</strong>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs font-bold text-gray-700">
                         <label>Khối lượng SAF phân bổ:</label>
-                        <span className="text-vna-blue font-black">{manualAllocEu.toLocaleString('en-US')} tấn</span>
+                        <span className="text-vna-blue font-black">{manualAllocEu.toLocaleString(locale)} tấn</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <input
-                          type="number"
-                          step="50"
-                          min="0"
-                          max={manualSafTonnes}
+                        <FormattedNumberInput
                           value={manualAllocEu}
-                          onChange={(e) => setManualAllocEu(Math.max(0, parseFloat(e.target.value) || 0))}
+                          min={0}
+                          onChange={(val) => setManualAllocEu(val)}
                           className="w-full border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-black text-gray-800 focus:outline-hidden focus:border-vna-blue bg-white"
                         />
                         <span className="text-xs font-bold text-gray-500">tấn</span>
@@ -1869,11 +2295,16 @@ export const NetZeroV2Page: React.FC = () => {
                   <div className="mt-4 pt-3 border-t border-gray-100 text-xs space-y-1.5 bg-blue-50/30 -mx-5 -mb-5 p-4 rounded-b-2xl">
                     <div className="flex justify-between text-gray-600">
                       <span>CO₂ giảm trừ (2.60x):</span>
-                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocEu * 2.60).toLocaleString('en-US')} tCO₂</span>
+                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocEu * 2.60).toLocaleString(locale)} tCO₂</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Tiết kiệm chi phí đền bù:</span>
-                      <span className="font-black text-vna-blue">+{Math.round(manualAllocEu * 2.60 * marketParams.priceEuEts).toLocaleString('en-US')} $</span>
+                      <div className="text-right">
+                        <span className="font-black text-vna-blue">+{Math.round(manualAllocEu * 2.60 * marketParams.priceEuEts).toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-blue-600 font-medium">
+                          ≈ +{Math.round(manualAllocEu * 2.60 * marketParams.priceEuEts * (marketParams.rateEuEts ?? 25450)).toLocaleString(locale)} VND
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1899,28 +2330,25 @@ export const NetZeroV2Page: React.FC = () => {
                     <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 mb-4">
                       <div className="flex justify-between text-gray-600">
                         <span>Nghĩa vụ nợ gốc:</span>
-                        <strong className="text-gray-900">{marketParams.obligationUkEts.toLocaleString('en-US')} tCO₂</strong>
+                        <strong className="text-gray-900">{marketParams.obligationUkEts.toLocaleString(locale)} tCO₂</strong>
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>SAF cần để bù 100%:</span>
-                        <strong className="text-indigo-600">~{Math.round(marketParams.obligationUkEts / 2.60).toLocaleString('en-US')} tấn</strong>
+                        <strong className="text-indigo-600">~{Math.round(marketParams.obligationUkEts / 2.60).toLocaleString(locale)} tấn</strong>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs font-bold text-gray-700">
                         <label>Khối lượng SAF phân bổ:</label>
-                        <span className="text-indigo-700 font-black">{manualAllocUk.toLocaleString('en-US')} tấn</span>
+                        <span className="text-indigo-700 font-black">{manualAllocUk.toLocaleString(locale)} tấn</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <input
-                          type="number"
-                          step="50"
-                          min="0"
-                          max={manualSafTonnes}
+                        <FormattedNumberInput
                           value={manualAllocUk}
-                          onChange={(e) => setManualAllocUk(Math.max(0, parseFloat(e.target.value) || 0))}
+                          min={0}
+                          onChange={(val) => setManualAllocUk(val)}
                           className="w-full border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-black text-gray-800 focus:outline-hidden focus:border-indigo-500 bg-white"
                         />
                         <span className="text-xs font-bold text-gray-500">tấn</span>
@@ -1956,11 +2384,16 @@ export const NetZeroV2Page: React.FC = () => {
                   <div className="mt-4 pt-3 border-t border-gray-100 text-xs space-y-1.5 bg-indigo-50/30 -mx-5 -mb-5 p-4 rounded-b-2xl">
                     <div className="flex justify-between text-gray-600">
                       <span>CO₂ giảm trừ (2.60x):</span>
-                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocUk * 2.60).toLocaleString('en-US')} tCO₂</span>
+                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocUk * 2.60).toLocaleString(locale)} tCO₂</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Tiết kiệm chi phí đền bù:</span>
-                      <span className="font-black text-indigo-700">+{Math.round(manualAllocUk * 2.60 * marketParams.priceUkEts).toLocaleString('en-US')} $</span>
+                      <div className="text-right">
+                        <span className="font-black text-indigo-700">+{Math.round(manualAllocUk * 2.60 * marketParams.priceUkEts).toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-indigo-600 font-medium">
+                          ≈ +{Math.round(manualAllocUk * 2.60 * marketParams.priceUkEts * (marketParams.rateUkEts ?? 25450)).toLocaleString(locale)} VND
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1986,28 +2419,25 @@ export const NetZeroV2Page: React.FC = () => {
                     <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 mb-4">
                       <div className="flex justify-between text-gray-600">
                         <span>Nghĩa vụ nợ gốc:</span>
-                        <strong className="text-gray-900">{marketParams.obligationCorsia.toLocaleString('en-US')} tCO₂</strong>
+                        <strong className="text-gray-900">{marketParams.obligationCorsia.toLocaleString(locale)} tCO₂</strong>
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>SAF cần để bù 100%:</span>
-                        <strong className="text-emerald-700">~{Math.round(marketParams.obligationCorsia / 2.55).toLocaleString('en-US')} tấn</strong>
+                        <strong className="text-emerald-700">~{Math.round(marketParams.obligationCorsia / 2.55).toLocaleString(locale)} tấn</strong>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs font-bold text-gray-700">
                         <label>Khối lượng SAF phân bổ:</label>
-                        <span className="text-emerald-700 font-black">{manualAllocCorsia.toLocaleString('en-US')} tấn</span>
+                        <span className="text-emerald-700 font-black">{manualAllocCorsia.toLocaleString(locale)} tấn</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <input
-                          type="number"
-                          step="50"
-                          min="0"
-                          max={manualSafTonnes}
+                        <FormattedNumberInput
                           value={manualAllocCorsia}
-                          onChange={(e) => setManualAllocCorsia(Math.max(0, parseFloat(e.target.value) || 0))}
+                          min={0}
+                          onChange={(val) => setManualAllocCorsia(val)}
                           className="w-full border border-gray-300 rounded-xl px-3 py-1.5 text-xs font-black text-gray-800 focus:outline-hidden focus:border-emerald-500 bg-white"
                         />
                         <span className="text-xs font-bold text-gray-500">tấn</span>
@@ -2043,11 +2473,16 @@ export const NetZeroV2Page: React.FC = () => {
                   <div className="mt-4 pt-3 border-t border-gray-100 text-xs space-y-1.5 bg-emerald-50/30 -mx-5 -mb-5 p-4 rounded-b-2xl">
                     <div className="flex justify-between text-gray-600">
                       <span>CO₂ giảm trừ (2.55x):</span>
-                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocCorsia * 2.55).toLocaleString('en-US')} tCO₂</span>
+                      <span className="font-bold text-emerald-700">-{Math.round(manualAllocCorsia * 2.55).toLocaleString(locale)} tCO₂</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Tiết kiệm chi phí đền bù:</span>
-                      <span className="font-black text-emerald-700">+{Math.round(manualAllocCorsia * 2.55 * marketParams.priceCorsia).toLocaleString('en-US')} $</span>
+                      <div className="text-right">
+                        <span className="font-black text-emerald-700">+{Math.round(manualAllocCorsia * 2.55 * marketParams.priceCorsia).toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-emerald-600 font-medium">
+                          ≈ +{Math.round(manualAllocCorsia * 2.55 * marketParams.priceCorsia * (marketParams.rateCorsia ?? 25450)).toLocaleString(locale)} VND
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2058,17 +2493,22 @@ export const NetZeroV2Page: React.FC = () => {
             {/* Manual Summary Bar */}
             <div className="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
               <div className="flex flex-wrap items-center gap-4 text-gray-600">
-                <span>Tổng SAF phân bổ: <strong className="text-gray-900">{(manualAllocEu + manualAllocUk + manualAllocCorsia).toLocaleString('en-US')} tấn</strong></span>
-                <span>Claim EU: <strong className="text-vna-blue">{manualAllocEu.toLocaleString('en-US')} tấn</strong></span>
-                <span>Claim UK: <strong className="text-indigo-600">{manualAllocUk.toLocaleString('en-US')} tấn</strong></span>
-                <span>Claim CORSIA: <strong className="text-emerald-600">{manualAllocCorsia.toLocaleString('en-US')} tấn</strong></span>
+                <span>Tổng SAF phân bổ: <strong className="text-gray-900">{(manualAllocEu + manualAllocUk + manualAllocCorsia).toLocaleString(locale)} tấn</strong></span>
+                <span>Claim EU: <strong className="text-vna-blue">{manualAllocEu.toLocaleString(locale)} tấn</strong></span>
+                <span>Claim UK: <strong className="text-indigo-600">{manualAllocUk.toLocaleString(locale)} tấn</strong></span>
+                <span>Claim CORSIA: <strong className="text-emerald-600">{manualAllocCorsia.toLocaleString(locale)} tấn</strong></span>
               </div>
 
               <div className="flex items-center gap-3">
                 <span className="text-gray-500 font-semibold">Tổng chi phí mua đền bù còn lại:</span>
-                <span className="text-base font-black text-vna-blue">
-                  {currentMetrics.totalCost.toLocaleString('en-US')} $
-                </span>
+                <div className="text-right">
+                  <span className="text-base font-black text-vna-blue">
+                    {currentMetrics.totalCost.toLocaleString(locale)} $
+                  </span>
+                  <div className="text-[11px] font-bold text-blue-700">
+                    ≈ {currentMetrics.totalCostVnd.toLocaleString(locale)} VND
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -2102,7 +2542,7 @@ export const NetZeroV2Page: React.FC = () => {
                     1. CO₂ Offset & Giảm thiểu
                   </p>
                   <h3 className="text-2xl font-black text-emerald-700 mt-1">
-                    {executiveKpiMetrics.totalCo2Saved.toLocaleString('en-US')} <span className="text-sm font-bold text-gray-500">tCO₂</span>
+                    {executiveKpiMetrics.totalCo2Saved.toLocaleString(locale)} <span className="text-sm font-bold text-gray-500">tCO₂</span>
                   </h3>
 
                 </div>
@@ -2115,19 +2555,19 @@ export const NetZeroV2Page: React.FC = () => {
               <div className="mt-4 pt-3 border-t border-gray-100 space-y-1.5 text-xs text-gray-600">
                 <div className="flex justify-between items-center">
                   <span>• Tổng phát thải CO2:</span>
-                  <span className="font-bold text-gray-800">{executiveKpiMetrics.totalGrossEmission.toLocaleString('en-US')} tCO₂</span>
+                  <span className="font-bold text-gray-800">{executiveKpiMetrics.totalGrossEmission.toLocaleString(locale)} tCO₂</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>• Hạn ngạch miễn phí:</span>
-                  <span className="font-bold text-blue-600">-{executiveKpiMetrics.totalFree.toLocaleString('en-US')} tCO₂</span>
+                  <span className="font-bold text-blue-600">-{executiveKpiMetrics.totalFree.toLocaleString(locale)} tCO₂</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>• CO₂ giảm do nạp SAF:</span>
-                  <span className="font-bold text-emerald-600">-{executiveKpiMetrics.totalCo2Saved.toLocaleString('en-US')} tCO₂</span>
+                  <span className="font-bold text-emerald-600">-{executiveKpiMetrics.totalCo2Saved.toLocaleString(locale)} tCO₂</span>
                 </div>
                 <div className="flex justify-between items-center font-bold text-gray-900 pt-1 border-t border-gray-100">
                   <span className="text-amber-700">• CO₂ còn lại:</span>
-                  <span className="text-amber-700 font-black">{executiveKpiMetrics.co2Remaining.toLocaleString('en-US')} tCO₂</span>
+                  <span className="text-amber-700 font-black">{executiveKpiMetrics.co2Remaining.toLocaleString(locale)} tCO₂</span>
                 </div>
               </div>
 
@@ -2138,22 +2578,22 @@ export const NetZeroV2Page: React.FC = () => {
                     Số tín chỉ CO₂ phải mua:
                   </span>
                   <span className="text-xs font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                    {(currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2).toLocaleString('en-US')} tín chỉ
+                    {(currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2).toLocaleString(locale)} tín chỉ
                   </span>
                 </div>
 
                 <div className="space-y-1 text-xs text-gray-600 pl-2 border-l-2 border-amber-200">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500">• EU ETS (EUA):</span>
-                    <span className="font-semibold text-gray-800">{currentMetrics.residualEuCo2.toLocaleString('en-US')} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.residualEuCo2.toLocaleString(locale)} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500">• UK ETS (UKA):</span>
-                    <span className="font-semibold text-gray-800">{currentMetrics.residualUkCo2.toLocaleString('en-US')} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.residualUkCo2.toLocaleString(locale)} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500">• CORSIA (CEU):</span>
-                    <span className="font-semibold text-gray-800">{currentMetrics.residualCorsiaCo2.toLocaleString('en-US')} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
+                    <span className="font-semibold text-gray-800">{currentMetrics.residualCorsiaCo2.toLocaleString(locale)} <span className="text-[10px] text-gray-400">tín chỉ</span></span>
                   </div>
                 </div>
               </div>
@@ -2169,51 +2609,103 @@ export const NetZeroV2Page: React.FC = () => {
                     2. Tổng Chi phí Tuân thủ
                   </p>
                   <h3 className="text-2xl font-black text-vna-navy mt-1">
-                    {(executiveKpiMetrics.totalScenarioCost / 1000000).toFixed(2)}M $
+                    {formatNumber(executiveKpiMetrics.totalScenarioCost / 1000000, 2, currentLang)}M $
                   </h3>
-
+                  <p className="text-xs font-bold text-vna-blue mt-0.5">
+                    ≈ {executiveKpiMetrics.totalScenarioCostVnd.toLocaleString(locale)} VND
+                  </p>
                 </div>
                 <div className="w-11 h-11 rounded-xl bg-blue-50 text-vna-blue flex items-center justify-center shrink-0">
                   <DollarSign size={22} />
                 </div>
               </div>
 
-              {/* TỔNG CHI PHÍ BẢNG CŨ */}
-              <div className="mt-4 pt-3 border-t border-gray-100 space-y-1.5 text-xs">
-                <div className="flex justify-between items-center text-gray-600">
-                  <span>• Mua SAF ({executiveKpiMetrics.totalAllocatedSaf.toLocaleString('en-US')} tấn):</span>
-                  <span className="font-bold text-gray-800">{(executiveKpiMetrics.safCost / 1000000).toFixed(2)}M $</span>
-                </div>
-                <div className="flex justify-between items-center text-gray-600">
-                  <span>• Mua tín chỉ CO₂ còn lại:</span>
-                  <span className="font-bold text-gray-800">{(executiveKpiMetrics.totalCreditCost / 1000000).toFixed(2)}M $</span>
+              {/* PHẦN 1: MUA SAF & CHI PHÍ MUA SAF DỰ KIẾN THEO CƠ CHẾ */}
+              <div className="mt-4 pt-3 border-t border-gray-100 text-xs">
+                <div className="flex justify-between items-center text-gray-700 font-bold mb-2">
+                  <span>• Mua SAF ({executiveKpiMetrics.totalAllocatedSaf.toLocaleString(locale)} tấn):</span>
+                  <div className="text-right">
+                    <span className="font-black text-gray-900">{formatNumber(executiveKpiMetrics.safCost / 1000000, 2, currentLang)}M $</span>
+                    <div className="text-[10px] text-gray-500 font-medium">
+                      ≈ {executiveKpiMetrics.safCostVnd.toLocaleString(locale)} VND
+                    </div>
+                  </div>
                 </div>
 
+                <div className="pt-2 border-t border-dashed border-gray-200">
+                  <div className="mb-2">
+                    <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide">
+                      Chi phí mua SAF dự kiến:
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 text-xs text-gray-600 pl-2 border-l-2 border-emerald-400">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">• EU ETS ({currentMetrics.safEuTonnes.toLocaleString(locale)} tấn):</span>
+                      <div className="text-right">
+                        <span className="font-semibold text-gray-800">{executiveKpiMetrics.safCostEu.toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-gray-500">≈ {executiveKpiMetrics.safCostEuVnd.toLocaleString(locale)} VND</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">• UK ETS ({currentMetrics.safUkTonnes.toLocaleString(locale)} tấn):</span>
+                      <div className="text-right">
+                        <span className="font-semibold text-gray-800">{executiveKpiMetrics.safCostUk.toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-gray-500">≈ {executiveKpiMetrics.safCostUkVnd.toLocaleString(locale)} VND</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">• CORSIA ({currentMetrics.safCorsiaTonnes.toLocaleString(locale)} tấn):</span>
+                      <div className="text-right">
+                        <span className="font-semibold text-gray-800">{executiveKpiMetrics.safCostCorsia.toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-gray-500">≈ {executiveKpiMetrics.safCostCorsiaVnd.toLocaleString(locale)} VND</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* PHẦN CHI TIẾT TỐI GIẢN: CHI PHÍ MUA TÍN CHỈ DỰ KIẾN THEO CƠ CHẾ */}
-              <div className="mt-3.5 pt-3 border-t border-dashed border-gray-200">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide">
-                    Chi phí mua tín chỉ dự kiến:
-                  </span>
-                  <span className="text-xs font-black text-vna-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                    {currentMetrics.totalCost.toLocaleString('en-US')} $
-                  </span>
+              {/* PHẦN 2: MUA TÍN CHỈ CO2 CÒN LẠI & CHI PHÍ MUA TÍN CHỈ DỰ KIẾN THEO CƠ CHẾ */}
+              <div className="mt-3.5 pt-3 border-t border-dashed border-gray-200 text-xs">
+                <div className="flex justify-between items-center text-gray-700 font-bold mb-2">
+                  <span>• Mua tín chỉ CO₂ còn lại:</span>
+                  <div className="text-right">
+                    <span className="font-black text-gray-900">{formatNumber(executiveKpiMetrics.totalCreditCost / 1000000, 2, currentLang)}M $</span>
+                    <div className="text-[10px] text-gray-500 font-medium">
+                      ≈ {executiveKpiMetrics.totalCreditCostVnd.toLocaleString(locale)} VND
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-1 text-xs text-gray-600 pl-2 border-l-2 border-blue-200">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-500">• EU ETS ({marketParams.priceEuEts} $/EUA):</span>
-                    <span className="font-semibold text-gray-800">{currentMetrics.costEu.toLocaleString('en-US')} $</span>
+                <div className="pt-2 border-t border-dashed border-gray-200">
+                  <div className="mb-2">
+                    <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide">
+                      Chi phí mua tín chỉ dự kiến:
+                    </span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-500">• UK ETS ({marketParams.priceUkEts} $/UKA):</span>
-                    <span className="font-semibold text-gray-800">{currentMetrics.costUk.toLocaleString('en-US')} $</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-500">• CORSIA ({marketParams.priceCorsia} $/CEU):</span>
-                    <span className="font-semibold text-gray-800">{currentMetrics.costCorsia.toLocaleString('en-US')} $</span>
+
+                  <div className="space-y-1.5 text-xs text-gray-600 pl-2 border-l-2 border-blue-200">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">• EU ETS ({marketParams.priceEuEts} $/EUA):</span>
+                      <div className="text-right">
+                        <span className="font-semibold text-gray-800">{currentMetrics.costEu.toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-gray-500">≈ {currentMetrics.costEuVnd.toLocaleString(locale)} VND</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">• UK ETS ({marketParams.priceUkEts} $/UKA):</span>
+                      <div className="text-right">
+                        <span className="font-semibold text-gray-800">{currentMetrics.costUk.toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-gray-500">≈ {currentMetrics.costUkVnd.toLocaleString(locale)} VND</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">• CORSIA ({marketParams.priceCorsia} $/CEU):</span>
+                      <div className="text-right">
+                        <span className="font-semibold text-gray-800">{currentMetrics.costCorsia.toLocaleString(locale)} $</span>
+                        <div className="text-[10px] text-gray-500">≈ {currentMetrics.costCorsiaVnd.toLocaleString(locale)} VND</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2264,9 +2756,9 @@ export const NetZeroV2Page: React.FC = () => {
                   <h3 className="text-base font-black text-vna-navy">
                     So sánh Các Phương án & Kịch bản Phân bổ SAF
                   </h3>
-                  <p className="text-xs text-gray-500">
+                  {/* <p className="text-xs text-gray-500">
                     Lựa chọn các kịch bản trong danh sách để đối chiếu chi phí tuân thủ, số tín chỉ CO₂ cần mua và hiệu quả bù trừ
-                  </p>
+                  </p> */}
                 </div>
               </div>
 
@@ -2327,11 +2819,11 @@ export const NetZeroV2Page: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <span className="text-gray-400 italic text-[11px] hidden md:inline">
                   * Nhấp "Chọn kịch bản so sánh" để tìm kiếm, chọn hoặc bỏ bớt kịch bản
                 </span>
-              </div>
+              </div> */}
             </div>
 
             {/* Modal Scrollable Content: Dynamic Comparison Matrix Table */}
@@ -2361,11 +2853,17 @@ export const NetZeroV2Page: React.FC = () => {
                               allocationMode: allocationMode,
                               metrics: {
                                 totalCost: currentMetrics.totalCost,
+                                totalCostVnd: currentMetrics.totalCostVnd,
                                 grossCost: currentMetrics.grossCost,
+                                grossCostVnd: currentMetrics.grossCostVnd,
                                 totalSavedVsGross: currentMetrics.totalSavedVsGross,
+                                totalSavedVsGrossVnd: currentMetrics.totalSavedVsGrossVnd,
                                 costEu: currentMetrics.costEu,
+                                costEuVnd: currentMetrics.costEuVnd,
                                 costUk: currentMetrics.costUk,
+                                costUkVnd: currentMetrics.costUkVnd,
                                 costCorsia: currentMetrics.costCorsia,
+                                costCorsiaVnd: currentMetrics.costCorsiaVnd,
                                 safEuTonnes: currentMetrics.safEuTonnes,
                                 safUkTonnes: currentMetrics.safUkTonnes,
                                 safCorsiaTonnes: currentMetrics.safCorsiaTonnes,
@@ -2396,11 +2894,17 @@ export const NetZeroV2Page: React.FC = () => {
                                 allocationMode: sc.allocationMode,
                                 metrics: {
                                   totalCost: calcM.totalCost,
+                                  totalCostVnd: calcM.totalCostVnd,
                                   grossCost: calcM.grossCost,
+                                  grossCostVnd: calcM.grossCostVnd,
                                   totalSavedVsGross: calcM.totalSavedVsGross,
+                                  totalSavedVsGrossVnd: calcM.totalSavedVsGrossVnd,
                                   costEu: calcM.costEu,
+                                  costEuVnd: calcM.costEuVnd,
                                   costUk: calcM.costUk,
+                                  costUkVnd: calcM.costUkVnd,
                                   costCorsia: calcM.costCorsia,
+                                  costCorsiaVnd: calcM.costCorsiaVnd,
                                   safEuTonnes: calcM.safEuTonnes,
                                   safUkTonnes: calcM.safUkTonnes,
                                   safCorsiaTonnes: calcM.safCorsiaTonnes,
@@ -2449,11 +2953,17 @@ export const NetZeroV2Page: React.FC = () => {
                             name: 'Phương án Hiện tại',
                             metrics: {
                               totalCost: currentMetrics.totalCost,
+                              totalCostVnd: currentMetrics.totalCostVnd,
                               grossCost: currentMetrics.grossCost,
+                              grossCostVnd: currentMetrics.grossCostVnd,
                               totalSavedVsGross: currentMetrics.totalSavedVsGross,
+                              totalSavedVsGrossVnd: currentMetrics.totalSavedVsGrossVnd,
                               costEu: currentMetrics.costEu,
+                              costEuVnd: currentMetrics.costEuVnd,
                               costUk: currentMetrics.costUk,
+                              costUkVnd: currentMetrics.costUkVnd,
                               costCorsia: currentMetrics.costCorsia,
+                              costCorsiaVnd: currentMetrics.costCorsiaVnd,
                               safEuTonnes: currentMetrics.safEuTonnes,
                               safUkTonnes: currentMetrics.safUkTonnes,
                               safCorsiaTonnes: currentMetrics.safCorsiaTonnes,
@@ -2480,11 +2990,17 @@ export const NetZeroV2Page: React.FC = () => {
                               name: sc.name,
                               metrics: {
                                 totalCost: calcM.totalCost,
+                                totalCostVnd: calcM.totalCostVnd,
                                 grossCost: calcM.grossCost,
+                                grossCostVnd: calcM.grossCostVnd,
                                 totalSavedVsGross: calcM.totalSavedVsGross,
+                                totalSavedVsGrossVnd: calcM.totalSavedVsGrossVnd,
                                 costEu: calcM.costEu,
+                                costEuVnd: calcM.costEuVnd,
                                 costUk: calcM.costUk,
+                                costUkVnd: calcM.costUkVnd,
                                 costCorsia: calcM.costCorsia,
+                                costCorsiaVnd: calcM.costCorsiaVnd,
                                 safEuTonnes: calcM.safEuTonnes,
                                 safUkTonnes: calcM.safUkTonnes,
                                 safCorsiaTonnes: calcM.safCorsiaTonnes,
@@ -2520,8 +3036,11 @@ export const NetZeroV2Page: React.FC = () => {
                               {cols.map((c) => (
                                 <td key={c.id} className="py-3 px-4 text-center border-l border-gray-200">
                                   <span className="text-sm font-black text-vna-navy">
-                                    {c.metrics.totalCost.toLocaleString('en-US')} $
+                                    {c.metrics.totalCost.toLocaleString(locale)} $
                                   </span>
+                                  <div className="text-[11px] font-semibold text-gray-500 mt-0.5">
+                                    ≈ {c.metrics.totalCostVnd.toLocaleString(locale)} VND
+                                  </div>
                                 </td>
                               ))}
                             </tr>
@@ -2533,7 +3052,10 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold text-emerald-700">
-                                  +{c.metrics.totalSavedVsGross.toLocaleString('en-US')} $
+                                  <div>+{c.metrics.totalSavedVsGross.toLocaleString(locale)} $</div>
+                                  <div className="text-[10px] text-emerald-600 font-medium">
+                                    ≈ +{c.metrics.totalSavedVsGrossVnd.toLocaleString(locale)} VND
+                                  </div>
                                 </td>
                               ))}
                             </tr>
@@ -2552,14 +3074,21 @@ export const NetZeroV2Page: React.FC = () => {
                                   );
                                 }
                                 const diff = c.metrics.totalCost - currentMetrics.totalCost;
+                                const diffVnd = c.metrics.totalCostVnd - currentMetrics.totalCostVnd;
                                 return (
                                   <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold">
                                     {diff === 0 ? (
                                       <span className="text-gray-400">Bằng nhau</span>
                                     ) : diff < 0 ? (
-                                      <span className="text-emerald-700">Tiết kiệm {Math.abs(diff).toLocaleString('en-US')} $</span>
+                                      <div>
+                                        <span className="text-emerald-700">Tiết kiệm {Math.abs(diff).toLocaleString(locale)} $</span>
+                                        <div className="text-[10px] text-emerald-600 font-medium">≈ -{Math.abs(diffVnd).toLocaleString(locale)} VND</div>
+                                      </div>
                                     ) : (
-                                      <span className="text-rose-600">Cao hơn +{diff.toLocaleString('en-US')} $</span>
+                                      <div>
+                                        <span className="text-rose-600">Cao hơn +{diff.toLocaleString(locale)} $</span>
+                                        <div className="text-[10px] text-rose-500 font-medium">≈ +{diffVnd.toLocaleString(locale)} VND</div>
+                                      </div>
                                     )}
                                   </td>
                                 );
@@ -2579,7 +3108,7 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-black text-amber-800">
-                                  {c.metrics.totalResidualCredits.toLocaleString('en-US')} tín chỉ
+                                  {c.metrics.totalResidualCredits.toLocaleString(locale)} tín chỉ
                                 </td>
                               ))}
                             </tr>
@@ -2590,7 +3119,7 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
-                                  {c.metrics.residualEuCo2.toLocaleString('en-US')} EUA
+                                  {c.metrics.residualEuCo2.toLocaleString(locale)} EUA
                                 </td>
                               ))}
                             </tr>
@@ -2601,7 +3130,7 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
-                                  {c.metrics.residualUkCo2.toLocaleString('en-US')} UKA
+                                  {c.metrics.residualUkCo2.toLocaleString(locale)} UKA
                                 </td>
                               ))}
                             </tr>
@@ -2612,7 +3141,7 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
-                                  {c.metrics.residualCorsiaCo2.toLocaleString('en-US')} CEU
+                                  {c.metrics.residualCorsiaCo2.toLocaleString(locale)} CEU
                                 </td>
                               ))}
                             </tr>
@@ -2629,8 +3158,9 @@ export const NetZeroV2Page: React.FC = () => {
                                 Chi phí mua EUA (EU ETS)
                               </td>
                               {cols.map((c) => (
-                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
-                                  {c.metrics.costEu.toLocaleString('en-US')} $
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
+                                  <div className="font-bold text-gray-800">{c.metrics.costEu.toLocaleString(locale)} $</div>
+                                  <div className="text-[10px] text-gray-500">≈ {c.metrics.costEuVnd.toLocaleString(locale)} VND</div>
                                 </td>
                               ))}
                             </tr>
@@ -2640,8 +3170,9 @@ export const NetZeroV2Page: React.FC = () => {
                                 Chi phí mua UKA (UK ETS)
                               </td>
                               {cols.map((c) => (
-                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
-                                  {c.metrics.costUk.toLocaleString('en-US')} $
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
+                                  <div className="font-bold text-gray-800">{c.metrics.costUk.toLocaleString(locale)} $</div>
+                                  <div className="text-[10px] text-gray-500">≈ {c.metrics.costUkVnd.toLocaleString(locale)} VND</div>
                                 </td>
                               ))}
                             </tr>
@@ -2651,8 +3182,9 @@ export const NetZeroV2Page: React.FC = () => {
                                 Chi phí mua CEU (CORSIA)
                               </td>
                               {cols.map((c) => (
-                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
-                                  {c.metrics.costCorsia.toLocaleString('en-US')} $
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
+                                  <div className="font-bold text-gray-800">{c.metrics.costCorsia.toLocaleString(locale)} $</div>
+                                  <div className="text-[10px] text-gray-500">≈ {c.metrics.costCorsiaVnd.toLocaleString(locale)} VND</div>
                                 </td>
                               ))}
                             </tr>
@@ -2670,7 +3202,7 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-vna-blue">
-                                  {c.metrics.totalSaf.toLocaleString('en-US')} tấn
+                                  {c.metrics.totalSaf.toLocaleString(locale)} tấn
                                 </td>
                               ))}
                             </tr>
@@ -2681,7 +3213,7 @@ export const NetZeroV2Page: React.FC = () => {
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-emerald-700">
-                                  {c.metrics.totalCo2Saved.toLocaleString('en-US')} tCO₂
+                                  {c.metrics.totalCo2Saved.toLocaleString(locale)} tCO₂
                                 </td>
                               ))}
                             </tr>
@@ -2731,9 +3263,9 @@ export const NetZeroV2Page: React.FC = () => {
                       <h4 className="text-sm font-black text-vna-navy">
                         Chọn Kịch Bản Để Đưa Vào Bảng So Sánh
                       </h4>
-                      <p className="text-[11px] text-gray-500 mt-0.5">
+                      {/* <p className="text-[11px] text-gray-500 mt-0.5">
                         Tích chọn các kịch bản bạn muốn so sánh đối chiếu cùng lúc (tối thiểu 1 kịch bản)
-                      </p>
+                      </p> */}
                     </div>
                     <button
                       onClick={() => setIsSelectScenariosPickerOpen(false)}
@@ -2755,19 +3287,34 @@ export const NetZeroV2Page: React.FC = () => {
 
                     <div className="flex items-center justify-between text-xs pt-0.5">
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setTempSelectedScenarioIds(['CURRENT', ...savedScenarios.map(s => s.id)])}
-                          className="text-vna-blue hover:underline font-bold text-xs cursor-pointer"
-                        >
-                          Chọn tất cả ({savedScenarios.length + 1})
-                        </button>
-                        <span className="text-gray-300">•</span>
-                        <button
-                          onClick={() => setTempSelectedScenarioIds(['CURRENT'])}
-                          className="text-gray-500 hover:underline font-semibold text-xs cursor-pointer"
-                        >
-                          Chỉ chọn Hiện tại
-                        </button>
+                        {(() => {
+                          const isAllActive = tempSelectedScenarioIds.length === savedScenarios.length + 1;
+                          const isCurrentActive = !isAllActive && tempSelectedScenarioIds.length === 1 && tempSelectedScenarioIds.includes('CURRENT');
+
+                          return (
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => setTempSelectedScenarioIds(['CURRENT', ...savedScenarios.map(s => s.id)])}
+                                className={"text-xs cursor-pointer transition-colors " + (isAllActive
+                                  ? "text-vna-blue font-bold hover:underline"
+                                  : "text-gray-400 hover:text-gray-700 font-medium")}
+                              >
+                                Chọn tất cả
+                              </button>
+                              <span className="text-gray-300">•</span>
+                              <button
+                                type="button"
+                                onClick={() => setTempSelectedScenarioIds(['CURRENT'])}
+                                className={"text-xs cursor-pointer transition-colors " + (isCurrentActive
+                                  ? "text-vna-blue font-bold hover:underline"
+                                  : "text-gray-400 hover:text-gray-700 font-medium")}
+                              >
+                                Chỉ chọn Hiện tại
+                              </button>
+                            </>
+                          );
+                        })()}
                       </div>
 
                       <span className="text-gray-500 text-[11px]">
@@ -2807,7 +3354,7 @@ export const NetZeroV2Page: React.FC = () => {
                               <span className="px-2 py-0.2 rounded bg-blue-50 text-vna-blue text-[10px] font-bold">{reportPeriod}</span>
                             </div>
                             <p className="text-[11px] text-gray-500 mt-0.5">
-                              SAF: {(currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes).toLocaleString('en-US')} tấn • CO₂ giảm: {(currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved).toLocaleString('en-US')} tCO₂ • Chi phí: {currentMetrics.totalCost.toLocaleString('en-US')} $
+                              SAF: {(currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes).toLocaleString(locale)} tấn • CO₂ giảm: {(currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved).toLocaleString(locale)} tCO₂ • Chi phí: {currentMetrics.totalCost.toLocaleString(locale)} $ (≈ {currentMetrics.totalCostVnd.toLocaleString(locale)} VND)
                             </p>
                           </div>
                         </div>
@@ -2852,7 +3399,7 @@ export const NetZeroV2Page: React.FC = () => {
                                   <span className="px-2 py-0.2 rounded bg-blue-50 text-vna-blue text-[10px] font-bold border border-blue-100">{sc.period}</span>
                                 </div>
                                 <p className="text-[11px] text-gray-500 mt-0.5">
-                                  SAF: {sc.metrics.totalAllocatedSaf.toLocaleString('en-US')} tấn • CO₂ giảm: {sc.metrics.co2Saved.toLocaleString('en-US')} tCO₂ • Tín chỉ: {sc.metrics.totalCredits.toLocaleString('en-US')} • Chi phí: {sc.metrics.totalCost.toLocaleString('en-US')} $
+                                  SAF: {sc.metrics.totalAllocatedSaf.toLocaleString(locale)} tấn • CO₂ giảm: {sc.metrics.co2Saved.toLocaleString(locale)} tCO₂ • Tín chỉ: {sc.metrics.totalCredits.toLocaleString(locale)} • Chi phí: {sc.metrics.totalCost.toLocaleString(locale)} $ (≈ {(sc.metrics.totalCostVnd ?? (sc.metrics.totalCost * 25450)).toLocaleString(locale)} VND)
                                 </p>
                               </div>
                             </div>
@@ -2974,7 +3521,7 @@ export const NetZeroV2Page: React.FC = () => {
                     <option value="">-- Chọn lô SAF trong kho --</option>
                     {SAF_WAREHOUSE_REPOSITORY.map((item) => (
                       <option key={item.batchNo} value={item.batchNo}>
-                        {item.batchNo} ({item.airportCode} - {item.tonnes.toLocaleString('en-US')} tấn)
+                        {item.batchNo} ({item.airportCode} - {item.tonnes.toLocaleString(locale)} tấn)
                       </option>
                     ))}
                   </select>
@@ -2998,7 +3545,7 @@ export const NetZeroV2Page: React.FC = () => {
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Khối lượng SAF (tấn):</label>
                   <Input
-                    value={newBatch.tonnes ? `${newBatch.tonnes.toLocaleString('en-US')} tấn` : ''}
+                    value={newBatch.tonnes ? `${newBatch.tonnes.toLocaleString(locale)} tấn` : ''}
                     disabled
                     readOnly
                     placeholder="Tự động theo mã lô"
@@ -3087,13 +3634,13 @@ export const NetZeroV2Page: React.FC = () => {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 pt-1">
-                          <span>SAF: <strong className="text-gray-800 font-bold">{sc.metrics.totalAllocatedSaf.toLocaleString('en-US')} tấn</strong></span>
+                          <span>SAF: <strong className="text-gray-800 font-bold">{sc.metrics.totalAllocatedSaf.toLocaleString(locale)} tấn</strong></span>
                           <span>•</span>
-                          <span>CO₂ giảm: <strong className="text-emerald-600 font-bold">{sc.metrics.co2Saved.toLocaleString('en-US')} tCO₂</strong></span>
+                          <span>CO₂ giảm: <strong className="text-emerald-600 font-bold">{sc.metrics.co2Saved.toLocaleString(locale)} tCO₂</strong></span>
                           <span>•</span>
-                          <span>Tín chỉ bù đắp: <strong className="text-amber-700 font-bold">{sc.metrics.totalCredits.toLocaleString('en-US')}</strong></span>
+                          <span>Tín chỉ bù đắp: <strong className="text-amber-700 font-bold">{sc.metrics.totalCredits.toLocaleString(locale)}</strong></span>
                           <span>•</span>
-                          <span>Chi phí bù đắp: <strong className="text-vna-navy font-black">{sc.metrics.totalCost.toLocaleString('en-US')} $</strong></span>
+                          <span>Chi phí bù đắp: <strong className="text-vna-navy font-black">{sc.metrics.totalCost.toLocaleString(locale)} $</strong> <span className="text-[10px] text-gray-500 font-normal">(≈ {(sc.metrics.totalCostVnd ?? (sc.metrics.totalCost * 25450)).toLocaleString(locale)} VND)</span></span>
                         </div>
 
                         <p className="text-[11px] text-gray-400">
@@ -3184,11 +3731,11 @@ export const NetZeroV2Page: React.FC = () => {
                 </div> */}
                 <div className="flex justify-between">
                   <span>Số tín chỉ CO₂ phải mua:</span>
-                  <strong className="text-amber-700">{(currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2).toLocaleString('en-US')} tín chỉ</strong>
+                  <strong className="text-amber-700">{(currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2).toLocaleString(locale)} tín chỉ</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>Tổng ngân sách tuân thủ:</span>
-                  <strong className="text-vna-navy">{(executiveKpiMetrics.totalScenarioCost / 1000000).toFixed(2)}M $</strong>
+                  <div className="text-right"><strong className="text-vna-navy">{formatNumber(executiveKpiMetrics.totalScenarioCost / 1000000, 2, currentLang)}M $</strong><div className="text-[10px] text-gray-500 font-medium">≈ {executiveKpiMetrics.totalScenarioCostVnd.toLocaleString(locale)} VND</div></div>
                 </div>
               </div>
             </div>
