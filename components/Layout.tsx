@@ -356,6 +356,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Footer */}
         <div className={`p-4 pb-8 md:pb-4 border-t border-white/10 bg-black/10 shrink-0 overflow-hidden`}>
+          <a
+            href="#/public"
+            className={`flex items-center gap-2 text-white/80 hover:text-white w-full text-sm font-medium transition-colors mb-3 px-1 py-1.5 rounded-lg hover:bg-white/10 ${isCollapsed && !isMobile ? "justify-center" : ""}`}
+            title={currentLang === "vi" ? "Xem Cổng đối ngoại (Web Public / Landing Page)" : "View Public Portal"}
+          >
+            <Globe size={18} className="text-sky-300 shrink-0" />
+            <span className={`transition-opacity duration-200 truncate ${isCollapsed && !isMobile ? "opacity-0 hidden" : "opacity-100"}`}>
+              {currentLang === "vi" ? "Cổng đối ngoại" : "Public Portal"}
+            </span>
+          </a>
           <button
             onClick={onLogout}
             className={`flex items-center gap-2 text-white/70 hover:text-white w-full text-sm font-medium transition-colors ${isCollapsed && !isMobile ? 'justify-center' : ''}`}

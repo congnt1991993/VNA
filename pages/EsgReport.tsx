@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Card, Button, Badge, Table, Input, Modal, Toast } from '../components/UI';
-import { FileText, Upload, Clock, CheckCircle, Send, Plus, ChevronLeft, Building2, UploadCloud, Download, AlertCircle, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { FileText, Upload, Trash2, Clock, CheckCircle, Send, Plus, ChevronLeft, Building2, UploadCloud, Download, AlertCircle, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 
 const DEPARTMENTS = [
   'Khối Kỹ thuật', 'Khối Khai thác', 'Khối Dịch vụ', 'Ban ATCL', 'Đoàn bay', 'Đoàn tiếp viên', 'Ban Nhân sự', 'Trung tâm BSV'
@@ -77,12 +77,14 @@ export const EsgReportPage: React.FC = () => {
           'Ban Nhân sự': 'hr.dept@vietnamairlines.com',
           'Trung tâm BSV': 'lotusmile@vietnamairlines.com'
         };
+        const defaultFile = `BC_SoLieu_${d.replace(/ /g, '')}_2026.pdf`;
         return {
           name: d,
           status: i < 6 ? 'SUBMITTED' : 'PENDING',
           submittedAt: i < 6 ? '20/01/2026 14:35' : null,
           submittedUser: i < 6 ? (emailMap[d] || 'staff@vietnamairlines.com') : null,
-          file: i < 6 ? `BC_SoLieu_${d.replace(/ /g, '')}_2026.pdf` : null
+          files: i < 6 ? [defaultFile] : [],
+          file: i < 6 ? defaultFile : null
         };
       })
     },
@@ -108,12 +110,14 @@ export const EsgReportPage: React.FC = () => {
           'Ban Nhân sự': 'hr.dept@vietnamairlines.com',
           'Trung tâm BSV': 'lotusmile@vietnamairlines.com'
         };
+        const defaultFile = `BC_SoLieu_${d.replace(/ /g, '')}_2025.pdf`;
         return {
           name: d,
           status: 'SUBMITTED',
           submittedAt: '25/01/2025 09:15',
           submittedUser: emailMap[d] || 'staff@vietnamairlines.com',
-          file: `BC_SoLieu_${d.replace(/ /g, '')}_2025.pdf`
+          files: [defaultFile],
+          file: defaultFile
         };
       })
     }
@@ -188,6 +192,7 @@ export const EsgReportPage: React.FC = () => {
         status: 'PENDING',
         submittedAt: null,
         submittedUser: null,
+        files: [],
         file: null
       }))
     };
@@ -542,56 +547,130 @@ export const EsgReportPage: React.FC = () => {
                     <th className="px-4 py-3">Trạng thái</th>
                     <th className="px-4 py-3">Tài khoản</th>
                     <th className="px-4 py-3">Thời gian</th>
-                    <th className="px-4 py-3 text-center">Tệp đính kèm</th>
-                    <th className="px-4 py-3 text-center w-24">Thao tác</th>
+                    <th className="px-4 py-3">Tệp đính kèm (docx, pdf)</th>
+                    <th className="px-4 py-3 text-center w-28">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {selectedCampaign.departments.map((dept: any, idx: number) => {
+                    const deptFiles: string[] = Array.isArray(dept.files)
+                      ? dept.files
+                      : (dept.file ? [dept.file] : []);
+
                     const handleDownload = (fileName: string, e: React.MouseEvent) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       setToast({ message: `Đang tải xuống tệp tin: ${fileName}...`, type: 'success' });
+                    };
+
+                    const handleDeleteFile = (deptName: string, fileName: string, e: React.MouseEvent) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const updatedCampaigns = campaigns.map(c => {
+                        if (c.id === selectedCampaign.id) {
+                          const updatedDepts = c.departments.map(d => {
+                            if (d.name === deptName) {
+                              const currentFiles: string[] = Array.isArray(d.files) ? [...d.files] : (d.file ? [d.file] : []);
+                              const newFiles = currentFiles.filter(f => f !== fileName);
+                              const hasRemaining = newFiles.length > 0;
+                              return {
+                                ...d,
+                                status: hasRemaining ? 'SUBMITTED' : 'PENDING',
+                                submittedAt: hasRemaining ? d.submittedAt : null,
+                                submittedUser: hasRemaining ? d.submittedUser : null,
+                                files: newFiles,
+                                file: newFiles[0] || null
+                              };
+                            }
+                            return d;
+                          });
+                          return {
+                            ...c,
+                            progress: updatedDepts.filter(d => (d.files && d.files.length > 0) || d.status === 'SUBMITTED').length,
+                            departments: updatedDepts
+                          };
+                        }
+                        return c;
+                      });
+                      setCampaigns(updatedCampaigns);
+                      const currentCamp = updatedCampaigns.find(c => c.id === selectedCampaign.id);
+                      if (currentCamp) setSelectedCampaign(currentCamp);
+                      setToast({ message: `Đã xóa tài liệu "${fileName}" của đơn vị "${deptName}".`, type: 'info' });
                     };
 
                     const handleUploadPlaceholder = (deptName: string) => {
                       const input = document.createElement('input');
                       input.type = 'file';
-                      input.accept = '.pdf,.doc,.docx,.xls,.xlsx';
+                      input.accept = '.pdf,.docx';
+                      input.multiple = true;
                       input.onchange = (event: any) => {
-                        const file = event.target.files?.[0];
-                        if (file) {
-                          // Update mock details
-                          const updatedCampaigns = campaigns.map(c => {
-                            if (c.id === selectedCampaign.id) {
-                              const updatedDepts = c.departments.map(d => {
-                                if (d.name === deptName) {
-                                  // format time as ddMMyyyy hh:mm
-                                  const now = new Date();
-                                  const pad = (n: number) => String(n).padStart(2, '0');
-                                  const formattedDate = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-                                  return {
-                                    ...d,
-                                    status: 'SUBMITTED',
-                                    submittedAt: formattedDate,
-                                    submittedUser: 'current.user@vietnamairlines.com',
-                                    file: file.name
-                                  };
-                                }
-                                return d;
-                              });
-                              return {
-                                ...c,
-                                progress: updatedDepts.filter(d => d.status === 'SUBMITTED').length,
-                                departments: updatedDepts
-                              };
-                            }
-                            return c;
+                        const selectedFiles: File[] = Array.from(event.target.files || []);
+                        if (selectedFiles.length === 0) return;
+
+                        const allowedExtensions = ['.pdf', '.docx'];
+                        const validFiles = selectedFiles.filter(f => {
+                          const ext = f.name.substring(f.name.lastIndexOf('.')).toLowerCase();
+                          return allowedExtensions.includes(ext);
+                        });
+
+                        if (validFiles.length === 0) {
+                          setToast({
+                            message: 'Định dạng tệp không hợp lệ! Vui lòng chỉ chọn tệp định dạng .pdf hoặc .docx.',
+                            type: 'error'
                           });
-                          setCampaigns(updatedCampaigns);
-                          const currentCamp = updatedCampaigns.find(c => c.id === selectedCampaign.id);
-                          if (currentCamp) setSelectedCampaign(currentCamp);
-                          setToast({ message: `Đã upload tệp tin "${file.name}" cho đơn vị "${deptName}" thành công!`, type: 'success' });
+                          return;
                         }
+
+                        if (validFiles.length < selectedFiles.length) {
+                          setToast({
+                            message: 'Một số tệp không phải .pdf hoặc .docx đã bị bỏ qua.',
+                            type: 'info'
+                          });
+                        }
+
+                        const now = new Date();
+                        const pad = (n: number) => String(n).padStart(2, '0');
+                        const formattedDate = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+                        const updatedCampaigns = campaigns.map(c => {
+                          if (c.id === selectedCampaign.id) {
+                            const updatedDepts = c.departments.map(d => {
+                              if (d.name === deptName) {
+                                const currentFiles: string[] = Array.isArray(d.files) ? [...d.files] : (d.file ? [d.file] : []);
+                                const newFileNames = validFiles.map(f => f.name);
+                                const mergedFiles = [...currentFiles];
+                                newFileNames.forEach(fn => {
+                                  if (!mergedFiles.includes(fn)) {
+                                    mergedFiles.push(fn);
+                                  }
+                                });
+
+                                return {
+                                  ...d,
+                                  status: 'SUBMITTED',
+                                  submittedAt: formattedDate,
+                                  submittedUser: 'current.user@vietnamairlines.com',
+                                  files: mergedFiles,
+                                  file: mergedFiles[0] || null
+                                };
+                              }
+                              return d;
+                            });
+                            return {
+                              ...c,
+                              progress: updatedDepts.filter(d => (d.files && d.files.length > 0) || d.status === 'SUBMITTED').length,
+                              departments: updatedDepts
+                            };
+                          }
+                          return c;
+                        });
+                        setCampaigns(updatedCampaigns);
+                        const currentCamp = updatedCampaigns.find(c => c.id === selectedCampaign.id);
+                        if (currentCamp) setSelectedCampaign(currentCamp);
+                        setToast({
+                          message: `Đã tải lên ${validFiles.length} tài liệu (.docx/.pdf) cho đơn vị "${deptName}" thành công!`,
+                          type: 'success'
+                        });
                       };
                       input.click();
                     };
@@ -599,61 +678,84 @@ export const EsgReportPage: React.FC = () => {
                     const isDeptOverdue = dept.status === 'PENDING' && new Date() > new Date(selectedCampaign.deadline);
 
                     return (
-                      <tr key={idx} className="hover:bg-gray-50">
+                      <tr key={idx} className="hover:bg-gray-50/80 transition-colors">
                         <td className="px-4 py-3 font-medium">
                           <div className="flex items-center gap-2">
-                            <Building2 size={16} className="text-gray-400" />
-                            {dept.name}
+                            <Building2 size={16} className="text-gray-400 shrink-0" />
+                            <span className="text-sm text-gray-900 font-semibold">{dept.name}</span>
                           </div>
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex flex-col gap-1 items-start">
                             {dept.status === 'SUBMITTED' ? (
-                              <Badge variant="success">Đã gửi báo cáo</Badge>
+                              <Badge variant="success">Đã gửi ({deptFiles.length} tệp)</Badge>
                             ) : (
                               <Badge variant="danger">Chưa gửi</Badge>
                             )}
-                            {/* {isDeptOverdue && (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-black text-red-600 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded animate-pulse">
-                                <AlertCircle size={10} /> TRỄ HẠN
-                              </span>
-                            )} */}
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-sm text-gray-750 font-semibold">{dept.submittedUser || '-'}</td>
-                        <td className="px-4 py-3 text-sm text-gray-600 font-semibold font-mono">{dept.submittedAt || '-'}</td>
-                        <td className="px-4 py-3 text-sm text-center">
-                          {dept.file ? (
-                            <a
-                              href="#"
-                              onClick={(e) => handleDownload(dept.file, e)}
-                              className="text-vna-blue hover:underline inline-flex items-center gap-1 font-semibold"
-                            >
-                              <FileText size={14} /> {dept.file}
-                            </a>
+                        <td className="px-4 py-3 text-xs text-gray-700 font-medium">{dept.submittedUser || '-'}</td>
+                        <td className="px-4 py-3 text-xs text-gray-600 font-semibold font-mono">{dept.submittedAt || '-'}</td>
+                        <td className="px-4 py-3">
+                          {deptFiles.length > 0 ? (
+                            <div className="flex flex-col gap-1.5 max-w-sm">
+                              {deptFiles.map((fileName: string, fIdx: number) => {
+                                const isDocx = fileName.toLowerCase().endsWith('.docx');
+                                return (
+                                  <div
+                                    key={fIdx}
+                                    className="flex items-center justify-between gap-2 py-1 px-2.5 rounded-md bg-gray-50 border border-gray-200 hover:bg-blue-50/50 hover:border-blue-200 transition-colors group"
+                                  >
+                                    <div className="flex items-center gap-1.5 min-w-0">
+                                      <FileText
+                                        size={14}
+                                        className={isDocx ? "text-blue-600 shrink-0" : "text-red-500 shrink-0"}
+                                      />
+                                      <span
+                                        className="text-xs font-medium text-gray-800 truncate max-w-[190px]"
+                                        title={fileName}
+                                      >
+                                        {fileName}
+                                      </span>
+                                      <span className={`text-[10px] font-mono px-1 py-0.2 rounded font-semibold uppercase ${isDocx ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}`}>
+                                        {isDocx ? 'docx' : 'pdf'}
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-1 shrink-0">
+                                      <button
+                                        type="button"
+                                        onClick={(e) => handleDownload(fileName, e)}
+                                        className="p-1 rounded text-gray-500 hover:text-emerald-700 hover:bg-emerald-100/60 transition-colors cursor-pointer"
+                                        title={`Tải xuống ${fileName}`}
+                                      >
+                                        <Download size={13} />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => handleDeleteFile(dept.name, fileName, e)}
+                                        className="p-1 rounded text-gray-500 hover:text-red-600 hover:bg-red-100/60 transition-colors cursor-pointer"
+                                        title={`Xóa tài liệu ${fileName}`}
+                                      >
+                                        <Trash2 size={13} />
+                                      </button>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
                           ) : (
-                            <span className="text-gray-400 italic">Chưa có tệp</span>
+                            <span className="text-xs text-gray-400 italic">Chưa có tệp</span>
                           )}
                         </td>
                         <td className="px-4 py-3 text-center">
-                          <div className="flex justify-center items-center gap-1">
-                            <button
-                              onClick={() => handleUploadPlaceholder(dept.name)}
-                              className="p-1.5 rounded text-vna-blue hover:bg-vna-blue hover:text-white transition-colors cursor-pointer inline-flex items-center justify-center border border-vna-blue/20"
-                              title="Upload tệp báo cáo"
-                            >
-                              <Upload size={14} />
-                            </button>
-                            {dept.file && (
-                              <button
-                                onClick={(e) => handleDownload(dept.file, e)}
-                                className="p-1.5 rounded text-emerald-600 hover:bg-emerald-600 hover:text-white transition-colors cursor-pointer inline-flex items-center justify-center border border-emerald-200"
-                                title="Tải xuống tệp tin"
-                              >
-                                <Download size={14} />
-                              </button>
-                            )}
-                          </div>
+                          <button
+                            onClick={() => handleUploadPlaceholder(dept.name)}
+                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-vna-blue hover:bg-vna-blue hover:text-white transition-colors cursor-pointer inline-flex items-center justify-center gap-1 border border-vna-blue/25 bg-white hover:border-vna-blue shadow-2xs"
+                            title="Upload tệp báo cáo (.pdf, .docx)"
+                          >
+                            <Upload size={13} />
+                            <span>{deptFiles.length > 0 ? 'Thêm tệp' : 'Upload'}</span>
+                          </button>
                         </td>
                       </tr>
                     );

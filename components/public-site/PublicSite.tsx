@@ -14,11 +14,37 @@ import { ArrowDown, Facebook, Twitter, Linkedin, Youtube, Mail, Phone, MapPin } 
 
 interface PublicSiteProps {
   onLoginClick: () => void;
+  initialView?: string;
 }
 
-const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick }) => {
+const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick, initialView = 'home' }) => {
   const { t } = useTranslation();
-  const [currentView, setCurrentView] = useState<string>('home');
+  const [currentView, setCurrentView] = useState<string>(initialView || 'home');
+
+  useEffect(() => {
+    if (initialView) {
+      setCurrentView(initialView);
+    }
+  }, [initialView]);
+
+  useEffect(() => {
+    const handlePublicHash = () => {
+      const hash = window.location.hash || '';
+      if (hash.startsWith('#/public/pillar/')) {
+        const p = hash.replace('#/public/pillar/', '').split('?')[0];
+        if (p) setCurrentView(p);
+      } else if (hash.startsWith('#/public/about')) {
+        setCurrentView('about');
+      } else if (hash.startsWith('#/public/esg-reports')) {
+        setCurrentView('esg-reports');
+      } else if (hash === '#/public' || hash === '#/public/' || hash === '#public') {
+        setCurrentView('home');
+      }
+    };
+    handlePublicHash();
+    window.addEventListener('hashchange', handlePublicHash);
+    return () => window.removeEventListener('hashchange', handlePublicHash);
+  }, []);
   
   const heroRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
@@ -97,6 +123,7 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick }) => {
 
   const handlePillarDetailClick = (id: string) => {
     setCurrentView(id);
+    window.location.hash = "#/public/pillar/" + id;
     window.scrollTo(0, 0);
   };
 
@@ -143,7 +170,10 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick }) => {
             <div> 
                 <PillarDetail 
                     pillarId={currentView} 
-                    onBack={() => setCurrentView('home')} 
+                    onBack={() => {
+                      setCurrentView('home');
+                      window.location.hash = '#/public';
+                    }} 
                 />
             </div>
             <Footer />

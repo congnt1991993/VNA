@@ -63,6 +63,41 @@ const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [currentPage, setCurrentPage] = useState<PageName>('dashboard');
   const [showLogin, setShowLogin] = useState(false);
+  const [publicView, setPublicView] = useState<string>('home');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash || '';
+      if (hash.startsWith('#/public') || hash.startsWith('#public')) {
+        setIsAuthenticated(false);
+        setShowLogin(false);
+        if (hash.includes('/pillar/')) {
+          const p = hash.split('/pillar/')[1]?.split('?')[0];
+          setPublicView(p || 'environment');
+        } else if (hash.includes('/about')) {
+          setPublicView('about');
+        } else if (hash.includes('/esg-reports')) {
+          setPublicView('esg-reports');
+        } else {
+          setPublicView('home');
+        }
+      } else if (hash.startsWith('#/login') || hash.startsWith('#login')) {
+        setIsAuthenticated(false);
+        setShowLogin(true);
+      } else if (hash.startsWith('#/')) {
+        const page = hash.replace('#/', '').split('?')[0] as PageName;
+        if (page) {
+          setIsAuthenticated(true);
+          setShowLogin(false);
+          setCurrentPage(page);
+        }
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   useEffect(() => {
     // 1. Initialize vna_esg_indicators
@@ -133,6 +168,8 @@ const App: React.FC = () => {
   const handleLogout = () => {
     setIsAuthenticated(false);
     setShowLogin(false);
+    setPublicView('home');
+    window.location.hash = '#/public';
   };
 
   const renderContent = () => {
@@ -271,18 +308,33 @@ const App: React.FC = () => {
           onLogin={() => {
             setIsAuthenticated(true);
             setShowLogin(false);
+            window.location.hash = '#/dashboard';
           }} 
-          onBack={() => setShowLogin(false)}
+          onBack={() => {
+            setShowLogin(false);
+            window.location.hash = '#/public';
+          }}
         />
       );
     }
-    return <PublicSite onLoginClick={() => setShowLogin(true)} />;
+    return (
+      <PublicSite 
+        initialView={publicView}
+        onLoginClick={() => {
+          setShowLogin(true);
+          window.location.hash = '#/login';
+        }} 
+      />
+    );
   }
 
   return (
     <MainLayout 
       currentPage={currentPage} 
-      onNavigate={setCurrentPage}
+      onNavigate={(page) => {
+        setCurrentPage(page);
+        window.location.hash = "#/" + page;
+      }}
       onLogout={handleLogout}
     >
       <ErrorBoundary>

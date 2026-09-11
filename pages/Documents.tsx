@@ -369,38 +369,6 @@ const calculateNextDocVersions = (currentVerStr: string) => {
                         placeholder="Mô tả nội dung chính của tài liệu..."
                     />
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Phạm vi công bố</label>
-                        <div className="flex gap-4">
-                            <label className={`flex items-center gap-2 p-3 rounded border cursor-pointer flex-1 transition-all ${newDocForm.isPublic ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'}`}>
-                                <input
-                                    type="radio"
-                                    name="scope"
-                                    checked={newDocForm.isPublic}
-                                    onChange={() => setNewDocForm({ ...newDocForm, isPublic: true })}
-                                    className="text-vna-blue focus:ring-vna-blue"
-                                />
-                                <div>
-                                    <div className="text-sm font-bold text-black/85 flex items-center gap-1"><Globe size={14} /> Public (Công bố)</div>
-                                    <div className="text-xs text-black/45">Hiển thị trên Website và Báo cáo ngoài</div>
-                                </div>
-                            </label>
-                            <label className={`flex items-center gap-2 p-3 rounded border cursor-pointer flex-1 transition-all ${!newDocForm.isPublic ? 'bg-gray-100 border-gray-300' : 'bg-white border-gray-200'}`}>
-                                <input
-                                    type="radio"
-                                    name="scope"
-                                    checked={!newDocForm.isPublic}
-                                    onChange={() => setNewDocForm({ ...newDocForm, isPublic: false })}
-                                    className="text-vna-blue focus:ring-vna-blue"
-                                />
-                                <div>
-                                    <div className="text-sm font-bold text-black/85 flex items-center gap-1"><Lock size={14} /> Internal (Nội bộ)</div>
-                                    <div className="text-xs text-black/45">Chỉ lưu hành nội bộ hệ thống</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
                     <div className="pt-4 border-t border-gray-100 flex justify-end gap-3">
                         <Button variant="ghost" onClick={() => setViewMode('LIST')}>Hủy bỏ</Button>
                         <Button onClick={handleSaveNew}><Save size={16} /> Lưu tài liệu</Button>
@@ -538,38 +506,6 @@ const calculateNextDocVersions = (currentVerStr: string) => {
                                         Ban hành tài liệu mới thay thế hoặc qua phê duyệt cấp TCT.
                                     </p>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Phạm vi công bố</label>
-                            <div className="flex gap-4">
-                                <label className={`flex items-center gap-2 p-3 rounded border cursor-pointer flex-1 transition-all ${editDocForm.isPublic ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'}`}>
-                                    <input
-                                        type="radio"
-                                        name="scope_edit"
-                                        checked={editDocForm.isPublic}
-                                        onChange={() => setEditDocForm({ ...editDocForm, isPublic: true })}
-                                        className="text-vna-blue focus:ring-vna-blue"
-                                    />
-                                    <div>
-                                        <div className="text-sm font-bold text-black/85 flex items-center gap-1"><Globe size={14} /> Public (Công bố)</div>
-                                        <div className="text-xs text-black/45">Hiển thị trên Website và Báo cáo ngoài</div>
-                                    </div>
-                                </label>
-                                <label className={`flex items-center gap-2 p-3 rounded border cursor-pointer flex-1 transition-all ${!editDocForm.isPublic ? 'bg-gray-100 border-gray-300' : 'bg-white border-gray-200'}`}>
-                                    <input
-                                        type="radio"
-                                        name="scope_edit"
-                                        checked={!editDocForm.isPublic}
-                                        onChange={() => setEditDocForm({ ...editDocForm, isPublic: false })}
-                                        className="text-vna-blue focus:ring-vna-blue"
-                                    />
-                                    <div>
-                                        <div className="text-sm font-bold text-black/85 flex items-center gap-1"><Lock size={14} /> Internal (Nội bộ)</div>
-                                        <div className="text-xs text-black/45">Chỉ lưu hành nội bộ hệ thống</div>
-                                    </div>
-                                </label>
                             </div>
                         </div>
 

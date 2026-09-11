@@ -91,7 +91,7 @@ const formatNumber = (
   if (val === null || val === undefined || val === '') return '0';
   let num: number;
   if (typeof val === 'string') {
-    const cleaned = val.replace(/s/g, '').replace(/,/g, '.');
+    const cleaned = val.replace(/\s/g, '').replace(/,/g, '.');
     num = parseFloat(cleaned);
   } else {
     num = val;
@@ -153,50 +153,9 @@ const FormattedNumberInput: React.FC<{
     e.target.select();
   };
 
-  const handleBeforeInput = (e: React.FormEvent<HTMLInputElement>) => {
-    const inputEvent = e.nativeEvent as InputEvent;
-    if (inputEvent && inputEvent.data) {
-      if (isDecimal) {
-        if (!/^[0-9.,]+$/.test(inputEvent.data)) {
-          e.preventDefault();
-        }
-      } else {
-        if (!/^[0-9]+$/.test(inputEvent.data)) {
-          e.preventDefault();
-        }
-      }
-    }
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (
-      e.key === 'Backspace' ||
-      e.key === 'Delete' ||
-      e.key === 'Tab' ||
-      e.key === 'Escape' ||
-      e.key === 'Enter' ||
-      e.key === 'ArrowLeft' ||
-      e.key === 'ArrowRight' ||
-      e.key === 'ArrowUp' ||
-      e.key === 'ArrowDown' ||
-      e.key === 'Home' ||
-      e.key === 'End' ||
-      e.ctrlKey ||
-      e.metaKey
-    ) {
-      return;
-    }
-
-    // Decimal separator
-    if (isDecimal && (e.key === '.' || e.key === ',')) {
-      if (rawText.includes('.') || rawText.includes(',')) {
-        e.preventDefault();
-      }
-      return;
-    }
-
-    if (!/^[0-9]$/.test(e.key)) {
-      e.preventDefault();
+    if (e.key === 'Enter') {
+      e.currentTarget.blur();
     }
   };
 
@@ -205,14 +164,18 @@ const FormattedNumberInput: React.FC<{
 
     if (isDecimal) {
       if (activeLang === 'vi') {
-        val = val.replace(/./g, ',');
+        // Allow user to type dot from numpad, convert to comma
+        val = val.replace(/\./g, ',');
+        // Keep only digits and comma
         val = val.replace(/[^0-9,]/g, '');
         const parts = val.split(',');
         if (parts.length > 2) {
           val = parts[0] + ',' + parts.slice(1).join('');
         }
       } else {
+        // In English mode, convert comma to dot
         val = val.replace(/,/g, '.');
+        // Keep only digits and dot
         val = val.replace(/[^0-9.]/g, '');
         const parts = val.split('.');
         if (parts.length > 2) {
@@ -220,7 +183,7 @@ const FormattedNumberInput: React.FC<{
         }
       }
     } else {
-      val = val.replace(/D/g, '');
+      val = val.replace(/\D/g, '');
     }
 
     setRawText(val);
@@ -245,9 +208,9 @@ const FormattedNumberInput: React.FC<{
       if (activeLang === 'vi') {
         let cleaned = pasteData.trim();
         if (cleaned.includes(',') && cleaned.includes('.')) {
-          cleaned = cleaned.replace(/./g, '');
+          cleaned = cleaned.replace(/\./g, '');
         } else if (cleaned.includes('.') && !cleaned.includes(',')) {
-          cleaned = cleaned.replace(/./g, ',');
+          cleaned = cleaned.replace(/\./g, ',');
         }
         cleaned = cleaned.replace(/[^0-9,]/g, '');
         const parts = cleaned.split(',');
@@ -276,7 +239,7 @@ const FormattedNumberInput: React.FC<{
         }
       }
     } else {
-      const cleaned = pasteData.replace(/D/g, '');
+      const cleaned = pasteData.replace(/\D/g, '');
       if (cleaned) {
         e.preventDefault();
         setRawText(cleaned);
@@ -299,7 +262,6 @@ const FormattedNumberInput: React.FC<{
       inputMode={isDecimal ? 'decimal' : 'numeric'}
       value={isFocused ? rawText : displayString}
       onKeyDown={handleKeyDown}
-      onBeforeInput={handleBeforeInput}
       onChange={handleChange}
       onPaste={handlePaste}
       onFocus={handleFocus}

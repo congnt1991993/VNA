@@ -17,7 +17,50 @@ import {
   Layers,
   ChevronUp,
   Activity,
-  FileText
+  FileText,
+  Volume2,
+  Zap,
+  Flame,
+  Fuel,
+  Droplets,
+  CloudFog,
+  Gauge,
+  Wind,
+  Haze,
+  Smile,
+  MessageSquareHeart,
+  CalendarX,
+  Heart,
+  UserCheck,
+  Coins,
+  Truck,
+  UserPlus,
+  Gift,
+  ShieldAlert,
+  MessagesSquare,
+  HeartPulse,
+  Stethoscope,
+  Scale,
+  AlertTriangle,
+  Tag,
+  Megaphone,
+  Lock,
+  Building2,
+  Award,
+  Eye,
+  GitFork,
+  FileSignature,
+  PhoneCall,
+  Handshake,
+  Target,
+  GraduationCap,
+  TrendingUp,
+  PiggyBank,
+  Banknote,
+  MapPin,
+  BookOpen,
+  Gavel,
+  Vote
 } from 'lucide-react';
 import { DETAIL_CONTENT, DETAIL_CONTENT_EN } from '../constants';
 import { IndicatorChart } from '../../IndicatorChart';
@@ -191,6 +234,142 @@ const truncateDescription = (text: string, maxLen = 250): string => {
   return clean.slice(0, maxLen).trim() + '...';
 };
 
+// Helper to determine if an indicator is text-based (Q&A / narrative) or dynamic (data form)
+const isTextIndicator = (indicator: any): boolean => {
+  if (!indicator) return false;
+  if (indicator.isStatic === true || indicator.reportType === 'TEXT' || indicator.unit === 'Văn bản') return true;
+  const textCodes = [
+    'GRI 2-9', 'GRI 2-10', 'GRI 2-11', 'GRI 2-12', 'GRI 2-13', 'GRI 2-14', 'GRI 2-15', 'GRI 2-16', 'GRI 2-17', 'GRI 2-18',
+    'GRI 2-23', 'GRI 2-24', 'GRI 2-25', 'GRI 2-26', 'GRI 2-27', 'GRI 2-28', 'GRI 2-29', 'GRI 2-30',
+    'GRI 3-3', 'GRI 201-4', 'GRI 205-2', 'GRI 205-3', 'GRI 206-1', 'GRI 401-2', 'GRI 403-4', 'GRI 403-10', 'GRI 406-1', 'GRI 414-1', 'GRI 415-1', 'GRI 418-1',
+    'Airline G-1', 'Airline S-1', 'Airline E-2'
+  ];
+  return textCodes.some(c =>
+    indicator.code === c ||
+    indicator.code?.startsWith(c + ' ') ||
+    indicator.code?.startsWith(c + '-') ||
+    indicator.code?.startsWith(c + ':')
+  );
+};
+
+// Helper to return relevant icon component based on indicator topic and content
+const getIndicatorIcon = (code?: string, name?: string, topic?: string): React.ComponentType<{ size?: number; className?: string }> => {
+  const c = (code || '').toUpperCase();
+  const n = (name || '').toLowerCase();
+
+  // Noise / Tiếng ồn
+  if (c.includes('AIRLINE E-1') || n.includes('tiếng ồn') || n.includes('noise')) return Volume2;
+
+  // SAF / Fuel
+  if (/\bsaf\b/i.test(n) || c.includes('SAF') || /\bcarbure\b/i.test(n)) return Fuel;
+
+  // Energy / Tiết kiệm năng lượng
+  if (c.includes('302-4') || n.includes('giảm tiêu thụ năng lượng') || n.includes('reduction of energy')) return Flame;
+  if (c.includes('302-1') || n.includes('năng lượng') || n.includes('energy')) return Zap;
+
+  // Water / Nước
+  if (c.includes('303-3') || c.includes('303-5') || n.includes('nước') || n.includes('water')) return Droplets;
+
+  // Emissions / Khí nhà kính / CO2 / Khí thải
+  if (c.includes('305-4') || n.includes('cường độ phát thải') || n.includes('intensity')) return Gauge;
+  if (c.includes('305-5') || n.includes('giảm phát thải')) return Wind;
+  if (c.includes('305-7') || n.includes('nitrogen') || n.includes('sulfur') || n.includes('nox') || n.includes('sox')) return Haze;
+  if (c.includes('305-1') || n.includes('khí nhà kính') || n.includes('ghg') || n.includes('scope 1') || n.includes('co2')) return CloudFog;
+
+  // Customer experience / NPS / Tương tác khách hàng
+  if (c.includes('AIRLINE B-1') || n.includes('nps') || n.includes('hài lòng của khách hàng') || n.includes('customer satisfaction')) return Smile;
+  if (c.includes('AIRLINE B-2') || n.includes('tương tác khách hàng') || n.includes('customer engagement')) return MessageSquareHeart;
+
+  // Strikes / Lao động
+  if (c.includes('AIRLINE D-1') || n.includes('đình công') || n.includes('strikes')) return CalendarX;
+
+  // Volunteering / Tình nguyện
+  if (c.includes('AIRLINE F-1') || n.includes('tình nguyện') || n.includes('volunteering')) return Heart;
+
+  // Employee satisfaction / Hài lòng nhân viên
+  if (c.includes('AIRLINE F-2') || n.includes('hài lòng nhân viên') || n.includes('employee satisfaction')) return UserCheck;
+
+  // Wage / Lương khởi điểm
+  if (c.includes('202-1') || n.includes('lương khởi điểm') || n.includes('wage')) return Coins;
+
+  // Local suppliers / Chi tiêu NCC
+  if (c.includes('204-1') || n.includes('ncc địa phương') || n.includes('local suppliers')) return Truck;
+
+  // Hires & Turnover / Tuyển dụng
+  if (c.includes('401-1') || n.includes('tuyển dụng') || n.includes('turnover')) return UserPlus;
+
+  // Benefits / Phúc lợi
+  if (c.includes('401-2') || n.includes('phúc lợi') || n.includes('benefits')) return Gift;
+
+  // Occupational Health & Safety / An toàn vệ sinh lao động
+  if (c.includes('403-2') || n.includes('hazard') || n.includes('risk assessment')) return ShieldAlert;
+  if (c.includes('403-4') || n.includes('worker participation') || n.includes('consultation')) return MessagesSquare;
+  if (c.includes('403-9') || n.includes('thương tật') || n.includes('injuries')) return HeartPulse;
+  if (c.includes('403-10') || n.includes('bệnh liên quan') || n.includes('ill-health') || n.includes('illhealth')) return Stethoscope;
+
+  // Diversity / Đa dạng
+  if (c.includes('405-1') || n.includes('đa dạng') || n.includes('diversity')) return Users;
+
+  // Discrimination / Phân biệt đối xử
+  if (c.includes('406-1') || n.includes('phân biệt đối xử') || n.includes('discrimination')) return Scale;
+
+  // Product health & safety / An toàn sản phẩm dịch vụ
+  if (c.includes('416-1') || (n.includes('sức khỏe và an toàn') && n.includes('sản phẩm'))) return ShieldCheck;
+  if (c.includes('416-2') || (n.includes('vi phạm') && (n.includes('sức khỏe') || n.includes('safety')))) return AlertTriangle;
+
+  // Information & Labeling / Nhãn thông tin
+  if (c.includes('417-2') || n.includes('nhãn') || n.includes('labeling')) return Tag;
+
+  // Marketing communications / Tiếp thị
+  if (c.includes('417-3') || n.includes('marketing') || n.includes('truyền thông')) return Megaphone;
+
+  // Privacy / Bảo mật thông tin khách hàng
+  if (c.includes('418-1') || n.includes('bảo mật') || n.includes('privacy')) return Lock;
+
+  // Governance scale / Quy mô tổ chức
+  if (c.includes('2-7') || n.includes('quy mô tổ chức') || n.includes('scale of the organization')) return Building2;
+
+  // Governance structure / Thành phần quản trị
+  if (c.includes('2-9') || n.includes('cơ cấu và thành phần quản trị') || n.includes('governance structure')) return Landmark;
+  if (c.includes('2-10') || n.includes('đề cử') || n.includes('nomination')) return UserCheck;
+  if (c.includes('2-11') || n.includes('lãnh đạo cấp cao') || n.includes('chair')) return Award;
+  if (c.includes('2-12') || n.includes('giám sát') || n.includes('overseeing')) return Eye;
+  if (c.includes('2-13') || n.includes('phân quyền') || n.includes('delegating')) return GitFork;
+  if (c.includes('2-15') || n.includes('xung đột lợi ích') || n.includes('conflicts of interest')) return Scale;
+  if (c.includes('2-23') || n.includes('cam kết về chính sách') || n.includes('policy')) return FileSignature;
+  if (c.includes('2-26') || n.includes('đạo đức') || n.includes('ethics')) return PhoneCall;
+  if (c.includes('2-29') || n.includes('đối thoại các bên liên quan') || n.includes('stakeholder')) return Handshake;
+  if (c.includes('2-30') || n.includes('thỏa ước lao động') || n.includes('collective bargaining')) return FileText;
+
+  // Material topics / Chủ đề trọng yếu
+  if (c.includes('3-3') || n.includes('trọng yếu') || n.includes('material topics')) return Target;
+
+  // Training / Đào tạo kỹ năng
+  if (c.includes('404-2') || n.includes('kỹ năng') || n.includes('training')) return GraduationCap;
+  if (c.includes('404-3') || n.includes('phát triển nghề nghiệp') || n.includes('career development')) return TrendingUp;
+
+  // Retirement / Lương hưu
+  if (c.includes('201-3') || n.includes('lương hưu') || n.includes('retirement')) return PiggyBank;
+
+  // Government assistance / Trợ cấp chính phủ
+  if (c.includes('201-4') || n.includes('chính phủ') || n.includes('government')) return Banknote;
+
+  // Local management / Lãnh đạo bản địa
+  if (c.includes('202-2') || n.includes('bản địa') || n.includes('local community')) return MapPin;
+
+  // Anti-corruption / Chống tham nhũng
+  if (c.includes('205-2') || n.includes('đào tạo về chống tham nhũng') || n.includes('anti-corruption')) return BookOpen;
+  if (c.includes('205-3') || n.includes('sự cố tham nhũng') || n.includes('corruption')) return Gavel;
+
+  // Anti-competitive / Cạnh tranh không lành mạnh
+  if (c.includes('206-1') || n.includes('cạnh tranh') || n.includes('anti-competitive')) return Scale;
+
+  // Political contributions / Đóng góp chính trị
+  if (c.includes('415-1') || n.includes('chính trị') || n.includes('political')) return Vote;
+
+  return Activity;
+};
+
 const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
   const { i18n } = useTranslation();
   const isEn = i18n.language === 'en';
@@ -201,6 +380,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
 
   // Search & Indicator Detail Page state
   const [searchQuery, setSearchQuery] = useState('');
+  const [indicatorTypeFilter, setIndicatorTypeFilter] = useState<'all' | 'dynamic' | 'text'>('all');
   const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
   const [selectedIndicatorDetail, setSelectedIndicatorDetail] = useState<Indicator | null>(null);
 
@@ -261,6 +441,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
     window.scrollTo(0, 0);
     setExpandedMap({});
     setSearchQuery('');
+    setIndicatorTypeFilter('all');
     setSelectedIndicatorDetail(null);
   }, [pillarId]);
 
@@ -277,17 +458,24 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
     return rawList.filter(ind => ind.pillar === targetPillarName);
   }, [isEn, targetPillarName]);
 
-  // Filtered indicators by search term
+  // Filtered indicators by indicator type and search term
   const filteredIndicators = useMemo(() => {
-    if (!searchQuery.trim()) return pillarIndicators;
+    let list = pillarIndicators;
+    if (indicatorTypeFilter === 'dynamic') {
+      list = list.filter(ind => !isTextIndicator(ind));
+    } else if (indicatorTypeFilter === 'text') {
+      list = list.filter(ind => isTextIndicator(ind));
+    }
+
+    if (!searchQuery.trim()) return list;
     const q = searchQuery.toLowerCase().trim();
-    return pillarIndicators.filter(
+    return list.filter(
       ind =>
         ind.code.toLowerCase().includes(q) ||
         ind.name.toLowerCase().includes(q) ||
         (ind.topic && ind.topic.toLowerCase().includes(q))
     );
-  }, [pillarIndicators, searchQuery]);
+  }, [pillarIndicators, indicatorTypeFilter, searchQuery]);
 
   // Toggle individual indicator collapse/expand
   const toggleIndicator = (id: string) => {
@@ -413,9 +601,18 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
 
             {/* INDICATOR TITLE & METADATA */}
             <div className="mb-8">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-3 flex-wrap">
                 <span className="text-xs font-bold font-mono px-3 py-1 bg-blue-50 text-vna-blue rounded-lg border border-blue-200">
                   {selectedIndicatorDetail.code}
+                </span>
+                <span className={`text-xs font-bold px-3 py-1 rounded-lg border flex items-center gap-1.5 ${isTextIndicator(selectedIndicatorDetail)
+                  ? 'bg-purple-50 text-purple-700 border-purple-200'
+                  : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  }`}>
+                  <span className={`w-2 h-2 rounded-full ${isTextIndicator(selectedIndicatorDetail) ? 'bg-purple-500' : 'bg-emerald-500'}`}></span>
+                  {isTextIndicator(selectedIndicatorDetail)
+                    ? (isEn ? 'Text Indicator (Q&A)' : 'Chỉ tiêu text (Trả lời câu hỏi)')
+                    : (isEn ? 'Dynamic Indicator (Data Form)' : 'Chỉ tiêu động (Form nhập liệu)')}
                 </span>
                 {selectedIndicatorDetail.topic && (
                   <span className="text-xs font-semibold px-2.5 py-1 bg-gray-100 text-gray-700 rounded-lg border border-gray-200">
@@ -423,13 +620,19 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
                   </span>
                 )}
                 {selectedIndicatorDetail.unit && (
-                  <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">
+                  <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg border border-slate-200">
                     ĐVT: {selectedIndicatorDetail.unit}
                   </span>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
-                {selectedIndicatorDetail.name}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight mb-4 flex items-start sm:items-center gap-3.5">
+                <span className={`p-2.5 rounded-2xl border shrink-0 ${isTextIndicator(selectedIndicatorDetail)
+                  ? 'bg-purple-50 text-purple-600 border-purple-200'
+                  : 'bg-emerald-50 text-emerald-600 border-emerald-200'
+                  }`}>
+                  {React.createElement(getIndicatorIcon(selectedIndicatorDetail.code, selectedIndicatorDetail.name, selectedIndicatorDetail.topic), { size: 28 })}
+                </span>
+                <span>{selectedIndicatorDetail.name}</span>
               </h1>
             </div>
 
@@ -592,7 +795,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
 
           {/* 4. INDICATORS LIST SECTION (CLICK TO OPEN DEDICATED DETAIL PAGE) */}
           <div className="pt-10 border-t border-gray-200">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-slate-100 rounded-xl">
                   {themeConfig.icon}
@@ -601,41 +804,160 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
                   <h3 className="text-2xl font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2">
                     <span>{isEn ? `Indicators List - ${themeConfig.pillarLabel}` : `Chỉ tiêu liên quan`}</span>
                   </h3>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {isEn ? `Total ${pillarIndicators.length} indicators in this pillar` : `Tổng cộng ${pillarIndicators.length} chỉ tiêu thuộc trụ cột`}
+                  </p>
                 </div>
               </div>
+
+              {/* Legend & Filter Tabs */}
+              <div className="flex flex-wrap items-center gap-2">
+                {/* <button
+                  type="button"
+                  onClick={() => setIndicatorTypeFilter('all')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border flex items-center gap-1.5 ${indicatorTypeFilter === 'all'
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
+                    : 'bg-white text-gray-600 border-gray-250 hover:bg-gray-50'
+                    }`}
+                >
+                  <span>{isEn ? 'All' : 'Tất cả'}</span>
+                  <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${indicatorTypeFilter === 'all' ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600'
+                    }`}>
+                    {pillarIndicators.length}
+                  </span>
+                </button> */}
+
+                {/* <button
+                  type="button"
+                  onClick={() => setIndicatorTypeFilter('dynamic')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border flex items-center gap-1.5 ${indicatorTypeFilter === 'dynamic'
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                    : 'bg-emerald-50/70 text-emerald-800 border-emerald-250 hover:bg-emerald-100/70'
+                    }`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${indicatorTypeFilter === 'dynamic' ? 'bg-white' : 'bg-emerald-500'}`}></span>
+                  <span>{isEn ? 'Dynamic Indicator' : 'Chỉ tiêu động'}</span>
+                  <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${indicatorTypeFilter === 'dynamic' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800'
+                    }`}>
+                    {pillarIndicators.filter(i => !isTextIndicator(i)).length}
+                  </span>
+                </button> */}
+
+                {/* <button
+                  type="button"
+                  onClick={() => setIndicatorTypeFilter('text')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border flex items-center gap-1.5 ${indicatorTypeFilter === 'text'
+                    ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
+                    : 'bg-purple-50/70 text-purple-800 border-purple-250 hover:bg-purple-100/70'
+                    }`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${indicatorTypeFilter === 'text' ? 'bg-white' : 'bg-purple-500'}`}></span>
+                  <span>{isEn ? 'Text Indicator' : 'Chỉ tiêu text'}</span>
+                  <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${indicatorTypeFilter === 'text' ? 'bg-white/20 text-white' : 'bg-purple-100 text-purple-800'
+                    }`}>
+                    {pillarIndicators.filter(i => isTextIndicator(i)).length}
+                  </span>
+                </button> */}
+              </div>
+            </div>
+
+            {/* SEARCH INPUT */}
+            <div className="mb-6 relative">
+              <Search className="absolute left-4 top-3 text-gray-400" size={18} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={isEn ? "Search indicator by code, name, topic..." : "Tìm kiếm chỉ tiêu theo mã, tên, chủ đề..."}
+                className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-250 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-vna-blue/20 focus:border-vna-blue transition-all"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-2.5 text-xs text-gray-400 hover:text-gray-600 px-2 py-0.5 rounded bg-gray-100"
+                >
+                  {isEn ? 'Clear' : 'Xóa'}
+                </button>
+              )}
             </div>
 
             {/* INDICATORS LIST GRID (NAVIGATE TO DEDICATED DETAIL PAGE) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-              {filteredIndicators.map((ind) => (
-                <button
-                  key={ind.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedIndicatorDetail(ind);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="w-full p-4 md:p-5 rounded-2xl border border-gray-200 hover:border-vna-blue/60 bg-white hover:bg-slate-50/80 hover:shadow-md transition-all duration-200 flex items-center justify-between text-left group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5 flex-1 min-w-0 pr-3">
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-sm md:text-base font-bold text-gray-900 group-hover:text-vna-blue transition-colors line-clamp-2">
-                        {ind.name}
-                      </h4>
-                    </div>
-                  </div>
+              {filteredIndicators.map((ind) => {
+                const isText = isTextIndicator(ind);
+                const IconComponent = getIndicatorIcon(ind.code, ind.name, ind.topic);
 
-                  <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-vna-blue text-slate-500 group-hover:text-white flex items-center justify-center transition-all duration-200 shrink-0 shadow-2xs">
-                    <ChevronRight size={16} className="transform group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </button>
-              ))}
+                return (
+                  <button
+                    key={ind.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedIndicatorDetail(ind);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className={`w-full p-4 md:p-5 rounded-2xl border bg-white hover:bg-slate-50/80 hover:shadow-md transition-all duration-200 flex items-center justify-between text-left group cursor-pointer ${isText
+                      ? 'border-purple-150 hover:border-purple-300'
+                      : 'border-emerald-150 hover:border-emerald-300'
+                      }`}
+                  >
+                    <div className="flex items-center gap-3.5 flex-1 min-w-0 pr-3">
+                      {/* Leading icon container with color coding:
+                          - Chỉ tiêu động: Màu xanh lá (Emerald)
+                          - Chỉ tiêu text: Màu tím (Purple) */}
+                      <div
+                        className={`w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-2xs ${isText
+                          ? 'bg-purple-50 text-purple-600 border border-purple-200 group-hover:bg-purple-100/90'
+                          : 'bg-emerald-50 text-emerald-600 border border-emerald-200 group-hover:bg-emerald-100/90'
+                          }`}
+                        title={isText ? (isEn ? 'Text Indicator (Q&A)' : 'Chỉ tiêu text') : (isEn ? 'Dynamic Indicator (Data Form)' : 'Chỉ tiêu động')}
+                      >
+                        <IconComponent size={20} className={isText ? 'text-purple-600' : 'text-emerald-600'} />
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span
+                            className={`text-[10px] font-bold font-mono px-2 py-0.5 rounded border ${isText
+                              ? 'bg-purple-50 text-purple-700 border-purple-200'
+                              : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              }`}
+                          >
+                            {ind.code}
+                          </span>
+                          {/* <span
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isText
+                              ? 'bg-purple-100 text-purple-800'
+                              : 'bg-emerald-100 text-emerald-800'
+                              }`}
+                          >
+                            {isText ? (isEn ? 'Text' : 'Chỉ tiêu text') : (isEn ? 'Dynamic' : 'Chỉ tiêu động')}
+                          </span> */}
+                        </div>
+
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 group-hover:text-vna-blue transition-colors line-clamp-2">
+                          {ind.name}
+                        </h4>
+                      </div>
+                    </div>
+
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shrink-0 shadow-2xs ${isText
+                        ? 'bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
+                        : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
+                        }`}
+                    >
+                      <ChevronRight size={16} className="transform group-hover:translate-x-0.5 transition-transform" />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
             {/* EMPTY STATE */}
             {filteredIndicators.length === 0 && (
               <div className="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-gray-250 text-gray-400 text-xs">
-                {isEn ? 'No indicators found matching your search term.' : 'Không tìm thấy chỉ tiêu nào phù hợp với từ khóa tìm kiếm.'}
+                {isEn ? 'No indicators found matching your search term or filter.' : 'Không tìm thấy chỉ tiêu nào phù hợp với bộ lọc hoặc từ khóa tìm kiếm.'}
               </div>
             )}
           </div>
