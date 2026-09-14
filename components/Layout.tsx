@@ -97,10 +97,10 @@ const MENU_ITEMS: MenuItem[] = [
   //     { id: 'netzero', label: 'Mô phỏng kịch bản Net Zero', target: 'netzero-simulation' },
   //   ]
   // },
-  // 6. MÔ PHỎNG KỊCH BẢN NET ZERO 2 (DANH MỤC LỚN)
+  // 6. KHUYẾN NGHỊ CLAIM SAF (DANH MỤC LỚN)
   {
     id: 'netzero-v2',
-    label: 'MÔ PHỎNG KỊCH BẢN',
+    label: 'KHUYẾN NGHỊ CLAIM SAF',
     icon: <TrendingUp size={20} />,
     target: 'netzero-simulation-v2'
   },
@@ -131,7 +131,7 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'cms-manage': { vi: 'CMS', en: 'CMS ESG Website' },
   // 'strategy': { vi: 'PHÂN TÍCH & CHIẾN LƯỢC', en: 'ANALYSIS & STRATEGY' },
   // 'netzero': { vi: 'Mô phỏng kịch bản Net Zero', en: 'Net Zero Simulation' },
-  'netzero-v2': { vi: 'MÔ PHỎNG KỊCH BẢN', en: 'NET ZERO SIMULATION 2' },
+  'netzero-v2': { vi: 'KHUYẾN NGHỊ CLAIM SAF', en: 'SAF CLAIM RECOMMENDATIONS' },
   'netzero-solution': { vi: 'MÔ PHỎNG NET ZERO', en: 'NET ZERO SIMULATION' },
   'kpi-manage': { vi: 'QUẢN LÝ KPI', en: 'KPI TARGET MANAGEMENT' },
   'kpi-manage-sub': { vi: 'Quản lý KPI', en: 'KPI Target Management' },

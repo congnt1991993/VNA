@@ -21,6 +21,8 @@ export interface SafBatch {
   deliveryDate: string;
   airportCode: string;
   airportName: string;
+  destAirportCode?: string; // Sân bay đáp (Mã IATA, e.g. HAN, SGN)
+  destAirportName?: string; // Tên sân bay đáp
   region: 'EU' | 'UK' | 'NON_EU';
   supplier: string;
   supplierVat: string;
@@ -30,6 +32,30 @@ export interface SafBatch {
   eligibleSchemes: ('EU_ETS' | 'UK_ETS' | 'CORSIA')[];
   assignedScheme: 'EU_ETS' | 'UK_ETS' | 'CORSIA' | 'UNASSIGNED';
 }
+
+/**
+ * Tính toán CO2 giảm trừ tương ứng cho từng cơ chế:
+ * - EU ETS: Giảm trừ theo hệ số phát thải ReFuelEU / EU ETS MRV (batch.co2SavedPerTonne)
+ * - UK ETS: Giảm trừ theo quy chuẩn UK ETS MRV (batch.co2SavedPerTonne * 0.99)
+ * - CORSIA: Giảm trừ theo tiêu chuẩn LCA ICAO CORSIA (batch.co2SavedPerTonne * 0.97)
+ */
+export const calculateCo2SavedByScheme = (
+  tonnes: number,
+  baseCo2SavedPerTonne: number,
+  scheme: 'EU_ETS' | 'UK_ETS' | 'CORSIA'
+) => {
+  let rate = baseCo2SavedPerTonne;
+  if (scheme === 'UK_ETS') {
+    rate = Number((baseCo2SavedPerTonne * 0.99).toFixed(2));
+  } else if (scheme === 'CORSIA') {
+    rate = Number((baseCo2SavedPerTonne * 0.97).toFixed(2));
+  }
+  const totalSaved = Math.round(tonnes * rate);
+  return {
+    rate,
+    totalSaved
+  };
+};
 
 // Saved Scenario Interface
 export interface SavedScenarioItem {
@@ -431,6 +457,8 @@ const INITIAL_BATCHES: SafBatch[] = [
     deliveryDate: '12/01/2026',
     airportCode: 'CDG',
     airportName: 'Paris Charles de Gaulle (Pháp)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'EU',
     supplier: 'TotalEnergies Aviation',
     supplierVat: 'FR84542051580',
@@ -446,6 +474,8 @@ const INITIAL_BATCHES: SafBatch[] = [
     deliveryDate: '28/01/2026',
     airportCode: 'FRA',
     airportName: 'Frankfurt Airport (Đức)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'EU',
     supplier: 'Neste Oil Netherlands B.V.',
     supplierVat: 'NL814125881B01',
@@ -461,6 +491,8 @@ const INITIAL_BATCHES: SafBatch[] = [
     deliveryDate: '15/02/2026',
     airportCode: 'LHR',
     airportName: 'London Heathrow (Anh)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'UK',
     supplier: 'Shell Aviation UK',
     supplierVat: 'GB235763255',
@@ -476,6 +508,8 @@ const INITIAL_BATCHES: SafBatch[] = [
     deliveryDate: '02/03/2026',
     airportCode: 'SIN',
     airportName: 'Singapore Changi (Singapore)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'NON_EU',
     supplier: 'Neste Singapore Pte Ltd',
     supplierVat: 'SG200718921R',
@@ -491,6 +525,8 @@ const INITIAL_BATCHES: SafBatch[] = [
     deliveryDate: '18/03/2026',
     airportCode: 'NRT',
     airportName: 'Tokyo Narita (Nhật Bản)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'NON_EU',
     supplier: 'Cosmo Oil Marketing Co.',
     supplierVat: 'JP9010001034458',
@@ -506,6 +542,8 @@ const INITIAL_BATCHES: SafBatch[] = [
     deliveryDate: '25/03/2026',
     airportCode: 'CDG',
     airportName: 'Paris Charles de Gaulle (Pháp)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'EU',
     supplier: 'Air BP France',
     supplierVat: 'FR32542034988',
@@ -514,6 +552,40 @@ const INITIAL_BATCHES: SafBatch[] = [
     co2SavedPerTonne: 2.59,
     eligibleSchemes: ['EU_ETS', 'CORSIA'],
     assignedScheme: 'EU_ETS'
+  },
+  {
+    id: 'b-7',
+    batchNo: 'SAF-2026-EU-04',
+    deliveryDate: '10/04/2026',
+    airportCode: 'FRA',
+    airportName: 'Frankfurt Airport (Đức)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
+    region: 'EU',
+    supplier: 'TotalEnergies Aviation',
+    supplierVat: 'FR84542051580',
+    tonnes: 850,
+    lifecycleEmission: 16.0,
+    co2SavedPerTonne: 2.63,
+    eligibleSchemes: ['EU_ETS', 'CORSIA'],
+    assignedScheme: 'EU_ETS'
+  },
+  {
+    id: 'b-8',
+    batchNo: 'SAF-2026-UK-02',
+    deliveryDate: '22/04/2026',
+    airportCode: 'LHR',
+    airportName: 'London Heathrow (Anh)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
+    region: 'UK',
+    supplier: 'Shell Aviation UK',
+    supplierVat: 'GB235763255',
+    tonnes: 600,
+    lifecycleEmission: 17.0,
+    co2SavedPerTonne: 2.60,
+    eligibleSchemes: ['UK_ETS', 'CORSIA'],
+    assignedScheme: 'UK_ETS'
   }
 ];
 
@@ -524,6 +596,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-01-12',
     airportCode: 'CDG',
     airportName: 'Paris Charles de Gaulle (Pháp)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'EU' as const,
     supplier: 'TotalEnergies Aviation',
     supplierVat: 'FR84542051580',
@@ -538,6 +612,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-01-28',
     airportCode: 'FRA',
     airportName: 'Frankfurt Airport (Đức)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'EU' as const,
     supplier: 'Neste Oil Netherlands B.V.',
     supplierVat: 'NL814125881B01',
@@ -552,6 +628,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-03-25',
     airportCode: 'CDG',
     airportName: 'Paris Charles de Gaulle (Pháp)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'EU' as const,
     supplier: 'Air BP France',
     supplierVat: 'FR32542034988',
@@ -566,6 +644,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-04-10',
     airportCode: 'FRA',
     airportName: 'Frankfurt Airport (Đức)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'EU' as const,
     supplier: 'TotalEnergies Aviation',
     supplierVat: 'FR84542051580',
@@ -580,6 +660,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-02-15',
     airportCode: 'LHR',
     airportName: 'London Heathrow (Anh)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'UK' as const,
     supplier: 'Shell Aviation UK',
     supplierVat: 'GB235763255',
@@ -594,6 +676,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-05-18',
     airportCode: 'LHR',
     airportName: 'London Heathrow (Anh)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'UK' as const,
     supplier: 'Shell Aviation UK',
     supplierVat: 'GB235763255',
@@ -608,6 +692,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-03-02',
     airportCode: 'SIN',
     airportName: 'Singapore Changi (Singapore)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'NON_EU' as const,
     supplier: 'Neste Singapore Pte Ltd',
     supplierVat: 'SG200718921R',
@@ -622,6 +708,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-03-18',
     airportCode: 'NRT',
     airportName: 'Tokyo Narita (Nhật Bản)',
+    destAirportCode: 'SGN',
+    destAirportName: 'TP. Hồ Chí Minh (Tân Sơn Nhất)',
     region: 'NON_EU' as const,
     supplier: 'Cosmo Oil Marketing Co.',
     supplierVat: 'JP9010001034458',
@@ -636,6 +724,8 @@ const SAF_WAREHOUSE_REPOSITORY = [
     deliveryDate: '2026-06-22',
     airportCode: 'SIN',
     airportName: 'Singapore Changi (Singapore)',
+    destAirportCode: 'HAN',
+    destAirportName: 'Hà Nội (Nội Bài)',
     region: 'NON_EU' as const,
     supplier: 'Neste Singapore Pte Ltd',
     supplierVat: 'SG200718921R',
@@ -702,7 +792,16 @@ export const NetZeroV2Page: React.FC = () => {
   const [batches, setBatches] = useState<SafBatch[]>(() => {
     const saved = localStorage.getItem('vna_netzero_v2_batches');
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) { }
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map((b: any) => ({
+            ...b,
+            destAirportCode: b.destAirportCode || (b.airportCode === 'SIN' || b.airportCode === 'NRT' ? 'SGN' : 'HAN'),
+            destAirportName: b.destAirportName || (b.destAirportCode === 'SGN' ? 'TP. Hồ Chí Minh (Tân Sơn Nhất)' : 'Hà Nội (Nội Bài)')
+          }));
+        }
+      } catch (e) { }
     }
     return INITIAL_BATCHES;
   });
@@ -815,6 +914,8 @@ export const NetZeroV2Page: React.FC = () => {
     deliveryDate: new Date().toISOString().split('T')[0],
     airportCode: '',
     airportName: '',
+    destAirportCode: '',
+    destAirportName: '',
     region: 'EU',
     supplier: '',
     supplierVat: '',
@@ -836,7 +937,11 @@ export const NetZeroV2Page: React.FC = () => {
     let co2CorsiaSaved = 0;
 
     batchList.forEach(b => {
-      const co2 = Math.round(b.tonnes * b.co2SavedPerTonne);
+      let rate = b.co2SavedPerTonne;
+      if (b.assignedScheme === 'UK_ETS') rate = Number((b.co2SavedPerTonne * 0.99).toFixed(2));
+      else if (b.assignedScheme === 'CORSIA') rate = Number((b.co2SavedPerTonne * 0.97).toFixed(2));
+      const co2 = Math.round(b.tonnes * rate);
+
       if (b.assignedScheme === 'EU_ETS') {
         safEuTonnes += b.tonnes;
         co2EuSaved += co2;
@@ -1290,6 +1395,8 @@ export const NetZeroV2Page: React.FC = () => {
       deliveryDate: newBatch.deliveryDate || '2026-03-25',
       airportCode: newBatch.airportCode || 'CDG',
       airportName: newBatch.airportName || 'Paris CDG',
+      destAirportCode: newBatch.destAirportCode || (newBatch.airportCode === 'SIN' || newBatch.airportCode === 'NRT' ? 'SGN' : 'HAN'),
+      destAirportName: newBatch.destAirportName || (newBatch.destAirportCode === 'SGN' ? 'TP. Hồ Chí Minh (Tân Sơn Nhất)' : 'Hà Nội (Nội Bài)'),
       region: (newBatch.airportCode === 'CDG' || newBatch.airportCode === 'FRA') ? 'EU' : (newBatch.airportCode === 'LHR' ? 'UK' : 'NON_EU'),
       supplier: newBatch.supplier || '',
       supplierVat: newBatch.supplierVat || '',
@@ -1309,6 +1416,8 @@ export const NetZeroV2Page: React.FC = () => {
       deliveryDate: new Date().toISOString().split('T')[0],
       airportCode: '',
       airportName: '',
+      destAirportCode: '',
+      destAirportName: '',
       region: 'EU',
       supplier: '',
       supplierVat: '',
@@ -1932,96 +2041,220 @@ export const NetZeroV2Page: React.FC = () => {
                   <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold">
                     <th className="py-3.5 px-4">Mã lô & Ngày nạp</th>
                     <th className="py-3.5 px-4">Sân bay xuất phát</th>
+                    <th className="py-3.5 px-4">Sân bay đáp</th>
                     <th className="py-3.5 px-4">Nhà cung cấp</th>
                     <th className="py-3.5 px-4 text-center">Khối lượng SAF (Tấn) ✍️</th>
-                    <th className="py-3.5 px-4 text-right">CO₂ Giảm trừ</th>
-                    <th className="py-3.5 px-4 text-center">Cơ chế Phân bổ (Gán Claim)</th>
+                    <th className="py-3.5 px-4 text-center">Cơ chế Hợp lệ</th>
+                    <th className="py-3.5 px-4 text-right">CO₂ Giảm trừ theo cơ chế</th>
+                    <th className="py-3.5 px-4 text-right">Chi phí nếu chọn</th>
+                    <th className="py-3.5 px-4 text-center">Tích chọn Áp dụng</th>
                     <th className="py-3.5 px-4 text-center">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {batches.map(batch => {
-                    const co2Saved = Math.round(batch.tonnes * batch.co2SavedPerTonne);
-
-                    return (
-                      <tr key={batch.id} className="hover:bg-blue-50/20 transition-colors">
-                        <td className="py-3 px-4">
-                          <div className="font-bold text-gray-900">{batch.batchNo}</div>
-                          <div className="text-[10px] text-gray-400">{batch.deliveryDate}</div>
-                        </td>
-
-                        <td className="py-3 px-4">
-                          <div className="font-semibold text-gray-900 flex items-center gap-1.5">
-                            <span className="font-black text-vna-blue bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
-                              {batch.airportCode}
-                            </span>
-                          </div>
-                          {/* <div className="text-[10px] text-gray-400 mt-0.5">Khu vực: {batch.region}</div> */}
-                        </td>
-
-                        <td className="py-3 px-4">
-                          <div className="font-semibold text-gray-800">{batch.supplier || '—'}</div>
-                          {batch.supplierVat && (
-                            <div className="text-[10px] text-gray-400 font-mono">VAT: {batch.supplierVat}</div>
-                          )}
-                        </td>
-
-                        {/* Inline Editable SAF Tonnes */}
-                        <td className="py-3 px-4 text-center">
-                          <div className="inline-flex items-center gap-1">
-                            <FormattedNumberInput
-                              value={batch.tonnes}
-                              onChange={(val) => handleUpdateBatchTonnage(batch.id, val)}
-                              className="w-24 text-right font-black text-gray-900 border border-gray-300 rounded-lg px-2 py-1 text-xs focus:ring-1 focus:ring-vna-blue bg-white"
-                            />
-                            <span className="text-[11px] text-gray-500 font-bold">tấn</span>
-                          </div>
-                        </td>
-
-                        <td className="py-3 px-4 text-right">
-                          <div className="font-black text-emerald-600">-{co2Saved.toLocaleString(locale)} tCO₂</div>
-                          <div className="text-[10px] text-gray-400">({batch.co2SavedPerTonne} t/tấn)</div>
-                        </td>
-
-                        {/* Assignment Selector: Modern Combobox / Select */}
-                        <td className="py-3 px-4 text-center">
-                          <div className="inline-block relative min-w-[130px]">
-                            <select
-                              value={batch.assignedScheme}
-                              onChange={(e) => handleAssignBatch(batch.id, e.target.value as SafBatch['assignedScheme'])}
-                              className={`w-full text-xs font-black rounded-xl px-3 py-1.5 border appearance-none cursor-pointer outline-none transition-all pr-8 shadow-2xs ${batch.assignedScheme === 'EU_ETS'
-                                ? 'bg-blue-50/80 text-vna-blue border-blue-200 focus:ring-1 focus:ring-vna-blue'
-                                : batch.assignedScheme === 'UK_ETS'
-                                  ? 'bg-indigo-50/80 text-indigo-700 border-indigo-200 focus:ring-1 focus:ring-indigo-600'
-                                  : 'bg-emerald-50/80 text-emerald-800 border-emerald-200 focus:ring-1 focus:ring-emerald-600'
-                                }`}
-                            >
-                              {batch.eligibleSchemes.map((scheme) => (
-                                <option key={scheme} value={scheme} className="font-bold text-gray-800 bg-white">
-                                  {scheme === 'EU_ETS' ? 'EU ETS' : scheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA'}
-                                </option>
-                              ))}
-                            </select>
-                            <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
-                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                              </svg>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td className="py-3 px-4 text-center">
-                          <button
-                            onClick={() => handleDeleteBatch(batch.id)}
-                            className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
-                            title="Xóa lô này"
-                          >
-                            <Trash2 size={14} />
-                          </button>
-                        </td>
-                      </tr>
+                  {(() => {
+                    const displayedBatches = batches.filter(
+                      (batch) => batch.eligibleSchemes && batch.eligibleSchemes.length >= 1
                     );
-                  })}
+
+                    if (displayedBatches.length === 0) {
+                      return (
+                        <tr>
+                          <td colSpan={10} className="py-10 text-center text-gray-400 font-medium">
+                            Không có lô SAF nào trong danh sách.
+                          </td>
+                        </tr>
+                      );
+                    }
+
+                    const safCostPerTonne = 2450;
+
+                    return displayedBatches.map((batch, bIndex) => {
+                      const schemes = batch.eligibleSchemes;
+                      const isEven = bIndex % 2 === 0;
+                      const batchSafCost = batch.tonnes * safCostPerTonne;
+
+                      // Precompute financial metrics for all eligible schemes of this batch
+                      const schemeStats = schemes.map((sch) => {
+                        const { rate: schemeRate, totalSaved: schemeCo2Saved } = calculateCo2SavedByScheme(
+                          batch.tonnes,
+                          batch.co2SavedPerTonne,
+                          sch
+                        );
+                        const schemePrice = sch === 'EU_ETS'
+                          ? marketParams.priceEuEts
+                          : sch === 'UK_ETS'
+                            ? marketParams.priceUkEts
+                            : marketParams.priceCorsia;
+                        
+                        const creditSavedUsd = Math.round(schemeCo2Saved * schemePrice);
+                        const netBatchCostUsd = Math.max(0, batchSafCost - creditSavedUsd);
+
+                        return {
+                          scheme: sch,
+                          schemeRate,
+                          schemeCo2Saved,
+                          schemePrice,
+                          creditSavedUsd,
+                          netBatchCostUsd
+                        };
+                      });
+
+                      // Best scheme maximizes credit saved (minimizes net cost)
+                      const bestStat = schemeStats.reduce((best, curr) =>
+                        curr.creditSavedUsd > best.creditSavedUsd ? curr : best
+                      , schemeStats[0]);
+
+                      const worstStat = schemeStats.reduce((worst, curr) =>
+                        curr.creditSavedUsd < worst.creditSavedUsd ? curr : worst
+                      , schemeStats[0]);
+
+                      const diffSavingsUsd = bestStat.creditSavedUsd - worstStat.creditSavedUsd;
+
+                      return schemes.map((scheme, sIdx) => {
+                        const isFirstRow = sIdx === 0;
+                        const isAssigned = batch.assignedScheme === scheme;
+                        const currentStat = schemeStats[sIdx];
+                        const isBest = schemes.length >= 2 && scheme === bestStat.scheme;
+
+                        return (
+                          <tr
+                            key={`${batch.id}-${scheme}`}
+                            className={`transition-colors ${
+                              isAssigned
+                                ? 'bg-emerald-50/50 hover:bg-emerald-50/70'
+                                : isEven
+                                  ? 'bg-white hover:bg-gray-50'
+                                  : 'bg-gray-50/40 hover:bg-gray-100/50'
+                            } ${!isFirstRow ? 'border-t border-gray-100' : 'border-t-2 border-gray-200'}`}
+                          >
+                            {isFirstRow && (
+                              <>
+                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                  <div className="font-bold text-gray-900">{batch.batchNo}</div>
+                                  <div className="text-[10px] text-gray-400">{batch.deliveryDate}</div>
+                                </td>
+
+                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                  <div className="font-semibold text-gray-900 flex items-center gap-1.5">
+                                    <span className="font-black text-vna-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                                      {batch.airportCode}
+                                    </span>
+                                  </div>
+                                  {batch.airportName && (
+                                    <div className="text-[10px] text-gray-400 mt-0.5 truncate max-w-[130px]" title={batch.airportName}>
+                                      {batch.airportName}
+                                    </div>
+                                  )}
+                                </td>
+
+                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                  <div className="font-semibold text-gray-900 flex items-center gap-1.5">
+                                    <span className="font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                                      {batch.destAirportCode || 'HAN'}
+                                    </span>
+                                  </div>
+                                  {batch.destAirportName && (
+                                    <div className="text-[10px] text-gray-400 mt-0.5 truncate max-w-[130px]" title={batch.destAirportName}>
+                                      {batch.destAirportName}
+                                    </div>
+                                  )}
+                                </td>
+
+                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                  <div className="font-semibold text-gray-800">{batch.supplier || '—'}</div>
+                                  {batch.supplierVat && (
+                                    <div className="text-[10px] text-gray-400 font-mono">VAT: {batch.supplierVat}</div>
+                                  )}
+                                </td>
+
+                                <td className="py-3.5 px-4 text-center align-top" rowSpan={schemes.length}>
+                                  <div className="inline-flex items-center gap-1">
+                                    <FormattedNumberInput
+                                      value={batch.tonnes}
+                                      onChange={(val) => handleUpdateBatchTonnage(batch.id, val)}
+                                      className="w-24 text-right font-black text-gray-900 border border-gray-300 rounded-lg px-2 py-1 text-xs focus:ring-1 focus:ring-vna-blue bg-white"
+                                    />
+                                    <span className="text-[11px] text-gray-500 font-bold">tấn</span>
+                                  </div>
+                                </td>
+                              </>
+                            )}
+
+                            {/* Scheme name badge */}
+                            <td className="py-3 px-4 text-center">
+                              <span
+                                className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-black text-xs border shadow-2xs ${
+                                  scheme === 'EU_ETS'
+                                    ? 'bg-blue-50 text-vna-blue border-blue-200'
+                                    : scheme === 'UK_ETS'
+                                      ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                                      : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                                }`}
+                              >
+                                {scheme === 'EU_ETS' ? 'EU ETS' : scheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA'}
+                              </span>
+                            </td>
+
+                            {/* Calculated CO2 Saved */}
+                            <td className="py-3 px-4 text-right">
+                              <div className={`font-black ${isAssigned ? 'text-emerald-700 text-sm' : 'text-emerald-600'}`}>
+                                -{currentStat.schemeCo2Saved.toLocaleString(locale)} tCO₂
+                              </div>
+                              <div className="text-[10px] text-gray-400 font-medium">({currentStat.schemeRate} t/tấn)</div>
+                            </td>
+
+                            {/* Chi phí nếu chọn cơ chế này */}
+                            <td className="py-3 px-4 text-right">
+                              <div className="font-black text-gray-900 text-xs">
+                                {currentStat.netBatchCostUsd.toLocaleString(locale)} $
+                              </div>
+                            </td>
+
+                            {/* Radio selector to pick and apply scheme */}
+                            <td className="py-3 px-4 text-center">
+                              {schemes.length === 1 ? (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold bg-emerald-600 text-white border-emerald-600 shadow-xs">
+                                  <CheckCircle2 size={13} className="text-white" />
+                                  <span>Đang áp dụng</span>
+                                </span>
+                              ) : (
+                                <label
+                                  onClick={() => handleAssignBatch(batch.id, scheme)}
+                                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer transition-all border text-xs font-bold select-none ${
+                                    isAssigned
+                                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                                      : 'bg-white border-gray-300 text-gray-600 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-700'
+                                  }`}
+                                >
+                                  <input
+                                    type="radio"
+                                    name={`scheme-choice-${batch.id}`}
+                                    checked={isAssigned}
+                                    onChange={() => handleAssignBatch(batch.id, scheme)}
+                                    className="w-3.5 h-3.5 text-emerald-600 focus:ring-emerald-500 border-gray-300 cursor-pointer accent-emerald-600"
+                                  />
+                                  <span>{isAssigned ? 'Đang áp dụng' : 'Tích áp dụng'}</span>
+                                </label>
+                              )}
+                            </td>
+
+                            {isFirstRow && (
+                              <td className="py-3.5 px-4 text-center align-middle" rowSpan={schemes.length}>
+                                <button
+                                  onClick={() => handleDeleteBatch(batch.id)}
+                                  className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                  title="Xóa lô này"
+                                >
+                                  <Trash2 size={15} />
+                                </button>
+                              </td>
+                            )}
+                          </tr>
+                        );
+                      });
+                    });
+                  })()}
                 </tbody>
               </table>
             </div>
@@ -2029,16 +2262,29 @@ export const NetZeroV2Page: React.FC = () => {
             {/* Matrix Summary Footer */}
             <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
               <div className="flex items-center gap-6 font-bold text-gray-700 flex-wrap">
-                <span>Tổng SAF: <strong className="text-gray-900">{batches.reduce((a, b) => a + b.tonnes, 0).toLocaleString(locale)} tấn</strong></span>
-                <span>Claim cho EU: <strong className="text-vna-blue">{currentMetrics.safEuTonnes.toLocaleString(locale)} tấn</strong></span>
-                <span>Claim cho UK: <strong className="text-indigo-600">{currentMetrics.safUkTonnes.toLocaleString(locale)} tấn</strong></span>
-                <span>Claim cho CORSIA: <strong className="text-emerald-600">{currentMetrics.safCorsiaTonnes.toLocaleString(locale)} tấn</strong></span>
+                {(() => {
+                  const totalTonnes = batches.reduce((a, b) => a + b.tonnes, 0);
+                  const euTonnes = batches.filter(b => b.assignedScheme === 'EU_ETS').reduce((a, b) => a + b.tonnes, 0);
+                  const ukTonnes = batches.filter(b => b.assignedScheme === 'UK_ETS').reduce((a, b) => a + b.tonnes, 0);
+                  const corsiaTonnes = batches.filter(b => b.assignedScheme === 'CORSIA').reduce((a, b) => a + b.tonnes, 0);
+                  return (
+                    <>
+                      <span>Tổng SAF: <strong className="text-gray-900">{totalTonnes.toLocaleString(locale)} tấn</strong></span>
+                      <span>Claim cho EU: <strong className="text-vna-blue">{euTonnes.toLocaleString(locale)} tấn</strong></span>
+                      <span>Claim cho UK: <strong className="text-indigo-600">{ukTonnes.toLocaleString(locale)} tấn</strong></span>
+                      <span>Claim cho CORSIA: <strong className="text-emerald-600">{corsiaTonnes.toLocaleString(locale)} tấn</strong></span>
+                    </>
+                  );
+                })()}
               </div>
 
               <div className="flex items-center gap-3">
                 <span className="text-gray-500 font-semibold">Tổng CO₂ giảm trừ:</span>
                 <span className="text-base font-black text-emerald-600">
-                  -{executiveKpiMetrics.totalCo2Saved.toLocaleString(locale)} tCO₂
+                  -{batches.reduce((sum, b) => {
+                    const { totalSaved } = calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, b.assignedScheme);
+                    return sum + totalSaved;
+                  }, 0).toLocaleString(locale)} tCO₂
                 </span>
               </div>
             </div>
@@ -3458,6 +3704,8 @@ export const NetZeroV2Page: React.FC = () => {
                           deliveryDate: found.deliveryDate,
                           airportCode: found.airportCode,
                           airportName: found.airportName,
+                          destAirportCode: found.destAirportCode,
+                          destAirportName: found.destAirportName,
                           region: found.region,
                           supplier: found.supplier,
                           supplierVat: found.supplierVat,
@@ -3473,6 +3721,8 @@ export const NetZeroV2Page: React.FC = () => {
                           batchNo: '',
                           airportCode: '',
                           airportName: '',
+                          destAirportCode: '',
+                          destAirportName: '',
                           tonnes: 0,
                           co2SavedPerTonne: 0
                         });
@@ -3483,26 +3733,12 @@ export const NetZeroV2Page: React.FC = () => {
                     <option value="">-- Chọn lô SAF trong kho --</option>
                     {SAF_WAREHOUSE_REPOSITORY.map((item) => (
                       <option key={item.batchNo} value={item.batchNo}>
-                        {item.batchNo} ({item.airportCode} - {item.tonnes.toLocaleString(locale)} tấn)
+                        {item.batchNo} ({item.airportCode} → {item.destAirportCode} - {item.tonnes.toLocaleString(locale)} tấn)
                       </option>
                     ))}
                   </select>
                 </div>
 
-                {/* Sân bay nạp - Disabled / Tự động theo mã lô */}
-                <div>
-                  <label className="font-bold text-gray-700 block mb-1">Sân bay nạp:</label>
-                  <Input
-                    value={newBatch.airportCode ? `${newBatch.airportCode} - ${newBatch.airportName}` : ''}
-                    disabled
-                    readOnly
-                    placeholder="Tự động theo mã lô"
-                    className="bg-gray-100 text-gray-700 cursor-not-allowed font-medium border-gray-200"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
                 {/* Khối lượng SAF - Disabled / Tự động theo mã lô */}
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">Khối lượng SAF (tấn):</label>
@@ -3514,7 +3750,35 @@ export const NetZeroV2Page: React.FC = () => {
                     className="bg-gray-100 text-gray-700 cursor-not-allowed font-bold border-gray-200"
                   />
                 </div>
+              </div>
 
+              <div className="grid grid-cols-2 gap-3">
+                {/* Sân bay xuất phát - Disabled / Tự động theo mã lô */}
+                <div>
+                  <label className="font-bold text-gray-700 block mb-1">Sân bay xuất phát:</label>
+                  <Input
+                    value={newBatch.airportCode ? `${newBatch.airportCode} - ${newBatch.airportName}` : ''}
+                    disabled
+                    readOnly
+                    placeholder="Tự động theo mã lô"
+                    className="bg-gray-100 text-gray-700 cursor-not-allowed font-medium border-gray-200"
+                  />
+                </div>
+
+                {/* Sân bay đáp - Disabled / Tự động theo mã lô */}
+                <div>
+                  <label className="font-bold text-gray-700 block mb-1">Sân bay đáp:</label>
+                  <Input
+                    value={newBatch.destAirportCode ? `${newBatch.destAirportCode} - ${newBatch.destAirportName}` : ''}
+                    disabled
+                    readOnly
+                    placeholder="Tự động theo mã lô"
+                    className="bg-gray-100 text-gray-700 cursor-not-allowed font-medium border-gray-200"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
                 {/* CO₂ giảm trừ / tấn SAF - Disabled / Tự động theo mã lô */}
                 <div>
                   <label className="font-bold text-gray-700 block mb-1">CO₂ giảm trừ / tấn SAF:</label>
@@ -3524,6 +3788,18 @@ export const NetZeroV2Page: React.FC = () => {
                     readOnly
                     placeholder="Tự động theo mã lô"
                     className="bg-gray-100 text-gray-700 cursor-not-allowed font-bold border-gray-200"
+                  />
+                </div>
+
+                {/* Nhà cung cấp - Tự động theo mã lô */}
+                <div>
+                  <label className="font-bold text-gray-700 block mb-1">Nhà cung cấp:</label>
+                  <Input
+                    value={newBatch.supplier ? `${newBatch.supplier}${newBatch.supplierVat ? ` (VAT: ${newBatch.supplierVat})` : ''}` : ''}
+                    disabled
+                    readOnly
+                    placeholder="Tự động theo mã lô"
+                    className="bg-gray-100 text-gray-700 cursor-not-allowed font-medium border-gray-200"
                   />
                 </div>
               </div>

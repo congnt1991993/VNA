@@ -22,7 +22,7 @@ const FEATURES = [
 
   // PHÂN TÍCH & CHIẾN LƯỢC
   { id: 'netzero-simulation', name: 'Mô phỏng kịch bản Net Zero', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
-  { id: 'netzero-simulation-v2', name: 'Mô phỏng kịch bản Net Zero 2', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
+  { id: 'netzero-simulation-v2', name: 'Khuyến nghị claim SAF', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
   { id: 'netzero-solution', name: 'Mô phỏng Net Zero (Giải pháp Tối ưu SAF)', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
   { id: 'kpi-manage', name: 'Quản lý KPI', group: 'PHÂN TÍCH & CHIẾN LƯỢC' },
 
