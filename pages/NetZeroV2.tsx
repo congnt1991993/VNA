@@ -2130,12 +2130,12 @@ export const NetZeroV2Page: React.FC = () => {
                           >
                             {isFirstRow && (
                               <>
-                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
                                   <div className="font-bold text-gray-900">{batch.batchNo}</div>
                                   <div className="text-[10px] text-gray-400">{batch.deliveryDate}</div>
                                 </td>
 
-                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
                                   <div className="font-semibold text-gray-900 flex items-center gap-1.5">
                                     <span className="font-black text-vna-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                                       {batch.airportCode}
@@ -2148,7 +2148,7 @@ export const NetZeroV2Page: React.FC = () => {
                                   )}
                                 </td>
 
-                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
                                   <div className="font-semibold text-gray-900 flex items-center gap-1.5">
                                     <span className="font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
                                       {batch.destAirportCode || 'HAN'}
@@ -2161,14 +2161,14 @@ export const NetZeroV2Page: React.FC = () => {
                                   )}
                                 </td>
 
-                                <td className="py-3.5 px-4 align-top" rowSpan={schemes.length}>
+                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
                                   <div className="font-semibold text-gray-800">{batch.supplier || '—'}</div>
                                   {batch.supplierVat && (
                                     <div className="text-[10px] text-gray-400 font-mono">VAT: {batch.supplierVat}</div>
                                   )}
                                 </td>
 
-                                <td className="py-3.5 px-4 text-center align-top" rowSpan={schemes.length}>
+                                <td className="py-3.5 px-4 text-center align-middle" rowSpan={schemes.length}>
                                   <div className="inline-flex items-center gap-1">
                                     <FormattedNumberInput
                                       value={batch.tonnes}
@@ -2260,25 +2260,61 @@ export const NetZeroV2Page: React.FC = () => {
             </div>
 
             {/* Matrix Summary Footer */}
-            <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-              <div className="flex items-center gap-6 font-bold text-gray-700 flex-wrap">
-                {(() => {
-                  const totalTonnes = batches.reduce((a, b) => a + b.tonnes, 0);
-                  const euTonnes = batches.filter(b => b.assignedScheme === 'EU_ETS').reduce((a, b) => a + b.tonnes, 0);
-                  const ukTonnes = batches.filter(b => b.assignedScheme === 'UK_ETS').reduce((a, b) => a + b.tonnes, 0);
-                  const corsiaTonnes = batches.filter(b => b.assignedScheme === 'CORSIA').reduce((a, b) => a + b.tonnes, 0);
-                  return (
-                    <>
-                      <span>Tổng SAF: <strong className="text-gray-900">{totalTonnes.toLocaleString(locale)} tấn</strong></span>
-                      <span>Claim cho EU: <strong className="text-vna-blue">{euTonnes.toLocaleString(locale)} tấn</strong></span>
-                      <span>Claim cho UK: <strong className="text-indigo-600">{ukTonnes.toLocaleString(locale)} tấn</strong></span>
-                      <span>Claim cho CORSIA: <strong className="text-emerald-600">{corsiaTonnes.toLocaleString(locale)} tấn</strong></span>
-                    </>
-                  );
-                })()}
-              </div>
+            <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
+              {(() => {
+                const totalTonnes = batches.reduce((a, b) => a + b.tonnes, 0);
+                const euTonnes = batches.filter(b => b.assignedScheme === 'EU_ETS').reduce((a, b) => a + b.tonnes, 0);
+                const ukTonnes = batches.filter(b => b.assignedScheme === 'UK_ETS').reduce((a, b) => a + b.tonnes, 0);
+                const corsiaTonnes = batches.filter(b => b.assignedScheme === 'CORSIA').reduce((a, b) => a + b.tonnes, 0);
 
-              <div className="flex items-center gap-3">
+                const safCostPerTonne = 2450;
+                const totalSafCost = totalTonnes * safCostPerTonne;
+                const euSafCost = euTonnes * safCostPerTonne;
+                const ukSafCost = ukTonnes * safCostPerTonne;
+                const corsiaSafCost = corsiaTonnes * safCostPerTonne;
+
+                return (
+                  <div className="flex items-center gap-6 sm:gap-8 font-bold text-gray-700 flex-wrap">
+                    <div>
+                      <div className="text-gray-700">
+                        Tổng SAF: <strong className="text-gray-900">{totalTonnes.toLocaleString(locale)} tấn</strong>
+                      </div>
+                      <div className="text-[11px] text-gray-500 font-medium mt-0.5">
+                        Tổng chi phí mua SAF: <strong className="text-gray-900">{totalSafCost.toLocaleString(locale)} $</strong>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="text-gray-700">
+                        Claim cho EU: <strong className="text-vna-blue">{euTonnes.toLocaleString(locale)} tấn</strong>
+                      </div>
+                      <div className="text-[11px] text-gray-500 font-medium mt-0.5">
+                        Chi phí mua SAF cho EU ETS: <strong className="text-vna-blue">{euSafCost.toLocaleString(locale)} $</strong>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="text-gray-700">
+                        Claim cho UK: <strong className="text-indigo-600">{ukTonnes.toLocaleString(locale)} tấn</strong>
+                      </div>
+                      <div className="text-[11px] text-gray-500 font-medium mt-0.5">
+                        Chi phí mua SAF cho UK ETS: <strong className="text-indigo-600">{ukSafCost.toLocaleString(locale)} $</strong>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="text-gray-700">
+                        Claim cho CORSIA: <strong className="text-emerald-600">{corsiaTonnes.toLocaleString(locale)} tấn</strong>
+                      </div>
+                      <div className="text-[11px] text-gray-500 font-medium mt-0.5">
+                        Chi phí mua SAF cho CORSIA: <strong className="text-emerald-600">{corsiaSafCost.toLocaleString(locale)} $</strong>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <div className="flex items-center gap-3 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-gray-200">
                 <span className="text-gray-500 font-semibold">Tổng CO₂ giảm trừ:</span>
                 <span className="text-base font-black text-emerald-600">
                   -{batches.reduce((sum, b) => {
