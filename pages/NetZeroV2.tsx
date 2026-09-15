@@ -2047,7 +2047,7 @@ export const NetZeroV2Page: React.FC = () => {
                     <th className="py-3.5 px-4 text-center">Cơ chế Hợp lệ</th>
                     <th className="py-3.5 px-4 text-right">CO₂ Giảm trừ theo cơ chế</th>
                     <th className="py-3.5 px-4 text-right">Chi phí nếu chọn</th>
-                    <th className="py-3.5 px-4 text-center">Tích chọn Áp dụng</th>
+                    <th className="py-3.5 px-4 text-center">Áp dụng</th>
                     <th className="py-3.5 px-4 text-center">Thao tác</th>
                   </tr>
                 </thead>
@@ -2086,7 +2086,7 @@ export const NetZeroV2Page: React.FC = () => {
                           : sch === 'UK_ETS'
                             ? marketParams.priceUkEts
                             : marketParams.priceCorsia;
-                        
+
                         const creditSavedUsd = Math.round(schemeCo2Saved * schemePrice);
                         const netBatchCostUsd = Math.max(0, batchSafCost - creditSavedUsd);
 
@@ -2103,11 +2103,11 @@ export const NetZeroV2Page: React.FC = () => {
                       // Best scheme maximizes credit saved (minimizes net cost)
                       const bestStat = schemeStats.reduce((best, curr) =>
                         curr.creditSavedUsd > best.creditSavedUsd ? curr : best
-                      , schemeStats[0]);
+                        , schemeStats[0]);
 
                       const worstStat = schemeStats.reduce((worst, curr) =>
                         curr.creditSavedUsd < worst.creditSavedUsd ? curr : worst
-                      , schemeStats[0]);
+                        , schemeStats[0]);
 
                       const diffSavingsUsd = bestStat.creditSavedUsd - worstStat.creditSavedUsd;
 
@@ -2120,13 +2120,12 @@ export const NetZeroV2Page: React.FC = () => {
                         return (
                           <tr
                             key={`${batch.id}-${scheme}`}
-                            className={`transition-colors ${
-                              isAssigned
-                                ? 'bg-emerald-50/50 hover:bg-emerald-50/70'
-                                : isEven
-                                  ? 'bg-white hover:bg-gray-50'
-                                  : 'bg-gray-50/40 hover:bg-gray-100/50'
-                            } ${!isFirstRow ? 'border-t border-gray-100' : 'border-t-2 border-gray-200'}`}
+                            className={`transition-colors ${isAssigned
+                              ? 'bg-emerald-50/50 hover:bg-emerald-50/70'
+                              : isEven
+                                ? 'bg-white hover:bg-gray-50'
+                                : 'bg-gray-50/40 hover:bg-gray-100/50'
+                              } ${!isFirstRow ? 'border-t border-gray-100' : 'border-t-2 border-gray-200'}`}
                           >
                             {isFirstRow && (
                               <>
@@ -2184,13 +2183,12 @@ export const NetZeroV2Page: React.FC = () => {
                             {/* Scheme name badge */}
                             <td className="py-3 px-4 text-center">
                               <span
-                                className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-black text-xs border shadow-2xs ${
-                                  scheme === 'EU_ETS'
-                                    ? 'bg-blue-50 text-vna-blue border-blue-200'
-                                    : scheme === 'UK_ETS'
-                                      ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
-                                      : 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                                }`}
+                                className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-black text-xs border shadow-2xs ${scheme === 'EU_ETS'
+                                  ? 'bg-blue-50 text-vna-blue border-blue-200'
+                                  : scheme === 'UK_ETS'
+                                    ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                                    : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                                  }`}
                               >
                                 {scheme === 'EU_ETS' ? 'EU ETS' : scheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA'}
                               </span>
@@ -2221,11 +2219,10 @@ export const NetZeroV2Page: React.FC = () => {
                               ) : (
                                 <label
                                   onClick={() => handleAssignBatch(batch.id, scheme)}
-                                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer transition-all border text-xs font-bold select-none ${
-                                    isAssigned
-                                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                                      : 'bg-white border-gray-300 text-gray-600 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-700'
-                                  }`}
+                                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer transition-all border text-xs font-bold select-none ${isAssigned
+                                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                                    : 'bg-white border-gray-300 text-gray-600 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-700'
+                                    }`}
                                 >
                                   <input
                                     type="radio"
@@ -2234,7 +2231,7 @@ export const NetZeroV2Page: React.FC = () => {
                                     onChange={() => handleAssignBatch(batch.id, scheme)}
                                     className="w-3.5 h-3.5 text-emerald-600 focus:ring-emerald-500 border-gray-300 cursor-pointer accent-emerald-600"
                                   />
-                                  <span>{isAssigned ? 'Đang áp dụng' : 'Tích áp dụng'}</span>
+                                  <span>{isAssigned ? 'Áp dụng' : 'Chọn'}</span>
                                 </label>
                               )}
                             </td>
