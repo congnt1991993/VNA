@@ -48,20 +48,20 @@ export const DocumentsPage: React.FC = () => {
         code: '', name: '', type: 'PDF', isPublic: false, description: '', tags: []
     });
 
-// Helper tính toán phiên bản tiếp theo cho tài liệu (Semantic Versioning)
-const calculateNextDocVersions = (currentVerStr: string) => {
-    const clean = (currentVerStr || '1.0').replace(/[^0-9.]/g, '');
-    const parts = clean.split('.');
-    const major = parseInt(parts[0] || '1', 10);
-    const minor = parseInt(parts[1] || '0', 10);
-    const nextMinor = `${major}.${minor + 1}`;
-    const nextMajor = `${major + 1}.0`;
-    return {
-        current: clean || '1.0',
-        nextMinor,
-        nextMajor
+    // Helper tính toán phiên bản tiếp theo cho tài liệu (Semantic Versioning)
+    const calculateNextDocVersions = (currentVerStr: string) => {
+        const clean = (currentVerStr || '1.0').replace(/[^0-9.]/g, '');
+        const parts = clean.split('.');
+        const major = parseInt(parts[0] || '1', 10);
+        const minor = parseInt(parts[1] || '0', 10);
+        const nextMinor = `${major}.${minor + 1}`;
+        const nextMajor = `${major + 1}.0`;
+        return {
+            current: clean || '1.0',
+            nextMinor,
+            nextMajor
+        };
     };
-};
 
     // Edit Form State (Initialized when entering Edit mode)
     const [editDocForm, setEditDocForm] = useState<Document | null>(null);
@@ -118,9 +118,9 @@ const calculateNextDocVersions = (currentVerStr: string) => {
             const calculated = calculateNextDocVersions(selectedDoc.version || '1.0');
             setDocVersionOptions(calculated);
             setDocVersionType('minor');
-            setEditDocForm({ 
+            setEditDocForm({
                 ...selectedDoc,
-                version: calculated.nextMinor 
+                version: calculated.nextMinor
             });
             setViewMode('EDIT');
         }
@@ -344,14 +344,14 @@ const calculateNextDocVersions = (currentVerStr: string) => {
                             onChange={(e) => setNewDocForm({ ...newDocForm, code: e.target.value })}
                             placeholder="VD: DOC-2025-001"
                         />
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Loại tài liệu</label>
                             <Select
                                 options={[{ label: 'PDF', value: 'PDF' }, { label: 'Excel', value: 'Excel' }, { label: 'Word', value: 'Word' }]}
                                 value={newDocForm.type}
                                 onChange={(val) => setNewDocForm({ ...newDocForm, type: val })}
                             />
-                        </div>
+                        </div> */}
                     </div>
 
                     <Input
@@ -461,11 +461,10 @@ const calculateNextDocVersions = (currentVerStr: string) => {
                                         setDocVersionType('minor');
                                         setEditDocForm(prev => prev ? ({ ...prev, version: docVersionOptions.nextMinor }) : null);
                                     }}
-                                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                                        docVersionType === 'minor'
+                                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${docVersionType === 'minor'
                                             ? 'border-vna-blue bg-blue-50/60 shadow-xs ring-1 ring-vna-blue'
                                             : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'
-                                    }`}
+                                        }`}
                                 >
                                     <div className="flex items-center justify-between mb-1.5">
                                         <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
@@ -487,11 +486,10 @@ const calculateNextDocVersions = (currentVerStr: string) => {
                                         setDocVersionType('major');
                                         setEditDocForm(prev => prev ? ({ ...prev, version: docVersionOptions.nextMajor }) : null);
                                     }}
-                                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                                        docVersionType === 'major'
+                                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between ${docVersionType === 'major'
                                             ? 'border-emerald-600 bg-emerald-50/60 shadow-xs ring-1 ring-emerald-600'
                                             : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'
-                                    }`}
+                                        }`}
                                 >
                                     <div className="flex items-center justify-between mb-1.5">
                                         <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
