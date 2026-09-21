@@ -1,3 +1,4 @@
+import * as XLSX from 'xlsx';
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Button, Card, Input, Select, StatusChip } from '../components/UI';
 import {
@@ -6,7 +7,7 @@ import {
   Sparkles, Layers, Sliders, BarChart3, HelpCircle, ArrowRight, X, Copy, Check,
   FileSpreadsheet, Award, Info, FileText, ArrowUpRight, Settings2, SlidersHorizontal,
   RotateCcw, TrendingDown, Database, Globe, Percent, BookmarkCheck, FolderOpen, List, History, CheckCheck,
-  Calendar, ChevronLeft, ChevronRight, ChevronDown
+  Calendar, ChevronLeft, ChevronRight, ChevronDown, ArrowUpDown, ArrowDown, Filter, Search
 } from 'lucide-react';
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis,
@@ -31,7 +32,10 @@ export interface SafBatch {
   co2SavedPerTonne: number; // tCO2 giảm trừ trên mỗi tấn SAF
   eligibleSchemes: ('EU_ETS' | 'UK_ETS' | 'CORSIA')[];
   assignedScheme: 'EU_ETS' | 'UK_ETS' | 'CORSIA' | 'UNASSIGNED';
+  flightsCount?: number; // Số lượng chuyến bay nạp SAF
 }
+
+export const getBatchFlights = (b: SafBatch) => b.flightsCount || Math.max(1, Math.round(b.tonnes / 50));
 
 /**
  * Tính toán CO2 giảm trừ tương ứng cho từng cơ chế:
@@ -444,6 +448,7 @@ const YearPicker: React.FC<{
           </div>
         </div>
       )}
+
     </div>
   );
 };
@@ -455,6 +460,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-1',
     batchNo: 'SAF-2026-EU-01',
     deliveryDate: '12/01/2026',
+    flightsCount: 25,
     airportCode: 'CDG',
     airportName: 'Paris Charles de Gaulle (Pháp)',
     destAirportCode: 'HAN',
@@ -472,6 +478,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-2',
     batchNo: 'SAF-2026-EU-02',
     deliveryDate: '28/01/2026',
+    flightsCount: 20,
     airportCode: 'FRA',
     airportName: 'Frankfurt Airport (Đức)',
     destAirportCode: 'HAN',
@@ -489,6 +496,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-3',
     batchNo: 'SAF-2026-UK-01',
     deliveryDate: '15/02/2026',
+    flightsCount: 17,
     airportCode: 'LHR',
     airportName: 'London Heathrow (Anh)',
     destAirportCode: 'HAN',
@@ -506,6 +514,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-4',
     batchNo: 'SAF-2026-ASIA-01',
     deliveryDate: '02/03/2026',
+    flightsCount: 30,
     airportCode: 'SIN',
     airportName: 'Singapore Changi (Singapore)',
     destAirportCode: 'SGN',
@@ -523,6 +532,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-5',
     batchNo: 'SAF-2026-ASIA-02',
     deliveryDate: '18/03/2026',
+    flightsCount: 22,
     airportCode: 'NRT',
     airportName: 'Tokyo Narita (Nhật Bản)',
     destAirportCode: 'SGN',
@@ -540,6 +550,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-6',
     batchNo: 'SAF-2026-EU-03',
     deliveryDate: '25/03/2026',
+    flightsCount: 15,
     airportCode: 'CDG',
     airportName: 'Paris Charles de Gaulle (Pháp)',
     destAirportCode: 'SGN',
@@ -557,6 +568,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-7',
     batchNo: 'SAF-2026-EU-04',
     deliveryDate: '10/04/2026',
+    flightsCount: 17,
     airportCode: 'FRA',
     airportName: 'Frankfurt Airport (Đức)',
     destAirportCode: 'SGN',
@@ -574,6 +586,7 @@ const INITIAL_BATCHES: SafBatch[] = [
     id: 'b-8',
     batchNo: 'SAF-2026-UK-02',
     deliveryDate: '22/04/2026',
+    flightsCount: 12,
     airportCode: 'LHR',
     airportName: 'London Heathrow (Anh)',
     destAirportCode: 'SGN',
@@ -789,6 +802,35 @@ export const NetZeroV2Page: React.FC = () => {
     return DEFAULT_MARKET_PARAMS;
   });
 
+  // Filters & Sorting for SAF Batch table
+  const [batchFilterCode, setBatchFilterCode] = useState<string>('');
+  const [batchFilterOrigin, setBatchFilterOrigin] = useState<string>('ALL');
+  const [batchFilterDest, setBatchFilterDest] = useState<string>('ALL');
+  const [batchSortField, setBatchSortField] = useState<'batchNo' | 'airportCode' | 'destAirportCode' | null>(null);
+  const [batchSortOrder, setBatchSortOrder] = useState<'asc' | 'desc'>('asc');
+
+  const handleToggleSort = (field: 'batchNo' | 'airportCode' | 'destAirportCode') => {
+    if (batchSortField === field) {
+      if (batchSortOrder === 'asc') {
+        setBatchSortOrder('desc');
+      } else {
+        setBatchSortField(null);
+        setBatchSortOrder('asc');
+      }
+    } else {
+      setBatchSortField(field);
+      setBatchSortOrder('asc');
+    }
+  };
+
+  const handleResetBatchFilters = () => {
+    setBatchFilterCode('');
+    setBatchFilterOrigin('ALL');
+    setBatchFilterDest('ALL');
+    setBatchSortField(null);
+    setBatchSortOrder('asc');
+  };
+
   const [batches, setBatches] = useState<SafBatch[]>(() => {
     const saved = localStorage.getItem('vna_netzero_v2_batches');
     if (saved) {
@@ -805,6 +847,81 @@ export const NetZeroV2Page: React.FC = () => {
     }
     return INITIAL_BATCHES;
   });
+
+  const originAirportOptions = useMemo(() => {
+    return Array.from(new Set(batches.map((b) => b.airportCode))).sort();
+  }, [batches]);
+
+  const destAirportOptions = useMemo(() => {
+    return Array.from(new Set(batches.map((b) => b.destAirportCode || 'HAN'))).sort();
+  }, [batches]);
+
+  const processedBatches = useMemo(() => {
+    let list = batches.filter(
+      (batch) => batch.eligibleSchemes && batch.eligibleSchemes.length >= 1
+    );
+
+    // Filter by Batch No
+    if (batchFilterCode.trim()) {
+      const q = batchFilterCode.trim().toLowerCase();
+      list = list.filter((b) => b.batchNo.toLowerCase().includes(q));
+    }
+
+    // Filter by Departure Airport
+    if (batchFilterOrigin !== 'ALL') {
+      list = list.filter((b) => b.airportCode === batchFilterOrigin);
+    }
+
+    // Filter by Arrival Airport
+    if (batchFilterDest !== 'ALL') {
+      list = list.filter((b) => (b.destAirportCode || 'HAN') === batchFilterDest);
+    }
+
+    // Sort
+    if (batchSortField) {
+      list = [...list].sort((a, b) => {
+        let valA = '';
+        let valB = '';
+        if (batchSortField === 'batchNo') {
+          valA = a.batchNo;
+          valB = b.batchNo;
+        } else if (batchSortField === 'airportCode') {
+          valA = a.airportCode;
+          valB = b.airportCode;
+        } else if (batchSortField === 'destAirportCode') {
+          valA = a.destAirportCode || 'HAN';
+          valB = b.destAirportCode || 'HAN';
+        }
+
+        const cmp = valA.localeCompare(valB);
+        return batchSortOrder === 'asc' ? cmp : -cmp;
+      });
+    }
+
+    return list;
+  }, [batches, batchFilterCode, batchFilterOrigin, batchFilterDest, batchSortField, batchSortOrder]);
+
+
+  // Sync Data State & Handler
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncToast, setSyncToast] = useState<string | null>(null);
+
+  const handleSyncData = () => {
+    setIsSyncing(true);
+    setTimeout(() => {
+      setIsSyncing(false);
+      setBatches(INITIAL_BATCHES);
+      localStorage.setItem('vna_netzero_v2_batches', JSON.stringify(INITIAL_BATCHES));
+      setSyncToast(
+        currentLang === 'vi'
+          ? 'Đồng bộ dữ liệu thành công từ Hệ thống Điều hành Bay & Sổ cái SAF Ledger!'
+          : 'Data synchronized successfully from Flight Operations & SAF Ledger!'
+      );
+      setTimeout(() => {
+        setSyncToast(null);
+      }, 3500);
+    }, 750);
+  };
 
   // Saved Scenarios State & Modal
   const [isScenarioListModalOpen, setIsScenarioListModalOpen] = useState(false);
@@ -1383,6 +1500,185 @@ export const NetZeroV2Page: React.FC = () => {
     setTimeout(() => setSaveToast(false), 2500);
   };
 
+  // Handler for exporting SAF Batch Allocation table to Excel
+  const handleExportSafBatchesExcel = () => {
+    const displayedBatches = processedBatches;
+
+    if (displayedBatches.length === 0) {
+      alert('Không có dữ liệu lô SAF để xuất file.');
+      return;
+    }
+
+    // Row 1: Group headers
+    const headerRow1 = [
+      'Mã lô',
+      'Ngày nạp',
+      'Sân bay xuất phát',
+      'Sân bay đáp',
+      'Khối lượng SAF (tấn)',
+      'Số lượng Chuyến bay (FLS)',
+      '',
+      '',
+      'Lượng CO2 Giảm trừ (tCO2)',
+      '',
+      '',
+      'Chi phí được giảm trừ (USD $)',
+      '',
+      '',
+      'Cơ chế áp dụng'
+    ];
+
+    // Row 2: Detailed column names
+    const headerRow2 = [
+      'Mã lô',
+      'Ngày nạp',
+      'Sân bay xuất phát',
+      'Sân bay đáp',
+      'Khối lượng SAF (tấn)',
+      'FLS_EU ETS',
+      'FLS_UK ETS',
+      'FLS_CORSIA',
+      'CO2_EU ETS (tCO2)',
+      'CO2_UK ETS (tCO2)',
+      'CO2_CORSIA (tCO2)',
+      'USD_EU ETS ($)',
+      'USD_UK ETS ($)',
+      'USD_CORSIA ($)',
+      'Cơ chế áp dụng'
+    ];
+
+    // Data rows
+    const dataRows = displayedBatches.map((b) => {
+      const flights = getBatchFlights(b);
+      const isEu = b.eligibleSchemes.includes('EU_ETS');
+      const isUk = b.eligibleSchemes.includes('UK_ETS');
+      const isCorsia = b.eligibleSchemes.includes('CORSIA');
+
+      const co2Eu = isEu ? calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'EU_ETS').totalSaved : '';
+      const usdEu = isEu ? Math.round(Number(co2Eu) * marketParams.priceEuEts) : '';
+
+      const co2Uk = isUk ? calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'UK_ETS').totalSaved : '';
+      const usdUk = isUk ? Math.round(Number(co2Uk) * marketParams.priceUkEts) : '';
+
+      const co2Corsia = isCorsia ? calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'CORSIA').totalSaved : '';
+      const usdCorsia = isCorsia ? Math.round(Number(co2Corsia) * marketParams.priceCorsia) : '';
+
+      const schemeLabel = b.assignedScheme === 'EU_ETS' ? 'EU ETS' : b.assignedScheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA';
+
+      return [
+        b.batchNo,
+        b.deliveryDate,
+        b.airportCode,
+        b.destAirportCode || 'HAN',
+        b.tonnes,
+        isEu ? flights : '—',
+        isUk ? flights : '—',
+        isCorsia ? flights : '—',
+        isEu ? -co2Eu : '—',
+        isUk ? -co2Uk : '—',
+        isCorsia ? -co2Corsia : '—',
+        isEu ? usdEu : '—',
+        isUk ? usdUk : '—',
+        isCorsia ? usdCorsia : '—',
+        schemeLabel
+      ];
+    });
+
+    // Summary totals
+    const totalSafTonnes = displayedBatches.reduce((sum, b) => sum + b.tonnes, 0);
+
+    const totalFlsEu = displayedBatches
+      .filter((b) => b.eligibleSchemes.includes('EU_ETS'))
+      .reduce((sum, b) => sum + getBatchFlights(b), 0);
+    const totalFlsUk = displayedBatches
+      .filter((b) => b.eligibleSchemes.includes('UK_ETS'))
+      .reduce((sum, b) => sum + getBatchFlights(b), 0);
+    const totalFlsCorsia = displayedBatches
+      .filter((b) => b.eligibleSchemes.includes('CORSIA'))
+      .reduce((sum, b) => sum + getBatchFlights(b), 0);
+
+    const totalCo2Eu = displayedBatches
+      .filter((b) => b.eligibleSchemes.includes('EU_ETS'))
+      .reduce(
+        (sum, b) => sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'EU_ETS').totalSaved,
+        0
+      );
+    const totalCo2Uk = displayedBatches
+      .filter((b) => b.eligibleSchemes.includes('UK_ETS'))
+      .reduce(
+        (sum, b) => sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'UK_ETS').totalSaved,
+        0
+      );
+    const totalCo2Corsia = displayedBatches
+      .filter((b) => b.eligibleSchemes.includes('CORSIA'))
+      .reduce(
+        (sum, b) => sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'CORSIA').totalSaved,
+        0
+      );
+
+    const totalUsdEu = Math.round(totalCo2Eu * marketParams.priceEuEts);
+    const totalUsdUk = Math.round(totalCo2Uk * marketParams.priceUkEts);
+    const totalUsdCorsia = Math.round(totalCo2Corsia * marketParams.priceCorsia);
+
+    const summaryRow = [
+      'TỔNG CỘNG',
+      '',
+      '',
+      '',
+      totalSafTonnes,
+      totalFlsEu,
+      totalFlsUk,
+      totalFlsCorsia,
+      -totalCo2Eu,
+      -totalCo2Uk,
+      -totalCo2Corsia,
+      totalUsdEu,
+      totalUsdUk,
+      totalUsdCorsia,
+      ''
+    ];
+
+    const aoa = [headerRow1, headerRow2, ...dataRows, summaryRow];
+    const ws = XLSX.utils.aoa_to_sheet(aoa);
+
+    // Merge group header cells
+    ws['!merges'] = [
+      { s: { r: 0, c: 0 }, e: { r: 1, c: 0 } }, // Mã lô
+      { s: { r: 0, c: 1 }, e: { r: 1, c: 1 } }, // Ngày nạp
+      { s: { r: 0, c: 2 }, e: { r: 1, c: 2 } }, // Sân bay đi
+      { s: { r: 0, c: 3 }, e: { r: 1, c: 3 } }, // Sân bay đến
+      { s: { r: 0, c: 4 }, e: { r: 1, c: 4 } }, // Khối lượng SAF
+      { s: { r: 0, c: 5 }, e: { r: 0, c: 7 } }, // FLS
+      { s: { r: 0, c: 8 }, e: { r: 0, c: 10 } }, // CO2
+      { s: { r: 0, c: 11 }, e: { r: 0, c: 13 } }, // USD
+      { s: { r: 0, c: 14 }, e: { r: 1, c: 14 } }, // Cơ chế áp dụng
+      { s: { r: aoa.length - 1, c: 0 }, e: { r: aoa.length - 1, c: 3 } } // TỔNG CỘNG merge
+    ];
+
+    // Set column widths
+    ws['!cols'] = [
+      { wch: 18 }, // Mã lô
+      { wch: 14 }, // Ngày nạp
+      { wch: 16 }, // Sân bay xuất phát
+      { wch: 14 }, // Sân bay đáp
+      { wch: 20 }, // Khối lượng SAF
+      { wch: 14 }, // FLS_EU
+      { wch: 14 }, // FLS_UK
+      { wch: 15 }, // FLS_CORSIA
+      { wch: 18 }, // CO2_EU
+      { wch: 18 }, // CO2_UK
+      { wch: 18 }, // CO2_CORSIA
+      { wch: 18 }, // USD_EU
+      { wch: 18 }, // USD_UK
+      { wch: 18 }, // USD_CORSIA
+      { wch: 16 }  // Cơ chế áp dụng
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Phan_Bo_Lo_SAF');
+    XLSX.writeFile(wb, `VNA_Bang_Phan_Bo_Lo_SAF_${new Date().toISOString().slice(0, 10)}.xlsx`);
+  };
+
   // Add new batch
   const handleAddNewBatch = () => {
     if (!newBatch.batchNo || !newBatch.tonnes) {
@@ -1404,7 +1700,8 @@ export const NetZeroV2Page: React.FC = () => {
       lifecycleEmission: Number(newBatch.lifecycleEmission) || 16.5,
       co2SavedPerTonne: Number(newBatch.co2SavedPerTonne) || 2.60,
       eligibleSchemes: (newBatch.airportCode === 'CDG' || newBatch.airportCode === 'FRA') ? ['EU_ETS', 'CORSIA'] : (newBatch.airportCode === 'LHR' ? ['UK_ETS', 'CORSIA'] : ['CORSIA']),
-      assignedScheme: (newBatch.airportCode === 'CDG' || newBatch.airportCode === 'FRA') ? 'EU_ETS' : (newBatch.airportCode === 'LHR' ? 'UK_ETS' : 'CORSIA')
+      assignedScheme: (newBatch.airportCode === 'CDG' || newBatch.airportCode === 'FRA') ? 'EU_ETS' : (newBatch.airportCode === 'LHR' ? 'UK_ETS' : 'CORSIA'),
+      flightsCount: Math.max(1, Math.round(Number(newBatch.tonnes) / 50))
     };
 
     const updated = [...batches, created];
@@ -1521,6 +1818,18 @@ export const NetZeroV2Page: React.FC = () => {
             <BarChart3 size={15} /> {currentLang === 'vi' ? 'So sánh kịch bản' : 'Compare Scenarios'}
           </Button>
 
+          <Button
+            onClick={handleSyncData}
+            disabled={isSyncing}
+            variant="outline"
+            className="border-vna-blue/30 text-vna-blue hover:bg-blue-50/60 bg-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer transition-all active:scale-95 disabled:opacity-70"
+          >
+            <RefreshCw size={15} className={isSyncing ? 'animate-spin text-vna-blue' : 'text-vna-blue'} />
+            {isSyncing
+              ? (currentLang === 'vi' ? 'Đang đồng bộ...' : 'Syncing...')
+              : (currentLang === 'vi' ? 'Đồng bộ dữ liệu' : 'Sync Data')}
+          </Button>
+
           {/* <Button
             onClick={() => handleApplyStrategy(strategyOptimal.batches)}
             className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer"
@@ -1603,25 +1912,7 @@ export const NetZeroV2Page: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
-                    Tỷ giá quy đổi VND:
-                  </label>
-                  <div className="relative">
-                    <FormattedNumberInput
-                      value={marketParams.rateEuEts ?? 25450}
-                      onChange={(val) => handleUpdateMarketParam('rateEuEts', val)}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-20 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-vna-blue"
-                      placeholder="Nhập tỷ giá..."
-                    />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
-                      VND / USD
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-gray-500 mt-1">
-                    Giá quy đổi: <strong className="text-vna-blue">{formatNumber(Math.round(marketParams.priceEuEts * (marketParams.rateEuEts ?? 25450)))} VND</strong> / tCO₂
-                  </p>
-                </div>
+
 
                 <div>
                   <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
@@ -1706,25 +1997,7 @@ export const NetZeroV2Page: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
-                    Tỷ giá quy đổi VND:
-                  </label>
-                  <div className="relative">
-                    <FormattedNumberInput
-                      value={marketParams.rateUkEts ?? 25450}
-                      onChange={(val) => handleUpdateMarketParam('rateUkEts', val)}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-20 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-indigo-600"
-                      placeholder="Nhập tỷ giá..."
-                    />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
-                      VND / USD
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-gray-500 mt-1">
-                    Giá quy đổi: <strong className="text-indigo-700">{formatNumber(Math.round(marketParams.priceUkEts * (marketParams.rateUkEts ?? 25450)))} VND</strong> / tCO₂
-                  </p>
-                </div>
+
 
                 <div>
                   <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
@@ -1809,25 +2082,7 @@ export const NetZeroV2Page: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
-                    Tỷ giá quy đổi VND:
-                  </label>
-                  <div className="relative">
-                    <FormattedNumberInput
-                      value={marketParams.rateCorsia ?? 25450}
-                      onChange={(val) => handleUpdateMarketParam('rateCorsia', val)}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-1.5 pr-20 text-xs font-bold text-gray-800 bg-white focus:outline-hidden focus:border-emerald-600"
-                      placeholder="Nhập tỷ giá..."
-                    />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400 pointer-events-none">
-                      VND / USD
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-gray-500 mt-1">
-                    Giá quy đổi: <strong className="text-emerald-700">{formatNumber(Math.round(marketParams.priceCorsia * (marketParams.rateCorsia ?? 25450)))} VND</strong> / tCO₂
-                  </p>
-                </div>
+
 
                 <div>
                   <label className="block text-[11px] text-gray-600 mb-1 font-semibold">
@@ -1986,6 +2241,25 @@ export const NetZeroV2Page: React.FC = () => {
             </p> */}
           </div>
 
+          <div className="flex items-center gap-2">
+            {(batchFilterCode || batchFilterOrigin !== 'ALL' || batchFilterDest !== 'ALL' || batchSortField) && (
+              <button
+                onClick={handleResetBatchFilters}
+                className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+                title="Đặt lại toàn bộ bộ lọc và sắp xếp"
+              >
+                <RotateCcw size={13} />
+                <span>Đặt lại lọc ({processedBatches.length}/{batches.length})</span>
+              </button>
+            )}
+            <Button
+              onClick={handleExportSafBatchesExcel}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer transition-all active:scale-95"
+            >
+              <Download size={15} /> Xuất Excel
+            </Button>
+          </div>
+
           {/* 2 Tabs Switcher */}
           {/* <div className="flex bg-gray-200/80 p-1 rounded-xl gap-1 self-start md:self-auto shadow-inner">
             <button
@@ -2015,269 +2289,585 @@ export const NetZeroV2Page: React.FC = () => {
         {/* TAB 1 CONTENT: LEDGER DATA (PRESERVE EXISTING DESIGN) */}
         {allocationMode === 'ledger' && (
           <div>
-            <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                {/* <h3 className="text-sm font-black text-vna-navy uppercase tracking-wide">
-                  Danh sách Lô Nhiên liệu SAF & Lựa chọn Cơ chế Kê khai (Claim)
-                </h3> */}
-                {/* <p className="text-xs text-gray-500 mt-0.5">
-                  💡 Bạn có thể <strong>sửa trực tiếp số tấn SAF</strong> trên từng dòng để xem sự thay đổi chi phí ngay lập tức.
-                </p> */}
-              </div>
 
-              <div className="flex items-center gap-2">
-                <Button
-                  onClick={() => setIsNewBatchModalOpen(true)}
-                  className="bg-vna-blue hover:bg-[#00556e] text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1"
-                >
-                  <Plus size={14} /> Thêm lô SAF
-                </Button>
-              </div>
-            </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left">
+              <table className="w-full text-xs text-left border-collapse min-w-[1340px]">
                 <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold">
-                    <th className="py-3.5 px-4">Mã lô & Ngày nạp</th>
-                    <th className="py-3.5 px-4">Sân bay xuất phát</th>
-                    <th className="py-3.5 px-4">Sân bay đáp</th>
-                    <th className="py-3.5 px-4">Nhà cung cấp</th>
-                    <th className="py-3.5 px-4 text-center">Khối lượng SAF (Tấn) ✍️</th>
-                    <th className="py-3.5 px-4 text-center">Cơ chế Hợp lệ</th>
-                    <th className="py-3.5 px-4 text-right">CO₂ Giảm trừ theo cơ chế</th>
-                    <th className="py-3.5 px-4 text-right">Chi phí nếu chọn</th>
-                    <th className="py-3.5 px-4 text-center">Áp dụng</th>
-                    <th className="py-3.5 px-4 text-center">Thao tác</th>
+                  <tr className="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-[11px] uppercase tracking-wider">
+                    {/* 1. Mã lô with Sort */}
+                    <th rowSpan={2} className="py-3.5 px-3 text-left border-r border-gray-200 whitespace-nowrap">
+                      <button
+                        onClick={() => handleToggleSort('batchNo')}
+                        className="inline-flex items-center gap-1.5 font-bold text-gray-700 hover:text-vna-blue cursor-pointer select-none group"
+                        title="Bấm để sắp xếp theo Mã lô"
+                      >
+                        <span>Mã lô</span>
+                        {batchSortField === 'batchNo' ? (
+                          batchSortOrder === 'asc' ? <ArrowUp size={13} className="text-vna-blue" /> : <ArrowDown size={13} className="text-vna-blue" />
+                        ) : (
+                          <ArrowUpDown size={12} className="text-gray-400 group-hover:text-gray-600" />
+                        )}
+                      </button>
+                    </th>
+
+                    {/* 2. Sân bay xuất phát with Sort */}
+                    <th rowSpan={2} className="py-3.5 px-3 text-center border-r border-gray-200 whitespace-nowrap">
+                      <button
+                        onClick={() => handleToggleSort('airportCode')}
+                        className="inline-flex items-center justify-center gap-1.5 font-bold text-gray-700 hover:text-vna-blue cursor-pointer select-none group"
+                        title="Bấm để sắp xếp theo Sân bay xuất phát"
+                      >
+                        <span>Sân bay xuất phát</span>
+                        {batchSortField === 'airportCode' ? (
+                          batchSortOrder === 'asc' ? <ArrowUp size={13} className="text-vna-blue" /> : <ArrowDown size={13} className="text-vna-blue" />
+                        ) : (
+                          <ArrowUpDown size={12} className="text-gray-400 group-hover:text-gray-600" />
+                        )}
+                      </button>
+                    </th>
+
+                    {/* 3. Sân bay đáp with Sort */}
+                    <th rowSpan={2} className="py-3.5 px-3 text-center border-r border-gray-200 whitespace-nowrap">
+                      <button
+                        onClick={() => handleToggleSort('destAirportCode')}
+                        className="inline-flex items-center justify-center gap-1.5 font-bold text-gray-700 hover:text-vna-blue cursor-pointer select-none group"
+                        title="Bấm để sắp xếp theo Sân bay đáp"
+                      >
+                        <span>Sân bay đáp</span>
+                        {batchSortField === 'destAirportCode' ? (
+                          batchSortOrder === 'asc' ? <ArrowUp size={13} className="text-vna-blue" /> : <ArrowDown size={13} className="text-vna-blue" />
+                        ) : (
+                          <ArrowUpDown size={12} className="text-gray-400 group-hover:text-gray-600" />
+                        )}
+                      </button>
+                    </th>
+                    
+                    <th rowSpan={2} className="py-3 px-3 text-center border-r-2 border-gray-300 whitespace-nowrap">Khối lượng SAF (Tấn) ✍️</th>
+                    
+                    {/* GROUP 1: FLS */}
+                    <th colSpan={3} className="py-2.5 px-3 text-center bg-slate-100 text-slate-800 border-r-2 border-gray-300 font-black">
+                      Số lượng Chuyến bay (FLS)
+                    </th>
+
+                    {/* GROUP 2: CO2 */}
+                    <th colSpan={3} className="py-2.5 px-3 text-center bg-emerald-50 text-emerald-900 border-r-2 border-gray-300 font-black">
+                      Lượng CO₂ Giảm trừ (tCO₂)
+                    </th>
+
+                    {/* GROUP 3: USD */}
+                    <th colSpan={3} className="py-2.5 px-3 text-center bg-blue-50 text-vna-navy border-r-2 border-gray-300 font-black">
+                      Chi phí được giảm trừ (USD $)
+                    </th>
+
+                    <th rowSpan={2} className="py-3 px-3 text-center border-r border-gray-200 whitespace-nowrap">Cơ chế áp dụng</th>
+                    <th rowSpan={2} className="py-3 px-3 text-center whitespace-nowrap">Thao tác</th>
+                  </tr>
+                  <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 font-semibold text-[10px]">
+                    {/* FLS columns */}
+                    <th className="py-2 px-2.5 text-center bg-slate-50 border-r border-gray-200 whitespace-nowrap text-vna-blue font-bold" title="Số lượng chuyến bay nạp SAF (EU ETS)">
+                      FLS_EU ETS
+                    </th>
+                    <th className="py-2 px-2.5 text-center bg-slate-50 border-r border-gray-200 whitespace-nowrap text-indigo-700 font-bold" title="Số lượng chuyến bay nạp SAF (UK ETS)">
+                      FLS_UK ETS
+                    </th>
+                    <th className="py-2 px-2.5 text-center bg-slate-50 border-r-2 border-gray-300 whitespace-nowrap text-emerald-700 font-bold" title="Số lượng chuyến bay nạp SAF (CORSIA)">
+                      FLS_CORSIA
+                    </th>
+
+                    {/* CO2 columns */}
+                    <th className="py-2 px-2.5 text-right bg-emerald-50/40 border-r border-gray-200 whitespace-nowrap text-vna-blue font-bold" title="Lượng CO₂ giảm trừ (EU ETS)">
+                      CO2_EU ETS
+                    </th>
+                    <th className="py-2 px-2.5 text-right bg-emerald-50/40 border-r border-gray-200 whitespace-nowrap text-indigo-700 font-bold" title="Lượng CO₂ giảm trừ (UK ETS)">
+                      CO2_UK ETS
+                    </th>
+                    <th className="py-2 px-2.5 text-right bg-emerald-50/40 border-r-2 border-gray-300 whitespace-nowrap text-emerald-700 font-bold" title="Lượng CO₂ giảm trừ (CORSIA)">
+                      CO2_CORSIA
+                    </th>
+
+                    {/* USD columns */}
+                    <th className="py-2 px-2.5 text-right bg-blue-50/40 border-r border-gray-200 whitespace-nowrap text-vna-blue font-bold" title="Chi phí được giảm trừ (EU ETS)">
+                      USD_EU ETS
+                    </th>
+                    <th className="py-2 px-2.5 text-right bg-blue-50/40 border-r border-gray-200 whitespace-nowrap text-indigo-700 font-bold" title="Chi phí được giảm trừ (UK ETS)">
+                      USD_UK ETS
+                    </th>
+                    <th className="py-2 px-2.5 text-right bg-blue-50/40 border-r-2 border-gray-300 whitespace-nowrap text-emerald-700 font-bold" title="Chi phí được giảm trừ (CORSIA)">
+                      USD_CORSIA
+                    </th>
+                  </tr>
+
+                  {/* DÒNG BỘ LỌC TẬP TRUNG TẠI CÁC CỘT (FILTER ROW) */}
+                  <tr className="bg-slate-50 border-b border-gray-200">
+                    {/* 1. Lọc Mã lô */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 align-middle">
+                      <div className="relative">
+                        <Search className="absolute left-2 top-2 text-gray-400" size={12} />
+                        <input
+                          type="text"
+                          value={batchFilterCode}
+                          onChange={(e) => setBatchFilterCode(e.target.value)}
+                          placeholder="Lọc mã..."
+                          className="w-full pl-6 pr-5 py-1 bg-white border border-gray-300 rounded text-[11px] font-normal text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-vna-blue h-[28px]"
+                        />
+                        {batchFilterCode && (
+                          <button
+                            onClick={() => setBatchFilterCode('')}
+                            className="absolute right-1.5 top-1.5 text-gray-400 hover:text-red-500 cursor-pointer"
+                            title="Xóa"
+                          >
+                            <X size={11} />
+                          </button>
+                        )}
+                      </div>
+                    </th>
+
+                    {/* 2. Lọc Sân bay xuất phát */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 align-middle">
+                      <select
+                        value={batchFilterOrigin}
+                        onChange={(e) => setBatchFilterOrigin(e.target.value)}
+                        className="w-full bg-white border border-gray-300 rounded px-1.5 py-1 text-[11px] font-medium text-gray-700 outline-none cursor-pointer focus:ring-1 focus:ring-vna-blue h-[28px]"
+                      >
+                        <option value="ALL">Tất cả ({originAirportOptions.length})</option>
+                        {originAirportOptions.map((code) => (
+                          <option key={code} value={code}>{code}</option>
+                        ))}
+                      </select>
+                    </th>
+
+                    {/* 3. Lọc Sân bay đáp */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 align-middle">
+                      <select
+                        value={batchFilterDest}
+                        onChange={(e) => setBatchFilterDest(e.target.value)}
+                        className="w-full bg-white border border-gray-300 rounded px-1.5 py-1 text-[11px] font-medium text-gray-700 outline-none cursor-pointer focus:ring-1 focus:ring-vna-blue h-[28px]"
+                      >
+                        <option value="ALL">Tất cả ({destAirportOptions.length})</option>
+                        {destAirportOptions.map((code) => (
+                          <option key={code} value={code}>{code}</option>
+                        ))}
+                      </select>
+                    </th>
+
+                    {/* 4. Khối lượng SAF */}
+                    <th className="py-1.5 px-2 border-r-2 border-gray-300 bg-gray-50/70"></th>
+
+                    {/* 5, 6, 7: FLS */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-slate-100/40"></th>
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-slate-100/40"></th>
+                    <th className="py-1.5 px-2 border-r-2 border-gray-300 bg-slate-100/40"></th>
+
+                    {/* 8, 9, 10: CO2 */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-emerald-50/20"></th>
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-emerald-50/20"></th>
+                    <th className="py-1.5 px-2 border-r-2 border-gray-300 bg-emerald-50/20"></th>
+
+                    {/* 11, 12, 13: USD */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-blue-50/20"></th>
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-blue-50/20"></th>
+                    <th className="py-1.5 px-2 border-r-2 border-gray-300 bg-blue-50/20"></th>
+
+                    {/* 14. Cơ chế áp dụng */}
+                    <th className="py-1.5 px-2 border-r border-gray-200 bg-gray-50/70"></th>
+
+                    {/* 15. Thao tác / Nút reset nếu có filter */}
+                    <th className="py-1.5 px-2 text-center bg-gray-50/70 align-middle">
+                      {(batchFilterCode || batchFilterOrigin !== 'ALL' || batchFilterDest !== 'ALL' || batchSortField) && (
+                        <button
+                          onClick={handleResetBatchFilters}
+                          className="text-gray-400 hover:text-red-600 p-1 rounded hover:bg-red-50 transition-colors cursor-pointer inline-flex items-center justify-center"
+                          title="Xóa toàn bộ bộ lọc và sắp xếp"
+                        >
+                          <RotateCcw size={13} />
+                        </button>
+                      )}
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-gray-200">
                   {(() => {
-                    const displayedBatches = batches.filter(
-                      (batch) => batch.eligibleSchemes && batch.eligibleSchemes.length >= 1
-                    );
+                    const displayedBatches = processedBatches;
 
                     if (displayedBatches.length === 0) {
                       return (
                         <tr>
-                          <td colSpan={10} className="py-10 text-center text-gray-400 font-medium">
-                            Không có lô SAF nào trong danh sách.
+                          <td colSpan={15} className="py-10 text-center text-gray-400 font-medium">
+                            <div className="flex flex-col items-center justify-center gap-1.5">
+                              <span>Không tìm thấy lô SAF nào phù hợp với bộ lọc hiện tại.</span>
+                              {(batchFilterCode || batchFilterOrigin !== 'ALL' || batchFilterDest !== 'ALL') && (
+                                <button
+                                  onClick={handleResetBatchFilters}
+                                  className="text-xs font-bold text-vna-blue hover:underline cursor-pointer"
+                                >
+                                  Đặt lại bộ lọc
+                                </button>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       );
                     }
 
-                    const safCostPerTonne = 2450;
-
                     return displayedBatches.map((batch, bIndex) => {
-                      const schemes = batch.eligibleSchemes;
                       const isEven = bIndex % 2 === 0;
-                      const batchSafCost = batch.tonnes * safCostPerTonne;
+                      const batchFlights = getBatchFlights(batch);
 
-                      // Precompute financial metrics for all eligible schemes of this batch
-                      const schemeStats = schemes.map((sch) => {
-                        const { rate: schemeRate, totalSaved: schemeCo2Saved } = calculateCo2SavedByScheme(
-                          batch.tonnes,
-                          batch.co2SavedPerTonne,
-                          sch
-                        );
-                        const schemePrice = sch === 'EU_ETS'
-                          ? marketParams.priceEuEts
-                          : sch === 'UK_ETS'
-                            ? marketParams.priceUkEts
-                            : marketParams.priceCorsia;
+                      // EU ETS calculation
+                      const isEuEligible = batch.eligibleSchemes.includes('EU_ETS');
+                      const co2Eu = isEuEligible
+                        ? calculateCo2SavedByScheme(batch.tonnes, batch.co2SavedPerTonne, 'EU_ETS').totalSaved
+                        : 0;
+                      const usdEu = isEuEligible ? Math.round(co2Eu * marketParams.priceEuEts) : 0;
 
-                        const creditSavedUsd = Math.round(schemeCo2Saved * schemePrice);
-                        const netBatchCostUsd = Math.max(0, batchSafCost - creditSavedUsd);
+                      // UK ETS calculation
+                      const isUkEligible = batch.eligibleSchemes.includes('UK_ETS');
+                      const co2Uk = isUkEligible
+                        ? calculateCo2SavedByScheme(batch.tonnes, batch.co2SavedPerTonne, 'UK_ETS').totalSaved
+                        : 0;
+                      const usdUk = isUkEligible ? Math.round(co2Uk * marketParams.priceUkEts) : 0;
 
-                        return {
-                          scheme: sch,
-                          schemeRate,
-                          schemeCo2Saved,
-                          schemePrice,
-                          creditSavedUsd,
-                          netBatchCostUsd
-                        };
-                      });
+                      // CORSIA calculation
+                      const isCorsiaEligible = batch.eligibleSchemes.includes('CORSIA');
+                      const co2Corsia = isCorsiaEligible
+                        ? calculateCo2SavedByScheme(batch.tonnes, batch.co2SavedPerTonne, 'CORSIA').totalSaved
+                        : 0;
+                      const usdCorsia = isCorsiaEligible ? Math.round(co2Corsia * marketParams.priceCorsia) : 0;
 
-                      // Best scheme maximizes credit saved (minimizes net cost)
-                      const bestStat = schemeStats.reduce((best, curr) =>
-                        curr.creditSavedUsd > best.creditSavedUsd ? curr : best
-                        , schemeStats[0]);
+                      const isAssignedEu = batch.assignedScheme === 'EU_ETS';
+                      const isAssignedUk = batch.assignedScheme === 'UK_ETS';
+                      const isAssignedCorsia = batch.assignedScheme === 'CORSIA';
 
-                      const worstStat = schemeStats.reduce((worst, curr) =>
-                        curr.creditSavedUsd < worst.creditSavedUsd ? curr : worst
-                        , schemeStats[0]);
+                      return (
+                        <tr
+                          key={batch.id}
+                          className={`transition-colors border-b border-gray-100 ${
+                            isEven ? 'bg-white hover:bg-gray-50/80' : 'bg-gray-50/40 hover:bg-gray-100/60'
+                          }`}
+                        >
+                          {/* 1. Mã lô (Đã bỏ ngày nạp) */}
+                          <td className="py-3 px-3 align-middle border-r border-gray-200 whitespace-nowrap">
+                            <div className="font-bold text-gray-900">{batch.batchNo}</div>
+                          </td>
 
-                      const diffSavingsUsd = bestStat.creditSavedUsd - worstStat.creditSavedUsd;
+                          {/* 2. Sân bay xuất phát */}
+                          <td className="py-3 px-3 text-center align-middle border-r border-gray-200 whitespace-nowrap">
+                            <span className="font-black text-vna-blue bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 text-xs">
+                              {batch.airportCode}
+                            </span>
+                          </td>
 
-                      return schemes.map((scheme, sIdx) => {
-                        const isFirstRow = sIdx === 0;
-                        const isAssigned = batch.assignedScheme === scheme;
-                        const currentStat = schemeStats[sIdx];
-                        const isBest = schemes.length >= 2 && scheme === bestStat.scheme;
+                          {/* 3. Sân bay đáp */}
+                          <td className="py-3 px-3 text-center align-middle border-r border-gray-200 whitespace-nowrap">
+                            <span className="font-black text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 text-xs">
+                              {batch.destAirportCode || 'HAN'}
+                            </span>
+                          </td>
 
-                        return (
-                          <tr
-                            key={`${batch.id}-${scheme}`}
-                            className={`transition-colors ${isAssigned
-                              ? 'bg-emerald-50/50 hover:bg-emerald-50/70'
-                              : isEven
-                                ? 'bg-white hover:bg-gray-50'
-                                : 'bg-gray-50/40 hover:bg-gray-100/50'
-                              } ${!isFirstRow ? 'border-t border-gray-100' : 'border-t-2 border-gray-200'}`}
-                          >
-                            {isFirstRow && (
-                              <>
-                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
-                                  <div className="font-bold text-gray-900">{batch.batchNo}</div>
-                                  <div className="text-[10px] text-gray-400">{batch.deliveryDate}</div>
-                                </td>
 
-                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
-                                  <div className="font-semibold text-gray-900 flex items-center gap-1.5">
-                                    <span className="font-black text-vna-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                                      {batch.airportCode}
-                                    </span>
-                                  </div>
-                                  {batch.airportName && (
-                                    <div className="text-[10px] text-gray-400 mt-0.5 truncate max-w-[130px]" title={batch.airportName}>
-                                      {batch.airportName}
-                                    </div>
-                                  )}
-                                </td>
 
-                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
-                                  <div className="font-semibold text-gray-900 flex items-center gap-1.5">
-                                    <span className="font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                                      {batch.destAirportCode || 'HAN'}
-                                    </span>
-                                  </div>
-                                  {batch.destAirportName && (
-                                    <div className="text-[10px] text-gray-400 mt-0.5 truncate max-w-[130px]" title={batch.destAirportName}>
-                                      {batch.destAirportName}
-                                    </div>
-                                  )}
-                                </td>
+                          {/* 5. Khối lượng SAF */}
+                          <td className="py-3 px-3 text-center align-middle border-r-2 border-gray-300 whitespace-nowrap">
+                            <div className="inline-flex items-center gap-1">
+                              <FormattedNumberInput
+                                value={batch.tonnes}
+                                onChange={(val) => handleUpdateBatchTonnage(batch.id, val)}
+                                className="w-20 text-right font-black text-gray-900 border border-gray-300 rounded-lg px-2 py-1 text-xs focus:ring-1 focus:ring-vna-blue bg-white"
+                              />
+                              <span className="text-[11px] text-gray-500 font-bold">tấn</span>
+                            </div>
+                          </td>
 
-                                <td className="py-3.5 px-4 align-middle" rowSpan={schemes.length}>
-                                  <div className="font-semibold text-gray-800">{batch.supplier || '—'}</div>
-                                  {batch.supplierVat && (
-                                    <div className="text-[10px] text-gray-400 font-mono">VAT: {batch.supplierVat}</div>
-                                  )}
-                                </td>
-
-                                <td className="py-3.5 px-4 text-center align-middle" rowSpan={schemes.length}>
-                                  <div className="inline-flex items-center gap-1">
-                                    <FormattedNumberInput
-                                      value={batch.tonnes}
-                                      onChange={(val) => handleUpdateBatchTonnage(batch.id, val)}
-                                      className="w-24 text-right font-black text-gray-900 border border-gray-300 rounded-lg px-2 py-1 text-xs focus:ring-1 focus:ring-vna-blue bg-white"
-                                    />
-                                    <span className="text-[11px] text-gray-500 font-bold">tấn</span>
-                                  </div>
-                                </td>
-                              </>
-                            )}
-
-                            {/* Scheme name badge */}
-                            <td className="py-3 px-4 text-center">
-                              <span
-                                className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-black text-xs border shadow-2xs ${scheme === 'EU_ETS'
-                                  ? 'bg-blue-50 text-vna-blue border-blue-200'
-                                  : scheme === 'UK_ETS'
-                                    ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
-                                    : 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                                  }`}
-                              >
-                                {scheme === 'EU_ETS' ? 'EU ETS' : scheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA'}
+                          {/* GROUP 1: FLS OF MECHANISMS SIDE-BY-SIDE */}
+                          {/* FLS_EU ETS */}
+                          <td className={`py-3 px-2.5 text-center align-middle border-r border-gray-200 ${isAssignedEu ? 'bg-blue-50/50' : isEuEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isEuEligible ? (
+                              <span className={`font-bold ${isAssignedEu ? 'text-vna-blue font-black' : 'text-gray-700'}`}>
+                                {batchFlights}
                               </span>
-                            </td>
-
-                            {/* Calculated CO2 Saved */}
-                            <td className="py-3 px-4 text-right">
-                              <div className={`font-black ${isAssigned ? 'text-emerald-700 text-sm' : 'text-emerald-600'}`}>
-                                -{currentStat.schemeCo2Saved.toLocaleString(locale)} tCO₂
-                              </div>
-                              <div className="text-[10px] text-gray-400 font-medium">({currentStat.schemeRate} t/tấn)</div>
-                            </td>
-
-                            {/* Chi phí nếu chọn cơ chế này */}
-                            <td className="py-3 px-4 text-right">
-                              <div className="font-black text-gray-900 text-xs">
-                                {currentStat.netBatchCostUsd.toLocaleString(locale)} $
-                              </div>
-                            </td>
-
-                            {/* Radio selector to pick and apply scheme */}
-                            <td className="py-3 px-4 text-center">
-                              {schemes.length === 1 ? (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold bg-emerald-600 text-white border-emerald-600 shadow-xs">
-                                  <CheckCircle2 size={13} className="text-white" />
-                                  <span>Đang áp dụng</span>
-                                </span>
-                              ) : (
-                                <label
-                                  onClick={() => handleAssignBatch(batch.id, scheme)}
-                                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer transition-all border text-xs font-bold select-none ${isAssigned
-                                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                                    : 'bg-white border-gray-300 text-gray-600 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-700'
-                                    }`}
-                                >
-                                  <input
-                                    type="radio"
-                                    name={`scheme-choice-${batch.id}`}
-                                    checked={isAssigned}
-                                    onChange={() => handleAssignBatch(batch.id, scheme)}
-                                    className="w-3.5 h-3.5 text-emerald-600 focus:ring-emerald-500 border-gray-300 cursor-pointer accent-emerald-600"
-                                  />
-                                  <span>{isAssigned ? 'Áp dụng' : 'Chọn'}</span>
-                                </label>
-                              )}
-                            </td>
-
-                            {isFirstRow && (
-                              <td className="py-3.5 px-4 text-center align-middle" rowSpan={schemes.length}>
-                                <button
-                                  onClick={() => handleDeleteBatch(batch.id)}
-                                  className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                  title="Xóa lô này"
-                                >
-                                  <Trash2 size={15} />
-                                </button>
-                              </td>
+                            ) : (
+                              <span className="text-gray-300">—</span>
                             )}
-                          </tr>
-                        );
-                      });
+                          </td>
+                          {/* FLS_UK ETS */}
+                          <td className={`py-3 px-2.5 text-center align-middle border-r border-gray-200 ${isAssignedUk ? 'bg-indigo-50/50' : isUkEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isUkEligible ? (
+                              <span className={`font-bold ${isAssignedUk ? 'text-indigo-700 font-black' : 'text-gray-700'}`}>
+                                {batchFlights}
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+                          {/* FLS_CORSIA */}
+                          <td className={`py-3 px-2.5 text-center align-middle border-r-2 border-gray-300 ${isAssignedCorsia ? 'bg-emerald-50/50' : isCorsiaEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isCorsiaEligible ? (
+                              <span className={`font-bold ${isAssignedCorsia ? 'text-emerald-800 font-black' : 'text-gray-700'}`}>
+                                {batchFlights}
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+
+                          {/* GROUP 2: CO2 OF MECHANISMS SIDE-BY-SIDE */}
+                          {/* CO2_EU ETS */}
+                          <td className={`py-3 px-2.5 text-right align-middle border-r border-gray-200 ${isAssignedEu ? 'bg-blue-50/50' : isEuEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isEuEligible ? (
+                              <span className={`font-bold ${isAssignedEu ? 'text-emerald-700 font-black' : 'text-emerald-600'}`}>
+                                -{co2Eu.toLocaleString(locale)}
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+                          {/* CO2_UK ETS */}
+                          <td className={`py-3 px-2.5 text-right align-middle border-r border-gray-200 ${isAssignedUk ? 'bg-indigo-50/50' : isUkEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isUkEligible ? (
+                              <span className={`font-bold ${isAssignedUk ? 'text-emerald-700 font-black' : 'text-emerald-600'}`}>
+                                -{co2Uk.toLocaleString(locale)}
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+                          {/* CO2_CORSIA */}
+                          <td className={`py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 ${isAssignedCorsia ? 'bg-emerald-50/50' : isCorsiaEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isCorsiaEligible ? (
+                              <span className={`font-bold ${isAssignedCorsia ? 'text-emerald-700 font-black' : 'text-emerald-600'}`}>
+                                -{co2Corsia.toLocaleString(locale)}
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+
+                          {/* GROUP 3: USD OF MECHANISMS SIDE-BY-SIDE */}
+                          {/* USD_EU ETS */}
+                          <td className={`py-3 px-2.5 text-right align-middle border-r border-gray-200 ${isAssignedEu ? 'bg-blue-50/50' : isEuEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isEuEligible ? (
+                              <span className={`font-bold ${isAssignedEu ? 'text-vna-blue font-black' : 'text-gray-800'}`}>
+                                +{usdEu.toLocaleString(locale)} $
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+                          {/* USD_UK ETS */}
+                          <td className={`py-3 px-2.5 text-right align-middle border-r border-gray-200 ${isAssignedUk ? 'bg-indigo-50/50' : isUkEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isUkEligible ? (
+                              <span className={`font-bold ${isAssignedUk ? 'text-indigo-700 font-black' : 'text-gray-800'}`}>
+                                +{usdUk.toLocaleString(locale)} $
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+                          {/* USD_CORSIA */}
+                          <td className={`py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 ${isAssignedCorsia ? 'bg-emerald-50/50' : isCorsiaEligible ? 'bg-white' : 'bg-gray-50/30'}`}>
+                            {isCorsiaEligible ? (
+                              <span className={`font-bold ${isAssignedCorsia ? 'text-emerald-700 font-black' : 'text-gray-800'}`}>
+                                +{usdCorsia.toLocaleString(locale)} $
+                              </span>
+                            ) : (
+                              <span className="text-gray-300">—</span>
+                            )}
+                          </td>
+
+                          {/* Cơ chế áp dụng */}
+                          <td className="py-3 px-3 text-center align-middle border-r border-gray-200 whitespace-nowrap">
+                            {batch.eligibleSchemes.length === 1 ? (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-2xs">
+                                <CheckCircle2 size={12} />
+                                <span>{batch.assignedScheme === 'EU_ETS' ? 'EU ETS' : batch.assignedScheme === 'UK_ETS' ? 'UK ETS' : 'CORSIA'}</span>
+                              </span>
+                            ) : (
+                              <div className="inline-flex items-center gap-1 p-0.5 bg-gray-100 rounded-xl border border-gray-200">
+                                {batch.eligibleSchemes.map((sch) => {
+                                  const isCurrent = batch.assignedScheme === sch;
+                                  const label = sch === 'EU_ETS' ? 'EU ETS' : sch === 'UK_ETS' ? 'UK ETS' : 'CORSIA';
+                                  return (
+                                    <button
+                                      key={sch}
+                                      onClick={() => handleAssignBatch(batch.id, sch)}
+                                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer select-none flex items-center gap-1 ${
+                                        isCurrent
+                                          ? sch === 'EU_ETS'
+                                            ? 'bg-vna-blue text-white shadow-xs'
+                                            : sch === 'UK_ETS'
+                                              ? 'bg-indigo-600 text-white shadow-xs'
+                                              : 'bg-emerald-600 text-white shadow-xs'
+                                          : 'text-gray-600 hover:text-gray-900 hover:bg-white/80'
+                                      }`}
+                                      title={`Áp dụng cho ${label}`}
+                                    >
+                                      {isCurrent && <Check size={12} />}
+                                      <span>{label}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </td>
+
+                          {/* Thao tác */}
+                          <td className="py-3 px-3 text-center align-middle whitespace-nowrap">
+                            <button
+                              onClick={() => handleDeleteBatch(batch.id)}
+                              className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                              title="Xóa lô này"
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </td>
+                        </tr>
+                      );
                     });
                   })()}
                 </tbody>
+                {(() => {
+                  const displayedBatches = processedBatches;
+                  if (displayedBatches.length === 0) return null;
+
+                  const totalSafTonnes = displayedBatches.reduce((sum, b) => sum + b.tonnes, 0);
+
+                  const totalFlsEu = displayedBatches
+                    .filter((b) => b.eligibleSchemes.includes('EU_ETS'))
+                    .reduce((sum, b) => sum + getBatchFlights(b), 0);
+
+                  const totalFlsUk = displayedBatches
+                    .filter((b) => b.eligibleSchemes.includes('UK_ETS'))
+                    .reduce((sum, b) => sum + getBatchFlights(b), 0);
+
+                  const totalFlsCorsia = displayedBatches
+                    .filter((b) => b.eligibleSchemes.includes('CORSIA'))
+                    .reduce((sum, b) => sum + getBatchFlights(b), 0);
+
+                  const totalCo2Eu = displayedBatches
+                    .filter((b) => b.eligibleSchemes.includes('EU_ETS'))
+                    .reduce(
+                      (sum, b) => sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'EU_ETS').totalSaved,
+                      0
+                    );
+
+                  const totalCo2Uk = displayedBatches
+                    .filter((b) => b.eligibleSchemes.includes('UK_ETS'))
+                    .reduce(
+                      (sum, b) => sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'UK_ETS').totalSaved,
+                      0
+                    );
+
+                  const totalCo2Corsia = displayedBatches
+                    .filter((b) => b.eligibleSchemes.includes('CORSIA'))
+                    .reduce(
+                      (sum, b) => sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'CORSIA').totalSaved,
+                      0
+                    );
+
+                  const totalUsdEu = Math.round(totalCo2Eu * marketParams.priceEuEts);
+                  const totalUsdUk = Math.round(totalCo2Uk * marketParams.priceUkEts);
+                  const totalUsdCorsia = Math.round(totalCo2Corsia * marketParams.priceCorsia);
+
+                  return (
+                    <tfoot>
+                      <tr className="bg-gray-100 font-bold border-t-2 border-gray-300 text-gray-900">
+                        {/* Columns before Khối lượng SAF */}
+                        <td colSpan={3} className="py-3 px-3 text-right font-black text-gray-900 uppercase tracking-wider border-r border-gray-200 bg-gray-100 text-[11px]">
+                          Tổng cộng:
+                        </td>
+
+                        {/* Total Khối lượng SAF */}
+                        <td className="py-3 px-3 text-center align-middle border-r-2 border-gray-300 bg-gray-100 whitespace-nowrap">
+                          <span className="font-black text-gray-900 text-xs">{totalSafTonnes.toLocaleString(locale)}</span>{' '}
+                          <span className="text-[10px] text-gray-500 font-bold">tấn</span>
+                        </td>
+
+                        {/* Total FLS */}
+                        <td className="py-3 px-2.5 text-center align-middle border-r border-gray-200 bg-slate-100 text-vna-blue font-black whitespace-nowrap">
+                          {totalFlsEu}
+                        </td>
+                        <td className="py-3 px-2.5 text-center align-middle border-r border-gray-200 bg-slate-100 text-indigo-700 font-black whitespace-nowrap">
+                          {totalFlsUk}
+                        </td>
+                        <td className="py-3 px-2.5 text-center align-middle border-r-2 border-gray-300 bg-slate-100 text-emerald-800 font-black whitespace-nowrap">
+                          {totalFlsCorsia}
+                        </td>
+
+                        {/* Total CO2 */}
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-emerald-50/60 font-black text-emerald-700 whitespace-nowrap">
+                          -{totalCo2Eu.toLocaleString(locale)}{' '}
+                          <span className="text-[10px] font-normal text-gray-500">tCO₂</span>
+                        </td>
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-emerald-50/60 font-black text-emerald-700 whitespace-nowrap">
+                          -{totalCo2Uk.toLocaleString(locale)}{' '}
+                          <span className="text-[10px] font-normal text-gray-500">tCO₂</span>
+                        </td>
+                        <td className="py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 bg-emerald-50/60 font-black text-emerald-700 whitespace-nowrap">
+                          -{totalCo2Corsia.toLocaleString(locale)}{' '}
+                          <span className="text-[10px] font-normal text-gray-500">tCO₂</span>
+                        </td>
+
+                        {/* Total USD */}
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-blue-50/60 font-black text-vna-blue whitespace-nowrap">
+                          +{totalUsdEu.toLocaleString(locale)} $
+                        </td>
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-blue-50/60 font-black text-indigo-700 whitespace-nowrap">
+                          +{totalUsdUk.toLocaleString(locale)} $
+                        </td>
+                        <td className="py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 bg-blue-50/60 font-black text-emerald-700 whitespace-nowrap">
+                          +{totalUsdCorsia.toLocaleString(locale)} $
+                        </td>
+
+                        {/* Action & assignment */}
+                        <td className="py-3 px-3 text-center align-middle border-r border-gray-200 bg-gray-100 text-gray-400 font-medium text-[11px]">
+                          —
+                        </td>
+                        <td className="py-3 px-3 text-center align-middle bg-gray-100 text-gray-400 font-medium text-[11px]">
+                          —
+                        </td>
+                      </tr>
+                    </tfoot>
+                  );
+                })()}
               </table>
             </div>
 
             {/* Matrix Summary Footer */}
-            <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
+            <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 text-xs">
               {(() => {
                 const totalTonnes = batches.reduce((a, b) => a + b.tonnes, 0);
-                const euTonnes = batches.filter(b => b.assignedScheme === 'EU_ETS').reduce((a, b) => a + b.tonnes, 0);
-                const ukTonnes = batches.filter(b => b.assignedScheme === 'UK_ETS').reduce((a, b) => a + b.tonnes, 0);
-                const corsiaTonnes = batches.filter(b => b.assignedScheme === 'CORSIA').reduce((a, b) => a + b.tonnes, 0);
+                const euBatches = batches.filter(b => b.assignedScheme === 'EU_ETS');
+                const ukBatches = batches.filter(b => b.assignedScheme === 'UK_ETS');
+                const corsiaBatches = batches.filter(b => b.assignedScheme === 'CORSIA');
 
-                const safCostPerTonne = 2450;
-                const totalSafCost = totalTonnes * safCostPerTonne;
-                const euSafCost = euTonnes * safCostPerTonne;
-                const ukSafCost = ukTonnes * safCostPerTonne;
-                const corsiaSafCost = corsiaTonnes * safCostPerTonne;
+                const euTonnes = euBatches.reduce((a, b) => a + b.tonnes, 0);
+                const ukTonnes = ukBatches.reduce((a, b) => a + b.tonnes, 0);
+                const corsiaTonnes = corsiaBatches.reduce((a, b) => a + b.tonnes, 0);
+
+                const euSavedCo2 = euBatches.reduce((sum, b) => {
+                  return sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'EU_ETS').totalSaved;
+                }, 0);
+                const ukSavedCo2 = ukBatches.reduce((sum, b) => {
+                  return sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'UK_ETS').totalSaved;
+                }, 0);
+                const corsiaSavedCo2 = corsiaBatches.reduce((sum, b) => {
+                  return sum + calculateCo2SavedByScheme(b.tonnes, b.co2SavedPerTonne, 'CORSIA').totalSaved;
+                }, 0);
+
+                const euReducedCost = Math.round(euSavedCo2 * marketParams.priceEuEts);
+                const ukReducedCost = Math.round(ukSavedCo2 * marketParams.priceUkEts);
+                const corsiaReducedCost = Math.round(corsiaSavedCo2 * marketParams.priceCorsia);
+                const totalReducedCost = euReducedCost + ukReducedCost + corsiaReducedCost;
 
                 return (
-                  <div className="flex items-center gap-6 sm:gap-8 font-bold text-gray-700 flex-wrap">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4 sm:gap-6 font-bold text-gray-700 flex-1">
                     <div>
                       <div className="text-gray-700">
                         Tổng SAF: <strong className="text-gray-900">{totalTonnes.toLocaleString(locale)} tấn</strong>
                       </div>
                       <div className="text-[11px] text-gray-500 font-medium mt-0.5">
-                        Tổng chi phí mua SAF: <strong className="text-gray-900">{totalSafCost.toLocaleString(locale)} $</strong>
+                        Tổng chi phí được giảm trừ khi áp dụng claim: <strong className="text-emerald-700 font-bold">{totalReducedCost.toLocaleString(locale)} $</strong>
                       </div>
                     </div>
 
@@ -2286,7 +2876,7 @@ export const NetZeroV2Page: React.FC = () => {
                         Claim cho EU: <strong className="text-vna-blue">{euTonnes.toLocaleString(locale)} tấn</strong>
                       </div>
                       <div className="text-[11px] text-gray-500 font-medium mt-0.5">
-                        Chi phí mua SAF cho EU ETS: <strong className="text-vna-blue">{euSafCost.toLocaleString(locale)} $</strong>
+                        Tổng chi phí được giảm trừ khi áp dụng claim: <strong className="text-vna-blue font-bold">{euReducedCost.toLocaleString(locale)} $</strong>
                       </div>
                     </div>
 
@@ -2295,7 +2885,7 @@ export const NetZeroV2Page: React.FC = () => {
                         Claim cho UK: <strong className="text-indigo-600">{ukTonnes.toLocaleString(locale)} tấn</strong>
                       </div>
                       <div className="text-[11px] text-gray-500 font-medium mt-0.5">
-                        Chi phí mua SAF cho UK ETS: <strong className="text-indigo-600">{ukSafCost.toLocaleString(locale)} $</strong>
+                        Tổng chi phí được giảm trừ khi áp dụng claim: <strong className="text-indigo-600 font-bold">{ukReducedCost.toLocaleString(locale)} $</strong>
                       </div>
                     </div>
 
@@ -2304,14 +2894,14 @@ export const NetZeroV2Page: React.FC = () => {
                         Claim cho CORSIA: <strong className="text-emerald-600">{corsiaTonnes.toLocaleString(locale)} tấn</strong>
                       </div>
                       <div className="text-[11px] text-gray-500 font-medium mt-0.5">
-                        Chi phí mua SAF cho CORSIA: <strong className="text-emerald-600">{corsiaSafCost.toLocaleString(locale)} $</strong>
+                        Tổng chi phí được giảm trừ khi áp dụng claim: <strong className="text-emerald-600 font-bold">{corsiaReducedCost.toLocaleString(locale)} $</strong>
                       </div>
                     </div>
                   </div>
                 );
               })()}
 
-              <div className="flex items-center gap-3 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-gray-200">
+              <div className="flex items-center gap-3 shrink-0 pt-3 xl:pt-0 border-t xl:border-t-0 border-gray-200 xl:border-l xl:pl-6">
                 <span className="text-gray-500 font-semibold">Tổng CO₂ giảm trừ:</span>
                 <span className="text-base font-black text-emerald-600">
                   -{batches.reduce((sum, b) => {
@@ -2542,9 +3132,6 @@ export const NetZeroV2Page: React.FC = () => {
                       <span>Tiết kiệm chi phí đền bù:</span>
                       <div className="text-right">
                         <span className="font-black text-vna-blue">+{Math.round(manualAllocEu * 2.60 * marketParams.priceEuEts).toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-blue-600 font-medium">
-                          ≈ +{Math.round(manualAllocEu * 2.60 * marketParams.priceEuEts * (marketParams.rateEuEts ?? 25450)).toLocaleString(locale)} VND
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -2631,9 +3218,6 @@ export const NetZeroV2Page: React.FC = () => {
                       <span>Tiết kiệm chi phí đền bù:</span>
                       <div className="text-right">
                         <span className="font-black text-indigo-700">+{Math.round(manualAllocUk * 2.60 * marketParams.priceUkEts).toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-indigo-600 font-medium">
-                          ≈ +{Math.round(manualAllocUk * 2.60 * marketParams.priceUkEts * (marketParams.rateUkEts ?? 25450)).toLocaleString(locale)} VND
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -2720,9 +3304,6 @@ export const NetZeroV2Page: React.FC = () => {
                       <span>Tiết kiệm chi phí đền bù:</span>
                       <div className="text-right">
                         <span className="font-black text-emerald-700">+{Math.round(manualAllocCorsia * 2.55 * marketParams.priceCorsia).toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-emerald-600 font-medium">
-                          ≈ +{Math.round(manualAllocCorsia * 2.55 * marketParams.priceCorsia * (marketParams.rateCorsia ?? 25450)).toLocaleString(locale)} VND
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -2746,9 +3327,6 @@ export const NetZeroV2Page: React.FC = () => {
                   <span className="text-base font-black text-vna-blue">
                     {currentMetrics.totalCost.toLocaleString(locale)} $
                   </span>
-                  <div className="text-[11px] font-bold text-blue-700">
-                    ≈ {currentMetrics.totalCostVnd.toLocaleString(locale)} VND
-                  </div>
                 </div>
               </div>
             </div>
@@ -2766,9 +3344,9 @@ export const NetZeroV2Page: React.FC = () => {
             <h3 className="text-sm font-black text-vna-navy uppercase tracking-wide">
               Chỉ số Hiệu quả Tài chính & Bù trừ Phát thải Toàn Hãng
             </h3>
-            <p className="text-xs text-gray-500">
+            {/* <p className="text-xs text-gray-500">
               Tổng hợp khối lượng CO₂ giảm thiểu, số tín chỉ cần bù đắp và chi phí tuân thủ theo kịch bản phân bổ hiện tại
-            </p>
+            </p> */}
           </div>
         </div>
 
@@ -2852,9 +3430,6 @@ export const NetZeroV2Page: React.FC = () => {
                   <h3 className="text-2xl font-black text-vna-navy mt-1">
                     {formatNumber(executiveKpiMetrics.totalScenarioCost / 1000000, 2, currentLang)}M $
                   </h3>
-                  <p className="text-xs font-bold text-vna-blue mt-0.5">
-                    ≈ {executiveKpiMetrics.totalScenarioCostVnd.toLocaleString(locale)} VND
-                  </p>
                 </div>
                 <div className="w-11 h-11 rounded-xl bg-blue-50 text-vna-blue flex items-center justify-center shrink-0">
                   <DollarSign size={22} />
@@ -2867,9 +3442,6 @@ export const NetZeroV2Page: React.FC = () => {
                   <span>• Mua SAF ({executiveKpiMetrics.totalAllocatedSaf.toLocaleString(locale)} tấn):</span>
                   <div className="text-right">
                     <span className="font-black text-gray-900">{formatNumber(executiveKpiMetrics.safCost / 1000000, 2, currentLang)}M $</span>
-                    <div className="text-[10px] text-gray-500 font-medium">
-                      ≈ {executiveKpiMetrics.safCostVnd.toLocaleString(locale)} VND
-                    </div>
                   </div>
                 </div>
 
@@ -2885,21 +3457,18 @@ export const NetZeroV2Page: React.FC = () => {
                       <span className="text-gray-500">• EU ETS ({currentMetrics.safEuTonnes.toLocaleString(locale)} tấn):</span>
                       <div className="text-right">
                         <span className="font-semibold text-gray-800">{executiveKpiMetrics.safCostEu.toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-gray-500">≈ {executiveKpiMetrics.safCostEuVnd.toLocaleString(locale)} VND</div>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-500">• UK ETS ({currentMetrics.safUkTonnes.toLocaleString(locale)} tấn):</span>
                       <div className="text-right">
                         <span className="font-semibold text-gray-800">{executiveKpiMetrics.safCostUk.toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-gray-500">≈ {executiveKpiMetrics.safCostUkVnd.toLocaleString(locale)} VND</div>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-500">• CORSIA ({currentMetrics.safCorsiaTonnes.toLocaleString(locale)} tấn):</span>
                       <div className="text-right">
                         <span className="font-semibold text-gray-800">{executiveKpiMetrics.safCostCorsia.toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-gray-500">≈ {executiveKpiMetrics.safCostCorsiaVnd.toLocaleString(locale)} VND</div>
                       </div>
                     </div>
                   </div>
@@ -2912,9 +3481,6 @@ export const NetZeroV2Page: React.FC = () => {
                   <span>• Mua tín chỉ CO₂ còn lại:</span>
                   <div className="text-right">
                     <span className="font-black text-gray-900">{formatNumber(executiveKpiMetrics.totalCreditCost / 1000000, 2, currentLang)}M $</span>
-                    <div className="text-[10px] text-gray-500 font-medium">
-                      ≈ {executiveKpiMetrics.totalCreditCostVnd.toLocaleString(locale)} VND
-                    </div>
                   </div>
                 </div>
 
@@ -2930,21 +3496,18 @@ export const NetZeroV2Page: React.FC = () => {
                       <span className="text-gray-500">• EU ETS ({marketParams.priceEuEts} $/EUA):</span>
                       <div className="text-right">
                         <span className="font-semibold text-gray-800">{currentMetrics.costEu.toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-gray-500">≈ {currentMetrics.costEuVnd.toLocaleString(locale)} VND</div>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-500">• UK ETS ({marketParams.priceUkEts} $/UKA):</span>
                       <div className="text-right">
                         <span className="font-semibold text-gray-800">{currentMetrics.costUk.toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-gray-500">≈ {currentMetrics.costUkVnd.toLocaleString(locale)} VND</div>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-500">• CORSIA ({marketParams.priceCorsia} $/CEU):</span>
                       <div className="text-right">
                         <span className="font-semibold text-gray-800">{currentMetrics.costCorsia.toLocaleString(locale)} $</span>
-                        <div className="text-[10px] text-gray-500">≈ {currentMetrics.costCorsiaVnd.toLocaleString(locale)} VND</div>
                       </div>
                     </div>
                   </div>
@@ -3080,8 +3643,69 @@ export const NetZeroV2Page: React.FC = () => {
 
                         {/* Dynamic Columns for Selected Scenarios */}
                         {(() => {
+                          const getScenarioCompareMetrics = (batchList: SafBatch[] = [], params: MarketParams = marketParams) => {
+                            const m = calculateMetricsForBatches(batchList, params);
+                            const totalSaf = m.safEuTonnes + m.safUkTonnes + m.safCorsiaTonnes;
+                            const totalCo2Saved = m.co2EuSaved + m.co2UkSaved + m.co2CorsiaSaved;
+                            const totalResidualCredits = m.residualEuCo2 + m.residualUkCo2 + m.residualCorsiaCo2;
+
+                            const rateEu = params.rateEuEts ?? 25450;
+                            const rateUk = params.rateUkEts ?? 25450;
+                            const rateCorsia = params.rateCorsia ?? 25450;
+
+                            // Chi phí mua SAF (đơn giá 2.450 $/tấn)
+                            const safCostPerTonne = 2450;
+                            const safEuCost = m.safEuTonnes * safCostPerTonne;
+                            const safEuCostVnd = Math.round(safEuCost * rateEu);
+                            const safUkCost = m.safUkTonnes * safCostPerTonne;
+                            const safUkCostVnd = Math.round(safUkCost * rateUk);
+                            const safCorsiaCost = m.safCorsiaTonnes * safCostPerTonne;
+                            const safCorsiaCostVnd = Math.round(safCorsiaCost * rateCorsia);
+                            const safTotalCost = safEuCost + safUkCost + safCorsiaCost;
+                            const safTotalCostVnd = safEuCostVnd + safUkCostVnd + safCorsiaCostVnd;
+
+                            // Chi phí được giảm trừ khi áp dụng claim SAF theo từng cơ chế
+                            const euReducedCost = Math.round(m.co2EuSaved * params.priceEuEts);
+                            const euReducedCostVnd = Math.round(euReducedCost * rateEu);
+                            const ukReducedCost = Math.round(m.co2UkSaved * params.priceUkEts);
+                            const ukReducedCostVnd = Math.round(ukReducedCost * rateUk);
+                            const corsiaReducedCost = Math.round(m.co2CorsiaSaved * params.priceCorsia);
+                            const corsiaReducedCostVnd = Math.round(corsiaReducedCost * rateCorsia);
+                            const totalReducedCost = euReducedCost + ukReducedCost + corsiaReducedCost;
+                            const totalReducedCostVnd = euReducedCostVnd + ukReducedCostVnd + corsiaReducedCostVnd;
+
+                            // Tổng chi phí tuân thủ toàn diện (Mua SAF + Mua tín chỉ CO2 còn lại)
+                            const totalComplianceCost = safTotalCost + m.totalCost;
+                            const totalComplianceCostVnd = safTotalCostVnd + m.totalCostVnd;
+
+                            return {
+                              ...m,
+                              totalSaf,
+                              totalCo2Saved,
+                              totalResidualCredits,
+                              safTotalCost,
+                              safTotalCostVnd,
+                              safEuCost,
+                              safEuCostVnd,
+                              safUkCost,
+                              safUkCostVnd,
+                              safCorsiaCost,
+                              safCorsiaCostVnd,
+                              euReducedCost,
+                              euReducedCostVnd,
+                              ukReducedCost,
+                              ukReducedCostVnd,
+                              corsiaReducedCost,
+                              corsiaReducedCostVnd,
+                              totalReducedCost,
+                              totalReducedCostVnd,
+                              totalComplianceCost,
+                              totalComplianceCostVnd
+                            };
+                          };
+
                           // Build scenario objects
-                          const columns = [];
+                          const columns: any[] = [];
 
                           if (selectedScenarioIdsForCompare.includes('CURRENT')) {
                             columns.push({
@@ -3092,39 +3716,13 @@ export const NetZeroV2Page: React.FC = () => {
                               subtext: 'Theo cấu hình đang chỉnh sửa',
                               period: reportPeriod,
                               allocationMode: allocationMode,
-                              metrics: {
-                                totalCost: currentMetrics.totalCost,
-                                totalCostVnd: currentMetrics.totalCostVnd,
-                                grossCost: currentMetrics.grossCost,
-                                grossCostVnd: currentMetrics.grossCostVnd,
-                                totalSavedVsGross: currentMetrics.totalSavedVsGross,
-                                totalSavedVsGrossVnd: currentMetrics.totalSavedVsGrossVnd,
-                                costEu: currentMetrics.costEu,
-                                costEuVnd: currentMetrics.costEuVnd,
-                                costUk: currentMetrics.costUk,
-                                costUkVnd: currentMetrics.costUkVnd,
-                                costCorsia: currentMetrics.costCorsia,
-                                costCorsiaVnd: currentMetrics.costCorsiaVnd,
-                                safEuTonnes: currentMetrics.safEuTonnes,
-                                safUkTonnes: currentMetrics.safUkTonnes,
-                                safCorsiaTonnes: currentMetrics.safCorsiaTonnes,
-                                totalSaf: currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes,
-                                co2EuSaved: currentMetrics.co2EuSaved,
-                                co2UkSaved: currentMetrics.co2UkSaved,
-                                co2CorsiaSaved: currentMetrics.co2CorsiaSaved,
-                                totalCo2Saved: currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved,
-                                residualEuCo2: currentMetrics.residualEuCo2,
-                                residualUkCo2: currentMetrics.residualUkCo2,
-                                residualCorsiaCo2: currentMetrics.residualCorsiaCo2,
-                                totalResidualCredits: currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2
-                              },
+                              metrics: getScenarioCompareMetrics(activeBatches, marketParams),
                               onApply: null
                             });
                           }
 
                           savedScenarios.forEach((sc) => {
                             if (selectedScenarioIdsForCompare.includes(sc.id)) {
-                              const calcM = calculateMetricsForBatches(sc.batches, sc.marketParams);
                               columns.push({
                                 id: sc.id,
                                 name: sc.name,
@@ -3133,32 +3731,7 @@ export const NetZeroV2Page: React.FC = () => {
                                 subtext: sc.savedAt,
                                 period: sc.period,
                                 allocationMode: sc.allocationMode,
-                                metrics: {
-                                  totalCost: calcM.totalCost,
-                                  totalCostVnd: calcM.totalCostVnd,
-                                  grossCost: calcM.grossCost,
-                                  grossCostVnd: calcM.grossCostVnd,
-                                  totalSavedVsGross: calcM.totalSavedVsGross,
-                                  totalSavedVsGrossVnd: calcM.totalSavedVsGrossVnd,
-                                  costEu: calcM.costEu,
-                                  costEuVnd: calcM.costEuVnd,
-                                  costUk: calcM.costUk,
-                                  costUkVnd: calcM.costUkVnd,
-                                  costCorsia: calcM.costCorsia,
-                                  costCorsiaVnd: calcM.costCorsiaVnd,
-                                  safEuTonnes: calcM.safEuTonnes,
-                                  safUkTonnes: calcM.safUkTonnes,
-                                  safCorsiaTonnes: calcM.safCorsiaTonnes,
-                                  totalSaf: calcM.safEuTonnes + calcM.safUkTonnes + calcM.safCorsiaTonnes,
-                                  co2EuSaved: calcM.co2EuSaved,
-                                  co2UkSaved: calcM.co2UkSaved,
-                                  co2CorsiaSaved: calcM.co2CorsiaSaved,
-                                  totalCo2Saved: calcM.co2EuSaved + calcM.co2UkSaved + calcM.co2CorsiaSaved,
-                                  residualEuCo2: calcM.residualEuCo2,
-                                  residualUkCo2: calcM.residualUkCo2,
-                                  residualCorsiaCo2: calcM.residualCorsiaCo2,
-                                  totalResidualCredits: calcM.residualEuCo2 + calcM.residualUkCo2 + calcM.residualCorsiaCo2
-                                },
+                                metrics: getScenarioCompareMetrics(sc.batches, sc.marketParams),
                                 onApply: () => handleLoadScenario(sc)
                               });
                             }
@@ -3185,76 +3758,83 @@ export const NetZeroV2Page: React.FC = () => {
 
                     <tbody className="divide-y divide-gray-200 font-sans">
                       {(() => {
-                        // Precalculate columns again for the body
+                        const getScenarioCompareMetrics = (batchList: SafBatch[] = [], params: MarketParams = marketParams) => {
+                          const m = calculateMetricsForBatches(batchList, params);
+                          const totalSaf = m.safEuTonnes + m.safUkTonnes + m.safCorsiaTonnes;
+                          const totalCo2Saved = m.co2EuSaved + m.co2UkSaved + m.co2CorsiaSaved;
+                          const totalResidualCredits = m.residualEuCo2 + m.residualUkCo2 + m.residualCorsiaCo2;
+
+                          const rateEu = params.rateEuEts ?? 25450;
+                          const rateUk = params.rateUkEts ?? 25450;
+                          const rateCorsia = params.rateCorsia ?? 25450;
+
+                          const safCostPerTonne = 2450;
+                          const safEuCost = m.safEuTonnes * safCostPerTonne;
+                          const safEuCostVnd = Math.round(safEuCost * rateEu);
+                          const safUkCost = m.safUkTonnes * safCostPerTonne;
+                          const safUkCostVnd = Math.round(safUkCost * rateUk);
+                          const safCorsiaCost = m.safCorsiaTonnes * safCostPerTonne;
+                          const safCorsiaCostVnd = Math.round(safCorsiaCost * rateCorsia);
+                          const safTotalCost = safEuCost + safUkCost + safCorsiaCost;
+                          const safTotalCostVnd = safEuCostVnd + safUkCostVnd + safCorsiaCostVnd;
+
+                          const euReducedCost = Math.round(m.co2EuSaved * params.priceEuEts);
+                          const euReducedCostVnd = Math.round(euReducedCost * rateEu);
+                          const ukReducedCost = Math.round(m.co2UkSaved * params.priceUkEts);
+                          const ukReducedCostVnd = Math.round(ukReducedCost * rateUk);
+                          const corsiaReducedCost = Math.round(m.co2CorsiaSaved * params.priceCorsia);
+                          const corsiaReducedCostVnd = Math.round(corsiaReducedCost * rateCorsia);
+                          const totalReducedCost = euReducedCost + ukReducedCost + corsiaReducedCost;
+                          const totalReducedCostVnd = euReducedCostVnd + ukReducedCostVnd + corsiaReducedCostVnd;
+
+                          const totalComplianceCost = safTotalCost + m.totalCost;
+                          const totalComplianceCostVnd = safTotalCostVnd + m.totalCostVnd;
+
+                          return {
+                            ...m,
+                            totalSaf,
+                            totalCo2Saved,
+                            totalResidualCredits,
+                            safTotalCost,
+                            safTotalCostVnd,
+                            safEuCost,
+                            safEuCostVnd,
+                            safUkCost,
+                            safUkCostVnd,
+                            safCorsiaCost,
+                            safCorsiaCostVnd,
+                            euReducedCost,
+                            euReducedCostVnd,
+                            ukReducedCost,
+                            ukReducedCostVnd,
+                            corsiaReducedCost,
+                            corsiaReducedCostVnd,
+                            totalReducedCost,
+                            totalReducedCostVnd,
+                            totalComplianceCost,
+                            totalComplianceCostVnd
+                          };
+                        };
+
+                        // Precalculate columns for the body
                         const cols: any[] = [];
                         if (selectedScenarioIdsForCompare.includes('CURRENT')) {
                           cols.push({
                             id: 'CURRENT',
                             isCurrent: true,
                             name: 'Phương án Hiện tại',
-                            metrics: {
-                              totalCost: currentMetrics.totalCost,
-                              totalCostVnd: currentMetrics.totalCostVnd,
-                              grossCost: currentMetrics.grossCost,
-                              grossCostVnd: currentMetrics.grossCostVnd,
-                              totalSavedVsGross: currentMetrics.totalSavedVsGross,
-                              totalSavedVsGrossVnd: currentMetrics.totalSavedVsGrossVnd,
-                              costEu: currentMetrics.costEu,
-                              costEuVnd: currentMetrics.costEuVnd,
-                              costUk: currentMetrics.costUk,
-                              costUkVnd: currentMetrics.costUkVnd,
-                              costCorsia: currentMetrics.costCorsia,
-                              costCorsiaVnd: currentMetrics.costCorsiaVnd,
-                              safEuTonnes: currentMetrics.safEuTonnes,
-                              safUkTonnes: currentMetrics.safUkTonnes,
-                              safCorsiaTonnes: currentMetrics.safCorsiaTonnes,
-                              totalSaf: currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes,
-                              co2EuSaved: currentMetrics.co2EuSaved,
-                              co2UkSaved: currentMetrics.co2UkSaved,
-                              co2CorsiaSaved: currentMetrics.co2CorsiaSaved,
-                              totalCo2Saved: currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved,
-                              residualEuCo2: currentMetrics.residualEuCo2,
-                              residualUkCo2: currentMetrics.residualUkCo2,
-                              residualCorsiaCo2: currentMetrics.residualCorsiaCo2,
-                              totalResidualCredits: currentMetrics.residualEuCo2 + currentMetrics.residualUkCo2 + currentMetrics.residualCorsiaCo2
-                            },
+                            metrics: getScenarioCompareMetrics(activeBatches, marketParams),
                             onApply: null
                           });
                         }
 
                         savedScenarios.forEach((sc) => {
                           if (selectedScenarioIdsForCompare.includes(sc.id)) {
-                            const calcM = calculateMetricsForBatches(sc.batches, sc.marketParams);
                             cols.push({
                               id: sc.id,
                               isCurrent: false,
                               name: sc.name,
-                              metrics: {
-                                totalCost: calcM.totalCost,
-                                totalCostVnd: calcM.totalCostVnd,
-                                grossCost: calcM.grossCost,
-                                grossCostVnd: calcM.grossCostVnd,
-                                totalSavedVsGross: calcM.totalSavedVsGross,
-                                totalSavedVsGrossVnd: calcM.totalSavedVsGrossVnd,
-                                costEu: calcM.costEu,
-                                costEuVnd: calcM.costEuVnd,
-                                costUk: calcM.costUk,
-                                costUkVnd: calcM.costUkVnd,
-                                costCorsia: calcM.costCorsia,
-                                costCorsiaVnd: calcM.costCorsiaVnd,
-                                safEuTonnes: calcM.safEuTonnes,
-                                safUkTonnes: calcM.safUkTonnes,
-                                safCorsiaTonnes: calcM.safCorsiaTonnes,
-                                totalSaf: calcM.safEuTonnes + calcM.safUkTonnes + calcM.safCorsiaTonnes,
-                                co2EuSaved: calcM.co2EuSaved,
-                                co2UkSaved: calcM.co2UkSaved,
-                                co2CorsiaSaved: calcM.co2CorsiaSaved,
-                                totalCo2Saved: calcM.co2EuSaved + calcM.co2UkSaved + calcM.co2CorsiaSaved,
-                                residualEuCo2: calcM.residualEuCo2,
-                                residualUkCo2: calcM.residualUkCo2,
-                                residualCorsiaCo2: calcM.residualCorsiaCo2,
-                                totalResidualCredits: calcM.residualEuCo2 + calcM.residualUkCo2 + calcM.residualCorsiaCo2
-                              },
+                              metrics: getScenarioCompareMetrics(sc.batches, sc.marketParams),
                               onApply: () => handleLoadScenario(sc)
                             });
                           }
@@ -3265,22 +3845,61 @@ export const NetZeroV2Page: React.FC = () => {
                             {/* SECTION 1: TỔNG CHI PHÍ & TIẾT KIỆM */}
                             <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
                               <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
-                                1. Tổng Chi phí Đền bù & Tiết kiệm
+                                1. Tổng Chi phí & Hiệu quả Giảm trừ Toàn hãng
                               </td>
                             </tr>
 
-                            {/* Row: Tổng Chi phí Mua Đền bù */}
+                            {/* Row: Tổng Chi phí Tuân thủ Toàn diện */}
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-3 px-4 font-bold text-gray-800 sticky left-0 bg-white shadow-2xs">
-                                Tổng chi phí mua đền bù còn lại ($)
+                              <td className="py-3 px-4 font-bold text-gray-900 sticky left-0 bg-white shadow-2xs">
+                                Tổng chi phí tuân thủ toàn diện (SAF + Tín chỉ)
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-3 px-4 text-center border-l border-gray-200">
                                   <span className="text-sm font-black text-vna-navy">
+                                    {c.metrics.totalComplianceCost.toLocaleString(locale)} $
+                                  </span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* Row: Chi phí Mua Tín chỉ Carbon Còn lại */}
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                • Chi phí mua tín chỉ carbon còn lại ($)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200">
+                                  <span className="font-bold text-gray-800">
                                     {c.metrics.totalCost.toLocaleString(locale)} $
                                   </span>
-                                  <div className="text-[11px] font-semibold text-gray-500 mt-0.5">
-                                    ≈ {c.metrics.totalCostVnd.toLocaleString(locale)} VND
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* Row: Chi phí Mua SAF Dự kiến */}
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
+                                • Chi phí mua nhiên liệu SAF ($)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200">
+                                  <span className="font-bold text-vna-blue">
+                                    {c.metrics.safTotalCost.toLocaleString(locale)} $
+                                  </span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* Row: Tổng Chi phí Được Giảm Trừ Khi Áp Dụng Claim SAF */}
+                            <tr className="hover:bg-gray-50/80 transition-colors bg-emerald-50/30">
+                              <td className="py-3 px-4 font-black text-emerald-800 sticky left-0 bg-emerald-50/50">
+                                Tổng chi phí được giảm trừ khi áp dụng claim SAF
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-3 px-4 text-center border-l border-gray-200 bg-emerald-50/20">
+                                  <div className="text-sm font-black text-emerald-700">
+                                    +{c.metrics.totalReducedCost.toLocaleString(locale)} $
                                   </div>
                                 </td>
                               ))}
@@ -3289,14 +3908,11 @@ export const NetZeroV2Page: React.FC = () => {
                             {/* Row: Tiết kiệm so với không dùng SAF */}
                             <tr className="hover:bg-gray-50/80 transition-colors">
                               <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
-                                Tiết kiệm so với không nạp SAF
+                                Tiết kiệm so với kịch bản không nạp SAF
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold text-emerald-700">
-                                  <div>+{c.metrics.totalSavedVsGross.toLocaleString(locale)} $</div>
-                                  <div className="text-[10px] text-emerald-600 font-medium">
-                                    ≈ +{c.metrics.totalSavedVsGrossVnd.toLocaleString(locale)} VND
-                                  </div>
+                                  +{c.metrics.totalSavedVsGross.toLocaleString(locale)} $
                                 </td>
                               ))}
                             </tr>
@@ -3315,31 +3931,223 @@ export const NetZeroV2Page: React.FC = () => {
                                   );
                                 }
                                 const diff = c.metrics.totalCost - currentMetrics.totalCost;
-                                const diffVnd = c.metrics.totalCostVnd - currentMetrics.totalCostVnd;
                                 return (
                                   <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold">
                                     {diff === 0 ? (
                                       <span className="text-gray-400">Bằng nhau</span>
                                     ) : diff < 0 ? (
-                                      <div>
-                                        <span className="text-emerald-700">Tiết kiệm {Math.abs(diff).toLocaleString(locale)} $</span>
-                                        <div className="text-[10px] text-emerald-600 font-medium">≈ -{Math.abs(diffVnd).toLocaleString(locale)} VND</div>
-                                      </div>
+                                      <span className="text-emerald-700">Tiết kiệm {Math.abs(diff).toLocaleString(locale)} $</span>
                                     ) : (
-                                      <div>
-                                        <span className="text-rose-600">Cao hơn +{diff.toLocaleString(locale)} $</span>
-                                        <div className="text-[10px] text-rose-500 font-medium">≈ +{diffVnd.toLocaleString(locale)} VND</div>
-                                      </div>
+                                      <span className="text-rose-600">Cao hơn +{diff.toLocaleString(locale)} $</span>
                                     )}
                                   </td>
                                 );
                               })}
                             </tr>
 
-                            {/* SECTION 2: SỐ TÍN CHỈ CO2 PHẢI MUA */}
+                            {/* SECTION 2: THÔNG TIN NGUYÊN LIỆU SAF & PHÂN BỔ */}
                             <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
                               <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
-                                2. Nhu cầu Mua Tín chỉ Carbon
+                                2. Thông tin Phân bổ Nhiên liệu SAF (Tấn) & Chi phí Mua SAF
+                              </td>
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors bg-blue-50/20">
+                              <td className="py-2.5 px-4 font-bold text-gray-900 sticky left-0 bg-white">
+                                Tổng lượng SAF phân bổ (Tấn)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-black text-vna-blue text-xs">
+                                  {c.metrics.totalSaf.toLocaleString(locale)} tấn
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Phân bổ cho EU ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-semibold text-vna-blue">
+                                  {c.metrics.safEuTonnes.toLocaleString(locale)} tấn
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Phân bổ cho UK ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-semibold text-indigo-600">
+                                  {c.metrics.safUkTonnes.toLocaleString(locale)} tấn
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Phân bổ cho CORSIA
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-semibold text-emerald-600">
+                                  {c.metrics.safCorsiaTonnes.toLocaleString(locale)} tấn
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-bold text-gray-900 sticky left-0 bg-white">
+                                Tổng chi phí mua SAF ($)
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-bold text-gray-800">
+                                  {c.metrics.safTotalCost.toLocaleString(locale)} $
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Chi phí mua SAF cho EU ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
+                                  <span className="font-semibold text-gray-800">{c.metrics.safEuCost.toLocaleString(locale)} $</span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Chi phí mua SAF cho UK ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
+                                  <span className="font-semibold text-gray-800">{c.metrics.safUkCost.toLocaleString(locale)} $</span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Chi phí mua SAF cho CORSIA
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
+                                  <span className="font-semibold text-gray-800">{c.metrics.safCorsiaCost.toLocaleString(locale)} $</span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* SECTION 3: CHI PHÍ ĐƯỢC GIẢM TRỪ TỪ CLAIM SAF THEO TỪNG CƠ CHẾ */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                3. Chi phí Được Giảm Trừ Từ Claim SAF Theo Từng Cơ chế ($)
+                              </td>
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors bg-emerald-50/30">
+                              <td className="py-3 px-4 font-black text-emerald-800 sticky left-0 bg-white">
+                                Tổng chi phí được giảm trừ khi áp dụng claim
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-3 px-4 text-center border-l border-gray-200 bg-emerald-50/20">
+                                  <div className="text-sm font-black text-emerald-700">
+                                    +{c.metrics.totalReducedCost.toLocaleString(locale)} $
+                                  </div>
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white pl-6">
+                                • Giảm trừ nghĩa vụ EU ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200">
+                                  <span className="font-bold text-vna-blue">+{c.metrics.euReducedCost.toLocaleString(locale)} $</span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white pl-6">
+                                • Giảm trừ nghĩa vụ UK ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200">
+                                  <span className="font-bold text-indigo-600">+{c.metrics.ukReducedCost.toLocaleString(locale)} $</span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-semibold text-gray-700 sticky left-0 bg-white pl-6">
+                                • Giảm trừ nghĩa vụ CORSIA
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200">
+                                  <span className="font-bold text-emerald-600">+{c.metrics.corsiaReducedCost.toLocaleString(locale)} $</span>
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* SECTION 4: GIẢM PHÁT THẢI CO2 TỪ NẠP SAF */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                4. Lượng Giảm Thiểu Phát Thải CO₂ Từ SAF (tCO₂)
+                              </td>
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2.5 px-4 font-bold text-gray-900 sticky left-0 bg-white">
+                                Tổng CO₂ giảm trừ toàn hãng
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2.5 px-4 text-center border-l border-gray-200 font-black text-emerald-700">
+                                  -{c.metrics.totalCo2Saved.toLocaleString(locale)} tCO₂
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Lượng CO₂ giảm trừ tại EU ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
+                                  -{c.metrics.co2EuSaved.toLocaleString(locale)} tCO₂
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Lượng CO₂ giảm trừ tại UK ETS
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
+                                  -{c.metrics.co2UkSaved.toLocaleString(locale)} tCO₂
+                                </td>
+                              ))}
+                            </tr>
+
+                            <tr className="hover:bg-gray-50/80 transition-colors">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
+                                • Lượng CO₂ giảm trừ tại CORSIA
+                              </td>
+                              {cols.map((c) => (
+                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 text-gray-700">
+                                  -{c.metrics.co2CorsiaSaved.toLocaleString(locale)} tCO₂
+                                </td>
+                              ))}
+                            </tr>
+
+                            {/* SECTION 5: NHU CẦU MUA TÍN CHỈ CARBON CÒN LẠI */}
+                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
+                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
+                                5. Nhu cầu Mua Tín chỉ Carbon Còn Lại
                               </td>
                             </tr>
 
@@ -3355,7 +4163,7 @@ export const NetZeroV2Page: React.FC = () => {
                             </tr>
 
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
                                 • Tín chỉ EU ETS (EUA)
                               </td>
                               {cols.map((c) => (
@@ -3366,7 +4174,7 @@ export const NetZeroV2Page: React.FC = () => {
                             </tr>
 
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
                                 • Tín chỉ UK ETS (UKA)
                               </td>
                               {cols.map((c) => (
@@ -3377,7 +4185,7 @@ export const NetZeroV2Page: React.FC = () => {
                             </tr>
 
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white">
+                              <td className="py-2 px-4 font-semibold text-gray-600 sticky left-0 bg-white pl-6">
                                 • Tín chỉ CORSIA (CEU)
                               </td>
                               {cols.map((c) => (
@@ -3387,79 +4195,47 @@ export const NetZeroV2Page: React.FC = () => {
                               ))}
                             </tr>
 
-                            {/* SECTION 3: CHI TIẾT CHI PHÍ THEO CƠ CHẾ */}
+                            {/* SECTION 6: CHI TIẾT CHI PHÍ MUA TÍN CHỈ THEO CƠ CHẾ */}
                             <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
                               <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
-                                3. Chi tiết Chi phí Mua Tín chỉ Từng Cơ chế ($)
+                                6. Chi tiết Chi phí Mua Tín chỉ Từng Cơ chế ($)
                               </td>
                             </tr>
 
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
-                                Chi phí mua EUA (EU ETS)
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white pl-6">
+                                • Chi phí mua EUA (EU ETS)
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
-                                  <div className="font-bold text-gray-800">{c.metrics.costEu.toLocaleString(locale)} $</div>
-                                  <div className="text-[10px] text-gray-500">≈ {c.metrics.costEuVnd.toLocaleString(locale)} VND</div>
+                                  <span className="font-bold text-gray-800">{c.metrics.costEu.toLocaleString(locale)} $</span>
                                 </td>
                               ))}
                             </tr>
 
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
-                                Chi phí mua UKA (UK ETS)
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white pl-6">
+                                • Chi phí mua UKA (UK ETS)
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
-                                  <div className="font-bold text-gray-800">{c.metrics.costUk.toLocaleString(locale)} $</div>
-                                  <div className="text-[10px] text-gray-500">≈ {c.metrics.costUkVnd.toLocaleString(locale)} VND</div>
+                                  <span className="font-bold text-gray-800">{c.metrics.costUk.toLocaleString(locale)} $</span>
                                 </td>
                               ))}
                             </tr>
 
                             <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
-                                Chi phí mua CEU (CORSIA)
+                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white pl-6">
+                                • Chi phí mua CEU (CORSIA)
                               </td>
                               {cols.map((c) => (
                                 <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200">
-                                  <div className="font-bold text-gray-800">{c.metrics.costCorsia.toLocaleString(locale)} $</div>
-                                  <div className="text-[10px] text-gray-500">≈ {c.metrics.costCorsiaVnd.toLocaleString(locale)} VND</div>
+                                  <span className="font-bold text-gray-800">{c.metrics.costCorsia.toLocaleString(locale)} $</span>
                                 </td>
                               ))}
                             </tr>
 
-                            {/* SECTION 4: KHỐI LƯỢNG SAF VÀ CO2 GIẢM TRỪ */}
-                            <tr className="bg-blue-50/60 font-black text-[11px] text-vna-navy uppercase tracking-wider">
-                              <td colSpan={cols.length + 1} className="py-2.5 px-4 bg-blue-50/80">
-                                4. Khối lượng SAF & Lượng CO₂ Giảm thiểu
-                              </td>
-                            </tr>
-
-                            <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
-                                Tổng lượng SAF phân bổ
-                              </td>
-                              {cols.map((c) => (
-                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-vna-blue">
-                                  {c.metrics.totalSaf.toLocaleString(locale)} tấn
-                                </td>
-                              ))}
-                            </tr>
-
-                            <tr className="hover:bg-gray-50/80 transition-colors">
-                              <td className="py-2 px-4 font-semibold text-gray-700 sticky left-0 bg-white">
-                                Tổng CO₂ giảm trừ toàn hãng
-                              </td>
-                              {cols.map((c) => (
-                                <td key={c.id} className="py-2 px-4 text-center border-l border-gray-200 font-bold text-emerald-700">
-                                  {c.metrics.totalCo2Saved.toLocaleString(locale)} tCO₂
-                                </td>
-                              ))}
-                            </tr>
-
-                            {/* SECTION 5: THAO TÁC ÁP DỤNG */}
+                            {/* SECTION 7: THAO TÁC ÁP DỤNG */}
                             <tr className="bg-gray-50 font-bold border-t-2 border-gray-200">
                               <td className="py-4 px-4 font-black text-gray-800 uppercase tracking-wider text-[11px] sticky left-0 bg-gray-50">
                                 Thao tác áp dụng
@@ -3595,7 +4371,7 @@ export const NetZeroV2Page: React.FC = () => {
                               <span className="px-2 py-0.2 rounded bg-blue-50 text-vna-blue text-[10px] font-bold">{reportPeriod}</span>
                             </div>
                             <p className="text-[11px] text-gray-500 mt-0.5">
-                              SAF: {(currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes).toLocaleString(locale)} tấn • CO₂ giảm: {(currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved).toLocaleString(locale)} tCO₂ • Chi phí: {currentMetrics.totalCost.toLocaleString(locale)} $ (≈ {currentMetrics.totalCostVnd.toLocaleString(locale)} VND)
+                              SAF: {(currentMetrics.safEuTonnes + currentMetrics.safUkTonnes + currentMetrics.safCorsiaTonnes).toLocaleString(locale)} tấn • CO₂ giảm: {(currentMetrics.co2EuSaved + currentMetrics.co2UkSaved + currentMetrics.co2CorsiaSaved).toLocaleString(locale)} tCO₂ • Chi phí: {currentMetrics.totalCost.toLocaleString(locale)} $
                             </p>
                           </div>
                         </div>
@@ -3640,7 +4416,7 @@ export const NetZeroV2Page: React.FC = () => {
                                   <span className="px-2 py-0.2 rounded bg-blue-50 text-vna-blue text-[10px] font-bold border border-blue-100">{sc.period}</span>
                                 </div>
                                 <p className="text-[11px] text-gray-500 mt-0.5">
-                                  SAF: {sc.metrics.totalAllocatedSaf.toLocaleString(locale)} tấn • CO₂ giảm: {sc.metrics.co2Saved.toLocaleString(locale)} tCO₂ • Tín chỉ: {sc.metrics.totalCredits.toLocaleString(locale)} • Chi phí: {sc.metrics.totalCost.toLocaleString(locale)} $ (≈ {(sc.metrics.totalCostVnd ?? (sc.metrics.totalCost * 25450)).toLocaleString(locale)} VND)
+                                  SAF: {sc.metrics.totalAllocatedSaf.toLocaleString(locale)} tấn • CO₂ giảm: {sc.metrics.co2Saved.toLocaleString(locale)} tCO₂ • Tín chỉ: {sc.metrics.totalCredits.toLocaleString(locale)} • Chi phí: {sc.metrics.totalCost.toLocaleString(locale)} $
                                 </p>
                               </div>
                             </div>
@@ -3911,7 +4687,7 @@ export const NetZeroV2Page: React.FC = () => {
                           <span>•</span>
                           <span>Tín chỉ bù đắp: <strong className="text-amber-700 font-bold">{sc.metrics.totalCredits.toLocaleString(locale)}</strong></span>
                           <span>•</span>
-                          <span>Chi phí bù đắp: <strong className="text-vna-navy font-black">{sc.metrics.totalCost.toLocaleString(locale)} $</strong> <span className="text-[10px] text-gray-500 font-normal">(≈ {(sc.metrics.totalCostVnd ?? (sc.metrics.totalCost * 25450)).toLocaleString(locale)} VND)</span></span>
+                          <span>Chi phí bù đắp: <strong className="text-vna-navy font-black">{sc.metrics.totalCost.toLocaleString(locale)} $</strong></span>
                         </div>
 
                         <p className="text-[11px] text-gray-400">
@@ -4006,7 +4782,7 @@ export const NetZeroV2Page: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span>Tổng ngân sách tuân thủ:</span>
-                  <div className="text-right"><strong className="text-vna-navy">{formatNumber(executiveKpiMetrics.totalScenarioCost / 1000000, 2, currentLang)}M $</strong><div className="text-[10px] text-gray-500 font-medium">≈ {executiveKpiMetrics.totalScenarioCostVnd.toLocaleString(locale)} VND</div></div>
+                  <strong className="text-vna-navy">{formatNumber(executiveKpiMetrics.totalScenarioCost / 1000000, 2, currentLang)}M $</strong>
                 </div>
               </div>
             </div>
@@ -4027,6 +4803,23 @@ export const NetZeroV2Page: React.FC = () => {
               </Button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* SYNC DATA TOAST NOTIFICATION */}
+      {syncToast && (
+        <div className="fixed bottom-6 right-6 z-50 bg-gray-900/95 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold backdrop-blur-sm border border-white/10 animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+            <CheckCircle2 size={15} className="text-emerald-400" />
+          </div>
+          <span>{syncToast}</span>
+          <button
+            onClick={() => setSyncToast(null)}
+            className="ml-2 text-gray-400 hover:text-white cursor-pointer p-0.5"
+            title="Đóng"
+          >
+            <X size={14} />
+          </button>
         </div>
       )}
 
