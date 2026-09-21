@@ -1,0 +1,23 @@
+Quản trị dữ liệu|Tích hợp dữ liệu khai thác chuyến bay từ FIMS/TOSS|Hệ thống FIMS/TOSS|Tích hợp tự động lượng nhiên liệu nạp, hóa đơn SAF và thông tin bay.|Cao
+Quản trị dữ liệu|Tích hợp dữ liệu hành trình từ ACARS-SITA|Hệ thống ACARS-SITA|Tích hợp tự động lượng nước cấp và tiêu thụ theo chuyến bay.|Trung bình
+Quản trị dữ liệu|Tích hợp lịch bay từ Flight Ops Control|Hệ thống Flight Ops Control|Tích hợp tự động thông tin lập lịch bay, loại tàu và chặng bay.|Cao
+Quản trị dữ liệu|Tích hợp dữ liệu hợp đồng từ CMS|Hệ thống CMS|Tích hợp tự động số lượng và tổng giá trị hợp đồng với nhà cung cấp.|Cao
+Quản trị dữ liệu|Tích hợp dữ liệu nhân sự từ SkyHR|Hệ thống SkyHR|Tích hợp tự động số lượng, cơ cấu, biến động lao động và an toàn lao động.|Cao
+Quản trị dữ liệu|Tích hợp dữ liệu đào tạo từ E-learning|Hệ thống E-learning|Tích hợp tự động số lượng khóa đào tạo và số nhân sự tham gia.|Trung bình
+Quản trị dữ liệu|Tích hợp dữ liệu kế toán doanh thu từ Revera|Hệ thống Revera|Tích hợp tự động doanh thu và chặng bay có sử dụng SAF.|Cao
+Quản trị dữ liệu|Tích hợp phản hồi từ Central Hub (Salesforce)|Hệ thống Central Hub|Tích hợp các phản hồi không tuân thủ đạo đức/an toàn dịch vụ.|Cao
+Quản trị dữ liệu|Tích hợp khảo sát khách hàng từ Qualtrics|Hệ thống Qualtrics|Tích hợp chỉ số NPS khách hàng theo chặng bay và thời gian.|Cao
+Quản trị dữ liệu|Tích hợp dữ liệu tiết kiệm nhiên liệu từ SF CO2 (Safran)|Hệ thống SF CO2|Tích hợp lượng nhiên liệu hàng không tiết kiệm theo chuyến bay.|Cao
+Quản trị dữ liệu|Tích hợp thông tin bảo dưỡng từ TIMS|Hệ thống TIMS|Tích hợp thông tin kỹ thuật máy bay và tình trạng khai thác.|Cao
+Quản trị dữ liệu|Tích hợp phân tích hiệu quả đường bay từ RPS|Hệ thống RPS|Tích hợp chỉ số RTK (Revenue Tonne Kilometre) theo chuyến bay.|Cao
+Quản trị dữ liệu|Tích hợp hội viên từ BI-CLM|Hệ thống BI-CLM|Tích hợp tổng số lượng hội viên Bông Sen Vàng theo thời gian.|Trung bình
+Phân tích dữ liệu ESG|Tự thiết kế và xây dựng báo cáo động (Self-service BI)|Cán bộ ESG/Cấp quản lý|Cho phép người dùng tự kéo thả các chiều dữ liệu và chỉ số để thiết kế biểu đồ, báo cáo mới.|Cao
+CMS Website ESG|Cấu hình nhúng và hiển thị báo cáo lên Spirit Portal|Biên tập viên CMS/Quản trị hệ thống|Cung cấp khả năng nhúng hoặc hiển thị trực tiếp báo cáo Netzero trên trang Spirit Portal.|Trung bình
+Phân tích dữ liệu ESG|Xem lịch sử phiên bản dữ liệu chỉ tiêu và khôi phục (Data Versioning)|Cán bộ ESG/Người phê duyệt|Tra cứu lịch sử thay đổi phiên bản dữ liệu chỉ tiêu và thực hiện khôi phục về phiên bản cũ.|Cao
+Cài đặt chung|Cấu hình và giám sát tiến trình Job ETL dữ liệu|Quản trị dữ liệu/Quản trị hệ thống|Màn hình thiết lập lịch chạy và theo dõi trạng thái các Job ETL đồng bộ dữ liệu hệ thống.|Cao
+Form nhập liệu Tổ/Ban|Cập nhật và khấu trừ nhiên liệu hút giảm tải (Fuel Extraction)|Đầu mối Ban Khai thác/OCC|Cập nhật số liệu nhiên liệu bị hút bớt để khấu trừ vào tổng tiêu thụ của chuyến bay.|Cao
+Phân tích dữ liệu ESG|Ước tính dữ liệu tiêu thụ nhiên liệu bị thiếu (Data Gap Estimation)|Hệ thống VNA Netzero|Tự động chạy thuật toán ước tính tiêu thụ nhiên liệu bị thiếu theo phương pháp ICAO/IATA.|Cao
+KPI ESG|Phân bổ sản lượng nhiên liệu SAF cho các chuyến bay|Ban Quản lý vật tư/Cán bộ ESG|Phân bổ sản lượng SAF từ chứng nhận tổng của nhà cung cấp cho từng chuyến bay hoặc theo năm.|Cao
+Phân tích dữ liệu ESG|Khớp nối và xử lý dữ liệu chuyến bay bất thường (Flight Data Reconciliation)|Cán bộ ESG/Quản trị dữ liệu|Đối soát và map thủ công các hóa đơn nạp dầu bị thiếu mã chặng bay LEG_NO.|Cao
+Quản trị dữ liệu|Tích hợp dữ liệu từ hệ thống nhật ký kỹ thuật (Techlog)|Hệ thống Techlog|Tích hợp dầu tồn R0, R1 và lượng nạp thực tế từ nhật ký bay để tính Block Fuel cho EU/UK-ETS.|Cao
+Cài đặt chung|Quản trị từ điển thuật ngữ song ngữ (Glossary Management)|Quản trị hệ thống|Thiết lập và cập nhật bảng đối chiếu từ điển thuật ngữ chỉ tiêu Anh - Việt trên hệ thống.|Trung bình

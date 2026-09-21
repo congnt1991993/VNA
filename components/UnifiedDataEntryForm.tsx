@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import * as XLSX from 'xlsx';
 import { Button } from './UI';
-import { ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search, Clock, Eye, X, ArrowRightLeft, Edit3 } from 'lucide-react';
+import {
+  ArrowLeft, Save, FileSpreadsheet, ArrowRight, ShieldCheck, RefreshCw, Search,
+  Clock, Eye, X, ArrowRightLeft, Edit3, Download, UploadCloud, CheckCircle
+} from 'lucide-react';
+import { ExcelImportModal } from './ExcelImportModal';
 
 import kpiRules from './NetzeroGRI_KPI_Rules.json';
 
@@ -315,6 +320,42 @@ const getFormName = (code: string) => {
   }
 };
 
+const DEFAULT_SCHEMAS: Record<string, string[]> = {
+  'GRI 302-1_TAB_1': ['energy', 'value', 'unit'],
+  'GRI 302-1_TAB_2': ['co2_source', 'value', 'unit'],
+  'GRI 302-4': ['measure', 'saved', 'target', 'unit'],
+  'GRI 305-1': ['source', 'co2', 'method'],
+  'GRI 305-4': ['type', 'intensity', 'target', 'unit'],
+  'GRI 305-5': ['measure', 'reduced', 'target'],
+  'GRI 305-7': ['gas', 'weight', 'method'],
+  'Airline E-1': ['type', 'reg', 'cert', 'chapter', 'date', 'noise'],
+  '9': ['flightType', 'emissions', 'target'],
+  'GRI 403-2': ['safety', 'actual', 'target', 'ltifr'],
+  '4': ['icao', 'name', 'start', 'end', 'plan', 'mandated', 'total', 'actual', 'jeta1'],
+  '5': ['airport', 'supplier', 'batch', 'amount', 'reduction'],
+  '13': ['system', 'allowance', 'purchase', 'price', 'cost'],
+  'Airline B-2': ['tier', 'satisfaction', 'target', 'count'],
+  'GRI 418-1': ['type', 'complaints', 'leaks', 'solutions'],
+  'GRI 303-3': ['source', 'value', 'target'],
+  'GRI 303-5': ['zone', 'value', 'target'],
+  'Airline B-1': ['service', 'npsDom', 'npsInt'],
+  'GRI 204-1_TAB_1': ['name', 'countryType', 'contractFrom', 'contractTo', 'hasSustCommitment', 'sustEffectiveDate', 'sustDescription'],
+  'GRI 204-1_TAB_2': ['name', 'address', 'type', 'country', 'domain', 'start', 'end'],
+  'GRI 406-1': ['code', 'start', 'end', 'status', 'solution'],
+  'GRI 416-1': ['category', 'standard', 'audited'],
+  'GRI 416-2': ['category', 'cases', 'authority'],
+  'GRI 417-2': ['category', 'cases', 'action'],
+  'Airline D-1': ['name', 'start', 'workers', 'daysLost', 'status'],
+  'Airline F-2': ['group', 'overall', 'work', 'training', 'manager', 'income'],
+  'GRI 202-1': ['role', 'wage', 'minRegion', 'ratio'],
+  'GRI 202-2': ['scope', 'local', 'foreign'],
+  'GRI 403-9': ['cause', 'cases', 'deadCases', 'victims', 'deaths', 'heavyInjures'],
+  'GRI 401-1': ['metric', 'value', 'unit'],
+  'GRI 401-2': ['metric', 'value', 'unit'],
+  'Airline F-1': ['name', 'dept', 'date', 'hours', 'participants', 'cost'],
+  'GRI 417-3': ['name', 'date', 'fined', 'warned', 'ruleViolated', 'details']
+};
+
 interface UnifiedDataEntryFormProps {
   department: string;
   effectivePeriod?: string;
@@ -382,6 +423,60 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
   }, []);
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+  const [importNotification, setImportNotification] = useState<string | null>(null);
+
+  // Export Excel function
+  const handleExportExcel = (code: string) => {
+    const hasTabs = code === 'GRI 302-1' || code === 'GRI 204-1';
+    const dataKey = hasTabs ? `${code}_${activeSubTab}` : code;
+    const currentTableRows = formData[dataKey] || [];
+    const expectedCols = (currentTableRows[0] && typeof currentTableRows[0] === 'object')
+      ? Object.keys(currentTableRows[0])
+      : (DEFAULT_SCHEMAS[dataKey] || ['name', 'value', 'unit']);
+
+    const headers = expectedCols.map(c => getColumnLabel(c, code));
+    const exportData = currentTableRows.length > 0
+      ? currentTableRows.map((row: any) => {
+          const rowData: Record<string, any> = {};
+          expectedCols.forEach(c => {
+            const colLabel = getColumnLabel(c, code);
+            rowData[colLabel] = row[c] ?? '';
+          });
+          return rowData;
+        })
+      : [
+          expectedCols.reduce((acc, c) => {
+            const colLabel = getColumnLabel(c, code);
+            acc[colLabel] = '';
+            return acc;
+          }, {} as Record<string, any>)
+        ];
+
+    const ws = XLSX.utils.json_to_sheet(exportData, { header: headers });
+    const wb = XLSX.utils.book_new();
+    const sheetTitle = (hasTabs ? `${code}_${activeSubTab}` : code).substring(0, 31).replace(/[\/\\?*[\]]/g, '_');
+    XLSX.utils.book_append_sheet(wb, ws, sheetTitle);
+
+    const fileName = `VNA_BieuMau_${code.replace(/\s+/g, '_')}_${effectivePeriod.replace(/\s+/g, '_')}.xlsx`;
+    XLSX.writeFile(wb, fileName);
+  };
+
+  // Import success callback
+  const handleImportSuccess = (importedRows: any[]) => {
+    const hasTabs = activeSec === 'GRI 302-1' || activeSec === 'GRI 204-1';
+    const dataKey = hasTabs ? `${activeSec}_${activeSubTab}` : activeSec;
+
+    setFormData(prev => ({
+      ...prev,
+      [dataKey]: importedRows
+    }));
+    setIsEditing(true);
+    setImportNotification(`Import thành công! Đã nạp ${importedRows.length} dòng dữ liệu vào biểu mẫu ${activeSec}.`);
+    setTimeout(() => {
+      setImportNotification(null);
+    }, 6000);
+  };
 
   useEffect(() => {
     setActiveSubTab('TAB_1');
@@ -1165,7 +1260,27 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
 
                     </div>
                   </div>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center flex-wrap">
+                    {/* Xuất Excel */}
+                    <Button
+                      variant="outline"
+                      onClick={() => handleExportExcel(ind.code)}
+                      className="text-xs py-1.5 h-9 font-bold border-gray-300 text-gray-700 hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                      title="Xuất dữ liệu hiện tại hoặc tải file mẫu Excel"
+                    >
+                      <Download size={15} className="text-emerald-600" /> Xuất Excel
+                    </Button>
+
+                    {/* Nhập Excel */}
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsImportModalOpen(true)}
+                      className="text-xs py-1.5 h-9 font-bold border-emerald-300 bg-emerald-50/50 text-emerald-800 hover:bg-emerald-100 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                      title="Nhập dữ liệu từ file Excel và kiểm tra biểu mẫu"
+                    >
+                      <UploadCloud size={15} className="text-emerald-600" /> Nhập Excel
+                    </Button>
+
                     {isEditing && (
                       <Button
                         variant="outline"
@@ -1185,29 +1300,35 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
                         <Edit3 size={15} /> Chỉnh sửa
                       </Button>
                     ) : (
-                      <>
-                        {rows.length > 0 && (
-                          <Button
-                            variant="outline"
-                            className="border-gray-300 text-gray-700 hover:bg-gray-50 text-xs h-9 font-bold flex items-center gap-1.5"
-                          >
-                            <FileSpreadsheet size={16} className="text-emerald-600" /> Nhập Excel
-                          </Button>
-                        )}
-                        <Button
-                          variant="primary"
-                          onClick={() => {
-                            onSave(effectivePeriod);
-                            setIsEditing(false);
-                          }}
-                          className="text-xs py-1.5 h-9 font-bold flex items-center gap-1.5 shadow-sm bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
-                        >
-                          <Save size={16} /> Lưu
-                        </Button>
-                      </>
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          onSave(effectivePeriod);
+                          setIsEditing(false);
+                        }}
+                        className="text-xs py-1.5 h-9 font-bold flex items-center gap-1.5 shadow-sm bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                      >
+                        <Save size={16} /> Lưu
+                      </Button>
                     )}
                   </div>
                 </div>
+
+                {/* Import Notification Banner */}
+                {importNotification && (
+                  <div className="mb-4 p-3.5 bg-emerald-50 border border-emerald-300 rounded-xl flex items-center justify-between text-xs font-bold text-emerald-800 animate-in fade-in">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle size={16} className="text-emerald-600 shrink-0" />
+                      <span>{importNotification}</span>
+                    </div>
+                    <button
+                      onClick={() => setImportNotification(null)}
+                      className="text-emerald-600 hover:text-emerald-800 text-xs font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
 
                 {/* TAB SELECTOR LỚN (Đã ẩn tab kế hoạch vì KPI được quản lý tập trung tại mục Quản lý KPI) */}
                 {(() => {
@@ -1735,6 +1856,44 @@ export const UnifiedDataEntryForm: React.FC<UnifiedDataEntryFormProps> = ({
           })}
         </div>
       </div>
+
+      {/* Modal Import Excel */}
+      {isImportModalOpen && (
+        <ExcelImportModal
+          isOpen={isImportModalOpen}
+          onClose={() => setIsImportModalOpen(false)}
+          onImportSuccess={handleImportSuccess}
+          indicatorCode={activeSec}
+          indicatorName={indicatorDetails.find(i => i.code === activeSec)?.name || activeSec}
+          subTabName={
+            activeSec === 'GRI 302-1'
+              ? (activeSubTab === 'TAB_1' ? 'Nhiên liệu Jet A1' : 'Phát thải CO2 (CORSIA)')
+              : activeSec === 'GRI 204-1'
+                ? (activeSubTab === 'TAB_1' ? 'Danh sách nhà cung cấp' : 'Tỷ lệ chi tiêu')
+                : undefined
+          }
+          expectedColumns={
+            (() => {
+              const hasTabs = activeSec === 'GRI 302-1' || activeSec === 'GRI 204-1';
+              const dataKey = hasTabs ? `${activeSec}_${activeSubTab}` : activeSec;
+              const curRows = formData[dataKey] || [];
+              return (curRows[0] && typeof curRows[0] === 'object')
+                ? Object.keys(curRows[0])
+                : (DEFAULT_SCHEMAS[dataKey] || []);
+            })()
+          }
+          getColumnLabel={getColumnLabel}
+          currentRows={
+            (() => {
+              const hasTabs = activeSec === 'GRI 302-1' || activeSec === 'GRI 204-1';
+              const dataKey = hasTabs ? `${activeSec}_${activeSubTab}` : activeSec;
+              return formData[dataKey] || [];
+            })()
+          }
+          period={effectivePeriod}
+        />
+      )}
+
       {renderAuditLogTable()}
     </div>
   );
