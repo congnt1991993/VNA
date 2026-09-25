@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
+import { IndicatorImportModal } from '../components/IndicatorImportModal';
 import { IndicatorHistoryTable } from '../components/IndicatorHistoryTable';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -875,70 +876,27 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
     }, 800);
   };
 
-  // Mock Import Steps
-  const handleFileSelect = () => {
-    setImportLoading(true);
-    setTimeout(() => {
-      setImportLoading(false);
-      setImportFile('danh_muc_chi_tieu_esg_vna_import.xlsx');
-      setImportStep(2);
-    }, 1200);
-  };
+  // Xử lý nạp danh mục chỉ tiêu từ file Excel
+  const handleImportSuccess = (importedRecords: Indicator[]) => {
+    const existingCodeMap = new Map(indicators.map(ind => [ind.code.toLowerCase(), ind]));
+    const newRecords: Indicator[] = [];
 
-  const handleConfirmImport = () => {
-    setImportLoading(true);
-    setTimeout(() => {
-      // Mock imported records
-      const importedRecords: Indicator[] = [
-        {
-          id: String(Date.now() + 1),
-          code: 'KPI-ENV-07',
-          name: 'Tỷ lệ sử dụng chất liệu nhựa tái chế thân thiện môi trường',
-          pillar: Pillar.ENVIRONMENT,
-          topic: 'Chất thải',
-          unit: '%',
-          frequency: 'Hàng tháng',
-          weight: 10,
-          department: 'Ban Dịch vụ Hành khách',
-          sourceForm: 'ops-service',
-          programs: [],
-          inputDept: 'Ban Dịch vụ Hành khách',
-          approveDept: 'Trưởng ban DVHK',
-          monitorDept: 'Ban Chỉ đạo ESG',
-          isActive: true,
-          introduction: 'Tỷ lệ pha trộn chất liệu tái sinh trên các vật phẩm bay cung cấp cho khách hàng.'
-        },
-        {
-          id: String(Date.now() + 2),
-          code: 'KPI-SOC-02',
-          name: 'Tỷ lệ cán bộ quản lý nữ trong ban lãnh đạo',
-          pillar: Pillar.SOCIAL,
-          topic: 'Nhân sự',
-          unit: '%',
-          frequency: 'Hàng năm',
-          weight: 10,
-          department: 'Ban Tổ chức nhân lực',
-          sourceForm: 'ops-hr',
-          programs: [],
-          inputDept: 'Ban Tổ chức nhân lực',
-          approveDept: 'Trưởng ban TCNL',
-          monitorDept: 'Ban Chỉ đạo ESG',
-          isActive: true,
-          introduction: 'Tỷ lệ nữ giới nắm giữ vị trí quản lý cấp phòng trở lên tại Vietnam Airlines.'
-        }
-      ];
+    importedRecords.forEach(rec => {
+      if (existingCodeMap.has(rec.code.toLowerCase())) {
+        const existing = existingCodeMap.get(rec.code.toLowerCase())!;
+        Object.assign(existing, rec);
+      } else {
+        newRecords.push(rec);
+      }
+    });
 
-      const merged = [...indicators, ...importedRecords];
-      setIndicators(merged);
-      localStorage.setItem('vna_esg_indicators', JSON.stringify(merged));
-      window.dispatchEvent(new Event('vna_indicators_updated'));
+    const merged = [...indicators, ...newRecords];
+    setIndicators(merged);
+    localStorage.setItem('vna_esg_indicators', JSON.stringify(merged));
+    window.dispatchEvent(new Event('vna_indicators_updated'));
 
-      setImportLoading(false);
-      setIsImportOpen(false);
-      setImportStep(1);
-      setImportFile(null);
-      alert('Đã nạp thành công 2 chỉ tiêu mới từ tệp Excel vào danh mục!');
-    }, 1500);
+    setIsImportOpen(false);
+    alert(`Đã nạp thành công ${importedRecords.length} chỉ tiêu từ tệp Excel vào hệ thống!`);
   };
 
   if (viewMode === 'DASHBOARD' && formIndicator) {
@@ -1818,6 +1776,14 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
           {/* {currentLang === 'vi' ? `Tổng số: ${filteredIndicators.length} chỉ tiêu` : `Total: ${filteredIndicators.length} indicators`} */}
         </div>
         <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <Button
+            variant="outline"
+            onClick={() => setIsImportOpen(true)}
+            className="cursor-pointer font-bold text-xs hover:border-vna-blue hover:text-vna-blue"
+          >
+            <Upload size={15} className="mr-1.5 text-vna-blue" />
+            {currentLang === 'vi' ? 'Import Excel' : 'Import Excel'}
+          </Button>
           <Button variant="outline" onClick={handleExportExcel} className="cursor-pointer font-bold text-xs">
             <Download size={15} className="mr-1.5" /> {currentLang === 'vi' ? 'Xuất Excel' : 'Export Excel'}
           </Button>
@@ -2191,105 +2157,14 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
         </div>
       )}
 
-      {/* Mock Excel Import Dialog */}
+      {/* Excel Import Modal */}
       {isImportOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-in fade-in duration-200">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden text-left animate-in zoom-in-95 duration-200">
-            <div className="bg-vna-blue text-white px-5 py-4 flex justify-between items-center">
-              <h3 className="font-bold flex items-center gap-2"><FileSpreadsheet size={18} /> Nhập danh mục chỉ tiêu từ Excel</h3>
-              <button onClick={() => setIsImportOpen(false)} className="text-white/70 hover:text-white transition-colors cursor-pointer">
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="p-6 space-y-6">
-              {/* Step indicator */}
-              <div className="grid grid-cols-3 gap-2">
-                {['Chọn tệp Excel', 'Kiểm định dữ liệu', 'Hoàn thành'].map((lbl, idx) => (
-                  <div key={lbl} className={`rounded-lg border px-3 py-2 text-center text-xs font-bold ${importStep === idx + 1 ? 'border-vna-blue bg-blue-50 text-vna-blue' : importStep > idx + 1 ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-gray-200 text-gray-400'}`}>
-                    {idx + 1}. {lbl}
-                  </div>
-                ))}
-              </div>
-
-              {importLoading && (
-                <div className="py-12 flex flex-col items-center justify-center gap-3">
-                  <div className="w-8 h-8 rounded-full border-4 border-t-vna-blue border-r-vna-blue/20 border-b-vna-blue/20 border-l-vna-blue/20 animate-spin" />
-                  <p className="text-sm font-semibold text-gray-500">Đang tải và xử lý dữ liệu...</p>
-                </div>
-              )}
-
-              {!importLoading && importStep === 1 && (
-                <div className="space-y-4">
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50/50 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-3">
-                    <div className="bg-blue-50 p-4 rounded-full text-vna-blue"><Upload size={28} /></div>
-                    <div>
-                      <p className="text-sm font-bold text-gray-700">Kéo thả hoặc click để chọn tệp tải lên</p>
-                      <p className="text-xs text-gray-400 mt-1">Hỗ trợ định dạng .xlsx, .xls theo biểu mẫu chuẩn VNA</p>
-                    </div>
-                    <Button onClick={handleFileSelect} variant="primary" size="sm" className="mt-2">Chọn file từ máy tính</Button>
-                  </div>
-                  <div className="bg-blue-50/55 p-4 rounded-lg border border-blue-100 flex items-start gap-3">
-                    <Info size={16} className="text-vna-blue shrink-0 mt-0.5" />
-                    <div className="text-xs text-vna-blue leading-relaxed">
-                      <span className="font-bold">Lưu ý:</span> Cột mã chỉ tiêu, tên chỉ tiêu, trụ cột và đơn vị chủ trì là bắt buộc. Hệ thống sẽ tự động đối chiếu và cảnh báo nếu có bản ghi không hợp lệ hoặc bị trùng lặp.
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {!importLoading && importStep === 2 && (
-                <div className="space-y-4 text-left">
-                  <div className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-lg flex items-center gap-2.5 text-emerald-800 text-sm font-bold">
-                    <Check className="bg-emerald-500 text-white rounded-full p-0.5" size={16} />
-                    <span>Tìm thấy 2 chỉ tiêu hợp lệ mới sẵn sàng để nạp vào hệ thống.</span>
-                  </div>
-                  <div className="border border-gray-200 rounded-lg overflow-hidden max-h-48 overflow-y-auto">
-                    <table className="w-full text-left border-collapse text-xs">
-                      <thead>
-                        <tr className="bg-gray-150 border-b border-gray-200 font-bold text-gray-600">
-                          <th className="py-2.5 px-3 w-24">Mã chỉ tiêu</th>
-                          <th className="py-2.5 px-3">Tên chỉ tiêu</th>
-                          <th className="py-2.5 px-3 w-20 text-center">Trụ cột</th>
-                          <th className="py-2.5 px-3 w-36">Bộ phận phụ trách</th>
-                          <th className="py-2.5 px-3 w-16 text-center">Kiểm định</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-b border-gray-100">
-                          <td className="py-2 px-3 font-bold text-vna-blue">KPI-ENV-07</td>
-                          <td className="py-2 px-3 text-gray-800 font-medium truncate max-w-[200px]" title="Tỷ lệ sử dụng chất liệu nhựa tái chế thân thiện môi trường">Tỷ lệ nhựa tái chế</td>
-                          <td className="py-2 px-3 text-center"><span className="bg-green-50 text-green-700 font-bold px-1.5 py-0.5 rounded">E</span></td>
-                          <td className="py-2 px-3 text-gray-600 truncate max-w-[120px]">Ban Dịch vụ HK</td>
-                          <td className="py-2 px-3 text-center text-emerald-600 font-bold">Hợp lệ</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2 px-3 font-bold text-vna-blue">KPI-SOC-02</td>
-                          <td className="py-2 px-3 text-gray-800 font-medium truncate max-w-[200px]" title="Tỷ lệ cán bộ quản lý nữ trong ban lãnh đạo">Tỷ lệ quản lý nữ</td>
-                          <td className="py-2 px-3 text-center"><span className="bg-blue-50 text-blue-700 font-bold px-1.5 py-0.5 rounded">S</span></td>
-                          <td className="py-2 px-3 text-gray-600 truncate max-w-[120px]">Ban Tổ chức NL</td>
-                          <td className="py-2 px-3 text-center text-emerald-600 font-bold">Hợp lệ</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-between">
-              <Button variant="ghost" onClick={() => setIsImportOpen(false)}>Hủy bỏ</Button>
-              <div className="flex gap-2">
-                {importStep === 2 && <Button variant="outline" onClick={() => setImportStep(1)}>Quay lại</Button>}
-                {importStep === 2 ? (
-                  <Button variant="primary" onClick={handleConfirmImport}>Xác nhận nạp dữ liệu</Button>
-                ) : (
-                  <Button variant="primary" disabled={!importFile} onClick={() => setImportStep(2)}>Tiếp tục</Button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <IndicatorImportModal
+          isOpen={isImportOpen}
+          onClose={() => setIsImportOpen(false)}
+          onImportSuccess={handleImportSuccess}
+          existingCodes={indicators.map(i => i.code)}
+        />
       )}
     </div>
   );

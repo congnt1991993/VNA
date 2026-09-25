@@ -64,6 +64,7 @@ import {
 } from 'lucide-react';
 import { DETAIL_CONTENT, DETAIL_CONTENT_EN } from '../constants';
 import { IndicatorChart } from '../../IndicatorChart';
+import { getGovIndicatorMapping } from '../../../data/govIndicatorMappings';
 import indicatorsDataVI from './indicators_main_list.json';
 import indicatorsDataEN from './indicators_main_list_en.json';
 
@@ -238,10 +239,14 @@ const truncateDescription = (text: string, maxLen = 250): string => {
 const isTextIndicator = (indicator: any): boolean => {
   if (!indicator) return false;
   if (indicator.isStatic === true || indicator.reportType === 'TEXT' || indicator.unit === 'Văn bản') return true;
+  // All Governance indicators except quantitative ones (GRI 2-7, GRI 404-2, GRI 202-2) are text/qualitative
+  if (indicator.pillar === 'Governance' && !['GRI 2-7', 'GRI 404-2', 'GRI 202-2'].includes(indicator.code)) {
+    return true;
+  }
   const textCodes = [
     'GRI 2-9', 'GRI 2-10', 'GRI 2-11', 'GRI 2-12', 'GRI 2-13', 'GRI 2-14', 'GRI 2-15', 'GRI 2-16', 'GRI 2-17', 'GRI 2-18',
     'GRI 2-23', 'GRI 2-24', 'GRI 2-25', 'GRI 2-26', 'GRI 2-27', 'GRI 2-28', 'GRI 2-29', 'GRI 2-30',
-    'GRI 3-3', 'GRI 201-4', 'GRI 205-2', 'GRI 205-3', 'GRI 206-1', 'GRI 401-2', 'GRI 403-4', 'GRI 403-10', 'GRI 406-1', 'GRI 414-1', 'GRI 415-1', 'GRI 418-1',
+    'GRI 3-3', 'GRI 201-3', 'GRI 201-4', 'GRI 205-2', 'GRI 205-3', 'GRI 206-1', 'GRI 401-2', 'GRI 403-4', 'GRI 403-10', 'GRI 406-1', 'GRI 414-1', 'GRI 415-1', 'GRI 418-1',
     'Airline G-1', 'Airline S-1', 'Airline E-2'
   ];
   return textCodes.some(c =>
@@ -665,19 +670,81 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
               )}
             </div>
 
-            {/* EMBEDDED PUBLISHED CHARTS IN DETAIL VIEW IF AVAILABLE (MOVED TO BOTTOM) */}
+            {/* NỘI DUNG THUYẾT MINH CHỈ TIÊU HOẶC BIỂU ĐỒ SỐ LIỆU */}
             {(() => {
+              const isText = isTextIndicator(selectedIndicatorDetail);
+
+              // 1. NẾU LÀ CHỈ TIÊU THUYẾT MINH: HIỂN THỊ THUYẾT MINH & HIỆN TRẠNG TUÂN THỦ THAY VÌ BIỂU ĐỒ
+              if (isText) {
+                const mapping = getGovIndicatorMapping(selectedIndicatorDetail.code);
+
+                // Lấy nội dung tùy chỉnh từ localStorage (nếu đã được nhập liệu/công bố)
+                let customSavedText: string | null = null;
+                try {
+                  const saved = localStorage.getItem('vna_all_submissions');
+                  if (saved) {
+                    const subs = JSON.parse(saved);
+                    if (Array.isArray(subs)) {
+                      for (const sub of subs) {
+                        if (sub && sub.data) {
+                          if (isEn && sub.data[`${selectedIndicatorDetail.code}_EN`]) {
+                            customSavedText = sub.data[`${selectedIndicatorDetail.code}_EN`];
+                            break;
+                          }
+                          if (!isEn && sub.data[`${selectedIndicatorDetail.code}_VI`]) {
+                            customSavedText = sub.data[`${selectedIndicatorDetail.code}_VI`];
+                            break;
+                          }
+                          if (sub.data[selectedIndicatorDetail.code]) {
+                            customSavedText = sub.data[selectedIndicatorDetail.code];
+                            break;
+                          }
+                        }
+                      }
+                    }
+                  }
+                } catch (e) { }
+
+
+
+                return (
+                  <div className="mb-10 space-y-8 animate-fade-in">
+                    {/* Header */}
+                    <div className="flex items-center gap-2.5 border-b border-gray-200 pb-3">
+                      <FileText size={22} className="text-[#005F6E]" />
+                      <h3 className="text-lg md:text-xl font-bold text-slate-900 uppercase tracking-wide">
+                        {isEn ? 'Qualitative Disclosure & Compliance Verification' : 'Nội dung thuyết minh & Hiện trạng tuân thủ'}
+                      </h3>
+                    </div>
+
+                    {/* Khung thuyết minh chính */}
+                    <div className="bg-slate-50/90 rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 shadow-2xs">
+                      {/* Thuyết minh chính thức của Vietnam Airlines */}
+                      <div className="bg-white rounded-xl p-6 md:p-8 border border-gray-200 shadow-3xs space-y-3.5">
+                        <div className="border-b border-gray-150 pb-3">
+                          <span className="text-xs md:text-sm font-bold text-vna-blue uppercase tracking-wide block">
+                            {selectedIndicatorDetail.name}
+                          </span>
+                        </div>
+
+                        <div className="text-sm md:text-base text-gray-800 leading-relaxed whitespace-pre-line font-normal pl-4 border-l-3 border-vna-blue">
+                          {customSavedText || (isEn
+                            ? (mapping?.defaultVnaTextEn || selectedIndicatorDetail.introduction || selectedIndicatorDetail.name)
+                            : (mapping?.defaultVnaTextVi || selectedIndicatorDetail.introduction || selectedIndicatorDetail.name))}
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                );
+              }
+
+              // 2. NẾU LÀ CHỈ TIÊU ĐỘNG: HIỂN THỊ BIỂU ĐỒ SỐ LIỆU INTERACTIVE
               const detailSubCharts = getPublishedSubChartsForIndicator(selectedIndicatorDetail);
               if (detailSubCharts.length === 0) return null;
               return (
                 <div className="mb-8 space-y-6">
-                  {/* <div className="flex items-center gap-2.5 border-b border-gray-200 pb-3">
-                    <BarChart3 size={20} className="text-vna-blue" />
-                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wide">
-                      {isEn ? 'Published Interactive Charts & Data' : 'Biểu đồ số liệu công bố'}
-                    </h3>
-                  </div> */}
-
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {detailSubCharts.map((sub: any, idx: number) => {
                       const isSingleLast = (detailSubCharts.length % 2 === 1) && (idx === detailSubCharts.length - 1);
@@ -802,7 +869,7 @@ const PillarDetail: React.FC<PillarDetailProps> = ({ pillarId, onBack }) => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2">
-                    <span>{isEn ? `Indicators List - ${themeConfig.pillarLabel}` : `Chỉ tiêu liên quan`}</span>
+                    <span>{isEn ? `Related indicators` : `Chỉ tiêu liên quan`}</span>
                   </h3>
                   <p className="text-xs text-gray-500 mt-0.5">
                     {isEn ? `Total ${pillarIndicators.length} indicators in this pillar` : `Tổng cộng ${pillarIndicators.length} chỉ tiêu thuộc trụ cột`}

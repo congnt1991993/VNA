@@ -8,16 +8,17 @@ import {
   CheckCircle,
   Download,
   AlertCircle,
-  FileCheck,
 } from 'lucide-react';
 import { Button } from './UI';
 
 export interface ValidationError {
-  rowIndex: number; // 1-indexed for display
+  rowIndex: number; // 1-indexed for data row
+  excelRow: number; // Dòng thực tế trong file Excel (bắt đầu từ 2)
   colKey: string;
   colIndex: number; // 0-indexed
   colLetter: string; // 'A', 'B', etc.
   colLabel: string;
+  cellRef: string; // Tọa độ ô Excel (VD: 'D3', 'B2')
   value: any;
   message: string;
 }
@@ -226,10 +227,12 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
     if (matchedExpected.length === 0 && expectedColumns.length > 0) {
       errors.push({
         rowIndex: 0,
+        excelRow: 1,
         colKey: 'STRUCTURE',
         colIndex: 0,
         colLetter: '-',
         colLabel: 'Cấu trúc biểu mẫu',
+        cellRef: 'Tiêu đề',
         value: '',
         message: 'File không khớp với cấu trúc cột của biểu mẫu hiện tại. Vui lòng kiểm tra tiêu đề các cột.'
       });
@@ -238,8 +241,10 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
 
     rows.forEach((row, rowIdx) => {
       const displayRowNum = rowIdx + 1;
+      const excelRow = rowIdx + 2; // Dòng 1 trong Excel là tiêu đề
 
       cols.forEach((col, colIdx) => {
+        const cellRef = `${col.colLetter}${excelRow}`;
         const val = row[col.key];
         const strVal = String(val ?? '').trim();
 
@@ -248,10 +253,12 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
         if (isIdentifier && !strVal) {
           errors.push({
             rowIndex: displayRowNum,
+            excelRow: excelRow,
             colKey: col.key,
             colIndex: colIdx,
             colLetter: col.colLetter,
             colLabel: col.label,
+            cellRef: cellRef,
             value: strVal,
             message: `Trường bắt buộc không được để trống.`
           });
@@ -266,20 +273,24 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
           if (isNaN(parsedNum)) {
             errors.push({
               rowIndex: displayRowNum,
+              excelRow: excelRow,
               colKey: col.key,
               colIndex: colIdx,
               colLetter: col.colLetter,
               colLabel: col.label,
+              cellRef: cellRef,
               value: strVal,
               message: `Giá trị phải là số hợp lệ (phát hiện ký tự không hợp lệ).`
             });
           } else if (['value', 'saved', 'co2', 'intensity', 'reduced', 'weight', 'emissions', 'total', 'amount', 'allowance', 'purchase', 'price', 'cost', 'hours', 'participants', 'wage'].includes(col.key) && parsedNum < 0) {
             errors.push({
               rowIndex: displayRowNum,
+              excelRow: excelRow,
               colKey: col.key,
               colIndex: colIdx,
               colLetter: col.colLetter,
               colLabel: col.label,
+              cellRef: cellRef,
               value: strVal,
               message: `Giá trị số lượng/chỉ tiêu không được là số âm (< 0).`
             });
@@ -293,10 +304,12 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
           if (!normalized) {
             errors.push({
               rowIndex: displayRowNum,
+              excelRow: excelRow,
               colKey: col.key,
               colIndex: colIdx,
               colLetter: col.colLetter,
               colLabel: col.label,
+              cellRef: cellRef,
               value: strVal,
               message: `Giá trị không thuộc danh mục hợp lệ. Cho phép: ${enumConfig.values.join(', ')}.`
             });
@@ -309,10 +322,12 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
           if (!isValidDate) {
             errors.push({
               rowIndex: displayRowNum,
+              excelRow: excelRow,
               colKey: col.key,
               colIndex: colIdx,
               colLetter: col.colLetter,
               colLabel: col.label,
+              cellRef: cellRef,
               value: strVal,
               message: `Định dạng ngày không hợp lệ. Vui lòng dùng YYYY-MM-DD hoặc DD/MM/YYYY.`
             });
@@ -388,14 +403,10 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
     XLSX.writeFile(wb, filename);
   };
 
-  // Find error for specific cell
-  const getCellError = (rowIndex: number, colKey: string) => {
-    return validationErrors.find(e => e.rowIndex === rowIndex + 1 && e.colKey === colKey);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
 
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-slate-50/80 shrink-0">
@@ -406,20 +417,10 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-base font-black text-slate-800">
-                  Import Dữ Liệu Biểu Mẫu - {indicatorCode}
+                  Import Dữ Liệu - {indicatorCode} - {subTabName}
                 </h3>
-                <span className="px-2 py-0.5 text-[11px] font-bold bg-blue-100 text-blue-800 rounded">
-                  {period}
-                </span>
-                {subTabName && (
-                  <span className="px-2 py-0.5 text-[11px] font-bold bg-gray-200 text-gray-700 rounded">
-                    {subTabName}
-                  </span>
-                )}
               </div>
-              <p className="text-xs text-gray-500 mt-0.5 font-medium">
-                {indicatorName} • Xem trước dạng bảng tính Excel và kiểm tra dữ liệu trước khi nạp vào hệ thống
-              </p>
+
             </div>
           </div>
 
@@ -508,25 +509,27 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
                         Phát hiện {validationErrors.length} lỗi dữ liệu so với biểu mẫu! Tiến trình import đã tạm dừng.
                       </h4>
                       <p className="text-xs text-red-700 mt-1 font-medium">
-                        Hệ thống đã đánh dấu màu đỏ các ô bị lỗi trên bảng tính Excel phía dưới. Vui lòng xem danh sách chi tiết các dòng và cột bị lỗi sau:
+                        Vui lòng xem danh sách chi tiết các dòng và cột bị lỗi sau để chỉnh sửa lại file Excel:
                       </p>
 
                       {/* Detailed Error List Box */}
                       <div className="mt-3 max-h-40 overflow-y-auto bg-white/90 rounded-lg border border-red-200 p-2.5 divide-y divide-red-100 text-xs">
                         {validationErrors.map((err, i) => (
-                          <div key={i} className="py-1.5 px-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
-                            <div className="flex items-center gap-2">
-                              <span className="font-extrabold px-1.5 py-0.5 bg-red-100 text-red-800 rounded border border-red-200">
-                                Dòng {err.rowIndex}
+                          <div key={i} className="py-2 px-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] hover:bg-red-50/60 rounded-lg transition-colors border-b border-red-100/60 last:border-b-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-mono font-black px-2 py-0.5 bg-red-600 text-white rounded text-[11px] shadow-2xs">
+                                {err.cellRef}
                               </span>
-                              <span className="font-bold text-gray-700">
-                                Cột {err.colLetter} ({err.colLabel}):
+                              <span className="text-red-800 font-bold text-xs">
+                                {err.cellRef} - {err.message}
                               </span>
-                              <span className="text-red-700 font-semibold">{err.message}</span>
+                              <span className="text-gray-500 text-[10px] font-medium">
+                                (Cột {err.colLetter}: {err.colLabel} - Dòng Excel {err.excelRow})
+                              </span>
                             </div>
                             {err.value !== undefined && err.value !== '' && (
-                              <span className="text-gray-400 italic shrink-0 text-[10px]">
-                                Giá trị: &quot;{String(err.value)}&quot;
+                              <span className="text-gray-500 italic shrink-0 text-[10px] font-mono bg-white border border-gray-200 px-2 py-0.5 rounded shadow-2xs">
+                                Giá trị lỗi: &quot;{String(err.value)}&quot;
                               </span>
                             )}
                           </div>
@@ -553,117 +556,19 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
             </div>
           )}
 
-          {/* Excel-like Grid View (Columns, Rows) */}
-          {parsedRows.length > 0 ? (
-            <div className="flex-1 border border-gray-300 rounded-xl overflow-hidden shadow-xs flex flex-col bg-white">
-              <div className="bg-gray-100/80 px-4 py-2 border-b border-gray-300 flex items-center justify-between text-[11px] font-bold text-gray-600">
-                <span className="flex items-center gap-1.5">
-                  <FileCheck size={14} className="text-vna-blue" />
-                  Giao diện xem trước dữ liệu dạng bảng tính Excel
-                </span>
-                <span className="text-gray-400 font-normal">
-                  * Nhấp chuột vào từng ô để xem chi tiết
-                </span>
+          {/* File Selected Status & Instructions */}
+          {selectedFile && !hasValidated && (
+            <div className="bg-blue-50/60 border border-blue-200/80 rounded-xl p-4 text-xs text-blue-900 flex items-start gap-3">
+              <div className="p-1.5 bg-blue-100 text-blue-700 rounded-lg shrink-0 mt-0.5">
+                <FileSpreadsheet size={16} />
               </div>
-
-              <div className="overflow-auto max-h-[46vh] relative">
-                <table className="w-full text-left border-collapse text-xs">
-                  <thead className="sticky top-0 z-10">
-                    {/* Excel Header: Letters (A, B, C...) */}
-                    <tr className="bg-gray-150/90 text-gray-500 text-[11px] font-bold border-b border-gray-300">
-                      <th className="p-2 border-r border-gray-300 w-12 text-center bg-gray-200">#</th>
-                      {detectedColumns.map(col => (
-                        <th key={col.key} className="p-1.5 text-center border-r border-gray-300 bg-gray-150 font-mono text-gray-600">
-                          {col.colLetter}
-                        </th>
-                      ))}
-                    </tr>
-
-                    {/* Column Field Name Headers */}
-                    <tr className="bg-slate-100 text-slate-800 text-[11px] font-bold border-b border-gray-300 uppercase tracking-wide">
-                      <th className="p-2.5 border-r border-gray-300 text-center w-12 bg-slate-200 font-mono text-gray-500">
-                        STT
-                      </th>
-                      {detectedColumns.map(col => (
-                        <th key={col.key} className="p-2.5 border-r border-gray-300 min-w-[140px]">
-                          <div>{col.label}</div>
-                          <div className="text-[9px] font-mono text-gray-400 font-normal normal-case">{col.key}</div>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-
-                  <tbody className="divide-y divide-gray-200 font-sans">
-                    {parsedRows.map((row, rowIdx) => {
-                      const rowNum = rowIdx + 1;
-                      const hasRowError = validationErrors.some(e => e.rowIndex === rowNum);
-
-                      return (
-                        <tr
-                          key={rowIdx}
-                          className={`transition-colors ${hasRowError ? 'bg-red-50/40 hover:bg-red-50/70' : 'hover:bg-blue-50/20'}`}
-                        >
-                          {/* Row Number Column (Excel-style 1, 2, 3...) */}
-                          <td className="p-2 border-r border-gray-300 text-center font-mono font-bold text-gray-500 bg-gray-50 text-[11px] select-none">
-                            {rowNum}
-                          </td>
-
-                          {/* Cell values */}
-                          {detectedColumns.map(col => {
-                            const val = row[col.key];
-                            const cellError = getCellError(rowIdx, col.key);
-
-                            return (
-                              <td
-                                key={col.key}
-                                title={cellError ? cellError.message : undefined}
-                                className={`p-2 border-r border-gray-200 text-xs font-medium transition-all relative ${cellError
-                                  ? 'bg-red-100/80 text-red-900 border-2 border-red-500 font-bold'
-                                  : 'text-gray-800'
-                                  }`}
-                              >
-                                <div className="flex items-center justify-between gap-1">
-                                  <span className="truncate">{val !== undefined && val !== '' ? String(val) : <span className="text-gray-300 italic">(trống)</span>}</span>
-                                  {cellError && (
-                                    <AlertTriangle size={13} className="text-red-600 shrink-0" />
-                                  )}
-                                </div>
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : (
-            <div className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center flex flex-col items-center justify-center bg-gray-50/50 flex-1">
-              <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-3 shadow-xs">
-                <FileSpreadsheet size={32} />
-              </div>
-              <h4 className="text-sm font-bold text-gray-800">
-                Chưa có dữ liệu để xem trước
-              </h4>
-              <p className="text-xs text-gray-400 mt-1 max-w-md">
-                Vui lòng chọn một file Excel (.xlsx, .xls) hoặc CSV để xem trước dữ liệu theo dạng cột/dòng và thực hiện kiểm tra biểu mẫu.
-              </p>
-              <div className="mt-4 flex gap-3">
-                <Button
-                  variant="primary"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="text-xs py-2 px-4 font-bold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5 cursor-pointer shadow-xs"
-                >
-                  <UploadCloud size={15} /> Tải file lên
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={handleExportTemplate}
-                  className="text-xs py-2 px-4 font-bold border-gray-300 text-gray-700 hover:bg-gray-100 flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Download size={15} className="text-emerald-600" /> Tải file mẫu biểu này
-                </Button>
+              <div className="space-y-1">
+                <p className="font-bold text-blue-900">
+                  File đã sẵn sàng để kiểm tra và nạp vào biểu mẫu
+                </p>
+                <p className="text-blue-700">
+                  Hệ thống đã nhận diện <strong>{parsedRows.length}</strong> dòng dữ liệu và <strong>{detectedColumns.length}</strong> cột tương ứng. Vui lòng nhấn nút <strong>"Tiến hành Import"</strong> bên dưới để thực hiện đối soát dữ liệu và nạp vào hệ thống.
+                </p>
               </div>
             </div>
           )}
