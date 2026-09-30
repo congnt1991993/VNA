@@ -87,7 +87,7 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
 import { Card, Button, Input, Badge, Table, Toast, Modal } from '../components/UI';
 import {
   LayoutDashboard, BarChart2, Newspaper, FileText, Upload, Save, RefreshCw, Eye, EyeOff, Edit, Edit2, Plus, CheckCircle, XCircle,
-  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, ArrowUpDown, ArrowUp, ArrowDown, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical, Layers, Inbox
+  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, ArrowUpDown, ArrowUp, ArrowDown, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical, Layers, Inbox, Image as ImageIcon
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -203,7 +203,9 @@ const initialPillarsData: PillarCMSData[] = [
     ],
     detailReports: [
       { id: 'env-detail-1', type: 'chart', value: 'GRI 302-1-JETA1' },
-      { id: 'env-detail-2', type: 'indicator', value: 'GRI 305-1' }
+      { id: 'env-detail-1b', type: 'chart', value: 'GRI 302-1-SAF' },
+      { id: 'env-detail-2', type: 'indicator', value: 'GRI 305-1' },
+      { id: 'env-detail-3', type: 'chart', value: 'GRI 305-4-ACTUAL' }
     ]
   },
   {
@@ -239,7 +241,9 @@ const initialPillarsData: PillarCMSData[] = [
     ],
     detailReports: [
       { id: 'soc-detail-1', type: 'chart', value: 'GRI 401-1-SUB1' },
-      { id: 'soc-detail-2', type: 'indicator', value: 'GRI 403-9' }
+      { id: 'soc-detail-2', type: 'indicator', value: 'GRI 403-9' },
+      { id: 'soc-detail-3', type: 'chart', value: 'GRI 404-2-HQ' },
+      { id: 'soc-detail-4', type: 'chart', value: 'GRI 404-2-OPS' }
     ]
   },
   {
@@ -274,8 +278,11 @@ const initialPillarsData: PillarCMSData[] = [
       { id: 'gov-news-2', type: 'indicator', value: 'GRI 418-1' }
     ],
     detailReports: [
-      { id: 'gov-detail-1', type: 'chart', value: 'GRI 2-7-SUB1' },
-      { id: 'gov-detail-2', type: 'indicator', value: 'GRI 2-9' }
+      { id: 'gov-detail-1', type: 'chart', value: 'GRI 2-7-PILOTS' },
+      { id: 'gov-detail-2', type: 'chart', value: 'GRI 2-7-CABIN' },
+      { id: 'gov-detail-3', type: 'chart', value: 'GRI 2-7-TECH' },
+      { id: 'gov-detail-4', type: 'chart', value: 'GRI 2-9-IND' },
+      { id: 'gov-detail-5', type: 'chart', value: 'GRI 2-9-EXEC' }
     ]
   }
 ];
@@ -285,20 +292,99 @@ export const CMSManagePage: React.FC = () => {
   const [newsSubTab, setNewsSubTab] = useState<'sync' | 'approve'>('sync');
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
 
-  const [visionData, setVisionData] = useState({
-    headlineVi: 'Vươn cao bền vững',
-    headlineEn: 'Reaching Sustainable Heights',
-    bannerUrl: '/banner.jpg',
-    subheadlineVi: 'Cam kết của Vietnam Airlines vì một tương lai xanh, xã hội thịnh vượng và quản trị minh bạch.',
-    subheadlineEn: "Vietnam Airlines' commitment to a green future, a prosperous society, and transparent governance.",
-    ceoNameVi: 'Ông Lê Hồng Hà',
-    ceoNameEn: 'Mr. Le Hong Ha',
-    ceoTitleVi: 'Tổng Giám đốc Vietnam Airlines',
-    ceoTitleEn: 'CEO of Vietnam Airlines',
-    ceoImageUrl: '',
-    ceoMessageVi: '"Tại Vietnam Airlines, phát triển bền vững không phải là sự lựa chọn, mà là sứ mệnh. Chúng tôi hiểu rằng mỗi chuyến bay cất cánh không chỉ mang theo hành khách, mà còn mang theo trách nhiệm với môi trường và cộng đồng."',
-    ceoMessageEn: '"At Vietnam Airlines, sustainable development is not a choice, but a mission. We understand that each flight that takes off carries not only passengers, but also responsibility for the environment and the community."'
+  const [visionData, setVisionData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('vna_cms_vision');
+      if (saved) {
+        const p = JSON.parse(saved);
+        return {
+          headlineVi: p.headlineVi || 'Vươn cao bền vững',
+          headlineEn: p.headlineEn || 'Reaching Sustainable Heights',
+          bannerUrl: p.bannerUrl || '/banner.jpg',
+          subheadlineVi: p.subheadlineVi || 'Cam kết của Vietnam Airlines vì một tương lai xanh, xã hội thịnh vượng và quản trị minh bạch.',
+          subheadlineEn: p.subheadlineEn || "Vietnam Airlines' commitment to a green future, a prosperous society, and transparent governance.",
+          topLabelVi: p.topLabelVi || 'THÔNG ĐIỆP TỪ TỔNG GIÁM ĐỐC',
+          topLabelEn: p.topLabelEn || 'MESSAGE FROM THE CEO',
+          sectionImageUrl: p.sectionImageUrl || '/vna-images/vandon_section.jpg',
+          imageTitleVi: p.imageTitleVi || '30 Năm',
+          imageTitleEn: p.imageTitleEn || '30 Years',
+          imageSubtitleVi: p.imageSubtitleVi || 'ĐỒNG HÀNH',
+          imageSubtitleEn: p.imageSubtitleEn || 'Companion',
+          imageDescVi: p.imageDescVi || 'Cùng sự phát triển thịnh vượng và bền vững của hành tinh',
+          imageDescEn: p.imageDescEn || 'For the prosperous and sustainable development of our planet',
+          ceoNameVi: p.ceoNameVi || 'Ông Lê Hồng Hà',
+          ceoNameEn: p.ceoNameEn || 'Mr. Le Hong Ha',
+          ceoTitleVi: p.ceoTitleVi || 'Tổng Giám đốc Vietnam Airlines',
+          ceoTitleEn: p.ceoTitleEn || 'CEO of Vietnam Airlines',
+          ceoImageUrl: p.ceoImageUrl || '/vna-images/ceo.png',
+          ceoMessageVi: p.ceoMessageVi || '"Tại Vietnam Airlines, phát triển bền vững không phải là sự lựa chọn, mà là sứ mệnh. Chúng tôi hiểu rằng mỗi chuyến bay cất cánh không chỉ mang theo hành khách, mà còn mang theo trách nhiệm với môi trường và cộng đồng."',
+          ceoMessageEn: p.ceoMessageEn || '"At Vietnam Airlines, sustainable development is not a choice, but a mission. We understand that each flight that takes off carries not only passengers, but also responsibility for the environment and the community."'
+        };
+      }
+    } catch (e) { }
+    return {
+      headlineVi: 'Vươn cao bền vững',
+      headlineEn: 'Reaching Sustainable Heights',
+      bannerUrl: '/banner.jpg',
+      subheadlineVi: 'Cam kết của Vietnam Airlines vì một tương lai xanh, xã hội thịnh vượng và quản trị minh bạch.',
+      subheadlineEn: "Vietnam Airlines' commitment to a green future, a prosperous society, and transparent governance.",
+      topLabelVi: 'THÔNG ĐIỆP TỪ TỔNG GIÁM ĐỐC',
+      topLabelEn: 'MESSAGE FROM THE CEO',
+      sectionImageUrl: '/vna-images/vandon_section.jpg',
+      imageTitleVi: '30 Năm',
+      imageTitleEn: '30 Years',
+      imageSubtitleVi: 'ĐỒNG HÀNH',
+      imageSubtitleEn: 'Companion',
+      imageDescVi: 'Cùng sự phát triển thịnh vượng và bền vững của hành tinh',
+      imageDescEn: 'For the prosperous and sustainable development of our planet',
+      ceoNameVi: 'Ông Lê Hồng Hà',
+      ceoNameEn: 'Mr. Le Hong Ha',
+      ceoTitleVi: 'Tổng Giám đốc Vietnam Airlines',
+      ceoTitleEn: 'CEO of Vietnam Airlines',
+      ceoImageUrl: '/vna-images/ceo.png',
+      ceoMessageVi: '"Tại Vietnam Airlines, phát triển bền vững không phải là sự lựa chọn, mà là sứ mệnh. Chúng tôi hiểu rằng mỗi chuyến bay cất cánh không chỉ mang theo hành khách, mà còn mang theo trách nhiệm với môi trường và cộng đồng."',
+      ceoMessageEn: '"At Vietnam Airlines, sustainable development is not a choice, but a mission. We understand that each flight that takes off carries not only passengers, but also responsibility for the environment and the community."'
+    };
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('vna_cms_vision', JSON.stringify(visionData));
+      window.dispatchEvent(new Event('vna_cms_vision_updated'));
+    } catch (e) { }
+  }, [visionData]);
+
+  const [newsHeaderData, setNewsHeaderData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('vna_cms_news_header');
+      if (saved) {
+        const p = JSON.parse(saved);
+        return {
+          taglineVi: p.taglineVi || 'SPIRIT OF VNA',
+          taglineEn: p.taglineEn || 'SPIRIT OF VNA',
+          titleVi: p.titleVi || 'Tin tức & Hoạt động',
+          titleEn: p.titleEn || 'News & Activities',
+          descVi: p.descVi || 'Cập nhật những hoạt động thực tiễn mới nhất của Vietnam Airlines trên hành trình phát triển bền vững và lan tỏa giá trị tốt đẹp đến cộng đồng.',
+          descEn: p.descEn || "Stay updated with Vietnam Airlines' latest practical activities on the journey of sustainable development and spreading good values to the community."
+        };
+      }
+    } catch (e) { }
+    return {
+      taglineVi: 'SPIRIT OF VNA',
+      taglineEn: 'SPIRIT OF VNA',
+      titleVi: 'Tin tức & Hoạt động',
+      titleEn: 'News & Activities',
+      descVi: 'Cập nhật những hoạt động thực tiễn mới nhất của Vietnam Airlines trên hành trình phát triển bền vững và lan tỏa giá trị tốt đẹp đến cộng đồng.',
+      descEn: "Stay updated with Vietnam Airlines' latest practical activities on the journey of sustainable development and spreading good values to the community."
+    };
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('vna_cms_news_header', JSON.stringify(newsHeaderData));
+      window.dispatchEvent(new Event('vna_cms_news_header_updated'));
+    } catch (e) { }
+  }, [newsHeaderData]);
   const [isDraft, setIsDraft] = useState(false);
 
   const [pillars, setPillars] = useState<PillarCMSData[]>(() => {
@@ -330,6 +416,8 @@ export const CMSManagePage: React.FC = () => {
     } catch (e) { }
   }, [pillars]);
   const [selectedPillarId, setSelectedPillarId] = useState<'environment' | 'social' | 'governance'>('environment');
+
+
   const [editingLang, setEditingLang] = useState<'vi' | 'en'>('vi');
   const [previewLang, setPreviewLang] = useState<'vi' | 'en'>('vi');
   const [previewPage, setPreviewPage] = useState<'home' | 'detail'>('home');
@@ -383,6 +471,69 @@ export const CMSManagePage: React.FC = () => {
   const [searchChartCode, setSearchChartCode] = useState<string>('');
   const [searchChartName, setSearchChartName] = useState<string>('');
   const [sidePreviewChart, setSidePreviewChart] = useState<any | null>(null);
+
+  // States for rejecting charts in backlog
+  const [rejectingChart, setRejectingChart] = useState<any | null>(null);
+  const [rejectReasonInput, setRejectReasonInput] = useState<string>('');
+  const [rejectReasonError, setRejectReasonError] = useState<string>('');
+  const [rejectedBacklogItems, setRejectedBacklogItems] = useState<Record<string, {
+    name: string;
+    code: string;
+    indicatorCode?: string;
+    reason: string;
+    rejectedAt: string;
+  }>>(() => {
+    try {
+      const saved = localStorage.getItem('vna_rejected_backlog_items');
+      if (saved) return JSON.parse(saved);
+    } catch (e) { }
+    return {};
+  });
+
+  const handleOpenRejectModal = (sub: any) => {
+    setRejectingChart(sub);
+    setRejectReasonInput('');
+    setRejectReasonError('');
+  };
+
+  const handleConfirmReject = () => {
+    if (!rejectingChart) return;
+    const reason = rejectReasonInput.trim();
+    if (!reason) {
+      setRejectReasonError('Vui lòng nhập lý do từ chối');
+      return;
+    }
+
+    const chartKey = rejectingChart.code || rejectingChart.indicatorCode;
+    const updatedRejected = {
+      ...rejectedBacklogItems,
+      [chartKey]: {
+        name: rejectingChart.name,
+        code: chartKey,
+        indicatorCode: rejectingChart.indicatorCode,
+        reason: reason,
+        rejectedAt: new Date().toISOString()
+      }
+    };
+
+    setRejectedBacklogItems(updatedRejected);
+    try {
+      localStorage.setItem('vna_rejected_backlog_items', JSON.stringify(updatedRejected));
+    } catch (e) { }
+
+    if (sidePreviewChart && (sidePreviewChart.code === chartKey || sidePreviewChart.indicatorCode === chartKey)) {
+      setSidePreviewChart(null);
+    }
+
+    setToast({
+      message: `Đã từ chối biểu đồ "${rejectingChart.name}" và loại khỏi danh sách chờ công bố!`,
+      type: 'success'
+    });
+
+    setRejectingChart(null);
+    setRejectReasonInput('');
+    setRejectReasonError('');
+  };
 
   const getSubChartDescription = (sub: any) => {
     return chartDescriptions[`${sub.indicatorCode}_${sub.code}`] ||
@@ -447,16 +598,14 @@ export const CMSManagePage: React.FC = () => {
   }, []);
 
   const publishedSubChartsForPillar = useMemo(() => {
-    const activePillar = pillars.find(p => p.id === selectedPillarId);
-    if (!activePillar) return [];
-
     // Get indicators for current active pillar
     const targetPillarMap: Record<string, string> = {
       environment: 'Environment',
       social: 'Social',
       governance: 'Governance'
     };
-    const targetPillarName = targetPillarMap[activePillar.id];
+    const targetPillarName = targetPillarMap[selectedPillarId];
+    if (!targetPillarName) return [];
     const pillarInds = MOCK_INDICATORS_JSON.filter(ind => {
       if (ind.pillar !== targetPillarName) return false;
       // Filter out indicators that do not have a valid code or are "Chưa có mã"
@@ -486,9 +635,9 @@ export const CMSManagePage: React.FC = () => {
     });
 
     return allSubCharts;
-  }, [selectedPillarId, pillars, publishedChartStatuses, chartDescriptions]);
+  }, [selectedPillarId, publishedChartStatuses, chartDescriptions]);
 
-  // Backlog pool: only items NOT yet added to Sprint (detailReports)
+  // Backlog pool: only items NOT yet added to Sprint (detailReports) and NOT rejected
   const availableBacklogSubCharts = useMemo(() => {
     const activePillar = pillars.find(p => p.id === selectedPillarId);
     const sprintReportValues = new Set((activePillar?.detailReports || []).map(r => r.value));
@@ -498,9 +647,13 @@ export const CMSManagePage: React.FC = () => {
       if (sprintReportValues.has(sub.code) || sprintReportValues.has(sub.indicatorCode)) {
         return false;
       }
+      // Exclude if rejected
+      if (rejectedBacklogItems[sub.code] || (sub.indicatorCode && rejectedBacklogItems[sub.indicatorCode])) {
+        return false;
+      }
       return true;
     });
-  }, [publishedSubChartsForPillar, selectedPillarId, pillars]);
+  }, [publishedSubChartsForPillar, selectedPillarId, pillars, rejectedBacklogItems]);
 
   const filteredPublishedSubCharts = useMemo(() => {
     return availableBacklogSubCharts.filter(sub => {
@@ -520,6 +673,36 @@ export const CMSManagePage: React.FC = () => {
     });
     return map;
   }, []);
+
+  // Helper to resolve indicator code and name for any report item
+  const resolveReportIndicator = (reportVal: string) => {
+    const matchingSub = publishedSubChartsForPillar.find(s => s.code === reportVal || s.indicatorCode === reportVal);
+    const indInfo = indicatorMap.get(reportVal) || (matchingSub ? indicatorMap.get(matchingSub.indicatorCode) : null);
+    const code = matchingSub?.indicatorCode || indInfo?.code || (matchingSub?.code || reportVal);
+    const name = indInfo?.name || matchingSub?.indicatorName || matchingSub?.name || code;
+    const chartName = matchingSub?.name || (indInfo?.name || reportVal);
+    return { code, name, chartName, matchingSub, indInfo };
+  };
+
+  // Helper to automatically sort reports alphabetically by indicator code so identical codes cluster together
+  const sortReportsByIndicatorAlphabet = (reports: PillarReportItem[]): PillarReportItem[] => {
+    if (!reports || reports.length <= 1) return reports || [];
+    return [...reports].sort((a, b) => {
+      const infoA = resolveReportIndicator(a.value);
+      const infoB = resolveReportIndicator(b.value);
+
+      const codeA = infoA.code || '';
+      const codeB = infoB.code || '';
+      const codeCmp = codeA.localeCompare(codeB, undefined, { numeric: true, sensitivity: 'base' });
+      if (codeCmp !== 0) return codeCmp;
+
+      const nameA = infoA.chartName || a.value || '';
+      const nameB = infoB.chartName || b.value || '';
+      return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
+    });
+  };
+
+
 
   const getPillarIndicators = (pillarId: 'environment' | 'social' | 'governance') => {
     const pillarMap: Record<string, string> = {
@@ -609,6 +792,8 @@ export const CMSManagePage: React.FC = () => {
   const [draggedBacklogItem, setDraggedBacklogItem] = useState<any | null>(null);
   const [isDragOverSprintZone, setIsDragOverSprintZone] = useState(false);
 
+
+
   // Helper to add a chart/indicator from Backlog into Sprint (detailReports)
   const addBacklogItemToSprint = (pillarId: string, sub: any, insertIndex?: number) => {
     const isInd = sub.isText || sub.unit === 'Văn bản';
@@ -627,15 +812,13 @@ export const CMSManagePage: React.FC = () => {
           return p;
         }
 
-        if (insertIndex !== undefined && insertIndex >= 0) {
-          currentList.splice(insertIndex, 0, newReportItem);
-        } else {
-          currentList.push(newReportItem);
-        }
+        // Add and automatically sort alphabetically by indicator code
+        currentList.push(newReportItem);
+        const sortedList = sortReportsByIndicatorAlphabet(currentList);
 
         return {
           ...p,
-          detailReports: currentList
+          detailReports: sortedList
         };
       }
       return p;
@@ -649,7 +832,10 @@ export const CMSManagePage: React.FC = () => {
     setPillars(pillars.map(p => {
       if (p.id === pillarId) {
         const field = section === 'news' ? 'newsReports' : 'detailReports';
-        const list = [...(p[field] || [])];
+        const baseList = section === 'detail'
+          ? sortReportsByIndicatorAlphabet(p.detailReports || [])
+          : (p[field] || []);
+        const list = [...baseList];
         const [movedItem] = list.splice(fromIndex, 1);
         list.splice(toIndex, 0, movedItem);
         return {
@@ -937,7 +1123,6 @@ export const CMSManagePage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-black/85">Thông điệp từ Lãnh đạo</h3>
-                  {/* <p className="text-xs text-black/40 mt-0.5">Họ tên, chức danh CEO và nội dung thông điệp</p> */}
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -945,33 +1130,38 @@ export const CMSManagePage: React.FC = () => {
                   <button onClick={() => setEditingLang('vi')} className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all duration-200 ${editingLang === 'vi' ? 'bg-[#005f6e] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>VI</button>
                   <button onClick={() => setEditingLang('en')} className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all duration-200 ${editingLang === 'en' ? 'bg-[#005f6e] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>EN</button>
                 </div>
-                {/* <Button variant="outline" className="gap-1.5 border-amber-300 text-amber-700 hover:bg-amber-50 text-xs font-bold py-1.5" onClick={() => { setIsDraft(true); handleAction('Đã lưu nháp Thông điệp!', 'info'); }}>
-                    <Save size={13} /> Lưu nháp {isDraft && <span className="ml-1 w-2 h-2 rounded-full bg-amber-400 inline-block" />}
-                  </Button>
-                  <Button variant="primary" className="gap-1.5 bg-[#005f6e] hover:bg-[#004e5a] text-white border-transparent text-xs font-bold py-1.5" onClick={() => { setIsDraft(false); handleAction('Đã lưu & public Thông điệp Lãnh đạo!'); }}>
-                    <Share2 size={13} /> Lưu & Public
-                  </Button> */}
               </div>
             </div>
+
             <div className="space-y-5">
+              {/* Nhãn trên (Text) */}
+              <div>
+                <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                  Nhãn trên — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}
+                </label>
+                <Input
+                  value={editingLang === 'vi' ? visionData.topLabelVi : visionData.topLabelEn}
+                  onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'topLabelVi' : 'topLabelEn']: e.target.value })}
+                  placeholder="VD: THÔNG ĐIỆP TỪ TỔNG GIÁM ĐỐC"
+                />
+              </div>
+
+              {/* Họ tên & Chức danh */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Họ tên Lãnh đạo — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
                   <Input value={editingLang === 'vi' ? visionData.ceoNameVi : visionData.ceoNameEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'ceoNameVi' : 'ceoNameEn']: e.target.value })} />
-                  {/* <p className="text-[10px] text-black/30 mt-1">Tên đầy đủ hiển thị phía dưới trích dẫn</p> */}
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Chức danh — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
                   <Input value={editingLang === 'vi' ? visionData.ceoTitleVi : visionData.ceoTitleEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'ceoTitleVi' : 'ceoTitleEn']: e.target.value })} />
-                  {/* <p className="text-[10px] text-black/30 mt-1">Chức danh hiển thị kèm tên</p> */}
                 </div>
               </div>
 
-              {/* Photo Upload Field */}
+              {/* Photo Upload Lãnh đạo */}
               <div className="p-4 rounded-xl border border-dashed border-gray-300 bg-gray-50/60">
                 <label className="block text-xs font-bold text-gray-600 mb-3 uppercase tracking-wide">Ảnh Lãnh đạo</label>
                 <div className="flex items-start gap-4">
-                  {/* Avatar Preview */}
                   <div className="shrink-0">
                     <div className="w-20 h-20 rounded-full border-2 border-gray-200 bg-white overflow-hidden flex items-center justify-center shadow-sm">
                       {visionData.ceoImageUrl ? (
@@ -989,7 +1179,6 @@ export const CMSManagePage: React.FC = () => {
                       )}
                     </div>
                   </div>
-                  {/* Upload Controls */}
                   <div className="flex-1 space-y-2">
                     <div className="flex gap-2">
                       <Input
@@ -1033,26 +1222,81 @@ export const CMSManagePage: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Nội dung Thông điệp */}
               <div>
                 <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Nội dung Thông điệp — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}</label>
                 <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-[#005f6e] focus:border-[#005f6e] text-sm font-sans" rows={4} value={editingLang === 'vi' ? visionData.ceoMessageVi : visionData.ceoMessageEn} onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'ceoMessageVi' : 'ceoMessageEn']: e.target.value })} placeholder="Trích dẫn thông điệp của CEO..." />
-                {/* <p className="text-[10px] text-black/30 mt-1">Nội dung sẽ được hiển thị trong ô trích dẫn in nghiêng bên cạnh ảnh CEO</p> */}
               </div>
-              <div className="bg-amber-50/50 rounded-lg p-3 border border-amber-100">
-                <p className="text-[10px] font-bold text-amber-600 mb-2 uppercase tracking-wide">Xem trước trích dẫn</p>
-                <div className="flex items-start gap-3">
-                  {visionData.ceoImageUrl && (
-                    <img src={visionData.ceoImageUrl} alt="CEO" className="w-10 h-10 rounded-full object-cover border-2 border-[#e6b441]/40 shrink-0 mt-0.5" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                  )}
-                  <div className="flex-1">
-                    <blockquote className="border-l-2 border-[#e6b441] pl-3 text-xs text-gray-600 italic leading-relaxed">
-                      {editingLang === 'vi' ? visionData.ceoMessageVi : visionData.ceoMessageEn}
-                    </blockquote>
-                    <p className="text-[10px] text-gray-700 font-bold mt-2">
-                      — {editingLang === 'vi' ? visionData.ceoNameVi : visionData.ceoNameEn}, <span className="text-[#005f6e]">{editingLang === 'vi' ? visionData.ceoTitleVi : visionData.ceoTitleEn}</span>
-                    </p>
+
+              {/* Ảnh section (Upload ảnh) */}
+              <div className="p-4 rounded-xl border border-dashed border-gray-300 bg-gray-50/60">
+                <label className="block text-xs font-bold text-gray-600 mb-3 uppercase tracking-wide">Ảnh section</label>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      value={visionData.sectionImageUrl || ''}
+                      onChange={e => setVisionData({ ...visionData, sectionImageUrl: e.target.value })}
+                      placeholder="Dán URL ảnh hoặc click Upload để chọn file..."
+                      className="text-xs"
+                    />
+                    <label className="cursor-pointer shrink-0">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                              setVisionData({ ...visionData, sectionImageUrl: ev.target?.result as string });
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                      <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md border border-gray-300 bg-white text-xs font-semibold text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-colors shadow-sm">
+                        <Upload size={13} /> Upload
+                      </span>
+                    </label>
                   </div>
+                  {visionData.sectionImageUrl && (
+                    <button
+                      className="text-[10px] text-red-400 hover:text-red-600 font-medium transition-colors"
+                      onClick={() => setVisionData({ ...visionData, sectionImageUrl: '' })}
+                    >
+                      ✕ Xoá ảnh
+                    </button>
+                  )}
+                  <p className="text-[10px] text-black/30 leading-relaxed">
+                    Hỗ trợ JPG, PNG, WebP
+                  </p>
                 </div>
+              </div>
+
+              {/* Title ảnh (Text) */}
+              <div>
+                <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                  Title ảnh — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}
+                </label>
+                <Input
+                  value={editingLang === 'vi' ? (visionData.imageTitleVi || '') : (visionData.imageTitleEn || '')}
+                  onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'imageTitleVi' : 'imageTitleEn']: e.target.value })}
+                  placeholder="VD: 30 Năm"
+                />
+              </div>
+
+              {/* Nội dung ảnh (Text) */}
+              <div>
+                <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                  Nội dung ảnh — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}
+                </label>
+                <Input
+                  value={editingLang === 'vi' ? (visionData.imageDescVi || '') : (visionData.imageDescEn || '')}
+                  onChange={e => setVisionData({ ...visionData, [editingLang === 'vi' ? 'imageDescVi' : 'imageDescEn']: e.target.value })}
+                  placeholder="VD: Cùng sự phát triển thịnh vượng và bền vững của hành tinh"
+                />
               </div>
             </div>
           </Card>
@@ -1199,6 +1443,7 @@ export const CMSManagePage: React.FC = () => {
           <div className="space-y-4">
             {(() => {
               const activePillar = pillars.find(p => p.id === selectedPillarId) || pillars[0];
+              const sortedDetailReports = sortReportsByIndicatorAlphabet(activePillar.detailReports || []);
               const pillarIndicators = getPillarIndicators(activePillar.id);
 
               const filteredPillarIndicators = pillarIndicators.filter(ind => {
@@ -1542,7 +1787,7 @@ export const CMSManagePage: React.FC = () => {
                         ? resolveChartInfo(activePillar.detailReports[0])
                         : null;
                       const firstBacklogItem = (availableBacklogSubCharts.length > 0) ? availableBacklogSubCharts[0] : null;
-                      
+
                       const activePreview = resolveChartInfo(sidePreviewChart) || firstSprintItem || firstBacklogItem;
 
                       const isCurrentPreviewInSprint = activePreview && (activePillar.detailReports || []).some(
@@ -1596,15 +1841,23 @@ export const CMSManagePage: React.FC = () => {
                                     </div>
                                   </div>
 
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-[10px] text-gray-400 font-medium italic flex items-center gap-1">
-                                      <GripVertical size={12} /> Kéo thả đổi thứ tự
+                                  <div className="flex items-center gap-2.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => clusterDetailReportsByIndicator(activePillar.id)}
+                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#005f6e] bg-white border border-[#005f6e]/30 hover:bg-[#005f6e]/10 rounded-lg shadow-2xs transition-colors cursor-pointer"
+                                      title="Tự động sắp xếp các thẻ có cùng mã chỉ tiêu khu trú về gần nhau"
+                                    >
+                                      <Layers size={13} /> Gom nhóm theo mã chỉ tiêu
+                                    </button>
+                                    <span className="text-[11px] text-gray-400 font-medium italic flex items-center gap-1">
+                                      <GripVertical size={13} /> Kéo thả đổi vị trí các thẻ
                                     </span>
                                   </div>
                                 </div>
 
                                 {/* SPRINT TABLE */}
-                                {(!activePillar.detailReports || activePillar.detailReports.length === 0) ? (
+                                {(!sortedDetailReports || sortedDetailReports.length === 0) ? (
                                   <div className="p-8 text-center bg-gray-50/60 flex flex-col items-center justify-center gap-2 border-b border-gray-100">
                                     <Inbox size={32} className="text-gray-300 stroke-1" />
                                     <p className="text-xs font-semibold text-gray-600">
@@ -1627,14 +1880,11 @@ export const CMSManagePage: React.FC = () => {
                                         </tr>
                                       </thead>
                                       <tbody className="divide-y divide-gray-150 bg-white text-xs">
-                                        {activePillar.detailReports.map((report, idx) => {
+                                        {sortedDetailReports.map((report, idx) => {
                                           const isDragging = draggedReport?.section === 'detail' && draggedReport?.index === idx;
                                           const isDragOver = dragOverReport?.section === 'detail' && dragOverReport?.index === idx;
 
-                                          const matchingSub = publishedSubChartsForPillar.find(s => s.code === report.value || s.indicatorCode === report.value);
-                                          const indInfo = indicatorMap.get(report.value) || (matchingSub ? { code: matchingSub.indicatorCode, name: matchingSub.name } : null);
-                                          const chartName = matchingSub?.name || (indInfo?.name || report.value);
-                                          const chartCode = matchingSub?.indicatorCode || indInfo?.code || (matchingSub?.code || report.value);
+                                          const { code: chartCode, chartName, matchingSub, indInfo } = resolveReportIndicator(report.value);
                                           const desc = matchingSub ? getSubChartDescription(matchingSub) : 'Biểu đồ được cấu hình xuất bản trên trang chi tiết.';
 
                                           const resolvedInfo = matchingSub || { code: report.value, name: chartName, indicatorCode: chartCode, unit: 'Tấn', frequency: 'Hàng tháng', source: 'Form Nhập liệu' };
@@ -1768,11 +2018,10 @@ export const CMSManagePage: React.FC = () => {
                                                       e.stopPropagation();
                                                       setSidePreviewChart(resolvedInfo);
                                                     }}
-                                                    className={`p-1.5 h-7.5 w-7.5 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg ${
-                                                      isSelectedForPreview
-                                                        ? 'bg-[#005f6e] text-white border-[#005f6e]'
-                                                        : 'border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white'
-                                                    }`}
+                                                    className={`p-1.5 h-7.5 w-7.5 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg ${isSelectedForPreview
+                                                      ? 'bg-[#005f6e] text-white border-[#005f6e]'
+                                                      : 'border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white'
+                                                      }`}
                                                     title="Xem trước biểu đồ ở khung bên phải"
                                                   >
                                                     <BarChart2 size={14} />
@@ -1817,18 +2066,36 @@ export const CMSManagePage: React.FC = () => {
                                     </div>
                                   </div>
 
-                                  {(searchChartCode || searchChartName) && (
-                                    <button
-                                      type="button"
-                                      onClick={() => {
-                                        setSearchChartCode('');
-                                        setSearchChartName('');
-                                      }}
-                                      className="text-xs font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-2.5 py-1 rounded hover:bg-red-50"
-                                    >
-                                      Xóa tất cả lọc
-                                    </button>
-                                  )}
+                                  <div className="flex items-center gap-3">
+                                    {Object.keys(rejectedBacklogItems).length > 0 && (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setRejectedBacklogItems({});
+                                          try {
+                                            localStorage.removeItem('vna_rejected_backlog_items');
+                                          } catch (e) { }
+                                          setToast({ message: 'Đã khôi phục tất cả biểu đồ đã từ chối về Backlog', type: 'info' });
+                                        }}
+                                        className="text-xs font-semibold text-rose-600 hover:text-rose-800 underline cursor-pointer px-2 py-1 rounded hover:bg-rose-50"
+                                        title="Khôi phục các biểu đồ đã từ chối về lại danh sách Backlog"
+                                      >
+                                        Khôi phục {Object.keys(rejectedBacklogItems).length} biểu đồ đã từ chối
+                                      </button>
+                                    )}
+                                    {(searchChartCode || searchChartName) && (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setSearchChartCode('');
+                                          setSearchChartName('');
+                                        }}
+                                        className="text-xs font-bold text-red-600 hover:text-red-800 underline cursor-pointer px-2.5 py-1 rounded hover:bg-red-50"
+                                      >
+                                        Xóa tất cả lọc
+                                      </button>
+                                    )}
+                                  </div>
                                 </div>
 
                                 {/* BACKLOG TABLE WITH IN-COLUMN FILTERS */}
@@ -1846,7 +2113,7 @@ export const CMSManagePage: React.FC = () => {
                                           <th className="py-3 px-3 w-48 text-gray-700 shrink-0">Mã chỉ tiêu</th>
                                           <th className="py-3 px-3 w-56 min-w-[180px] text-gray-700">Tên biểu đồ</th>
                                           <th className="py-3 px-4 min-w-[240px] text-gray-700">Mô tả biểu đồ</th>
-                                          <th className="py-3 px-3 w-28 text-center shrink-0 text-gray-700">Thao tác</th>
+                                          <th className="py-3 px-3 w-36 text-center shrink-0 text-gray-700">Thao tác</th>
                                         </tr>
 
                                         {/* ROW 2: DÒNG LỌC (COLUMN FILTER ROW) */}
@@ -1927,11 +2194,10 @@ export const CMSManagePage: React.FC = () => {
                                               onDragEnd={() => {
                                                 setDraggedBacklogItem(null);
                                               }}
-                                              className={`cursor-pointer transition-all group ${
-                                                isSelectedForPreview
-                                                  ? 'bg-[#005f6e]/8 ring-1 ring-[#005f6e]/30'
-                                                  : 'hover:bg-blue-50/30'
-                                              }`}
+                                              className={`cursor-pointer transition-all group ${isSelectedForPreview
+                                                ? 'bg-[#005f6e]/8 ring-1 ring-[#005f6e]/30'
+                                                : 'hover:bg-blue-50/30'
+                                                }`}
                                             >
                                               {/* 1. STT & DRAG HANDLE */}
                                               <td className="py-3 px-3 text-center">
@@ -2012,11 +2278,10 @@ export const CMSManagePage: React.FC = () => {
                                                       e.stopPropagation();
                                                       setSidePreviewChart(sub);
                                                     }}
-                                                    className={`p-1.5 h-7.5 w-7.5 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg ${
-                                                      isSelectedForPreview
-                                                        ? 'bg-[#005f6e] text-white border-[#005f6e]'
-                                                        : 'border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white'
-                                                    }`}
+                                                    className={`p-1.5 h-7.5 w-7.5 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg ${isSelectedForPreview
+                                                      ? 'bg-[#005f6e] text-white border-[#005f6e]'
+                                                      : 'border-[#005f6e]/30 text-[#005f6e] hover:bg-[#005f6e] hover:text-white'
+                                                      }`}
                                                     title="Xem trước biểu đồ ở khung bên phải"
                                                   >
                                                     <BarChart2 size={14} />
@@ -2029,10 +2294,23 @@ export const CMSManagePage: React.FC = () => {
                                                       e.stopPropagation();
                                                       addBacklogItemToSprint(activePillar.id, sub);
                                                     }}
-                                                    className="text-xs py-1 px-2.5 h-7.5 border-emerald-600/30 text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100 hover:text-emerald-800 font-bold flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs transition-all"
+                                                    className="p-1.5 h-7.5 w-7.5 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg border-emerald-600/30 text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100 hover:text-emerald-800"
                                                     title="Đưa vào Báo cáo đính kèm (Sprint)"
                                                   >
-                                                    <Plus size={13} />
+                                                    <Plus size={14} />
+                                                  </Button>
+
+                                                  <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                    onClick={(e) => {
+                                                      e.stopPropagation();
+                                                      handleOpenRejectModal(sub);
+                                                    }}
+                                                    className="p-1.5 h-7.5 w-7.5 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs transition-all rounded-lg border-rose-300 text-rose-600 bg-rose-50/60 hover:bg-rose-100 hover:text-rose-700"
+                                                    title="Từ chối yêu cầu và loại khỏi danh sách"
+                                                  >
+                                                    <XCircle size={14} />
                                                   </Button>
                                                 </div>
                                               </td>
@@ -2145,116 +2423,196 @@ export const CMSManagePage: React.FC = () => {
         )}
 
         {activeTab === 'news' && (
-          <Card className="p-0 overflow-hidden">
-            <div className="p-4 bg-gray-50 border-b border-gray-200">
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <h3 className="text-lg font-bold text-black/85">Quản lý Bảng tin ESG</h3>
-                  {/* <p className="text-sm text-black/45">Đồng bộ từ Spirit VNA & Phê duyệt tin bài nội bộ</p> */}
+          <div className="space-y-6">
+            {/* Cấu hình 3 trường tiêu đề & nội dung hiển thị Landing Page */}
+            <Card className="p-6 border-l-4 border-l-[#005f6e]">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#005f6e]/10 flex items-center justify-center">
+                    <Newspaper size={16} className="text-[#005f6e]" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-black/85">Tiêu đề & Nội dung Bảng tin ESG (Landing Page)</h3>
+                    {/* <p className="text-xs text-gray-500 mt-0.5">Tùy chỉnh nội dung tiêu đề và đoạn giới thiệu hiển thị tại section Tin tức & Hoạt động trên Landing Page</p> */}
+                  </div>
                 </div>
-                {newsSubTab === 'sync' && (
-                  <Button variant="outline" className="gap-2 text-[#005f6e] border-[#005f6e] hover:bg-[#005f6e]/5" onClick={() => handleAction('Đã đồng bộ 3 bài viết mới từ Spirit VNA!')}>
-                    <RefreshCw size={16} /> Đồng bộ Spirit API
-                  </Button>
-                )}
+                <div className="flex items-center gap-2">
+                  <div className="flex rounded-lg border border-gray-200 p-0.5 bg-gray-50">
+                    <button
+                      type="button"
+                      onClick={() => setEditingLang('vi')}
+                      className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all duration-200 cursor-pointer ${editingLang === 'vi' ? 'bg-[#005f6e] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+                    >
+                      VI
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingLang('en')}
+                      className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all duration-200 cursor-pointer ${editingLang === 'en' ? 'bg-[#005f6e] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+                    >
+                      EN
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex border-b border-gray-200">
-                <button
-                  className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${newsSubTab === 'sync' ? 'border-[#e6b441] text-[#005f6e]' : 'border-transparent text-black/45 hover:text-gray-700'}`}
-                  onClick={() => setNewsSubTab('sync')}
-                >
-                  Bài viết từ Spirit VNA
-                </button>
-                {/* <button
+              <div className="space-y-5">
+                {/* 1. Nhãn trên (Text) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                    Nhãn trên (Text) — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}
+                  </label>
+                  <Input
+                    value={editingLang === 'vi' ? newsHeaderData.taglineVi : newsHeaderData.taglineEn}
+                    onChange={e => setNewsHeaderData({ ...newsHeaderData, [editingLang === 'vi' ? 'taglineVi' : 'taglineEn']: e.target.value })}
+                    placeholder="VD: SPIRIT OF VNA"
+                  />
+                  {/* <p className="text-[11px] text-gray-400 mt-1">Dòng chữ nhỏ màu xanh nằm phía trên tiêu đề chính (ví dụ: SPIRIT OF VNA)</p> */}
+                </div>
+
+                {/* 2. Tiêu đề (Text) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                    Tiêu đề (Text) — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}
+                  </label>
+                  <Input
+                    value={editingLang === 'vi' ? newsHeaderData.titleVi : newsHeaderData.titleEn}
+                    onChange={e => setNewsHeaderData({ ...newsHeaderData, [editingLang === 'vi' ? 'titleVi' : 'titleEn']: e.target.value })}
+                    placeholder="VD: Tin tức & Hoạt động"
+                    className="font-semibold"
+                  />
+                  {/* <p className="text-[11px] text-gray-400 mt-1">Tiêu đề lớn của mục tin tức (ví dụ: Tin tức & Hoạt động)</p> */}
+                </div>
+
+                {/* 3. Mô tả (Text) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                    Mô tả (Text) — {editingLang === 'vi' ? 'Tiếng Việt' : 'English'}
+                  </label>
+                  <textarea
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-[#005f6e] focus:border-[#005f6e] text-sm font-sans"
+                    value={editingLang === 'vi' ? newsHeaderData.descVi : newsHeaderData.descEn}
+                    onChange={e => setNewsHeaderData({ ...newsHeaderData, [editingLang === 'vi' ? 'descVi' : 'descEn']: e.target.value })}
+                    placeholder="VD: Cập nhật những hoạt động thực tiễn mới nhất của Vietnam Airlines trên hành trình phát triển bền vững và lan tỏa giá trị tốt đẹp đến cộng đồng."
+                  />
+                  {/* <p className="text-[11px] text-gray-400 mt-1">Đoạn văn giới thiệu ngắn tóm tắt ý nghĩa hoạt động bên dưới tiêu đề</p> */}
+                </div>
+              </div>
+            </Card>
+
+            {/* Quản lý Bảng tin ESG */}
+            <Card className="p-0 overflow-hidden">
+              <div className="p-4 bg-gray-50 border-b border-gray-200">
+                <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-black/85">Quản lý Bảng tin ESG</h3>
+                    {/* <p className="text-sm text-black/45">Đồng bộ từ Spirit VNA & Phê duyệt tin bài nội bộ</p> */}
+                  </div>
+                  {newsSubTab === 'sync' && (
+                    <Button variant="outline" className="gap-2 text-[#005f6e] border-[#005f6e] hover:bg-[#005f6e]/5" onClick={() => handleAction('Đã đồng bộ 3 bài viết mới từ Spirit VNA!')}>
+                      <RefreshCw size={16} /> Đồng bộ Spirit API
+                    </Button>
+                  )}
+                </div>
+
+                <div className="flex border-b border-gray-200">
+                  <button
+                    className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${newsSubTab === 'sync' ? 'border-[#e6b441] text-[#005f6e]' : 'border-transparent text-black/45 hover:text-gray-700'}`}
+                    onClick={() => setNewsSubTab('sync')}
+                  >
+                    Bài viết từ Spirit VNA
+                  </button>
+                  {/* <button
                     className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${newsSubTab === 'approve' ? 'border-[#e6b441] text-[#005f6e]' : 'border-transparent text-black/45 hover:text-gray-700'}`}
                     onClick={() => setNewsSubTab('approve')}
                   >
                     Phê duyệt tin bài nội bộ
                   </button> */}
+                </div>
               </div>
-            </div>
 
-            {newsSubTab === 'sync' && (
-              <Table>
-                <thead className="bg-gray-50 text-gray-600 font-medium">
-                  <tr>
-                    <th className="px-4 py-3">Tiêu đề bài viết</th>
-                    <th className="px-4 py-3">Ngày đăng</th>
-                    <th className="px-4 py-3">Nguồn</th>
-                    <th className="px-4 py-3">Trạng thái Public</th>
-                    <th className="px-4 py-3 text-right">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  <tr className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-black/85">[VNExpress] 6 sáng kiến ESG của 'Liên minh Xanh' Vietnam Airlines</td>
-                    <td className="px-4 py-3 text-sm text-black/45">07/05/2026</td>
-                    <td className="px-4 py-3"><Badge variant="primary">Spirit API</Badge></td>
-                    <td className="px-4 py-3"><Badge variant="success">Đang hiện</Badge></td>
-                    <td className="px-4 py-3">
-                      <div className="flex justify-end items-center">
-                        <Button variant="ghost" size="sm" title="Ẩn khỏi Public" className="px-1" onClick={() => handleAction('Đã ẩn bài viết khỏi trang chủ')}><EyeOff size={16} className="text-gray-400 hover:text-red-500" /></Button>
-                        <Button variant="ghost" size="sm" title="Sửa" className="px-1"><Edit size={16} className="text-gray-400 hover:text-[#005f6e]" /></Button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-black/85">Uỷ ban An toàn Vietnam Airlines họp phiên số 02/2026</td>
-                    <td className="px-4 py-3 text-sm text-black/45">29/04/2026</td>
-                    <td className="px-4 py-3"><Badge variant="primary">Spirit API</Badge></td>
-                    <td className="px-4 py-3"><Badge variant="success">Đang hiện</Badge></td>
-                    <td className="px-4 py-3">
-                      <div className="flex justify-end items-center">
-                        <Button variant="ghost" size="sm" title="Ẩn khỏi Public" className="px-1" onClick={() => handleAction('Đã ẩn bài viết khỏi trang chủ')}><EyeOff size={16} className="text-gray-400 hover:text-red-500" /></Button>
-                        <Button variant="ghost" size="sm" title="Sửa" className="px-1"><Edit size={16} className="text-gray-400 hover:text-[#005f6e]" /></Button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-gray-50 bg-gray-50/50 opacity-60">
-                    <td className="px-4 py-3 font-medium text-black/85">[Nội bộ] Thông báo thay đổi quy trình trực lễ</td>
-                    <td className="px-4 py-3 text-sm text-black/45">20/04/2026</td>
-                    <td className="px-4 py-3"><Badge variant="primary">Spirit API</Badge></td>
-                    <td className="px-4 py-3"><Badge variant="secondary">Đã ẩn</Badge></td>
-                    <td className="px-4 py-3">
-                      <div className="flex justify-end items-center">
-                        <Button variant="ghost" size="sm" title="Hiện lên Public" className="px-1" onClick={() => handleAction('Đã hiển thị bài viết lên trang chủ')}><Eye size={16} className="text-gray-400 hover:text-green-500" /></Button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            )}
+              {newsSubTab === 'sync' && (
+                <Table>
+                  <thead className="bg-gray-50 text-gray-600 font-medium">
+                    <tr>
+                      <th className="px-4 py-3">Tiêu đề bài viết</th>
+                      <th className="px-4 py-3">Ngày đăng</th>
+                      <th className="px-4 py-3">Nguồn</th>
+                      <th className="px-4 py-3">Trạng thái Public</th>
+                      <th className="px-4 py-3 text-right">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    <tr className="hover:bg-gray-50">
+                      <td className="px-4 py-3 font-medium text-black/85">[VNExpress] 6 sáng kiến ESG của 'Liên minh Xanh' Vietnam Airlines</td>
+                      <td className="px-4 py-3 text-sm text-black/45">07/05/2026</td>
+                      <td className="px-4 py-3"><Badge variant="primary">Spirit API</Badge></td>
+                      <td className="px-4 py-3"><Badge variant="success">Đang hiện</Badge></td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-end items-center">
+                          <Button variant="ghost" size="sm" title="Ẩn khỏi Public" className="px-1" onClick={() => handleAction('Đã ẩn bài viết khỏi trang chủ')}><EyeOff size={16} className="text-gray-400 hover:text-red-500" /></Button>
+                          <Button variant="ghost" size="sm" title="Sửa" className="px-1"><Edit size={16} className="text-gray-400 hover:text-[#005f6e]" /></Button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="px-4 py-3 font-medium text-black/85">Uỷ ban An toàn Vietnam Airlines họp phiên số 02/2026</td>
+                      <td className="px-4 py-3 text-sm text-black/45">29/04/2026</td>
+                      <td className="px-4 py-3"><Badge variant="primary">Spirit API</Badge></td>
+                      <td className="px-4 py-3"><Badge variant="success">Đang hiện</Badge></td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-end items-center">
+                          <Button variant="ghost" size="sm" title="Ẩn khỏi Public" className="px-1" onClick={() => handleAction('Đã ẩn bài viết khỏi trang chủ')}><EyeOff size={16} className="text-gray-400 hover:text-red-500" /></Button>
+                          <Button variant="ghost" size="sm" title="Sửa" className="px-1"><Edit size={16} className="text-gray-400 hover:text-[#005f6e]" /></Button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 bg-gray-50/50 opacity-60">
+                      <td className="px-4 py-3 font-medium text-black/85">[Nội bộ] Thông báo thay đổi quy trình trực lễ</td>
+                      <td className="px-4 py-3 text-sm text-black/45">20/04/2026</td>
+                      <td className="px-4 py-3"><Badge variant="primary">Spirit API</Badge></td>
+                      <td className="px-4 py-3"><Badge variant="secondary">Đã ẩn</Badge></td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-end items-center">
+                          <Button variant="ghost" size="sm" title="Hiện lên Public" className="px-1" onClick={() => handleAction('Đã hiển thị bài viết lên trang chủ')}><Eye size={16} className="text-gray-400 hover:text-green-500" /></Button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              )}
 
-            {newsSubTab === 'approve' && (
-              <Table>
-                <thead className="bg-gray-50 text-gray-600 font-medium">
-                  <tr>
-                    <th className="px-4 py-3">Tiêu đề bài viết</th>
-                    <th className="px-4 py-3">Ngày gửi</th>
-                    <th className="px-4 py-3">Đơn vị / Người gửi</th>
-                    <th className="px-4 py-3">Trạng thái</th>
-                    <th className="px-4 py-3 text-right">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  <tr className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-black/85">Báo cáo kiểm kê khí nhà kính Quý 1/2026</td>
-                    <td className="px-4 py-3 text-sm text-black/45">01/06/2026</td>
-                    <td className="px-4 py-3 text-gray-700">Ban Kỹ thuật (Trần Văn E)</td>
-                    <td className="px-4 py-3"><Badge variant="warning">Chờ duyệt</Badge></td>
-                    <td className="px-4 py-3">
-                      <div className="flex justify-end items-center">
-                        <Button variant="ghost" size="sm" title="Xem trước" className="px-1" onClick={() => handleAction('Đang tải nội dung bài viết...', 'info')}><Eye size={16} className="text-gray-400 hover:text-[#005f6e]" /></Button>
-                        <Button variant="ghost" size="sm" title="Phê duyệt đăng" className="px-1" onClick={() => handleAction('Đã phê duyệt và xuất bản bài viết lên trang chủ!')}><CheckCircle size={16} className="text-gray-400 hover:text-green-500" /></Button>
-                        <Button variant="ghost" size="sm" title="Từ chối" className="px-1" onClick={() => handleAction('Đã từ chối bài viết', 'error')}><XCircle size={16} className="text-gray-400 hover:text-red-500" /></Button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            )}
-          </Card>
+              {newsSubTab === 'approve' && (
+                <Table>
+                  <thead className="bg-gray-50 text-gray-600 font-medium">
+                    <tr>
+                      <th className="px-4 py-3">Tiêu đề bài viết</th>
+                      <th className="px-4 py-3">Ngày gửi</th>
+                      <th className="px-4 py-3">Đơn vị / Người gửi</th>
+                      <th className="px-4 py-3">Trạng thái</th>
+                      <th className="px-4 py-3 text-right">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    <tr className="hover:bg-gray-50">
+                      <td className="px-4 py-3 font-medium text-black/85">Báo cáo kiểm kê khí nhà kính Quý 1/2026</td>
+                      <td className="px-4 py-3 text-sm text-black/45">01/06/2026</td>
+                      <td className="px-4 py-3 text-gray-700">Ban Kỹ thuật (Trần Văn E)</td>
+                      <td className="px-4 py-3"><Badge variant="warning">Chờ duyệt</Badge></td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-end items-center">
+                          <Button variant="ghost" size="sm" title="Xem trước" className="px-1" onClick={() => handleAction('Đang tải nội dung bài viết...', 'info')}><Eye size={16} className="text-gray-400 hover:text-[#005f6e]" /></Button>
+                          <Button variant="ghost" size="sm" title="Phê duyệt đăng" className="px-1" onClick={() => handleAction('Đã phê duyệt và xuất bản bài viết lên trang chủ!')}><CheckCircle size={16} className="text-gray-400 hover:text-green-500" /></Button>
+                          <Button variant="ghost" size="sm" title="Từ chối" className="px-1" onClick={() => handleAction('Đã từ chối bài viết', 'error')}><XCircle size={16} className="text-gray-400 hover:text-red-500" /></Button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              )}
+            </Card>
+          </div>
         )}
 
         {activeTab === 'reports' && (
@@ -2415,25 +2773,73 @@ export const CMSManagePage: React.FC = () => {
                     </div>
                   </section>
 
-                  {/* Mock CEO Message */}
-                  <section className="py-12 px-6 bg-white border-b border-gray-100">
-                    <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-center">
-                      <div className="w-32 h-32 rounded-2xl overflow-hidden shrink-0 border-2 border-[#e6b441] shadow-md">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop" alt="CEO" className="w-full h-full object-cover" />
-                      </div>
-                      <div>
-                        <span className="text-vna-gold font-bold tracking-widest uppercase text-xs mb-2 block">
-                          {previewLang === 'vi' ? 'Thông điệp từ Ban lãnh đạo' : "CEO's Message"}
-                        </span>
-                        <h3 className="text-xl font-bold text-[#005f6e] mb-4">
-                          {previewLang === 'vi' ? 'Cầu nối cho sự phát triển bền vững' : 'Bridging Sustainable Development'}
-                        </h3>
-                        <p className="text-gray-600 text-sm italic mb-4 leading-relaxed pl-4 border-l-2 border-[#e6b441]">
-                          {previewLang === 'vi' ? visionData.ceoMessage : `"At Vietnam Airlines, sustainable development is not an option, but a mission. We believe every flight carries a responsibility towards our environment and society."`}
-                        </p>
+                  {/* Mock CEO Message / Overview Section Matching Public Site */}
+                  <section className="py-12 md:py-16 px-6 bg-gradient-to-b from-slate-50 to-[#005f6e]/5 border-b border-gray-100">
+                    <div className="max-w-5xl mx-auto">
+                      <div className="grid md:grid-cols-2 gap-10 items-center">
+                        {/* Cột trái: Nhãn trên, Tiêu đề, Trích dẫn, Thông tin CEO */}
                         <div>
-                          <p className="font-bold text-gray-900 text-sm">{previewLang === 'vi' ? visionData.ceoName : 'Mr. Le Hong Ha'}</p>
-                          <p className="text-[#005f6e] text-xs font-semibold">{previewLang === 'vi' ? visionData.ceoTitle : 'CEO of Vietnam Airlines'}</p>
+                          <span className="text-[#e6b441] font-bold tracking-[0.2em] uppercase text-xs mb-4 flex items-center gap-3">
+                            <span className="w-10 h-[2px] bg-[#e6b441] rounded-full inline-block"></span>
+                            {previewLang === 'vi'
+                              ? (visionData.topLabelVi || 'THÔNG ĐIỆP TỪ TỔNG GIÁM ĐỐC')
+                              : (visionData.topLabelEn || 'MESSAGE FROM THE CEO')}
+                          </span>
+                          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-5 leading-tight tracking-tight">
+                            {previewLang === 'en' ? (
+                              <>More than just an Airline,<br />we are the bridge to <span className="text-[#005f6e]">sustainable development</span>.</>
+                            ) : (
+                              <>Không chỉ là Hãng hàng không,<br />chúng tôi là cầu nối của sự <span className="text-[#005f6e]">phát triển bền vững</span>.</>
+                            )}
+                          </h2>
+                          <p className="text-gray-600 text-sm leading-relaxed mb-6 border-l-4 border-[#e6b441] pl-4 text-justify italic">
+                            {previewLang === 'vi'
+                              ? (visionData.ceoMessageVi || 'Tại Vietnam Airlines, phát triển bền vững không phải là sự lựa chọn...')
+                              : (visionData.ceoMessageEn || '"At Vietnam Airlines, sustainable development is not a choice..."')}
+                          </p>
+                          <div className="flex items-center gap-4 mt-6">
+                            <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden border-2 border-[#e6b441] shadow-md shrink-0 bg-white">
+                              <img
+                                src={visionData.ceoImageUrl || '/vna-images/ceo.png'}
+                                className="w-full h-full object-cover"
+                                alt="CEO"
+                                onError={(e) => { (e.target as HTMLImageElement).src = '/vna-images/ceo.png'; }}
+                              />
+                            </div>
+                            <div>
+                              <div className="font-bold text-slate-900 text-sm md:text-base">
+                                {previewLang === 'vi' ? visionData.ceoNameVi : visionData.ceoNameEn}
+                              </div>
+                              <div className="text-[11px] text-gray-500 uppercase tracking-wider font-semibold mt-0.5">
+                                {previewLang === 'vi' ? visionData.ceoTitleVi : visionData.ceoTitleEn}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Cột phải: Ảnh section (Ảnh 2) & Thẻ Title ảnh (Ảnh 3) */}
+                        <div className="relative">
+                          <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-slate-200">
+                            <img
+                              src={visionData.sectionImageUrl || '/vna-images/vandon_section.jpg'}
+                              className="w-full h-full object-cover"
+                              alt="Vietnam Airlines Sustainable Section"
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/vna-images/vandon_section.jpg'; }}
+                            />
+                          </div>
+                          <div className="absolute -bottom-3 -left-3 bg-[#005f6e] text-white p-4 rounded-xl shadow-xl max-w-[230px] border-t-4 border-[#e6b441]">
+                            <div className="text-2xl md:text-3xl font-bold mb-1 text-[#e6b441]">
+                              {previewLang === 'vi' ? (visionData.imageTitleVi || '30 Năm') : (visionData.imageTitleEn || '30 Years')}
+                            </div>
+                            <div className="text-[10px] text-white uppercase tracking-widest font-semibold mb-1">
+                              {previewLang === 'vi' ? (visionData.imageSubtitleVi || 'ĐỒNG HÀNH') : (visionData.imageSubtitleEn || 'Companion')}
+                            </div>
+                            <div className="text-[10px] opacity-90 leading-relaxed">
+                              {previewLang === 'vi'
+                                ? (visionData.imageDescVi || 'Cùng sự phát triển thịnh vượng và bền vững của hành tinh')
+                                : (visionData.imageDescEn || 'For the prosperous and sustainable development of our planet')}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2498,14 +2904,16 @@ export const CMSManagePage: React.FC = () => {
                   <section className="py-12 px-6 bg-white">
                     <div className="max-w-5xl mx-auto">
                       <div className="text-center mb-10">
-                        <span className="text-[#005f6e] font-bold tracking-widest uppercase text-xs">Spirit of VNA</span>
+                        <span className="text-[#005f6e] font-bold tracking-widest uppercase text-xs">
+                          {previewLang === 'vi' ? (newsHeaderData.taglineVi || 'SPIRIT OF VNA') : (newsHeaderData.taglineEn || 'SPIRIT OF VNA')}
+                        </span>
                         <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1">
-                          {previewLang === 'vi' ? 'Tin tức & Hoạt động' : 'News & Activities'}
+                          {previewLang === 'vi' ? (newsHeaderData.titleVi || 'Tin tức & Hoạt động') : (newsHeaderData.titleEn || 'News & Activities')}
                         </h2>
                         <p className="text-xs text-gray-500 mt-2 max-w-xl mx-auto">
                           {previewLang === 'vi'
-                            ? 'Cập nhật hoạt động thực tiễn theo 3 trụ cột phát triển bền vững của Vietnam Airlines.'
-                            : 'Stay updated with Vietnam Airlines\' practical ESG activities across the 3 pillars.'}
+                            ? (newsHeaderData.descVi || 'Cập nhật những hoạt động thực tiễn mới nhất của Vietnam Airlines trên hành trình phát triển bền vững và lan tỏa giá trị tốt đẹp đến cộng đồng.')
+                            : (newsHeaderData.descEn || "Stay updated with Vietnam Airlines' latest practical activities on the journey of sustainable development and spreading good values to the community.")}
                         </p>
                       </div>
 
@@ -2894,6 +3302,83 @@ export const CMSManagePage: React.FC = () => {
                 className="bg-[#005f6e] hover:bg-[#004e5a] text-white border-transparent font-bold flex items-center gap-1.5 cursor-pointer"
               >
                 <Save size={14} /> Lưu mô tả
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL TỪ CHỐI BIỂU ĐỒ TRONG BACKLOG */}
+      {rejectingChart && (
+        <div className="fixed inset-0 bg-[#0d1525]/80 backdrop-blur-sm z-[130] flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-lg rounded-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 shadow-2xl border border-gray-200">
+            {/* Header */}
+            <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-rose-50/80">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-rose-100 text-rose-700">
+                  <XCircle size={20} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-gray-900">Từ chối Yêu cầu Công bố Biểu đồ</h3>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setRejectingChart(null);
+                  setRejectReasonError('');
+                }}
+                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer"
+              >
+                <XCircle size={20} />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-800 mb-1.5">
+                  Lý do từ chối <span className="text-rose-500">*</span>:
+                </label>
+                <textarea
+                  rows={4}
+                  value={rejectReasonInput}
+                  onChange={(e) => {
+                    setRejectReasonInput(e.target.value);
+                    if (rejectReasonError) setRejectReasonError('');
+                  }}
+                  placeholder="Nhập chi tiết lý do từ chối..."
+                  className={`w-full text-xs font-normal bg-white border rounded-xl p-3 text-gray-800 outline-none transition-all leading-relaxed ${
+                    rejectReasonError ? 'border-rose-400 ring-1 ring-rose-400 bg-rose-50/20' : 'border-gray-300 focus:border-[#005f6e] focus:ring-1 focus:ring-[#005f6e]'
+                  }`}
+                />
+                {rejectReasonError && (
+                  <p className="text-[11px] text-rose-600 font-semibold mt-1 flex items-center gap-1">
+                    ⚠ {rejectReasonError}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end gap-2 p-3.5 border-t border-gray-100 bg-gray-50/50">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setRejectingChart(null);
+                  setRejectReasonError('');
+                }}
+              >
+                Hủy bỏ
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleConfirmReject}
+                className="bg-rose-600 hover:bg-rose-700 text-white border-transparent font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                <XCircle size={14} /> Xác nhận từ chối
               </Button>
             </div>
           </div>

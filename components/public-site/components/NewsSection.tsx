@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar, ArrowRight } from 'lucide-react';
+
+const DEFAULT_NEWS_HEADER = {
+  taglineVi: 'SPIRIT OF VNA',
+  taglineEn: 'SPIRIT OF VNA',
+  titleVi: 'Tin tức & Hoạt động',
+  titleEn: 'News & Activities',
+  descVi: 'Cập nhật những hoạt động thực tiễn mới nhất của Vietnam Airlines trên hành trình phát triển bền vững và lan tỏa giá trị tốt đẹp đến cộng đồng.',
+  descEn: "Stay updated with Vietnam Airlines' latest practical activities on the journey of sustainable development and spreading good values to the community."
+};
 
 const MOCK_NEWS_VI = [
   {
@@ -67,14 +76,45 @@ const NewsSection: React.FC = () => {
   const isEn = i18n.language === 'en';
   const newsList = isEn ? MOCK_NEWS_EN : MOCK_NEWS_VI;
 
+  const [newsHeader, setNewsHeader] = useState(() => {
+    try {
+      const saved = localStorage.getItem('vna_cms_news_header');
+      if (saved) {
+        return { ...DEFAULT_NEWS_HEADER, ...JSON.parse(saved) };
+      }
+    } catch (e) { }
+    return DEFAULT_NEWS_HEADER;
+  });
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      try {
+        const saved = localStorage.getItem('vna_cms_news_header');
+        if (saved) {
+          setNewsHeader({ ...DEFAULT_NEWS_HEADER, ...JSON.parse(saved) });
+        }
+      } catch (e) { }
+    };
+    window.addEventListener('vna_cms_news_header_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('vna_cms_news_header_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
+  }, []);
+
   return (
     <section id="news" className="min-h-[calc(100vh-80px)] py-12 md:py-16 bg-gradient-to-b from-vna-blue/5 to-slate-50 relative flex flex-col justify-center">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-8">
-          <span className="text-vna-blue font-bold tracking-widest uppercase text-xs mb-2 block">Spirit of VNA</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">{isEn ? 'News & Activities' : 'Tin tức & Hoạt động'}</h2>
+          <span className="text-vna-blue font-bold tracking-widest uppercase text-xs mb-2 block">
+            {isEn ? (newsHeader.taglineEn || 'SPIRIT OF VNA') : (newsHeader.taglineVi || 'SPIRIT OF VNA')}
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+            {isEn ? (newsHeader.titleEn || 'News & Activities') : (newsHeader.titleVi || 'Tin tức & Hoạt động')}
+          </h2>
           <p className="text-gray-600 mt-2 text-base max-w-2xl mx-auto">
-            {isEn ? 'Stay updated with Vietnam Airlines\' latest practical activities on the journey of sustainable development and spreading good values to the community.' : 'Cập nhật những hoạt động thực tiễn mới nhất của Vietnam Airlines trên hành trình phát triển bền vững và lan tỏa giá trị tốt đẹp đến cộng đồng.'}
+            {isEn ? (newsHeader.descEn || DEFAULT_NEWS_HEADER.descEn) : (newsHeader.descVi || DEFAULT_NEWS_HEADER.descVi)}
           </p>
         </div>
 

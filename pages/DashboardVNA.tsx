@@ -1,3 +1,5 @@
+import { exportIndicatorRawData } from '../components/exportRawData';
+import { RawDataExportModal } from '../components/RawDataExportModal';
 import React, { useState, useEffect } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, 
@@ -6,7 +8,7 @@ import {
 import indicatorsData from '../data/indicators_blocks.json';
 import indicatorDetailsData from '../data/indicator_details.json';
 import MOCK_INDICATORS from '../data/indicators_main_list.json';
-import { PlaneTakeoff, Leaf, Users, ShieldCheck, DollarSign, Target, Award, UserCheck, Droplet, Zap, AlertTriangle, TrendingUp, TrendingDown, Edit, Filter } from 'lucide-react';
+import { PlaneTakeoff, Leaf, Users, ShieldCheck, DollarSign, Target, Award, UserCheck, Droplet, Zap, AlertTriangle, TrendingUp, TrendingDown, Edit, Filter, Download } from 'lucide-react';
 
 const COLORS = {
   vnaBlue: '#005f73',
@@ -121,14 +123,24 @@ const SingleIndicatorView = ({ indicator, onBack }: { indicator: any, onBack: ()
           >
              ← Quay lại danh sách chỉ tiêu
           </button>
-          <a 
-            href={metabaseLink} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
-          >
-            Xem chi tiết trên Metabase ↗
-          </a>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsExportModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 rounded-md transition-all shadow-2xs cursor-pointer hover:border-vna-blue hover:text-vna-blue"
+              title="Xuất tập dữ liệu thô (Raw data) của chỉ tiêu ra file Excel"
+            >
+              <Download size={14} className="text-vna-blue" />
+              <span>Export raw data</span>
+            </button>
+            <a 
+              href={metabaseLink} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
+            >
+              Xem chi tiết trên Metabase ↗
+            </a>
+          </div>
         </div>
 
         <div className="flex-1 w-full bg-white rounded-lg overflow-hidden min-h-[750px] flex flex-col">
@@ -141,6 +153,12 @@ const SingleIndicatorView = ({ indicator, onBack }: { indicator: any, onBack: ()
             allowtransparency
           ></iframe>
         </div>
+
+        <RawDataExportModal
+          isOpen={isExportModalOpen}
+          onClose={() => setIsExportModalOpen(false)}
+          indicator={indicator}
+        />
       </div>
     );
   }

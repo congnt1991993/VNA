@@ -9,6 +9,8 @@ import {
 import { Pillar, Status, EsgIndicator } from '../types';
 import { IndicatorChart } from '../components/IndicatorChart';
 import { IndicatorImportModal } from '../components/IndicatorImportModal';
+import { exportIndicatorRawData } from '../components/exportRawData';
+import { RawDataExportModal } from '../components/RawDataExportModal';
 import { IndicatorHistoryTable } from '../components/IndicatorHistoryTable';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
 
@@ -609,6 +611,7 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
 
   // Import Dialog state
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isExportRawDataModalOpen, setIsExportRawDataModalOpen] = useState(false);
   const [importStep, setImportStep] = useState(1);
   const [importFile, setImportFile] = useState<string | null>(null);
   const [importLoading, setImportLoading] = useState(false);
@@ -910,14 +913,25 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             <Button variant="ghost" onClick={handleBack} className="p-2 cursor-pointer border border-gray-200 hover:bg-gray-100 flex items-center gap-1 text-xs bg-white">
               <ArrowLeft size={16} /> Quay lại danh sách chỉ tiêu
             </Button>
-            <a
-              href={formIndicator.metabaseLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
-            >
-              Xem chi tiết trên Metabase ↗
-            </a>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setIsExportRawDataModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 rounded-md transition-all shadow-2xs cursor-pointer hover:border-vna-blue hover:text-vna-blue"
+                title="Xuất tập dữ liệu thô (Raw data) của chỉ tiêu ra file Excel"
+              >
+                <Download size={14} className="text-vna-blue" />
+                <span>Export raw data</span>
+              </Button>
+              <a
+                href={formIndicator.metabaseLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
+              >
+                {currentLang === 'vi' ? 'Xem chi tiết trên Metabase ↗' : 'View on Metabase ↗'}
+              </a>
+            </div>
           </div>
 
           <div className="flex-1 w-full bg-white rounded-lg overflow-hidden min-h-[750px] flex flex-col mb-6">
@@ -956,6 +970,13 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               </div>
             )}
           </Modal>
+
+          <RawDataExportModal
+            isOpen={isExportRawDataModalOpen}
+            onClose={() => setIsExportRawDataModalOpen(false)}
+            indicator={formIndicator}
+            currentLang={currentLang}
+          />
         </div>
       );
     }
@@ -979,16 +1000,26 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
                 <h2 className="text-lg font-bold text-vna-blue">{getLocalizedIndicatorName(formIndicator.name, currentLang)}</h2>
               </div>
             </div>
-            <Button
-              onClick={() => {
-                navigator.clipboard.writeText(report.content || '');
-                alert('Đã sao chép nội dung báo cáo tĩnh vào bộ nhớ tạm!');
-              }}
-              variant="outline"
-              className="flex items-center gap-2 text-xs py-1.5 px-3 border border-gray-300 rounded hover:bg-gray-50 text-gray-700 bg-white cursor-pointer"
-            >
-              <FileText size={16} /> Sao chép văn bản
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={() => setIsExportRawDataModalOpen(true)}
+                variant="outline"
+                className="flex items-center gap-1.5 text-xs py-1.5 px-3 border border-gray-300 rounded hover:bg-gray-50 text-gray-700 bg-white cursor-pointer font-bold hover:border-vna-blue hover:text-vna-blue"
+                title="Xuất tập dữ liệu thô (Raw data) của chỉ tiêu ra file Excel"
+              >
+                <Download size={14} className="text-vna-blue" /> Export raw data
+              </Button>
+              <Button
+                onClick={() => {
+                  navigator.clipboard.writeText(report.content || '');
+                  alert('Đã sao chép nội dung báo cáo tĩnh vào bộ nhớ tạm!');
+                }}
+                variant="outline"
+                className="flex items-center gap-2 text-xs py-1.5 px-3 border border-gray-300 rounded hover:bg-gray-50 text-gray-700 bg-white cursor-pointer"
+              >
+                <FileText size={16} /> Sao chép văn bản
+              </Button>
+            </div>
           </div>
 
           <div className="flex-1 bg-slate-50 p-6 rounded-xl border border-gray-200 flex flex-col min-h-[500px] mb-6">
@@ -1054,22 +1085,39 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
               </div>
             )}
           </Modal>
+
+          <RawDataExportModal
+            isOpen={isExportRawDataModalOpen}
+            onClose={() => setIsExportRawDataModalOpen(false)}
+            indicator={formIndicator}
+            currentLang={currentLang}
+          />
         </div>
       );
     }
 
     return (
       <div className="bg-white p-6 rounded-lg border border-gray-100 min-h-[calc(100vh-120px)] flex flex-col animate-in slide-in-from-right-4 duration-300">
-        <div className="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
-          <Button variant="ghost" onClick={handleBack} className="p-2 cursor-pointer">
-            <ArrowLeft size={20} />
-          </Button>
-          <div>
-            <h2 className="text-xl font-bold text-vna-blue">Dashboard: {formIndicator.code} - {getLocalizedIndicatorName(formIndicator.name, currentLang)}</h2>
-            <p className="text-xs text-black/45">
-              Theo dõi số liệu thực hiện và tiến độ mục tiêu chiến lược
-            </p>
+        <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={handleBack} className="p-2 cursor-pointer">
+              <ArrowLeft size={20} />
+            </Button>
+            <div>
+              <h2 className="text-xl font-bold text-vna-blue">Dashboard: {formIndicator.code} - {getLocalizedIndicatorName(formIndicator.name, currentLang)}</h2>
+              <p className="text-xs text-black/45">
+                Theo dõi số liệu thực hiện và tiến độ mục tiêu chiến lược
+              </p>
+            </div>
           </div>
+          <Button
+            onClick={() => setIsExportRawDataModalOpen(true)}
+            variant="outline"
+            className="flex items-center gap-1.5 text-xs py-1.5 px-3 border border-gray-300 rounded hover:bg-gray-50 text-gray-700 bg-white cursor-pointer font-bold shadow-2xs hover:border-vna-blue hover:text-vna-blue"
+            title="Xuất tập dữ liệu thô (Raw data) của chỉ tiêu ra file Excel"
+          >
+            <Download size={14} className="text-vna-blue" /> Export raw data
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -1123,6 +1171,13 @@ export const IndicatorsPage: React.FC<{ departmentFilter?: string }> = ({ depart
             </div>
           )}
         </Modal>
+
+        <RawDataExportModal
+          isOpen={isExportRawDataModalOpen}
+          onClose={() => setIsExportRawDataModalOpen(false)}
+          indicator={formIndicator}
+          currentLang={currentLang}
+        />
       </div>
     );
   }

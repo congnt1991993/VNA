@@ -1,3 +1,5 @@
+import { exportIndicatorRawData } from '../components/exportRawData';
+import { RawDataExportModal } from '../components/RawDataExportModal';
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Maximize2,
@@ -809,14 +811,25 @@ export const ExecutiveDashboard: React.FC = () => {
             <Button variant="ghost" onClick={handleBack} className="p-2 cursor-pointer border border-gray-200 hover:bg-gray-100 flex items-center gap-1 text-xs bg-white">
               <ArrowLeft size={16} /> {currentLang === 'vi' ? 'Quay lại danh sách chỉ tiêu KPI' : 'Back to KPI list'}
             </Button>
-            <a
-              href={selectedIndicator.metabaseLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
-            >
-              {currentLang === 'vi' ? 'Xem chi tiết trên Metabase ↗' : 'View on Metabase ↗'}
-            </a>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setIsExportRawDataModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 rounded-md transition-all shadow-2xs cursor-pointer hover:border-vna-blue hover:text-vna-blue"
+                title="Xuất tập dữ liệu thô (Raw data) của chỉ tiêu ra file Excel"
+              >
+                <Download size={14} className="text-vna-blue" />
+                <span>Export raw data</span>
+              </Button>
+              <a
+                href={selectedIndicator.metabaseLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-vna-blue hover:bg-[#00556e] rounded-md transition-all shadow-sm"
+              >
+                {currentLang === 'vi' ? 'Xem chi tiết trên Metabase ↗' : 'View on Metabase ↗'}
+              </a>
+            </div>
           </div>
 
           <div className="flex-1 w-full bg-white rounded-lg overflow-hidden min-h-[750px] flex flex-col">
@@ -829,6 +842,13 @@ export const ExecutiveDashboard: React.FC = () => {
               allowtransparency
             ></iframe>
           </div>
+
+          <RawDataExportModal
+            isOpen={isExportRawDataModalOpen}
+            onClose={() => setIsExportRawDataModalOpen(false)}
+            indicator={selectedIndicator}
+            currentLang={currentLang}
+          />
         </div>
       );
     }

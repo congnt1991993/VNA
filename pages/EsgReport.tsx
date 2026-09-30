@@ -14,14 +14,14 @@ export const EsgReportPage: React.FC = () => {
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
 
   // Sorting & Column-level filter states
-  const [sortField, setSortField] = useState<'title' | 'createdAt' | 'deadline' | 'status' | null>(null);
+  const [sortField, setSortField] = useState<'title' | 'year' | 'createdAt' | 'deadline' | 'status' | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'none'>('none');
   const [filterTitle, setFilterTitle] = useState('');
   const [filterCreatedAt, setFilterCreatedAt] = useState('');
   const [filterDeadline, setFilterDeadline] = useState('');
   const [filterStatus, setFilterStatus] = useState('ALL');
 
-  const handleSort = (field: 'title' | 'createdAt' | 'deadline' | 'status') => {
+  const handleSort = (field: 'title' | 'year' | 'createdAt' | 'deadline' | 'status') => {
     if (sortField === field) {
       setSortOrder(prev => prev === 'asc' ? 'desc' : prev === 'desc' ? 'none' : 'asc');
       if (sortOrder === 'desc') setSortField(null);
@@ -152,6 +152,8 @@ export const EsgReportPage: React.FC = () => {
         let comp = 0;
         if (sortField === 'title') {
           comp = a.title.localeCompare(b.title);
+        } else if (sortField === 'year') {
+          comp = (parseInt(String(a.year), 10) || 0) - (parseInt(String(b.year), 10) || 0);
         } else if (sortField === 'createdAt') {
           const parseDate = (d: string) => {
             const [day, month, year] = d.split('/').map(Number);
@@ -251,7 +253,24 @@ export const EsgReportPage: React.FC = () => {
                       </span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 text-center w-20 shrink-0">Năm BC</th>
+                  <th
+                    onClick={() => handleSort('year')}
+                    className="px-4 py-3 text-center w-28 shrink-0 cursor-pointer hover:bg-gray-100/70 select-none transition-colors"
+                    title="Nhấn để sắp xếp theo Năm báo cáo"
+                  >
+                    <div className="flex items-center justify-center gap-1.5">
+                      <span>Năm BC</span>
+                      <span className="text-gray-400">
+                        {sortField === 'year' && sortOrder === 'asc' ? (
+                          <ArrowUp size={13} className="text-[#005f6e] font-bold" />
+                        ) : sortField === 'year' && sortOrder === 'desc' ? (
+                          <ArrowDown size={13} className="text-[#005f6e] font-bold" />
+                        ) : (
+                          <ArrowUpDown size={13} className="opacity-50" />
+                        )}
+                      </span>
+                    </div>
+                  </th>
                   <th className="px-4 py-3 w-32 shrink-0">Đợt báo cáo</th>
                   <th
                     onClick={() => handleSort('createdAt')}

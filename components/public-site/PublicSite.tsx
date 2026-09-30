@@ -21,6 +21,46 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick, initialView = 'ho
   const { t } = useTranslation();
   const [currentView, setCurrentView] = useState<string>(initialView || 'home');
 
+  const [cmsVision, setCmsVision] = useState(() => {
+    try {
+      const saved = localStorage.getItem('vna_cms_vision');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return {
+      topLabelVi: 'THÔNG ĐIỆP TỪ TỔNG GIÁM ĐỐC',
+      topLabelEn: 'MESSAGE FROM THE CEO',
+      sectionImageUrl: '/vna-images/vandon_section.jpg',
+      imageTitleVi: '30 Năm',
+      imageTitleEn: '30 Years',
+      imageSubtitleVi: 'ĐỒNG HÀNH',
+      imageSubtitleEn: 'Companion',
+      imageDescVi: 'Cùng sự phát triển thịnh vượng và bền vững của hành tinh',
+      imageDescEn: 'For the prosperous and sustainable development of our planet',
+      ceoNameVi: 'Ông Lê Hồng Hà',
+      ceoNameEn: 'Mr. Le Hong Ha',
+      ceoTitleVi: 'Tổng Giám đốc Vietnam Airlines',
+      ceoTitleEn: 'CEO of Vietnam Airlines',
+      ceoImageUrl: '/vna-images/ceo.png',
+      ceoMessageVi: 'Tại Vietnam Airlines, phát triển bền vững không phải là sự lựa chọn, mà là sứ mệnh. Chúng tôi hiểu rằng mỗi chuyến bay cất cánh không chỉ mang theo hành khách, mà còn mang theo trách nhiệm với môi trường và cộng đồng.',
+      ceoMessageEn: 'At Vietnam Airlines, sustainable development is not a choice, but a mission. We understand that each flight that takes off carries not only passengers, but also responsibility for the environment and the community.'
+    };
+  });
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      try {
+        const saved = localStorage.getItem('vna_cms_vision');
+        if (saved) setCmsVision(JSON.parse(saved));
+      } catch (e) {}
+    };
+    window.addEventListener('vna_cms_vision_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('vna_cms_vision_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
+  }, []);
+
   useEffect(() => {
     if (initialView) {
       setCurrentView(initialView);
@@ -236,9 +276,12 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick, initialView = 'ho
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
+              {/* Nhãn trên (Text) - Tương ứng Ảnh 1 */}
               <span className="text-vna-gold font-bold tracking-[0.2em] uppercase text-xs mb-4 block flex items-center gap-3">
                 <span className="w-12 h-[2px] bg-vna-gold rounded-full"></span> 
-                {t('app.ceo_message')}
+                {i18n.language === 'en'
+                  ? (cmsVision.topLabelEn || t('app.ceo_message'))
+                  : (cmsVision.topLabelVi || t('app.ceo_message'))}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
                 {i18n.language === 'en' ? (
@@ -248,37 +291,53 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick, initialView = 'ho
                 )}
               </h2>
               <p className="text-gray-600 text-base leading-relaxed mb-6 border-l-4 border-vna-gold pl-4 text-justify">
-                "{t('app.ceo_quote')}"
+                "{i18n.language === 'en'
+                  ? (cmsVision.ceoMessageEn || t('app.ceo_quote'))
+                  : (cmsVision.ceoMessageVi || t('app.ceo_quote'))}"
               </p>
               <div className="flex items-center gap-6 mt-6">
-                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border-2 border-vna-gold shadow-lg flex-shrink-0">
+                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border-2 border-vna-gold shadow-lg flex-shrink-0 bg-white">
                    {/* Professional portrait */}
-                   <img src="/vna-images/ceo.png" className="w-full h-full object-cover" alt="CEO" />
+                   <img 
+                     src={cmsVision.ceoImageUrl || '/vna-images/ceo.png'} 
+                     className="w-full h-full object-cover" 
+                     alt="CEO" 
+                     onError={(e) => { (e.target as HTMLImageElement).src = '/vna-images/ceo.png'; }}
+                   />
                  </div>
                  <div>
                    <div className="font-bold text-slate-900 text-lg">
-                     {i18n.language === 'en' ? 'Mr. Le Hong Ha' : 'Ông Lê Hồng Hà'}
+                     {i18n.language === 'en' ? (cmsVision.ceoNameEn || 'Mr. Le Hong Ha') : (cmsVision.ceoNameVi || 'Ông Lê Hồng Hà')}
                    </div>
                    <div className="text-xs text-gray-500 uppercase tracking-wider font-semibold mt-1">
-                     {i18n.language === 'en' ? 'CEO of Vietnam Airlines' : 'Tổng Giám đốc Vietnam Airlines'}
+                     {i18n.language === 'en' ? (cmsVision.ceoTitleEn || 'CEO of Vietnam Airlines') : (cmsVision.ceoTitleVi || 'Tổng Giám đốc Vietnam Airlines')}
                    </div>
                  </div>
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-[16/10] md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                 {/* Bright Aerial Landscape */}
-                 <img src="/vna-images/a321.jpg" className="w-full h-full object-cover" alt="Vietnam Airlines Sustainable" />
+              {/* Ảnh section (Upload ảnh) - Tương ứng Ảnh 2 */}
+              <div className="aspect-[16/10] md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-slate-200">
+                 <img 
+                   src={cmsVision.sectionImageUrl || '/vna-images/vandon_section.jpg'} 
+                   className="w-full h-full object-cover" 
+                   alt="Vietnam Airlines Sustainable" 
+                   onError={(e) => { (e.target as HTMLImageElement).src = '/vna-images/vandon_section.jpg'; }}
+                 />
               </div>
+
+              {/* Title ảnh (Text) & Thẻ thông tin - Tương ứng Ảnh 3 */}
               <div className="absolute -bottom-4 -left-4 bg-vna-blue text-white p-5 rounded-xl shadow-lg max-w-[240px] hidden md:block border-t-4 border-vna-gold">
-                <div className="text-3xl font-bold mb-1 text-vna-gold">30 {i18n.language === 'en' ? 'Years' : 'Năm'}</div>
+                <div className="text-3xl font-bold mb-1 text-vna-gold">
+                  {i18n.language === 'en' ? (cmsVision.imageTitleEn || '30 Years') : (cmsVision.imageTitleVi || '30 Năm')}
+                </div>
                 <div className="text-xs text-white uppercase tracking-widest font-semibold mb-1">
-                  {i18n.language === 'en' ? 'Companion' : 'Đồng hành'}
+                  {i18n.language === 'en' ? (cmsVision.imageSubtitleEn || 'Companion') : (cmsVision.imageSubtitleVi || 'Đồng hành')}
                 </div>
                 <div className="text-xs opacity-90 leading-relaxed">
                   {i18n.language === 'en' 
-                    ? 'For the prosperous and sustainable development of our planet' 
-                    : 'Cùng sự phát triển thịnh vượng và bền vững của hành tinh'}
+                    ? (cmsVision.imageDescEn || 'For the prosperous and sustainable development of our planet') 
+                    : (cmsVision.imageDescVi || 'Cùng sự phát triển thịnh vượng và bền vững của hành tinh')}
                 </div>
               </div>
             </div>
