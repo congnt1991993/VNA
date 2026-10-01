@@ -925,6 +925,13 @@ export const NetZeroV2Page: React.FC = () => {
 
   // Saved Scenarios State & Modal
   const [isScenarioListModalOpen, setIsScenarioListModalOpen] = useState(false);
+  useEffect(() => {
+    const raw = window.location.hash || window.location.search;
+    if (raw.includes('modal=list')) setIsScenarioListModalOpen(true);
+    if (raw.includes('modal=compare')) setIsCompareModalOpen(true);
+    if (raw.includes('modal=new')) setIsNewBatchModalOpen(true);
+    if (raw.includes('modal=save')) setIsSaveNameModalOpen(true);
+  }, []);
   const [scenarioNameInput, setScenarioNameInput] = useState('');
   const [isSaveNameModalOpen, setIsSaveNameModalOpen] = useState(false);
   const [savedScenarios, setSavedScenarios] = useState<SavedScenarioItem[]>(() => {
@@ -1511,30 +1518,30 @@ export const NetZeroV2Page: React.FC = () => {
 
     // Row 1: Group headers
     const headerRow1 = [
-      'Mã lô',
+      'BATCH No',
       'Ngày nạp',
-      'Sân bay xuất phát',
-      'Sân bay đáp',
-      'Khối lượng SAF (tấn)',
-      'Số lượng Chuyến bay (FLS)',
+      'DEP',
+      'ARR',
+      'NEAT SAF',
+      'FLS',
       '',
       '',
-      'Lượng CO2 Giảm trừ (tCO2)',
+      'CO2',
       '',
       '',
-      'Chi phí được giảm trừ (USD $)',
+      'USD',
       '',
       '',
-      'Cơ chế áp dụng'
+      'Apply'
     ];
 
     // Row 2: Detailed column names
     const headerRow2 = [
-      'Mã lô',
+      'BATCH No',
       'Ngày nạp',
-      'Sân bay xuất phát',
-      'Sân bay đáp',
-      'Khối lượng SAF (tấn)',
+      'DEP',
+      'ARR',
+      'NEAT SAF',
       'FLS_EU ETS',
       'FLS_UK ETS',
       'FLS_CORSIA',
@@ -1544,7 +1551,7 @@ export const NetZeroV2Page: React.FC = () => {
       'USD_EU ETS ($)',
       'USD_UK ETS ($)',
       'USD_CORSIA ($)',
-      'Cơ chế áp dụng'
+      'Apply'
     ];
 
     // Data rows
@@ -2295,14 +2302,14 @@ export const NetZeroV2Page: React.FC = () => {
               <table className="w-full text-xs text-left border-collapse min-w-[1340px]">
                 <thead>
                   <tr className="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-[11px] uppercase tracking-wider">
-                    {/* 1. Mã lô with Sort */}
+                    {/* 1. Mã lô: BATCH No */}
                     <th rowSpan={2} className="py-3.5 px-3 text-left border-r border-gray-200 whitespace-nowrap">
                       <button
                         onClick={() => handleToggleSort('batchNo')}
                         className="inline-flex items-center gap-1.5 font-bold text-gray-700 hover:text-vna-blue cursor-pointer select-none group"
-                        title="Bấm để sắp xếp theo Mã lô"
+                        title="Bấm để sắp xếp theo BATCH No"
                       >
-                        <span>Mã lô</span>
+                        <span>BATCH No</span>
                         {batchSortField === 'batchNo' ? (
                           batchSortOrder === 'asc' ? <ArrowUp size={13} className="text-vna-blue" /> : <ArrowDown size={13} className="text-vna-blue" />
                         ) : (
@@ -2311,14 +2318,14 @@ export const NetZeroV2Page: React.FC = () => {
                       </button>
                     </th>
 
-                    {/* 2. Sân bay xuất phát with Sort */}
+                    {/* 2. Sân bay xuất phát: DEP */}
                     <th rowSpan={2} className="py-3.5 px-3 text-center border-r border-gray-200 whitespace-nowrap">
                       <button
                         onClick={() => handleToggleSort('airportCode')}
                         className="inline-flex items-center justify-center gap-1.5 font-bold text-gray-700 hover:text-vna-blue cursor-pointer select-none group"
-                        title="Bấm để sắp xếp theo Sân bay xuất phát"
+                        title="Bấm để sắp xếp theo DEP"
                       >
-                        <span>Sân bay xuất phát</span>
+                        <span>DEP</span>
                         {batchSortField === 'airportCode' ? (
                           batchSortOrder === 'asc' ? <ArrowUp size={13} className="text-vna-blue" /> : <ArrowDown size={13} className="text-vna-blue" />
                         ) : (
@@ -2327,14 +2334,14 @@ export const NetZeroV2Page: React.FC = () => {
                       </button>
                     </th>
 
-                    {/* 3. Sân bay đáp with Sort */}
+                    {/* 3. Sân bay đáp: ARR */}
                     <th rowSpan={2} className="py-3.5 px-3 text-center border-r border-gray-200 whitespace-nowrap">
                       <button
                         onClick={() => handleToggleSort('destAirportCode')}
                         className="inline-flex items-center justify-center gap-1.5 font-bold text-gray-700 hover:text-vna-blue cursor-pointer select-none group"
-                        title="Bấm để sắp xếp theo Sân bay đáp"
+                        title="Bấm để sắp xếp theo ARR"
                       >
-                        <span>Sân bay đáp</span>
+                        <span>ARR</span>
                         {batchSortField === 'destAirportCode' ? (
                           batchSortOrder === 'asc' ? <ArrowUp size={13} className="text-vna-blue" /> : <ArrowDown size={13} className="text-vna-blue" />
                         ) : (
@@ -2342,25 +2349,27 @@ export const NetZeroV2Page: React.FC = () => {
                         )}
                       </button>
                     </th>
-                    
-                    <th rowSpan={2} className="py-3 px-3 text-center border-r-2 border-gray-300 whitespace-nowrap">Khối lượng SAF (Tấn) ✍️</th>
-                    
-                    {/* GROUP 1: FLS */}
+
+                    {/* 4. Khối lượng SAF: NEAT SAF */}
+                    <th rowSpan={2} className="py-3 px-3 text-center border-r-2 border-gray-300 whitespace-nowrap">NEAT SAF ✍️</th>
+
+                    {/* 5. Số lượng chuyến bay: FLS */}
                     <th colSpan={3} className="py-2.5 px-3 text-center bg-slate-100 text-slate-800 border-r-2 border-gray-300 font-black">
-                      Số lượng Chuyến bay (FLS)
+                      FLS
                     </th>
 
-                    {/* GROUP 2: CO2 */}
+                    {/* 6. Lượng CO2 giảm trừ: CO2 */}
                     <th colSpan={3} className="py-2.5 px-3 text-center bg-emerald-50 text-emerald-900 border-r-2 border-gray-300 font-black">
-                      Lượng CO₂ Giảm trừ (tCO₂)
+                      CO2
                     </th>
 
-                    {/* GROUP 3: USD */}
+                    {/* 7. Chi phí được giảm trừ: USD */}
                     <th colSpan={3} className="py-2.5 px-3 text-center bg-blue-50 text-vna-navy border-r-2 border-gray-300 font-black">
-                      Chi phí được giảm trừ (USD $)
+                      USD
                     </th>
 
-                    <th rowSpan={2} className="py-3 px-3 text-center border-r border-gray-200 whitespace-nowrap">Cơ chế áp dụng</th>
+                    {/* 8. Cơ chế áp dụng: Apply */}
+                    <th rowSpan={2} className="py-3 px-3 text-center border-r border-gray-200 whitespace-nowrap">Apply</th>
                     <th rowSpan={2} className="py-3 px-3 text-center whitespace-nowrap">Thao tác</th>
                   </tr>
                   <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 font-semibold text-[10px]">
@@ -2542,9 +2551,8 @@ export const NetZeroV2Page: React.FC = () => {
                       return (
                         <tr
                           key={batch.id}
-                          className={`transition-colors border-b border-gray-100 ${
-                            isEven ? 'bg-white hover:bg-gray-50/80' : 'bg-gray-50/40 hover:bg-gray-100/60'
-                          }`}
+                          className={`transition-colors border-b border-gray-100 ${isEven ? 'bg-white hover:bg-gray-50/80' : 'bg-gray-50/40 hover:bg-gray-100/60'
+                            }`}
                         >
                           {/* 1. Mã lô (Đã bỏ ngày nạp) */}
                           <td className="py-3 px-3 align-middle border-r border-gray-200 whitespace-nowrap">
@@ -2691,15 +2699,14 @@ export const NetZeroV2Page: React.FC = () => {
                                     <button
                                       key={sch}
                                       onClick={() => handleAssignBatch(batch.id, sch)}
-                                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer select-none flex items-center gap-1 ${
-                                        isCurrent
+                                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer select-none flex items-center gap-1 ${isCurrent
                                           ? sch === 'EU_ETS'
                                             ? 'bg-vna-blue text-white shadow-xs'
                                             : sch === 'UK_ETS'
                                               ? 'bg-indigo-600 text-white shadow-xs'
                                               : 'bg-emerald-600 text-white shadow-xs'
                                           : 'text-gray-600 hover:text-gray-900 hover:bg-white/80'
-                                      }`}
+                                        }`}
                                       title={`Áp dụng cho ${label}`}
                                     >
                                       {isCurrent && <Check size={12} />}
