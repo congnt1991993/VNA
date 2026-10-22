@@ -87,9 +87,10 @@ const getIndicatorSubCharts = (indicator: any): SubChart[] => {
 import { Card, Button, Input, Badge, Table, Toast, Modal } from '../components/UI';
 import {
   LayoutDashboard, BarChart2, Newspaper, FileText, Upload, Save, RefreshCw, Eye, EyeOff, Edit, Edit2, Plus, CheckCircle, XCircle,
-  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, ArrowUpDown, ArrowUp, ArrowDown, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical, Layers, Inbox, Image as ImageIcon
+  Leaf, Users, Landmark, Calendar, ArrowLeft, ArrowRight, ArrowUpDown, ArrowUp, ArrowDown, Download, Share2, Printer, ChevronRight, ChevronUp, ChevronDown, Target, Trash2, GripVertical, Layers, Inbox, Image as ImageIcon, Info
 } from 'lucide-react';
 import MOCK_INDICATORS_JSON from '../data/indicators_main_list.json';
+import { LandingVisitStats } from '../components/LandingVisitStats';
 
 
 const DEFAULT_CHART_DESCRIPTIONS: Record<string, string> = {
@@ -889,6 +890,9 @@ export const CMSManagePage: React.FC = () => {
         </div>
       </div>
 
+      {/* Vùng thống kê lượt truy cập Landing page */}
+      <LandingVisitStats />
+
       {/* Top Horizontal Tabs - Luồng hiển thị trên Website */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-2xs p-3 sm:p-4 mt-6">
         {/* 6 Horizontal Stepper Tabs (Tab chính) */}
@@ -1094,13 +1098,49 @@ export const CMSManagePage: React.FC = () => {
                   <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Hình ảnh Banner (URL)</label>
                   <div className="flex gap-2">
                     <Input value={visionData.bannerUrl} onChange={e => setVisionData({ ...visionData, bannerUrl: e.target.value })} placeholder="/vna-images/hero.jpg hoặc URL đầy đủ" />
-                    <Button variant="outline" className="shrink-0" title="Upload ảnh"><Upload size={14} /></Button>
+                    <label className="cursor-pointer shrink-0">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            if (file.size > 5 * 1024 * 1024) {
+                              handleAction('Ảnh vượt quá dung lượng tối đa cho phép (5MB)!', 'error');
+                              return;
+                            }
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                              setVisionData({ ...visionData, bannerUrl: ev.target?.result as string });
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                      <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md border border-gray-300 bg-white text-xs font-semibold text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-colors shadow-sm">
+                        <Upload size={13} /> Upload
+                      </span>
+                    </label>
                   </div>
                   {visionData.bannerUrl && (
-                    <div className="mt-2 rounded-md overflow-hidden border border-gray-100 h-14">
+                    <div className="mt-2 rounded-md overflow-hidden border border-gray-100 h-14 relative group">
                       <img src={visionData.bannerUrl} alt="banner preview" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                      <button
+                        className="absolute top-1 right-1 bg-black/60 hover:bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded transition-colors cursor-pointer"
+                        onClick={() => setVisionData({ ...visionData, bannerUrl: '' })}
+                      >
+                        ✕ Xoá
+                      </button>
                     </div>
                   )}
+                  <div className="mt-2 p-2.5 rounded-lg bg-blue-50/70 border border-blue-100 text-[11px] text-slate-600 flex items-start gap-2">
+                    <Info size={14} className="text-vna-blue shrink-0 mt-0.5" />
+                    <div className="leading-relaxed">
+                      <span className="font-bold text-slate-800">Khuyến nghị kích thước:</span>{' '}
+                      <span className="text-vna-blue font-bold">1920 × 1080 px</span> (Tỷ lệ 16:9 Full HD) hoặc tối thiểu 1600 × 900 px. Dung lượng tối đa 5MB (định dạng JPG, WebP, PNG) để ảnh nền bao trọn màn hình sắc nét và tối ưu tốc độ tải Landing Page.
+                    </div>
+                  </div>
                 </div>
               </div>
               <div>
@@ -1195,6 +1235,10 @@ export const CMSManagePage: React.FC = () => {
                           onChange={(e) => {
                             const file = e.target.files?.[0];
                             if (file) {
+                              if (file.size > 5 * 1024 * 1024) {
+                                handleAction('Ảnh vượt quá dung lượng tối đa cho phép (5MB)!', 'error');
+                                return;
+                              }
                               const reader = new FileReader();
                               reader.onload = (ev) => {
                                 setVisionData({ ...visionData, ceoImageUrl: ev.target?.result as string });
@@ -1216,9 +1260,13 @@ export const CMSManagePage: React.FC = () => {
                         ✕ Xoá ảnh
                       </button>
                     )}
-                    <p className="text-[10px] text-black/30 leading-relaxed">
-                      Hỗ trợ JPG, PNG
-                    </p>
+                    <div className="mt-1 p-2 rounded-lg bg-blue-50/70 border border-blue-100 text-[11px] text-slate-600 flex items-start gap-2">
+                      <Info size={14} className="text-vna-blue shrink-0 mt-0.5" />
+                      <div className="leading-relaxed">
+                        <span className="font-bold text-slate-800">Khuyến nghị kích thước:</span>{' '}
+                        <span className="text-vna-blue font-bold">600 × 600 px</span> hoặc <span className="text-vna-blue font-bold">800 × 800 px</span> (Tỷ lệ 1:1 vuông, tối thiểu 400 × 400 px). Ảnh chân dung trang trọng, rõ mặt, Dung lượng tối đa 5MB (định dạng JPG, PNG, WebP) để khung avatar lãnh đạo hiển thị đẹp nhất.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1269,9 +1317,13 @@ export const CMSManagePage: React.FC = () => {
                       ✕ Xoá ảnh
                     </button>
                   )}
-                  <p className="text-[10px] text-black/30 leading-relaxed">
-                    Hỗ trợ JPG, PNG, WebP
-                  </p>
+                  <div className="mt-1 p-2 rounded-lg bg-blue-50/70 border border-blue-100 text-[11px] text-slate-600 flex items-start gap-2">
+                    <Info size={14} className="text-vna-blue shrink-0 mt-0.5" />
+                    <div className="leading-relaxed">
+                      <span className="font-bold text-slate-800">Khuyến nghị kích thước:</span>{' '}
+                      <span className="text-vna-blue font-bold">1200 × 800 px</span> (Tỷ lệ 3:2) hoặc <span className="text-vna-blue font-bold">1200 × 750 px</span> (Tỷ lệ 16:10). Tối thiểu 900 × 600 px, Dung lượng tối đa 5MB (định dạng JPG, WebP, PNG) để khung hình section thông điệp hiển thị cân đối và sắc nét.
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1345,7 +1397,42 @@ export const CMSManagePage: React.FC = () => {
                               setPillars(pillars.map(p => p.id === activePillar.id ? { ...p, newsThumbnail: val } : p));
                             }}
                           />
-                          <Button variant="outline" className="shrink-0"><Upload size={14} /></Button>
+                          <label className="cursor-pointer shrink-0">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  if (file.size > 5 * 1024 * 1024) {
+                                    handleAction('Ảnh vượt quá dung lượng tối đa cho phép (5MB)!', 'error');
+                                    return;
+                                  }
+                                  const reader = new FileReader();
+                                  reader.onload = (ev) => {
+                                    setPillars(pillars.map(p => p.id === activePillar.id ? { ...p, newsThumbnail: ev.target?.result as string } : p));
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                            <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md border border-gray-300 bg-white text-xs font-semibold text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-colors shadow-sm">
+                              <Upload size={13} /> Upload
+                            </span>
+                          </label>
+                        </div>
+                        {activePillar.newsThumbnail && (
+                          <div className="mt-2 rounded-md overflow-hidden border border-gray-200 h-16 w-28 relative group">
+                            <img src={activePillar.newsThumbnail} alt="pillar preview" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                          </div>
+                        )}
+                        <div className="mt-1.5 p-2 rounded-lg bg-blue-50/70 border border-blue-100 text-[11px] text-slate-600 flex items-start gap-2">
+                          <Info size={14} className="text-vna-blue shrink-0 mt-0.5" />
+                          <div className="leading-relaxed">
+                            <span className="font-bold text-slate-800">Khuyến nghị kích thước:</span>{' '}
+                            <span className="text-vna-blue font-bold">1000 × 600 px</span> hoặc <span className="text-vna-blue font-bold">1200 × 800 px</span> (Tỷ lệ 16:10 hoặc 3:2, tối thiểu 800 × 500 px). Dung lượng tối đa 5MB (định dạng JPG, WebP, PNG) để ảnh thẻ card trụ cột hiển thị chuẩn tỷ lệ ngoài trang chủ.
+                          </div>
                         </div>
                       </div>
 

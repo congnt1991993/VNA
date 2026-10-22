@@ -1,0 +1,443 @@
+{
+  "khpt": [
+    {
+      "code": "GRI 2-9",
+      "num": "2.6.1.1",
+      "name_en": "Governance structure and composition",
+      "name_vi": "Cơ cấu và thành phần quản trị",
+      "desc": "Cơ cấu quản trị của tổ chức, bao gồm các ủy ban trực thuộc cơ quan quản trị cao nhất và cơ cấu thành phần của các cơ quan này.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-9) và Sổ tay Báo cáo Phát triển bền vững Hàng không IATA ASRH Edition 2 (Chủ đề A - Conduct and Compliance):",
+        "Chỉ tiêu GRI 2-9 định nghĩa các yêu cầu công bố về mô hình cơ cấu tổ chức quản trị và thành phần của cơ quan quản trị cao nhất (Hội đồng quản trị - HĐQT), bao gồm:",
+        "1. Cấu trúc quản trị: Mô tả cấu trúc quản trị tổng thể của Tổng công ty, danh sách các ban/ủy ban chuyên trách trực thuộc HĐQT chịu trách nhiệm ra quyết định và giám sát việc quản lý các tác động của tổ chức đối với nền kinh tế, môi trường và con người (bao gồm Ủy ban Kiểm toán, Ủy ban Nhân sự & Lương thưởng, Ban chỉ đạo Phát triển bền vững & Net Zero).",
+        "2. Thành phần và cơ cấu thành viên: Mô tả chi tiết cơ cấu thành viên HĐQT và các ủy ban trực thuộc theo các tiêu chí: (i) Tỷ lệ thành viên điều hành (Executive) và thành viên không điều hành (Non-executive); (ii) Số lượng và tỷ lệ thành viên HĐQT độc lập; (iii) Thâm niên và nhiệm kỳ công tác của các thành viên; (iv) Số lượng các vị trí công tác hoặc chức vụ quản trị quan trọng khác mà từng thành viên đảm nhiệm tại các tổ chức khác; (v) Các tiêu chí đa dạng hóa về giới tính, độ tuổi và năng lực chuyên môn phù hợp với ngành hàng không."
+      ]
+    },
+    {
+      "code": "GRI 2-10",
+      "num": "2.6.1.2",
+      "name_en": "Nomination and selection of the highest governance body",
+      "name_vi": "Đề cử và lựa chọn cơ quan quản trị cao nhất",
+      "desc": "Quy trình đề cử và lựa chọn thành viên cơ quan quản trị cao nhất cùng các ủy ban trực thuộc, và các tiêu chí được áp dụng.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-10) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-10 định nghĩa quy trình và các tiêu chí tuyển chọn, bổ nhiệm thành viên HĐQT và các ủy ban chuyên trách:",
+        "1. Quy trình đề cử và lựa chọn: Mô tả quy trình giới thiệu, thẩm tra tư cách, đề cử và bầu chọn/bổ nhiệm thành viên HĐQT và các ủy ban trực thuộc theo quy định của pháp luật doanh nghiệp, điều lệ Tổng công ty và quy chế quản trị công ty đại chúng.",
+        "2. Tiêu chí lựa chọn: Thuyết minh các tiêu chí được cân nhắc trong quá trình đề cử và lựa chọn, bao gồm: (i) Quan điểm, kỳ vọng của các bên liên quan (đặc biệt là cổ đông Nhà nước và các cổ đông chiến lược); (ii) Tính đa dạng (về giới tính, độ tuổi, văn hóa, xuất thân); (iii) Tiêu chuẩn độc lập của thành viên HĐQT độc lập; (iv) Năng lực chuyên môn, kinh nghiệm thực tiễn và hiểu biết về quản trị doanh nghiệp, chuyển đổi xanh, an toàn hàng không và quản lý các tác động ESG trọng yếu."
+      ]
+    },
+    {
+      "code": "GRI 2-11",
+      "num": "2.6.1.3",
+      "name_en": "Chair of the highest governance body",
+      "name_vi": "Chủ tịch cơ quan quản trị cao nhất",
+      "desc": "Vai trò của Chủ tịch cơ quan quản trị cao nhất và làm rõ sự phân định giữa vai trò quản trị (Chủ tịch HĐQT) và điều hành doanh nghiệp (Tổng giám đốc).",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-11) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-11 định nghĩa yêu cầu công bố về tính độc lập giữa vai trò quản trị chiến lược và điều hành tác nghiệp:",
+        "1. Tính độc lập của vị trí Chủ tịch: Báo cáo rõ ràng Chủ tịch HĐQT có đồng thời là cán bộ điều hành cấp cao (Ban Tổng giám đốc / Tổng giám đốc) của Tổng công ty hay không.",
+        "2. Cơ chế kiểm soát xung đột lợi ích: Trường hợp Chủ tịch HĐQT kiêm nhiệm chức vụ điều hành, Tổng công ty phải giải trình rõ chức năng cụ thể trong ban điều hành, lý do duy trì mô hình kiêm nhiệm này và các cơ chế, biện pháp được áp dụng nhằm ngăn ngừa, kiểm soát xung đột lợi ích giữa vai trò giám sát quản trị và chức năng điều hành kinh doanh."
+      ]
+    },
+    {
+      "code": "GRI 2-12",
+      "num": "2.6.1.4",
+      "name_en": "Role of the highest governance body in overseeing the management of impacts",
+      "name_vi": "Vai trò của cơ quan quản trị cao nhất trong giám sát quản lý các tác động",
+      "desc": "Vai trò của cơ quan quản trị cao nhất và cán bộ điều hành cấp cao trong xây dựng chiến lược, chính sách và giám sát quy trình thẩm định tác động kinh tế, môi trường và con người.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-12) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-12 định nghĩa trách nhiệm của HĐQT trong việc định hướng và giám sát thực thi chiến lược bền vững:",
+        "1. Xây dựng và phê duyệt định hướng: Thuyết minh vai trò của HĐQT và Ban điều hành trong việc phát triển, phê duyệt và định kỳ cập nhật tầm nhìn, sứ mệnh, tuyên bố giá trị cốt lõi, chiến lược phát triển bền vững, các chính sách ESG và mục tiêu Net Zero dài hạn của Tổng công ty.",
+        "2. Giám sát quy trình thẩm định tác động (Due Diligence): Mô tả vai trò giám sát của HĐQT đối với việc nhận diện, đánh giá mức độ nghiêm trọng và quản lý các tác động thực tế và tiềm tàng của doanh nghiệp đối với kinh tế, môi trường, xã hội và quyền con người; cơ chế tham vấn và gắn kết với các bên liên quan trong quá trình này."
+      ]
+    },
+    {
+      "code": "GRI 2-13",
+      "num": "2.6.1.5",
+      "name_en": "Delegation of responsibility for managing impacts",
+      "name_vi": "Phân cấp trách nhiệm quản lý tác động",
+      "desc": "Cách thức cơ quan quản trị cao nhất phân cấp, ủy quyền trách nhiệm quản lý các tác động kinh tế, môi trường và con người cho các cấp điều hành và nhân viên chuyên trách.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-13) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-13 định nghĩa cơ chế phân cấp quyền hạn và trách nhiệm thực thi công tác ESG:",
+        "1. Phân cấp trách nhiệm: Mô tả cách thức HĐQT ủy quyền trách nhiệm quản lý các tác động ESG cho Ban Tổng giám đốc và các chức danh điều hành cấp cao phụ trách từng lĩnh vực (Phó Tổng giám đốc phụ trách kỹ thuật, khai thác, thương mại, tài chính...); phân công nhiệm vụ cụ thể cho các Ban chuyên môn (Ban Kế hoạch phát triển, Ban Dịch vụ, Ban An toàn - Chất lượng, Ban Tổ chức nhân lực...).",
+        "2. Chế độ báo cáo định kỳ: Quy định quy trình và tần suất (theo quý/năm) mà Ban điều hành và các bộ phận chuyên trách phải tổng hợp, báo cáo lên HĐQT về tiến độ thực thi các chỉ tiêu phát triển bền vững và hiệu quả quản lý các tác động trọng yếu."
+      ]
+    },
+    {
+      "code": "GRI 2-14",
+      "num": "2.6.1.6",
+      "name_en": "Role of the highest governance body in sustainability reporting",
+      "name_vi": "Vai trò của cơ quan quản trị cao nhất trong báo cáo phát triển bền vững",
+      "desc": "Vai trò và trách nhiệm của cơ quan quản trị cao nhất trong việc rà soát và phê duyệt thông tin công bố trong Báo cáo phát triển bền vững.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-14) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-14 định nghĩa thẩm quyền và trách nhiệm phê duyệt tối cao đối với Báo cáo Phát triển bền vững (PTBV):",
+        "1. Rà soát và phê duyệt báo cáo: Xác nhận rõ trách nhiệm của HĐQT trong việc xem xét, đánh giá tính chính trực và chính thức phê duyệt toàn bộ thông tin công bố trong Báo cáo PTBV thường niên, bao gồm ma trận và danh mục các chủ đề trọng yếu của Tổng công ty.",
+        "2. Quy trình thẩm tra nội dung: Thuyết minh quy trình lấy ý kiến các ban chuyên môn, thẩm định độc lập và trình HĐQT phê duyệt trước khi công bố ra công chúng; trường hợp HĐQT không trực tiếp phê duyệt thì phải nêu rõ lý do và cấp có thẩm quyền được ủy quyền thay thế."
+      ]
+    },
+    {
+      "code": "GRI 2-15",
+      "num": "2.6.1.7",
+      "name_en": "Conflicts of interest",
+      "name_vi": "Xung đột lợi ích",
+      "desc": "Các quy trình và cơ chế của cơ quan quản trị cao nhất nhằm ngăn ngừa, phát hiện và xử lý các xung đột lợi ích thực tế hoặc tiềm tàng.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-15) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-15 định nghĩa hệ thống kiểm soát và minh bạch thông tin về xung đột lợi ích tại cấp lãnh đạo cao nhất:",
+        "1. Quy trình ngăn ngừa xung đột: Mô tả các chính sách, quy chế và quy trình để nhận diện, khai báo, ngăn ngừa và giảm thiểu xung đột lợi ích đối với thành viên HĐQT và cán bộ quản lý then chốt của Tổng công ty.",
+        "2. Công bố xung đột lợi ích: Cơ chế công khai thông tin tới cổ đông và các bên liên quan về các mối quan hệ có khả năng phát sinh xung đột, bao gồm: (i) Tham gia đồng thời trong ban lãnh đạo của các doanh nghiệp khác; (ii) Sở hữu chéo cổ phần; (iii) Sự hiện diện của các bên có quyền kiểm soát hoặc cổ đông chi phối; (iv) Các giao dịch với các bên liên quan (Related-party transactions)."
+      ]
+    },
+    {
+      "code": "GRI 2-16",
+      "num": "2.6.1.8",
+      "name_en": "Communication of critical concerns",
+      "name_vi": "Báo cáo các mối quan ngại nghiêm trọng",
+      "desc": "Cơ chế truyền thông và tiếp nhận các mối quan ngại nghiêm trọng gửi đến cơ quan quản trị cao nhất, cùng số lượng và tính chất các vụ việc trong kỳ.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-16) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-16 định nghĩa quy trình báo cáo khẩn cấp và xử lý các rủi ro, vấn đề đặc biệt nghiêm trọng:",
+        "1. Cơ chế tiếp nhận và báo cáo: Định nghĩa tiêu chí xác định các \"mối quan ngại nghiêm trọng\" (critical concerns) liên quan đến sự cố an toàn hàng không, vi phạm pháp luật nghiêm trọng, khủng hoảng vận hành hoặc tổn hại môi trường/xã hội lớn; cơ chế và đường dẫn thông tin báo cáo trực tiếp lên HĐQT.",
+        "2. Thống kê và xử lý: Báo cáo tổng số lượng và bản chất của các mối quan ngại nghiêm trọng đã được trình lên HĐQT trong năm tài chính, các giải pháp chỉ đạo khắc phục và tiến độ giải quyết của Tổng công ty."
+      ]
+    },
+    {
+      "code": "GRI 2-17",
+      "num": "2.6.1.9",
+      "name_en": "Collective knowledge of the highest governance body",
+      "name_vi": "Kiến thức tập thể của cơ quan quản trị cao nhất",
+      "desc": "Các biện pháp và chương trình đào tạo nhằm nâng cao kiến thức, kỹ năng và kinh nghiệm tập thể của cơ quan quản trị cao nhất về phát triển bền vững.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-17) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-17 định nghĩa việc bồi dưỡng và củng cố năng lực quản trị phát triển bền vững cho thành viên HĐQT:",
+        "1. Nâng cao năng lực chuyên môn: Mô tả các hành động, hội thảo, khóa tập huấn chuyên sâu và hoạt động tham vấn chuyên gia mà Tổng công ty đã tổ chức hoặc cử thành viên HĐQT tham gia trong năm.",
+        "2. Nội dung bồi dưỡng: Các chủ đề trọng tâm về phát triển bền vững và chuyển đổi xanh ngành hàng không, bao gồm: nhiên liệu hàng không bền vững (SAF), cơ chế định giá carbon (CORSIA, EU ETS), công nghệ tàu bay tiết kiệm nhiên liệu, quản trị rủi ro biến đổi khí hậu theo TCFD/IFRS S2 và các quy định pháp luật ESG mới."
+      ]
+    },
+    {
+      "code": "GRI 2-18",
+      "num": "2.6.1.10",
+      "name_en": "Evaluation of the performance of the highest governance body",
+      "name_vi": "Đánh giá hiệu quả hoạt động của cơ quan quản trị cao nhất",
+      "desc": "Quy trình đánh giá hiệu quả hoạt động của cơ quan quản trị cao nhất trong việc giám sát và quản lý các tác động kinh tế, môi trường và con người.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-18) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-18 định nghĩa quy trình đánh giá kết quả thực thi trách nhiệm giám sát của cơ quan quản trị:",
+        "1. Quy trình đánh giá: Mô tả phương pháp và quy trình đánh giá hiệu quả hoạt động của HĐQT, các ủy ban trực thuộc và từng thành viên trong công tác giám sát quản lý các tác động bền vững của Tổng công ty.",
+        "2. Phương thức và hành động cải tiến: Thuyết minh việc đánh giá được thực hiện độc lập (thuê tổ chức tư vấn bên ngoài) hay tự đánh giá nội bộ; tần suất thực hiện; các hành động khắc phục, điều chỉnh đã triển khai dựa trên kết quả đánh giá (như đào tạo bổ sung, cơ cấu lại ủy ban, hoàn thiện quy chế)."
+      ]
+    },
+    {
+      "code": "GRI 2-23",
+      "num": "2.6.1.11",
+      "name_en": "Policy commitments",
+      "name_vi": "Các cam kết chính sách",
+      "desc": "Các cam kết chính sách của tổ chức đối với hành vi ứng xử kinh doanh có trách nhiệm và tôn trọng quyền con người.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-23) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-23 định nghĩa các tuyên bố chính sách nền tảng về đạo đức và trách nhiệm xã hội của doanh nghiệp:",
+        "1. Danh mục cam kết chính sách: Công bố các cam kết chính sách chính thức của Tổng công ty về hành vi kinh doanh có trách nhiệm (Responsible Business Conduct), bảo vệ môi trường, chống tham nhũng, đa dạng - hòa nhập và tôn trọng quyền con người.",
+        "2. Căn cứ chuẩn mực quốc tế: Nêu rõ các văn kiện và hiệp ước quốc tế mà chính sách tham chiếu (Tuyên ngôn Nhân quyền Quốc tế của LHQ, Các nguyên tắc hướng dẫn của LHQ về Kinh doanh và Quyền con người, Các công ước cơ bản của ILO); cấp phê duyệt chính sách cao nhất; phạm vi áp dụng cho toàn bộ hoạt động nội bộ và chuỗi giá trị; cách thức công bố công khai đến các bên liên quan."
+      ]
+    },
+    {
+      "code": "GRI 2-24",
+      "num": "2.6.1.12",
+      "name_en": "Embedding policy commitments",
+      "name_vi": "Lồng ghép các cam kết chính sách",
+      "desc": "Cách thức tổ chức lồng ghép và hiện thực hóa các cam kết chính sách vào chiến lược, quy trình vận hành và toàn bộ mối quan hệ kinh doanh.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-24) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-24 định nghĩa phương thức đưa các cam kết chính sách vào thực tiễn quản lý và vận hành:",
+        "1. Cơ chế lồng ghép: Mô tả cách thức Tổng công ty tích hợp các cam kết chính sách vào quy chế quản trị nội bộ, kế hoạch chiến lược, quy trình tác nghiệp tiêu chuẩn (SOP) và quy chế mua sắm/đấu thầu.",
+        "2. Thực thi và đào tạo: Phân định trách nhiệm thực hiện chính sách theo các cấp quản lý; triển khai các chương trình phổ biến, tập huấn bắt buộc cho toàn thể cán bộ nhân viên; áp dụng các điều khoản cam kết tuân thủ trong hợp đồng với đối tác kinh doanh và nhà cung ứng."
+      ]
+    },
+    {
+      "code": "GRI 2-25",
+      "num": "2.6.1.13",
+      "name_en": "Processes to remediate negative impacts",
+      "name_vi": "Quy trình khắc phục các tác động tiêu cực",
+      "desc": "Cam kết và quy trình của tổ chức nhằm khắc phục hoặc hợp tác khắc phục các tác động tiêu cực thực tế mà tổ chức gây ra hoặc đóng góp gây ra.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-25) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-25 định nghĩa trách nhiệm bồi thường và các biện pháp giảm thiểu tổn hại cho các bên bị ảnh hưởng:",
+        "1. Cam kết khắc phục: Cam kết của Tổng công ty trong việc chủ động khắc phục hoặc phối hợp khắc phục các tác động tiêu cực đối với môi trường, cộng đồng xã hội và quyền con người do hoạt động hàng không gây ra hoặc có liên đới.",
+        "2. Quy trình khiếu nại và bồi thường: Mô tả quy trình tiếp nhận, điều tra và giải quyết khiếu nại của các bên liên quan; cơ chế hỗ trợ tài chính, bồi thường thiệt hại công bằng; đánh giá tính hiệu quả của các biện pháp xử lý và giải pháp ngăn ngừa tái diễn."
+      ]
+    },
+    {
+      "code": "GRI 2-26",
+      "num": "2.6.1.14",
+      "name_en": "Mechanisms for seeking advice and raising concerns",
+      "name_vi": "Cơ chế tìm kiếm tư vấn và nêu quan ngại",
+      "desc": "Các kênh và cơ chế chính thức để người lao động và các bên liên quan tìm kiếm tư vấn về đạo đức hoặc tố giác, nêu quan ngại về các hành vi vi phạm.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-26) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-26 định nghĩa các kênh tiếp nhận ý kiến tư vấn và tố giác hành vi sai phạm (Whistleblowing):",
+        "1. Kênh tham vấn và phản ánh: Thiết lập các kênh chính thức (đường dây nóng hotline, hòm thư điện tử bảo mật, ban thanh tra chuyên trách) cho phép người lao động và đối tác bên ngoài xin tư vấn về các tình huống đạo đức hoặc phản ánh quan ngại về hành vi vi phạm quy chuẩn ứng xử, gian lận kinh doanh.",
+        "2. Cơ chế bảo vệ người tố giác: Quy định biện pháp bảo mật danh tính tuyệt đối, bảo đảm an toàn thông tin và cam kết không trù dập, trả đũa đối với bất kỳ cá nhân nào cung cấp thông tin hoặc tố cáo vi phạm một cách thiện chí."
+      ]
+    },
+    {
+      "code": "GRI 2-27",
+      "num": "2.6.1.15",
+      "name_en": "Compliance with laws and regulations",
+      "name_vi": "Tuân thủ pháp luật và các quy định",
+      "desc": "Tình hình tuân thủ pháp luật, bao gồm tổng số vụ việc không tuân thủ đáng kể phát sinh trong kỳ báo cáo và các chế tài xử phạt tiền hoặc phi tiền tệ.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-27) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-27 định nghĩa việc theo dõi và công bố các vi phạm quy định pháp luật và biện pháp xử lý:",
+        "1. Thống kê vi phạm: Thống kê tổng số vụ việc không tuân thủ pháp luật và quy định đáng kể phát sinh trong năm báo cáo trong các lĩnh vực kinh tế, môi trường, an toàn khai thác bay và quyền lợi lao động.",
+        "2. Chế tài xử phạt: Báo cáo tổng giá trị tiền phạt vi phạm hành chính đã nộp; số lượng và nội dung các hình thức xử phạt phi tiền tệ (cảnh cáo, đình chỉ tạm thời, tước quyền sử dụng giấy phép); chi tiết các vụ việc đang trong quá trình khiếu nại hoặc tranh tụng."
+      ]
+    },
+    {
+      "code": "GRI 2-29",
+      "num": "2.6.1.16",
+      "name_en": "Approach to stakeholder engagement",
+      "name_vi": "Cách tiếp cận gắn kết các bên liên quan",
+      "desc": "Phương pháp tiếp cận của tổ chức trong việc nhận diện và đối thoại, tham vấn ý kiến của các nhóm bên liên quan trọng yếu.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-29) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 2-29 định nghĩa chiến lược và quy trình đối thoại các bên liên quan trọng yếu:",
+        "1. Nhận diện các nhóm bên liên quan: Danh mục các nhóm bên liên quan trọng yếu được xác định (Cổ đông/Ủy ban Quản lý vốn Nhà nước, hành khách/khách hàng, cán bộ nhân viên, nhà cung cấp xăng dầu/dịch vụ mặt đất, Cục Hàng không/cơ quan quản lý, cộng đồng cư dân lân cận sân bay) và phương pháp xác định.",
+        "2. Hình thức và hiệu quả đối thoại: Mô tả mục đích, kênh trao đổi, tần suất đối thoại đối với từng nhóm; cách thức Tổng công ty tiếp thu, phản hồi ý kiến đóng góp và lồng ghép kỳ vọng của các bên vào định hướng chiến lược và nội dung Báo cáo PTBV."
+      ]
+    },
+    {
+      "code": "GRI 3-3",
+      "num": "2.6.1.17",
+      "name_en": "Management of material topics",
+      "name_vi": "Quản lý các chủ đề trọng yếu",
+      "desc": "Cách thức tổ chức quản lý từng chủ đề phát triển bền vững trọng yếu, bao gồm chính sách, hành động cụ thể và phương pháp đánh giá hiệu quả quản lý tác động.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 3: Material Topics 2021 (Điều khoản 3-3) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 3-3 định nghĩa khung công bố thông tin bắt buộc áp dụng độc lập cho TỪNG chủ đề trọng yếu đã được xác định của Tổng công ty:",
+        "1. Mô tả tác động: Thuyết minh chi tiết các tác động tích cực và tiêu cực (thực tế và tiềm tàng) đối với nền kinh tế, môi trường và con người liên quan mật thiết đến chủ đề trọng yếu tương ứng.",
+        "2. Quản lý và giải pháp hành động: Mô tả các chính sách cụ thể, cam kết mục tiêu, trách nhiệm phân công, nguồn lực bố trí và các chương trình hành động nhằm ngăn ngừa tác động tiêu cực, tối ưu hóa tác động tích cực.",
+        "3. Đánh giá tính hiệu quả: Các cơ chế theo dõi, hệ thống chỉ số đo lường hiệu quả (KPIs), quy trình đánh giá kết quả định kỳ và các điều chỉnh, cải tiến chính sách sau quá trình thực thi."
+      ]
+    },
+    {
+      "code": "GRI 201-4",
+      "num": "2.6.1.18",
+      "name_en": "Financial assistance received from government",
+      "name_vi": "Hỗ trợ tài chính nhận được từ chính phủ",
+      "desc": "Tổng giá trị tiền tệ của các khoản trợ cấp và hỗ trợ tài chính mà doanh nghiệp nhận được từ chính phủ trong kỳ báo cáo.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 201: Economic Performance 2016 (Điều khoản 201-4) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 201-4 định nghĩa việc công bố minh bạch các khoản trợ cấp và hỗ trợ vốn từ ngân sách Nhà nước/Chính phủ:",
+        "1. Giá trị hỗ trợ tài chính: Tổng giá trị tiền tệ của các khoản hỗ trợ tài chính mà Tổng công ty nhận được từ bất kỳ chính phủ nào trong năm báo cáo, phân loại theo 8 nhóm hình thức: (i) Miễn, giảm thuế và tín dụng thuế; (ii) Trợ cấp trực tiếp; (iii) Tài trợ đầu tư, tài trợ R&D; (iv) Giải thưởng tài chính; (v) Miễn/giảm phí nhượng quyền hoặc tiền bản quyền; (vi) Hỗ trợ tài chính từ tổ chức tín dụng xuất khẩu (ECA); (vii) Các gói ưu đãi tài chính; (viii) Lợi ích tài chính khác (bao gồm các gói tái cấp vốn lãi suất ưu đãi, bảo lãnh nợ).",
+        "2. Cơ cấu sở hữu vốn Nhà nước: Thuyết minh tỷ lệ sở hữu vốn của Nhà nước tại Tổng công ty và vai trò của cổ đông Nhà nước trong các quyết sách tài chính trọng yếu."
+      ]
+    },
+    {
+      "code": "GRI 205-2",
+      "num": "2.6.1.19",
+      "name_en": "Communication and training about anti-corruption policies and procedures",
+      "name_vi": "Truyền thông và đào tạo về các chính sách và thủ tục chống tham nhũng",
+      "desc": "Tỷ lệ và số lượng thành viên cơ quan quản trị, cán bộ nhân viên và đối tác kinh doanh được phổ biến, tập huấn về chính sách phòng chống tham nhũng.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 205: Anti-corruption 2016 (Điều khoản 205-2) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 205-2 định nghĩa việc phổ biến thông tin và đào tạo về phòng ngừa tham nhũng, tiêu cực trong tổ chức:",
+        "1. Truyền thông chính sách: Số lượng và tỷ lệ phần trăm (%) thành viên HĐQT, người lao động và các đối tác kinh doanh (nhà cung cấp, đại lý bán vé, đơn vị phục vụ mặt đất) được truyền thông chính thức về chính sách và thủ tục phòng chống tham nhũng, phân tách theo khu vực địa lý và nhóm đối tượng.",
+        "2. Đào tạo chuyên sâu: Số lượng và tỷ lệ (%) thành viên HĐQT và cán bộ nhân viên đã hoàn thành các khóa đào tạo định kỳ bắt buộc về phòng, chống tham nhũng, nhận diện hối lộ và tuân thủ liêm chính doanh nghiệp."
+      ]
+    },
+    {
+      "code": "GRI 205-3",
+      "num": "2.6.1.20",
+      "name_en": "Confirmed incidents of corruption and actions taken",
+      "name_vi": "Các vụ việc tham nhũng được xác nhận và biện pháp xử lý",
+      "desc": "Tổng số vụ việc tham nhũng được xác minh trong kỳ báo cáo, tính chất vụ việc và các biện pháp kỷ luật, xử lý pháp lý đã thực hiện.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 205: Anti-corruption 2016 (Điều khoản 205-3) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 205-3 định nghĩa các yêu cầu công bố về các vi phạm tham nhũng được kết luận và kết quả xử lý:",
+        "1. Số vụ việc và tính chất vi phạm: Tổng số lượng và tính chất chi tiết của các vụ việc tham nhũng đã được cơ quan có thẩm quyền hoặc cơ quan thanh tra nội bộ xác nhận chính thức trong năm báo cáo.",
+        "2. Biện pháp xử lý kỷ luật và pháp lý: (i) Số vụ việc dẫn tới việc người lao động bị xử lý kỷ luật hoặc sa thải; (ii) Số vụ việc dẫn tới chấm dứt quan hệ hợp đồng hoặc từ chối gia hạn hợp tác với đối tác kinh doanh; (iii) Chi tiết các vụ kiện pháp lý công khai chống lại Tổng công ty hoặc nhân viên của Tổng công ty về hành vi tham nhũng và phán quyết cuối cùng của tòa án."
+      ]
+    },
+    {
+      "code": "GRI 206-1",
+      "num": "2.6.1.21",
+      "name_en": "Legal actions for anti-competitive behavior, anti-trust, and monopoly practices",
+      "name_vi": "Các vụ kiện về hành vi phản cạnh tranh, chống độc quyền",
+      "desc": "Số lượng vụ kiện pháp lý liên quan đến hành vi hạn chế cạnh tranh, vi phạm luật chống độc quyền mà doanh nghiệp là một bên tham gia, cùng kết quả giải quyết.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 206: Anti-competitive Behavior 2016 (Điều khoản 206-1) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 206-1 định nghĩa việc theo dõi và công bố các tranh chấp pháp lý về cạnh tranh lành mạnh trên thị trường hàng không:",
+        "1. Thống kê vụ kiện: Tổng số vụ kiện pháp lý đang trong quá trình thụ lý hoặc đã kết luận trong kỳ báo cáo liên quan đến các hành vi cạnh tranh không lành mạnh, thỏa thuận hạn chế cạnh tranh, thao túng giá cước hoặc vi phạm luật chống độc quyền mà Tổng công ty bị xác định là một bên liên đới.",
+        "2. Kết quả phán quyết: Thuyết minh kết quả chính của các vụ kiện đã hoàn tất, bao gồm quyết định của cơ quan cạnh tranh, phán quyết bồi thường của tòa án hoặc các cam kết điều chỉnh tập quán kinh doanh của Tổng công ty."
+      ]
+    },
+    {
+      "code": "GRI 415-1",
+      "num": "2.6.1.22",
+      "name_en": "Political contributions",
+      "name_vi": "Đóng góp cho các hoạt động chính trị",
+      "desc": "Tổng giá trị tiền tệ các khoản đóng góp cho các hoạt động chính trị hoặc các tổ chức liên quan được thực hiện trực tiếp hoặc gián tiếp.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Kế hoạch phát triển",
+      "definition": [
+        "Theo chuẩn mực GRI 415: Public Policy 2016 (Điều khoản 415-1) và IATA ASRH Edition 2:",
+        "Chỉ tiêu GRI 415-1 định nghĩa việc công khai các khoản tài trợ chính trị và cách thức tham gia xây dựng chính sách công:",
+        "1. Giá trị đóng góp chính trị: Tổng giá trị tiền tệ của các khoản đóng góp chính trị bằng tiền hoặc hiện vật được thực hiện trực tiếp hoặc gián tiếp bởi doanh nghiệp cho các chính đảng, tổ chức chính trị hoặc cá nhân chính trị gia, phân tách theo quốc gia và bên thụ hưởng (với nguyên tắc tuân thủ nghiêm ngặt quy định pháp luật hiện hành).",
+        "2. Tham gia đối thoại chính sách: Thuyết minh lập trường và vai trò của Hãng hàng không Quốc gia trong việc tham gia góp ý xây dựng chính sách, văn bản quy phạm pháp luật về hàng không dân dụng và bảo vệ môi trường; các khoản chi phí hội viên tại các tổ chức, hiệp hội ngành nghề quốc tế (như IATA, AAPA, Hiệp hội VABA)."
+      ]
+    }
+  ],
+  "tcnl": [
+    {
+      "code": "GRI 401-2",
+      "num": "2.6.2.1",
+      "name_en": "Benefits provided to full-time employees that are not provided to temporary or part-time employees",
+      "name_vi": "Chế độ phúc lợi cho nhân viên toàn thời gian không áp dụng cho nhân viên tạm thời hoặc bán thời gian",
+      "desc": "Danh mục các chế độ phúc lợi tiêu chuẩn dành riêng cho người lao động toàn thời gian so với lao động hợp đồng tạm thời hoặc bán thời gian.",
+      "pillar": "Social – Xã hội",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 401: Employment 2016 (Điều khoản 401-2) và Sổ tay Báo cáo Phát triển bền vững Hàng không IATA ASRH Edition 2 (Chủ đề F - People and Development):",
+        "Chỉ tiêu GRI 401-2 định nghĩa yêu cầu công bố về các chính sách đãi ngộ, phúc lợi nhằm thu hút, giữ chân nhân tài và bảo đảm quyền lợi người lao động:",
+        "1. Danh mục chế độ phúc lợi tiêu chuẩn: Thuyết minh các chế độ phúc lợi tiêu chuẩn áp dụng cho nhân viên làm việc toàn thời gian (hợp đồng không xác định thời hạn) nhưng không áp dụng hoặc có giới hạn đối với nhân viên hợp đồng thời vụ, tạm thời hoặc bán thời gian tại các địa bàn hoạt động chính.",
+        "2. Các nhóm phúc lợi cốt lõi: Bao gồm: (i) Bảo hiểm nhân thọ và bảo hiểm tai nạn nghề nghiệp; (ii) Bảo hiểm chăm sóc sức khỏe toàn diện mở rộng (ngoài BHYT bắt buộc); (iii) Chế độ trợ cấp thương tật, mất khả năng lao động; (iv) Chế độ thai sản và nghỉ phép dành cho cha mẹ; (v) Kế hoạch phúc lợi hưu trí bổ sung; (vi) Chương trình quyền mua cổ phần; (vii) Các chế độ ưu đãi vé máy bay đặc thù ngành hàng không dành cho người lao động và thân nhân."
+      ]
+    },
+    {
+      "code": "GRI 403-4",
+      "num": "2.6.2.2",
+      "name_en": "Worker participation, consultation, and communication on occupational health and safety",
+      "name_vi": "Sự tham gia, tham vấn và trao đổi của người lao động về an toàn vệ sinh lao động",
+      "desc": "Quy trình để người lao động tham gia, tham vấn và tiếp cận thông tin về hệ thống quản lý an toàn, vệ sinh lao động và hoạt động của các hội đồng bảo hộ.",
+      "pillar": "Social – Xã hội",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 403: Occupational Health and Safety 2018 (Điều khoản 403-4) và IATA ASRH Edition 2 (Chủ đề D - Labor Conditions):",
+        "Chỉ tiêu GRI 403-4 định nghĩa các cơ chế dân chủ và trao quyền cho người lao động trong công tác An toàn - Vệ sinh lao động (ATVSLĐ):",
+        "1. Quy trình tham gia và tham vấn: Mô tả các quy trình chính thức để người lao động (bao gồm tổ bay, nhân viên phục vụ mặt đất, nhân viên bảo dưỡng kỹ thuật) tham gia đóng góp ý kiến, tham vấn trong quá trình xây dựng, áp dụng và đánh giá hệ thống quản lý ATVSLĐ.",
+        "2. Kênh truyền thông và ủy ban an toàn: Mô tả cơ chế phổ biến thông tin an toàn lao động tới người lao động; cơ cấu, thẩm quyền và tần suất họp của Hội đồng ATVSLĐ / Mạng lưới An toàn vệ sinh viên cơ sở; tỷ lệ đại diện của người lao động trong ủy ban an toàn và quyền hạn kiến nghị các giải pháp phòng ngừa rủi ro nghề nghiệp."
+      ]
+    },
+    {
+      "code": "GRI 403-10",
+      "num": "2.6.2.3",
+      "name_en": "Work-related ill health",
+      "name_vi": "Bệnh nghề nghiệp liên quan đến công việc",
+      "desc": "Thống kê số trường hợp mắc bệnh nghề nghiệp, tử vong do bệnh nghề nghiệp và các yếu tố nguy hại sức khỏe tại môi trường làm việc.",
+      "pillar": "Social – Xã hội",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 403: Occupational Health and Safety 2018 (Điều khoản 403-10) và IATA ASRH Edition 2 (Chủ đề D - Labor Conditions):",
+        "Chỉ tiêu GRI 403-10 định nghĩa việc giám sát, thống kê và kiểm soát các tác động sức khỏe nghề nghiệp lâu dài của người lao động:",
+        "1. Dữ liệu bệnh nghề nghiệp: Thống kê đối với toàn thể người lao động của Tổng công ty và người lao động do Tổng công ty kiểm soát nơi làm việc: (i) Số trường hợp tử vong do bệnh nghề nghiệp; (ii) Số ca mắc bệnh nghề nghiệp được chẩn đoán và xác nhận chính thức; (iii) Các dạng bệnh nghề nghiệp chủ yếu ghi nhận trong kỳ.",
+        "2. Yếu tố nguy hại đặc thù hàng không: Nhận diện các mối nguy hại tại nơi làm việc gây nguy cơ bệnh nghề nghiệp (ô nhiễm tiếng ồn tại sân đỗ ảnh hưởng thính lực, rối loạn cơ xương khớp do nâng vác nặng, ảnh hưởng bức xạ trên cao và căng thẳng mệt mỏi/jet lag của phi hành đoàn); các biện pháp công nghệ, trang bị bảo hộ và chương trình khám sức khỏe chuyên khoa định kỳ để loại trừ hoặc giảm thiểu nguy cơ."
+      ]
+    },
+    {
+      "code": "GRI 406-1",
+      "num": "2.6.2.4",
+      "name_en": "Incidents of discrimination and corrective actions taken",
+      "name_vi": "Các sự cố phân biệt đối xử và hành động khắc phục đã thực hiện",
+      "desc": "Tổng số vụ việc phân biệt đối xử xảy ra trong kỳ báo cáo và trạng thái triển khai các biện pháp xử lý, khắc phục vi phạm.",
+      "pillar": "Social – Xã hội",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 406: Non-discrimination 2016 (Điều khoản 406-1) và IATA ASRH Edition 2 (Chủ đề D - Labor Conditions):",
+        "Chỉ tiêu GRI 406-1 định nghĩa việc theo dõi, điều tra và xóa bỏ mọi hành vi phân biệt đối xử tại nơi làm việc:",
+        "1. Thống kê số vụ việc: Tổng số sự cố phân biệt đối xử được khiếu nại hoặc ghi nhận trong năm báo cáo (trên các cơ sở: giới tính, chủng tộc, màu da, tôn giáo, quan điểm chính trị, quốc tịch, nguồn gốc xã hội theo quy định của ILO và pháp luật lao động).",
+        "2. Trạng thái và biện pháp khắc phục: Báo cáo tình trạng xử lý các vụ việc theo các nhóm: (i) Đang trong quá trình điều tra, xác minh; (ii) Đang triển khai kế hoạch xử lý, bồi thường; (iii) Đã hoàn thành khắc phục và được nghiệm thu thông qua quy trình đánh giá nội bộ; (iv) Các cải cách trong quy chế tuyển dụng, bổ nhiệm và đào tạo bình đẳng giới nhằm ngăn ngừa tái diễn sai phạm."
+      ]
+    },
+    {
+      "code": "GRI 2-30",
+      "num": "2.6.2.5",
+      "name_en": "Collective bargaining agreements",
+      "name_vi": "Thỏa ước lao động tập thể",
+      "desc": "Tỷ lệ phần trăm tổng số người lao động được áp dụng Thỏa ước lao động tập thể và các cơ chế xác định điều kiện lao động cho người lao động chưa tham gia thỏa ước.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 2: General Disclosures 2021 (Điều khoản 2-30) và IATA ASRH Edition 2 (Chủ đề D - Labor Conditions):",
+        "Chỉ tiêu GRI 2-30 đo lường quyền tự do hiệp hội và vai trò thương lượng tập thể tại doanh nghiệp:",
+        "1. Tỷ lệ bao phủ của Thỏa ước: Tỷ lệ phần trăm (%) tổng số người lao động của Tổng công ty được ký kết, bảo vệ và áp dụng các điều khoản theo Thỏa ước lao động tập thể (TƯLĐTT) đang có hiệu lực.",
+        "2. Điều kiện lao động của đối tượng ngoài thỏa ước: Đối với những người lao động không thuộc phạm vi điều chỉnh trực tiếp của TƯLĐTT (ví dụ lao động tại chi nhánh nước ngoài hoặc nhân sự biệt phái), thuyết minh cách thức Tổng công ty xác định điều kiện làm việc, tiền lương và chế độ đãi ngộ dựa trên chuẩn mực thỏa ước chung hoặc quy định pháp luật sở tại để bảo đảm công bằng và phúc lợi tối đa cho người lao động."
+      ]
+    },
+    {
+      "code": "GRI 404-3",
+      "num": "2.6.2.6",
+      "name_en": "Percentage of employees receiving regular performance and career development reviews",
+      "name_vi": "Tỷ lệ nhân viên được đánh giá định kỳ về hiệu quả công việc và phát triển sự nghiệp",
+      "desc": "Tỷ lệ phần trăm nhân viên được đánh giá định kỳ về kết quả công việc và lộ trình phát triển sự nghiệp trong kỳ báo cáo, phân loại theo giới tính và nhóm nhân sự.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 404: Training and Education 2016 (Điều khoản 404-3) và IATA ASRH Edition 2 (Chủ đề F - People and Development):",
+        "Chỉ tiêu GRI 404-3 đo lường mức độ bao phủ và tính hiệu quả của hệ thống quản trị hiệu suất công việc (KPIs) và phát triển nghề nghiệp cá nhân:",
+        "1. Tỷ lệ nhân viên được đánh giá: Tỷ lệ phần trăm (%) tổng số người lao động được thực hiện rà soát, đánh giá định kỳ về kết quả hoàn thành công việc và định hướng phát triển sự nghiệp trong năm báo cáo.",
+        "2. Phân tách dữ liệu: Số liệu được phân tách chi tiết theo hai chiều: (i) Theo giới tính (Nam / Nữ); (ii) Theo khối chức danh nhân sự (Cán bộ quản trị cấp cao, Cán bộ quản lý cấp trung, Khối chuyên viên văn phòng, Khối phi công lái máy bay, Khối tiếp viên hàng không, Khối kỹ thuật bảo dưỡng máy bay).",
+        "3. Cơ chế đánh giá: Thuyết minh quy trình phản hồi hai chiều, tiêu chí đánh giá KPI minh bạch và việc gắn kết kết quả đánh giá với kế hoạch đào tạo nâng cao năng lực, bổ nhiệm cán bộ và chính sách đãi ngộ."
+      ]
+    },
+    {
+      "code": "GRI 201-3",
+      "num": "2.6.2.7",
+      "name_en": "Defined benefit plan obligations and other retirement plans",
+      "name_vi": "Nghĩa vụ của kế hoạch phúc lợi hưu trí xác định và các kế hoạch hưu trí khác",
+      "desc": "Quy mô nghĩa vụ và mức độ đáp ứng tài chính của các quỹ/chương trình phúc lợi hưu trí dành cho người lao động.",
+      "pillar": "Governance – Quản trị",
+      "unit": "Ban Tổ chức nhân lực",
+      "definition": [
+        "Theo chuẩn mực GRI 201: Economic Performance 2016 (Điều khoản 201-3) và IATA ASRH Edition 2 (Chủ đề D - Labor Conditions):",
+        "Chỉ tiêu GRI 201-3 định nghĩa việc công bố các cam kết và bảo đảm an sinh xã hội hưu trí dài hạn cho người lao động:",
+        "1. Cơ chế thực hiện nghĩa vụ hưu trí: Thuyết minh việc thực hiện đầy đủ nghĩa vụ đóng Bảo hiểm xã hội bắt buộc theo quy định của pháp luật Việt Nam và các chương trình hưu trí bổ sung tự nguyện (nếu có) mà Tổng công ty xây dựng cho cán bộ công nhân viên.",
+        "2. Quản lý quỹ và mức độ đáp ứng tài chính: Trường hợp có quỹ hưu trí độc lập riêng biệt: (i) Giá trị ước tính nghĩa vụ nợ lương hưu; (ii) Mức độ đáp ứng của tài sản quỹ đối với các nghĩa vụ đã cam kết; (iii) Tỷ lệ phần trăm tiền lương đóng góp của người sử dụng lao động và người lao động; (iv) Mức độ tham gia của người lao động vào các chương trình an sinh hưu trí."
+      ]
+    }
+  ]
+}

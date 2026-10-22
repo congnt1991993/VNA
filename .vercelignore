@@ -1,0 +1,7 @@
+images
+scratch
+CURRENT_STATE
+dist
+*.ps1
+*.xlsx
+.DS_Store

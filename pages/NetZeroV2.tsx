@@ -7,7 +7,7 @@ import {
   Sparkles, Layers, Sliders, BarChart3, HelpCircle, ArrowRight, X, Copy, Check,
   FileSpreadsheet, Award, Info, FileText, ArrowUpRight, Settings2, SlidersHorizontal,
   RotateCcw, TrendingDown, Database, Globe, Percent, BookmarkCheck, FolderOpen, List, History, CheckCheck,
-  Calendar, ChevronLeft, ChevronRight, ChevronDown, ArrowUpDown, ArrowDown, Filter, Search
+  Calendar, ChevronLeft, ChevronRight, ChevronDown, ArrowUpDown, ArrowUp, ArrowDown, Filter, Search
 } from 'lucide-react';
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis,
@@ -2240,6 +2240,9 @@ export const NetZeroV2Page: React.FC = () => {
               <h3 className="text-sm sm:text-base font-black text-vna-navy uppercase tracking-wide">
                 Phân bổ Lô SAF
               </h3>
+              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-200/80 text-slate-700">
+                {processedBatches.length} lô
+              </span>
             </div>
             {/* <p className="text-xs text-gray-500 mt-1">
               {allocationMode === 'ledger'
@@ -2298,9 +2301,9 @@ export const NetZeroV2Page: React.FC = () => {
           <div>
 
 
-            <div className="overflow-x-auto">
+            <div className="max-h-[580px] overflow-auto relative border-b border-gray-200">
               <table className="w-full text-xs text-left border-collapse min-w-[1340px]">
-                <thead>
+                <thead className="sticky top-0 z-20 shadow-xs">
                   <tr className="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-[11px] uppercase tracking-wider">
                     {/* 1. Mã lô: BATCH No */}
                     <th rowSpan={2} className="py-3.5 px-3 text-left border-r border-gray-200 whitespace-nowrap">
@@ -2359,12 +2362,12 @@ export const NetZeroV2Page: React.FC = () => {
                     </th>
 
                     {/* 6. Lượng CO2 giảm trừ: CO2 */}
-                    <th colSpan={3} className="py-2.5 px-3 text-center bg-emerald-50 text-emerald-900 border-r-2 border-gray-300 font-black">
+                    <th colSpan={3} className="py-2.5 px-3 text-center bg-[#dcfce7] text-emerald-950 border-r-2 border-gray-300 font-black">
                       CO2
                     </th>
 
                     {/* 7. Chi phí được giảm trừ: USD */}
-                    <th colSpan={3} className="py-2.5 px-3 text-center bg-blue-50 text-vna-navy border-r-2 border-gray-300 font-black">
+                    <th colSpan={3} className="py-2.5 px-3 text-center bg-[#dbeafe] text-vna-navy border-r-2 border-gray-300 font-black">
                       USD
                     </th>
 
@@ -2777,60 +2780,63 @@ export const NetZeroV2Page: React.FC = () => {
                   const totalUsdCorsia = Math.round(totalCo2Corsia * marketParams.priceCorsia);
 
                   return (
-                    <tfoot>
-                      <tr className="bg-gray-100 font-bold border-t-2 border-gray-300 text-gray-900">
+                    <tfoot className="sticky bottom-0 z-20 shadow-[0_-4px_10px_rgba(0,0,0,0.06)]">
+                      <tr className="bg-slate-100 font-bold border-t-2 border-gray-300 text-gray-900">
                         {/* Columns before Khối lượng SAF */}
-                        <td colSpan={3} className="py-3 px-3 text-right font-black text-gray-900 uppercase tracking-wider border-r border-gray-200 bg-gray-100 text-[11px]">
-                          Tổng cộng:
+                        <td colSpan={3} className="py-3 px-3 text-right font-black text-gray-900 uppercase tracking-wider border-r border-gray-200 bg-slate-100 text-[11px]">
+                          <div className="flex items-center justify-end gap-1.5">
+                            <span className="inline-block w-2 h-2 rounded-full bg-vna-blue"></span>
+                            <span>Tổng cộng:</span>
+                          </div>
                         </td>
 
                         {/* Total Khối lượng SAF */}
-                        <td className="py-3 px-3 text-center align-middle border-r-2 border-gray-300 bg-gray-100 whitespace-nowrap">
+                        <td className="py-3 px-3 text-center align-middle border-r-2 border-gray-300 bg-slate-100 whitespace-nowrap">
                           <span className="font-black text-gray-900 text-xs">{totalSafTonnes.toLocaleString(locale)}</span>{' '}
                           <span className="text-[10px] text-gray-500 font-bold">tấn</span>
                         </td>
 
                         {/* Total FLS */}
-                        <td className="py-3 px-2.5 text-center align-middle border-r border-gray-200 bg-slate-100 text-vna-blue font-black whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-center align-middle border-r border-gray-200 bg-slate-200/90 text-vna-blue font-black whitespace-nowrap">
                           {totalFlsEu}
                         </td>
-                        <td className="py-3 px-2.5 text-center align-middle border-r border-gray-200 bg-slate-100 text-indigo-700 font-black whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-center align-middle border-r border-gray-200 bg-slate-200/90 text-indigo-700 font-black whitespace-nowrap">
                           {totalFlsUk}
                         </td>
-                        <td className="py-3 px-2.5 text-center align-middle border-r-2 border-gray-300 bg-slate-100 text-emerald-800 font-black whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-center align-middle border-r-2 border-gray-300 bg-slate-200/90 text-emerald-800 font-black whitespace-nowrap">
                           {totalFlsCorsia}
                         </td>
 
                         {/* Total CO2 */}
-                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-emerald-50/60 font-black text-emerald-700 whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-[#dcfce7] font-black text-emerald-700 whitespace-nowrap">
                           -{totalCo2Eu.toLocaleString(locale)}{' '}
-                          <span className="text-[10px] font-normal text-gray-500">tCO₂</span>
+                          <span className="text-[10px] font-normal text-gray-600">tCO₂</span>
                         </td>
-                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-emerald-50/60 font-black text-emerald-700 whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-[#dcfce7] font-black text-emerald-700 whitespace-nowrap">
                           -{totalCo2Uk.toLocaleString(locale)}{' '}
-                          <span className="text-[10px] font-normal text-gray-500">tCO₂</span>
+                          <span className="text-[10px] font-normal text-gray-600">tCO₂</span>
                         </td>
-                        <td className="py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 bg-emerald-50/60 font-black text-emerald-700 whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 bg-[#dcfce7] font-black text-emerald-700 whitespace-nowrap">
                           -{totalCo2Corsia.toLocaleString(locale)}{' '}
-                          <span className="text-[10px] font-normal text-gray-500">tCO₂</span>
+                          <span className="text-[10px] font-normal text-gray-600">tCO₂</span>
                         </td>
 
                         {/* Total USD */}
-                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-blue-50/60 font-black text-vna-blue whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-[#dbeafe] font-black text-vna-blue whitespace-nowrap">
                           +{totalUsdEu.toLocaleString(locale)} $
                         </td>
-                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-blue-50/60 font-black text-indigo-700 whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-right align-middle border-r border-gray-200 bg-[#dbeafe] font-black text-indigo-700 whitespace-nowrap">
                           +{totalUsdUk.toLocaleString(locale)} $
                         </td>
-                        <td className="py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 bg-blue-50/60 font-black text-emerald-700 whitespace-nowrap">
+                        <td className="py-3 px-2.5 text-right align-middle border-r-2 border-gray-300 bg-[#dbeafe] font-black text-emerald-700 whitespace-nowrap">
                           +{totalUsdCorsia.toLocaleString(locale)} $
                         </td>
 
                         {/* Action & assignment */}
-                        <td className="py-3 px-3 text-center align-middle border-r border-gray-200 bg-gray-100 text-gray-400 font-medium text-[11px]">
+                        <td className="py-3 px-3 text-center align-middle border-r border-gray-200 bg-slate-100 text-gray-400 font-medium text-[11px]">
                           —
                         </td>
-                        <td className="py-3 px-3 text-center align-middle bg-gray-100 text-gray-400 font-medium text-[11px]">
+                        <td className="py-3 px-3 text-center align-middle bg-slate-100 text-gray-400 font-medium text-[11px]">
                           —
                         </td>
                       </tr>

@@ -24,7 +24,7 @@ const resources = {
         "environmental_protection": "Bảo vệ môi trường",
         "social_responsibility": "Trách nhiệm xã hội",
         "corporate_governance": "Quản trị doanh nghiệp",
-        "copyright": "© 2024 Vietnam Airlines. Bảo lưu mọi quyền."
+        "copyright": "© {{year}} Vietnam Airlines. Bảo lưu mọi quyền."
       },
       "app": {
         "esg_commitments": "CAM KẾT ESG CỦA VIETNAM AIRLINES",
@@ -72,7 +72,7 @@ const resources = {
         "environmental_protection": "Environmental Protection",
         "social_responsibility": "Social Responsibility",
         "corporate_governance": "Corporate Governance",
-        "copyright": "© 2024 Vietnam Airlines. All rights reserved."
+        "copyright": "© {{year}} Vietnam Airlines. All rights reserved."
       },
       "app": {
         "esg_commitments": "VIETNAM AIRLINES' ESG COMMITMENTS",

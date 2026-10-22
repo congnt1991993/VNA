@@ -11,6 +11,7 @@ import NewsSection from './components/NewsSection';
 import { HERO_DATA } from './constants';
 import { Logo } from './components/Logo';
 import { ArrowDown, Facebook, Twitter, Linkedin, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { recordLandingVisit } from './landingVisits';
 
 interface PublicSiteProps {
   onLoginClick: () => void;
@@ -66,6 +67,11 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick, initialView = 'ho
       setCurrentView(initialView);
     }
   }, [initialView]);
+
+  // Ghi nhận lượt truy cập Landing page (mỗi phiên trình duyệt tính 1 lượt) để hiển thị thống kê tại trang CMS
+  useEffect(() => {
+    recordLandingVisit();
+  }, []);
 
   useEffect(() => {
     const handlePublicHash = () => {
@@ -370,31 +376,31 @@ const PublicSite: React.FC<PublicSiteProps> = ({ onLoginClick, initialView = 'ho
 const Footer: React.FC = () => {
   const { t, i18n } = useTranslation();
   return (
-    <footer className="bg-vna-blue text-white py-20 border-t-[12px] border-vna-gold">
+    <footer className="bg-vna-blue text-white py-10 border-t-[3px] border-vna-gold/60">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
+          <div className="grid md:grid-cols-2 gap-10 mb-8">
             <div>
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-5">
                  <Logo className="h-10 w-auto opacity-90" color="white" />
                  <div className="h-8 w-[1px] bg-white/20 mx-2"></div>
                  <span className="text-lg font-light tracking-wide text-white">ESG REPORT 2024</span>
               </div>
-              <p className="text-white/80 text-base leading-relaxed mb-8 max-w-md font-light">
+              <p className="text-white/80 text-base leading-relaxed mb-5 max-w-md font-light">
                 {i18n.language === 'en' 
                   ? "Vietnam Airlines is committed to fulfilling the role of the National Flag Carrier, pioneering sustainable development, and bringing long-term value to the community and the environment."
                   : "Vietnam Airlines cam kết thực hiện vai trò Hãng hàng không Quốc gia, tiên phong trong phát triển bền vững và mang lại giá trị dài hạn cho cộng đồng và môi trường."}
               </p>
-              <div className="flex gap-4">
-                <a href="https://www.facebook.com/VietnamAirlines" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Facebook size={18}/></a>
-                <a href="https://twitter.com/VietnamAirlines" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Twitter size={18}/></a>
-                <a href="https://www.linkedin.com/company/vietnam-airlines" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Linkedin size={18}/></a>
-                <a href="https://www.youtube.com/user/VietnamAirlinesCorp" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Youtube size={18}/></a>
+              <div className="flex gap-3">
+                <a href="https://www.facebook.com/VietnamAirlines" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Facebook size={16}/></a>
+                <a href="https://twitter.com/VietnamAirlines" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Twitter size={16}/></a>
+                <a href="https://www.linkedin.com/company/vietnam-airlines" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Linkedin size={16}/></a>
+                <a href="https://www.youtube.com/user/VietnamAirlinesCorp" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-vna-gold hover:border-vna-gold hover:text-vna-blue transition-all"><Youtube size={16}/></a>
               </div>
             </div>
 
             <div className="md:text-right md:flex md:flex-col md:items-end">
-              <h4 className="font-bold text-xl mb-6 text-vna-gold">{i18n.language === 'en' ? 'Contact & Support' : 'Liên hệ & Hỗ trợ'}</h4>
-              <ul className="space-y-5 text-white/90 text-base font-light">
+              <h4 className="font-bold text-xl mb-4 text-vna-gold">{i18n.language === 'en' ? 'Contact & Support' : 'Liên hệ & Hỗ trợ'}</h4>
+              <ul className="space-y-3 text-white/90 text-base font-light">
                 <li className="flex items-start gap-4 md:justify-end">
                   <MapPin size={20} className="mt-1 flex-shrink-0 text-vna-gold" />
                   <span>
@@ -415,9 +421,9 @@ const Footer: React.FC = () => {
             </div>
           </div>
           
-          <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white/70 font-light">
-            <p>{t('footer.copyright')}</p>
-            <div className="flex gap-8 mt-6 md:mt-0">
+          <div className="border-t border-white/30 pt-5 flex flex-col md:flex-row justify-between items-center text-sm text-white/90 font-normal">
+            <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
+            <div className="flex gap-8 mt-4 md:mt-0">
               <a href="https://www.vietnamairlines.com/vn/vi/terms-and-conditions" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                 {i18n.language === 'en' ? 'Terms & Conditions' : 'Điều khoản'}
               </a>
