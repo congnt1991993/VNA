@@ -66,6 +66,7 @@ export type PageName =
   | 'ops-comm'
   | 'ops-planning'
   | 'sys-logs'
+  | 'sys-login-history'
   | 'login';
 
 export enum Pillar {

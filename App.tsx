@@ -31,6 +31,9 @@ import { DepartmentsPage } from './pages/Departments';
 import { SysAccountsPage } from './pages/SysAccounts';
 import { SysRolesPage } from './pages/SysRoles';
 import { SysLogsPage } from './pages/SysLogs';
+import { LoginHistoryPage } from './pages/LoginHistory';
+import { LoginSessionTracker } from './components/LoginSessionTracker';
+import { endLoginSession } from './components/loginHistory';
 import { SysFormsPage } from './pages/SysForms';
 import { SettingsPage } from './pages/Settings';
 import { AlertsManagePage } from './pages/AlertsManage';
@@ -166,6 +169,7 @@ const App: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
+    endLoginSession(); // ghi giờ đăng xuất vào Lịch sử đăng nhập
     setIsAuthenticated(false);
     setShowLogin(false);
     setPublicView('home');
@@ -289,6 +293,8 @@ const App: React.FC = () => {
         return <SysRolesPage />;
       case 'sys-logs':
         return <SysLogsPage />;
+      case 'sys-login-history':
+        return <LoginHistoryPage />;
       case 'sys-forms':
         return <SysFormsPage />;
       case 'alerts-manage':
@@ -337,6 +343,7 @@ const App: React.FC = () => {
       }}
       onLogout={handleLogout}
     >
+      <LoginSessionTracker />
       <ErrorBoundary>
         {renderContent()}
       </ErrorBoundary>

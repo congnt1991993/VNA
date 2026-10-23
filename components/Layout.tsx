@@ -114,7 +114,8 @@ const MENU_ITEMS: MenuItem[] = [
       { id: 'sys-org', label: 'Quản lý Người dùng', target: 'sys-org' },
       { id: 'sys-departments', label: 'Quản lý Ban / Đơn vị', target: 'sys-departments' },
       { id: 'sys-roles', label: 'Phân quyền & Vai trò', target: 'sys-roles' },
-      { id: 'sys-logs', label: 'Quản lý log hệ thống', target: 'sys-logs' },
+      // { id: 'sys-logs', label: 'Quản lý log hệ thống', target: 'sys-logs' },
+      { id: 'sys-login-history', label: 'Lịch sử đăng nhập', target: 'sys-login-history' },
       { id: 'settings', label: 'Cài đặt chung', target: 'settings' },
     ]
   }
@@ -143,6 +144,7 @@ const MENU_TRANSLATIONS: Record<string, { vi: string; en: string }> = {
   'sys-departments': { vi: 'Quản lý Ban / Đơn vị', en: 'Department Management' },
   'sys-roles': { vi: 'Phân quyền & Vai trò', en: 'Roles & Permissions' },
   'sys-logs': { vi: 'Quản lý log hệ thống', en: 'System Change Logs' },
+  'sys-login-history': { vi: 'Lịch sử đăng nhập', en: 'Login History' },
   'settings': { vi: 'Cài đặt chung', en: 'General Settings' }
 };
 
