@@ -120,7 +120,8 @@ Dưới đây là chi tiết đối soát từng gạch đầu dòng nghiệp v�
 | **Cấu hình động luồng duyệt: Người soạn -> Người duyệt** | **HOÀN TOÀN KHÔNG CÓ TRONG LUỒNG THỰC TẾ** | **0% (Lệch phạm vi HĐ)** | Trong luồng nhập liệu chuẩn đang dùng (`UnifiedDataEntryForm.tsx`), khi chuyên viên bấm "Lưu", dữ liệu ghi thẳng vào hệ thống với trạng thái `Active` ngay lập tức, không có bước gửi duyệt qua cấp lãnh đạo. |
 | **Quản lý trạng thái duyệt: Draft -> Submitted -> Approved/Rejected** | **KHÔNG ÁP DỤNG TRẠNG THÁI DUYỆT TRÊN UI NHẬP LIỆU** | **0% (Lệch phạm vi HĐ)** | Không có nút "Gửi duyệt" (Submit), không có nút "Phê duyệt" (Approve) hay "Từ chối" (Reject). Dữ liệu nhập vào có hiệu lực trực tiếp để phục vụ tính toán Dashboard và Báo cáo. |
 | **Ghi log theo dõi: người duyệt, thời gian, ghi chú duyệt** | **CHỈ GHI LOG NGƯỜI SỬA VÀ THỜI GIAN CẬP NHẬT** | **20% (Chỉ có Audit log thay đổi)** | Hệ thống chỉ lưu log người nhập/người sửa và thời gian thay đổi dữ liệu (`IndicatorHistoryTable`), không có log chữ ký số hay ghi chú phê duyệt của cấp trưởng ban. |
-| **Menu điều hướng chức năng phê duyệt trên hệ thống** | **ĐÃ BỊ GỠ BỎ HOÀN TOÀN KHỎI SIDEBAR MENU** | **0%** | Trên Sidebar chính của hệ thống (`Layout.tsx`), hoàn toàn không có mục "Phê duyệt dữ liệu". Người dùng các Ban chỉ thao tác qua menu `NHẬP LIỆU` $ightarrow$ Lưu dữ liệu. |
+| **Menu điều hướng chức năng phê duyệt trên hệ thống** | **ĐÃ BỊ GỠ BỎ HOÀN TOÀN KHỎI SIDEBAR MENU** | **0%** | Trên Sidebar chính của hệ thống (`Layout.tsx`), hoàn toàn không có mục "Phê duyệt dữ liệu". Người dùng các Ban chỉ thao tác qua menu `NHẬP LIỆU` $
+ightarrow$ Lưu dữ liệu. |
 | **Tồn đọng mã nguồn cũ (Legacy Code)** | Các file `pages/DataApproval.tsx` và `components/ApprovalWorkflow.tsx` vẫn còn trong thư mục nguồn nhưng **không được import hay định tuyến trong `App.tsx`**, không được người dùng sử dụng. | **Không tính là đã đáp ứng** | Đây là code khung còn sót lại từ giai đoạn khảo sát ban đầu, đã bị vô hiệu hóa hoàn toàn khi chuyển sang luồng `UnifiedDataEntryForm`. |
 
 > [!WARNING]
@@ -250,3 +251,43 @@ eq$ Hệ thống thực tế KHÔNG CÓ)
 
 1. **Về Luồng phê duyệt (Mục 6)**: Xác nhận **chính xác 100%** là hệ thống đang vận hành thực tế **KHÔNG CÓ LUỒNG PHÊ DUYỆT**. Dữ liệu nhập là có hiệu lực ngay (`Auto-active`). Việc này hoàn toàn phù hợp với thực tế tinh gọn quy trình của các Ban tại VNA, nhưng tạo ra khoảng lệch pháp lý so với câu chữ Hợp đồng cần được xử lý bằng văn bản xác nhận điều chỉnh.
 2. **Về Tổng thể hệ thống**: Sau khi làm rõ mục phê duyệt, hệ thống hiện tại đáp ứng rất tốt **91.0%** yêu cầu nghiệp vụ thực tế của các đơn vị VNA (hoặc **75.5%** nếu đối chiếu máy móc theo câu chữ hợp đồng gốc). Các tính năng cốt lõi về tính toán phát thải, mô phỏng NetZero, quản lý SAF, KPI và báo cáo ESG đều đã sẵn sàng phục vụ nghiệm thu.
+
+
+---
+
+## VI. CẬP NHẬT NGÀY 23/10/2026 — ĐỐI SOÁT BỔ SUNG SAU KHI RÀ SOÁT TOÀN BỘ HỆ THỐNG
+
+> Phần này bổ sung và **điều chỉnh** một số nhận định ở các mục I–V (ngày 12/10/2026) dựa trên việc rà soát trực tiếp mã nguồn và giao diện đang chạy để viết lại SRS (`SRS_Trang_QuanTri_VNA_Netzero_v3.docx`). Nội dung mục I–V được giữ nguyên để đối chiếu.
+
+### 1. Điều chỉnh các nhận định trước đó
+| Nhóm chức năng (mục 2.2.2) | Nhận định cũ (12/10) | Hiện trạng đối chiếu (23/10) |
+| :--- | :--- | :--- |
+| **2. Quản lý công thức & Mô phỏng** | Đạt 85%: trang `Formulas.tsx`, `NetZero.tsx` | Trang Quản lý công thức (`formulas`) và Mô phỏng Net Zero (`netzero-simulation`) **không có menu/nút dẫn tới** (chỉ vào bằng URL). Trên giao diện chỉ có: xem/sửa **hệ số công thức** trong màn Sửa chỉ tiêu và kịch bản Claim SAF (lưu/so sánh). Mức đáp ứng thực tế thấp hơn 85% nếu nghiệm thu theo giao diện |
+| **5. Nhập liệu & Đối soát** | Đạt 85%: có kiểm tra hợp lệ, preview raw, template | Nhập liệu thật là danh sách thẻ chỉ tiêu theo Tổ ban; **không có** bộ chọn kỳ, minh chứng đính kèm, cảnh báo lệch ±%, trạng thái nộp; "Lưu" không kiểm tra hợp lệ; Import Excel có validate theo ô nhưng không có bảng xem trước/kéo-thả. Quản lý template (`SysForms`) là route chết |
+| **7. Theo dõi tiến độ & Cảnh báo** | Đạt 65%: `AlertsManage.tsx`, Header Notifications | `alerts-manage` là route chết; thông báo ở header là 2 mục mẫu cố định; SMTP chỉ lưu thông số, không gửi email thật; thông báo mẫu vẫn còn chữ "phê duyệt" |
+| **9. Public Website & CMS** | Đạt 80% | Chỉ một phần CMS nối sang Landing page; "Lưu & Public" chưa gắn xử lý; không có phiên bản/diff; kéo-thả chỉ cho biểu đồ Backlog → Sprint; chưa có đổi vị trí/kích cỡ khối |
+| **10. Báo cáo & Dashboard** | Đạt 85% | Dashboard nhúng Metabase; **không có** xuất Excel/PDF, dashboard so sánh CORSIA/EU/UK, cảnh báo sai lệch trên Tổng quan điều hành (phần tính theo cơ chế nằm ở Claim SAF) |
+| **4. Tích hợp dữ liệu** | Đạt 75% | Đúng là giao diện mô phỏng: 14 dòng nguồn, trạng thái và nút "Đồng bộ" giả lập; không có Kiểm tra kết nối/Xem log/retry |
+| **6. Phê duyệt dữ liệu** | 0% (lệch phạm vi) | Giữ nguyên kết luận; SDD và SRS đã được chỉnh theo quyết định bỏ luồng duyệt. Vẫn cần biên bản điều chỉnh phạm vi |
+
+### 2. Khoảng trống mới phát hiện
+- **GAP 6 — Chức năng có mã nhưng không truy cập được từ giao diện:** `Formulas`, `SysForms`, `AlertsManage`, `DataWarehouseRaw`, `SysAccounts`, các trang duyệt báo cáo/tài liệu. Nếu muốn đưa vào nghiệm thu cần bổ sung menu/nút dẫn tới và đặc tả lại.
+- **GAP 7 — Đăng nhập & phân quyền chưa thật:** đăng nhập giả lập (không xác thực, không SSO, không khóa tài khoản/hết phiên), phân quyền theo vai trò chưa chi phối menu; liên quan yêu cầu bảo mật của hợp đồng/SDD (Keycloak + AD, RBAC, ghi log).
+- **GAP 8 — Dữ liệu chỉ lưu trình duyệt:** cấu hình, nhập liệu, nhật ký, Lịch sử đăng nhập, thống kê lượt truy cập đều lưu localStorage; chưa có API/CSDL dùng chung nên chưa đáp ứng ghi log và truy vết phía máy chủ.
+- **GAP 9 — Lỗi chức năng:** các lỗi đã tái hiện ở `CONTEXT.md` mục 5.4 (ví dụ bấm dòng KPI ở Tổng quan điều hành, "Xem chi tiết" lịch sử nhập liệu, "Gom nhóm" ở CMS, modal Thêm/Sửa người dùng).
+- **GAP 10 — Số lượng chỉ tiêu:** hợp đồng 96, tổng hợp 95 dòng, hệ thống số hóa 55 (E13/S21/G21, tất cả hình thức "Số liệu"; chưa có chỉ tiêu "Văn bản" dù có 21 chỉ tiêu báo cáo văn bản) — cần đối soát danh sách duy nhất (xem `BA DOC/Danh_Sach_Ma_Chi_Tieu_95.xlsx`).
+
+### 3. Tiến độ xử lý các hạng mục trong Action Plan (mục IV)
+| STT | Hạng mục | Trạng thái 23/10/2026 |
+| :---: | :--- | :--- |
+| 1 | Ký biên bản bỏ luồng phê duyệt | Chưa có bằng chứng ký; SDD/SRS đã sửa theo quyết định bỏ luồng duyệt |
+| 2 | Bổ sung đủ 96 chỉ tiêu | Chưa thực hiện; đã lập danh sách 95 mã kèm tên, Tổ ban, định nghĩa EN/VI từ GRI/ASRH |
+| 3 | Kéo-thả khối CMS | Chưa thực hiện |
+| 4 | Banner cảnh báo khi đang đồng bộ | Chưa thực hiện |
+| 5 | Mẫu xuất Excel/XML theo ICAO/EU | Chưa thực hiện |
+| 6 | Đấu nối backend ETL & email | Chưa thực hiện |
+| — | Bổ sung ngoài kế hoạch | Thống kê lượt truy cập Landing page (CMS); Lịch sử đăng nhập; chỉnh Footer Landing page; ẩn Quản lý log hệ thống khỏi menu; viết lại SRS v3 theo hệ thống thật |
+
+### 4. Kết luận bổ sung
+- Mức đáp ứng 75,5% (theo câu chữ) / 91,0% (theo URD) ở mục I được tính **theo sự hiện diện của màn hình/mã nguồn**. Nếu nghiệm thu theo **chức năng truy cập được trên giao diện**, các nhóm 2, 4, 5, 7, 9, 10 cần được đánh giá lại thấp hơn và nên được xử lý trước khi nghiệm thu.
+- Khuyến nghị: (1) chốt phạm vi bỏ luồng phê duyệt bằng văn bản; (2) quyết định đưa các màn hình đang là route chết vào menu hay loại khỏi phạm vi; (3) lập kế hoạch backend cho đăng nhập, nhật ký và thống kê truy cập; (4) sửa các lỗi chức năng đã ghi nhận trước khi bàn giao.

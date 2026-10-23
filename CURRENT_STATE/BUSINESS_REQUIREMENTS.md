@@ -131,3 +131,53 @@ Số liệu sau khi thu thập nội bộ không được công bố ngay ra cô
   - Chọn phiên bản biểu đồ nào được hiển thị công khai trên từng trụ cột E-S-G.
   - Quản lý bài viết tin tức, thông cáo báo chí về phát triển bền vững (ví dụ: Chuyến bay nạp SAF đầu tiên của VNA, Dự án tái chế trang phục tiếp viên).
   - Cung cấp tính năng tải Báo cáo Thường niên PTBV định dạng PDF chất lượng cao cho các cổ đông và nhà đầu tư quốc tế.
+
+
+---
+
+## 6. CẬP NHẬT NGÀY 23/10/2026 — NGHIỆP VỤ BỔ SUNG VÀ HIỆN TRẠNG THỰC TẾ
+
+> Ghi nối tiếp các mục 1–5. Các mục 6.2–6.5 mô tả **đúng hành vi đang có trong mã nguồn** (kết quả đối chiếu để viết lại SRS), một số chỗ khác với mô tả nghiệp vụ lý tưởng ở trên và được đánh dấu là câu hỏi mở.
+
+### 6.1. Quyết định nghiệp vụ đã chốt
+- **Bỏ luồng phê duyệt dữ liệu:** dữ liệu nhập có hiệu lực ngay sau khi lưu (trạng thái hiệu lực), đơn vị phụ trách chịu trách nhiệm số liệu. Các mô tả "Phê duyệt cấp đơn vị/Tổng công ty" ở mục 5.1 trên là nghiệp vụ dự kiến ban đầu, **không còn áp dụng**; tài liệu thiết kế (SDD) đã được chỉnh theo quyết định này. Tên vai trò `ROLE_APPROVER` ("Người phê duyệt ESG") vẫn tồn tại trên giao diện — cần BA quyết định có đổi tên không.
+- **Số chỉ tiêu:** hệ thống quản lý **55 chỉ tiêu** (E13, S21, G21). Hợp đồng ghi 96, danh sách tổng hợp có 95 dòng (xem `Danh_Sach_Ma_Chi_Tieu_95.xlsx`) — cần đối soát một danh sách duy nhất.
+- **Ban/Đơn vị:** 9 đơn vị (TCNL 16, KHPT 15, DVHK 8, Khai thác 6, ATCL 3, Kỹ thuật 3, Truyền thông 2, TTBSV 1, CĐS 1 chỉ tiêu phụ trách; tổng 55).
+
+### 6.2. Nghiệp vụ theo dõi truy cập
+- **Thống kê lượt truy cập Landing page:** quản trị viên xem **tổng số lượt truy cập** ngay trên trang CMS. Quy tắc đếm: 1 phiên trình duyệt mở Landing page (người dùng chưa đăng nhập) = 1 lượt; chuyển trang con hoặc tải lại trong cùng phiên không đếm thêm.
+- **Lịch sử đăng nhập:** ghi lại ai (tài khoản), thuộc đơn vị nào, đăng nhập lúc nào và đăng xuất lúc nào (`hh:mm dd/MM/yyyy`). Xem được theo ngày bằng bộ lọc cột (tài khoản, đơn vị, ngày login, ngày logout). Không giới hạn quyền xem riêng.
+- **Hạn chế chung:** hai chức năng trên hiện lưu trong trình duyệt (chưa có backend nên không tổng hợp được từ nhiều người dùng/máy). Muốn dùng làm bằng chứng thật cần ghi log phía máy chủ.
+
+### 6.3. Quy tắc KPI đang chạy trong mã nguồn (Quản lý KPI)
+- Nhãn đánh giá: **ĐẠT / CHƯA ĐẠT / Chưa có dữ liệu** (không có "Nguy cơ"); tần suất: **Năm / Tháng**; không có trọng số và không giao KPI theo đơn vị trực thuộc (KPI gắn với Tổ ban theo chỉ tiêu được gán); năm chọn 2024–2027.
+- Tab Tháng: làm tròn số nguyên; chiều "≥": Thực hiện/Kế hoạch; chiều "≤": Kế hoạch/Thực hiện; thiếu dữ liệu hiển thị 0% và CHƯA ĐẠT; Thực hiện = 0 có thể ra `Infinity%` (lỗi cần xử lý).
+- **YoY** = (Thực hiện năm nay − năm trước) / năm trước × 100, làm tròn 1 chữ số; mẫu số 0 hoặc thiếu dữ liệu hiển thị "—".
+- Dashboard (Tổng quan điều hành) tính khác: chiều tăng tiến độ = làm tròn(TH/KH×100); chiều giảm = (2·KH − TH)/KH × 100 giới hạn 0–100 — **chưa thống nhất với công thức ở trang Quản lý KPI** (câu hỏi mở).
+- "Thực hiện" hiện là **dữ liệu mẫu lưu sẵn**, chưa tổng hợp từ Nhập liệu. Nhật ký chỉ ghi khi **Lưu kế hoạch**; cấu hình và xóa KPI không ghi log; xóa KPI là xóa cứng (hộp xác nhận của trình duyệt); chỉ quản trị viên xóa/sửa mọi dòng, tài khoản khác chỉ sửa Tổ ban của mình.
+
+### 6.4. Quy tắc Claim SAF đang chạy trong mã nguồn
+- Hệ số giảm trừ: EU ETS giữ 100%; UK ETS = làm tròn 2 chữ số (hệ số cơ sở × 0,99); CORSIA = làm tròn 2 chữ số (hệ số cơ sở × 0,97); số CO2 giảm trừ làm tròn số nguyên.
+- Nghĩa vụ CORSIA = max(0, làm tròn(Phát thải × Tăng trưởng × Sectoral + max(0, Phát thải − Baseline) × Individual)); mặc định tăng trưởng 20%, Sectoral 100%, Individual 0%, Baseline 2.254.192 → 9.600 tCO2. Phát thải còn lại = max(0, Phát thải − Hạn ngạch − CO2 giảm); hạn ngạch chỉ có ở EU và UK.
+- Giá trị mặc định: EUA 76,5; UKA 58; CORSIA 22,5 USD/tCO2; phát thải EU 28.500, UK 9.200, CORSIA 48.000 tCO2; hạn ngạch EU 5.200, UK 1.100; 8 lô mặc định tổng 7.850 tấn; đơn giá SAF 2.450 USD/tấn; tỷ giá 25.450 VND/USD (hằng số, không có ô nhập). Tổng chi phí tuân thủ mặc định ≈ 20,58 triệu USD.
+- **Không có trạng thái kịch bản Nháp/Đã phê duyệt.** Nhiều nút từng mô tả (preset giá, "Chạy tối ưu chi phí" ở Ledger, "Export báo cáo", "Lịch sử kịch bản", chuyển tab Ledger/Nhập tay) đã bị ẩn trong mã; modal "Thêm lô SAF" chỉ mở bằng tham số URL; chế độ Nhập tay chỉ vào được qua kịch bản mẫu Manual. Dữ liệu chỉ lưu trình duyệt.
+
+### 6.5. Các nghiệp vụ khác — hiện trạng đã đối chiếu
+| Phân hệ | Hiện trạng thật |
+| :--- | :--- |
+| **Nhập liệu** | Danh sách thẻ chỉ tiêu theo Tổ ban đang chọn ở header; không có bảng kỳ báo cáo/hạn nộp/trạng thái nộp; kỳ gán cứng ("Năm 2026" với chỉ tiêu Hàng năm, ngược lại "Tháng 02/2026"); "Lưu" chỉ báo thành công và quay về danh sách (không kiểm tra hợp lệ); không đính kèm minh chứng, không cảnh báo lệch ±%; Import Excel chặn toàn bộ file nếu có 1 lỗi và thay toàn bộ dòng của sheet |
+| **Báo cáo thường niên ESG** | 8 Khối/Ban nhận yêu cầu (checkbox chọn đơn vị chưa có tác dụng); nộp tệp (.pdf, .docx); không có email/đôn đốc thật; "Kết thúc đợt & Upload báo cáo cuối" → "Xuất bản sang CMS" mới chỉ là thao tác giao diện; dữ liệu chỉ trong phiên |
+| **Kho tài liệu PTBV** | Thêm tài liệu chỉ có Mã (tự sinh), Tên, Mô tả; vùng upload chưa hoạt động; xem trước chỉ là khung minh họa; xóa là xóa hẳn; phiên bản chỉ tăng số hiện hành (+0,1/+1,0), không lưu lịch sử |
+| **Điều chỉnh số liệu công bố** | Phiên bản chỉ có Active/Deactive (không có luồng Tổ Thư ký duyệt); "Đề nghị công bố" kích hoạt ngay và tự Deactive các phiên bản khác cùng biểu đồ-năm; "Đề nghị gỡ công bố" gỡ khỏi CMS; mã phiên bản do người dùng chọn (Minor/Major); chỉ "Lưu phiên bản" ghi audit |
+| **CMS Website ESG** | 6 tab; "Lưu & Public" chưa gắn xử lý; "Lưu nháp" chỉ bật chấm vàng; không có phiên bản/diff/audit/validation song ngữ; chỉ một phần cấu hình nối sang Landing page (Thông điệp lãnh đạo, tiêu đề khối tin tức, mô tả và trạng thái công bố biểu đồ); đồng bộ Spirit API là giả lập; kéo-thả có thật nhưng chỉ cho Backlog → Sprint biểu đồ |
+| **Nguồn dữ liệu & Kết nối** | 14 dòng (Manual + FIMS, ACARS-SITA, Netlines, CMS, SkyHR, E-learning, Revera, Central Hub, Qualtrics, SF CO2, TIMS, RPS, BI-CLM); chỉ 2 trạng thái (Kết nối tốt/Mất kết nối — CMS và RPS đang mất kết nối mẫu); nút "Đồng bộ" mô phỏng 1,5 giây |
+| **Cài đặt chung** | SMTP 7 trường (cổng mặc định 587) và thời gian nhắc nhở được lưu; các thiết lập còn lại chỉ báo toast; đổi mật khẩu là mô phỏng |
+
+### 6.6. Câu hỏi nghiệp vụ còn mở (cần BA quyết định)
+1. Giữ hay đổi tên vai trò "Người phê duyệt ESG" khi không còn luồng duyệt.
+2. Thống nhất danh sách 96/95/55 chỉ tiêu và tách chỉ tiêu tĩnh (text-only)/động theo hợp đồng.
+3. Thống nhất công thức đánh giá KPI giữa Dashboard và Quản lý KPI; xử lý Thực hiện = 0.
+4. Hành vi mong muốn của "Lưu & Public" và phạm vi nối CMS → Landing page.
+5. Có bật lại các nút Claim SAF đã ẩn và chế độ Nhập tay không; tỷ giá, đơn giá SAF cố định có đúng ý không.
+6. Phân quyền theo vai trò có cần có hiệu lực thật không (hiện mọi tài khoản thấy hầu hết menu).
+7. Có cần ghi Lịch sử đăng nhập và thống kê truy cập phía máy chủ để dùng làm bằng chứng.
